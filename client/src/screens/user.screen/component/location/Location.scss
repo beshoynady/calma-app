@@ -1,0 +1,102 @@
+#location{
+    width: 100%;
+    height: calc(100vh - 80px);
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-margin-top: 80px;
+    padding-bottom: 15px;
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        .location-content{
+            width: 100%;
+            height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+            .left {
+                width: 45%;
+                height: 100%;
+                border: 2px solid gainsboro;
+            }
+            .right{
+                width: 45%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content:center ;
+                background-color: rgba(0, 0, 0, 0.219);
+                h1{
+                    font-size: 30px;
+                    color: var(--blue);
+                    font-weight: bolder;
+                    text-align: center;
+                }
+                p{
+                    width: 80%;
+                    height: 24%;
+                    font-size:20px;
+                    font-weight: 800;
+                    margin-top: 30px;
+                    text-align: center;
+                }
+    
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    #location{
+        height: auto;
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:flex-start;
+            .location-content{
+                width: 100%;
+                height: 90%;
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: center;
+                justify-content:space-between;
+                .left {
+                    width: 100%;
+                    height: calc(100vh - 60px);
+                    border: 2px solid gainsboro;
+                }
+                .right{
+                    width: 100%;
+                    height: 300px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content:center ;
+                    background-color: rgba(0, 0, 0, 0.219);
+                    h1{
+                        font-size: 24px;
+                        font-weight: bolder;
+                        text-align: center;
+                    }
+                    p{
+                        width: 80%;
+                        height: 20%;
+                        font-size:20px;
+                        font-weight: 800;
+                        margin-top: 30px;
+                        text-align: center;
+                    }
+        
+                }
+            }
+        }
+    }   
+}
