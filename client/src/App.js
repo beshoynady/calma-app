@@ -33,7 +33,7 @@ import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
-export const dataContext = createContext({});
+export const detaContext = createContext({});
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -1158,7 +1158,7 @@ function App() {
   }, [count, ItemsInCart, isLogin])
 
   return (
-    <detacontext.Provider value={{
+    <detaContext.Provider value={{
       // Functions related to authentication
       userLoginInfo, apiUrl, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, employeelogin, employeelogout,
 
@@ -1222,7 +1222,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </detacontext.Provider>
+    </detaContext.Provider>
   );
 }
 
