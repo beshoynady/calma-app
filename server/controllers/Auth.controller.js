@@ -56,7 +56,7 @@ const login = async (req, res) => {
         return res.status(401).json({ message: 'Incorrect password' });
       }
   
-      const accessToken = generateAccessToken(findUser);
+      // const accessToken = generateAccessToken(findUser);
   
       res.status(200).json({ findUser, accessToken });
     } catch (error) {
