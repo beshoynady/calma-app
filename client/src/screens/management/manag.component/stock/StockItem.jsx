@@ -23,7 +23,7 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
-      const response = await axios.post('https://caviar-api.vercel.app/api/stockitem/', {
+      const response = await axios.post('https://calma-api-puce.vercel.app/api/stockitem/', {
         itemName,
         categoryId,
         smallUnit,
@@ -54,7 +54,7 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
-      const response = await axios.put(`https://caviar-api.vercel.app/api/stockitem/${stockItemId}`, {
+      const response = await axios.put(`https://calma-api-puce.vercel.app/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
         smallUnit,
@@ -86,7 +86,7 @@ const StockItem = () => {
   const deleteStockItem = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`https://caviar-api.vercel.app/api/stockitem/${stockItemId}`);
+      const response = await axios.delete(`https://calma-api-puce.vercel.app/api/stockitem/${stockItemId}`);
       if (response.status === 200) {
         console.log(response);
         getStockItems(); // Update the list of stock items after deletion
@@ -107,7 +107,7 @@ const StockItem = () => {
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/stockitem/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
       const stockItems = await response.data.reverse();
       console.log(response.data);
       setAllStockItems(stockItems);
@@ -123,7 +123,7 @@ const StockItem = () => {
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/categoryStock/');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/categoryStock/');
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);

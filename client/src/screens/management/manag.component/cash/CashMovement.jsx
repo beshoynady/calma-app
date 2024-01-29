@@ -15,7 +15,7 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/cashmovement/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
       console.log(response.data)
       setAllCashMovement(response.data.reverse())
 
@@ -29,7 +29,7 @@ const CashMovement = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/cashregister');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -41,7 +41,7 @@ const CashMovement = () => {
 
     try {
       // Send cash movement data to the API
-      const cashMovementResponse = await axios.post('https://caviar-api.vercel.app/api/cashmovement/', {
+      const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId,
         createBy,
         amount,
@@ -58,7 +58,7 @@ const CashMovement = () => {
       const updatedBalance = balance + updateAmount;
 
       // Update the cash register balance on the server
-      await axios.put(`https://caviar-api.vercel.app/api/cashregister/${registerId}`, {
+      await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
         balance: updatedBalance,
       });
 

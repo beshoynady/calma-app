@@ -13,7 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 const ManagerDash = () => {
 
   // useEffect(() => {
-  //   const socket = io('https://caviar-api.vercel.app', { withCredentials: true });
+  //   const socket = io('https://calma-api-puce.vercel.app', { withCredentials: true });
 
   //   socket.on('newOrderNotification', (data) => {
   //     console.log('New order received:', data);
@@ -35,7 +35,7 @@ const ManagerDash = () => {
 
   const fetchOrdersData = async () => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/order');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
       const orders = res.data;
       setallOrders(orders);
 
@@ -69,7 +69,7 @@ const ManagerDash = () => {
   const changeorderstauts = async (e, id) => {
     try {
       const status = e.target.value;
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { status });
+      await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, { status });
 
       toast.success('تم تغيير حالة الطلب بنجاح');
 
@@ -87,7 +87,7 @@ const ManagerDash = () => {
       const isActive = payment_status === 'Paid' ? false : true;
 
       // استخدام await لضمان انتهاء الطلب قبل الانتقال إلى الخطوة التالية
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, {
+      await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, {
         payment_status,
         isActive,
         casher,
@@ -113,7 +113,7 @@ const ManagerDash = () => {
 
   const fetchActiveEmployees = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/employee');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/employee');
       const activeEmployees = response.data.filter((employee) => employee.isActive === true);
 
       const waiters = activeEmployees.filter((employee) => employee.role === 'waiter');
@@ -166,7 +166,7 @@ const ManagerDash = () => {
     const helpStatus = 'Send waiter';
     const waiter = specifiedWaiter();
     try {
-      const order = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
+      const order = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
         waiter,
         helpStatus,
       });
@@ -180,7 +180,7 @@ const ManagerDash = () => {
   const putdeliveryman = async (e, orderid) => {
     try {
       const deliveryMan = await e.target.value
-      const order = await axios.put('https://caviar-api.vercel.app/api/order/' + orderid, {
+      const order = await axios.put('https://calma-api-puce.vercel.app/api/order/' + orderid, {
         deliveryMan
       });
       setupdate(!update);
@@ -199,7 +199,7 @@ const ManagerDash = () => {
 
   const handleCashRegister = async (id) => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/cashregister');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
       setAllCashRegisters(response.data.reverse());
       const data = response.data;
       const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
@@ -220,14 +220,14 @@ const ManagerDash = () => {
     try {
       if (cashRegister) {
         const updatedBalance = balance + amount;
-        const cashMovement = await axios.post('https://caviar-api.vercel.app/api/cashMovement/', {
+        const cashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashMovement/', {
           registerId: cashRegister,
           createBy,
           amount,
           type: 'Revenue',
           description,
         });
-        const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashregister/${cashRegister}`, {
+        const updatecashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${cashRegister}`, {
           balance: updatedBalance,
         });
         if (updatecashRegister) {
@@ -275,7 +275,7 @@ const ManagerDash = () => {
   // Fetch orders from API
   const getOrderDetalis = async (serial) => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/order');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
       const order = res.data.find(o => o.serial == serial)
       setlist_products_order(order.products)
       setordertotal(order.total)

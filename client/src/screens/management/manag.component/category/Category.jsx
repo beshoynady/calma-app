@@ -9,20 +9,20 @@ const Category = () => {
   const [allCategory, setallCategory] = useState([])
   
   const getallCategory = async () => {
-    const res = await axios.get("https://caviar-api.vercel.app/api/category/");
+    const res = await axios.get("https://calma-api-puce.vercel.app/api/category/");
     setallCategory(res.data)
   }
 
 
   const createCategory = async () => {
-    const send = await axios.post("https://caviar-api.vercel.app/api/category/", { name: categoryname });
+    const send = await axios.post("https://calma-api-puce.vercel.app/api/category/", { name: categoryname });
   }
 
 
   const editCategory = async () => {
     console.log(categoryId)
     try {
-      const edit = await axios.put("https://caviar-api.vercel.app/api/category/" + categoryId, { name: categoryname })
+      const edit = await axios.put("https://calma-api-puce.vercel.app/api/category/" + categoryId, { name: categoryname })
       console.log(edit)
     } catch (error) {
       console.log(error)
@@ -30,7 +30,7 @@ const Category = () => {
   }
   const deleteCategory = async () => {
     try {
-      const deleted = await axios.delete("https://caviar-api.vercel.app/api/category/" + categoryId)
+      const deleted = await axios.delete("https://calma-api-puce.vercel.app/api/category/" + categoryId)
       console.log(categoryId)
       console.log(deleted)
     } catch (error) {

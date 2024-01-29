@@ -11,7 +11,7 @@ const EmployeesSalary = () => {
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/employee')
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/employee')
       const employee = await response.data
       setlistofemployee(employee)
     } catch (error) {
@@ -76,7 +76,7 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.post('https://caviar-api.vercel.app/api/salarymovement', data);
+      const response = await axios.post('https://calma-api-puce.vercel.app/api/salarymovement', data);
       if(response){
         
       }
@@ -110,7 +110,7 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.put(`https://caviar-api.vercel.app/api/salarymovement/${salarymovementId}`, data);
+      const response = await axios.put(`https://calma-api-puce.vercel.app/api/salarymovement/${salarymovementId}`, data);
       getSalaryMovement();
       toast.success('Movement updated successfully');
     } catch (error) {
@@ -123,7 +123,7 @@ const EmployeesSalary = () => {
   const deleteSalaryMovement = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`https://caviar-api.vercel.app/api/salarymovement/${salarymovementId}`);
+      const response = await axios.delete(`https://calma-api-puce.vercel.app/api/salarymovement/${salarymovementId}`);
       getSalaryMovement();
       toast.success('Movement deleted successfully');
     } catch (error) {
@@ -134,7 +134,7 @@ const EmployeesSalary = () => {
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
-    const movement = await axios.get('https://caviar-api.vercel.app/api/salarymovement')
+    const movement = await axios.get('https://calma-api-puce.vercel.app/api/salarymovement')
     console.log(movement)
     setlistofsalarymovement(movement.data.reverse())
   }

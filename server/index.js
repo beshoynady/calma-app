@@ -28,9 +28,11 @@ connectdb();
 
 const app = express();
 
+const frontEnd = process.env.FRONR_END
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin : 'https://caviar-demo.vercel.app',
+  origin : `${frontEnd}`,
   methods : ['GET', 'POST', 'PUT' , 'UPDATE', 'DELETE'],
   credentials: true 
 }));

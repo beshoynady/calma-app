@@ -20,7 +20,7 @@ const DailyExpense = () => {
 
   const getAllcashRegisters = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/cashRegister');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashRegister');
       setAllcashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -37,7 +37,7 @@ const DailyExpense = () => {
 
   const getallExpenses = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/expenses/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/expenses/');
       setallExpenses(response.data.reverse());
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ const DailyExpense = () => {
     const updatedbalance = balance - amount; // Calculate the updated balance
 
     try {
-      const cashMovement = await axios.post('https://caviar-api.vercel.app/api/cashMovement/', {
+      const cashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashMovement/', {
         registerId: cashRegister,
         createBy: paidBy,
         amount,
@@ -61,7 +61,7 @@ const DailyExpense = () => {
 
       const cashMovementId = await cashMovement.data.cashMovement._id; // Retrieve the cashMovementId from the response data
 
-      const dailyexpense = await axios.post('https://caviar-api.vercel.app/api/dailyexpense/', {
+      const dailyexpense = await axios.post('https://calma-api-puce.vercel.app/api/dailyexpense/', {
         expenseID,
         expenseDescription,
         cashRegister,
@@ -71,7 +71,7 @@ const DailyExpense = () => {
         notes,
       });
 
-      const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+      const updatecashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashRegister/${cashRegister}`, {
         balance: updatedbalance, // Use the updated balance
       });
 
@@ -97,7 +97,7 @@ const DailyExpense = () => {
   const editDailyExpense = async (e) => {
     e.preventDefault();
     try {
-      const prevExpense = await axios.get(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+      const prevExpense = await axios.get(`https://calma-api-puce.vercel.app/api/dailyexpense/${dailyexpenseID}`);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new amount and the previous amount
@@ -106,7 +106,7 @@ const DailyExpense = () => {
       const updatedbalance = balance + prevExpenseData.amount - amountDifference;
 
       if (cashMovementId) { // Ensure cashMovementId has a value before sending the request
-        const response = await axios.put(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`, {
+        const response = await axios.put(`https://calma-api-puce.vercel.app/api/dailyexpense/${dailyexpenseID}`, {
           expenseID,
           expenseDescription,
           cashRegister,
@@ -118,7 +118,7 @@ const DailyExpense = () => {
         const data = response.data;
         console.log(response.data);
 
-        const cashMovement = await axios.put(`https://caviar-api.vercel.app/api/cashMovement/${cashMovementId}`, {
+        const cashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashMovement/${cashMovementId}`, {
           registerId: cashRegister,
           createBy: paidBy,
           amount,
@@ -127,7 +127,7 @@ const DailyExpense = () => {
         });
 
         if (data) {
-          const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+          const updatecashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
           });
           if (updatecashRegister) {
@@ -157,7 +157,7 @@ const DailyExpense = () => {
     e.preventDefault();
     try {
       // Fetch the previous expense data to calculate the balance update
-      const prevExpense = await axios.get(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+      const prevExpense = await axios.get(`https://calma-api-puce.vercel.app/api/dailyexpense/${dailyexpenseID}`);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new balance and the previous amount
@@ -165,12 +165,12 @@ const DailyExpense = () => {
 
       if (cashMovementId) { // Ensure cashMovementId has a value before sending the request
         // Delete the expense record after extracting previous expense data
-        const deleteExpenseRecord = await axios.delete(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+        const deleteExpenseRecord = await axios.delete(`https://calma-api-puce.vercel.app/api/dailyexpense/${dailyexpenseID}`);
         const data = deleteExpenseRecord.data;
 
         if (data) {
           // Update the cash register balance with the updatedbalance
-          const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+          const updatecashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
           });
 
@@ -200,7 +200,7 @@ const DailyExpense = () => {
 
   const getallDailyExpenses = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/dailyexpense/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/dailyexpense/');
       const dailyExpenses = await response.data.reverse();
       console.log(response.data);
       setallDailyExpenses(dailyExpenses);

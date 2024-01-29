@@ -15,7 +15,7 @@ const CashRegister = () => {
   // Fetch employees
   const getEmployees = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/employee')
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/employee')
       const data = await response.data
       setallEmployee(data)
     } catch (error) {
@@ -26,7 +26,7 @@ const CashRegister = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/cashregister');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
       setCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -36,7 +36,7 @@ const CashRegister = () => {
   // Fetch a cash register by ID
   const getCashRegisterById = async () => {
     try {
-      const response = await axios.get(`https://caviar-api.vercel.app/api/cashregister/${cashID}`);
+      const response = await axios.get(`https://calma-api-puce.vercel.app/api/cashregister/${cashID}`);
       // Handle response (e.g., display details, update state)
     } catch (err) {
       toast.error('Cash register not found');
@@ -48,7 +48,7 @@ const CashRegister = () => {
     e.preventDefault()
     const newCashRegister = { name, balance, employee };
     try {
-      const response = await axios.post('https://caviar-api.vercel.app/api/cashregister', newCashRegister);
+      const response = await axios.post('https://calma-api-puce.vercel.app/api/cashregister', newCashRegister);
       console.log(response);
       toast.success('Cash register created successfully');
       getAllCashRegisters()
@@ -63,7 +63,7 @@ const CashRegister = () => {
     e.preventDefault()
     const updatedCashRegister = { name, balance, employee };
     try {
-      const response = await axios.put(`https://caviar-api.vercel.app/api/cashregister/${cashID}`, updatedCashRegister);
+      const response = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${cashID}`, updatedCashRegister);
       toast.success('Cash register updated successfully');
       getAllCashRegisters()
     } catch (err) {
@@ -75,7 +75,7 @@ const CashRegister = () => {
   const deleteCashRegister = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.delete(`https://caviar-api.vercel.app/api/cashregister/${cashID}`);
+      const response = await axios.delete(`https://calma-api-puce.vercel.app/api/cashregister/${cashID}`);
       toast.success('Cash register deleted successfully');
     } catch (err) {
       toast.error('Failed to delete cash register');
@@ -113,7 +113,7 @@ const CashRegister = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`https://caviar-api.vercel.app/api/order/${Id}`);
+        await axios.delete(`https://calma-api-puce.vercel.app/api/order/${Id}`);
       }
       getAllCashRegisters()
       getEmployees()

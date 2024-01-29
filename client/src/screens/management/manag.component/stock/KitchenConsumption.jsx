@@ -35,7 +35,7 @@ const KitchenConsumption = () => {
         // Make a POST request to add an item
         const newquantityTransferredToKitchen = kitconsumption.quantityTransferredToKitchen + quantityTransferredToKitchen
         const newBalance = kitconsumption.bookBalance + quantityTransferredToKitchen
-        const response = await axios.put(`https://caviar-api.vercel.app/api/kitchenconsumption/${kitconsumption._id}`, {
+        const response = await axios.put(`https://calma-api-puce.vercel.app/api/kitchenconsumption/${kitconsumption._id}`, {
           quantityTransferredToKitchen: newquantityTransferredToKitchen,
           createdBy,
           bookBalance:newBalance
@@ -62,7 +62,7 @@ const KitchenConsumption = () => {
     } else {
       try {
         // Make a POST request to add an item
-        const response = await axios.post('https://caviar-api.vercel.app/api/kitchenconsumption', {
+        const response = await axios.post('https://calma-api-puce.vercel.app/api/kitchenconsumption', {
           stockItemId,
           stockItemName,
           quantityTransferredToKitchen,
@@ -96,14 +96,14 @@ const KitchenConsumption = () => {
     e.preventDefault()
     console.log('updateKitchenItem')
     try {
-      const update = await axios.put(`https://caviar-api.vercel.app/api/kitchenconsumption/${KitchenItemId}`, {
+      const update = await axios.put(`https://calma-api-puce.vercel.app/api/kitchenconsumption/${KitchenItemId}`, {
         adjustment,
         actualBalance
       });
       if(update.status === 200){
         try {
         // Make a POST request to add an item
-        const response = await axios.post('https://caviar-api.vercel.app/api/kitchenconsumption', {
+        const response = await axios.post('https://calma-api-puce.vercel.app/api/kitchenconsumption', {
           stockItemId,
           stockItemName,
           quantityTransferredToKitchen:actualBalance,
@@ -144,7 +144,7 @@ const KitchenConsumption = () => {
   // Fetch orders from API
   const getAllOrders = async () => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/order');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -157,7 +157,7 @@ const KitchenConsumption = () => {
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/stockitem/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
 
       if (response.status === 200) {
         const stockItems = response.data.reverse();
@@ -179,7 +179,7 @@ const KitchenConsumption = () => {
   // // Function to retrieve all category stock
   // const getAllCategoryStock = async () => {
   //   try {
-  //     const res = await axios.get('https://caviar-api.vercel.app/api/categoryStock/');
+  //     const res = await axios.get('https://calma-api-puce.vercel.app/api/categoryStock/');
   //     setAllCategoryStock(res.data);
   //   } catch (error) {
   //     console.log(error);
@@ -193,7 +193,7 @@ const KitchenConsumption = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/product/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -214,7 +214,7 @@ const KitchenConsumption = () => {
   const getKitchenConsumption = async () => {
     try {
       console.log('Fetching kitchen consumption...');
-      const response = await axios.get('https://caviar-api.vercel.app/api/kitchenconsumption');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/kitchenconsumption');
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
         setAllKitchenConsumption(kitchenConsumptions);

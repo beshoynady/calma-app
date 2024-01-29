@@ -13,7 +13,7 @@ const DeliveryMan = () => {
   // // Function to fetch pending orders and payments
   // const fetchPendingData = async () => {
   //   try {
-  //     const res = await axios.get('https://caviar-api.vercel.app/api/order');
+  //     const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
   //     const recentStatus = res.data.filter((order) => order.status === 'Pending');
   //     const recentPaymentStatus = res.data.filter((order) => order.payment_status === 'Pending');
   //     setPendingOrders(recentStatus);
@@ -31,7 +31,7 @@ const DeliveryMan = () => {
 
   const fetchDeliveryOrders = async () => {
     try {
-      const orders = await axios.get('https://caviar-api.vercel.app/api/order');
+      const orders = await axios.get('https://calma-api-puce.vercel.app/api/order');
       const activeOrders = orders.data.filter(order => order.isActive === true && order.order_type === 'Delivery');
       console.log({ activeOrders: activeOrders });
       const deliveryOrdersData = activeOrders.filter(order => order.status === 'Prepared' || order.status === 'On the way');
@@ -47,7 +47,7 @@ const DeliveryMan = () => {
   const updateOrderOnWay = async (id) => {
     try {
       const status = 'On the way';
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { status });
+      await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, { status });
       fetchDeliveryOrders();
       //  fetchPendingData();
       toast.success('Order is on the way!');
@@ -59,10 +59,10 @@ const DeliveryMan = () => {
 
   const updateOrderDelivered = async (id) => {
     try {
-      const orderData = await axios.get(`https://caviar-api.vercel.app/api/order/${id}`);
+      const orderData = await axios.get(`https://calma-api-puce.vercel.app/api/order/${id}`);
       const products = orderData.data.products.map((prod) => ({ ...prod, isDeleverd: true }));
       const status = 'Delivered';
-      const updateOrder = await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { products, status });
+      const updateOrder = await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, { products, status });
       if (updateOrder) {
         fetchDeliveryOrders();
         toast.success('Order has been delivered!');

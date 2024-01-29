@@ -11,7 +11,7 @@ const ExpenseItem = () => {
     const createExpense = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://caviar-api.vercel.app/api/expenses/', { description });
+            const response = await axios.post('https://calma-api-puce.vercel.app/api/expenses/', { description });
             console.log(response.data);
             getAllExpenses();
         } catch (error) {
@@ -22,7 +22,7 @@ const ExpenseItem = () => {
     const editExpense = async (e) => {
       e.preventDefault();
         try {
-            const response = await axios.put(`https://caviar-api.vercel.app/api/expenses/${expenseId}`, {
+            const response = await axios.put(`https://calma-api-puce.vercel.app/api/expenses/${expenseId}`, {
                 description
             });
             console.log(response.data);
@@ -37,7 +37,7 @@ const ExpenseItem = () => {
     const deleteExpense = async (e) => {
       e.preventDefault();
         try {
-            const response = await axios.delete(`https://caviar-api.vercel.app/api/expenses/${expenseId}`);
+            const response = await axios.delete(`https://calma-api-puce.vercel.app/api/expenses/${expenseId}`);
             if (response.status === 200) {
                 console.log(response);
                 getAllExpenses();
@@ -49,7 +49,7 @@ const ExpenseItem = () => {
 
     const getAllExpenses = async () => {
         try {
-            const response = await axios.get('https://caviar-api.vercel.app/api/expenses/');
+            const response = await axios.get('https://calma-api-puce.vercel.app/api/expenses/');
             const expenses = await response.data.reverse();
             console.log(response.data);
             setAllExpenses(expenses);
