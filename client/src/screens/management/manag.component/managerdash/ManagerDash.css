@@ -49,10 +49,12 @@
   font-weight: 500;
 }
 .dashboard .container .insights {
+  grid-gap: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 10px;
   margin-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 .dashboard .container .insights li {
   padding: 10px;

@@ -67,11 +67,13 @@ $color_7: var(--danger);
 		}
 
 		.insights {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 			grid-gap: 10px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
 			margin-top: 20px;
-
+			display: flex;
+			flex-direction: row-reverse;
+			
 			li {
 				padding: 10px;
 				background: var(--light);
