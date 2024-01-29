@@ -299,15 +299,17 @@
 
 .home-section {
   height: 33px;
-  width: 45px;
+  left: 220px;
   position: absolute;
-  left: 155px;
-  transition: all 0.5s ease;
+  transition: all .5s ease;
+  width: 45px;
   z-index: 9999;
+  top: 20px;
 }
 
 .sidebar.close~.home-section {
   left: 55px;
+  top: 20px;
   width: 45px;
   z-index: 9999;
 }
@@ -340,11 +342,13 @@
     width: 45px;
     position: absolute;
     right: 155px;
+    top: 20px;
     transition: all 0.5s ease;
   }
   
   .sidebar.close~.home-section {
     left: 50px;
+    top: 20px;
     width: 45px;
   }
   .sidebar.close .nav-links li .sub-menu {

@@ -5,35 +5,44 @@ $color_4: var(--light);
 $color_5: var(--warning);
 $color_6: var(--success);
 $color_7: var(--danger);
+
 .dashboard {
 	width: 100%;
 	padding: 5px;
 	max-height: calc(100vh - 56px);
-    overflow-y: auto;
-	.container{
+	overflow-y: auto;
+
+	.container {
 		.header {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
 			grid-gap: 16px;
-			flex-wrap: wrap;
-			.left {
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			flex-direction: row;
+			align-content: center;
+
+			.titel-dashbord {
 				h1 {
 					font-size: 30px;
 					font-weight: 600;
 					color: $color_1;
 					margin-right: 5px;
 				}
+
 				.breadcrumb {
 					display: flex;
 					align-items: center;
 					grid-gap: 16px;
+
 					li {
 						color: $color_1;
+
 						a {
 							color: $color_2;
 							pointer-events: none;
 						}
+
 						a.active {
 							color: $color_3;
 							pointer-events: none;
@@ -41,6 +50,7 @@ $color_7: var(--danger);
 					}
 				}
 			}
+
 			.website {
 				height: 40px;
 				width: 126px;
@@ -55,11 +65,13 @@ $color_7: var(--danger);
 				font-weight: 500;
 			}
 		}
+
 		.insights {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 			grid-gap: 10px;
 			margin-top: 20px;
+
 			li {
 				padding: 10px;
 				background: var(--light);
@@ -69,51 +81,60 @@ $color_7: var(--danger);
 				justify-content: space-evenly;
 				grid-gap: 24px;
 				cursor: pointer;
+
 				.bx {
 					width: 50px;
 					height: 80px;
 					border-radius: 10px;
-					font-size: 45px; 
+					font-size: 45px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
 				}
+
 				&:nth-child(1) {
 					.bx {
 						background: var(--light-primary);
 						color: $color_3;
 					}
 				}
+
 				&:nth-child(2) {
 					.bx {
 						background: var(--light-warning);
 						color: $color_5;
 					}
 				}
+
 				&:nth-child(3) {
 					.bx {
 						background: var(--light-success);
 						color: $color_6;
 					}
 				}
+
 				&:nth-child(4) {
 					.bx {
 						background: var(--light-danger);
 						color: $color_7;
 					}
 				}
+
 				&:nth-child(5) {
 					.bx {
 						background: var(--light-danger);
 						color: $color_7;
 					}
 				}
+
 				.info {
 					text-align: center;
+
 					p {
 						font-size: 24px;
 						color: $color_1;
 					}
+
 					h3 {
 						font-size: 20px;
 						font-weight: 600;
@@ -122,6 +143,7 @@ $color_7: var(--danger);
 				}
 			}
 		}
+
 		.bottom-data {
 			display: flex;
 			flex-wrap: wrap;
@@ -129,41 +151,50 @@ $color_7: var(--danger);
 			margin-top: 24px;
 			width: 100%;
 			color: $color_1;
+
 			>div {
 				border-radius: 20px;
 				background: var(--light);
 				padding: 24px;
 				overflow-x: auto;
 			}
+
 			.header {
 				display: flex;
 				align-items: center;
 				grid-gap: 16px;
 				margin-bottom: 24px;
+
 				h3 {
 					margin: 0;
 					font-size: 24px;
 					font-weight: 600;
 				}
+
 				.bx {
 					cursor: pointer;
 				}
 			}
+
 			.orders {
 				flex-grow: 1;
 				flex-basis: 650px;
+
 				table {
 					width: 100%;
 					border-collapse: collapse;
+
 					th {
 						padding-bottom: 12px;
 						font-size: 13px;
 						text-align: center;
 						border-bottom: 1px solid var(--grey);
 					}
+
 					td {
 						padding: 16px 0;
 						text-align: center;
+
 						img {
 							width: 36px;
 							height: 36px;
@@ -171,6 +202,7 @@ $color_7: var(--danger);
 							object-fit: cover;
 						}
 					}
+
 					tr {
 						td {
 							&:first-child {
@@ -179,6 +211,7 @@ $color_7: var(--danger);
 								grid-gap: 12px;
 								padding-left: 6px;
 							}
+
 							.status {
 								font-size: 10px;
 								padding: 5px 5px;
@@ -186,21 +219,26 @@ $color_7: var(--danger);
 								border-radius: 20px;
 								font-weight: 700;
 							}
+
 							.status.completed {
 								background: var(--success);
 							}
+
 							.status.process {
 								background: var(--primary);
 							}
+
 							.status.pending {
 								background: var(--warning);
 							}
 						}
 					}
+
 					tbody {
 						tr {
 							cursor: pointer;
 							transition: all 0.3s ease;
+
 							&:hover {
 								background: var(--grey);
 							}
@@ -208,11 +246,14 @@ $color_7: var(--danger);
 					}
 				}
 			}
+
 			.reminders {
 				flex-grow: 1;
 				flex-basis: 300px;
+
 				.task-list {
 					width: 100%;
+
 					li {
 						width: 100%;
 						margin-bottom: 16px;
@@ -222,26 +263,32 @@ $color_7: var(--danger);
 						display: flex;
 						align-items: center;
 						justify-content: space-between;
+
 						.task-title {
-							width:100%;
+							width: 100%;
 							display: flex;
 							align-items: center;
 							justify-content: space-between;
+
 							>p {
 								margin-left: 6px;
 								margin-bottom: 0 !important;
 							}
 						}
+
 						.bx {
 							cursor: pointer;
 						}
+
 						&:last-child {
 							margin-bottom: 0;
 						}
 					}
+
 					li.completed {
 						border-left: 10px solid var(--success);
 					}
+
 					li.not-completed {
 						border-left: 10px solid var(--danger);
 					}
@@ -250,15 +297,18 @@ $color_7: var(--danger);
 		}
 	}
 }
+
 @media screen and (max-width: 768px) {
 	.sidebar {
 		width: 200px;
 	}
+
 	.content {
 		width: calc(100% - 60px);
 		left: 200px;
 	}
 }
+
 @media screen and (max-width: 576px) {
 	.content {
 		nav {
@@ -267,6 +317,7 @@ $color_7: var(--danger);
 					input {
 						display: none;
 					}
+
 					button {
 						width: auto;
 						height: auto;
@@ -276,12 +327,14 @@ $color_7: var(--danger);
 					}
 				}
 			}
+
 			form.show {
 				.form-input {
 					input {
 						display: block;
 						width: 100%;
 					}
+
 					button {
 						width: 36px;
 						height: 100%;
@@ -291,27 +344,33 @@ $color_7: var(--danger);
 					}
 				}
 			}
+
 			form.show~.notif {
 				display: none;
 			}
+
 			form.show~.profile {
 				display: none;
 			}
 		}
 	}
+
 	.dashboard {
 		.insights {
 			grid-template-columns: 1fr;
 		}
+
 		.bottom-data {
 			.header {
 				min-width: 340px;
 			}
+
 			.orders {
 				table {
 					min-width: 340px;
 				}
 			}
+
 			.reminders {
 				.task-list {
 					min-width: 340px;

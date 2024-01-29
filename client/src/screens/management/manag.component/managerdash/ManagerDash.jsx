@@ -339,13 +339,13 @@ const ManagerDash = () => {
               <ToastContainer />
               <div className='container'>
                 <div className="header">
-                  <div className="left">
-                    <h1>الصفحة الرئيسيه</h1>
-                  </div>
                   <a href={`http://${window.location.hostname}`} className="website">
                     <i className='bx bx-cloud-download'></i>
                     <span>الموقع</span>
                   </a>
+                  <div className="titel-dashbord">
+                    <h1>الصفحة الرئيسيه</h1>
+                  </div>
                 </div>
 
                 <ul className="insights">
