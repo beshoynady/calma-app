@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './LoginRegistr.css';
 // import axios from 'axios';
-require('dotenv').config();
-
 // import jwt_decode from "jwt-decode";
 import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';

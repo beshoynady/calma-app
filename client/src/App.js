@@ -1,11 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
-
-import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import jwt_decode from 'jwt-decode';
+import dotenv from 'dotenv';
 
 import Userscreen from './screens/user.screen/Userscreen';
 import ManagLayout from './screens/management/ManagLayout';
@@ -34,13 +33,13 @@ import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
-
-export const detacontext = createContext({});
+export const dataContext = createContext({});
 
 function App() {
-
-  const apiUrl = process.env.API_URL
   axios.defaults.withCredentials = true;
+
+  dotenv.config();
+  const apiUrl = process.env.API_URL;
 
   //++++++++++++++++++++ pagination ++++++++++
 
@@ -105,7 +104,7 @@ function App() {
   const getProducts = async () => {
     const token = localStorage.getItem('token_u');
 
-    const products = await axios.get('https://caviar-api.vercel.app/api/product', {
+    const products = await axios.get(`${apiUrl}/api/product`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

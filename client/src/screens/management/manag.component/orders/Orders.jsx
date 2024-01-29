@@ -1,8 +1,6 @@
 import './Orders.css'
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-require('dotenv').config();
-
 import { detacontext } from '../../../../App'
 import { useReactToPrint } from 'react-to-print';
 import { ToastContainer, toast } from 'react-toastify';
