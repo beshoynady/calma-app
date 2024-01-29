@@ -39,7 +39,7 @@ function App() {
   axios.defaults.withCredentials = true;
 
   dotenv.config();
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.API_URL; 
 
   //++++++++++++++++++++ pagination ++++++++++
 
