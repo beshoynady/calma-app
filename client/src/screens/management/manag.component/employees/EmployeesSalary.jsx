@@ -11,7 +11,7 @@ const EmployeesSalary = () => {
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/employee`)
+      const response = await axios.get('https://caviar-api.vercel.app/api/employee')
       const employee = await response.data
       setlistofemployee(employee)
     } catch (error) {
@@ -110,7 +110,7 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data);
+      const response = await axios.put(`https://caviar-api.vercel.app/api/salarymovement/${salarymovementId}`, data);
       getSalaryMovement();
       toast.success('Movement updated successfully');
     } catch (error) {
@@ -123,7 +123,7 @@ const EmployeesSalary = () => {
   const deleteSalaryMovement = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`);
+      const response = await axios.delete(`https://caviar-api.vercel.app/api/salarymovement/${salarymovementId}`);
       getSalaryMovement();
       toast.success('Movement deleted successfully');
     } catch (error) {

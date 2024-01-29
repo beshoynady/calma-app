@@ -15,7 +15,7 @@ const [allOrders, setAllOrders] = useState([]); // State for all orders
 const getOrdersFromAPI = async () => {
   try {
     // Fetch orders data from the API endpoint
-    const orders = await axios.get(`${apiUrl}/api/order`);
+    const orders = await axios.get('https://caviar-api.vercel.app/api/order');
     // Set all orders fetched from the API
     setAllOrders(orders.data);
 
@@ -41,7 +41,7 @@ const getOrdersFromAPI = async () => {
 
   const getallTable = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/table`);
+      const response = await axios.get('https://caviar-api.vercel.app/api/table');
       const tables = response.data;
       console.log({ tables: tables})
       setlistoftable(tables);

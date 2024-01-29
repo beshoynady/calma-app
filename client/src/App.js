@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from 'jwt-decode';
-import dotenv from 'dotenv';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Userscreen from './screens/user.screen/Userscreen';
 import ManagLayout from './screens/management/ManagLayout';
@@ -33,15 +32,14 @@ import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
-export const detaContext = createContext({});
+
+export const detacontext = createContext({});
 
 function App() {
   axios.defaults.withCredentials = true;
 
-  dotenv.config();
-  const apiUrl = process.env.API_URL; 
-
   //++++++++++++++++++++ pagination ++++++++++
+
   const [startpagination, setstartpagination] = useState(0)
   const [endpagination, setendpagination] = useState(5)
 
@@ -103,7 +101,7 @@ function App() {
   const getProducts = async () => {
     const token = localStorage.getItem('token_u');
 
-    const products = await axios.get(`${apiUrl}/api/product`, {
+    const products = await axios.get('https://caviar-api.vercel.app/api/product', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -115,7 +113,7 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getCategories = async () => {
     try {
-      const allcategories = await axios.get(`${apiUrl}/api/category`)
+      const allcategories = await axios.get('https://caviar-api.vercel.app/api/category')
       setallcategories(allcategories.data)
     } catch (error) {
       console.log(error)
@@ -137,7 +135,7 @@ function App() {
   // ++++++++++ order ++++++++++++
   const [allOrders, setallOrders] = useState([])
   const getallOrders = async () => {
-    const orders = await axios.get(`${apiUrl}/api/order`);
+    const orders = await axios.get('https://caviar-api.vercel.app/api/order');
     setallOrders(orders.data)
   }
 
@@ -146,7 +144,7 @@ function App() {
   //+++++++++++ table ++++++++++++++
   const [allTable, setallTable] = useState([])
   const getallTable = async () => {
-    const tables = await axios.get(`${apiUrl}/api/table`);
+    const tables = await axios.get('https://caviar-api.vercel.app/api/table');
     setallTable(tables.data)
   }
 
@@ -154,12 +152,12 @@ function App() {
   // +++++++++++++++ user +++++++++++++
   const [allUsers, setallUsers] = useState([])
   const getallUsers = async () => {
-    const users = await axios.get(`${apiUrl}/api/user`);
+    const users = await axios.get('https://caviar-api.vercel.app/api/user');
     setallUsers(users.data)
   }
   const [allemployees, setallemployees] = useState([])
   const getallemployees = async () => {
-    const employees = await axios.get(`${apiUrl}/api/employee`);
+    const employees = await axios.get('https://caviar-api.vercel.app/api/employee');
     setallemployees(employees.data)
   }
 
@@ -286,7 +284,7 @@ function App() {
           const products = [...additem, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+          const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
             products, subTotal, total, tax, deliveryCost, status, order_type
           }, {
             headers: {
@@ -301,7 +299,7 @@ function App() {
           const products = [...ItemsInCart, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+          const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
             products, subTotal, total, tax, deliveryCost, status, order_type
           }, {
             headers: {
@@ -330,7 +328,7 @@ function App() {
           const order_type = 'Delivery';
           const deliveryCost = 10;
           const total = subTotal + tax + deliveryCost;
-          const neworder = await axios.post(`${apiUrl}/api/order`, {
+          const neworder = await axios.post('https://caviar-api.vercel.app/api/order', {
             serial,
             products,
             subTotal,
@@ -390,7 +388,7 @@ function App() {
           }
           const products = [...additem, ...oldproducts];
           const status = 'Pending';
-          const neworder = await axios.put(`${apiUrl}/api/order/${id}`, {
+          const neworder = await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, {
             products,
             subTotal,
             total,
@@ -405,7 +403,7 @@ function App() {
         } else {
           const products = [...ItemsInCart, ...oldproducts];
           const status = 'Pending';
-          const neworder = await axios.put(`${apiUrl}/api/order/${id}`, {
+          const neworder = await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, {
             products,
             subTotal,
             total,
@@ -430,7 +428,7 @@ function App() {
         const total = subTotal + tax;
         const order_type = 'Internal';
 
-        const neworder = await axios.post(`${apiUrl}/api/order`, {
+        const neworder = await axios.post('https://caviar-api.vercel.app/api/order', {
           serial,
           products,
           subTotal,
@@ -488,7 +486,7 @@ function App() {
   //         const products = [...additem, ...oldproducts]
   //         console.log(products)
   //         const status = 'Pending'
-  //         const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+  //         const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
   //           products, subTotal, total, tax, status
   //         })
   //         setItemsInCart([])
@@ -497,7 +495,7 @@ function App() {
   //         const products = [...ItemsInCart, ...oldproducts]
   //         console.log(products)
   //         const status = 'Pending'
-  //         const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+  //         const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
   //           products, subTotal, total, tax, status
   //         })
   //       }
@@ -523,7 +521,7 @@ function App() {
   //         console.log(products)
   //         const status = 'Pending'
   //         const order_type = 'Delivery'
-  //         const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+  //         const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
   //           products, subTotal, total, tax, deliveryCost, status, order_type
   //         })
   //         setItemsInCart([])
@@ -533,7 +531,7 @@ function App() {
   //         console.log(products)
   //         const status = 'Pending'
   //         const order_type = 'Delivery'
-  //         const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+  //         const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
   //           products, subTotal, total, tax, deliveryCost, status, order_type
   //         })
   //       }
@@ -557,7 +555,7 @@ function App() {
   //           const order_type = 'Delivery'
   //           const deliveryCost = 10
   //           const total = subTotal + tax + deliveryCost
-  //           const neworder = await axios.post(`${apiUrl}/api/order`, {
+  //           const neworder = await axios.post('https://caviar-api.vercel.app/api/order', {
   //             serial,
   //             products,
   //             subTotal,
@@ -575,7 +573,7 @@ function App() {
   //         } else {
   //           const order_type = 'Internal'
   //           const total = subTotal + tax
-  //           const neworder = await axios.post(`${apiUrl}/api/order`, {
+  //           const neworder = await axios.post('https://caviar-api.vercel.app/api/order', {
   //             serial,
   //             products,
   //             subTotal,
@@ -629,7 +627,7 @@ function App() {
     if (clientid) {
       if (lasttableorderactive) {
         const id = await lasttableorder._id
-        const myorder = await axios.get(`${apiUrl}/api/order/` + id,)
+        const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + id,)
         const data = myorder.data
         console.log(data)
         console.log(data._id)
@@ -644,7 +642,7 @@ function App() {
 
       } else if (lastuserorderactive) {
         const id = await lastuserorder._id
-        const myorder = await axios.get(`${apiUrl}/api/order/` + id,)
+        const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + id,)
         const data = await myorder.data
         console.log(data)
         setmyorder(data)
@@ -670,7 +668,7 @@ function App() {
       const help = 'Requesting the bill';
 
       // Update order to mark it for checkout
-      const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, {
+      const updatedOrder = await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, {
         isActive,
         help
       });
@@ -710,7 +708,7 @@ function App() {
         const status = 'Pending';
         const createBy = waiterid;
 
-        const updatedOrder = await axios.put(`${apiUrl}/api/order/` + id, {
+        const updatedOrder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
           products,
           subTotal,
           total,
@@ -732,7 +730,7 @@ function App() {
         const total = subTotal + tax;
         const order_type = 'Internal';
 
-        const neworder = await axios.post(`${apiUrl}/api/order`, {
+        const neworder = await axios.post('https://caviar-api.vercel.app/api/order', {
           serial,
           table: tableid,
           products,
@@ -779,7 +777,7 @@ function App() {
       const status = 'Approved';
 
       // Create the new order
-      const newOrder = await axios.post(`${apiUrl}/api/order`, {
+      const newOrder = await axios.post('https://caviar-api.vercel.app/api/order', {
         serial,
         ordernum,
         products,
@@ -823,7 +821,7 @@ function App() {
 
     if (lasttableorderactive) {
       const id = await lasttableorder._id
-      const myorder = await axios.get(`${apiUrl}/api/order/` + id,)
+      const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + id,)
       const data = await myorder.data
       setmyorder(data)
       setmyorderid(data._id)
@@ -836,7 +834,7 @@ function App() {
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
-      const myorder = await axios.get(`${apiUrl}/api/order/` + id,)
+      const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + id,)
       const data = await myorder.data
       console.log(data)
       setmyorder(data)
@@ -853,7 +851,7 @@ function App() {
   // const POSinvoice = async (posOrderId) => {
   //   // console.log(allOrders)
 
-  //     const myorder = await axios.get(`${apiUrl}/api/order/` + posOrderId)
+  //     const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + posOrderId)
   //     const data = await myorder.data
   //     console.log(data)
   //     setmyorder(data)
@@ -868,19 +866,19 @@ function App() {
   // }
 
   const updatecountofsales = async (id) => {
-    const myorder = await axios.get(`${apiUrl}/api/order/` + id,)
+    const myorder = await axios.get('https://caviar-api.vercel.app/api/order/' + id,)
     const data = myorder.data
     for (var i = 0; i < data.products.length; i++) {
       const productid = await data.products[i]._id
       const productquantity = await data.products[i].quantity
-      const findprduct = await axios.get(`${apiUrl}/api/product/` + productid)
+      const findprduct = await axios.get('https://caviar-api.vercel.app/api/product/' + productid)
       const sales = await findprduct.data.sales + productquantity
 
       // console.log(productid)
       // console.log(findprduct)
       // console.log(sales)
       // console.log(productquantity)
-      const updatprduct = await axios.put(`${apiUrl}/api/product/withoutimage/` + productid, {
+      const updatprduct = await axios.put('https://caviar-api.vercel.app/api/product/withoutimage/' + productid, {
         sales
       })
       // console.log(updatprduct)
@@ -900,12 +898,12 @@ function App() {
     const help = 'Requests assistance';
     const table = tablenum
     if (!lasttableorderactive) {
-      const neworder = await axios.post(`${apiUrl}/api/order/`, {
+      const neworder = await axios.post('https://caviar-api.vercel.app/api/order/', {
         serial, table, help
       })
       console.log(neworder)
     } else {
-      const neworder = await axios.put(`${apiUrl}/api/order/` + id, {
+      const neworder = await axios.put('https://caviar-api.vercel.app/api/order/' + id, {
         help
       })
       console.log(neworder)
@@ -955,7 +953,7 @@ function App() {
 
 
 
-  const [userLoginInfo, setuserLoginInfo] = useState(null);
+  const [userLoginInfo, setUserLoginInfo] = useState(null);
   const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
   const [isLogin, setisLogin] = useState(false);
 
@@ -979,7 +977,7 @@ function App() {
       }
 
       // Send signup request
-      const response = await axios.post(`${apiUrl}/api/auth/signup`, {
+      const response = await axios.post('https://caviar-api.vercel.app/api/auth/signup', {
         username,
         password,
         phone,
@@ -1017,7 +1015,7 @@ function App() {
 
       decodedToken = jwt_decode(userToken);
       // Set user login info
-      setuserLoginInfo, apiUrl(decodedToken);
+      setUserLoginInfo(decodedToken);
     } else if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
@@ -1026,9 +1024,9 @@ function App() {
     } else if (userToken) {
       decodedToken = jwt_decode(userToken);
       // Set user login info
-      setuserLoginInfo, apiUrl(decodedToken);
+      setUserLoginInfo(decodedToken);
     } else {
-      setuserLoginInfo, apiUrl(null);
+      setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
     }
 
@@ -1045,7 +1043,7 @@ function App() {
         return;
       }
 
-      const response = await axios.post(`${apiUrl}/api/auth/login`, {
+      const response = await axios.post('https://caviar-api.vercel.app/api/auth/login', {
         phone,
         password,
       });
@@ -1086,7 +1084,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post(`${apiUrl}/api/employee/login`, {
+      const response = await axios.post('https://caviar-api.vercel.app/api/employee/login', {
         phone,
         password,
       });
@@ -1157,9 +1155,9 @@ function App() {
   }, [count, ItemsInCart, isLogin])
 
   return (
-    <detaContext.Provider value={{
+    <detacontext.Provider value={{
       // Functions related to authentication
-      userLoginInfo, apiUrl, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, employeelogin, employeelogout,
+      userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, employeelogin, employeelogout,
 
       // Functions related to products and categories
       allProducts, allcategories, filterByCategoryId, setcategoryid, deleteitems,
@@ -1221,7 +1219,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </detaContext.Provider>
+    </detacontext.Provider>
   );
 }
 

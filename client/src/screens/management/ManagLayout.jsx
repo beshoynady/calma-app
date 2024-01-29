@@ -9,13 +9,13 @@ import io from 'socket.io-client';
 
 
 const ManagLayout = () => {
-  // if (localStorage.getItem('token_e')) {
-  //   // console.log(localStorage.getItem('token'))
-  //   const tokenStorage = localStorage.getItem('token_e')
-  //   if (tokenStorage) {
-  //     const decodetoken = jwt_decode(tokenStorage)
-  //     console.log(decodetoken)
-  //     if (decodetoken.employeeinfo.isActive) {
+  if (localStorage.getItem('token_e')) {
+    // console.log(localStorage.getItem('token'))
+    const tokenStorage = localStorage.getItem('token_e')
+    if (tokenStorage) {
+      const decodetoken = jwt_decode(tokenStorage)
+      console.log(decodetoken)
+      if (decodetoken.employeeinfo.isActive) {
         return (
           <div className='manag-screen'>
             <SideBar />
@@ -24,11 +24,11 @@ const ManagLayout = () => {
               <Outlet></Outlet>
             </main>
           </div>)
-  //     }
-  //   }
-  // } else {
-  //   return <Navigate to={'/login'} />
-  // }
+      }
+    }
+  } else {
+    return <Navigate to={'/login'} />
+  }
 }
 
 export default ManagLayout

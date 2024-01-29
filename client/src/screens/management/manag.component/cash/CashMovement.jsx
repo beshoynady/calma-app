@@ -58,7 +58,7 @@ const CashMovement = () => {
       const updatedBalance = balance + updateAmount;
 
       // Update the cash register balance on the server
-      await axios.put(`${apiUrl}/api/cashregister/${registerId}`, {
+      await axios.put(`https://caviar-api.vercel.app/api/cashregister/${registerId}`, {
         balance: updatedBalance,
       });
 

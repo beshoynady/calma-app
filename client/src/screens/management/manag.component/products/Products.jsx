@@ -32,7 +32,7 @@ const Products = () => {
         },
       };
 
-      const response = await axios.post(`${apiUrl}/api/product/`, formdata, config);
+      const response = await axios.post('https://caviar-api.vercel.app/api/product/', formdata, config);
       console.log(response.data);
     } catch (error) {
       console.log(error)
@@ -57,7 +57,7 @@ const Products = () => {
         formdata.append('avaliable', avaliable);
         formdata.append('image', productimg);
 
-        const response = await axios.put(`${apiUrl}/api/product/${productid}`, formdata, {
+        const response = await axios.put(`https://caviar-api.vercel.app/api/product/${productid}`, formdata, {
           headers: {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -70,7 +70,7 @@ const Products = () => {
           getallproducts();
         }
       } else {
-        const response = await axios.put(`${apiUrl}/api/product/withoutimage/${productid}`, {
+        const response = await axios.put(`https://caviar-api.vercel.app/api/product/withoutimage/${productid}`, {
           productname,
           productprice,
           productdescription,
@@ -100,7 +100,7 @@ const Products = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/product/`);
+      const response = await axios.get('https://caviar-api.vercel.app/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -117,7 +117,7 @@ const Products = () => {
 
   const calcsalseofproducts = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/order`);
+      const response = await axios.get('https://caviar-api.vercel.app/api/order');
 
       if (response.status === 200) {
         const allOrders = response.data;
@@ -179,7 +179,7 @@ const Products = () => {
   const deleteProduct = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/product/${productid}`);
+      const response = await axios.delete(`https://caviar-api.vercel.app/api/product/${productid}`);
       if (response) {
         console.log(response);
         getallproducts();

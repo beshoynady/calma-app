@@ -9,7 +9,7 @@ const StockManag = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/product/`);
+      const response = await axios.get('https://caviar-api.vercel.app/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -78,7 +78,7 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, {
+      const changeItem = await axios.put(`https://caviar-api.vercel.app/api/stockitem/movement/${itemId}`, {
         newBalance,
         newcost,
         price,
@@ -122,7 +122,7 @@ const StockManag = () => {
 
                 // Update the product with the modified recipe and total cost
                 const updateRecipeToProduct = await axios.put(
-                  `${apiUrl}/api/product/addrecipe/${productid}`,
+                  `https://caviar-api.vercel.app/api/product/addrecipe/${productid}`,
                   { Recipe: arrayRecipe, totalcost },
                   {
                     headers: {
@@ -165,11 +165,11 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price });
+      const changeItem = await axios.put(`https://caviar-api.vercel.app/api/stockitem/movement/${itemId}`, { newBalance, newcost, price });
 
       if (changeItem.status === 200) {
         // Update the existing stock action
-        const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
+        const response = await axios.put(`https://caviar-api.vercel.app/api/stockmanag/${actionId}`, {
           itemId, movement, Quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
           actionBy
         });
@@ -209,7 +209,7 @@ const StockManag = () => {
     e.preventDefault();
     try {
       // Delete the selected stock action
-      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`);
+      const response = await axios.delete(`https://caviar-api.vercel.app/api/stockmanag/${actionId}`);
       console.log(response);
 
       if (response) {

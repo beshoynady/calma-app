@@ -9,7 +9,7 @@ const Employees = () => {
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/employee`)
+      const response = await axios.get('https://caviar-api.vercel.app/api/employee')
       const data = await response.data
       setlistofemployee(data)
     } catch (error) {
@@ -74,7 +74,7 @@ const Employees = () => {
       return;
     }
     try {
-      const newemployee = await axios.post(`${apiUrl}/api/employee`, { fullname, basicSalary, numberID, username, password, address, phone, email, isActive, role, sectionNumber })
+      const newemployee = await axios.post('https://caviar-api.vercel.app/api/employee', { fullname, basicSalary, numberID, username, password, address, phone, email, isActive, role, sectionNumber })
       console.log(newemployee)
       notify('Employee created successfully', 'success');
       getemployees();
@@ -107,7 +107,7 @@ const Employees = () => {
         ? { fullname, numberID, username, email, address, phone, password, basicSalary, isActive, role, sectionNumber }
         : { fullname, numberID, username, email, address, phone, basicSalary, isActive, role, sectionNumber };
 
-      const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData);
+      const update = await axios.put(`https://caviar-api.vercel.app/api/employee/${employeeid}`, updateData);
       if (update.status === 200) {
         getemployees()
         notify('Employee details updated', 'success');
@@ -154,7 +154,7 @@ const Employees = () => {
   const deleteEmployee = async (e) => {
     e.preventDefault();
     try {
-      const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`);
+      const deleted = await axios.delete(`https://caviar-api.vercel.app/api/employee/${employeeid}`);
       notify('Employee deleted', 'success');
       getemployees();
     } catch (error) {
@@ -181,7 +181,7 @@ const Employees = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`);
+        await axios.delete(`https://caviar-api.vercel.app/api/order/${Id}`);
       }
       getemployees()
       toast.success('Selected orders deleted successfully');

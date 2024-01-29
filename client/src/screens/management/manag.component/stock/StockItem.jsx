@@ -54,7 +54,7 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
-      const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
+      const response = await axios.put(`https://caviar-api.vercel.app/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
         smallUnit,
@@ -86,7 +86,7 @@ const StockItem = () => {
   const deleteStockItem = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`);
+      const response = await axios.delete(`https://caviar-api.vercel.app/api/stockitem/${stockItemId}`);
       if (response.status === 200) {
         console.log(response);
         getStockItems(); // Update the list of stock items after deletion
