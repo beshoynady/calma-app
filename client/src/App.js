@@ -1038,7 +1038,7 @@ function App() {
   // Function for user login
   const login = async (e, phone, password) => {
     e.preventDefault();
-
+console.log({phone, password})
     try {
       if (!phone || !password) {
         toast.error('Phone and password are required.');

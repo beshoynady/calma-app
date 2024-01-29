@@ -27,17 +27,13 @@ dotenv.config();
 connectdb();
 
 const app = express();
-
-const frontEnd = process.env.FRONT_END;
-
+const frontEnd = process.env.FRONR_END
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  // origin: `${frontEnd}`,
-  origin: 'https://calma-app.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'UPDATE', 'DELETE'],
+  origin : `${frontEnd}`,
+  methods : ['GET', 'POST', 'PUT' , 'UPDATE', 'DELETE'],
   credentials: true 
 }));
-
 app.use(cookieParser());
 app.use(express.json());
 app.use('/',express.static("public"));
