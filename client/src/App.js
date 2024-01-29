@@ -36,6 +36,8 @@ import TablesPage from './screens/management/manag.component/tables/TablesPage';
 export const detacontext = createContext({});
 
 function App() {
+  const apiUrl = process.env.API_URL;
+
   axios.defaults.withCredentials = true;
 
   //++++++++++++++++++++ pagination ++++++++++
