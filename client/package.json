@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "calmaclient",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,32 +22,19 @@
     "swiper": "^10.0.0",
     "web-vitals": "^2.1.4"
   },
-  "license": "MIT",
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "license": "MIT",
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
-  "tags": [
-    "swiper"
-  ],
+  "tags": ["swiper"],
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }
