@@ -397,6 +397,31 @@ const ManagerDash = () => {
                 </ul>
 
                 <div className="bottom-data">
+                <div className="reminders">
+                    <div className="header">
+                      {/* <i className='bx bx-note'></i> */}
+                      <h3>متابعه الطاولة</h3>
+                      <i className='bx bx-filter'></i>
+                    </div>
+                    <ul className="task-list">
+                      {pending_payment.filter((order) => order.payment_status == 'Pending' && order.order_type == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
+                        return (
+                          <li className="completed" key={i}>
+                            <div className="task-title">
+                              <p><i className='bx bx-check-circle'></i> {usertitle(order.table)}</p>
+                              <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
+                              {order.helpStatus == 'Not send' ? <button type="button" className="btn btn-primary" onClick={() => sendWaiter(order._id)}>ارسال ويتر</button> :
+                                <p>تم ارسال {usertitle(order.waiter)}</p>}
+                            </div>
+                            <i className='bx bx-dots-vertical-rounded'></i>
+                          </li>
+                        )
+
+                      })}
+
+                    </ul>
+                  </div>
+                  
                   <div className="orders">
                     <div className="header">
                       <i className='bx bx-receipt'></i>
@@ -590,30 +615,7 @@ const ManagerDash = () => {
                     </div>
                   </div>
 
-                  <div className="reminders">
-                    <div className="header">
-                      {/* <i className='bx bx-note'></i> */}
-                      <h3>متابعه الطاولة</h3>
-                      <i className='bx bx-filter'></i>
-                    </div>
-                    <ul className="task-list">
-                      {pending_payment.filter((order) => order.payment_status == 'Pending' && order.order_type == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
-                        return (
-                          <li className="completed" key={i}>
-                            <div className="task-title">
-                              <p><i className='bx bx-check-circle'></i> {usertitle(order.table)}</p>
-                              <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
-                              {order.helpStatus == 'Not send' ? <button type="button" className="btn btn-primary" onClick={() => sendWaiter(order._id)}>ارسال ويتر</button> :
-                                <p>تم ارسال {usertitle(order.waiter)}</p>}
-                            </div>
-                            <i className='bx bx-dots-vertical-rounded'></i>
-                          </li>
-                        )
 
-                      })}
-
-                    </ul>
-                  </div>
 
                 </div>
               </div>

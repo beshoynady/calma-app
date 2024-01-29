@@ -1,43 +1,43 @@
-.content nav{
+.content nav {
     grid-gap: 24px;
-    align-items: center;
     background: var(--light);
     display: flex;
     height: 56px;
+    justify-content: flex-end;
     left: 0;
+    left: 50px;
     padding: 0 24px 0 0;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    left: 50px;
     z-index: 1000;
-    justify-content: center;
-  
-  }
-  
-  
-  .content nav a{
+    align-content: center;
+    align-items: center;
+}
+
+
+.content nav a {
     color: var(--dark);
-  }
-  
-  .content nav .bx.bx-menu{
+}
+
+.content nav .bx.bx-menu {
     cursor: pointer;
     color: var(--dark);
-  }
-  
-  .content nav form{
+}
+
+.content nav form {
     max-width: 400px;
     width: 100%;
     margin-right: auto;
-  }
-  
-  .content nav form .form-input{
+}
+
+.content nav form .form-input {
     display: flex;
     align-items: center;
     height: 36px;
-  }
-  
-  .content nav form .form-input input{
+}
+
+.content nav form .form-input input {
     flex-grow: 1;
     padding: 0 16px;
     height: 100%;
@@ -47,9 +47,9 @@
     outline: none;
     width: 100%;
     color: var(--dark);
-  }
-  
-  .content nav form .form-input button{
+}
+
+.content nav form .form-input button {
     width: 80px;
     height: 100%;
     display: flex;
@@ -62,14 +62,14 @@
     outline: none;
     border-radius: 0 36px 36px 0;
     cursor: pointer;
-  }
-  
-  .content nav .notif{
+}
+
+.content nav .notif {
     font-size: 20px;
     position: relative;
-  }
-  
-  .content nav .notif .count{
+}
+
+.content nav .notif .count {
     position: absolute;
     top: -6px;
     right: -6px;
@@ -84,16 +84,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .content nav .profile img{
+}
+
+.content nav .profile img {
     width: 36px;
     height: 36px;
     object-fit: cover;
     border-radius: 50%;
-  }
-  
-  .content nav .theme-toggle{
+}
+
+.content nav .theme-toggle {
     display: block;
     min-width: 50px;
     height: 25px;
@@ -101,9 +101,9 @@
     cursor: pointer;
     position: relative;
     border-radius: 25px;
-  }
-  
-  .content nav .theme-toggle::before{
+}
+
+.content nav .theme-toggle::before {
     content: "";
     position: absolute;
     top: 2px;
@@ -113,12 +113,13 @@
     background: var(--primary);
     border-radius: 50%;
     transition: all 0.3s ease;
-  }
-  
-  .content nav #theme-toggle:checked+.theme-toggle::before{
+}
+
+.content nav #theme-toggle:checked+.theme-toggle::before {
     left: calc(100% - (25px - 4px) - 2px);
-  }
-  /* .manag-header {
+}
+
+/* .manag-header {
     width: 100%;
     height: 60px;
     display: flex;
