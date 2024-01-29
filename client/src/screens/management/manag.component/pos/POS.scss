@@ -1,9 +1,9 @@
 .pos-section {
-    width: 100%;
-    height: 100vh;
-    display: flex;
     align-items: flex-start;
+    display: flex;
+    height: calc(100vh - 60px);
     justify-content: center;
+    width: 100%;
 
     .pos-cart {
         width: 30%;
@@ -11,7 +11,7 @@
         border: 2px solid rgb(255, 255, 255);
         background-color: gray;
         color: black;
-        
+
         .pos-cart-item {
             width: 100%;
             height: 100px;
@@ -23,7 +23,7 @@
             color: black;
             border-bottom: 2px solid gray;
             position: relative;
-
+            
             .pos-note-text {
                 position: absolute;
                 width: 100%;
@@ -169,7 +169,7 @@
     }
 
     .pos-content {
-        width: 100%; 
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -177,6 +177,7 @@
         justify-content: center;
         background-color: rgb(56, 56, 56);
         overflow: hidden;
+
         .client-formgroup {
             width: 100%;
             height: max-content;
@@ -184,6 +185,7 @@
             align-items: center;
             justify-content: flex-start;
             padding: 5px;
+
             .form-info {
                 width: 100%;
                 height: 100%;
@@ -223,6 +225,7 @@
                         width: 120px !important;
                     }
                 }
+
                 .info-adress {
                     font-size: 16px;
                     font-weight: 900;
@@ -231,6 +234,7 @@
                     height: 50%;
                     justify-content: flex-start;
                     width: 50%;
+
                     >label {
                         font-size: 16px;
                         font-weight: 900;
@@ -238,23 +242,26 @@
                         width: 60px;
                         padding: 0;
                     }
+
                     >textarea {
                         font-size: 16px;
                         font-weight: 900;
                         height: 100%;
                         width: 85%;
-                        
+
                     }
                 }
             }
 
         }
-        .categ-menu{
+
+        .categ-menu {
             width: 100%;
             height: 85%;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+
             .pos-menu {
                 width: calc(100% - 120px);
                 height: auto;
@@ -264,6 +271,7 @@
                 justify-content: center;
                 margin: 5px;
                 overflow-y: auto;
+
                 .pos-card {
                     width: 170px;
                     height: 180px;
@@ -276,11 +284,12 @@
                     border-radius: 5px;
                     background-color: #1c1c1c;
                     cursor: pointer;
+
                     .pos-img-card {
                         width: 100%;
                         height: 50%;
                     }
-    
+
                     .pos-card-detalis {
                         width: 100%;
                         height: 50%;
@@ -289,14 +298,14 @@
                         align-items: flex-start;
                         justify-content: center;
                         margin: 2px;
-    
+
                         .card-name {
                             width: 100%;
                             height: 60%;
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-    
+
                             .product-name {
                                 font-size: 18px;
                                 width: 60%;
@@ -306,7 +315,7 @@
                                 align-items: center;
                                 justify-content: flex-start;
                             }
-    
+
                             .product-price {
                                 width: 40%;
                                 height: 100%;
@@ -315,10 +324,9 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-    
+
                             }
                         }
-    
                         .card-discription {
                             width: 100%;
                             height: 50%;
@@ -329,42 +337,56 @@
                             justify-content: center;
                             text-align: center;
                         }
-    
+
                     }
                 }
             }
+
             .pos-category {
-                width: 120px;
+                background-color: #383838;
+                border-right: 2px solid #fff;
                 height: 100%;
-                background-color: rgb(56, 56, 56);
-                border-right: 2px solid white;
-        
+                width: 110px;
+                margin: 0;
+                padding: 0;
+                left: 0;
+
                 .category-ul {
-                    width: 100%;
-                    height: 100%;
+                    align-items: center;
+                    background-color: initial;
                     display: flex;
                     flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: space-between;
-                    background-color: transparent;
-        
+                    height: 100%;
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+                    align-content: center;
+                    justify-content: flex-start;
+                    flex-wrap: nowrap;
+                    text-align: center;
+
                     .category-li {
-                        list-style: none;
-                        width: 95%;
-                        height: 70px;
-                        display: flex;
                         align-items: center;
-                        justify-content: center;
-                        border-bottom: 2px solid gainsboro;
+                        border-bottom: 2px solid #dcdcdc;
                         cursor: pointer;
-        
+                        display: flex;
+                        height: 50px;
+                        list-style: none;
+                        width: 100%;
+                        padding: 0;
+                        margin: 0;
+                        /* text-align: center; */
+                        align-content: center;
+                        justify-content: center;
+
                         .category-pos-btn {
                             text-decoration: none;
                             color: white;
-                            font-size: 18px;
+                            font-size: 16px;
+                            font-weight: 800;
                         }
                     }
-        
+
                 }
             }
         }
@@ -382,13 +404,14 @@
         flex-direction: column-reverse;
         align-items: center;
         justify-content: flex-start;
+
         .pos-cart {
             width: 100%;
             height: 100vh;
             border: 2px solid rgb(255, 255, 255);
             background-color: gray;
             color: black;
-    
+
             .pos-cart-item {
                 width: 100%;
                 height: 100px;
@@ -400,7 +423,7 @@
                 color: black;
                 border-bottom: 2px solid gray;
                 position: relative;
-    
+
                 .pos-note-text {
                     position: absolute;
                     width: 100%;
@@ -413,31 +436,31 @@
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-    
+
                     >textarea {
                         width: 95%;
                         height: 70%;
                         margin: 5px;
                     }
-    
+
                     .note-btn {
                         width: 100%;
                         height: 30%;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-    
+
                         >button {
                             width: 45%;
                             height: 100%;
                             background-color: aqua;
                             border-radius: 10px
                         }
-    
+
                         ;
                     }
                 }
-    
+
                 .cart-item-name {
                     width: 100%;
                     height: 40%;
@@ -445,7 +468,7 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 5px;
-    
+
                     .pod-item-name {
                         width: 50%;
                         height: 100%;
@@ -454,7 +477,7 @@
                         justify-content: center;
                         font-size: 20px;
                     }
-    
+
                     .pos-note {
                         width: 30%;
                         height: 100%;
@@ -464,17 +487,17 @@
                         align-items: center;
                         justify-content: center;
                     }
-    
+
                     >button {
                         width: 20%;
                         height: 100%;
                         background-color: red;
                         color: white;
-    
+
                     }
-    
+
                 }
-    
+
                 .item-cost {
                     width: 100%;
                     height: 40%;
@@ -482,7 +505,7 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 5px;
-    
+
                     .item-price {
                         width: 25%;
                         height: 100%;
@@ -491,7 +514,7 @@
                         justify-content: center;
                         font-size: 20px;
                     }
-    
+
                     .pos-card-counter {
                         width: 50%;
                         height: 100%;
@@ -499,7 +522,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
-    
+
                         .counter-symb {
                             width: 35%;
                             height: 100%;
@@ -510,7 +533,7 @@
                             align-items: center;
                             justify-content: center;
                         }
-    
+
                         .counter-num {
                             display: inline-block;
                             width: 30%;
@@ -518,9 +541,9 @@
                             font-size: 21px;
                             text-align: center;
                         }
-    
+
                     }
-    
+
                     .item-subprice {
                         width: 25%;
                         height: 100%;
@@ -531,7 +554,7 @@
                         font-weight: 600;
                     }
                 }
-    
+
                 .pos-cart-note {
                     width: 100%;
                     height: 30%;
@@ -541,11 +564,12 @@
                     font-size: 14;
                     color: rgb(29, 29, 255);
                 }
-    
+
             }
         }
+
         .pos-content {
-            width: 100%; 
+            width: 100%;
             height: auto;
             display: flex;
             flex-direction: column;
@@ -554,6 +578,7 @@
             background-color: rgb(56, 56, 56);
             // overflow: hidden;
             margin-bottom: 10px;
+
             .client-formgroup {
                 align-items: center;
                 display: flex;
@@ -561,7 +586,8 @@
                 height: auto;
                 justify-content: flex-start;
                 padding: 5px;
-                width: 100%;         
+                width: 100%;
+
                 .form-info {
                     align-items: center;
                     border-bottom: 2px solid wheat;
@@ -570,6 +596,7 @@
                     height: 100%;
                     justify-content: flex-start;
                     width: 100%;
+
                     .formgroup {
                         align-items: center;
                         color: #fff;
@@ -580,6 +607,7 @@
                         align-content: center;
                         flex-direction: row;
                         flex-wrap: wrap;
+
                         >label {
                             font-size: 16px;
                             font-weight: 900;
@@ -587,21 +615,22 @@
                             margin-bottom: 0;
                             width: 75px;
                             padding: 0;
-    
+
                         }
-    
+
                         >input {
                             font-size: 16px;
                             font-weight: 600;
                             width: 135px !important;
                         }
-    
+
                         >select {
                             font-size: 16px;
                             font-weight: 900;
                             width: 120px !important;
                         }
                     }
+
                     .info-adress {
                         align-items: center;
                         display: flex;
@@ -610,6 +639,7 @@
                         height: 30%;
                         justify-content: flex-start;
                         width: 100%;
+
                         >label {
                             font-size: 16px;
                             font-weight: 900;
@@ -617,23 +647,26 @@
                             width: 60px;
                             padding: 0;
                         }
+
                         >textarea {
                             font-size: 16px;
                             font-weight: 900;
                             height: 100%;
                             width: 85%;
-                            
+
                         }
                     }
                 }
-    
+
             }
-            .categ-menu{
+
+            .categ-menu {
                 width: 100%;
                 height: 85%;
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
+
                 .pos-menu {
                     width: 100%;
                     height: auto;
@@ -643,6 +676,7 @@
                     justify-content: center;
                     margin: 5px;
                     overflow-y: auto;
+
                     .pos-card {
                         width: 170px;
                         height: 180px;
@@ -655,11 +689,12 @@
                         border-radius: 5px;
                         background-color: #1c1c1c;
                         cursor: pointer;
+
                         .pos-img-card {
                             width: 100%;
                             height: 50%;
                         }
-        
+
                         .pos-card-detalis {
                             width: 100%;
                             height: 50%;
@@ -668,14 +703,14 @@
                             align-items: flex-start;
                             justify-content: center;
                             margin: 2px;
-        
+
                             .card-name {
                                 width: 100%;
                                 height: 60%;
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-        
+
                                 .product-name {
                                     font-size: 18px;
                                     width: 60%;
@@ -685,7 +720,7 @@
                                     align-items: center;
                                     justify-content: flex-start;
                                 }
-        
+
                                 .product-price {
                                     width: 40%;
                                     height: 100%;
@@ -694,10 +729,10 @@
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
-        
+
                                 }
                             }
-        
+
                             .card-discription {
                                 width: 100%;
                                 height: 50%;
@@ -708,16 +743,17 @@
                                 justify-content: center;
                                 text-align: center;
                             }
-        
+
                         }
                     }
                 }
+
                 .pos-category {
                     width: 120px;
                     height: 100vh;
                     background-color: rgb(56, 56, 56);
                     border-right: 2px solid white;
-            
+
                     .category-ul {
                         width: 100%;
                         height: 100%;
@@ -726,7 +762,7 @@
                         align-items: flex-start;
                         justify-content: space-between;
                         background-color: transparent;
-            
+
                         .category-li {
                             list-style: none;
                             width: 95%;
@@ -736,20 +772,20 @@
                             justify-content: center;
                             border-bottom: 2px solid gainsboro;
                             cursor: pointer;
-            
+
                             .category-pos-btn {
                                 text-decoration: none;
                                 color: white;
                                 font-size: 18px;
                             }
                         }
-            
+
                     }
                 }
             }
-    
+
         }
-    
-    
+
+
     }
 }
