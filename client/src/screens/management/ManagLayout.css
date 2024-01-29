@@ -55,8 +55,7 @@ html{
 }
 .content{
   position: relative;
-  width: calc(100% - 230px);
-  left: 0;
+  width: 100%;
   transition: all 0.3s ease;
 }
 
