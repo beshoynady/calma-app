@@ -36,7 +36,7 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/employee');
+      const response = await axios.get(`${apiUrl}/api/employee`);
       setListOfEmployee(response.data);
     } catch (error) {
       console.log(error);
@@ -124,7 +124,7 @@ const PayRoll = () => {
         Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`https://caviar-api.vercel.app/api/employee/payroll/${id}`, {
+        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
           month,
           salary,
           additional: Additional,
@@ -151,7 +151,7 @@ const PayRoll = () => {
 
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`https://caviar-api.vercel.app/api/employee/payroll/${id}`, {
+        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
           month,
           salary,
           additional: Additional,
@@ -253,7 +253,7 @@ const PayRoll = () => {
         notes,
       });
 
-      const updateCashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+      const updateCashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedBalance,
       });
 
@@ -282,7 +282,7 @@ const PayRoll = () => {
       };
 
       // Update payroll status via API call
-      const updatePayRoll = await axios.put(`https://caviar-api.vercel.app/api/employee/paid/${employeeId}`, payload);
+      const updatePayRoll = await axios.put(`${apiUrl}/api/employee/paid/${employeeId}`, payload);
 
       // Log the update result
       console.log(updatePayRoll);

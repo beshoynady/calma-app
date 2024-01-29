@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+require('dotenv').config();
+
 import { detacontext } from '../../../../App';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -71,7 +73,7 @@ const DailyExpense = () => {
         notes,
       });
 
-      const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+      const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedbalance, // Use the updated balance
       });
 
@@ -97,7 +99,7 @@ const DailyExpense = () => {
   const editDailyExpense = async (e) => {
     e.preventDefault();
     try {
-      const prevExpense = await axios.get(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new amount and the previous amount
@@ -106,7 +108,7 @@ const DailyExpense = () => {
       const updatedbalance = balance + prevExpenseData.amount - amountDifference;
 
       if (cashMovementId) { // Ensure cashMovementId has a value before sending the request
-        const response = await axios.put(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`, {
+        const response = await axios.put(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
           expenseID,
           expenseDescription,
           cashRegister,
@@ -118,7 +120,7 @@ const DailyExpense = () => {
         const data = response.data;
         console.log(response.data);
 
-        const cashMovement = await axios.put(`https://caviar-api.vercel.app/api/cashMovement/${cashMovementId}`, {
+        const cashMovement = await axios.put(`${apiUrl}/api/cashMovement/${cashMovementId}`, {
           registerId: cashRegister,
           createBy: paidBy,
           amount,
@@ -127,7 +129,7 @@ const DailyExpense = () => {
         });
 
         if (data) {
-          const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+          const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
           });
           if (updatecashRegister) {
@@ -157,7 +159,7 @@ const DailyExpense = () => {
     e.preventDefault();
     try {
       // Fetch the previous expense data to calculate the balance update
-      const prevExpense = await axios.get(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new balance and the previous amount
@@ -165,12 +167,12 @@ const DailyExpense = () => {
 
       if (cashMovementId) { // Ensure cashMovementId has a value before sending the request
         // Delete the expense record after extracting previous expense data
-        const deleteExpenseRecord = await axios.delete(`https://caviar-api.vercel.app/api/dailyexpense/${dailyexpenseID}`);
+        const deleteExpenseRecord = await axios.delete(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
         const data = deleteExpenseRecord.data;
 
         if (data) {
           // Update the cash register balance with the updatedbalance
-          const updatecashRegister = await axios.put(`https://caviar-api.vercel.app/api/cashRegister/${cashRegister}`, {
+          const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
           });
 

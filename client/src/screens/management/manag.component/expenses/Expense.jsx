@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+require('dotenv').config();
+
 import { detacontext } from '../../../../App';
 
 const ExpenseItem = () => {
@@ -22,7 +24,7 @@ const ExpenseItem = () => {
     const editExpense = async (e) => {
       e.preventDefault();
         try {
-            const response = await axios.put(`https://caviar-api.vercel.app/api/expenses/${expenseId}`, {
+            const response = await axios.put(`${apiUrl}/api/expenses/${expenseId}`, {
                 description
             });
             console.log(response.data);
@@ -37,7 +39,7 @@ const ExpenseItem = () => {
     const deleteExpense = async (e) => {
       e.preventDefault();
         try {
-            const response = await axios.delete(`https://caviar-api.vercel.app/api/expenses/${expenseId}`);
+            const response = await axios.delete(`${apiUrl}/api/expenses/${expenseId}`);
             if (response.status === 200) {
                 console.log(response);
                 getAllExpenses();

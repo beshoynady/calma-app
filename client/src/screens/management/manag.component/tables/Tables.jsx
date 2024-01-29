@@ -24,7 +24,7 @@ const Tables = () => {
 
   const getallTable = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/table');
+      const response = await axios.get(`${apiUrl}/api/table`);
       const tables = response.data;
       setlistoftable(tables);
 
@@ -63,7 +63,7 @@ const Tables = () => {
     // console.log(tablenum);
     // console.log(chairs)
     try {
-      const response = await axios.put(`https://caviar-api.vercel.app/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
+      const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
       console.log(response.data);
       getallTable();
     } catch (error) {
@@ -77,7 +77,7 @@ const Tables = () => {
     e.preventDefault()
     // console.log(tableid)
     try {
-      const response = await axios.delete(`https://caviar-api.vercel.app/api/table/${tableid}`);
+      const response = await axios.delete(`${apiUrl}/api/table/${tableid}`);
       console.log(response.data);
       settableid(null);
       getallTable();
@@ -121,7 +121,7 @@ const Tables = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`https://caviar-api.vercel.app/api/order/${Id}`);
+        await axios.delete(`${apiUrl}/api/order/${Id}`);
       }
       getallTable()
       toast.success('Selected orders deleted successfully');

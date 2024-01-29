@@ -18,7 +18,7 @@ const Waiter = () => {
  // Function to fetch pending orders and payments
  const fetchPendingData = async () => {
    try {
-     const res = await axios.get('https://caviar-api.vercel.app/api/order');
+     const res = await axios.get(`${apiUrl}/api/order`);
      const recentStatus = res.data.filter((order) => order.status === 'Pending');
      const recentPaymentStatus = res.data.filter((order) => order.payment_status === 'Pending');
      setPendingOrders(recentStatus);
@@ -34,7 +34,7 @@ const Waiter = () => {
  // Function to fetch internal orders
  const fetchInternalOrders = async () => {
   try {
-    const orders = await axios.get('https://caviar-api.vercel.app/api/order');
+    const orders = await axios.get(`${apiUrl}/api/order`);
     const activeOrders = orders.data.filter((order) => order.isActive === true);
     const internalOrdersData = activeOrders.filter(order => order.order_type === 'Internal');
     
@@ -57,7 +57,7 @@ const Waiter = () => {
   const updateOrderOnWay = async (id) => {
     try {
       const status = 'On the way';
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { status });
+      await axios.put(`${apiUrl}/api/order/${id}`, { status });
       fetchInternalOrders();
       fetchPendingData();
       toast.success('Order is on the way!');
@@ -69,10 +69,10 @@ const Waiter = () => {
 
   const updateOrderDelivered = async (id) => {
     try {
-      const orderData = await axios.get(`https://caviar-api.vercel.app/api/order/${id}`);
+      const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = orderData.data.products.map((prod) => ({ ...prod, isDeleverd: true }));
       const status = 'Delivered';
-      const updateOrder= await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { status ,products});
+      const updateOrder= await axios.put(`${apiUrl}/api/order/${id}`, { status ,products});
       if(updateOrder.status == 200){
         fetchInternalOrders()
         fetchPendingData();
@@ -87,7 +87,7 @@ const Waiter = () => {
   const helpOnWay = async (id) => {
     try {
       const helpStatus = 'On the way';
-      const res=await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { helpStatus });
+      const res=await axios.put(`${apiUrl}/api/order/${id}`, { helpStatus });
       if(res.status==200){
         fetchInternalOrders();
         fetchPendingData();
@@ -102,7 +102,7 @@ const Waiter = () => {
   const helpDone = async (id) => {
     try {
       const helpStatus = 'Assistance done';
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { helpStatus });
+      await axios.put(`${apiUrl}/api/order/${id}`, { helpStatus });
       fetchPendingData();
       fetchInternalOrders();
       toast.success('Assistance has been provided!');

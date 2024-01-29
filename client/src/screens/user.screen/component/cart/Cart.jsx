@@ -48,7 +48,7 @@ const Cart = (props) => {
   // const getOrderDetalis = async (id) => {
   //   try {
 
-  //     const res = await axios.get('https://caviar-api.vercel.app/api/order');
+  //     const res = await axios.get(`${apiUrl}/api/order`);
 
   //     const order = res.data.find(o => o.serial == serial)
 
@@ -80,7 +80,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ userLoginInfo, usertitle, ItemsInCart, costOrder, deleteitems, invoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost
+        ({ userLoginInfo, apiUrl, usertitle, ItemsInCart, costOrder, deleteitems, invoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost
           , createClientOrderForUser, createClientOrderForTable, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -106,8 +106,8 @@ const Cart = (props) => {
                       orderside.current.style.marginRight = "-50%";
                       // ordersText.current.style.marginRight = "-50%";
                     }}>الفاتورة</label>
-                      : userLoginInfo ? <label htmlFor="invoice-radio" className="slide invoice" onClick={() => {
-                        invoice(userLoginInfo.userinfo.id);
+                      : userLoginInfo, apiUrl ? <label htmlFor="invoice-radio" className="slide invoice" onClick={() => {
+                        invoice(userLoginInfo, apiUrl.userinfo.id);
                         orderside.current.style.marginRight = "-50%";
                         // ordersText.current.style.marginRight = "-50%";
                       }}>الفاتورة</label>
@@ -153,8 +153,8 @@ const Cart = (props) => {
                           <div className="total-order">
                             {id ? (
                               <button className='total-order-btn' onClick={() => createClientOrderForTable(id)}>تأكيد الطلب</button>
-                            ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createClientOrderForUser(userLoginInfo.userinfo.id)}>تأكيد الطلب</button>
+                            ) : (userLoginInfo, apiUrl && userLoginInfo, apiUrl.userinfo) && (
+                              <button className='total-order-btn' onClick={() => createClientOrderForUser(userLoginInfo, apiUrl.userinfo.id)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>

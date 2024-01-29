@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import './LoginRegistr.css';
 // import axios from 'axios';
+require('dotenv').config();
+
 // import jwt_decode from "jwt-decode";
 import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,7 +33,7 @@ const LoginRegistr = (props) => {
   // const signup = async (e) => {
   //   e.preventDefault()
   //   try {
-  //     const newclient = await axios.post('https://caviar-api.vercel.app/api/auth/signup', { username, password, phone, address, email })
+  //     const newclient = await axios.post(`${apiUrl}/api/auth/signup`, { username, password, phone, address, email })
   //     console.log(newclient)
   //     const token = newclient.accessToken
   //     localStorage.setItem("token", token)
@@ -47,7 +49,7 @@ const LoginRegistr = (props) => {
   //   console.log(phone);
   //   console.log(password);
   //   try {
-  //     const client = await axios.post('https://caviar-api.vercel.app/api/auth/login', { phone, password })
+  //     const client = await axios.post(`${apiUrl}/api/auth/login`, { phone, password })
   //     // console.log(client.data)
   //     // window.location.href =`http://localhost:3000/${client?.data._id}`;
   //     // console.log(client.data)

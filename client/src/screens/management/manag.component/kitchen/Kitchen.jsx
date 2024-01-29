@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 // import './Kitchen.css'
 import axios from 'axios';
+require('dotenv').config();
+
 import { detacontext } from '../../../../App'
 import { toast, ToastContainer } from 'react-toastify'; // Importing toast from 'react-toastify' for notifications
 import 'react-toastify/dist/ReactToastify.css'; // Importing default CSS for toast notifications
@@ -20,7 +22,7 @@ const Kitchen = () => {
   const getOrdersFromAPI = async () => {
     try {
       // Fetch orders from the API
-      const orders = await axios.get('https://caviar-api.vercel.app/api/order');
+      const orders = await axios.get(`${apiUrl}/api/order`);
       // Set all orders state
       setAllOrders(orders.data);
 
@@ -33,7 +35,7 @@ const Kitchen = () => {
       setOrderActive(activeOrders);
 
       // Fetch all products from the API
-      const getAllProducts = await axios.get('https://caviar-api.vercel.app/api/product/');
+      const getAllProducts = await axios.get(`${apiUrl}/api/product/`);
       // Extract product data
       const listAllProducts = await getAllProducts.data;
 
@@ -123,7 +125,7 @@ const Kitchen = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get('https://caviar-api.vercel.app/api/product/');
+      const response = await axios.get(`${apiUrl}/api/product/`);
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -140,7 +142,7 @@ const Kitchen = () => {
 
   const getAllWaiters = async () => {
     try {
-      const allEmployees = await axios.get('https://caviar-api.vercel.app/api/employee');
+      const allEmployees = await axios.get(`${apiUrl}/api/employee`);
       const allWaiters = allEmployees.data.filter((employee) => employee.role === 'waiter');
       const waiterActive = allWaiters.filter((waiter) => waiter.isActive);
       setAllWaiters(waiterActive);
@@ -161,7 +163,7 @@ const Kitchen = () => {
     console.log({ tableId: tableId });
 
     try {
-      const getTable = await axios.get(`https://caviar-api.vercel.app/api/table/${tableId}`);
+      const getTable = await axios.get(`${apiUrl}/api/table/${tableId}`);
       console.log({ getTable: getTable });
 
       const tablesectionNumber = getTable.data.sectionNumber;
@@ -211,10 +213,10 @@ const Kitchen = () => {
         orderData.waiter = waiter;
       }
 
-      const response = await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, orderData);
+      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData);
       if (response.status === 200) {
         // Fetch orders from the API
-        const orders = await axios.get('https://caviar-api.vercel.app/api/order');
+        const orders = await axios.get(`${apiUrl}/api/order`);
         // Set all orders state
         setAllOrders(orders.data);
 
@@ -241,7 +243,7 @@ const Kitchen = () => {
   const updateOrderDone = async (id) => {
     try {
       // Fetch order data by ID
-      const orderData = await axios.get(`https://caviar-api.vercel.app/api/order/${id}`);
+      const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = orderData.data.products;
 
       // Loop through each product in the order
@@ -292,7 +294,7 @@ const Kitchen = () => {
 
               try {
                 // Update kitchen consumption data
-                const update = await axios.put(`https://caviar-api.vercel.app/api/kitchenconsumption/${kitconsumption._id}`, {
+                const update = await axios.put(`${apiUrl}/api/kitchenconsumption/${kitconsumption._id}`, {
                   consumptionQuantity,
                   bookBalance,
                   productsProduced: kitconsumption.productsProduced
@@ -312,10 +314,10 @@ const Kitchen = () => {
       // Update order status or perform other tasks
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      await axios.put(`https://caviar-api.vercel.app/api/order/${id}`, { products: updateproducts, status });
+      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status });
 
       // Fetch orders from the API
-      const orders = await axios.get('https://caviar-api.vercel.app/api/order');
+      const orders = await axios.get(`${apiUrl}/api/order`);
       // Set all orders state
       setAllOrders(orders.data);
 
