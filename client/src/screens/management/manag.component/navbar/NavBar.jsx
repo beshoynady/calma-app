@@ -11,7 +11,7 @@ const NavBar = () => {
         ({ employeeLoginInfo, employeelogout }) => {
           return (
             <nav>
-              <i class='bx bx-menu'></i>
+              {/* <i class='bx bx-menu'></i> */}
               <form action="#">
                 <div class="form-input">
                   <input type="search" placeholder="Search..."/>

@@ -301,13 +301,13 @@
   height: 33px;
   width: 45px;
   position: absolute;
-  right: 155px;
+  left: 155px;
   transition: all 0.5s ease;
   z-index: 9999;
 }
 
 .sidebar.close~.home-section {
-  right: 55px;
+  left: 55px;
   width: 45px;
   z-index: 9999;
 }
@@ -344,7 +344,7 @@
   }
   
   .sidebar.close~.home-section {
-    right: 50px;
+    left: 50px;
     width: 45px;
   }
   .sidebar.close .nav-links li .sub-menu {

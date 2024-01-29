@@ -45,19 +45,24 @@ html{
 }
 
 .manag-body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     background: var(--grey);
     overflow-x: hidden;
 }
 .content{
   position: relative;
   width: calc(100% - 230px);
-  left: 230px;
+  left: 0;
   transition: all 0.3s ease;
 }
 
 .sidebar.close~.content{
   width: calc(100% - 60px);
-  left: 60px;
+  left: 0;
 }
 
 
