@@ -237,7 +237,7 @@ const POS = () => {
                 ) : ""}
 
 
-                <div className="container-fluid" style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
+                <div className="container-fluid " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
