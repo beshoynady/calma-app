@@ -176,6 +176,7 @@ const POS = () => {
                     </div>
                   </div>
                 ) : ""}
+                
                 {invoiceModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
