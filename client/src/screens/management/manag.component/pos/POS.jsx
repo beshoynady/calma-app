@@ -28,6 +28,8 @@ const POS = () => {
   const [clientaddress, setclientaddress] = useState('')
   const [ordertype, setordertype] = useState('')
   const [delivercost, setdelivercost] = useState(0)
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
 
   const deleteOrderdetalis = () => {
     setclientname('')
@@ -415,11 +417,11 @@ const POS = () => {
                           </form> : ""}
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">رسوم إضافية:</span>
-                          <span>$2.00</span>
+                          <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
                         </p>
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الخصم:</span>
-                          <span>$15.00</span>
+                          <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
                         </p>
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الإجمالي:</span>
@@ -434,7 +436,7 @@ const POS = () => {
                     <div className="col-12">
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
-                        <button type="button" className="btn btn-secondary">رسوم</button>
+                        <button type="button" className="btn btn-secondary" >رسوم</button>
                         <button type="button" className="btn btn-secondary">خصم</button>
                       </div>
                     </div>
@@ -450,9 +452,11 @@ const POS = () => {
                         {ordertype === 'Internal' ?
                           <button type="button" className="btn btn-primary" onClick={() => createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id)}>تأكيد</button>
 
-                          : ordertype === 'Delivery' ? <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost)}>تأكيد</button>
+                          : ordertype === 'Delivery' ?
+                           <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition)}>تأكيد</button>
 
-                            : ordertype === 'Takeaway' ? <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype)}>تأكيد</button>
+                            : ordertype === 'Takeaway' ?
+                             <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount,addition)}>تأكيد</button>
 
                               : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                         }

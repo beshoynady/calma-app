@@ -474,25 +474,25 @@ function App() {
 
 
 
-  
-  const getOrderProduct = async(e, tableid)=>{
+
+  const getOrderProduct = async (e, tableid) => {
     e.preventDefault()
     const tableorder = allOrders.filter((o, i) => o.table == tableid);
     const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
     const lasttableorderactive = lasttableorder.isActive
-    console.log({lasttableorder})
-    console.log({lasttableorderactive})
+    console.log({ lasttableorder })
+    console.log({ lasttableorderactive })
     if (lasttableorderactive) {
       const id = await lasttableorder._id
       const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
       const data = myorder.data
       console.log(data)
       console.log(data._id)
-      console.log({products:data.products})
+      console.log({ products: data.products })
       setmyorder(data)
       setmyorderid(data._id)
       setlist_products_order(data.products)
-    } 
+    }
   }
 
   const invoice = async (clientid) => {
@@ -587,7 +587,7 @@ function App() {
         const subTotal = costOrder + oldtotal;
         // const tax = subTotal * 0.14;
         // const total = subTotal + tax;
-        const total = subTotal ;
+        const total = subTotal;
         const status = 'Pending';
         const createBy = waiterid;
 
@@ -611,7 +611,7 @@ function App() {
         const subTotal = costOrder;
         // const tax = subTotal * 0.14;
         // const total = subTotal + tax;
-        const total = subTotal ;
+        const total = subTotal;
         const order_type = 'Internal';
 
         const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
@@ -637,7 +637,7 @@ function App() {
 
   const [posOrderId, setposOrderId] = useState('')
 
-  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost) => {
+  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost, discount, addition) => {
     try {
       // Retrieve day's orders to determine the order number
       const dayOrders = allOrders.filter((order) => new Date(order.createdAt).toDateString() === new Date().toDateString());
@@ -650,9 +650,13 @@ function App() {
       // Prepare order details
       const products = [...ItemsInCart];
       const subTotal = costOrder;
+      const addition = addition;
+      const discount = discount;
       // const tax = subTotal * 0.10;
       // const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
-      const total = deliveryCost > 0 ? subTotal + deliveryCost : subTotal ;
+      const total = deliveryCost > 0 ? subTotal + deliveryCost + discount + addition
+        : subTotal + discount + addition;
+        
       const name = await clientname;
       const phone = await clientphone;
       const address = await clientaddress;
@@ -669,6 +673,8 @@ function App() {
         subTotal,
         // tax,
         deliveryCost,
+        discount,
+        addition,
         total,
         order_type,
         createBy,
@@ -734,7 +740,7 @@ function App() {
     }
   };
 
- 
+
 
   const updatecountofsales = async (id) => {
     const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
@@ -799,7 +805,7 @@ function App() {
     }
   }
 
-  
+
   //++++++++++++++++++++++++++ AUTH ++++++++++++++++++++++++++++
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -1024,7 +1030,7 @@ function App() {
       invoice, list_products_order, orderupdate_date, myorder,
       categoryid, ItemsInCart, costOrder,
       additemtocart, setItemsInCart, increment, descrement,
-      getOrderProduct ,
+      getOrderProduct,
 
       // Functions related to creating different types of orders
       checkout, calcTotalSalesOfCategory, updatecountofsales,

@@ -77,6 +77,7 @@ const OrderSchema = new mongoose.Schema({
             totalprice: {
                 ...defaultOptions,
             },
+            
             // Indicates if the product is done
             isDone: {
                 type: Boolean,
@@ -122,6 +123,30 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         required: true
+    },
+    // Discount for the product
+    discount: {
+        type: Number,
+        default: 0,
+        required: true,
+        validate: {
+            validator: function(v) {
+                return v >= 0 && v <= 1000000;
+            },
+            message: '{VALUE} is not a valid discount value'
+        }
+    },
+    // Addition for the product
+    addition: {
+        type: Number,
+        default: 0,
+        required: true,
+        validate: {
+            validator: function(v) {
+                return v >= 0 && v <= 1000000;
+            },
+            message: '{VALUE} is not a valid addition value'
+        }
     },
     // Total cost of the order
     total: {
