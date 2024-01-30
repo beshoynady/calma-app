@@ -299,7 +299,7 @@
 
 .home-section {
   height: 33px;
-  right: 170px;
+  left: 170px;
   position: absolute;
   transition: all .5s ease;
   width: 45px;
@@ -308,7 +308,7 @@
 }
 
 .sidebar.close~.home-section {
-  right: 65px;
+  left: 65px;
   top: 20px;
   width: 45px;
   z-index: 9999;
