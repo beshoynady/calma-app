@@ -270,6 +270,9 @@ const ManagerDash = () => {
   const [ordernum, setordernum] = useState()
   const [table, settable] = useState()
   const [casher, setcasher] = useState()
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
+
   const [ivocedate, setivocedate] = useState(new Date())
 
   // Fetch orders from API
@@ -283,6 +286,8 @@ const ManagerDash = () => {
       setordertax(order.tax)
       setorderdeliveryCost(order.deliveryCost)
       setserial(order.serial)
+      setaddition(order.addition)
+      setdiscount(order.discount)
       // setivocedate(order.createdAt)
       setcasher(order.casher)
       settable(order.order_type == 'Internal' ? order.table : '')
