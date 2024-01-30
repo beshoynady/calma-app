@@ -9,7 +9,7 @@
 }
 
 .sidebar {
-  position: relative;
+  position: sticky;
   top: 0;
   right: 0;
   height: 100vh;
@@ -66,6 +66,9 @@
 }
 
 .sidebar .nav-links::-webkit-scrollbar {
+  display: none;
+}
+.sidebar.close .nav-links::-webkit-scrollbar {
   display: none;
 }
 

@@ -51,7 +51,7 @@ html{
     align-items: baseline;
     justify-content: space-between;
     background: var(--grey);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .content{
   position: relative;
