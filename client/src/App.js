@@ -472,7 +472,7 @@ function App() {
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
 
-  const getOrderProduct = async(e,tableid)=>{
+  const getOrderProduct = async(e, tableid)=>{
     e.preventDefault()
     const tableorder = allOrders.filter((o, i) => o.table == tableid);
     const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
@@ -484,6 +484,7 @@ function App() {
       const data = myorder.data
       console.log(data)
       console.log(data._id)
+      console.log({products:data.products})
       setmyorder(data)
       setmyorderid(data._id)
       setItemsInCart(data.products)

@@ -86,7 +86,7 @@ const POS = () => {
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
                       <div className="modal-content">
-                        <form onSubmit={(e)=>{getOrderProduct(tableID);setgetOrderTableModal(!getOrderTableModal)}}>
+                        <form onSubmit={(e)=>{getOrderProduct(e,tableID);setgetOrderTableModal(!getOrderTableModal)}}>
                           <div className="modal-header">
                             <h4 className="modal-title">اختر الطاوله</h4>
                             <button type="button" className="close" onClick={() => {  setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
