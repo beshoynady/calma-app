@@ -477,9 +477,10 @@ function App() {
     const tableorder = allOrders.filter((o, i) => o.table == tableid);
     const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
     const lasttableorderactive = lasttableorder.isActive
-
+    console.log({lasttableorder})
+    console.log({lasttableorderactive})
     if (lasttableorderactive) {
-      const id = await lasttableorderactive._id
+      const id = await lasttableorder._id
       const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
       const data = myorder.data
       console.log(data)
