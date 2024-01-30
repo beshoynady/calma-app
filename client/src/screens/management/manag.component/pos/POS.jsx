@@ -28,8 +28,6 @@ const POS = () => {
   const [clientaddress, setclientaddress] = useState('')
   const [ordertype, setordertype] = useState('')
   const [delivercost, setdelivercost] = useState(0)
-  const [discount, setdiscount] = useState(0)
-  const [addition, setaddition] = useState(0)
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
 
@@ -44,7 +42,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, getOrderProduct }) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, discount, addition,getOrderProduct }) => {
           if (employeeLoginInfo) {
             return (
               <section className='pos-section'>
@@ -309,7 +307,7 @@ const POS = () => {
                   </div>
                 ) : ""}
 
-                <div className="container-fluid " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
+                <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0'}}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
@@ -320,7 +318,7 @@ const POS = () => {
                     </div>
                   </div>
 
-                  <div className="row" style={{ height: '50%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
+                  <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
                     <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
                       {
                         ItemsInCart ? ItemsInCart.map((i, index) => (
@@ -420,13 +418,13 @@ const POS = () => {
                           {addaddition || addition > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">رسوم إضافية:</span>
-                              <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e) => setdiscount(e.target.value)} />
+                              <input type="Number" className="font-weight-bold w-25" defaultValue={0} onChange={(e) => setaddition(e.target.value)} />
                             </p> : ''
                           }
                           {adddiscount || discount > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">الخصم:</span>
-                              <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e) => setdiscount(e.target.value)} />
+                              <input type="Number" className="font-weight-bold w-25 " defaultValue={0} onChange={(e) => setdiscount(e.target.value)} />
                             </p> : ''
                           }
                           <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">

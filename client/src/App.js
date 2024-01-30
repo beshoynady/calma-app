@@ -471,6 +471,8 @@ function App() {
   const [ordertotal, setordertotal] = useState()
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
 
 
 
@@ -637,7 +639,7 @@ function App() {
 
   const [posOrderId, setposOrderId] = useState('')
 
-  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost, discount, addition) => {
+  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost) => {
     try {
       // Retrieve day's orders to determine the order number
       const dayOrders = allOrders.filter((order) => new Date(order.createdAt).toDateString() === new Date().toDateString());
@@ -654,9 +656,9 @@ function App() {
       const discount = discount;
       // const tax = subTotal * 0.10;
       // const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
-      const total = deliveryCost > 0 ? subTotal + deliveryCost + discount + addition
-        : subTotal + discount + addition;
-        
+      const total = deliveryCost > 0 ? subTotal + deliveryCost - discount + addition
+        : subTotal - discount + addition;
+
       const name = await clientname;
       const phone = await clientphone;
       const address = await clientaddress;
@@ -1030,7 +1032,7 @@ function App() {
       invoice, list_products_order, orderupdate_date, myorder,
       categoryid, ItemsInCart, costOrder,
       additemtocart, setItemsInCart, increment, descrement,
-      getOrderProduct,
+      getOrderProduct, setdiscount, setaddition, discount, addition,
 
       // Functions related to creating different types of orders
       checkout, calcTotalSalesOfCategory, updatecountofsales,
