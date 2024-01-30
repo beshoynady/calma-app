@@ -45,7 +45,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, discount, addition, getOrderProduct }) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdiscount, setorderaddition, orderdiscount, orderaddition, getOrderProduct }) => {
           if (employeeLoginInfo) {
             return (
               <section className='pos-section'>
@@ -282,17 +282,17 @@ const POS = () => {
                                     <td>{orderdeliveryCost}</td>
                                   </tr>
                                   : ''}
-                                {addition > 0 ?
+                                {orderaddition > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{addition}</td>
+                                    <td>{orderaddition}</td>
                                   </tr>
                                   : ''
                                 }
-                                {discount > 0 ?
+                                {orderdiscount > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{discount}</td>
+                                    <td>{orderdiscount}</td>
                                   </tr> : ''
                                 }
                                 <tr>
