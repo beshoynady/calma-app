@@ -80,6 +80,8 @@ const POS = () => {
                   </div>
                 </div>
 
+
+                
                 {getOrderTableModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
@@ -87,7 +89,7 @@ const POS = () => {
                         <form>
                           <div className="modal-header">
                             <h4 className="modal-title">اختر الطاوله</h4>
-                            <button type="button" className="close" onClick={() => {  settypeOrderModal(!typeOrderModal) }}>&times;</button>
+                            <button type="button" className="close" onClick={() => {  setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
                           </div>
                               <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                                 <div className="w-100">
@@ -103,8 +105,8 @@ const POS = () => {
                                 </div>
                               </div>
                           <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { deleteOrderdetalis(); settypeOrderModal(!typeOrderModal) }} />
-                            <input type="submit" className="btn btn-success" value="Add" onClick={(e) => { e.preventDefault(); settypeOrderModal(!typeOrderModal) }} />
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
+                            <input type="submit" className="btn btn-success" value="Add" onClick={(e) => { e.preventDefault(); setgetOrderTableModal(!getOrderTableModal) }} />
                           </div>
                         </form>
                       </div>
@@ -176,7 +178,6 @@ const POS = () => {
                     </div>
                   </div>
                 ) : ""}
-                
                 {invoiceModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
@@ -367,7 +368,7 @@ const POS = () => {
                     <div className="col-12">
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
-                        <button type="button" className="btn btn-warning" onClick={setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
+                        <button type="button" className="btn btn-warning" onClick={(e)=>setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
                         {/* <button type="button" className="btn btn-info">كارت</button> */}
                       </div>
                     </div>
