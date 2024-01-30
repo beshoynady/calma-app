@@ -17,9 +17,9 @@ const ManagLayout = () => {
       console.log(decodetoken)
       if (decodetoken.employeeinfo.isActive) {
         return (
-          <div className='manag-body '>
+          <div className='manag-body'>
             <SideBar />
-            <main className='manag_main content'>
+            <main className='content'>
               <NavBar />
               <Outlet></Outlet>
             </main>
