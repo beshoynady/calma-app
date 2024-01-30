@@ -111,16 +111,7 @@ const Users = () => {
                           <input type="text" class="form-control" onChange={(e) => getUserByPhone(e.target.value)} />
                           <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </div>
-                        {/* <div class="filter-group">
-                          <label>الوظيفة</label>
-                          <select class="form-control" onChange={(e) => getUsersByJob(e.target.value)} >
-                            <option>الكل</option>
-                            <option value="manager">مدير</option>
-                            <option value="casher">Cashير</option>
-                            <option value="waiter">ويتر</option>
-                            <option value="Chef">شيف</option>
-                          </select>
-                        </div>
+                        {/*
                         <div class="filter-group">
                           <label>الحالة</label>
                           <select class="form-control" onChange={(e) => filteruserByStatus(e.target.value)} >
