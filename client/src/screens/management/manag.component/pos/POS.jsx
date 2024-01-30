@@ -79,7 +79,7 @@ const POS = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {getOrderTableModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
