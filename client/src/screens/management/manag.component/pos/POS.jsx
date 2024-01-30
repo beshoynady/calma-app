@@ -107,41 +107,41 @@ const POS = () => {
                                 </select>
                               </div>
                               <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
-                              <tr>
-                                <th scope="col" className="col-md-3">الصنف</th>
-                                <th scope="col" className="col-md-2">السعر</th>
-                                <th scope="col" className="col-md-2">الكمية</th>
-                                <th scope="col" className="col-md-2">الاجمالي</th>
-                              </tr>
-                            </thead>
-                              <tbody>
-                                {/* Replace this with your dynamic data */}
-                                {list_products_order.map((item, i) => (
-                                  <tr key={i}>
-                                    <td className="col-md-3 text-truncate">{item.name}</td>
-                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                              <tfoot>
                                 <tr>
-                                  <td colSpan="3">Subtotal</td>
-                                  <td>{ordersubtotal}</td>
+                                  <th scope="col" className="col-md-3">الصنف</th>
+                                  <th scope="col" className="col-md-2">السعر</th>
+                                  <th scope="col" className="col-md-2">الكمية</th>
+                                  <th scope="col" className="col-md-2">الاجمالي</th>
                                 </tr>
-                                {orderdeliveryCost > 0 ?
+                              </thead>
+                                <tbody>
+                                  {/* Replace this with your dynamic data */}
+                                  {list_products_order.map((item, i) => (
+                                    <tr key={i}>
+                                      <td className="col-md-3 text-truncate">{item.name}</td>
+                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                      <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                      <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                <tfoot>
                                   <tr>
-                                    <td colSpan="3">Delivery</td>
-                                    <td>{orderdeliveryCost}</td>
+                                    <td colSpan="3">Subtotal</td>
+                                    <td>{ordersubtotal}</td>
                                   </tr>
-                                  : ''}
-                                <tr>
-                                  <td colSpan="3">Total</td>
-                                  <td>{ordertotal}</td>
-                                </tr>
-                              </tfoot>
-                            </table>
+                                  {orderdeliveryCost > 0 ?
+                                    <tr>
+                                      <td colSpan="3">Delivery</td>
+                                      <td>{orderdeliveryCost}</td>
+                                    </tr>
+                                    : ''}
+                                  <tr>
+                                    <td colSpan="3">Total</td>
+                                    <td>{ordertotal}</td>
+                                  </tr>
+                                </tfoot>
+                              </table>
                             </div>
                           </div>
                           <div className="modal-footer">
@@ -396,77 +396,78 @@ const POS = () => {
                           : ""}
                     </div>
                   </div>
+                  <div>
+                    <div className="row d-flex align-items-start rounded-10 p-0 m-0" style={{ padding: '0', margin: '0', direction: 'rtl' }}>
+                      <div className="col">
+                        <div className="order-details bg-white border" >
+                          <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
+                            <span className="font-weight-bold">قيمة الأوردر:</span>
+                            <span>{costOrder > 0 ? costOrder : 0}ج</span>
+                          </p>
 
-                  <div className="row d-flex align-items-start rounded-10 p-0 m-0" style={{ padding: '0', margin: '0', direction: 'rtl' }}>
-                    <div className="col">
-                      <div className="order-details bg-white border" >
-                        <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
-                          <span className="font-weight-bold">قيمة الأوردر:</span>
-                          <span>{costOrder > 0 ? costOrder : 0}ج</span>
-                        </p>
-
-                        {ordertype == 'Delivery' ?
-                          <form className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
-                            <label className="font-weight-bold">خدمة التوصيل:</label>
-                            <select id='table' className="w-40 form-control" required onChange={(e) => { setdelivercost(Number(e.target.value)) }}>
-                              <option>اختر</option>
-                              <option value='0'>0</option>
-                              <option value='5'>5</option>
-                              <option value='10'>10</option>
-                              <option value='15'>15</option>
-                              <option value='20'>20</option>
-                            </select>
-                          </form> : ""}
-                          {addaddition || addition>0?
-                        <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
-                          <span className="font-weight-bold">رسوم إضافية:</span>
-                          <input type="Number" className="font-weight-bold w-40"  defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
-                        </p>:''
+                          {ordertype == 'Delivery' ?
+                            <form className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
+                              <label className="font-weight-bold">خدمة التوصيل:</label>
+                              <select id='table' className="w-40 form-control" required onChange={(e) => { setdelivercost(Number(e.target.value)) }}>
+                                <option>اختر</option>
+                                <option value='0'>0</option>
+                                <option value='5'>5</option>
+                                <option value='10'>10</option>
+                                <option value='15'>15</option>
+                                <option value='20'>20</option>
+                              </select>
+                            </form> : ""}
+                          {addaddition || addition > 0 ?
+                            <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
+                              <span className="font-weight-bold">رسوم إضافية:</span>
+                              <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e) => setdiscount(e.target.value)} />
+                            </p> : ''
                           }
-                          {adddiscount || discount>0 ?
-                        <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
-                          <span className="font-weight-bold">الخصم:</span>
-                          <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
-                        </p>:''
+                          {adddiscount || discount > 0 ?
+                            <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
+                              <span className="font-weight-bold">الخصم:</span>
+                              <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e) => setdiscount(e.target.value)} />
+                            </p> : ''
                           }
-                        <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
-                          <span className="font-weight-bold">الإجمالي:</span>
-                          <span>{costOrder > 0 ? costOrder + delivercost : 0}ج</span>
-                        </p>
+                          <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
+                            <span className="font-weight-bold">الإجمالي:</span>
+                            <span>{costOrder > 0 ? costOrder + delivercost : 0}ج</span>
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
 
-                  <div className="row w-100 mt-auto" style={{ padding: '0', margin: '0' }}>
-                    <div className="col-12">
-                      <div className="btn-group btn-block">
-                        <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>setaddaddition(!addaddition)}>رسوم</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>setadddiscount(!adddiscount)}>خصم</button>
+                    <div className="row w-100 mt-auto" style={{ padding: '0', margin: '0' }}>
+                      <div className="col-12">
+                        <div className="btn-group btn-block">
+                          <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
+                          <button type="button" className="btn btn-secondary" onClick={() => setaddaddition(!addaddition)}>رسوم</button>
+                          <button type="button" className="btn btn-secondary" onClick={() => setadddiscount(!adddiscount)}>خصم</button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="btn-group btn-block">
-                        <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
-                        <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
-                        {/* <button type="button" className="btn btn-info">كارت</button> */}
+                      <div className="col-12">
+                        <div className="btn-group btn-block">
+                          <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
+                          <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
+                          {/* <button type="button" className="btn btn-info">كارت</button> */}
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="btn-group btn-block">
-                        {ordertype === 'Internal' ?
-                          <button type="button" className="btn btn-primary" onClick={() => createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id)}>تأكيد</button>
+                      <div className="col-12">
+                        <div className="btn-group btn-block">
+                          {ordertype === 'Internal' ?
+                            <button type="button" className="btn btn-primary" onClick={() => createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id)}>تأكيد</button>
 
-                          : ordertype === 'Delivery' ?
-                           <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition)}>تأكيد</button>
+                            : ordertype === 'Delivery' ?
+                              <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost, discount, addition)}>تأكيد</button>
 
-                            : ordertype === 'Takeaway' ?
-                             <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount,addition)}>تأكيد</button>
+                              : ordertype === 'Takeaway' ?
+                                <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition)}>تأكيد</button>
 
-                              : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
-                        }
-                        <button type="button" className="btn btn-secondary">تعديل</button>
+                                : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
+                          }
+                          <button type="button" className="btn btn-secondary">تعديل</button>
+                        </div>
                       </div>
                     </div>
                   </div>
