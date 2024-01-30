@@ -30,6 +30,8 @@ const POS = () => {
   const [delivercost, setdelivercost] = useState(0)
   const [discount, setdiscount] = useState(0)
   const [addition, setaddition] = useState(0)
+  const [adddiscount, setadddiscount] = useState(false)
+  const [addaddition, setaddaddition] = useState(false)
 
   const deleteOrderdetalis = () => {
     setclientname('')
@@ -415,14 +417,18 @@ const POS = () => {
                               <option value='20'>20</option>
                             </select>
                           </form> : ""}
+                          {addaddition && addition>0?
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">رسوم إضافية:</span>
                           <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
-                        </p>
+                        </p>:''
+                          }
+                          {adddiscount && discount>0 ?
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الخصم:</span>
                           <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
-                        </p>
+                        </p>:''
+                          }
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الإجمالي:</span>
                           <span>{costOrder > 0 ? costOrder + delivercost : 0}ج</span>
@@ -436,8 +442,8 @@ const POS = () => {
                     <div className="col-12">
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
-                        <button type="button" className="btn btn-secondary" >رسوم</button>
-                        <button type="button" className="btn btn-secondary">خصم</button>
+                        <button type="button" className="btn btn-secondary" onClick={setaddaddition(!addaddition)}>رسوم</button>
+                        <button type="button" className="btn btn-secondary" onClick={setadddiscount(!adddiscount)}>خصم</button>
                       </div>
                     </div>
                     <div className="col-12">
