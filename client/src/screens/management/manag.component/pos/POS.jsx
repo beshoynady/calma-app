@@ -427,13 +427,13 @@ const POS = () => {
                           {addaddition || addition > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">رسوم إضافية:</span>
-                              <input type="Number" min={0} className="font-weight-bold w-25" defaultValue={addition} onChange={(e) => setaddition(e.target.value)} />
+                              <input type="Number" min={0} className="font-weight-bold w-25" defaultValue={addition} onChange={(e) => setaddition(Number(e.target.value))} />
                             </p> : ''
                           }
                           {adddiscount || discount > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">الخصم:</span>
-                              <input type="Number" min={0} className="font-weight-bold w-25 " defaultValue={discount} onChange={(e) => setdiscount(e.target.value)} />
+                              <input type="Number" min={0} className="font-weight-bold w-25 " defaultValue={discount} onChange={(e) => setdiscount(Number(e.target.value))} />
                             </p> : ''
                           }
                           <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
