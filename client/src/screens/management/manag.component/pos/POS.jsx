@@ -302,6 +302,8 @@ const POS = () => {
                             <label className="font-weight-bold">خدمة التوصيل:</label>
                             <select id='table' className="w-40 form-control" required onChange={(e) => { setdelivercost(Number(e.target.value)) }}>
                               <option>اختر</option>
+                              <option value='0'>0</option>
+                              <option value='5'>5</option>
                               <option value='10'>10</option>
                               <option value='15'>15</option>
                               <option value='20'>20</option>
@@ -317,7 +319,7 @@ const POS = () => {
                         </p>
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الإجمالي:</span>
-                          <span>{costOrder > 0 ? costOrder + delivercost + Math.round(costOrder * 0.10 * 100) / 100 : 0}ج</span>
+                          <span>{costOrder > 0 ? costOrder + delivercost :0 }ج</span>
                         </p>
                       </div>
                     </div>
