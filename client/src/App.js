@@ -472,6 +472,9 @@ function App() {
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
 
+
+
+  
   const getOrderProduct = async(e, tableid)=>{
     e.preventDefault()
     const tableorder = allOrders.filter((o, i) => o.table == tableid);
@@ -488,7 +491,7 @@ function App() {
       console.log({products:data.products})
       setmyorder(data)
       setmyorderid(data._id)
-      setItemsInCart(data.products)
+      setlist_products_order(data.products)
     } 
   }
 
@@ -998,7 +1001,6 @@ function App() {
     getallTable();
     getallUsers();
     getallOrders()
-    costOfOrder()
     getUserInfoFromToken()
     // Payment_pending_orders()
 

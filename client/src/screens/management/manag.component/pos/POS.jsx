@@ -40,14 +40,14 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost ,getOrderProduct}) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, getOrderProduct }) => {
           if (employeeLoginInfo) {
             return (
               <section className='pos-section'>
 
                 <div className='pos-content'>
                   <div className='categ-menu'>
-                  <nav className='pos-category'>
+                    <nav className='pos-category'>
                       <ul className='category-ul'>
                         {allcategories.map((c, i) => <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
                           <a className='category-pos-btn'>{c.name}</a>
@@ -81,29 +81,65 @@ const POS = () => {
                 </div>
 
 
-                
+
                 {getOrderTableModal ? (
-                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
-                    <div className="modal-dialog fixed-top mx-auto">
-                      <div className="modal-content">
-                        <form onSubmit={(e)=>{getOrderProduct(e,tableID);setgetOrderTableModal(!getOrderTableModal)}}>
+                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
+                    <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
+                      <div className="modal-content" style={{ height: "100%" }}>
+                        <form onSubmit={(e) => { getOrderProduct(e, tableID); setgetOrderTableModal(!getOrderTableModal) }}>
                           <div className="modal-header">
                             <h4 className="modal-title">اختر الطاوله</h4>
-                            <button type="button" className="close" onClick={() => {  setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
+                            <button type="button" className="close" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
                           </div>
-                              <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                                <div className="w-100">
-                                  <div className="form-group w-100">
-                                    <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                                    <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
-                                      <option>اختر رقم الطاولة</option>
-                                      {allTable.map((table, i) => (
-                                        <option value={table._id} key={i}>{table.tablenum}</option>
-                                      ))}
-                                    </select>
-                                  </div>
-                                </div>
+                          <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                            <div className="w-100">
+                              <div className="form-group w-100">
+                                <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
+                                <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                                  <option>اختر رقم الطاولة</option>
+                                  {allTable.map((table, i) => (
+                                    <option value={table._id} key={i}>{table.tablenum}</option>
+                                  ))}
+                                </select>
                               </div>
+                              <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
+                              <tr>
+                                <th scope="col" className="col-md-3">الصنف</th>
+                                <th scope="col" className="col-md-2">السعر</th>
+                                <th scope="col" className="col-md-2">الكمية</th>
+                                <th scope="col" className="col-md-2">الاجمالي</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                {/* Replace this with your dynamic data */}
+                                {list_products_order.map((item, i) => (
+                                  <tr key={i}>
+                                    <td className="col-md-3 text-truncate">{item.name}</td>
+                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colSpan="3">Subtotal</td>
+                                  <td>{ordersubtotal}</td>
+                                </tr>
+                                {orderdeliveryCost > 0 ?
+                                  <tr>
+                                    <td colSpan="3">Delivery</td>
+                                    <td>{orderdeliveryCost}</td>
+                                  </tr>
+                                  : ''}
+                                <tr>
+                                  <td colSpan="3">Total</td>
+                                  <td>{ordertotal}</td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                            </div>
+                          </div>
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
                             <input type="submit" className="btn btn-success" value="Add" />
@@ -181,13 +217,13 @@ const POS = () => {
                 {invoiceModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
-                      <div className="modal-content">
+                      <div className="modal-content" style={{ height: "100%" }}>
                         <div className="modal-header">
                           <button className='btn btn-success m-0' onClick={handlePrint}>طباعه</button>
                           <button type="button" className="close" onClick={() => { setinvoiceModal(!invoiceModal) }}>&times;</button>
                         </div>
 
-                        <div className="invoice side" >
+                        <div className="invoice side" style={{ height: "100%" }} >
                           <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
 
                             {/* Invoice Header */}
@@ -241,10 +277,10 @@ const POS = () => {
                                     <td>{orderdeliveryCost}</td>
                                   </tr>
                                   : ''}
-                                <tr>
+                                {/* <tr>
                                   <td colSpan="3">Tax</td>
                                   <td>{Math.round(ordertax * 100) / 100}</td>
-                                </tr>
+                                </tr> */}
                                 <tr>
                                   <td colSpan="3">Total</td>
                                   <td>{ordertotal}</td>
@@ -282,41 +318,78 @@ const POS = () => {
 
                   <div className="row" style={{ height: '50%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
                     <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
-                      {ItemsInCart.map((i, index) => (
-                        <div className="card mb-3" key={index}>
-                          {i._id === productid && noteArea ? (
-                            <form className="card-body" style={{ padding: '5px', margin: '0' }}>
-                              <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
-                              <div className="d-flex justify-content-center">
-                                <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
-                              </div>
-                            </form>
-                          ) : (
-                            <div className="card-body" style={{ padding: '5px', margin: '0' }}>
-                              <div className="d-flex justify-content-between align-items-center py-2">
-                                <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
-                              </div>
-                              <div className="d-flex justify-content-between align-items-center py-2">
-                                <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
-                                <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                  <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
-                                  <span>{i.quantity ?i.quantity:0}</span>
-                                  <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                      {
+                        ItemsInCart ? ItemsInCart.map((i, index) => (
+                          <div className="card mb-3" key={index}>
+                            {i._id === productid && noteArea ? (
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
+                                <div className="d-flex justify-content-center">
+                                  <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
                                 </div>
-                                <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
-                              </div>
-                              {i.notes && (
-                                <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                  {i.notes}
+                              </form>
+                            ) : (
+                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
                                 </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
+                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
+                                    <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
+                                    <span>{i.quantity ? i.quantity : 0}</span>
+                                    <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                                  </div>
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                                </div>
+                                {i.notes && (
+                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
+                                    {i.notes}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        )) : list_products_order ? list_products_order.map((i, index) => (
+                          <div className="card mb-3" key={index}>
+                            {i._id === productid && noteArea ? (
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
+                                <div className="d-flex justify-content-center">
+                                  <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
+                                </div>
+                              </form>
+                            ) : (
+                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
+                                </div>
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
+                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
+                                    <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
+                                    <span>{i.quantity ? i.quantity : 0}</span>
+                                    <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                                  </div>
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                                </div>
+                                {i.notes && (
+                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
+                                    {i.notes}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))
+
+                          : ""}
                     </div>
                   </div>
 
@@ -327,7 +400,7 @@ const POS = () => {
                           <span className="font-weight-bold">قيمة الأوردر:</span>
                           <span>{costOrder > 0 ? costOrder : 0}ج</span>
                         </p>
-                  
+
                         {ordertype == 'Delivery' ?
                           <form className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                             <label className="font-weight-bold">خدمة التوصيل:</label>
@@ -350,7 +423,7 @@ const POS = () => {
                         </p>
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الإجمالي:</span>
-                          <span>{costOrder > 0 ? costOrder + delivercost :0 }ج</span>
+                          <span>{costOrder > 0 ? costOrder + delivercost : 0}ج</span>
                         </p>
                       </div>
                     </div>
@@ -368,7 +441,7 @@ const POS = () => {
                     <div className="col-12">
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
-                        <button type="button" className="btn btn-warning" onClick={(e)=>setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
+                        <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
                         {/* <button type="button" className="btn btn-info">كارت</button> */}
                       </div>
                     </div>
