@@ -341,13 +341,13 @@
     height: 33px;
     width: 45px;
     position: absolute;
-    right: 155px;
+    left: 155px;
     top: 20px;
     transition: all 0.5s ease;
   }
   
   .sidebar.close~.home-section {
-    right: 65px;
+    left: 65px;
     top: 20px;
     width: 45px;
   }

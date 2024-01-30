@@ -200,7 +200,17 @@ const Orders = () => {
                             <option value="Takeaway" >Takeaway</option>
                           </select>
                         </div>
-                      
+                        {/* <div class="filter-group">
+                  <label>Status</label>
+                  <select class="form-control">
+                    <option>Any</option>
+                    <option>Delivered</option>
+                    <option>Shipped</option>
+                    <option>Pending</option>
+                    <option>Cancelled</option>
+                  </select>
+                </div>
+                <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                       </div>
                     </div>
                   </div>
