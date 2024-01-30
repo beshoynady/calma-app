@@ -277,9 +277,10 @@ function App() {
         const oldproducts = await allOrders.find((order) => order._id == id).products;
         const oldsubTotal = await allOrders.find((order) => order._id == id).subTotal;
         const subTotal = costOrder + oldsubTotal;
-        const tax = subTotal * 0.10;
+        // const tax = subTotal * 0.10;
         const deliveryCost = 10;
-        const total = subTotal + tax + deliveryCost;
+        // const total = subTotal + tax + deliveryCost;
+        const total = subTotal + deliveryCost;
 
         if (lastuserorder.status == 'Preparing') {
           const additem = ItemsInCart.map((item) => ({ ...item, isAdd: true }));
@@ -323,18 +324,19 @@ function App() {
           const user = finduser ? userId : null;
           const products = [...ItemsInCart];
           const subTotal = costOrder;
-          const tax = subTotal * 0.14;
+          // const tax = subTotal * 0.14;
           const name = finduser ? finduser.username : '';
           const phone = finduser ? finduser.phone : '';
           const address = finduser ? finduser.address : '';
           const order_type = 'Delivery';
           const deliveryCost = 10;
-          const total = subTotal + tax + deliveryCost;
+          // const total = subTotal + tax + deliveryCost;
+          const total = subTotal + deliveryCost;
           const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
             serial,
             products,
             subTotal,
-            tax,
+            // tax,
             deliveryCost,
             total,
             user,
@@ -379,8 +381,9 @@ function App() {
         const status = lasttableorder.status;
         const subTotal = costOrder + oldsubTotal;
         console.log(subTotal)
-        const tax = subTotal * 0.14;
-        const total = subTotal + tax;
+        // const tax = subTotal * 0.14;
+        // const total = subTotal + tax;
+        const total = subTotal;
 
         if (status == 'Preparing') {
           const additem = [];
@@ -394,7 +397,7 @@ function App() {
             products,
             subTotal,
             total,
-            tax,
+            // tax,
             status,
           });
           setItemsInCart([]);
@@ -409,7 +412,7 @@ function App() {
             products,
             subTotal,
             total,
-            tax,
+            // tax,
             status,
           });
           setItemsInCart([]);
@@ -426,15 +429,16 @@ function App() {
         const user = finduser ? tableId : null;
         const products = [...ItemsInCart];
         const subTotal = costOrder;
-        const tax = subTotal * 0.14;
-        const total = subTotal + tax;
+        // const tax = subTotal * 0.14;
+        // const total = subTotal + tax;
+        const total = subTotal;
         const order_type = 'Internal';
 
         const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
           serial,
           products,
           subTotal,
-          tax,
+          // tax,
           total,
           table,
           user,
@@ -456,153 +460,6 @@ function App() {
       toast.error('An error occurred while creating/updating the order');
     }
   };
-
-  // const createClientOrder = async (clientid) => {
-  //   const tableorder = allOrders.filter((o, i) => o.table == clientid);
-  //   const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
-  //   const lasttableorderactive = lasttableorder.isActive
-
-  //   const userorder = allOrders.filter((o, i) => o.user == clientid);
-  //   const lastuserorder = userorder.length > 0 ? userorder[userorder.length - 1] : [];
-  //   const lastuserorderactive = lastuserorder.isActive
-
-  //   if (clientid) {
-  //     if (lasttableorderactive == true) {
-  //       const id = await lasttableorder._id
-  //       const oldproducts = await allOrders.find((order) => order._id == id).products;
-  //       const oldsubTotal = await allOrders.find((order) => order._id == id).subTotal
-  //       const status = lasttableorder.status
-  //       // const products = [...ItemsInCart, ...oldproducts]
-  //       const subTotal = costOrder + oldsubTotal
-  //       const tax = total * 0.14
-  //       const total = subTotal + tax
-  //       console.log(ItemsInCart)
-
-  //       if (status === 'Pending' || status === 'Approved' || status === 'Preparing') {
-  //         const additem = []
-  //         for (let i = 0; i < ItemsInCart.length; i++) {
-  //           ItemsInCart[i].isAdd = true;
-  //           additem.push(ItemsInCart[i])
-  //         }
-  //         console.log(additem)
-  //         const products = [...additem, ...oldproducts]
-  //         console.log(products)
-  //         const status = 'Pending'
-  //         const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-  //           products, subTotal, total, tax, status
-  //         })
-  //         setItemsInCart([])
-  //         getProducts()
-  //       } else {
-  //         const products = [...ItemsInCart, ...oldproducts]
-  //         console.log(products)
-  //         const status = 'Pending'
-  //         const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-  //           products, subTotal, total, tax, status
-  //         })
-  //       }
-  //       setItemsInCart([])
-  //       getProducts()
-  //     } else if (lastuserorderactive == true) {
-  //       const id = await lastuserorder._id
-  //       const oldproducts = await allOrders.find((order) => order._id == id).products
-  //       const oldsubTotal = await allOrders.find((order) => order._id == id).subTotal
-  //       // const products = [...ItemsInCart, ...oldproducts]
-  //       const subTotal = costOrder + oldsubTotal;
-  //       const tax = subTotal * 0.14
-  //       const deliveryCost = 10
-  //       const total = subTotal + tax + deliveryCost
-  //       if (lastuserorder.status == 'Preparing') {
-  //         const additem = []
-  //         for (let i = 0; i < ItemsInCart.length; i++) {
-  //           ItemsInCart[i].isAdd = true;
-  //           additem.push(ItemsInCart[i])
-  //         }
-  //         console.log(additem)
-  //         const products = [...additem, ...oldproducts]
-  //         console.log(products)
-  //         const status = 'Pending'
-  //         const order_type = 'Delivery'
-  //         const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-  //           products, subTotal, total, tax, deliveryCost, status, order_type
-  //         })
-  //         setItemsInCart([])
-  //         getProducts()
-  //       } else {
-  //         const products = [...ItemsInCart, ...oldproducts]
-  //         console.log(products)
-  //         const status = 'Pending'
-  //         const order_type = 'Delivery'
-  //         const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-  //           products, subTotal, total, tax, deliveryCost, status, order_type
-  //         })
-  //       }
-
-  //       setItemsInCart([])
-  //       getProducts()
-
-  //     } else {
-  //       try {
-  //         const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
-  //         const table = allTable.find((t, i) => t._id == clientid) ? clientid : null;
-  //         const finduser = allUsers.find((u, i) => u._id == clientid);
-  //         const user = finduser ? clientid : null;
-  //         const products = [...ItemsInCart]
-  //         const subTotal = costOrder;
-  //         const tax = subTotal * 0.14
-  //         const name = finduser ? finduser.username : ''
-  //         const phone = finduser ? finduser.phone : ''
-  //         const address = finduser ? finduser.address : ''
-  //         if (user) {
-  //           const order_type = 'Delivery'
-  //           const deliveryCost = 10
-  //           const total = subTotal + tax + deliveryCost
-  //           const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
-  //             serial,
-  //             products,
-  //             subTotal,
-  //             tax,
-  //             deliveryCost,
-  //             total,
-  //             user,
-  //             name,
-  //             address,
-  //             phone,
-  //             order_type,
-  //           })
-  //           setItemsInCart([])
-  //           getProducts()
-  //         } else {
-  //           const order_type = 'Internal'
-  //           const total = subTotal + tax
-  //           const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
-  //             serial,
-  //             products,
-  //             subTotal,
-  //             tax,
-  //             total,
-  //             table,
-  //             user,
-  //             order_type,
-  //           })
-  //         }
-  //         // console.log(await neworder.data);
-  //         setItemsInCart([])
-  //         getProducts()
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-  //     }
-  //   } else {
-  //     window.alert("Please login or scan qr")
-  //   }
-
-  // }
-
-
-
-  // Function to update an order
-
 
 
 
@@ -705,8 +562,9 @@ function App() {
 
         const products = [...ItemsInCart, ...oldproducts];
         const subTotal = costOrder + oldtotal;
-        const tax = subTotal * 0.14;
-        const total = subTotal + tax;
+        // const tax = subTotal * 0.14;
+        // const total = subTotal + tax;
+        const total = subTotal ;
         const status = 'Pending';
         const createBy = waiterid;
 
@@ -714,7 +572,7 @@ function App() {
           products,
           subTotal,
           total,
-          tax,
+          // tax,
           status,
           createBy
         });
@@ -728,7 +586,7 @@ function App() {
         const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
         const products = [...ItemsInCart];
         const subTotal = costOrder;
-        const tax = subTotal * 0.14;
+        // const tax = subTotal * 0.14;
         const total = subTotal + tax;
         const order_type = 'Internal';
 
@@ -738,7 +596,7 @@ function App() {
           products,
           subTotal,
           total,
-          tax,
+          // tax,
           order_type,
           createBy: waiterid
         });
@@ -760,7 +618,7 @@ function App() {
       // Retrieve day's orders to determine the order number
       const dayOrders = allOrders.filter((order) => new Date(order.createdAt).toDateString() === new Date().toDateString());
       const takeawayorder = dayOrders.filter((order) => order.order_type == 'Takeaway')
-      const ordernum =ordertype=='Takeaway'? takeawayorder.length == 0 ? 1 : takeawayorder[takeawayorder.length - 1].ordernum + 1:null;
+      const ordernum = ordertype == 'Takeaway' ? takeawayorder.length == 0 ? 1 : takeawayorder[takeawayorder.length - 1].ordernum + 1 : null;
 
       // Generate serial number for the order
       const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
@@ -768,8 +626,9 @@ function App() {
       // Prepare order details
       const products = [...ItemsInCart];
       const subTotal = costOrder;
-      const tax = subTotal * 0.10;
-      const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
+      // const tax = subTotal * 0.10;
+      // const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
+      const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal ;
       const name = await clientname;
       const phone = await clientphone;
       const address = await clientaddress;
@@ -784,7 +643,7 @@ function App() {
         ordernum,
         products,
         subTotal,
-        tax,
+        // tax,
         deliveryCost,
         total,
         order_type,
@@ -849,7 +708,8 @@ function App() {
       setorderdeliveryCost(data.deliveryCost)
       setItemsInCart([])
     }
-  }
+  };
+
   // const POSinvoice = async (posOrderId) => {
   //   // console.log(allOrders)
 
@@ -1038,7 +898,7 @@ function App() {
   // Function for user login
   const login = async (e, phone, password) => {
     e.preventDefault();
-console.log({phone, password})
+    console.log({ phone, password })
     try {
       if (!phone || !password) {
         toast.error('Phone and password are required.');

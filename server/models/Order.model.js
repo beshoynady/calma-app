@@ -83,6 +83,9 @@ const OrderSchema = new mongoose.Schema({
                 default: false,
                 required: true,
             },
+            numOfPaid: {
+                ...defaultOptions,
+            },
             // Indicates if the product is Deleverd
             isDeleverd: {
                 type: Boolean,
