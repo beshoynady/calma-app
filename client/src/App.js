@@ -693,6 +693,8 @@ function App() {
         toast.success('تم انشاء الاوردر');
         setItemsInCart([]);
         setitemid([]);
+        setaddition(0);
+        setdiscount(0)
       } else {
         throw new Error('هناك خطأ في انشاء الاوردر');
       }
@@ -724,6 +726,8 @@ function App() {
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
+      setaddition(data.addition)
+      setdiscount(data.discount)
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
@@ -735,6 +739,8 @@ function App() {
       setlist_products_order(data.products)
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
+      setaddition(data.addition)
+      setdiscount(data.discount)
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
