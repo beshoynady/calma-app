@@ -13,19 +13,19 @@ const defaultOptions = {
 };
 
 const OrderSchema = new mongoose.Schema({
-   // Serial number of the order
-   serial: {
-    type: String,
-    default: '000001',
-    required: true,
-    unique: true,
-    validate: {
-        validator: function(v) {
-            return /^[0-9]{6}$/.test(v);
-        },
-        message: '{VALUE} is not a valid serial number'
-    }
-},
+    // Serial number of the order
+    serial: {
+        type: String,
+        default: '000001',
+        required: true,
+        unique: true,
+        validate: {
+            validator: function (v) {
+                return /^[0-9]{6}$/.test(v);
+            },
+            message: '{VALUE} is not a valid serial number'
+        }
+    },
     // Order number
     ordernum: {
         type: Number,
@@ -70,14 +70,14 @@ const OrderSchema = new mongoose.Schema({
                     message: '{VALUE} is not a valid price',
                 },
             },
-            priceAfterDiscount:{
+            priceAfterDiscount: {
                 ...defaultOptions,
             },
             // Total price of the product quantity
             totalprice: {
                 ...defaultOptions,
             },
-            
+
             // Indicates if the product is done
             isDone: {
                 type: Boolean,
@@ -104,9 +104,9 @@ const OrderSchema = new mongoose.Schema({
     subTotal: {
         type: Number,
         required: true,
-        default:0,
+        default: 0,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v >= 0;
             },
             message: '{VALUE} should be greater than zero'
@@ -130,7 +130,7 @@ const OrderSchema = new mongoose.Schema({
         default: 0,
         required: true,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v >= 0 && v <= 1000000;
             },
             message: '{VALUE} is not a valid discount value'
@@ -142,7 +142,7 @@ const OrderSchema = new mongoose.Schema({
         default: 0,
         required: true,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v >= 0 && v <= 1000000;
             },
             message: '{VALUE} is not a valid addition value'
@@ -152,9 +152,9 @@ const OrderSchema = new mongoose.Schema({
     total: {
         type: Number,
         required: true,
-        default:0,
+        default: 0,
         validate: {
-            validator: function(v) {
+            validator: function (v) {
                 return v >= 0;
             },
             message: '{VALUE} should be greater than zero'
@@ -167,7 +167,7 @@ const OrderSchema = new mongoose.Schema({
         ref: 'Table',
         default: null
     },
-    
+
     // User associated with the order
     user: {
         type: ObjectId,

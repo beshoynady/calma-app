@@ -640,6 +640,8 @@ function App() {
   const [posOrderId, setposOrderId] = useState('')
 
   const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost, discount, addition) => {
+    console.log({discount})
+    console.log({addition})
     try {
       const dayOrders = allOrders.filter(order => new Date(order.createdAt).toDateString() === new Date().toDateString());
       const takeawayOrders = dayOrders.filter(order => order.order_type === 'Takeaway');
