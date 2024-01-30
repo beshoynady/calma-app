@@ -237,7 +237,7 @@ const POS = () => {
                 ) : ""}
 
 
-                <div className="container-fluid" style={{ width: '400px', height: '100%', padding: '0', margin: '0' }}>
+                <div className="container-fluid" style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
@@ -248,6 +248,7 @@ const POS = () => {
                     </div>
                   </div>
 
+                  
                   <div className="row" style={{ height: '50%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
                     <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
                       {ItemsInCart.map((i, index) => (
@@ -288,17 +289,14 @@ const POS = () => {
                     </div>
                   </div>
 
-                  <div className="row d-flex align-items-start rounded-10 p-0 m-0" style={{ padding: '0', margin: '0' }}>
+                  <div className="row d-flex align-items-start rounded-10 p-0 m-0" style={{ padding: '0', margin: '0', direction: 'rtl' }}>
                     <div className="col">
-                      <div className="order-details bg-white border" style={{ flexDirection: 'column-reverse' }}>
+                      <div className="order-details bg-white border" >
                         <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">قيمة الأوردر:</span>
                           <span>{costOrder > 0 ? costOrder : 0}ج</span>
                         </p>
-                        <p className="order-item border-bottom  mb-0 d-flex justify-content-between align-items-center text-black">
-                          <span className="font-weight-bold">الضريبة:</span>
-                          <span>{costOrder > 0 ? Math.round(costOrder * 0.10 * 100) / 100 : 0}ج</span>
-                        </p>
+                  
                         {ordertype == 'Delivery' ?
                           <form className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                             <label className="font-weight-bold">خدمة التوصيل:</label>
@@ -338,7 +336,7 @@ const POS = () => {
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
                         <button type="button" className="btn btn-warning">كاش</button>
-                        <button type="button" className="btn btn-info">كارت</button>
+                        {/* <button type="button" className="btn btn-info">كارت</button> */}
                       </div>
                     </div>
                     <div className="col-12">
