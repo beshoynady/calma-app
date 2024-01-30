@@ -472,6 +472,24 @@ function App() {
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
 
+  const getOrderProduct = async(e,tableid)=>{
+    e.preventDefault()
+    const tableorder = allOrders.filter((o, i) => o.table == tableid);
+    const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
+    const lasttableorderactive = lasttableorder.isActive
+
+    if (lasttableorderactive) {
+      const id = await lasttableorderactive._id
+      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+      const data = myorder.data
+      console.log(data)
+      console.log(data._id)
+      setmyorder(data)
+      setmyorderid(data._id)
+      setItemsInCart(data.products)
+    } 
+  }
+
   const invoice = async (clientid) => {
     console.log(clientid)
     // console.log(allOrders)
@@ -711,22 +729,7 @@ function App() {
     }
   };
 
-  // const POSinvoice = async (posOrderId) => {
-  //   // console.log(allOrders)
-
-  //     const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + posOrderId)
-  //     const data = await myorder.data
-  //     console.log(data)
-  //     setmyorder(data)
-  //     setmyorderid(data._id)
-  //     setlist_products_order(data.products)
-  //     setorderupdate_date(data.updatedAt)
-  //     setordertotal(data.total)
-  //     setordersubtotal(data.subTotal)
-  //     setordertax(data.tax)
-  //     setorderdeliveryCost(data.deliveryCost)
-  //     setItemsInCart([])
-  // }
+ 
 
   const updatecountofsales = async (id) => {
     const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
@@ -791,25 +794,7 @@ function App() {
     }
   }
 
-  // const [list_day_order, setlist_day_order] = useState([])
-  // const [total_day_salse, settotal_day_salse] = useState(0)
-
-  // const Payment_pending_orders = async () => {
-  //   const dayorder = allOrders.filter((order) => new Date(order.createdAt).getDay() == new Date().getDay());
-  //   setlist_day_order(dayorder);
-
-  //   if (dayorder.length > 0) {
-  //     const order_day_paid = dayorder.filter((order) => order.payment_status === 'Paid');
-  //     let total = 0;
-
-  //     if (order_day_paid.length > 0) {
-  //       for (let i = 0; i < order_day_paid.length; i++) {
-  //         total += order_day_paid[i].total; // تم تغيير هنا
-  //       }
-  //       settotal_day_salse(total); // تم نقل هذا السطر خارج حلقة الـ for
-  //     }
-  //   }
-  // };
+  
   //++++++++++++++++++++++++++ AUTH ++++++++++++++++++++++++++++
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

@@ -86,7 +86,7 @@ const POS = () => {
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
                     <div className="modal-dialog fixed-top mx-auto">
                       <div className="modal-content">
-                        <form>
+                        <form onSubmit={(e)=>{getOrderProduct(tableID);setgetOrderTableModal(!getOrderTableModal)}}>
                           <div className="modal-header">
                             <h4 className="modal-title">اختر الطاوله</h4>
                             <button type="button" className="close" onClick={() => {  setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
@@ -106,7 +106,7 @@ const POS = () => {
                               </div>
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
-                            <input type="submit" className="btn btn-success" value="Add" onClick={(e) => { e.preventDefault(); setgetOrderTableModal(!getOrderTableModal) }} />
+                            <input type="submit" className="btn btn-success" value="Add" />
                           </div>
                         </form>
                       </div>
