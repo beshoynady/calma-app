@@ -639,41 +639,31 @@ function App() {
 
   const [posOrderId, setposOrderId] = useState('')
 
-  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost ,discount,addition) => {
+  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost, discount, addition) => {
     try {
-      // Retrieve day's orders to determine the order number
-      const dayOrders = allOrders.filter((order) => new Date(order.createdAt).toDateString() === new Date().toDateString());
-      const takeawayorder = dayOrders.filter((order) => order.order_type == 'Takeaway')
-      const ordernum = ordertype == 'Takeaway' ? takeawayorder.length == 0 ? 1 : takeawayorder[takeawayorder.length - 1].ordernum + 1 : null;
-
-      // Generate serial number for the order
+      const dayOrders = allOrders.filter(order => new Date(order.createdAt).toDateString() === new Date().toDateString());
+      const takeawayOrders = dayOrders.filter(order => order.order_type === 'Takeaway');
+      const ordernum = ordertype === 'Takeaway' ? takeawayOrders.length === 0 ? 1 : takeawayOrders[takeawayOrders.length - 1].ordernum + 1 : null;
+  
       const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
-
-      // Prepare order details
+  
       const products = [...ItemsInCart];
       const subTotal = costOrder;
-      const addition = addition;
-      const discount = discount;
-      // const tax = subTotal * 0.10;
-      // const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
-      const total = deliveryCost > 0 ? subTotal + deliveryCost - discount + addition
-        : subTotal - discount + addition;
-
-      const name = await clientname;
-      const phone = await clientphone;
-      const address = await clientaddress;
-      const createBy = await casherid;
-      const order_type = await ordertype;
+      const total = deliveryCost > 0 ? subTotal + deliveryCost - discount + addition : subTotal - discount + addition;
+  
+      const name = clientname;
+      const phone = clientphone;
+      const address = clientaddress;
+      const createBy = casherid;
+      const order_type = ordertype;
       const casher = casherid;
       const status = 'Approved';
-
-      // Create the new order
+  
       const newOrder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
         serial,
         ordernum,
         products,
         subTotal,
-        // tax,
         deliveryCost,
         discount,
         addition,
@@ -686,8 +676,7 @@ function App() {
         address,
         status
       });
-
-      // Handle successful order creation
+  
       if (newOrder && newOrder.data._id) {
         setposOrderId(newOrder.data._id);
         toast.success('تم انشاء الاوردر');
@@ -698,9 +687,10 @@ function App() {
       }
     } catch (error) {
       console.error(error);
-      toast.error('حدث خطأ ما . حاول مرة اخري.');
+      toast.error('حدث خطأ ما. حاول مرة اخرى.');
     }
   };
+  
 
   const POSinvoice = async (checkid) => {
     // console.log(allOrders)
