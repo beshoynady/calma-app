@@ -471,8 +471,8 @@ function App() {
   const [ordertotal, setordertotal] = useState()
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
-  const [discount, setdiscount] = useState(0)
-  const [addition, setaddition] = useState(0)
+  const [orderdiscount, setorderdiscount] = useState(0)
+  const [orderaddition, setorderaddition] = useState(0)
 
 
 
@@ -639,7 +639,7 @@ function App() {
 
   const [posOrderId, setposOrderId] = useState('')
 
-  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost) => {
+  const createCasherOrder = async (casherid, clientname, clientphone, clientaddress, ordertype, deliveryCost ,discount,addition) => {
     try {
       // Retrieve day's orders to determine the order number
       const dayOrders = allOrders.filter((order) => new Date(order.createdAt).toDateString() === new Date().toDateString());
@@ -693,8 +693,6 @@ function App() {
         toast.success('تم انشاء الاوردر');
         setItemsInCart([]);
         setitemid([]);
-        setaddition(0);
-        setdiscount(0)
       } else {
         throw new Error('هناك خطأ في انشاء الاوردر');
       }
@@ -726,8 +724,8 @@ function App() {
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
-      setaddition(data.addition)
-      setdiscount(data.discount)
+      setorderaddition(data.addition)
+      setorderdiscount(data.discount)
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
@@ -739,8 +737,8 @@ function App() {
       setlist_products_order(data.products)
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
-      setaddition(data.addition)
-      setdiscount(data.discount)
+      setorderaddition(data.addition)
+      setorderdiscount(data.discount)
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
@@ -1038,7 +1036,7 @@ function App() {
       invoice, list_products_order, orderupdate_date, myorder,
       categoryid, ItemsInCart, costOrder,
       additemtocart, setItemsInCart, increment, descrement,
-      getOrderProduct, setdiscount, setaddition, discount, addition,
+      getOrderProduct, setorderdiscount, setorderaddition, orderdiscount, orderaddition,
 
       // Functions related to creating different types of orders
       checkout, calcTotalSalesOfCategory, updatecountofsales,

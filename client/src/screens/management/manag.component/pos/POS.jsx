@@ -28,6 +28,9 @@ const POS = () => {
   const [clientaddress, setclientaddress] = useState('')
   const [ordertype, setordertype] = useState('')
   const [delivercost, setdelivercost] = useState(0)
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
+
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
 
@@ -466,10 +469,10 @@ const POS = () => {
                             <button type="button" className="btn btn-primary" onClick={() => createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id)}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost)}>تأكيد</button>
+                              <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition)}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
-                                <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype)}>تأكيد</button>
+                                <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype,discount,addition)}>تأكيد</button>
 
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
