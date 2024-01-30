@@ -288,7 +288,7 @@ function App() {
           const status = 'Pending';
           const order_type = 'Delivery';
           const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-            products, subTotal, total, tax, deliveryCost, status, order_type
+            products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
               Authorization: `Bearer ${token}`
@@ -303,7 +303,7 @@ function App() {
           const status = 'Pending';
           const order_type = 'Delivery';
           const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
-            products, subTotal, total, tax, deliveryCost, status, order_type
+            products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
               Authorization: `Bearer ${token}`
@@ -496,7 +496,7 @@ function App() {
         setorderupdate_date(data.updatedAt)
         setordertotal(data.total)
         setordersubtotal(data.subTotal)
-        setordertax(data.tax)
+        // setordertax(data.tax)
         setItemsInCart([])
 
       } else if (lastuserorderactive) {
@@ -510,7 +510,7 @@ function App() {
         setorderupdate_date(data.updatedAt)
         setordertotal(data.total)
         setordersubtotal(data.subTotal)
-        setordertax(data.tax)
+        // setordertax(data.tax)
         setorderdeliveryCost(data.deliveryCost)
         setItemsInCart([])
       }
@@ -587,7 +587,8 @@ function App() {
         const products = [...ItemsInCart];
         const subTotal = costOrder;
         // const tax = subTotal * 0.14;
-        const total = subTotal + tax;
+        // const total = subTotal + tax;
+        const total = subTotal ;
         const order_type = 'Internal';
 
         const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
@@ -628,7 +629,7 @@ function App() {
       const subTotal = costOrder;
       // const tax = subTotal * 0.10;
       // const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal + tax;
-      const total = deliveryCost > 0 ? subTotal + tax + deliveryCost : subTotal ;
+      const total = deliveryCost > 0 ? subTotal + deliveryCost : subTotal ;
       const name = await clientname;
       const phone = await clientphone;
       const address = await clientaddress;
@@ -690,7 +691,7 @@ function App() {
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
       setordersubtotal(data.subTotal)
-      setordertax(data.tax)
+      // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
@@ -704,7 +705,7 @@ function App() {
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
       setordersubtotal(data.subTotal)
-      setordertax(data.tax)
+      // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
       setItemsInCart([])
     }
