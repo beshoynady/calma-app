@@ -438,7 +438,7 @@ const POS = () => {
                           }
                           <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                             <span className="font-weight-bold">الإجمالي:</span>
-                            <span>{costOrder > 0 ? costOrder + delivercost : 0}ج</span>
+                            <span>{costOrder > 0 ? costOrder + delivercost + addition - discount : 0}ج</span>
                           </p>
                         </div>
                       </div>
