@@ -417,16 +417,16 @@ const POS = () => {
                               <option value='20'>20</option>
                             </select>
                           </form> : ""}
-                          {addaddition && addition>0?
+                          {addaddition || addition>0?
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">رسوم إضافية:</span>
-                          <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
+                          <input type="Number" className="font-weight-bold w-40"  defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
                         </p>:''
                           }
-                          {adddiscount && discount>0 ?
+                          {adddiscount || discount>0 ?
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                           <span className="font-weight-bold">الخصم:</span>
-                          <input type="Number" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
+                          <input type="Number" className="font-weight-bold w-40" defaultValue={0} onChange={(e)=>setdiscount(e.target.value)}/>
                         </p>:''
                           }
                         <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
@@ -442,8 +442,8 @@ const POS = () => {
                     <div className="col-12">
                       <div className="btn-group btn-block">
                         <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
-                        <button type="button" className="btn btn-secondary" onClick={setaddaddition(!addaddition)}>رسوم</button>
-                        <button type="button" className="btn btn-secondary" onClick={setadddiscount(!adddiscount)}>خصم</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>setaddaddition(!addaddition)}>رسوم</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>setadddiscount(!adddiscount)}>خصم</button>
                       </div>
                     </div>
                     <div className="col-12">
