@@ -42,7 +42,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, discount, addition,getOrderProduct }) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, discount, addition, getOrderProduct }) => {
           if (employeeLoginInfo) {
             return (
               <section className='pos-section'>
@@ -270,21 +270,30 @@ const POS = () => {
                               </tbody>
                               <tfoot>
                                 <tr>
-                                  <td colSpan="3">Subtotal</td>
+                                  <td colSpan="3">المجموع</td>
                                   <td>{ordersubtotal}</td>
                                 </tr>
                                 {orderdeliveryCost > 0 ?
                                   <tr>
-                                    <td colSpan="3">Delivery</td>
+                                    <td colSpan="3">خدمة التوصيل</td>
                                     <td>{orderdeliveryCost}</td>
                                   </tr>
                                   : ''}
-                                {/* <tr>
-                                  <td colSpan="3">Tax</td>
-                                  <td>{Math.round(ordertax * 100) / 100}</td>
-                                </tr> */}
+                                {addition > 0 ?
+                                  <tr>
+                                    <td colSpan="3">رسوم اضافيه</td>
+                                    <td>{addition}</td>
+                                  </tr>
+                                  : ''
+                                }
+                                {discount > 0 ?
+                                  <tr>
+                                    <td colSpan="3">رسوم اضافيه</td>
+                                    <td>{discount}</td>
+                                  </tr> : ''
+                                }
                                 <tr>
-                                  <td colSpan="3">Total</td>
+                                  <td colSpan="3">الاجمالي</td>
                                   <td>{ordertotal}</td>
                                 </tr>
                               </tfoot>
@@ -307,7 +316,7 @@ const POS = () => {
                   </div>
                 ) : ""}
 
-                <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0'}}>
+                <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
