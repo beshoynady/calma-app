@@ -18,7 +18,7 @@ const Orders = () => {
   // Fetch orders from API
   const getOrders = async () => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/order');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -44,7 +44,7 @@ const Orders = () => {
   // Fetch orders from API
   const getProductsOrder = async (serial) => {
     try {
-      const res = await axios.get('https://caviar-api.vercel.app/api/order');
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
       const order = res.data.find(o => order.serial == serial)
       setlist_products_order(order.products)
       setordertotal(order.total)
@@ -92,7 +92,7 @@ const Orders = () => {
     e.preventDefault();
     try {
       const id = orderId;
-      await axios.delete(`https://caviar-api.vercel.app/api/order/${id}`);
+      await axios.delete(`https://calma-api-puce.vercel.app/api/order/${id}`);
       getOrders();
       toast.success('Order deleted successfully');
     } catch (error) {
@@ -118,7 +118,7 @@ const Orders = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`https://caviar-api.vercel.app/api/order/${Id}`);
+        await axios.delete(`https://calma-api-puce.vercel.app/api/order/${Id}`);
       }
       getOrders();
       toast.success('Selected orders deleted successfully');
