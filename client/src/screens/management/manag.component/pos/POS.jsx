@@ -93,7 +93,7 @@ const POS = () => {
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
                     <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
                       <div className="modal-content" style={{ height: "100%" }}>
-                        <form onSubmit={(e) => { getOrderDetalisBySerial(e, serial); setgetOrderDetalisModal(!getOrderDetalisModal) }}>
+                        <form onSubmit={(e) => { getOrderDetalisBySerial(serial); setgetOrderDetalisModal(!getOrderDetalisModal) }}>
                           <div className="modal-header">
                             <h4 className="modal-title">رقم الفاتوره</h4>
                             <button type="button" className="close" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }}>&times;</button>
