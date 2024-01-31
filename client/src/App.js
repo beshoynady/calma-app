@@ -178,14 +178,14 @@ function App() {
 
   const increment = (id) => {
     setcount(count + 1)
-    const product = productOrderTOupdate.length>0?productOrderTOupdate.find(product => product._id == id): allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ? productOrderTOupdate.find(product => product._id == id) : allProducts.find(product => product._id == id)
     product.quantity += 1;
     console.log(product)
   };
 
   const descrement = (id) => {
     setcount(count - 1)
-    const product =productOrderTOupdate.length>0?productOrderTOupdate.find(product => product._id == id): allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ? productOrderTOupdate.find(product => product._id == id) : allProducts.find(product => product._id == id)
     // console.log(product.quantity)
     if (product.quantity < 1) {
       product.quantity = 0;
@@ -199,7 +199,7 @@ function App() {
   const [productnote, setproductnote] = useState('')
   const addnotrstoproduct = (e, id) => {
     e.preventDefault()
-    const product = productOrderTOupdate.length>0?productOrderTOupdate.find(product => product._id == id): allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ? productOrderTOupdate.find(product => product._id == id) : allProducts.find(product => product._id == id)
     product.notes = productnote
   }
 
@@ -231,20 +231,22 @@ function App() {
 
   // delete item from cart by id
   const quantityzero = (id) => {
-    const product = productOrderTOupdate.length>0?productOrderTOupdate.find(product => product._id == id): allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ? productOrderTOupdate.find(product => product._id == id) : allProducts.find(product => product._id == id)
     product.quantity = 0
     product.notes = ''
   }
 
   const deleteitems = (id) => {
-    const withotdeleted =productOrderTOupdate.length>0?productOrderTOupdate.find(product => product._id !== id):ItemsInCart.filter(item => item._id !== id)
-    if(productOrderTOupdate.length>0) {
+    const withotdeleted = productOrderTOupdate.length > 0 ?
+      productOrderTOupdate.filter(product => product.productid !== id)
+      : ItemsInCart.filter(item => item._id !== id)
+    if (productOrderTOupdate.length > 0) {
       setproductOrderTOupdate(withotdeleted)
       quantityzero(id)
-    }else {
-    setItemsInCart(withotdeleted);
-    quantityzero(id)
-  }
+    } else {
+      setItemsInCart(withotdeleted);
+      quantityzero(id)
+    }
   }
 
 
@@ -261,14 +263,14 @@ function App() {
         total += item.totalprice
         setcostOrder(total)
       })
-    }else if(productOrderTOupdate.length>0){
+    } else if (productOrderTOupdate.length > 0) {
       let total = 0;
       productOrderTOupdate.map((item) => {
         item.totalprice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
         total += item.totalprice
         setcostOrder(total)
       })
-   } else {
+    } else {
       setcostOrder(0)
     }
   }
@@ -1022,7 +1024,7 @@ function App() {
       const order = activeOrder.find(o => o.serial == serial)
       console.log({ activeOrder })
       console.log({ order })
-      console.log({ products: order.products})
+      console.log({ products: order.products })
       setOrderDetalisBySerial(order)
       setproductOrderTOupdate(order.products)
       setaddition(order.addition)
@@ -1035,16 +1037,16 @@ function App() {
 
   const updateOrder = async () => {
     const id = OrderDetalisBySerial._id
-    console.log({id})
-    console.log({discount})
-    console.log({addition})
+    console.log({ id })
+    console.log({ discount })
+    console.log({ addition })
     try {
       const subTotal = costOrder
       const total = subTotal + addition - discount;
-      console.log({subTotal})
-      console.log({total})
-      console.log({updatelist:productOrderTOupdate})
-      
+      console.log({ subTotal })
+      console.log({ total })
+      console.log({ updatelist: productOrderTOupdate })
+
       const updatedOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
         products: productOrderTOupdate,
         subTotal,
@@ -1126,7 +1128,7 @@ function App() {
       ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
       createClientOrderForTable, createClientOrderForUser,
 
-      OrderDetalisBySerial, getOrderDetalisBySerial,updateOrder,productOrderTOupdate
+      OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
 
     }}>
       <BrowserRouter>
