@@ -471,8 +471,8 @@ function App() {
   const [ordertotal, setordertotal] = useState()
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
-  const [orderdiscount, setorderdiscount] = useState(0)
-  const [orderaddition, setorderaddition] = useState(0)
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
 
 
 
@@ -582,14 +582,16 @@ function App() {
       if (lasttableorderactive) {
         // Update the existing order
         const id = lasttableorder._id;
-        const oldproducts = (await allOrders.find((order) => order._id === id)).products;
-        const oldtotal = (await allOrders.find((order) => order._id === id)).total;
-
+        const orderData = allOrders.find((order) => order._id === id)
+        const oldproducts = orderData.products;
+        const oldtotal = orderData.total;
+        const newAddition = orderData.addition + addition
+        const newDiscount = orderData.discount + discount
         const products = [...ItemsInCart, ...oldproducts];
         const subTotal = costOrder + oldtotal;
         // const tax = subTotal * 0.14;
         // const total = subTotal + tax;
-        const total = subTotal;
+        const total = subTotal + addition - discount; 
         const status = 'Pending';
         const createBy = waiterid;
 
@@ -597,7 +599,8 @@ function App() {
           products,
           subTotal,
           total,
-          // tax,
+          addition : newAddition,
+          discount : newDiscount,
           status,
           createBy
         });
@@ -613,7 +616,7 @@ function App() {
         const subTotal = costOrder;
         // const tax = subTotal * 0.14;
         // const total = subTotal + tax;
-        const total = subTotal;
+        const total = subTotal + addition - discount;
         const order_type = 'Internal';
 
         const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
@@ -623,6 +626,8 @@ function App() {
           subTotal,
           total,
           // tax,
+          discount,
+          addition,
           order_type,
           createBy: waiterid
         });
@@ -716,8 +721,8 @@ function App() {
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
-      setorderaddition(data.addition)
-      setorderdiscount(data.discount)
+      setaddition(data.addition)
+      setdiscount(data.discount)
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
@@ -729,8 +734,8 @@ function App() {
       setlist_products_order(data.products)
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
-      setorderaddition(data.addition)
-      setorderdiscount(data.discount)
+      setaddition(data.addition)
+      setdiscount(data.discount)
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
@@ -1028,7 +1033,7 @@ function App() {
       invoice, list_products_order, orderupdate_date, myorder,
       categoryid, ItemsInCart, costOrder,
       additemtocart, setItemsInCart, increment, descrement,
-      getOrderProduct, setorderdiscount, setorderaddition, orderdiscount, orderaddition,
+      getOrderProduct, setdiscount, setaddition, discount, addition,
 
       // Functions related to creating different types of orders
       checkout, calcTotalSalesOfCategory, updatecountofsales,

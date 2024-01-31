@@ -28,8 +28,6 @@ const POS = () => {
   const [clientaddress, setclientaddress] = useState('')
   const [ordertype, setordertype] = useState('')
   const [delivercost, setdelivercost] = useState(0)
-  const [discount, setdiscount] = useState(0)
-  const [addition, setaddition] = useState(0)
 
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
@@ -45,7 +43,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdiscount, setorderaddition, orderdiscount, orderaddition, getOrderProduct }) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, discount, addition, getOrderProduct }) => {
           if (employeeLoginInfo) {
             return (
               <section className='pos-section'>
@@ -282,17 +280,17 @@ const POS = () => {
                                     <td>{orderdeliveryCost}</td>
                                   </tr>
                                   : ''}
-                                {orderaddition > 0 ?
+                                {addition > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{orderaddition}</td>
+                                    <td>{addition}</td>
                                   </tr>
                                   : ''
                                 }
-                                {orderdiscount > 0 ?
+                                {discount > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{orderdiscount}</td>
+                                    <td>{discount}</td>
                                   </tr> : ''
                                 }
                                 <tr>
