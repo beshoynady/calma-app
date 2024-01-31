@@ -376,15 +376,15 @@ const POS = () => {
                               <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid?i.productid:i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteitems(i.productid?i.productid:i._id)} className="btn btn-danger">حذف</button>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => descrement(i._id?i._id:i.productid)} className="btn btn-light">-</button>
+                                    <button onClick={() => descrement(i.productid?i.productid:i._id)} className="btn btn-light">-</button>
                                     <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => increment(i._id?i._id:i.productid)} className="btn btn-light">+</button>
+                                    <button onClick={() => increment(i.productid?i.productid:i._id)} className="btn btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
                                 </div>
