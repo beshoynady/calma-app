@@ -1005,7 +1005,7 @@ function App() {
   const getOrderDetalisBySerial = async (serial) => {
     try {
       const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
-      const activeOrder = res.data.filter(o => o.isActive = true)
+      const activeOrder = res.data.filter(o => o.isActive == true)
       const order = activeOrder.find(o => o.serial == serial)
       setOrderDetalisBySerial(order)
       setItemsInCart(order.products)
