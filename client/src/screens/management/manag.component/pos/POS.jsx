@@ -51,7 +51,7 @@ const POS = () => {
           OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
         }) => {
           if (employeeLoginInfo) {
-
+            console.log({productOrderTOupdate})
             return (
               <section className='pos-section'>
 
@@ -363,42 +363,43 @@ const POS = () => {
                   <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
                     <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
                       {
-                        ItemsInCart ? ItemsInCart.map((i, index) => (
-                          <div className="card mb-3" key={index}>
-                            {i._id === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
-                                <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
-                                <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
-                                </div>
-                              </form>
-                            ) : (
-                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
-                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
-                                    <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
-                                  </div>
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
-                                </div>
-                                {i.notes && (
-                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                    {i.notes}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))
-                          : productOrderTOupdate.length > 0 ? productOrderTOupdate.map((i, index) => (
+                        // ItemsInCart ? ItemsInCart.map((i, index) => (
+                        //   <div className="card mb-3" key={index}>
+                        //     {i._id === productid && noteArea ? (
+                        //       <form className="card-body" style={{ padding: '5px', margin: '0' }}>
+                        //         <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
+                        //         <div className="d-flex justify-content-center">
+                        //           <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                        //           <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
+                        //         </div>
+                        //       </form>
+                        //     ) : (
+                        //       <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                        //         <div className="d-flex justify-content-between align-items-center py-2">
+                        //           <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
+                        //           <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                        //           <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
+                        //         </div>
+                        //         <div className="d-flex justify-content-between align-items-center py-2">
+                        //           <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
+                        //           <div className="d-flex justify-content-between" style={{ width: '50%' }}>
+                        //             <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
+                        //             <span>{i.quantity ? i.quantity : 0}</span>
+                        //             <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                        //           </div>
+                        //           <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                        //         </div>
+                        //         {i.notes && (
+                        //           <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
+                        //             {i.notes}
+                        //           </div>
+                        //         )}
+                        //       </div>
+                        //     )}
+                        //   </div>
+                        // ))
+                          // :
+                          productOrderTOupdate.length > 0 ? productOrderTOupdate.map((i, index) => (
                             <div className="card mb-3" key={index}>
                               {i.productid === productid && noteArea ? (
                                 <form className="card-body" style={{ padding: '5px', margin: '0' }}>
