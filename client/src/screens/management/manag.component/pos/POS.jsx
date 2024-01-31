@@ -280,17 +280,17 @@ const POS = () => {
                                     <td>{orderdeliveryCost}</td>
                                   </tr>
                                   : ''}
-                                {addition > 0 ?
+                                {orderaddition > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{addition}</td>
+                                    <td>{orderaddition}</td>
                                   </tr>
                                   : ''
                                 }
-                                {discount > 0 ?
+                                {orderdiscount > 0 ?
                                   <tr>
                                     <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{discount}</td>
+                                    <td>{orderdiscount}</td>
                                   </tr> : ''
                                 }
                                 <tr>
