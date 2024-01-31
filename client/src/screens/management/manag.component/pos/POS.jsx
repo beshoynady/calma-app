@@ -382,9 +382,9 @@ const POS = () => {
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
+                                    <button onClick={() => descrement(i._id?i._id:i.productid)} className="btn btn-light">-</button>
                                     <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                                    <button onClick={() => increment(i._id?i._id:i.productid)} className="btn btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
                                 </div>
@@ -396,7 +396,8 @@ const POS = () => {
                               </div>
                             )}
                           </div>
-                        )) : list_products_order ? list_products_order.map((i, index) => (
+                        )) 
+                        : list_products_order ? list_products_order.map((i, index) => (
                           <div className="card mb-3" key={index}>
                             {i._id === productid && noteArea ? (
                               <form className="card-body" style={{ padding: '5px', margin: '0' }}>
