@@ -83,8 +83,6 @@ const POS = () => {
                   </div>
                 </div>
 
-
-
                 {getOrderTableModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
                     <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
@@ -464,13 +462,13 @@ const POS = () => {
                       <div className="col-12">
                         <div className="btn-group btn-block">
                           {ordertype === 'Internal' ?
-                            <button type="button" className="btn btn-primary" onClick={() => createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id)}>تأكيد</button>
+                            <button type="button" className="btn btn-primary" onClick={() =>{ createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition)}>تأكيد</button>
+                              <button type="button" className="btn btn-primary" onClick={() =>{ createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
-                                <button type="button" className="btn btn-primary" onClick={() => createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype,discount,addition)}>تأكيد</button>
+                                <button type="button" className="btn btn-primary" onClick={() =>{ createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype,discount,addition);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
 
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }

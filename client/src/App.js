@@ -608,10 +608,10 @@ function App() {
         });
 
         toast.success('Order updated successfully!');
-        setItemsInCart([]);
         setitemid([])
         setaddition(0)
         setdiscount(0)
+        setItemsInCart([]);
         getProducts();
       } else {
         // Create a new order
@@ -637,10 +637,10 @@ function App() {
         });
 
         toast.success('New order created successfully!');
-        setItemsInCart([]);
         setitemid([])
         setaddition(0)
         setdiscount(0)
+        setItemsInCart([]);
       }
     } catch (error) {
       console.log(error);
