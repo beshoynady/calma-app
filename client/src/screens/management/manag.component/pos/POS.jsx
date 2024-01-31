@@ -17,6 +17,7 @@ const POS = () => {
   const [getOrderTableModal, setgetOrderTableModal] = useState(false)
   const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
+  const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
 
   const [tableID, settableID] = useState('')
   const [itemid, setitemid] = useState([])
@@ -45,8 +46,10 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition,orderdiscount, orderaddition, discount, addition, getOrderProduct }) => {
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition,orderdiscount, orderaddition, discount, addition, getOrderProduct,   OrderDetalisBySerial ,getOrderDetalisBySerial
+        }) => {
           if (employeeLoginInfo) {
+            
             return (
               <section className='pos-section'>
 
@@ -85,6 +88,33 @@ const POS = () => {
                   </div>
                 </div>
 
+                {getOrderDetalisModal ? (
+                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
+                    <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
+                      <div className="modal-content" style={{ height: "100%" }}>
+                        <form onSubmit={(e) => { getOrderDetalisBySerial(e, serial); setgetOrderDetalisModal(!getOrderDetalisModal) }}>
+                          <div className="modal-header">
+                            <h4 className="modal-title">رقم الفاتوره</h4>
+                            <button type="button" className="close" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }}>&times;</button>
+                          </div>
+                          <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                            <div className="w-100">
+                              <div className="form-group w-100">
+                                <label htmlFor='table' className='w-40'>رقم الفاتورة:</label>
+                                <input type="text" min={0} className="font-weight-bold w-25 " onChange={(e) => setserial(e.target.value)} />
+
+                              </div>
+                            </div>
+                          </div>
+                          <div className="modal-footer">
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }} />
+                            <input type="submit" className="btn btn-success" value="Add" />
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                ) : ""}
                 {getOrderTableModal ? (
                   <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
                     <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
@@ -474,7 +504,7 @@ const POS = () => {
 
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          <button type="button" className="btn btn-secondary">تعديل</button>
+                          <button type="button" className="btn btn-secondary" onClick={()=>setgetOrderDetalisModal(!getOrderDetalisModal)}>تعديل</button>
                         </div>
                       </div>
                     </div>

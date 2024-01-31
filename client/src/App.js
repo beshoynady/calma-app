@@ -999,6 +999,22 @@ function App() {
   }
 
 
+  //######### get order ditalis by serial 
+  const [OrderDetalisBySerial, setOrderDetalisBySerial] = useState({})
+  // Fetch orders from API
+  const getOrderDetalisBySerial = async (serial) => {
+    try {
+      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
+      const order = res.data.find(o => o.serial == serial)
+      setOrderDetalisBySerial(order)
+      setItemsInCart(order)
+    } catch (error) {
+      console.log(error);
+      // Display toast or handle error
+    }
+  };
+
+
   useEffect(() => {
     getProducts()
     getCategories()
@@ -1054,7 +1070,10 @@ function App() {
       // Other utility functions or state variables
       itemid, setitemid, showdate,
       ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
-      createClientOrderForTable, createClientOrderForUser
+      createClientOrderForTable, createClientOrderForUser,
+
+      OrderDetalisBySerial ,getOrderDetalisBySerial
+
     }}>
       <BrowserRouter>
         <Routes>
