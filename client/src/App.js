@@ -1005,9 +1005,10 @@ function App() {
   const getOrderDetalisBySerial = async (serial) => {
     try {
       const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
-      const order = res.data.find(o => o.serial == serial)
+      const activeOrder = res.data.filter(o => o.isActive = true)
+      const order = activeOrder.find(o => o.serial == serial)
       setOrderDetalisBySerial(order)
-      setItemsInCart(order)
+      setItemsInCart(order.product)
     } catch (error) {
       console.log(error);
       // Display toast or handle error
