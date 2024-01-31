@@ -723,30 +723,31 @@ function App() {
 
   const POSinvoice = async (checkid) => {
     // console.log(allOrders)
-    const tableorder = allOrders.filter((o, i) => o.table == checkid);
-    const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
-    const lasttableorderactive = await lasttableorder.isActive
+    // const tableorder = allOrders.filter((o, i) => o.table == checkid);
+    // const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
+    // const lasttableorderactive = await lasttableorder.isActive
 
     const employeeorder = allOrders.filter((o, i) => o.createBy == checkid);
     const lastemployeeorder = employeeorder.length > 0 ? employeeorder[employeeorder.length - 1] : [];
     const lastemployeeorderactive = await lastemployeeorder.isActive
 
-    if (lasttableorderactive) {
-      const id = await lasttableorder._id
-      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
-      const data = await myorder.data
-      setmyorder(data)
-      setmyorderid(data._id)
-      setlist_products_order(data.products)
-      setorderupdate_date(data.updatedAt)
-      setordertotal(data.total)
-      setordersubtotal(data.subTotal)
-      // setordertax(data.tax)
-      setorderdeliveryCost(data.deliveryCost)
-      setorderaddition(data.addition)
-      setorderdiscount(data.discount)
-      setItemsInCart([])
-    } else if (lastemployeeorderactive) {
+    // if (lasttableorderactive) {
+    //   const id = await lasttableorder._id
+    //   const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+    //   const data = await myorder.data
+    //   setmyorder(data)
+    //   setmyorderid(data._id)
+    //   setlist_products_order(data.products)
+    //   setorderupdate_date(data.updatedAt)
+    //   setordertotal(data.total)
+    //   setordersubtotal(data.subTotal)
+    //   // setordertax(data.tax)
+    //   setorderdeliveryCost(data.deliveryCost)
+    //   setorderaddition(data.addition)
+    //   setorderdiscount(data.discount)
+    //   setItemsInCart([])
+    // } else 
+    if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
       const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
       const data = await myorder.data
