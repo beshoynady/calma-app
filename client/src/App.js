@@ -263,7 +263,7 @@ function App() {
       })
     }else if(productOrderTOupdate.length>0){
       let total = 0;
-      ItemsInCart.map((item) => {
+      productOrderTOupdate.map((item) => {
         item.totalprice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
         total += item.totalprice
         setcostOrder(total)
