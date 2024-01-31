@@ -1022,6 +1022,7 @@ function App() {
       const order = activeOrder.find(o => o.serial == serial)
       console.log({ activeOrder })
       console.log({ order })
+      console.log({ products: order.products})
       setOrderDetalisBySerial(order)
       setproductOrderTOupdate(order.products)
       setaddition(order.addition)
