@@ -471,6 +471,8 @@ function App() {
   const [ordertotal, setordertotal] = useState()
   const [ordersubtotal, setordersubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
+  const [orderdiscount, setorderdiscount] = useState(0)
+  const [orderaddition, setorderaddition] = useState(0)
   const [discount, setdiscount] = useState(0)
   const [addition, setaddition] = useState(0)
 
@@ -608,6 +610,8 @@ function App() {
         toast.success('Order updated successfully!');
         setItemsInCart([]);
         setitemid([])
+        setaddition(0)
+        setdiscount(0)
         getProducts();
       } else {
         // Create a new order
@@ -635,6 +639,8 @@ function App() {
         toast.success('New order created successfully!');
         setItemsInCart([]);
         setitemid([])
+        setaddition(0)
+        setdiscount(0)
       }
     } catch (error) {
       console.log(error);
@@ -689,6 +695,9 @@ function App() {
         toast.success('تم انشاء الاوردر');
         setItemsInCart([]);
         setitemid([]);
+        setaddition(0)
+        setdiscount(0)
+
       } else {
         throw new Error('هناك خطأ في انشاء الاوردر');
       }
@@ -721,8 +730,8 @@ function App() {
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
-      setaddition(data.addition)
-      setdiscount(data.discount)
+      setorderaddition(data.addition)
+      setorderdiscount(data.discount)
       setItemsInCart([])
     } else if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
@@ -734,8 +743,8 @@ function App() {
       setlist_products_order(data.products)
       setorderupdate_date(data.updatedAt)
       setordertotal(data.total)
-      setaddition(data.addition)
-      setdiscount(data.discount)
+      setorderaddition(data.addition)
+      setorderdiscount(data.discount)
       setordersubtotal(data.subTotal)
       // setordertax(data.tax)
       setorderdeliveryCost(data.deliveryCost)
