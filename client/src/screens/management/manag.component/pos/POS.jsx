@@ -47,10 +47,11 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition,orderdiscount, orderaddition, discount, addition, getOrderProduct,   OrderDetalisBySerial ,getOrderDetalisBySerial
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProduct,
+          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
         }) => {
           if (employeeLoginInfo) {
-            
+
             return (
               <section className='pos-section'>
 
@@ -376,50 +377,15 @@ const POS = () => {
                               <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid?i.productid:i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteitems(i.productid?i.productid:i._id)} className="btn btn-danger">حذف</button>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid ? i.productid : i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteitems(i.productid ? i.productid : i._id)} className="btn btn-danger">حذف</button>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => descrement(i.productid?i.productid:i._id)} className="btn btn-light">-</button>
+                                    <button onClick={() => descrement(i.productid ? i.productid : i._id)} className="btn btn-light">-</button>
                                     <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => increment(i.productid?i.productid:i._id)} className="btn btn-light">+</button>
-                                  </div>
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
-                                </div>
-                                {i.notes && (
-                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                    {i.notes}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )) 
-                        : list_products_order ? list_products_order.map((i, index) => (
-                          <div className="card mb-3" key={index}>
-                            {i._id === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
-                                <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
-                                <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
-                                </div>
-                              </form>
-                            ) : (
-                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteitems(i._id)} className="btn btn-danger">حذف</button>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
-                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => descrement(i._id)} className="btn btn-light">-</button>
-                                    <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => increment(i._id)} className="btn btn-light">+</button>
+                                    <button onClick={() => increment(i.productid ? i.productid : i._id)} className="btn btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
                                 </div>
@@ -432,8 +398,43 @@ const POS = () => {
                             )}
                           </div>
                         ))
+                          : productOrderTOupdate ? productOrderTOupdate.map((i, index) => (
+                            <div className="card mb-3" key={index}>
+                            {i._id === productid && noteArea ? (
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
+                                <div className="d-flex justify-content-center">
+                                  <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
+                                </div>
+                              </form>
+                            ) : (
+                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid ? i.productid : i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteitems(i.productid ? i.productid : i._id)} className="btn btn-danger">حذف</button>
+                                </div>
+                                <div className="d-flex justify-content-between align-items-center py-2">
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
+                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
+                                    <button onClick={() => descrement(i.productid ? i.productid : i._id)} className="btn btn-light">-</button>
+                                    <span>{i.quantity ? i.quantity : 0}</span>
+                                    <button onClick={() => increment(i.productid ? i.productid : i._id)} className="btn btn-light">+</button>
+                                  </div>
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                                </div>
+                                {i.notes && (
+                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
+                                    {i.notes}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          ))
 
-                          : ""}
+                            : ""}
                     </div>
                   </div>
                   <div>
@@ -496,17 +497,20 @@ const POS = () => {
                       <div className="col-12">
                         <div className="btn-group btn-block">
                           {ordertype === 'Internal' ?
-                            <button type="button" className="btn btn-primary" onClick={() =>{ createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
+                            <button type="button" className="btn btn-primary" onClick={() => { createWaiterOrder(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-primary" onClick={() =>{ createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost,discount,addition);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
+                              <button type="button" className="btn btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
-                                <button type="button" className="btn btn-primary" onClick={() =>{ createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype,discount,addition);setaddaddition(false);setadddiscount(false)}}>تأكيد</button>
+                                <button type="button" className="btn btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          <button type="button" className="btn btn-secondary" onClick={()=>setgetOrderDetalisModal(!getOrderDetalisModal)}>تعديل</button>
+                          {productOrderTOupdate.length > 0 ?
+                            <button type="button" className="btn btn-secondary" onClick={() => updateOrder}>تاكيد التعديل</button>
+                            :<button type="button" className="btn btn-secondary" onClick={() => setgetOrderDetalisModal(!getOrderDetalisModal)}>تعديل</button>
+                          }
                         </div>
                       </div>
                     </div>
