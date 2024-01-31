@@ -402,7 +402,7 @@ const ManagerDash = () => {
                 </ul>
 
                 <div className="bottom-data">
-                <div className="reminders">
+                  <div className="reminders">
                     <div className="header">
                       {/* <i className='bx bx-note'></i> */}
                       <h3>متابعه الطاولة</h3>
@@ -426,7 +426,7 @@ const ManagerDash = () => {
 
                     </ul>
                   </div>
-                  
+
                   <div className="orders">
                     <div className="header">
                       <i className='bx bx-receipt'></i>
@@ -531,7 +531,7 @@ const ManagerDash = () => {
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{maxWidth:'400px' , textAlign: 'center' }}>
+                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>Restaurant Name</h2>
@@ -585,19 +585,19 @@ const ManagerDash = () => {
                                       <td>{orderdeliveryCost}</td>
                                     </tr>
                                   )}
-                                   {addition > 0 ?
-                                  <tr>
-                                    <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{addition}</td>
-                                  </tr>
-                                  : ''
-                                }
-                                {discount > 0 ?
-                                  <tr>
-                                    <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{discount}</td>
-                                  </tr> : ''
-                                }
+                                  {addition > 0 ?
+                                    <tr>
+                                      <td colSpan="3">رسوم اضافيه</td>
+                                      <td>{addition}</td>
+                                    </tr>
+                                    : ''
+                                  }
+                                  {discount > 0 ?
+                                    <tr>
+                                      <td colSpan="3">رسوم اضافيه</td>
+                                      <td>{discount}</td>
+                                    </tr> : ''
+                                  }
                                   <tr>
                                     <td colSpan="3">الاجمالي</td>
                                     <td>{ordertotal}</td>

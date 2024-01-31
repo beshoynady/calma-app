@@ -71,8 +71,7 @@ $color_7: var(--danger);
 			display: grid;
 			grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
 			margin-top: 20px;
-			display: flex;
-			flex-direction: row-reverse;
+			direction: rtl;
 			
 			li {
 				padding: 10px;
@@ -177,11 +176,58 @@ $color_7: var(--danger);
 					cursor: pointer;
 				}
 			}
+			.reminders {
+				flex-grow: 1;
+				flex-basis: 300px;
+				direction: rtl;
 
+				.task-list {
+					width: 100%;
+
+					li {
+						width: 100%;
+						margin-bottom: 16px;
+						background: var(--grey);
+						padding: 14px 10px;
+						border-radius: 10px;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+
+						.task-title {
+							width: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+
+							>p {
+								margin-left: 6px;
+								margin-bottom: 0 !important;
+							}
+						}
+
+						.bx {
+							cursor: pointer;
+						}
+
+						&:last-child {
+							margin-bottom: 0;
+						}
+					}
+
+					li.completed {
+						border-left: 10px solid var(--success);
+					}
+
+					li.not-completed {
+						border-left: 10px solid var(--danger);
+					}
+				}
+			}
 			.orders {
 				flex-grow: 1;
 				flex-basis: 650px;
-
+				direction: rtl;
 				table {
 					width: 100%;
 					border-collapse: collapse;
@@ -249,53 +295,7 @@ $color_7: var(--danger);
 				}
 			}
 
-			.reminders {
-				flex-grow: 1;
-				flex-basis: 300px;
 
-				.task-list {
-					width: 100%;
-
-					li {
-						width: 100%;
-						margin-bottom: 16px;
-						background: var(--grey);
-						padding: 14px 10px;
-						border-radius: 10px;
-						display: flex;
-						align-items: center;
-						justify-content: space-between;
-
-						.task-title {
-							width: 100%;
-							display: flex;
-							align-items: center;
-							justify-content: space-between;
-
-							>p {
-								margin-left: 6px;
-								margin-bottom: 0 !important;
-							}
-						}
-
-						.bx {
-							cursor: pointer;
-						}
-
-						&:last-child {
-							margin-bottom: 0;
-						}
-					}
-
-					li.completed {
-						border-left: 10px solid var(--success);
-					}
-
-					li.not-completed {
-						border-left: 10px solid var(--danger);
-					}
-				}
-			}
 		}
 	}
 }
