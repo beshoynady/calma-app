@@ -18,6 +18,7 @@ const POS = () => {
   const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
   const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
+  const [serial, setserial] = useState('')
 
   const [tableID, settableID] = useState('')
   const [itemid, setitemid] = useState([])
