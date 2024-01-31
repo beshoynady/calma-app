@@ -1008,7 +1008,7 @@ function App() {
       const activeOrder = res.data.filter(o => o.isActive = true)
       const order = activeOrder.find(o => o.serial == serial)
       setOrderDetalisBySerial(order)
-      setItemsInCart(order.product)
+      setItemsInCart(order.products)
     } catch (error) {
       console.log(error);
       // Display toast or handle error
