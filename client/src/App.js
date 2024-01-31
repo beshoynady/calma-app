@@ -1046,6 +1046,16 @@ function App() {
         addition,
         total,
       })
+      if (updatedOrder) {
+        setOrderDetalisBySerial({})
+        setproductOrderTOupdate([])
+        setaddition(0)
+        setdiscount(0)
+        toast.success('تم تعديل الاوردر');
+
+      } else {
+        throw new Error('هناك خطأ في تعديل الاوردر');
+      }
     } catch (error) {
       console.log(error);
 
@@ -1076,7 +1086,7 @@ function App() {
     getUserInfoFromToken()
     // Payment_pending_orders()
 
-  }, [count, ItemsInCart, isLogin])
+  }, [count, ItemsInCart, productOrderTOupdate, isLogin])
 
   return (
     <detacontext.Provider value={{
