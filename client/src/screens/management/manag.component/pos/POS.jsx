@@ -512,7 +512,7 @@ const POS = () => {
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
                           {productOrderTOupdate.length > 0 ?
-                            <button type="button" className="btn btn-secondary" onClick={() => updateOrder}>تاكيد التعديل</button>
+                            <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
                             : <button type="button" className="btn btn-secondary" onClick={() => setgetOrderDetalisModal(!getOrderDetalisModal)}>تعديل</button>
                           }
                         </div>

@@ -1035,10 +1035,16 @@ function App() {
 
   const updateOrder = async () => {
     const id = OrderDetalisBySerial._id
+    console.log({id})
+    console.log({discount})
+    console.log({addition})
     try {
       const subTotal = costOrder
       const total = subTotal + addition - discount;
-
+      console.log({subTotal})
+      console.log({total})
+      console.log({updatelist:productOrderTOupdate})
+      
       const updatedOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
         products: productOrderTOupdate,
         subTotal,
