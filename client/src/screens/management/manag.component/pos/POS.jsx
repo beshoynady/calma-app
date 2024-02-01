@@ -89,12 +89,11 @@ const POS = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* {getOrderDetalisModal ? ( */}
+                {/* تعديل اوردر */}
                 <div id="getOrderDetalisModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => { getOrderDetalisBySerial(e,serial) }}>
+                      <form onSubmit={(e) => { getOrderDetalisBySerial(e, serial) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">رقم الفاتوره</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -109,17 +108,17 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                        <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
-                        <input type="submit" className="btn btn-success" value="تم"/>
-                      </div>
+                          <div className="modal-footer">
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                            <input type="submit" className="btn btn-success" value="تم" />
+                          </div>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                {/* ) : ""} */}
-                {/* {getOrderTableModal ? ( */}
+
+                {/* دفع جزء */}
                 <div id="getOrderTableModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -139,14 +138,15 @@ const POS = () => {
                                 ))}
                               </select>
                             </div>
-                            <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
-                              <tr>
-                                <th scope="col" className="col-md-3">الصنف</th>
-                                <th scope="col" className="col-md-2">السعر</th>
-                                <th scope="col" className="col-md-2">الكمية</th>
-                                <th scope="col" className="col-md-2">الاجمالي</th>
-                              </tr>
-                            </thead>
+                            <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
+                              <thead className="thead-dark">
+                                <tr>
+                                  <th scope="col" className="col-md-3">الصنف</th>
+                                  <th scope="col" className="col-md-2">السعر</th>
+                                  <th scope="col" className="col-md-2">الكمية</th>
+                                  <th scope="col" className="col-md-2">الاجمالي</th>
+                                </tr>
+                              </thead>
                               <tbody>
                                 {/* Replace this with your dynamic data */}
                                 {list_products_order.map((item, i) => (
@@ -178,15 +178,14 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
-                        <input type="submit" className="btn btn-success" value="تم"/>
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                          <input type="submit" className="btn btn-success" value="تم" />
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                {/* ) : ""} */}
-
+                {/* اختيار نوع الاوردر */}
                 {typeOrderModal ? (
                   <div id="typeOrderModal" className="modal fade">
                     <div className="modal-dialog">
@@ -216,7 +215,7 @@ const POS = () => {
                                 <div className='w-100'>
                                   <div className="form-group w-100">
                                     <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => setclientname(e.target.value)} />
+                                    <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
                                   </div>
                                   <div className="form-group w-100">
                                     <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
@@ -233,7 +232,7 @@ const POS = () => {
                                 <div className='w-100'>
                                   <div className="form-group w-100">
                                     <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => setclientname(e.target.value)} />
+                                    <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
                                   </div>
                                   <div className="form-group w-100">
                                     <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
@@ -243,15 +242,15 @@ const POS = () => {
                               </div>
                             ) : null : ''}
                           <div className="modal-footer">
-                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" onClick={() => { deleteOrderdetalis()}} />
-                        <input type="submit" className="btn btn-success" value="تم"/>
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" onClick={() => { deleteOrderdetalis() }} />
+                            <input type="save" className="btn btn-success" value="تم" />
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
                 ) : ""}
-                {/* {invoiceModal ? ( */}
+                {/* الفاتوره */}
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -349,7 +348,6 @@ const POS = () => {
                     </div>
                   </div>
                 </div>
-                {/* ) : ""} */}
 
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
