@@ -496,7 +496,7 @@ const POS = () => {
                           {/* <button type="button" className="btn btn-success"> */}
                           <a type="button" className="btn btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
                           {/* </button> */}
-                          <a type="button" className="btn btn-warning" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
+                          <a type="button" className="btn btn-warning" href="#getOrderTableModal" data-toggle="modal">دفع جزء</a>
                           {/* <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button> */}
                           {/* <button type="button" className="btn btn-info">كارت</button> */}
                         </div>
