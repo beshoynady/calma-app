@@ -339,7 +339,7 @@ const ManagerDash = () => {
   // Filter orders by order type
   const getOrdersByType = (type) => {
     const orders = pending_payment.filter((order) => order.order_type === type);
-    setFilteredOrders(orders.reverse());
+    setFilteredOrders(orders);
   };
 
 
@@ -446,12 +446,18 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    <div class="table-filter">
-                      <div class="row text-dark">
-                        <div class="col-sm-3">
-                          <div class="show-entries">
+                    <div className="container mt-3">
+                      <div className="row text-dark">
+                        <div className="col-md-3">
+                          <div className="show-entries">
                             <span>عرض</span>
-                            <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                            <select
+                              className="form-control"
+                              onChange={(e) => {
+                                setstartpagination(0);
+                                setendpagination(e.target.value);
+                              }}
+                            >
                               <option value={5}>5</option>
                               <option value={10}>10</option>
                               <option value={15}>15</option>
@@ -462,19 +468,34 @@ const ManagerDash = () => {
                             <span>صفوف</span>
                           </div>
                         </div>
-                        <div class="col-sm-9">
-                          <div class="filter-group">
+                        <div className="col-md-4">
+                          <div className="filter-group">
                             <label>رقم الفاتورة</label>
-                            <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                            <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            <div className="input-group">
+                              <input
+                                type="text"
+                                className="form-control"
+                                onChange={(e) => searchBySerial(e.target.value)}
+                              />
+                              <div className="input-group-append">
+                                <button type="button" className="btn btn-primary">
+                                  <i className="fa fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          <div class="filter-group">
+                        </div>
+                        <div className="col-md-4">
+                          <div className="filter-group">
                             <label>نوع الاوردر</label>
-                            <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
-                              <option value={""}>الكل</option>
-                              <option value="Internal" >Internal</option>
-                              <option value="Delivery" >Delivery</option>
-                              <option value="Takeaway" >Takeaway</option>
+                            <select
+                              className="form-control"
+                              onChange={(e) => getOrdersByType(e.target.value)}
+                            >
+                              <option value={''}>الكل</option>
+                              <option value="Internal">Internal</option>
+                              <option value="Delivery">Delivery</option>
+                              <option value="Takeaway">Takeaway</option>
                             </select>
                           </div>
                         </div>
