@@ -193,7 +193,6 @@ function App() {
       deleteitems(id)
     } else {
       product.quantity = product.quantity - 1
-
     }
   };
   const [productnote, setproductnote] = useState('')
