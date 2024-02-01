@@ -57,15 +57,7 @@ const POS = () => {
 
                 <div className='pos-content'>
                   <div className='categ-menu'>
-                    <nav className='pos-category'>
-                      <ul className='category-ul'>
-                        {allcategories.map((c, i) => <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
-                          <a className='category-pos-btn'>{c.name}</a>
-                        </li>
-                        )}
-                      </ul>
-                    </nav>
-                    <div className='pos-menu'>
+                  <div className='pos-menu'>
                       {allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
                         return (
                           <div className="pos-card" key={index} onClick={() => additemtocart(product._id)}>
@@ -87,6 +79,15 @@ const POS = () => {
                       }
                       )}
                     </div>
+                    <nav className='pos-category'>
+                      <ul className='category-ul'>
+                        {allcategories.map((c, i) => <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
+                          <a className='category-pos-btn'>{c.name}</a>
+                        </li>
+                        )}
+                      </ul>
+                    </nav>
+
                   </div>
                 </div>
                 {/* تعديل اوردر */}
@@ -349,6 +350,8 @@ const POS = () => {
                   </div>
                 </div>
 
+
+             {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
