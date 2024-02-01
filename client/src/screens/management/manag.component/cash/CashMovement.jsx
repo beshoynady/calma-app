@@ -73,12 +73,13 @@ const CashMovement = () => {
   };
 
 
-  const handelCashMovement = (id, t) => {
+  const handelCashMovement = (id, Type) => {
     setSubmitted(false);
     const CashRegister = AllCashRegisters ? AllCashRegisters.find((cash => cash.employee == id)) : {}
     setRegisterId(CashRegister._id)
+    setsendRegister(CashRegister._id)
     setbalance(Number(CashRegister.balance))
-    setType(t)
+    setType(Type)
     console.log(CashRegister.balance)
     setCreateBy(id)
   }
@@ -103,8 +104,8 @@ const CashMovement = () => {
   const [receivRegister, setreceivRegister] = useState(false);
   const [statusTransfer, setstatusTransfer] = useState(false);
 
-  const transferCash = async()=>{
-
+  const transferCash = async(e)=>{
+    e.preventDefault();
     try {
       // Send cash movement data to the API
       const sendcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
@@ -131,7 +132,7 @@ const CashMovement = () => {
       }
 
       // Show success toast message if the process was successful
-      toast.success('Cash movement recorded successfully');
+      toast.success('تم تسجيل التحويل و ينظر الموافقه من المستلم');
 
       // Refresh the displayed cash movements and registers
       getCashMovement();
@@ -220,6 +221,7 @@ const CashMovement = () => {
                         <a href="#DepositModal" className="btn btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
 
                         <a href="#WithdrawModal" className="btn btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
+                        <a href="#Transferodal" className="btn btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
                       </div>
                     </div>
                   </div>
@@ -441,6 +443,50 @@ const CashMovement = () => {
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-success" value="سحب" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="Transferodal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={transferCash}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">تحويل بالخزينه</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="form-group">
+                          <label>المبلغ</label>
+                          <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
+                        </div>
+                        <div className="form-group">
+                          <label>الرصيد</label>
+                          <input type='text' className="form-control" Value={balance} readOnly />
+                        </div>
+                        <div className="form-group">
+                          <label>الوصف</label>
+                          <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
+                        </div>
+                        <div class="filter-group">
+                          <label>الخزينه المحول اليها</label>
+                          <select class="form-control" onChange={(e) => setreceivRegister(e.target.value)} >
+                            <option value={""}>اختر</option>
+                            {AllCashRegisters.map((regsite, i)=>{
+                              <option value={regsite._id} >{regsite.name} المسؤل:{usertitle(regsite.employee)}</option>
+
+                            })}
+                          </select>
+                        </div>
+                        <div className="form-group">
+                          <label>التاريخ</label>
+                          <input type="text" className="form-control" Value={showdate} readOnly />
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-success" value="تحويل " />
                       </div>
                     </form>
                   </div>
