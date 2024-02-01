@@ -10,9 +10,10 @@ exports.createCashMovement = async (req, res) => {
       type,
       description,
       transferTo,
-      transferFrom,
-      movementId,
-      status } = req.body;
+      // transferFrom,
+      // movementId,
+      // status 
+    } = req.body;
 
     const newCashMovement = await CashMovement.create({
       registerId,
@@ -20,10 +21,10 @@ exports.createCashMovement = async (req, res) => {
       amount,
       type,
       description,
-      transferTo,
-      transferFrom,
-      movementId,
-      status
+      // transferTo,
+      // transferFrom,
+      // movementId,
+      // status
     });
 
     await newCashMovement.save();

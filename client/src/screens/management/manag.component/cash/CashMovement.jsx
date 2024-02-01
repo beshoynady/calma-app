@@ -104,29 +104,29 @@ const CashMovement = () => {
   const [receivRegister, setreceivRegister] = useState(false);
   const [statusTransfer, setstatusTransfer] = useState(false);
 
-  const transferCash = async(e)=>{
+  const transferCash = async (e) => {
     e.preventDefault();
     try {
       // Send cash movement data to the API
       const sendcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
-        registerId:sendRegister,
+        registerId: sendRegister,
         createBy,
         amount,
-        type:"Transfer",
+        type: "Transfer",
         description,
-        transferTo:receivRegister,
-        status:'Pending',
+        transferTo: receivRegister,
+        status: 'Pending',
       });
-      if(sendcashMovement){
+      if (sendcashMovement) {
         const movementId = await sendcashMovement._id
         const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
-          registerId:receivRegister,
+          registerId: receivRegister,
           createBy,
           amount,
-          type:"Transfer",
+          type: "Transfer",
           description,
           transferFrom: sendRegister,
-          status:'Pending',
+          status: 'Pending',
           movementId
         });
       }
@@ -150,42 +150,42 @@ const CashMovement = () => {
       const movementId = sendcashMovement.data.movementId;
       const sendregister = sendcashMovement.data.sendRegister;
       const receivregister = sendcashMovement.data.receivRegister;
-  
+
       // Check the transfer status
       if (statusTransfer === 'Rejected') {
         // Reject transfer
         await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
           status: 'Rejected',
         });
-  
+
         // Update sender's cash movement status
         await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
           status: 'Rejected',
         });
-  
+
         toast.error('Transfer rejected successfully');
       } else if (statusTransfer === 'Completed') {
         // Update receiver's cash movement status
         const updatereceivcashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
           status: 'Completed',
         });
-  
+
         // Update receiver's cash register balance
         await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
           amount,
         });
-  
+
         // Update sender's cash movement status
         await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
           status: 'Completed',
         });
-  
+
         // Update sender's cash register balance
         const minsamount = -amount;
         await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
           amount: minsamount,
         });
-  
+
         toast.success('Transfer completed successfully');
       }
     } catch (error) {
@@ -471,14 +471,13 @@ const CashMovement = () => {
                           <label>الوصف</label>
                           <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>الخزينه المحول اليها</label>
-                          <select class="form-control" onChange={(e) => setreceivRegister(e.target.value)} >
+                          <select className="form-control" onChange={(e) => setreceivRegister(e.target.value)}>
                             <option value={""}>اختر</option>
-                            {AllCashRegisters.map((regsite, i)=>{
-                              <option value={regsite._id} >{regsite.name} المسؤل:{usertitle(regsite.employee)}</option>
-
-                            })}
+                            {AllCashRegisters.map((regsite, i) => (
+                              <option key={i} value={regsite._id}>{regsite.name} المسؤول: {usertitle(regsite.employee)}</option>
+                            ))}
                           </select>
                         </div>
                         <div className="form-group">
