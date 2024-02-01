@@ -4,6 +4,8 @@
   height: calc(100vh - 60px);
   justify-content: center;
   width: 100%;
+  direction: rtl;
+  flex-direction: row-reverse;
 }
 .pos-section .container-fluid {
   width: 400px;

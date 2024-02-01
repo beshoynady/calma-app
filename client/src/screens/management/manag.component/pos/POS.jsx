@@ -109,7 +109,7 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
                             <input type="submit" className="btn btn-success" value="تم" />
                           </div>
                         </div>
@@ -178,7 +178,7 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
                           <input type="submit" className="btn btn-success" value="تم" />
                         </div>
                       </form>
@@ -242,7 +242,7 @@ const POS = () => {
                               </div>
                             ) : null : ''}
                           <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" onClick={() => { deleteOrderdetalis() }} />
+                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
                             <input type="save" className="btn btn-success" value="تم" />
                           </div>
                         </form>
@@ -370,7 +370,7 @@ const POS = () => {
                                 <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
                                   <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                 </div>
                               </form>
                             ) : (
@@ -406,7 +406,7 @@ const POS = () => {
                                   <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductnote(e.target.value); }}></textarea>
                                   <div className="d-flex justify-content-center">
                                     <button type="submit" className="btn btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                    <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>الغاء</button>
+                                    <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                   </div>
                                 </form>
                               ) : (
