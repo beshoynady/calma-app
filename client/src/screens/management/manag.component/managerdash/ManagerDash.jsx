@@ -327,20 +327,20 @@ const ManagerDash = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-    // State for filtered orders
-    const [filteredOrders, setFilteredOrders] = useState([]);
+  // State for filtered orders
+  const [filteredOrders, setFilteredOrders] = useState([]);
 
-    // Filter orders by serial number
-    const searchBySerial = (serial) => {
-      const orders = listOfOrders.filter((order) => order.serial.toString().startsWith(serial));
-      setFilteredOrders(orders);
-    };
-  
-    // Filter orders by order type
-    const getOrdersByType = (type) => {
-      const orders = listOfOrders.filter((order) => order.order_type === type);
-      setFilteredOrders(orders.reverse());
-    };
+  // Filter orders by serial number
+  const searchBySerial = (serial) => {
+    const orders = pending_payment.filter((order) => order.serial.toString().startsWith(serial));
+    setFilteredOrders(orders);
+  };
+
+  // Filter orders by order type
+  const getOrdersByType = (type) => {
+    const orders = pending_payment.filter((order) => order.order_type === type);
+    setFilteredOrders(orders.reverse());
+  };
 
 
   useEffect(() => {
@@ -447,39 +447,39 @@ const ManagerDash = () => {
                       <h3>الاوردرات الحالية</h3>
                     </div>
                     <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
-                          <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                            <option value={20}>20</option>
-                            <option value={25}>25</option>
-                            <option value={30}>30</option>
-                          </select>
-                          <span>صفوف</span>
+                      <div class="row text-dark">
+                        <div class="col-sm-3">
+                          <div class="show-entries">
+                            <span>عرض</span>
+                            <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                              <option value={5}>5</option>
+                              <option value={10}>10</option>
+                              <option value={15}>15</option>
+                              <option value={20}>20</option>
+                              <option value={25}>25</option>
+                              <option value={30}>30</option>
+                            </select>
+                            <span>صفوف</span>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-sm-9">
-                        <div class="filter-group">
-                          <label>رقم الفاتورة</label>
-                          <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </div>
-                        <div class="filter-group">
-                          <label>نوع الاوردر</label>
-                          <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
-                            <option value={""}>الكل</option>
-                            <option value="Internal" >Internal</option>
-                            <option value="Delivery" >Delivery</option>
-                            <option value="Takeaway" >Takeaway</option>
-                          </select>
+                        <div class="col-sm-9">
+                          <div class="filter-group">
+                            <label>رقم الفاتورة</label>
+                            <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
+                            <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                          </div>
+                          <div class="filter-group">
+                            <label>نوع الاوردر</label>
+                            <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                              <option value={""}>الكل</option>
+                              <option value="Internal" >Internal</option>
+                              <option value="Delivery" >Delivery</option>
+                              <option value="Takeaway" >Takeaway</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                     <table>
                       <thead>
                         <tr>
@@ -496,7 +496,7 @@ const ManagerDash = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {pending_payment && pending_payment.map((recent, i) => {
+                        {filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -553,22 +553,96 @@ const ManagerDash = () => {
                               </tr>
                             )
                           }
-                        })}
+                        })
+                          : pending_payment.length > 0 ? pending_payment.map((recent, i) => {
+                            if (i >= startpagination & i < endpagination) {
+                              return (
+                                <tr key={i}>
+                                  <td>{i + 1}</td>
+                                  <td>
+                                    <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                      {recent.serial}
+                                    </a>
+                                  </td>
+                                  <td>{recent.order_type == 'Internal' ? usertitle(recent.table) : recent.order_type == 'Delivery' ? usertitle(recent.user) : recent.ordernum}</td>
+                                  <td>{recent.total}</td>
+                                  <td>
+                                    <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id) }}>
+                                      <option value={recent.status}>{recent.status}</option>
+                                      {status.map((state, i) => {
+                                        return (
+                                          <option value={state} key={i}>{state}</option>
+                                        )
+                                      })
+                                      }
+                                    </select>
+                                  </td>
+                                  <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
+                                  <td>
+                                    {recent.order_type == 'Delivery' ?
+                                      <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
+                                        <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
+                                        {deliverymen.map((man, i) => {
+                                          return (
+                                            <option value={man} key={i}>{usertitle(man)}</option>
+                                          )
+                                        })
+                                        }
+                                      </select>
+                                      : ''}
+                                  </td>
+                                  <td>{recent.order_type}</td>
+                                  <td>
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                    >
+                                      دفع
+                                    </button>
+                                  </td>
+                                  {/* <td>
+                                  <select name="status" id="status" form="carform" onChange={(e) => { changePaymentorderstauts(e, recent._id) }}>
+                                    {paymentstatus.map((state, i) => {
+                                      return <option value={state} key={i}>{state}</option>
+                                    })
+                                    }
+                                  </select>
+                                </td> */}
+                                </tr>
+                              )
+                            }
+                          })
+                            : ''}
                       </tbody>
                     </table>
+                    {filteredOrders.length > 0 ?
+                      <div className="clearfix">
+                        <div className="hint-text text-dark">عرض <b>{filteredOrders.length > startpagination ? startpagination : filteredOrders.length}</b> من <b>{filteredOrders.length}</b> عنصر</div>
+                        <ul className="pagination">
+                          <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                        </ul>
+                      </div>
+                      : pending_payment.length > 0 ?
+                        <div className="clearfix">
+                          <div className="hint-text text-dark">عرض <b>{pending_payment.length > startpagination ? startpagination : pending_payment.length}</b> من <b>{pending_payment.length}</b> عنصر</div>
+                          <ul className="pagination">
+                            <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                            <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                          </ul>
+                        </div>
+                        : ''}
 
-                    <div className="clearfix">
-                      <div className="hint-text text-dark">عرض <b>{pending_payment.length > startpagination ? startpagination : pending_payment.length}</b> من <b>{pending_payment.length}</b> عنصر</div>
-                      <ul className="pagination">
-                        <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                      </ul>
-                    </div>
                     <div id="invoiceOrderModal" className="modal fade">
                       <div className="modal-dialog">
                         <div className="modal-content">
