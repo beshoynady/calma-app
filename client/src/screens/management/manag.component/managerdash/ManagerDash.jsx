@@ -446,7 +446,7 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    <div className="container mt-3">
+                    <div className="mt-3">
                       <div className="row text-dark">
                         <div className="col-md-3">
                           <div className="show-entries">
@@ -479,7 +479,6 @@ const ManagerDash = () => {
                               />
                               <div className="input-group-append">
                                 <button type="button" className="btn btn-primary">
-                                  <i className="fa fa-search"></i>
                                 </button>
                               </div>
                             </div>

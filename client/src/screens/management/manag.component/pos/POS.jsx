@@ -255,7 +255,7 @@ const POS = () => {
                       <div className="modal-content">
                         <div className="modal-header">
                           <button className='btn btn-success m-0' onClick={handlePrint}>طباعه</button>
-                          <button type="button" className="close" onClick={() => { setinvoiceModal(!invoiceModal) }}>&times;</button>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
 
                         <div className="invoice side" style={{ height: "100%" }} >
@@ -493,7 +493,9 @@ const POS = () => {
                       </div>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                          <button type="button" className="btn btn-success"><a href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a></button>
+                          {/* <button type="button" className="btn btn-success"> */}
+                            <a type="button" className="btn btn-success"href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                            {/* </button> */}
                           <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
                           {/* <button type="button" className="btn btn-info">كارت</button> */}
                         </div>
