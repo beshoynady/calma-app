@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './NavBar.css'
 import { detacontext } from '../../../../App'
 import { Link } from 'react-router-dom'
