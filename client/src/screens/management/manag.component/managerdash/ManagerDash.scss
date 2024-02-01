@@ -282,12 +282,13 @@ $color_7: var(--danger);
 							}
 						}
 					}
-
+					
 					tbody {
 						tr {
 							cursor: pointer;
 							transition: all 0.3s ease;
-
+							font-size: 16px;
+							font-weight: 600;
 							&:hover {
 								background: var(--grey);
 							}

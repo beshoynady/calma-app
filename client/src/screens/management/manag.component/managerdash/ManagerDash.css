@@ -99,6 +99,7 @@
 }
 .dashboard .container .insights li .info p {
   font-size: 24px;
+  font-weight: 800;
   color: var(--dark);
 }
 .dashboard .container .insights li .info h3 {
@@ -224,6 +225,8 @@
 .dashboard .container .bottom-data .orders table tbody tr {
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
 }
 .dashboard .container .bottom-data .orders table tbody tr:hover {
   background: var(--grey);
