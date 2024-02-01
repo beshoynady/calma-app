@@ -486,19 +486,18 @@ const POS = () => {
                     <div className="row w-100 mt-auto" style={{ padding: '0', margin: '0' }}>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                          <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
                           <button type="button" className="btn btn-secondary" onClick={() => setaddaddition(!addaddition)}>رسوم</button>
                           <button type="button" className="btn btn-secondary" onClick={() => setadddiscount(!adddiscount)}>خصم</button>
+                          <button type="button" className="btn btn-danger" onClick={() => { setItemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
                         </div>
                       </div>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                          {/* <button type="button" className="btn btn-success"> */}
-                          <a type="button" className="btn btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
-                          {/* </button> */}
+                        {productOrderTOupdate.length > 0 ?
+                            <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
+                            : <a type="button" className="btn btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
+                          }
                           <a type="button" className="btn btn-warning" href="#getOrderTableModal" data-toggle="modal">دفع جزء</a>
-                          {/* <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button> */}
-                          {/* <button type="button" className="btn btn-info">كارت</button> */}
                         </div>
                       </div>
                       <div className="col-12">
@@ -514,10 +513,8 @@ const POS = () => {
 
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          {productOrderTOupdate.length > 0 ?
-                            <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
-                            : <a type="button" className="btn btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
-                          }
+                          <a type="button" className="btn btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                          
                         </div>
                       </div>
                     </div>
