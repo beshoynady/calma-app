@@ -262,8 +262,9 @@ const Products = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <div className="table-responsive mt-1">
-                <div className="table-wrapper p-3 mw-100">
+              <ToastContainer />
+              <div className="table-responsive">
+                <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6">
