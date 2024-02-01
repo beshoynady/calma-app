@@ -13,9 +13,9 @@ const CashMovement = () => {
   const [balance, setbalance] = useState();
 
   const [AllCashMovement, setAllCashMovement] = useState([]);
-  const getCashMovement = async () => {
+  const getCashMovement = async (id) => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/'+id);
       console.log(response.data)
       setAllCashMovement(response.data.reverse())
 
@@ -52,14 +52,12 @@ const CashMovement = () => {
       // Check if it's a withdrawal operation
       const isWithdrawal = type === 'Withdraw';
       // Calculate the update amount based on the operation type
-      const updateAmount = isWithdrawal ? -amount : amount;
+      const amount = isWithdrawal ? -amount : amount;
 
-      // Update the balance locally
-      const updatedBalance = balance + updateAmount;
 
       // Update the cash register balance on the server
       await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
-        balance: updatedBalance,
+        amount,
       });
 
       // Show success toast message if the process was successful
@@ -101,6 +99,100 @@ const CashMovement = () => {
       }
     }
   };
+  const [sendRegister, setsendRegister] = useState(false);
+  const [receivRegister, setreceivRegister] = useState(false);
+  const [statusTransfer, setstatusTransfer] = useState(false);
+
+  const transferCash = async()=>{
+
+    try {
+      // Send cash movement data to the API
+      const sendcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+        registerId:sendRegister,
+        createBy,
+        amount,
+        type:"Transfer",
+        description,
+        transferTo:receivRegister,
+        status:'Pending',
+      });
+      if(sendcashMovement){
+        const movementId = await sendcashMovement._id
+        const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+          registerId:receivRegister,
+          createBy,
+          amount,
+          type:"Transfer",
+          description,
+          transferFrom: sendRegister,
+          status:'Pending',
+          movementId
+        });
+      }
+
+      // Show success toast message if the process was successful
+      toast.success('Cash movement recorded successfully');
+
+      // Refresh the displayed cash movements and registers
+      getCashMovement();
+      getAllCashRegisters();
+    } catch (error) {
+      // Show error toast message if the process failed
+      toast.error('Failed to record cash movement');
+    }
+  }
+
+  const accepteTransferCash = async (id) => {
+    try {
+      // Fetch details of the cash movement
+      const sendcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
+      const movementId = sendcashMovement.data.movementId;
+      const sendregister = sendcashMovement.data.sendRegister;
+      const receivregister = sendcashMovement.data.receivRegister;
+  
+      // Check the transfer status
+      if (statusTransfer === 'Rejected') {
+        // Reject transfer
+        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
+          status: 'Rejected',
+        });
+  
+        // Update sender's cash movement status
+        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+          status: 'Rejected',
+        });
+  
+        toast.error('Transfer rejected successfully');
+      } else if (statusTransfer === 'Completed') {
+        // Update receiver's cash movement status
+        const updatereceivcashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
+          status: 'Completed',
+        });
+  
+        // Update receiver's cash register balance
+        await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
+          amount,
+        });
+  
+        // Update sender's cash movement status
+        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+          status: 'Completed',
+        });
+  
+        // Update sender's cash register balance
+        const minsamount = -amount;
+        await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
+          amount: minsamount,
+        });
+  
+        toast.success('Transfer completed successfully');
+      }
+    } catch (error) {
+      console.error('Error accepting transfer:', error.message);
+      toast.error('Error accepting transfer. Please try again.');
+    }
+  };
+
   useEffect(() => {
     getCashMovement()
     getAllCashRegisters()
@@ -296,7 +388,7 @@ const CashMovement = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>المبلغ</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setAmount(Number(e.target.value))} />
+                          <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
                         </div>
                         <div className="form-group">
                           <label>الرصيد</label>
@@ -331,7 +423,7 @@ const CashMovement = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>المبلغ</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setAmount(Number(e.target.value))} />
+                          <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
                         </div>
                         <div className="form-group">
                           <label>الرصيد</label>

@@ -3,7 +3,16 @@ const CashMovement = require('../models/CashMovement.model');
 // Controller function to create a cash movement
 exports.createCashMovement = async (req, res) => {
   try {
-    const { registerId, createBy, amount, type, description } = req.body;
+    const { 
+      registerId,
+      createBy,
+      amount,
+      type,
+      description,
+      transferTo,
+      transferFrom,
+      movementId,
+      status } = req.body;
 
     const newCashMovement = await CashMovement.create({
       registerId,
@@ -11,6 +20,10 @@ exports.createCashMovement = async (req, res) => {
       amount,
       type,
       description,
+      transferTo,
+      transferFrom,
+      movementId,
+      status
     });
 
     await newCashMovement.save();
@@ -46,7 +59,7 @@ exports.getCashMovementById = async (req, res) => {
 // Controller function to update a cash movement by ID
 exports.updateCashMovement = async (req, res) => {
   try {
-    const { registerId, createBy, amount, type, description } = req.body;
+    const { registerId, createBy, amount, type, description,transferFrom } = req.body;
 
     const cashMovement = await CashMovement.findById(req.params.id);
     if (!cashMovement) {
@@ -57,6 +70,8 @@ exports.updateCashMovement = async (req, res) => {
     cashMovement.createBy = createBy;
     cashMovement.amount = amount;
     cashMovement.type = type;
+    cashMovement.description = description;
+    cashMovement.transferFrom = transferFrom;
     cashMovement.description = description;
 
     await cashMovement.save();
@@ -91,7 +106,7 @@ exports.transferCashBetweenRegisters = async (req, res) => {
       registerId: fromRegisterId,
       createBy: req.user._id, // Assuming user information is included in the request after authentication
       amount: -amount, // Negative amount for outgoing movement
-      type: 'expense',
+      type: 'Transfer',
       description: description || 'Transfer to another register',
     });
 

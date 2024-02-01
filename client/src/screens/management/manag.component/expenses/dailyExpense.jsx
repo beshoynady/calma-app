@@ -46,7 +46,7 @@ const DailyExpense = () => {
 
   const createDailyExpense = async (e) => {
     e.preventDefault();
-    const updatedbalance = balance - amount; // Calculate the updated balance
+    const minsamount = - amount; // Calculate the updated balance
 
     try {
       const cashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashMovement/', {
@@ -72,7 +72,7 @@ const DailyExpense = () => {
       });
 
       const updatecashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashRegister/${cashRegister}`, {
-        balance: updatedbalance, // Use the updated balance
+        amount:minsamount, 
       });
 
       // Update the state after successful updates
