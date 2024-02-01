@@ -59,10 +59,6 @@ html{
   transition: all 0.3s ease;
 }
 
-.sidebar.close~.content{
-  width: calc(100% - 60px);
-  left: 0;
-}
 
 
 .content main{
