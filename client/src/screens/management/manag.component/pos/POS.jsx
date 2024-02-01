@@ -97,7 +97,7 @@ const POS = () => {
                       <form onSubmit={(e) => { getOrderDetalisBySerial(e,serial) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">رقم الفاتوره</h4>
-                          <button type="button" className="close" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }}>&times;</button>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
@@ -109,8 +109,10 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }} />
-                          <button type="button" className="close btn btn-success" data-dismiss="modal" aria-hidden="true"></button>
+                        <div className="modal-footer">
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                        <input type="submit" className="btn btn-success" value="تم"/>
+                      </div>
                         </div>
                       </form>
                     </div>
@@ -121,10 +123,10 @@ const POS = () => {
                 <div id="getOrderTableModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => { getOrderProduct(e, tableID); setgetOrderTableModal(!getOrderTableModal) }}>
+                      <form onSubmit={(e) => { getOrderProduct(e, tableID) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">اختر الطاوله</h4>
-                          <button type="button" className="close" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
@@ -176,8 +178,8 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
-                          <button type="button" className="close btn btn-success" data-dismiss="modal" aria-hidden="true"></button>
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" />
+                        <input type="submit" className="btn btn-success" value="تم"/>
                         </div>
                       </form>
                     </div>
@@ -192,7 +194,7 @@ const POS = () => {
                         <form>
                           <div className="modal-header">
                             <h4 className="modal-title">ادخل بيانات العميل</h4>
-                            <button type="button" className="close" onClick={() => { deleteOrderdetalis(); settypeOrderModal(!typeOrderModal) }}>&times;</button>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           </div>
                           {ordertype ?
                             ordertype === 'Internal' ? (
@@ -241,9 +243,8 @@ const POS = () => {
                               </div>
                             ) : null : ''}
                           <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { deleteOrderdetalis()}} />
-                            <button type="button" className="close btn btn-success" data-dismiss="modal" aria-hidden="true"></button>
-                            {/* <input type="submit" className="btn btn-success" value="Add" onClick={(e) => { e.preventDefault(); settypeOrderModal(!typeOrderModal) }} /> */}
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="الغاء" onClick={() => { deleteOrderdetalis()}} />
+                        <input type="submit" className="btn btn-success" value="تم"/>
                           </div>
                         </form>
                       </div>
