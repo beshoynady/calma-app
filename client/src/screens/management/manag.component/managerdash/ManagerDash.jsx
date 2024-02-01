@@ -43,7 +43,7 @@ const ManagerDash = () => {
       setpending_order(pendingOrders);
 
       const pendingPayments = orders.filter((order) => order.payment_status === 'Pending');
-      setpending_payment(pendingPayments);
+      setpending_payment(pendingPayments.reverse());
 
       const today = new Date().toDateString();
       const dayOrders = orders.filter((order) => new Date(order.createdAt).toDateString() === today);
@@ -327,6 +327,21 @@ const ManagerDash = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
+    // State for filtered orders
+    const [filteredOrders, setFilteredOrders] = useState([]);
+
+    // Filter orders by serial number
+    const searchBySerial = (serial) => {
+      const orders = listOfOrders.filter((order) => order.serial.toString().startsWith(serial));
+      setFilteredOrders(orders);
+    };
+  
+    // Filter orders by order type
+    const getOrdersByType = (type) => {
+      const orders = listOfOrders.filter((order) => order.order_type === type);
+      setFilteredOrders(orders.reverse());
+    };
+
 
   useEffect(() => {
     fetchOrdersData()
@@ -429,11 +444,42 @@ const ManagerDash = () => {
 
                   <div className="orders">
                     <div className="header">
-                      <i className='bx bx-receipt'></i>
                       <h3>الاوردرات الحالية</h3>
-                      <i className='bx bx-filter'></i>
-                      <i className='bx bx-search'></i>
                     </div>
+                    <div class="table-filter">
+                    <div class="row text-dark">
+                      <div class="col-sm-3">
+                        <div class="show-entries">
+                          <span>عرض</span>
+                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
+                            <option value={20}>20</option>
+                            <option value={25}>25</option>
+                            <option value={30}>30</option>
+                          </select>
+                          <span>صفوف</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-9">
+                        <div class="filter-group">
+                          <label>رقم الفاتورة</label>
+                          <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
+                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="filter-group">
+                          <label>نوع الاوردر</label>
+                          <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                            <option value={""}>الكل</option>
+                            <option value="Internal" >Internal</option>
+                            <option value="Delivery" >Delivery</option>
+                            <option value="Takeaway" >Takeaway</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     <table>
                       <thead>
                         <tr>
@@ -624,7 +670,6 @@ const ManagerDash = () => {
                             </div>
                           </form>
                         </div>
-
                       </div>
                     </div>
                   </div>

@@ -249,10 +249,10 @@ const POS = () => {
                     </div>
                   </div>
                 ) : ""}
-                {invoiceModal ? (
-                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
-                    <div className="modal-dialog fixed-top mx-auto">
-                      <div className="modal-content" style={{ height: "100%" }}>
+                {/* {invoiceModal ? ( */}
+                    <div id="invoiceModal" className="modal fade">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
                         <div className="modal-header">
                           <button className='btn btn-success m-0' onClick={handlePrint}>طباعه</button>
                           <button type="button" className="close" onClick={() => { setinvoiceModal(!invoiceModal) }}>&times;</button>
@@ -347,7 +347,7 @@ const POS = () => {
                       </div>
                     </div>
                   </div>
-                ) : ""}
+                {/* ) : ""} */}
 
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
@@ -493,7 +493,7 @@ const POS = () => {
                       </div>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                          <button type="button" className="btn btn-success" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</button>
+                          <button type="button" className="btn btn-success"><a href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a></button>
                           <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
                           {/* <button type="button" className="btn btn-info">كارت</button> */}
                         </div>

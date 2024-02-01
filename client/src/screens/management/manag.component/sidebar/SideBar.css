@@ -304,7 +304,7 @@
   transition: all .5s ease;
   width: 45px;
   z-index: 9999;
-  top: 20px;
+  top: 12px;
 }
 
 .sidebar.close~.home-section {
