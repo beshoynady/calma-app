@@ -19,7 +19,7 @@ const ManagLayout = () => {
         return (
           <div className='manag-body '>
             <SideBar />
-            <main className='content'>
+            <main className='manag_main content'>
               <NavBar />
               <Outlet></Outlet>
             </main>
