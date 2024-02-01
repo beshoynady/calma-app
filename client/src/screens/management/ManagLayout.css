@@ -51,7 +51,7 @@ html{
     justify-content: flex-start;
     width: 100%;
   align-items: flex-start;
-  background-color: #b9b8b8;
+  background-color: var(--bg);
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -60,7 +60,7 @@ html{
 }
 .manag-body .content{
   align-items: center;
-  color: #fff!important;
+  color: var(--light)!important;
   flex-direction: column;
   height: 100%;
   margin-right: 10px;
