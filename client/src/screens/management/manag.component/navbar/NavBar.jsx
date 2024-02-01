@@ -5,6 +5,22 @@ import { Link } from 'react-router-dom'
 
 
 const NavBar = () => {
+  useEffect(() => {
+    const toggler = document.getElementById('theme-toggle');
+    const managBody = document.querySelector('.manag-body');
+
+    toggler.addEventListener('change', function () {
+      if (this.checked) {
+        managBody.classList.add('dark');
+      } else {
+        managBody.classList.remove('dark');
+      }
+    });
+
+    return () => {
+      toggler.removeEventListener('change', () => {});
+    };
+  }, []);
   return (
     <detacontext.Consumer>
       {
