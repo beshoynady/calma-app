@@ -1,55 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --light: #f6f6f9;
-    --bg: #a5a5a5;
-    --primary: #1976D2;
-    --light-primary: #CFE8FF;
-    --grey: #eee;
-    --dark-grey: #AAAAAA;
-    --dark: #363949;
-    --danger: #D32F2F;
-	  --light-danger: #FECDD3;
-    --warning: #FBC02D;
-    --light-warning: #FFF2C6;
-    --success: #388E3C;
-    --light-success: #BBF7D0;
+  --light: #f6f6f9;
+  --bg: #a5a5a5;
+  --primary: #1976D2;
+  --light-primary: #CFE8FF;
+  --grey: #eee;
+  --dark-grey: #AAAAAA;
+  --dark: #363949;
+  --danger: #D32F2F;
+  --light-danger: #FECDD3;
+  --warning: #FBC02D;
+  --light-warning: #FFF2C6;
+  --success: #388E3C;
+  --light-success: #BBF7D0;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+
+
+.manag-body.dark {
+  --light: #181a1e;
+  --bg: #000000;
+  --grey: #25252c;
+  --dark: #fbfbfb;
 }
 
-.bx{
-    font-size: 1.7rem;
-}
-
-a{
-    text-decoration: none;
-}
-
-li{
-    list-style: none;
-}
-
-html{
-    overflow-x: hidden;
-}
-
-.manag-body.dark{
-    --light: #181a1e;
-    --bg : #000000;
-    --grey: #25252c;
-    --dark: #fbfbfb;
-}
-
-.manag-body{
+.manag-body {
   display: flex;
-    justify-content: flex-start;
-    width: 100%;
+  justify-content: flex-start;
+  width: 100%;
   align-items: flex-start;
   background-color: var(--bg);
   height: 100vh;
@@ -58,9 +37,10 @@ html{
   right: 0;
   top: 0;
 }
-.manag-body .content{
+
+.manag-body .content {
   align-items: center;
-  color: var(--light)!important;
+  color: var(--light) !important;
   flex-direction: column;
   height: 100%;
   margin-right: 10px;
