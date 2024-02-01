@@ -51,7 +51,7 @@ const POS = () => {
           OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
         }) => {
           if (employeeLoginInfo) {
-            console.log({productOrderTOupdate})
+            console.log({ productOrderTOupdate })
             return (
               <section className='pos-section'>
 
@@ -90,104 +90,104 @@ const POS = () => {
                   </div>
                 </div>
 
-                {getOrderDetalisModal ? (
-                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
-                    <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
-                      <div className="modal-content" style={{ height: "100%" }}>
-                        <form onSubmit={(e) => { getOrderDetalisBySerial(serial); setgetOrderDetalisModal(!getOrderDetalisModal) }}>
-                          <div className="modal-header">
-                            <h4 className="modal-title">رقم الفاتوره</h4>
-                            <button type="button" className="close" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }}>&times;</button>
-                          </div>
-                          <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                            <div className="w-100">
-                              <div className="form-group w-100">
-                                <label htmlFor='table' className='w-40'>رقم الفاتورة:</label>
-                                <input type="text" min={0} className="font-weight-bold w-25 " onChange={(e) => setserial(e.target.value)} />
+                {/* {getOrderDetalisModal ? ( */}
+                <div id="getOrderDetalisModal" className="modal fade">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <form onSubmit={(e) => { getOrderDetalisBySerial(serial); setgetOrderDetalisModal(!getOrderDetalisModal) }}>
+                        <div className="modal-header">
+                          <h4 className="modal-title">رقم الفاتوره</h4>
+                          <button type="button" className="close" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }}>&times;</button>
+                        </div>
+                        <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                          <div className="w-100">
+                            <div className="form-group w-100">
+                              <label htmlFor='table' className='w-40'>رقم الفاتورة:</label>
+                              <input type="text" min={0} className="font-weight-bold w-25 " onChange={(e) => setserial(e.target.value)} />
 
-                              </div>
                             </div>
                           </div>
-                          <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }} />
-                            <input type="submit" className="btn btn-success" value="Add" />
-                          </div>
-                        </form>
-                      </div>
+                        </div>
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderDetalisModal(!getOrderDetalisModal) }} />
+                          <input type="submit" className="btn btn-success" value="Add" />
+                        </div>
+                      </form>
                     </div>
                   </div>
-                ) : ""}
-                {getOrderTableModal ? (
-                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto', height: "100%" }}>
-                    <div className="modal-dialog fixed-top mx-auto" style={{ height: "100%" }}>
-                      <div className="modal-content" style={{ height: "100%" }}>
-                        <form onSubmit={(e) => { getOrderProduct(e, tableID); setgetOrderTableModal(!getOrderTableModal) }}>
-                          <div className="modal-header">
-                            <h4 className="modal-title">اختر الطاوله</h4>
-                            <button type="button" className="close" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
-                          </div>
-                          <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                            <div className="w-100">
-                              <div className="form-group w-100">
-                                <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                                <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
-                                  <option>اختر رقم الطاولة</option>
-                                  {allTable.map((table, i) => (
-                                    <option value={table._id} key={i}>{table.tablenum}</option>
-                                  ))}
-                                </select>
-                              </div>
-                              <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
+                </div>
+                {/* ) : ""} */}
+                {/* {getOrderTableModal ? ( */}
+                <div id="getOrderTableModal" className="modal fade">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <form onSubmit={(e) => { getOrderProduct(e, tableID); setgetOrderTableModal(!getOrderTableModal) }}>
+                        <div className="modal-header">
+                          <h4 className="modal-title">اختر الطاوله</h4>
+                          <button type="button" className="close" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }}>&times;</button>
+                        </div>
+                        <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                          <div className="w-100">
+                            <div className="form-group w-100">
+                              <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
+                              <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                                <option>اختر رقم الطاولة</option>
+                                {allTable.map((table, i) => (
+                                  <option value={table._id} key={i}>{table.tablenum}</option>
+                                ))}
+                              </select>
+                            </div>
+                            <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
+                              <tr>
+                                <th scope="col" className="col-md-3">الصنف</th>
+                                <th scope="col" className="col-md-2">السعر</th>
+                                <th scope="col" className="col-md-2">الكمية</th>
+                                <th scope="col" className="col-md-2">الاجمالي</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                {/* Replace this with your dynamic data */}
+                                {list_products_order.map((item, i) => (
+                                  <tr key={i}>
+                                    <td className="col-md-3 text-truncate">{item.name}</td>
+                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                              <tfoot>
                                 <tr>
-                                  <th scope="col" className="col-md-3">الصنف</th>
-                                  <th scope="col" className="col-md-2">السعر</th>
-                                  <th scope="col" className="col-md-2">الكمية</th>
-                                  <th scope="col" className="col-md-2">الاجمالي</th>
+                                  <td colSpan="3">Subtotal</td>
+                                  <td>{ordersubtotal}</td>
                                 </tr>
-                              </thead>
-                                <tbody>
-                                  {/* Replace this with your dynamic data */}
-                                  {list_products_order.map((item, i) => (
-                                    <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{item.name}</td>
-                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                      <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                      <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                                <tfoot>
+                                {orderdeliveryCost > 0 ?
                                   <tr>
-                                    <td colSpan="3">Subtotal</td>
-                                    <td>{ordersubtotal}</td>
+                                    <td colSpan="3">Delivery</td>
+                                    <td>{orderdeliveryCost}</td>
                                   </tr>
-                                  {orderdeliveryCost > 0 ?
-                                    <tr>
-                                      <td colSpan="3">Delivery</td>
-                                      <td>{orderdeliveryCost}</td>
-                                    </tr>
-                                    : ''}
-                                  <tr>
-                                    <td colSpan="3">Total</td>
-                                    <td>{ordertotal}</td>
-                                  </tr>
-                                </tfoot>
-                              </table>
-                            </div>
+                                  : ''}
+                                <tr>
+                                  <td colSpan="3">Total</td>
+                                  <td>{ordertotal}</td>
+                                </tr>
+                              </tfoot>
+                            </table>
                           </div>
-                          <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
-                            <input type="submit" className="btn btn-success" value="Add" />
-                          </div>
-                        </form>
-                      </div>
+                        </div>
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { setgetOrderTableModal(!getOrderTableModal) }} />
+                          <input type="submit" className="btn btn-success" value="Add" />
+                        </div>
+                      </form>
                     </div>
                   </div>
-                ) : ""}
+                </div>
+                {/* ) : ""} */}
 
                 {typeOrderModal ? (
-                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
-                    <div className="modal-dialog fixed-top mx-auto">
+                  <div id="typeOrderModal" className="modal fade">
+                    <div className="modal-dialog">
                       <div className="modal-content">
                         <form>
                           <div className="modal-header">
@@ -250,103 +250,103 @@ const POS = () => {
                   </div>
                 ) : ""}
                 {/* {invoiceModal ? ( */}
-                    <div id="invoiceModal" className="modal fade">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button className='btn btn-success m-0' onClick={handlePrint}>طباعه</button>
-                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
+                <div id="invoiceModal" className="modal fade">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <button className='btn btn-success m-0' onClick={handlePrint}>طباعه</button>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
 
-                        <div className="invoice side" style={{ height: "100%" }} >
-                          <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
+                      <div className="invoice side" style={{ height: "100%" }} >
+                        <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
 
-                            {/* Invoice Header */}
-                            <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                              <h2>Restaurant Name</h2>
-                              <p>Casher {usertitle(myorder.casher)} |Invoice #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} |Date: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
-                            </div>
+                          {/* Invoice Header */}
+                          <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
+                            <h2>Restaurant Name</h2>
+                            <p>Casher {usertitle(myorder.casher)} |Invoice #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} |Date: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                          </div>
 
-                            {myorder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                          {myorder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                            <h4>Customer Details</h4>
+                            <p>Name: {myorder.name}</p>
+                            <p>Mobile: {myorder.phone}</p>
+                            <p>Address: {myorder.address}</p>
+                            <p>Delivery Man: {usertitle(myorder.deliveryMan)}</p>
+                          </div> : myorder.ordertype == 'Takeaway' ?
+                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>Customer Details</h4>
                               <p>Name: {myorder.name}</p>
                               <p>Mobile: {myorder.phone}</p>
-                              <p>Address: {myorder.address}</p>
-                              <p>Delivery Man: {usertitle(myorder.deliveryMan)}</p>
-                            </div> : myorder.ordertype == 'Takeaway' ?
-                              <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                                <h4>Customer Details</h4>
-                                <p>Name: {myorder.name}</p>
-                                <p>Mobile: {myorder.phone}</p>
-                                <p>order num: {myorder.ordernum}</p>
-                              </div>
-                              : ''}
+                              <p>order num: {myorder.ordernum}</p>
+                            </div>
+                            : ''}
 
-                            <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
+                          <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
+                            <tr>
+                              <th scope="col" className="col-md-3">الصنف</th>
+                              <th scope="col" className="col-md-2">السعر</th>
+                              <th scope="col" className="col-md-2">الكمية</th>
+                              <th scope="col" className="col-md-2">الاجمالي</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                              {/* Replace this with your dynamic data */}
+                              {list_products_order.map((item, i) => (
+                                <tr key={i}>
+                                  <td className="col-md-3 text-truncate">{item.name}</td>
+                                  <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                  <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                  <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                            <tfoot>
                               <tr>
-                                <th scope="col" className="col-md-3">الصنف</th>
-                                <th scope="col" className="col-md-2">السعر</th>
-                                <th scope="col" className="col-md-2">الكمية</th>
-                                <th scope="col" className="col-md-2">الاجمالي</th>
+                                <td colSpan="3">المجموع</td>
+                                <td>{ordersubtotal}</td>
                               </tr>
-                            </thead>
-                              <tbody>
-                                {/* Replace this with your dynamic data */}
-                                {list_products_order.map((item, i) => (
-                                  <tr key={i}>
-                                    <td className="col-md-3 text-truncate">{item.name}</td>
-                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                              <tfoot>
+                              {orderdeliveryCost > 0 ?
                                 <tr>
-                                  <td colSpan="3">المجموع</td>
-                                  <td>{ordersubtotal}</td>
+                                  <td colSpan="3">خدمة التوصيل</td>
+                                  <td>{orderdeliveryCost}</td>
                                 </tr>
-                                {orderdeliveryCost > 0 ?
-                                  <tr>
-                                    <td colSpan="3">خدمة التوصيل</td>
-                                    <td>{orderdeliveryCost}</td>
-                                  </tr>
-                                  : ''}
-                                {orderaddition > 0 ?
-                                  <tr>
-                                    <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{orderaddition}</td>
-                                  </tr>
-                                  : ''
-                                }
-                                {orderdiscount > 0 ?
-                                  <tr>
-                                    <td colSpan="3">رسوم اضافيه</td>
-                                    <td>{orderdiscount}</td>
-                                  </tr> : ''
-                                }
+                                : ''}
+                              {orderaddition > 0 ?
                                 <tr>
-                                  <td colSpan="3">الاجمالي</td>
-                                  <td>{ordertotal}</td>
+                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td>{orderaddition}</td>
                                 </tr>
-                              </tfoot>
-                            </table>
+                                : ''
+                              }
+                              {orderdiscount > 0 ?
+                                <tr>
+                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td>{orderdiscount}</td>
+                                </tr> : ''
+                              }
+                              <tr>
+                                <td colSpan="3">الاجمالي</td>
+                                <td>{ordertotal}</td>
+                              </tr>
+                            </tfoot>
+                          </table>
 
-                            <div className="text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                              <h4>Restaurant Details</h4>
-                              <p>Restaurant Name</p>
-                              <p>Mobile: 987-654-3210</p>
-                              <p>Address: 456 Street, City</p>
-                            </div>
+                          <div className="text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
+                            <h4>Restaurant Details</h4>
+                            <p>Restaurant Name</p>
+                            <p>Mobile: 987-654-3210</p>
+                            <p>Address: 456 Street, City</p>
+                          </div>
 
-                            <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                              <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
-                            </div>
+                          <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                 {/* ) : ""} */}
 
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
@@ -363,7 +363,7 @@ const POS = () => {
                   <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
                     <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
                       {
-                        ItemsInCart.length>0 ? ItemsInCart.map((i, index) => (
+                        ItemsInCart.length > 0 ? ItemsInCart.map((i, index) => (
                           <div className="card mb-3" key={index}>
                             {i._id === productid && noteArea ? (
                               <form className="card-body" style={{ padding: '5px', margin: '0' }}>
@@ -494,9 +494,10 @@ const POS = () => {
                       <div className="col-12">
                         <div className="btn-group btn-block">
                           {/* <button type="button" className="btn btn-success"> */}
-                            <a type="button" className="btn btn-success"href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
-                            {/* </button> */}
-                          <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button>
+                          <a type="button" className="btn btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                          {/* </button> */}
+                          <a type="button" className="btn btn-warning" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
+                          {/* <button type="button" className="btn btn-warning" onClick={(e) => setgetOrderTableModal(!getOrderTableModal)}>دفع جزء</button> */}
                           {/* <button type="button" className="btn btn-info">كارت</button> */}
                         </div>
                       </div>
@@ -515,7 +516,7 @@ const POS = () => {
                           }
                           {productOrderTOupdate.length > 0 ?
                             <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
-                            : <button type="button" className="btn btn-secondary" onClick={() => setgetOrderDetalisModal(!getOrderDetalisModal)}>تعديل</button>
+                            : <a type="button" className="btn btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
                           }
                         </div>
                       </div>
