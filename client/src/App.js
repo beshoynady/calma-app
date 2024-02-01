@@ -1016,7 +1016,8 @@ function App() {
   const [OrderDetalisBySerial, setOrderDetalisBySerial] = useState({})
   const [productOrderTOupdate, setproductOrderTOupdate] = useState([])
   // Fetch orders from API
-  const getOrderDetalisBySerial = async (serial) => {
+  const getOrderDetalisBySerial = async (e,serial) => {
+    e.preventDefault()
     try {
       console.log({ serial })
       const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
