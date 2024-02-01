@@ -15,7 +15,7 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async (id) => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/'+id);
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
       console.log(response.data)
       setAllCashMovement(response.data.reverse())
 
