@@ -51,7 +51,7 @@ html{
     align-items: baseline;
     justify-content: space-between;
     background: var(--grey);
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .manag-body .content{
   display: flex;
@@ -59,13 +59,11 @@ html{
   flex-wrap: nowrap;
   align-items: stretch;
   justify-content: space-between;
-  
   position: relative;
   width: 100%;
   padding: 36px 24px;
   transition: all 0.3s ease;
-  display: flex;
-  
+  overflow-y: scroll;  
 }
 
 

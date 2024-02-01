@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@600&display=swap');
 
 .mlr-auto {
+	height: 90%;
 	margin: 0 auto !important;
 	direction: rtl;
 
