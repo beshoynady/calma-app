@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
 import { detacontext } from '../../../../App';
-import '../orders/Orders.css'
 
 
 const Products = () => {
@@ -206,6 +204,50 @@ const Products = () => {
   }
 
 
+  // const [AllStockItems, setAllStockItems] = useState([]);
+
+  // const getallStockItem = async () => {
+  //   try {
+  //     const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
+  //     const StockItems = await response.data;
+  //     console.log(response.data)
+  //     setAllStockItems(StockItems)
+
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+
+  // }
+
+  // const [itemId, setitemId] = useState("")
+  // const [name, setname] = useState("")
+  // const [amount, setamount] = useState()
+  // const [costofitem, setcostofitem] = useState()
+  // const [unit, setunit] = useState("")
+  // const [totalcostofitem, settotalcostofitem] = useState()
+
+  // const [totalcost, settotalcost] = useState()
+
+
+  // const [recipe, setrecipe] = useState([{ itemId: '', name: '', amount: 0, costofitem: 0, unit: '', totalcostofitem: 0 }])
+  // const [recipe, setrecipe] = useState([])
+
+  // const add = (e) => {
+  //   e.preventDefault()
+  //   console.log({ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem })
+  //   if (recipe.length > 0){
+  //     setrecipe([...recipe, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }])
+  //   }else{
+  //     setrecipe([{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }])      
+  //   }
+  //   console.log(recipe)
+  // }
+
+  // const createRecipe = async () => {
+
+  // }
+
+
   useEffect(() => {
     getallproducts()
     getallCategories()
@@ -219,9 +261,8 @@ const Products = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
-              <div className="table-responsive">
-                <div className="table-wrapper">
+              <div className="table-responsive mt-1">
+                <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6">

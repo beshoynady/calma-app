@@ -1,7 +1,6 @@
 import React from 'react'
 import './NavBar.css'
 import { detacontext } from '../../../../App'
-import { Link } from 'react-router-dom'
 
 
 const NavBar = () => {
@@ -21,21 +20,6 @@ const NavBar = () => {
                   <img src="images/logo.png"/>
                 </a>
             </nav>
-            // <header className='manag-header'>
-            //   <div className='container'>
-            //     <nav className='manag-nav'>
-            //       <div className="profile">
-            //         <div className="info">
-            //           <p>اهلا, <b>{employeeLoginInfo && employeeLoginInfo.employeeinfo ? employeeLoginInfo.employeeinfo.username :''}</b></p>
-            //         </div>
-            //         <div className="logout-btn">
-            //           <a href='/login' onClick={employeelogout}>خروج</a>
-            //         </div>
-            //       </div>
-
-            //     </nav>
-            //   </div>
-            // </header>
           )
         }
       }
@@ -44,3 +28,18 @@ const NavBar = () => {
 }
 
 export default NavBar
+        // <header className='manag-header'>
+        //   <div className='container'>
+        //     <nav className='manag-nav'>
+        //       <div className="profile">
+        //         <div className="info">
+        //           <p>اهلا, <b>{employeeLoginInfo && employeeLoginInfo.employeeinfo ? employeeLoginInfo.employeeinfo.username :''}</b></p>
+        //         </div>
+        //         <div className="logout-btn">
+        //           <a href='/login' onClick={employeelogout}>خروج</a>
+        //         </div>
+        //       </div>
+
+        //     </nav>
+        //   </div>
+        // </header>
