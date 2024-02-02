@@ -48,12 +48,13 @@ const CashMovement = () => {
         const myregisterid = myregister._id
         console.log({ myregisterid })
         setmyregisterid(myregisterid)
+        getCashMovement(myregisterid)
       }
   }
 
 
   const [AllCashMovement, setAllCashMovement] = useState([]);
-  const getCashMovement = async () => {
+  const getCashMovement = async (myregisterid) => {
     try {
       const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
       const AllCashMovement = response.data
