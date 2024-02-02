@@ -367,7 +367,7 @@ const CashMovement = () => {
                                 <td>{movement.type}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Panding'? 
+                                <td>{movement.status == 'Pending'? 
                                 <>
                                  <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed')}}
                                >قبول</button>
