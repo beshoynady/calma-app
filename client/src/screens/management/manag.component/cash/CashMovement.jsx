@@ -59,7 +59,8 @@ const CashMovement = () => {
         // Check if it's a withdrawal operation
         const isWithdrawal = type === 'Withdraw';
         // Calculate the update amount based on the operation type
-        const amount = isWithdrawal ? -amount : amount;
+        const nweAmount = isWithdrawal ? - amount : amount;
+        console.log({nweAmount})
         
         const newBalance = balance + amount;
         
