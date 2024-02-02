@@ -38,20 +38,23 @@ const CashMovement = () => {
   const getCashMovement = async () => {
     try {
       const EmployeeLoginInfo = getEmployeeInfoFromToken()
-      console.log({EmployeeLoginInfo})
+      console.log({ EmployeeLoginInfo })
       const id = EmployeeLoginInfo.id
       console.log({ id })
-        console.log({ AllCashRegisters })
-        const myregister = AllCashRegisters.find((register) => register.employee == id)
-        console.log({ myregister })
-        const myregisterid = myregister._id
-        console.log({ myregisterid })
-        const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
-        const AllCashMovement = response.data
-        console.log({ AllCashMovement })
-        const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
-        setAllCashMovement(mydata.reverse())
-        console.log({ mydata })
+      const getCashRegisters = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
+      const CashRegisters = getCashRegisters.data
+      console.log({ CashRegisters })
+
+      const myregister = CashRegisters.find((register) => register.employee == id)
+      console.log({ myregister })
+      const myregisterid = myregister._id
+      console.log({ myregisterid })
+      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
+      const AllCashMovement = response.data
+      console.log({ AllCashMovement })
+      const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
+      setAllCashMovement(mydata.reverse())
+      console.log({ mydata })
 
     } catch (error) {
       console.log(error)
