@@ -117,7 +117,7 @@ const CashMovement = () => {
   const [receivRegister, setreceivRegister] = useState(false);
   const [statusTransfer, setstatusTransfer] = useState(false);
 
-  const transferCash = async (e) => {
+  const transferCash = async (e, description) => {
     e.preventDefault();
     try {
       // Send cash movement data to the API
@@ -370,7 +370,7 @@ const CashMovement = () => {
                                 <td>{movement.status == 'Completed'? movement.status :
                                  <button
                                  className="btn btn-primary"
-                                 onClick={() => { accepteTransferCash()}}
+                                 onClick={() => { accepteTransferCash(movement._id)}}
                                >
                                  قبول
                                </button>
