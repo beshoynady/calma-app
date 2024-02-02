@@ -130,7 +130,9 @@ const CashMovement = () => {
         transferTo: receivRegister,
         status: 'Pending',
       });
+      
       if (sendcashMovement) {
+        console.log(sendcashMovement)
         const movementId = await sendcashMovement.data._id
         const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
           registerId: receivRegister,
