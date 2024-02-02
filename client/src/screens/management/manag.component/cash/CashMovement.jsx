@@ -16,11 +16,15 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
-
+      const id = EmployeeLoginInfo.id
+      const myregister = AllCashRegisters.filter((register)=>register.employee == id)
+      const myregisteris = myregister._id
       const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
-      console.log(response.data)
-
-      setAllCashMovement(response.data.reverse())
+      const AllCashMovement = response.data
+      console.log({AllCashMovement})
+      const mydata = AllCashMovement.filter(movement=>movement.registerId === myregisteris)
+      setAllCashMovement(mydata.reverse())
+      console.log({mydata})
 
     } catch (error) {
       console.log(error)
