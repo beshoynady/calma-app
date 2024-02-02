@@ -17,18 +17,18 @@ const CashMovement = () => {
   const getCashMovement = async () => {
     try {
       const id = EmployeeLoginInfo.id
-      console.log({AllCashRegisters})
+      console.log({ AllCashRegisters })
 
-      const myregister = AllCashRegisters.find((register)=>register.employee == id)
-      console.log({myregister})
+      const myregister = AllCashRegisters.find((register) => register.employee == id)
+      console.log({ myregister })
       const myregisterid = myregister._id
-      console.log({myregisterid})
+      console.log({ myregisterid })
       const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
       const AllCashMovement = response.data
-      console.log({AllCashMovement})
-      const mydata = AllCashMovement.filter(movement=>movement.registerId == myregisterid)
+      console.log({ AllCashMovement })
+      const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
       setAllCashMovement(mydata.reverse())
-      console.log({mydata})
+      console.log({ mydata })
 
     } catch (error) {
       console.log(error)
@@ -240,7 +240,7 @@ const CashMovement = () => {
     }
   };
 
-const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
+  const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   // Function to retrieve user info from tokens
   const getEmployeeInfoFromToken = () => {
     const employeeToken = localStorage.getItem('token_e');
@@ -249,7 +249,7 @@ const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
       setEmployeeLoginInfo(decodedToken.employeeinfo);
-      console.log({EmployeeInfoFromToken:decodedToken.employeeinfo});
+      console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
     } else {
       setEmployeeLoginInfo(null);
     }
