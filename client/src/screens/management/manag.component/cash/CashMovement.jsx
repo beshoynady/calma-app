@@ -236,7 +236,6 @@ const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   const getEmployeeInfoFromToken = () => {
     const employeeToken = localStorage.getItem('token_e');
     let decodedToken = null;
-
     if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
@@ -250,7 +249,7 @@ const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   };
 
   useEffect(() => {
-    getEmployeeInfoFromToken
+    getEmployeeInfoFromToken()
     getCashMovement()
     getAllCashRegisters()
 
