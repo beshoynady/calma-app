@@ -117,7 +117,7 @@ const CashMovement = () => {
   const [receivRegister, setreceivRegister] = useState(false);
   const [statusTransfer, setstatusTransfer] = useState(false);
 
-  const transferCash = async (e, description) => {
+  const transferCash = async (e) => {
     e.preventDefault();
     try {
       // Send cash movement data to the API
@@ -156,7 +156,7 @@ const CashMovement = () => {
     }
   }
 
-  const accepteTransferCash = async (id) => {
+  const accepteTransferCash = async (id,statusTransfer) => {
     try {
       // Fetch details of the cash movement
       const sendcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
@@ -368,12 +368,20 @@ const CashMovement = () => {
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
                                 <td>{movement.status == 'Completed'? movement.status :
+                                <>
                                  <button
-                                 className="btn btn-primary"
-                                 onClick={() => { accepteTransferCash(movement._id)}}
+                                 className="btn btn-success"
+                                 onClick={() => { accepteTransferCash(movement._id, 'Completed')}}
                                >
                                  قبول
                                </button>
+                                 <button
+                                 className="btn btn-warning"
+                                 onClick={() => { accepteTransferCash(movement._id), 'Rejected'}}
+                               >
+                                 رفض
+                               </button>
+                                </>
                                  }</td>
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
