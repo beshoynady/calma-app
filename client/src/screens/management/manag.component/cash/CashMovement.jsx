@@ -38,7 +38,11 @@ const CashMovement = () => {
 
   const addCashMovementAndUpdateBalance = async () => {
     // e.preventDefault();
-
+      console.log({registerId})
+      console.log({createBy})
+      console.log({amount})
+      console.log({type})
+      console.log({description})
     try {
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
