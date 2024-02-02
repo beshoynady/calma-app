@@ -67,7 +67,7 @@ exports.getCashMovementById = async (req, res) => {
 // Controller function to update a cash movement by ID
 exports.updateCashMovement = async (req, res) => {
   try {
-    const { registerId, createBy, amount, type, description,transferFrom } = req.body;
+    const { registerId, createBy, amount,status, type, description,transferFrom } = req.body;
 
     const cashMovement = await CashMovement.findById(req.params.id);
     if (!cashMovement) {
@@ -81,6 +81,7 @@ exports.updateCashMovement = async (req, res) => {
     cashMovement.description = description;
     cashMovement.transferFrom = transferFrom;
     cashMovement.description = description;
+    cashMovement.status = status;
 
     await cashMovement.save();
     res.status(200).json({ message: 'Cash movement updated successfully', cashMovement });
