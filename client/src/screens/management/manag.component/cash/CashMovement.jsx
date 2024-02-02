@@ -256,8 +256,8 @@ const CashMovement = () => {
       setEmployeeLoginInfo(decodedToken.employeeinfo);
       console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
       
-
       getCashMovement();
+      
     } else {
       setEmployeeLoginInfo(null);
     }
