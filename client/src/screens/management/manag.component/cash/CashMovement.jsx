@@ -255,6 +255,7 @@ const CashMovement = () => {
     }
     return decodedToken;
   };
+  
 
   useEffect(() => {
     getEmployeeInfoFromToken()
