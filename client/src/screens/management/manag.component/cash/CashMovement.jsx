@@ -41,9 +41,10 @@ const CashMovement = () => {
       console.log({registerId})
       console.log({createBy})
       console.log({amount})
+      console.log({balance})
       console.log({type})
       console.log({description})
-    try {
+      try {
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId,
@@ -59,11 +60,13 @@ const CashMovement = () => {
         const isWithdrawal = type === 'Withdraw';
         // Calculate the update amount based on the operation type
         const amount = isWithdrawal ? -amount : amount;
-  
-  
+        
+        const newBalance = balance + amount;
+        
+        console.log({newBalance})
         // Update the cash register balance on the server
         const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
-          amount,
+          balance: newBalance,
         });
         console.log({updateRegisterBalance})
         // Show success toast message if the process was successful

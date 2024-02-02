@@ -62,11 +62,11 @@ const updateCashRegister = async (req, res) => {
       updateFields.balance = req.body.balance;
     }
 
-    
+
     let newBalance = cashRegister.balance;
 
     // Check if 'amount' is present in req.body and update the balance accordingly
-    if (req.body.amount !== undefined) {
+    if (req.body.amount) {
       const amount = req.body.amount;
       const isDeposit = amount >= 0;
 
