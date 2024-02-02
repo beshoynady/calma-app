@@ -15,9 +15,8 @@ const CashMovement = () => {
     if (employeeToken) {
       decodedToken = await jwt_decode(employeeToken);
       // Set employee login info
-      setEmployeeLoginInfo(decodedToken);
-      console.log(decodedToken);
-      getCashMovement()
+      setEmployeeLoginInfo(decodedToken.employeeinfo);
+      console.log(decodedToken.employeeinfo);
     } else {
       setEmployeeLoginInfo(null);
     }
@@ -40,21 +39,23 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
-      console.log(EmployeeLoginInfo)
-      const id = EmployeeLoginInfo.employeeinfo.id
-      console.log({ id })
-      if (AllCashRegisters.length > 0) {
-        console.log({ AllCashRegisters })
-        const myregister = AllCashRegisters.find((register) => register.employee == id)
-        console.log({ myregister })
-        const myregisterid = myregister._id
-        console.log({ myregisterid })
-        const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
-        const AllCashMovement = response.data
-        console.log({ AllCashMovement })
-        const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
-        setAllCashMovement(mydata.reverse())
-        console.log({ mydata })
+      if(EmployeeLoginInfo){
+        console.log(EmployeeLoginInfo)
+        const id = EmployeeLoginInfo.id
+        console.log({ id })
+        if (AllCashRegisters.length > 0) {
+          console.log({ AllCashRegisters })
+          const myregister = AllCashRegisters.find((register) => register.employee == id)
+          console.log({ myregister })
+          const myregisterid = myregister._id
+          console.log({ myregisterid })
+          const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
+          const AllCashMovement = response.data
+          console.log({ AllCashMovement })
+          const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
+          setAllCashMovement(mydata.reverse())
+          console.log({ mydata })
+        }
       }
 
     } catch (error) {
@@ -270,9 +271,12 @@ const CashMovement = () => {
   useEffect(() => {
     getEmployeeInfoFromToken()
     getAllCashRegisters()
-    // getCashMovement()
+    getCashMovement()
   }, [])
-
+  useEffect(() => {
+    getAllCashRegisters()
+    getCashMovement()
+  }, [EmployeeLoginInfo])
 
 
   return (
