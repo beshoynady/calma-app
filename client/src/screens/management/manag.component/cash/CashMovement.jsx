@@ -186,23 +186,26 @@ const CashMovement = () => {
         const updatereceivcashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
           status: 'Completed',
         });
-
+        console.log(updatereceivcashMovement)
         // Update receiver's cash register balance
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
+        const updatereceivregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
           amount,
         });
-
+        
+        console.log(updatereceivregister)
         // Update sender's cash movement status
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+        const updatesendercashMovement =await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
           status: 'Completed',
         });
-
+        console.log(updatesendercashMovement)
+        
         // Update sender's cash register balance
         const minsamount = - amount;
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
+        const updatesenderregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
           amount: minsamount,
         });
-
+        console.log(updatesenderregister)
+        
         toast.success('Transfer completed successfully');
       }
     } catch (error) {
