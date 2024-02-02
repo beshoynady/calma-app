@@ -367,7 +367,14 @@ const CashMovement = () => {
                                 <td>{movement.type}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status}</td>
+                                <td>{movement.status == 'Completed'? movement.status :
+                                 <button
+                                 className="btn btn-primary"
+                                 onClick={() => { accepteTransferCash()}}
+                               >
+                                 قبول
+                               </button>
+                                 }</td>
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
