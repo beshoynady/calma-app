@@ -67,24 +67,33 @@ exports.getCashMovementById = async (req, res) => {
 // Controller function to update a cash movement by ID
 exports.updateCashMovement = async (req, res) => {
   try {
-    const { registerId, createBy, amount,status, type, description,transferFrom } = req.body;
+    const { registerId, createBy, amount, status, type, description,transferFrom } = req.body;
 
     const cashMovement = await CashMovement.findById(req.params.id);
     if (!cashMovement) {
       return res.status(404).json({ message: 'Cash movement not found' });
     }
+    const updatedCashMovement = await CashMovement.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          registerId,
+          createBy,
+          amount,
+          type,
+          description,
+          transferFrom,
+          status,
+        },
+      },
+      { new: true } // Return the modified document rather than the original
+    );
 
-    cashMovement.registerId = registerId;
-    cashMovement.createBy = createBy;
-    cashMovement.amount = amount;
-    cashMovement.type = type;
-    cashMovement.description = description;
-    cashMovement.transferFrom = transferFrom;
-    cashMovement.description = description;
-    cashMovement.status = status;
+    if (!updatedCashMovement) {
+      return res.status(404).json({ message: 'Cash movement not found' });
+    }
 
-    await cashMovement.save();
-    res.status(200).json({ message: 'Cash movement updated successfully', cashMovement });
+    res.status(200).json({ message: 'Cash movement updated successfully', cashMovement: updatedCashMovement });
   } catch (error) {
     res.status(500).json({ error: 'Failed to update cash movement', message: error.message });
   }
