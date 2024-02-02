@@ -6,16 +6,18 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const CashMovement = () => {
+
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   // Function to retrieve user info from tokens
-  const getEmployeeInfoFromToken = () => {
+  const getEmployeeInfoFromToken =async () => {
     const employeeToken = localStorage.getItem('token_e');
     let decodedToken = null;
     if (employeeToken) {
-      decodedToken = jwt_decode(employeeToken);
+      decodedToken = await jwt_decode(employeeToken);
       // Set employee login info
       setEmployeeLoginInfo(decodedToken);
-      console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
+      console.log(decodedToken);
+      getCashMovement()
     } else {
       setEmployeeLoginInfo(null);
     }
@@ -61,7 +63,7 @@ const CashMovement = () => {
 
   }
 
-  
+
   const [registerId, setRegisterId] = useState('');
   const [createBy, setCreateBy] = useState('');
   const [amount, setAmount] = useState();
