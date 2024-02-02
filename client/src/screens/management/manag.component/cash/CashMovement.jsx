@@ -371,7 +371,7 @@ const CashMovement = () => {
                                 <>
                                  <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed')}}
                                >قبول</button>
-                                 <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id), 'Rejected'}}
+                                 <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected')}}
                                >رفض</button>
                                 </>
                                 :movement.status }</td>
