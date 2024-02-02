@@ -62,17 +62,18 @@ const CashMovement = () => {
   
   
         // Update the cash register balance on the server
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
           amount,
         });
+        console.log({updateRegisterBalance})
+        // Show success toast message if the process was successful
+        toast.success('Cash movement recorded successfully');
+  
+        // Refresh the displayed cash movements and registers
+        getCashMovement();
+        getAllCashRegisters();
       }
 
-      // Show success toast message if the process was successful
-      toast.success('Cash movement recorded successfully');
-
-      // Refresh the displayed cash movements and registers
-      getCashMovement();
-      getAllCashRegisters();
     } catch (error) {
       // Show error toast message if the process failed
       toast.error('Failed to record cash movement');
