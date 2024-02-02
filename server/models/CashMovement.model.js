@@ -35,7 +35,7 @@ const cashMovementSchema = new mongoose.Schema({
   },
   movementId: {
     type: ObjectId,
-    ref: 'CashMovement'
+    ref: 'CashMovement', 
   },
   status: {
     type: String,

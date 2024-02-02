@@ -10,29 +10,36 @@ exports.createCashMovement = async (req, res) => {
       type,
       description,
       transferTo,
-      // transferFrom,
-      // movementId,
-      // status 
+      transferFrom,
+      movementId,
+      status 
     } = req.body;
 
+    // Create a new cash movement
     const newCashMovement = await CashMovement.create({
       registerId,
       createBy,
       amount,
       type,
       description,
-      // transferTo,
-      // transferFrom,
-      // movementId,
-      // status
+      transferTo,
+      transferFrom,
+      movementId,
+      status,
     });
 
+    // Save the new cash movement to the database
     await newCashMovement.save();
+
+    // Respond with success message and the created cash movement
     res.status(201).json({ message: 'Cash movement created successfully', cashMovement: newCashMovement });
   } catch (error) {
+    // Handle errors during the creation process
     res.status(500).json({ error: 'Failed to create cash movement', message: error.message });
   }
 };
+
+
 
 // Controller function to get all cash movements
 exports.getAllCashMovements = async (req, res) => {
