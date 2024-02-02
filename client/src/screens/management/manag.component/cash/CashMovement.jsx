@@ -41,6 +41,7 @@ const CashMovement = () => {
       console.log({EmployeeLoginInfo})
       const id = EmployeeLoginInfo.id
       console.log({ id })
+      
       if (AllCashRegisters.length > 0) {
         console.log({ AllCashRegisters })
         const myregister = AllCashRegisters.find((register) => register.employee == id)
@@ -60,6 +61,8 @@ const CashMovement = () => {
     }
 
   }
+
+
 
   const [registerId, setRegisterId] = useState('');
   const [createBy, setCreateBy] = useState('');
@@ -269,7 +272,7 @@ const CashMovement = () => {
     getAllCashRegisters()
     getCashMovement()
   }, [])
-  
+
   // useEffect(() => {
   //   getAllCashRegisters()
   //   getCashMovement()
