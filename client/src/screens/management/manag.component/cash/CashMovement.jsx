@@ -206,8 +206,8 @@ const CashMovement = () => {
         });
         console.log(updatesenderregister)
         
-        toast.success('Transfer completed successfully');
       }
+      toast.success('Transfer completed successfully');
     } catch (error) {
       console.error('Error accepting transfer:', error.message);
       toast.error('Error accepting transfer. Please try again.');
