@@ -131,7 +131,7 @@ const CashMovement = () => {
         status: 'Pending',
       });
       if (sendcashMovement) {
-        const movementId = await sendcashMovement._id
+        const movementId = await sendcashMovement.data._id
         const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
           registerId: receivRegister,
           createBy,
@@ -156,13 +156,13 @@ const CashMovement = () => {
     }
   }
 
-  const accepteTransferCash = async (id,statusTransfer) => {
+  const accepteTransferCash = async (id, statusTransfer) => {
     try {
       // Fetch details of the cash movement
-      const sendcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
-      const movementId = sendcashMovement.data.movementId;
-      const sendregister = sendcashMovement.data.sendRegister;
-      const receivregister = sendcashMovement.data.receivRegister;
+      const receivcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
+      const movementId = receivcashMovement.data.movementId;
+      const sendregister = receivcashMovement.data.sendRegister;
+      const receivregister = receivcashMovement.data.receivRegister;
 
       // Check the transfer status
       if (statusTransfer === 'Rejected') {
