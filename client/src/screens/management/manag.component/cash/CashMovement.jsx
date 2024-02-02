@@ -65,7 +65,7 @@ const CashMovement = () => {
         
         console.log({newBalance})
         // Update the cash register balance on the server
-        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+        const updateRegisterBalance =  await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
           balance: newBalance,
         });
         console.log({updateRegisterBalance})
