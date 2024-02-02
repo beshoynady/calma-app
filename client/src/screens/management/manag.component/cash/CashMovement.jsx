@@ -52,17 +52,18 @@ const CashMovement = () => {
         type,
         description,
       });
+      console.log(cashMovementResponse)
 
-      // Check if it's a withdrawal operation
-      const isWithdrawal = type === 'Withdraw';
-      // Calculate the update amount based on the operation type
-      const amount = isWithdrawal ? -amount : amount;
+      // // Check if it's a withdrawal operation
+      // const isWithdrawal = type === 'Withdraw';
+      // // Calculate the update amount based on the operation type
+      // const amount = isWithdrawal ? -amount : amount;
 
 
-      // Update the cash register balance on the server
-      await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
-        amount,
-      });
+      // // Update the cash register balance on the server
+      // await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+      //   amount,
+      // });
 
       // Show success toast message if the process was successful
       toast.success('Cash movement recorded successfully');
