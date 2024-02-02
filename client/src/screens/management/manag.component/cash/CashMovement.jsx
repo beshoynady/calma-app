@@ -194,7 +194,7 @@ const CashMovement = () => {
         });
 
         // Update sender's cash register balance
-        const minsamount = -amount;
+        const minsamount = - amount;
         await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
           amount: minsamount,
         });
