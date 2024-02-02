@@ -253,15 +253,13 @@ const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
     } else {
       setEmployeeLoginInfo(null);
     }
-
     return decodedToken;
   };
 
   useEffect(() => {
     getEmployeeInfoFromToken()
-    getCashMovement()
     getAllCashRegisters()
-
+    getCashMovement()
   }, [])
 
 
