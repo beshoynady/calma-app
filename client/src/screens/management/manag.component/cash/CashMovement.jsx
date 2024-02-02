@@ -132,8 +132,8 @@ const CashMovement = () => {
       });
       
       if (sendcashMovement) {
-        console.log(sendcashMovement)
-        const movementId = await sendcashMovement.data._id
+        const movementId = await sendcashMovement.data.cashMovement._id
+        if ({movementId}) {
         const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
           registerId: receivRegister,
           createBy,
