@@ -13,10 +13,12 @@ const CashMovement = () => {
   const [balance, setbalance] = useState();
 
   const [AllCashMovement, setAllCashMovement] = useState([]);
-  const getCashMovement = async (id) => {
+  const getCashMovement = async () => {
     try {
+
       const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
       console.log(response.data)
+
       setAllCashMovement(response.data.reverse())
 
     } catch (error) {
@@ -26,6 +28,7 @@ const CashMovement = () => {
   }
 
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
+
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
@@ -38,13 +41,13 @@ const CashMovement = () => {
 
   const addCashMovementAndUpdateBalance = async () => {
     // e.preventDefault();
-      console.log({registerId})
-      console.log({createBy})
-      console.log({amount})
-      console.log({balance})
-      console.log({type})
-      console.log({description})
-      try {
+    console.log({ registerId })
+    console.log({ createBy })
+    console.log({ amount })
+    console.log({ balance })
+    console.log({ type })
+    console.log({ description })
+    try {
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId,
@@ -53,27 +56,27 @@ const CashMovement = () => {
         type,
         description,
       });
-      console.log({cashMovementResponse})
-      
-      if(cashMovementResponse){
+      console.log({ cashMovementResponse })
+
+      if (cashMovementResponse) {
         // Check if it's a withdrawal operation
         const isWithdrawal = type === 'Withdraw';
         // Calculate the update amount based on the operation type
         const nweAmount = isWithdrawal ? - amount : amount;
-        console.log({nweAmount})
-        
+        console.log({ nweAmount })
+
         // const newBalance = balance + amount;
-        
+
         // console.log({newBalance})
         // Update the cash register balance on the server
-        const updateRegisterBalance =  await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
           // balance: newBalance,
           amount: nweAmount
         });
-        console.log({updateRegisterBalance})
+        console.log({ updateRegisterBalance })
         // Show success toast message if the process was successful
         toast.success('Cash movement recorded successfully');
-  
+
         // Refresh the displayed cash movements and registers
         getCashMovement();
         getAllCashRegisters();
@@ -115,7 +118,7 @@ const CashMovement = () => {
   };
   const [sendRegister, setsendRegister] = useState(false);
   const [receivRegister, setreceivRegister] = useState(false);
-  const [statusTransfer, setstatusTransfer] = useState(false);
+  // const [statusTransfer, setstatusTransfer] = useState(false);
 
   const transferCash = async (e) => {
     e.preventDefault();
@@ -130,11 +133,11 @@ const CashMovement = () => {
         transferTo: receivRegister,
         status: 'Pending',
       });
-      
+
       if (sendcashMovement) {
         const movementId = await sendcashMovement.data.cashMovement._id
-        console.log({movementId})
-        
+        console.log({ movementId })
+
         const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
           registerId: receivRegister,
           createBy,
@@ -167,7 +170,7 @@ const CashMovement = () => {
       const sendregister = receivcashMovement.data.transferFrom;
       const receivregister = receivcashMovement.data.registerId;
       const amount = receivcashMovement.data.amount;
-      console.log({movementId, sendregister,amount, receivregister})
+      console.log({ movementId, sendregister, amount, receivregister })
 
       // Check the transfer status
       if (statusTransfer === 'Rejected') {
@@ -191,35 +194,35 @@ const CashMovement = () => {
         // Update receiver's cash register balance
         const receivregisterBalance = (await axios.get(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`)).data.balance;
 
-        console.log({receivregisterBalance})
-        
+        console.log({ receivregisterBalance })
+
         const newreceivBalance = receivregisterBalance + amount
-        console.log({newreceivBalance})
+        console.log({ newreceivBalance })
         const updatereceivregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
-          balance:newreceivBalance,
+          balance: newreceivBalance,
         });
         console.log(updatereceivregister)
-        
+
         // Update sender's cash movement status
-        const updatesendercashMovement =await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+        const updatesendercashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
           status: 'Completed',
         });
-        
+
         console.log(updatesendercashMovement)
-        
+
         // Update sender's cash register balance
         const senderregisterBalance = (await axios.get(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`)).data.balance;
-        
-        console.log({senderregisterBalance})
-        
+
+        console.log({ senderregisterBalance })
+
         const newsenderBalance = senderregisterBalance - amount
-        
-        console.log({newsenderBalance})
+
+        console.log({ newsenderBalance })
         const updatesenderregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
-          balance:newsenderBalance,
+          balance: newsenderBalance,
         });
         console.log(updatesenderregister)
-        
+
       }
       toast.success('Transfer completed successfully');
     } catch (error) {
@@ -228,13 +231,30 @@ const CashMovement = () => {
     }
   };
 
+const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
+  // Function to retrieve user info from tokens
+  const getEmployeeInfoFromToken = () => {
+    const employeeToken = localStorage.getItem('token_e');
+    let decodedToken = null;
+
+    if (employeeToken) {
+      decodedToken = jwt_decode(employeeToken);
+      // Set employee login info
+      setEmployeeLoginInfo(decodedToken.employeeinfo);
+      console.log({EmployeeInfoFromToken:decodedToken.employeeinfo});
+    } else {
+      setEmployeeLoginInfo(null);
+    }
+
+    return decodedToken;
+  };
+
   useEffect(() => {
+    getEmployeeInfoFromToken
     getCashMovement()
     getAllCashRegisters()
 
   }, [])
-
-
 
 
   return (
@@ -388,14 +408,14 @@ const CashMovement = () => {
                                 <td>{movement.type}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Pending'? 
-                                <>
-                                 <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed')}}
-                               >قبول</button>
-                                 <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected')}}
-                               >رفض</button>
-                                </>
-                                :movement.status }</td>
+                                <td>{movement.status == 'Pending' ?
+                                  <>
+                                    <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
+                                    >قبول</button>
+                                    <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
+                                    >رفض</button>
+                                  </>
+                                  : movement.status}</td>
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
