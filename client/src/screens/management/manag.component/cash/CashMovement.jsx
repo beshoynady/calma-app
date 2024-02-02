@@ -6,15 +6,24 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const CashMovement = () => {
-  const [registerId, setRegisterId] = useState('');
-  const [createBy, setCreateBy] = useState('');
-  const [amount, setAmount] = useState();
-  const [type, setType] = useState('');
-  const [description, setDescription] = useState('');
-  const [balance, setbalance] = useState();
+  const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
+  // Function to retrieve user info from tokens
+  const getEmployeeInfoFromToken = () => {
+    const employeeToken = localStorage.getItem('token_e');
+    let decodedToken = null;
+    if (employeeToken) {
+      decodedToken = jwt_decode(employeeToken);
+      // Set employee login info
+      setEmployeeLoginInfo(decodedToken);
+      console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
+    } else {
+      setEmployeeLoginInfo(null);
+    }
+  };
+
+
 
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
-
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
@@ -30,9 +39,9 @@ const CashMovement = () => {
   const getCashMovement = async () => {
     try {
       console.log(EmployeeLoginInfo)
-      const id = EmployeeLoginInfo.id
+      const id = EmployeeLoginInfo.employeeinfo.id
       console.log({ id })
-      if(AllCashRegisters.length>0){
+      if (AllCashRegisters.length > 0) {
         console.log({ AllCashRegisters })
         const myregister = AllCashRegisters.find((register) => register.employee == id)
         console.log({ myregister })
@@ -52,6 +61,12 @@ const CashMovement = () => {
 
   }
 
+  const [registerId, setRegisterId] = useState('');
+  const [createBy, setCreateBy] = useState('');
+  const [amount, setAmount] = useState();
+  const [type, setType] = useState('');
+  const [description, setDescription] = useState('');
+  const [balance, setbalance] = useState();
 
   const addCashMovementAndUpdateBalance = async () => {
     // e.preventDefault();
@@ -245,32 +260,19 @@ const CashMovement = () => {
     }
   };
 
-  const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
-  // Function to retrieve user info from tokens
-  const getEmployeeInfoFromToken = () => {
-    const employeeToken = localStorage.getItem('token_e');
-    let decodedToken = null;
-    if (employeeToken) {
-      decodedToken = jwt_decode(employeeToken);
-      // Set employee login info
-      setEmployeeLoginInfo(decodedToken.employeeinfo);
-      console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
-      
-      getCashMovement();
-      
-    } else {
-      setEmployeeLoginInfo(null);
-    }
-    return decodedToken;
-  };
-  
+
+
 
 
   useEffect(() => {
     getEmployeeInfoFromToken()
     getAllCashRegisters()
-    // getCashMovement()
+    getCashMovement()
   }, [])
+  useEffect(() => {
+    getAllCashRegisters()
+    getCashMovement()
+  }, [EmployeeLoginInfo])
 
 
   return (
