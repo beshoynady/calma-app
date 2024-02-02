@@ -13,29 +13,6 @@ const CashMovement = () => {
   const [description, setDescription] = useState('');
   const [balance, setbalance] = useState();
 
-  const [AllCashMovement, setAllCashMovement] = useState([]);
-  const getCashMovement = async () => {
-    try {
-      const id = EmployeeLoginInfo.id
-      console.log({ AllCashRegisters })
-
-      const myregister = AllCashRegisters.find((register) => register.employee == id)
-      console.log({ myregister })
-      const myregisterid = myregister._id
-      console.log({ myregisterid })
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
-      const AllCashMovement = response.data
-      console.log({ AllCashMovement })
-      const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
-      setAllCashMovement(mydata.reverse())
-      console.log({ mydata })
-
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
-
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
 
   // Fetch all cash registers
@@ -47,6 +24,33 @@ const CashMovement = () => {
       toast.error('Error fetching cash registers');
     }
   };
+
+
+  const [AllCashMovement, setAllCashMovement] = useState([]);
+  const getCashMovement = async () => {
+    try {
+      const id = EmployeeLoginInfo.id
+      console.log({ id })
+      if(AllCashRegisters.length>0){
+        console.log({ AllCashRegisters })
+        const myregister = AllCashRegisters.find((register) => register.employee == id)
+        console.log({ myregister })
+        const myregisterid = myregister._id
+        console.log({ myregisterid })
+        const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
+        const AllCashMovement = response.data
+        console.log({ AllCashMovement })
+        const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
+        setAllCashMovement(mydata.reverse())
+        console.log({ mydata })
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
 
   const addCashMovementAndUpdateBalance = async () => {
     // e.preventDefault();
@@ -255,7 +259,7 @@ const CashMovement = () => {
     }
     return decodedToken;
   };
-  
+
 
   useEffect(() => {
     getEmployeeInfoFromToken()
