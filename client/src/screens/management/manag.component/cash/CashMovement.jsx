@@ -41,8 +41,6 @@ const CashMovement = () => {
       console.log({EmployeeLoginInfo})
       const id = EmployeeLoginInfo.id
       console.log({ id })
-      
-      if (AllCashRegisters.length > 0) {
         console.log({ AllCashRegisters })
         const myregister = AllCashRegisters.find((register) => register.employee == id)
         console.log({ myregister })
@@ -54,7 +52,6 @@ const CashMovement = () => {
         const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
         setAllCashMovement(mydata.reverse())
         console.log({ mydata })
-      }
 
     } catch (error) {
       console.log(error)
