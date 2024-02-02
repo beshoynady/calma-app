@@ -29,6 +29,7 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
+      console.log(EmployeeLoginInfo)
       const id = EmployeeLoginInfo.id
       console.log({ id })
       if(AllCashRegisters.length>0){
@@ -254,17 +255,21 @@ const CashMovement = () => {
       // Set employee login info
       setEmployeeLoginInfo(decodedToken.employeeinfo);
       console.log({ EmployeeInfoFromToken: decodedToken.employeeinfo });
+      
+
+      getCashMovement();
     } else {
       setEmployeeLoginInfo(null);
     }
     return decodedToken;
   };
+  
 
 
   useEffect(() => {
     getEmployeeInfoFromToken()
     getAllCashRegisters()
-    getCashMovement()
+    // getCashMovement()
   }, [])
 
 
