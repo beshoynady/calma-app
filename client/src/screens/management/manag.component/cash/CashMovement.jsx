@@ -161,8 +161,9 @@ const CashMovement = () => {
       // Fetch details of the cash movement
       const receivcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
       const movementId = receivcashMovement.data.movementId;
-      const sendregister = receivcashMovement.data.sendRegister;
-      const receivregister = receivcashMovement.data.receivRegister;
+      const sendregister = receivcashMovement.data.transferFrom;
+      const receivregister = receivcashMovement.data.registerId;
+      console.log({movementId, sendregister, receivregister})
 
       // Check the transfer status
       if (statusTransfer === 'Rejected') {
