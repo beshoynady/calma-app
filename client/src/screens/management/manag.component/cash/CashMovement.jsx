@@ -270,12 +270,9 @@ const CashMovement = () => {
   useEffect(() => {
     getEmployeeInfoFromToken()
     getAllCashRegisters()
-    getCashMovement()
+    // getCashMovement()
   }, [])
-  useEffect(() => {
-    getAllCashRegisters()
-    getCashMovement()
-  }, [EmployeeLoginInfo])
+
 
 
   return (
