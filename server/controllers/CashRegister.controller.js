@@ -63,21 +63,21 @@ const updateCashRegister = async (req, res) => {
     }
 
 
-    let newBalance = cashRegister.balance;
+    // let newBalance = cashRegister.balance;
 
-    // Check if 'amount' is present in req.body and update the balance accordingly
-    if (req.body.amount) {
-      const amount = req.body.amount;
-      const isDeposit = amount >= 0;
+    // // Check if 'amount' is present in req.body and update the balance accordingly
+    // if (req.body.amount) {
+    //   const amount = req.body.amount;
+    //   const isDeposit = amount >= 0;
 
-      // Update the balance based on the value of amount
-      newBalance = isDeposit
-        ? newBalance + amount
-        : newBalance - Math.abs(amount);
+    //   // Update the balance based on the value of amount
+    //   newBalance = isDeposit
+    //     ? newBalance + amount
+    //     : newBalance - Math.abs(amount);
 
-      // Include newBalance in the updateFields for balance update
-      updateFields.balance = newBalance;
-    }
+    //   // Include newBalance in the updateFields for balance update
+    //   updateFields.balance = newBalance;
+    // }
 
     // Update the values in the cash register using only the updated fields
     const updatedCashRegister = await CashRegister.findByIdAndUpdate(
