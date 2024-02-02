@@ -17,7 +17,10 @@ const CashMovement = () => {
   const getCashMovement = async () => {
     try {
       const id = EmployeeLoginInfo.id
+      console.log({AllCashRegisters})
+
       const myregister = AllCashRegisters.find((register)=>register.employee == id)
+      console.log({myregister})
       const myregisterid = myregister._id
       console.log({myregisterid})
       const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
