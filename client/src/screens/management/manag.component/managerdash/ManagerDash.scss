@@ -229,6 +229,9 @@ $color_7: var(--danger);
 				flex-grow: 1;
 				flex-basis: 650px;
 				direction: rtl;
+				.table-filter{
+					color: $color_1;
+				}
 				table {
 					width: 100%;
 					border-collapse: collapse;

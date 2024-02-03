@@ -186,6 +186,18 @@ const OrderSchema = new mongoose.Schema({
         ref: 'Employee',
         default: null
     },
+    // Waiter serving the order
+    waiter: {
+        type: ObjectId,
+        ref: 'Employee',
+        default: null
+    },
+    // Delivery person for the order
+    deliveryMan: {
+        type: ObjectId,
+        ref: 'Employee',
+        default: null
+    },
 
     // Customer name
     name: {
@@ -200,18 +212,6 @@ const OrderSchema = new mongoose.Schema({
     phone: {
         type: String,
         default: null,
-    },
-    // Waiter serving the order
-    waiter: {
-        type: ObjectId,
-        ref: 'Employee',
-        default: null
-    },
-    // Delivery person for the order
-    deliveryMan: {
-        type: ObjectId,
-        ref: 'Employee',
-        default: null
     },
     // Help status for the order
     help: {
