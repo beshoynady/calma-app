@@ -280,7 +280,7 @@ const Orders = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
+                                {/* <td>
                                   <span className="custom-checkbox">
                                   <input
                                       type="checkbox"
@@ -290,7 +290,7 @@ const Orders = () => {
                                       onChange={handleCheckboxChange}
                                     />                                    
                                     <label htmlFor={`checkbox${i}`}></label>                                  </span>
-                                </td>
+                                </td> */}
 
                                 <td>{i + 1}</td>
                                 <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getProductsOrder(order.serial)}>{order.serial} </a></td>
