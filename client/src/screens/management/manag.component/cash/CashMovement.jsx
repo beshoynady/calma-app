@@ -436,7 +436,7 @@ const CashMovement = () => {
                                 <td>{usertitle(movement.createBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Pending' && AllCashRegisters.filter(cash => cash.employee == movement.createBy).length > 0 ?
+                                <td>{movement.status == 'Pending' && AllCashRegisters.some(cash => cash.employee !== movement.createBy)?
                                   <>
                                     <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
                                     >قبول</button>
