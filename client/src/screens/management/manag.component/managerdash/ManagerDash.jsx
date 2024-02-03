@@ -342,6 +342,7 @@ const ManagerDash = () => {
     setFilteredOrders(orders);
   };
 
+
   useEffect(() => {
     fetchOrdersData()
     fetchActiveEmployees();
@@ -445,10 +446,9 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    
-                    <div className="d-flex align-content-center justify-content-center align-items-center text-dark">
-                      <div className="d-flex align-content-center justify-content-center align-items-center">
-                        <div className="d-flex align-content-center justify-content-center align-items-center">
+                    <div className="row text-dark">
+                      <div className="col-md-3">
+                        <div className="show-entries">
                           <span>عرض</span>
                           <select
                             className="form-control"
@@ -467,8 +467,8 @@ const ManagerDash = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div className="d-flex align-content-center justify-content-center align-items-center">
-                        <div className="d-flex align-content-center justify-content-center align-items-center">
+                      <div className="col-md-4">
+                        <div className="filter-group">
                           <label>رقم الفاتورة</label>
                           <div className="input-group">
                             <input
@@ -476,12 +476,15 @@ const ManagerDash = () => {
                               className="form-control"
                               onChange={(e) => searchBySerial(e.target.value)}
                             />
-
+                            <div className="input-group-append">
+                              <button type="button" className="btn btn-primary">
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="d-flex align-content-center justify-content-center align-items-center">
-                        <div className="d-flex align-content-center justify-content-center align-items-center">
+                      <div className="col-md-4">
+                        <div className="filter-group">
                           <label>نوع الاوردر</label>
                           <select
                             className="form-control"
@@ -763,9 +766,6 @@ const ManagerDash = () => {
                       </div>
                     </div>
                   </div>
-
-
-
                 </div>
               </div>
             </section>
