@@ -447,8 +447,8 @@ const ManagerDash = () => {
                       <h3>الاوردرات الحالية</h3>
                     </div>
                     {/* <div className="container-fluid"> */}
-                      <div className="table-filter">
-                        <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block">
+                      <div className="table-filter" style={{width:'max-content'}}>
+                        <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block" style={{width:'max-content'}}>
                           <div className="col">
                             <div className="show-entries" style={{ width: '100%' }}>
                               <span>عرض</span>
