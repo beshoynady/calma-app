@@ -422,7 +422,7 @@ const Orders = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="Print" onClick={handlePrint} />
+                        <input type="submit" className="btn btn-success"  value="Print" onClick={handlePrint} />
                       </div>
                     </form>
                   </div>
@@ -457,7 +457,7 @@ const Orders = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="Add" />
+                        <input type="submit" className="btn btn-success"  value="Add" />
                       </div>
                     </form>
                   </div>

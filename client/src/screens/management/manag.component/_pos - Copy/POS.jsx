@@ -100,7 +100,7 @@ const POS = () => {
                             ) : null : ''}
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" onClick={() => { deleteOrderdetalis(); settypeOrderModal(!typeOrderModal) }} />
-                            <input type="submit" className="btn btn-success"  data-dismiss="modal" value="Add" onClick={(e) => { e.preventDefault(); settypeOrderModal(!typeOrderModal) }} />
+                            <input type="submit" className="btn btn-success"  value="Add" onClick={(e) => { e.preventDefault(); settypeOrderModal(!typeOrderModal) }} />
                           </div>
                         </form>
                       </div>

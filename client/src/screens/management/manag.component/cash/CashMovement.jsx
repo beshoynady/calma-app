@@ -73,50 +73,50 @@ const CashMovement = () => {
   const [description, setDescription] = useState('');
   const [balance, setbalance] = useState();
 
-// Function to add cash movement and update balance
-const addCashMovementAndUpdateBalance = async () => {
-  try {
-    // Send cash movement data to the API
-    const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
-      registerId,
-      createBy,
-      amount,
-      type,
-      description,
-    });
-
-    // If the cash movement is recorded successfully
-    if (cashMovementResponse.data) {
-      const isWithdrawal = type === 'Withdraw';
-      const updateAmount = isWithdrawal ? -amount : amount;
-      const newBalance = balance + updateAmount;
-
-      // Update the cash register balance on the server
-      const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
-        balance: newBalance,
+  // Function to add cash movement and update balance
+  const addCashMovementAndUpdateBalance = async () => {
+    try {
+      // Send cash movement data to the API
+      const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+        registerId,
+        createBy,
+        amount,
+        type,
+        description,
       });
 
-      // If the cash register balance is updated successfully
-      if (updateRegisterBalance.data) {
-        // Show success toast message
-        toast.success('تم تسجيل حركة النقدية بنجاح');
-        // Refresh the displayed cash movements and registers
-        getCashMovement();
-        getAllCashRegisters();
+      // If the cash movement is recorded successfully
+      if (cashMovementResponse.data) {
+        const isWithdrawal = type === 'Withdraw';
+        const updateAmount = isWithdrawal ? -amount : amount;
+        const newBalance = balance + updateAmount;
+
+        // Update the cash register balance on the server
+        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+          balance: newBalance,
+        });
+
+        // If the cash register balance is updated successfully
+        if (updateRegisterBalance.data) {
+          // Show success toast message
+          toast.success('تم تسجيل حركة النقدية بنجاح');
+          // Refresh the displayed cash movements and registers
+          getCashMovement();
+          getAllCashRegisters();
+        } else {
+          // Show error toast message if updating cash register balance fails
+          toast.error('فشل تحديث رصيد النقدية في الخزينة');
+        }
       } else {
-        // Show error toast message if updating cash register balance fails
-        toast.error('فشل تحديث رصيد النقدية في الخزينة');
+        // Show error toast message if recording cash movement fails
+        toast.error('فشل تسجيل حركة النقدية');
       }
-    } else {
-      // Show error toast message if recording cash movement fails
-      toast.error('فشل تسجيل حركة النقدية');
+    } catch (error) {
+      console.error('Error:', error);
+      // Show error toast message if an error occurs during the request processing
+      toast.error('حدث خطأ أثناء معالجة الطلب');
     }
-  } catch (error) {
-    console.error('Error:', error);
-    // Show error toast message if an error occurs during the request processing
-    toast.error('حدث خطأ أثناء معالجة الطلب');
-  }
-};
+  };
 
 
 
@@ -165,10 +165,10 @@ const addCashMovementAndUpdateBalance = async () => {
         transferTo: receivRegister,
         status: 'Pending',
       });
-  
+
       const sendCashMovementData = sendCashMovementResponse.data;
       const movementId = sendCashMovementData.cashMovement._id;
-      console.log({movementId})
+      console.log({ movementId })
       // Send receiving cash movement data to the API
       const receivCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId: receivRegister,
@@ -180,23 +180,24 @@ const addCashMovementAndUpdateBalance = async () => {
         status: 'Pending',
         movementId
       });
-  
+
       const receivCashMovementData = receivCashMovementResponse.data;
-      console.log({receivCashMovementData})
-  
-      // Show success toast message if the process was successful
-      toast.success('تم تسجيل التحويل و ينتظر الموافقة من المستلم');
-  
-      // Refresh the displayed cash movements and registers
-      getCashMovement();
-      getAllCashRegisters();
+      console.log({ receivCashMovementData })
+      if (receivCashMovementData) {
+        // Show success toast message if the process was successful
+        toast.success('تم تسجيل التحويل و ينتظر الموافقة من المستلم');
+
+        // Refresh the displayed cash movements and registers
+        getCashMovement();
+        getAllCashRegisters();
+      }
     } catch (error) {
       // Show error toast message if the process failed
       toast.error('حدث خطأ أثناء تسجيل حركة النقدية');
       console.error(error); // Log the error for debugging purposes
     }
   };
-  
+
 
   const accepteTransferCash = async (id, statusTransfer) => {
     try {
@@ -441,7 +442,7 @@ const addCashMovementAndUpdateBalance = async () => {
                                 <td>{usertitle(movement.createBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Pending' && movement.transferFrom?
+                                <td>{movement.status == 'Pending' && movement.transferFrom ?
                                   <>
                                     <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
                                     >قبول</button>
@@ -504,7 +505,7 @@ const addCashMovementAndUpdateBalance = async () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"   value="ايداع" />
+                        <input type="submit" className="btn btn-success" value="ايداع" />
                       </div>
                     </form>
                   </div>
@@ -538,7 +539,7 @@ const addCashMovementAndUpdateBalance = async () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="سحب" />
+                        <input type="submit" className="btn btn-success" value="سحب" />
                       </div>
                     </form>
                   </div>
@@ -581,7 +582,7 @@ const addCashMovementAndUpdateBalance = async () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="تحويل " />
+                        <input type="submit" className="btn btn-success" value="تحويل " />
                       </div>
                     </form>
                   </div>
