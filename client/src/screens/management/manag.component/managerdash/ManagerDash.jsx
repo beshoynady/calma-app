@@ -447,7 +447,7 @@ const ManagerDash = () => {
                       <h3>الاوردرات الحالية</h3>
                     </div>
                     <div class="table-filter">
-                    <div class="row text-dark">
+                    <div class="row">
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
