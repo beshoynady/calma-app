@@ -4,6 +4,8 @@
 	height: 90%;
 	margin: 0 auto !important;
 	direction: rtl;
+	background: var(--primary);
+	color: var(--light);
 
 }
 
@@ -12,18 +14,18 @@
 }
 
 .table-wrapper {
-    /* background: #fff; */
-    background: var(--light);
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    min-width: fit-content;
-    padding: 10px;
+	background: var(--primary);
+	color: var(--light);
+	border-radius: 3px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	min-width: fit-content;
+	padding: 10px;
 }
 
 .table-title {
 	padding-bottom: 15px;
 	background: #435d7d;
-	color: #fff;
+	color: var(--light);
 	padding: 16px 30px;
 	min-width: 100%;
 	margin: -20px -25px 10px;
@@ -41,7 +43,9 @@
 }
 
 .table-title .btn {
-	color: #fff;
+	background: var(--primary);
+	color: var(--light);
+
 	float: right;
 	font-size: 13px;
 	border: none;
@@ -129,8 +133,7 @@
 
 table.table tr th,
 table.table tr td {
-	/* border-color: #e9e9e9; */
-	border-color: var(--dark);
+	border-color: #e9e9e9;
 	padding: 12px 5px;
 	vertical-align: middle;
 	text-align: center;
@@ -146,11 +149,13 @@ table.table tr th:last-child {
 }
 
 table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
+	background-color: var(--gray);
 }
 
 table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
+	background: var(--gray);
+	color: var(--dark);
+
 }
 
 table.table th i {
@@ -329,7 +334,8 @@ table.table .avatar {
 .modal .modal-footer {
 	width: 100%;
 	height: 60px !important;
-	background: #ecf0f1;
+	background: var(--primary);
+	color: var(--light);
 	border-radius: 0 0 3px 3px;
 	display: flex;
 	align-items: center;
