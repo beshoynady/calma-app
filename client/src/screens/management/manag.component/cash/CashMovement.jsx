@@ -156,7 +156,7 @@ const CashMovement = () => {
     e.preventDefault();
     try {
       // Send cash movement data to the API
-      const sendcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+      const sendCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId: sendRegister,
         createBy,
         amount,
@@ -165,34 +165,38 @@ const CashMovement = () => {
         transferTo: receivRegister,
         status: 'Pending',
       });
-
-      if (sendcashMovement) {
-        const movementId = await sendcashMovement.data.cashMovement._id
-        console.log({ movementId })
-
-        const receivcashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
-          registerId: receivRegister,
-          createBy,
-          amount,
-          type: "Transfer",
-          description,
-          transferFrom: sendRegister,
-          status: 'Pending',
-          movementId
-        });
-        // Show success toast message if the process was successful
-        toast.success('تم تسجيل التحويل و ينظر الموافقه من المستلم');
-      }
-
-
+  
+      const sendCashMovementData = sendCashMovementResponse.data;
+      const movementId = sendCashMovementData.cashMovement._id;
+      console.log({movementId})
+      // Send receiving cash movement data to the API
+      const receivCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+        registerId: receivRegister,
+        createBy,
+        amount,
+        type: "Transfer",
+        description,
+        transferFrom: sendRegister,
+        status: 'Pending',
+        movementId
+      });
+  
+      const receivCashMovementData = receivCashMovementResponse.data;
+      console.log({receivCashMovementData})
+  
+      // Show success toast message if the process was successful
+      toast.success('تم تسجيل التحويل و ينتظر الموافقة من المستلم');
+  
       // Refresh the displayed cash movements and registers
       getCashMovement();
       getAllCashRegisters();
     } catch (error) {
       // Show error toast message if the process failed
-      toast.error('Failed to record cash movement');
+      toast.error('حدث خطأ أثناء تسجيل حركة النقدية');
+      console.error(error); // Log the error for debugging purposes
     }
-  }
+  };
+  
 
   const accepteTransferCash = async (id, statusTransfer) => {
     try {
