@@ -7,8 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const CashMovement = () => {
 
-  let isFunctionExecuting = false;
-
 
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   // Function to retrieve user info from tokens
@@ -81,7 +79,6 @@ if (isFunctionExecuting) {
     return;
   }
     try {
-      isFunctionExecuting = true;
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId,
@@ -116,9 +113,7 @@ if (isFunctionExecuting) {
         getAllCashRegisters();
       }
 
-      isFunctionExecuting = false;
     } catch (error) {
-      isFunctionExecuting = false;
       // Show error toast message if the process failed
       toast.error('Failed to record cash movement');
     }
@@ -158,11 +153,7 @@ if (isFunctionExecuting) {
 
   const transferCash = async (e) => {
     e.preventDefault();
-    if (isFunctionExecuting) {
-      return;
-    }
     try {
-      isFunctionExecuting = true;
 
       // Send cash movement data to the API
       const sendCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
@@ -199,9 +190,7 @@ if (isFunctionExecuting) {
       // Refresh the displayed cash movements and registers
       getCashMovement();
       getAllCashRegisters();
-      isFunctionExecuting = false;
     } catch (error) {
-      isFunctionExecuting = false;
       // Show error toast message if the process failed
       toast.error('حدث خطأ أثناء تسجيل حركة النقدية');
       console.error(error); // Log the error for debugging purposes
@@ -210,11 +199,7 @@ if (isFunctionExecuting) {
   
 
   const accepteTransferCash = async (id, statusTransfer) => {
-    if (isFunctionExecuting) {
-      return;
-    }
     try {
-      isFunctionExecuting = true;
       // Fetch details of the cash movement
       const receivcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
       const movementId = receivcashMovement.data.movementId;
@@ -276,9 +261,7 @@ if (isFunctionExecuting) {
 
       }
       toast.success('Transfer completed successfully');
-      isFunctionExecuting = false;
     } catch (error) {
-      isFunctionExecuting = false;
       console.error('Error accepting transfer:', error.message);
       toast.error('Error accepting transfer. Please try again.');
 
