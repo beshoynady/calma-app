@@ -73,51 +73,51 @@ const CashMovement = () => {
   const [description, setDescription] = useState('');
   const [balance, setbalance] = useState();
 
-  const addCashMovementAndUpdateBalance = async () => {
-    // e.preventDefault();
-if (isFunctionExecuting) {
-    return;
-  }
-    try {
-      // Send cash movement data to the API
-      const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
-        registerId,
-        createBy,
-        amount,
-        type,
-        description,
+// Function to add cash movement and update balance
+const addCashMovementAndUpdateBalance = async () => {
+  try {
+    // Send cash movement data to the API
+    const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+      registerId,
+      createBy,
+      amount,
+      type,
+      description,
+    });
+
+    // If the cash movement is recorded successfully
+    if (cashMovementResponse.data) {
+      const isWithdrawal = type === 'Withdraw';
+      const updateAmount = isWithdrawal ? -amount : amount;
+      const newBalance = balance + updateAmount;
+
+      // Update the cash register balance on the server
+      const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+        balance: newBalance,
       });
-      console.log({ cashMovementResponse })
 
-      if (cashMovementResponse) {
-        // Check if it's a withdrawal operation
-        const isWithdrawal = type === 'Withdraw';
-        // Calculate the update amount based on the operation type
-        const nweAmount = isWithdrawal ? - amount : amount;
-        console.log({ nweAmount })
-
-        // const newBalance = balance + amount;
-
-        // console.log({newBalance})
-        // Update the cash register balance on the server
-        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
-          // balance: newBalance,
-          amount: nweAmount
-        });
-        console.log({ updateRegisterBalance })
-        // Show success toast message if the process was successful
-        toast.success('Cash movement recorded successfully');
-
+      // If the cash register balance is updated successfully
+      if (updateRegisterBalance.data) {
+        // Show success toast message
+        toast.success('تم تسجيل حركة النقدية بنجاح');
         // Refresh the displayed cash movements and registers
         getCashMovement();
         getAllCashRegisters();
+      } else {
+        // Show error toast message if updating cash register balance fails
+        toast.error('فشل تحديث رصيد النقدية في الخزينة');
       }
-
-    } catch (error) {
-      // Show error toast message if the process failed
-      toast.error('Failed to record cash movement');
+    } else {
+      // Show error toast message if recording cash movement fails
+      toast.error('فشل تسجيل حركة النقدية');
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    // Show error toast message if an error occurs during the request processing
+    toast.error('حدث خطأ أثناء معالجة الطلب');
+  }
+};
+
 
 
   const handelCashMovement = (id, Type) => {
