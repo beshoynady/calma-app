@@ -446,42 +446,45 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    <div class="table-filter">
-                      <div class="row">
-                        <div class="col">
-                          <div class="show-entries">
-                            <span>عرض</span>
-                            <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                              <option value={5}>5</option>
-                              <option value={10}>10</option>
-                              <option value={15}>15</option>
-                              <option value={20}>20</option>
-                              <option value={25}>25</option>
-                              <option value={30}>30</option>
-                            </select>
-                            <span>صفوف</span>
+                    <div className="container-fluid">
+                      <div className="table-filter">
+                        <div className="row">
+                          <div className="col">
+                            <div className="show-entries" style={{ width: '100%' }}>
+                              <span>عرض</span>
+                              <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                                <option value={15}>15</option>
+                                <option value={20}>20</option>
+                                <option value={25}>25</option>
+                                <option value={30}>30</option>
+                              </select>
+                              <span>صفوف</span>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col">
-                          <div class="filter-group">
-                            <label>رقم الفاتورة</label>
-                            <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                            {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
+                          <div className="col">
+                            <div className="filter-group" style={{ width: '100%' }}>
+                              <label>رقم الفاتورة</label>
+                              <input type="text" className="form-control" onChange={(e) => searchBySerial(e.target.value)} />
+                              {/* <button type="button" className="btn btn-primary"><i className="fa fa-search"></i></button> */}
+                            </div>
                           </div>
-                        </div>
-                        <div class="col">
-                          <div class="filter-group">
-                            <label>نوع الاوردر</label>
-                            <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
-                              <option value={""}>الكل</option>
-                              <option value="Internal" >Internal</option>
-                              <option value="Delivery" >Delivery</option>
-                              <option value="Takeaway" >Takeaway</option>
-                            </select>
+                          <div className="col">
+                            <div className="filter-group" style={{ width: '100%' }}>
+                              <label>نوع الاوردر</label>
+                              <select className="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                                <option value={""}>الكل</option>
+                                <option value="Internal" >Internal</option>
+                                <option value="Delivery" >Delivery</option>
+                                <option value="Takeaway" >Takeaway</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+
 
                     <table className="table table-striped table-hover">
                       <thead>
