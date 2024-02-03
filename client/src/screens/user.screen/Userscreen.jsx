@@ -7,6 +7,7 @@ import Location from './component/location/Location.jsx';
 import Contact from './component/contact/Contact.jsx';
 import Footer from './component/footer/Footer.jsx';
 import { ToastContainer, toast } from 'react-toastify';
+import './Userscreen.css'
 
 
 
