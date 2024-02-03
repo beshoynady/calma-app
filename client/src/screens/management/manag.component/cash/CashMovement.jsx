@@ -180,10 +180,10 @@ const CashMovement = () => {
           status: 'Pending',
           movementId
         });
+        // Show success toast message if the process was successful
+        toast.success('تم تسجيل التحويل و ينظر الموافقه من المستلم');
       }
 
-      // Show success toast message if the process was successful
-      toast.success('تم تسجيل التحويل و ينظر الموافقه من المستلم');
 
       // Refresh the displayed cash movements and registers
       getCashMovement();
@@ -436,7 +436,7 @@ const CashMovement = () => {
                                 <td>{usertitle(movement.createBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Pending' &&AllCashRegisters.length>0&& AllCashRegisters.some(cash => cash.employee !== movement.createBy)?
+                                <td>{movement.status == 'Pending' && movement.transferFrom?
                                   <>
                                     <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
                                     >قبول</button>
