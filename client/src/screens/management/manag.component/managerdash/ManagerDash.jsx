@@ -468,33 +468,22 @@ const ManagerDash = () => {
                             <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
                             {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
                           </div>
-                          <div class="col">
-                            <div class="filter-group">
-                              <label>نوع الاوردر</label>
-                              <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
-                                <option value={""}>الكل</option>
-                                <option value="Internal" >Internal</option>
-                                <option value="Delivery" >Delivery</option>
-                                <option value="Takeaway" >Takeaway</option>
-                              </select>
-                            </div>
+                        </div>
+                        <div class="col">
+                          <div class="filter-group">
+                            <label>نوع الاوردر</label>
+                            <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                              <option value={""}>الكل</option>
+                              <option value="Internal" >Internal</option>
+                              <option value="Delivery" >Delivery</option>
+                              <option value="Takeaway" >Takeaway</option>
+                            </select>
                           </div>
-                          {/* <div class="filter-group">
-                  <label>Status</label>
-                  <select class="form-control">
-                    <option>Any</option>
-                    <option>Delivered</option>
-                    <option>Shipped</option>
-                    <option>Pending</option>
-                    <option>Cancelled</option>
-                  </select>
-                </div>
-                <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                         </div>
                       </div>
                     </div>
 
-                    <table>
+                    <table className="table table-striped table-hover">
                       <thead>
                         <tr>
                           <th>م</th>

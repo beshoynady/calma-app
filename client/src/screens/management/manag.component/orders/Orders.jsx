@@ -170,39 +170,39 @@ const Orders = () => {
                     </div>
                   </div>
                   <div class="table-filter">
-                      <div class="row">
-                        <div class="col">
-                          <div class="show-entries">
-                            <span>عرض</span>
-                            <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                              <option value={5}>5</option>
-                              <option value={10}>10</option>
-                              <option value={15}>15</option>
-                              <option value={20}>20</option>
-                              <option value={25}>25</option>
-                              <option value={30}>30</option>
-                            </select>
-                            <span>صفوف</span>
-                          </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="show-entries">
+                          <span>عرض</span>
+                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
+                            <option value={20}>20</option>
+                            <option value={25}>25</option>
+                            <option value={30}>30</option>
+                          </select>
+                          <span>صفوف</span>
                         </div>
-                        <div class="col">
-                          <div class="filter-group">
-                            <label>رقم الفاتورة</label>
-                            <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                            {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
-                          </div>
-                          <div class="col">
-                            <div class="filter-group">
-                              <label>نوع الاوردر</label>
-                              <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
-                                <option value={""}>الكل</option>
-                                <option value="Internal" >Internal</option>
-                                <option value="Delivery" >Delivery</option>
-                                <option value="Takeaway" >Takeaway</option>
-                              </select>
-                            </div>
-                          </div>
-                          {/* <div class="filter-group">
+                      </div>
+                      <div class="col">
+                        <div class="filter-group">
+                          <label>رقم الفاتورة</label>
+                          <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
+                          {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="filter-group">
+                          <label>نوع الاوردر</label>
+                          <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                            <option value={""}>الكل</option>
+                            <option value="Internal" >Internal</option>
+                            <option value="Delivery" >Delivery</option>
+                            <option value="Takeaway" >Takeaway</option>
+                          </select>
+                        </div>
+                        {/* <div class="filter-group">
                   <label>Status</label>
                   <select class="form-control">
                     <option>Any</option>
@@ -213,9 +213,9 @@ const Orders = () => {
                   </select>
                 </div>
                 <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
-                        </div>
                       </div>
                     </div>
+                  </div>
 
                   <table className="table table-striped table-hover">
                     <thead>
@@ -424,7 +424,7 @@ const Orders = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success"  value="Print" onClick={handlePrint} />
+                        <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
                       </div>
                     </form>
                   </div>
@@ -459,7 +459,7 @@ const Orders = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success"  value="Add" />
+                        <input type="submit" className="btn btn-success" value="Add" />
                       </div>
                     </form>
                   </div>
