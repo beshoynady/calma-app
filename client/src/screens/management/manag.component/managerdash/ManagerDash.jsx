@@ -495,7 +495,7 @@ const ManagerDash = () => {
                     <table>
                       <thead>
                         <tr>
-                          <th>م.</th>
+                          <th>م</th>
                           <th>رقم الفاتورة</th>
                           <th>العميل</th>
                           <th>الاجمالي</th>

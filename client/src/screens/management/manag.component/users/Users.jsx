@@ -21,7 +21,7 @@ const Users = () => {
       // Get the value from the event
       const isVarified = e.target.value;
       console.log(e.target.value)
-      
+
       // Send a request to update the 'isVarified' status
       const response = await axios.put(`https://calma-api-puce.vercel.app/api/user/update-status/${id}`, { isVarified });
       console.log(response.data)
@@ -127,12 +127,12 @@ const Users = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
+                        {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
-                        </th>
+                        </th> */}
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الموبايل</th>
@@ -150,12 +150,12 @@ const Users = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
+                                {/* <td>
                                   <span className="custom-checkbox">
                                     <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                     <label htmlFor="checkbox1"></label>
                                   </span>
-                                </td>
+                                </td> */}
                                 <td>{i + 1}</td>
                                 <td>{user.username}</td>
                                 <td>{user.phone}</td>
@@ -165,14 +165,14 @@ const Users = () => {
                                   <select name="status" id="status" form="carform" onChange={(e) => { changeorderActive(e, user._id) }}>
                                     <option>{user.isActive ? 'نشط' : "غير نشط"}</option>
                                     <option value={true} key={i}>نشط</option>
-                                    <option value={false} key={i}>غير نشط"</option>
+                                    <option value={false} key={i}>غير نشط</option>
                                   </select>
                                 </td>
                                 <td>
                                   <select name="status" id="status" form="carform" onChange={(e) => { changeorderVarified(e, user._id) }}>
                                     <option>{user.isVarified ? 'موثق' : "غير موثق"}</option>
                                     <option value={true} key={i}>موثق</option>
-                                    <option value={false} key={i}>غير موثق"</option>
+                                    <option value={false} key={i}>غير موثق</option>
                                   </select>
                                 </td>
                                 <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
@@ -196,12 +196,12 @@ const Users = () => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i}>
-                                  <td>
+                                  {/* <td>
                                     <span className="custom-checkbox">
                                       <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                       <label htmlFor="checkbox1"></label>
                                     </span>
-                                  </td>
+                                  </td> */}
                                   <td>{i + 1}</td>
                                   <td>{user.username}</td>
                                   <td>{user.phone}</td>
@@ -211,17 +211,17 @@ const Users = () => {
                                     <select name="status" id="status" form="carform" onChange={(e) => { changeorderActive(e, user._id) }}>
                                       <option>{user.isActive ? 'نشط' : "غير نشط"}</option>
                                       <option value={true}>نشط</option>
-                                    <option value={false}>غير نشط"</option>
+                                      <option value={false}>غير نشط</option>
                                     </select>
                                   </td>
                                   <td>
                                     <select name="status" id="status" form="carform" onChange={(e) => { changeorderVarified(e, user._id) }}>
                                       <option>{user.isVarified ? 'موثق' : "غير موثق"}</option>
                                       <option value={true}>موثق</option>
-                                      <option value={false}>غير موثق"</option>
+                                      <option value={false}>غير موثق</option>
                                     </select>
-                                  </td>                                 
-                                   <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
+                                  </td>
+                                  <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
                                     <a href="#edituserloyeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
                                     //    onClick={() => {
