@@ -163,10 +163,10 @@ const Orders = () => {
                       <div className="col-sm-6">
                         <h2>ادارة <b>الاوردرات</b></h2>
                       </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
+                      {/* <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addOrderModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
                         <a href="#deleteListOrderModal" className="btn btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div class="table-filter">
@@ -218,12 +218,12 @@ const Orders = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
+                        {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
-                        </th>
+                        </th> */}
                         <th>م</th>
                         <th>رقم الفاتورة</th>
                         <th>رقم الاوردر</th>
@@ -243,7 +243,7 @@ const Orders = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
+                                {/* <td>
                                   <span className="custom-checkbox">
                                     <input
                                       type="checkbox"
@@ -254,7 +254,7 @@ const Orders = () => {
                                     />                                    
                                     <label htmlFor={`checkbox${i}`}></label>
                                   </span>
-                                </td>
+                                </td> */}
                                 <td>{i + 1}</td>
                                 <td>{order.serial}</td>
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
