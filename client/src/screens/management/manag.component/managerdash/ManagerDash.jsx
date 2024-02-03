@@ -446,7 +446,7 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    <div className="container-fluid">
+                    {/* <div className="container-fluid"> */}
                       <div className="table-filter">
                         <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block">
                           <div className="col">
@@ -483,7 +483,7 @@ const ManagerDash = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    {/* </div> */}
 
 
                     <table className="table table-striped table-hover">
