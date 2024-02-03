@@ -448,7 +448,7 @@ const ManagerDash = () => {
                     </div>
                     <div className="container-fluid">
                       <div className="table-filter">
-                        <div className="row">
+                        <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block">
                           <div className="col">
                             <div className="show-entries" style={{ width: '100%' }}>
                               <span>عرض</span>
