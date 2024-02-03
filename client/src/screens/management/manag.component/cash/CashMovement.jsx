@@ -371,6 +371,7 @@ const CashMovement = () => {
                         <th>الخزنه</th>
                         <th>المسؤل</th>
                         <th>النوع</th>
+                        <th>بواسطه</th>
                         <th>المبلغ</th>
                         <th>الوصف</th>
                         <th>الحالة</th>
@@ -426,12 +427,17 @@ const CashMovement = () => {
                                     ? AllCashRegisters.find(cash => cash._id == movement.registerId).name
                                     : 'No register found'
                                 }</td>
-                                <td>{usertitle(movement.createBy)}</td>
+                                <td>{
+                                  AllCashRegisters.find(cash => cash._id == movement.registerId)
+                                    ?usertitle( AllCashRegisters.find(cash => cash._id == movement.registerId).employee)
+                                    : 'No register found'
+                                }</td>
                                 <td>{movement.type}</td>
+                                <td>{usertitle(movement.createBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
                                 <td>{movement.status == 'Pending' ?
-                                  AllCashRegisters.find(cash => cash.employee == movement.createBy) ?
+                                  AllCashRegisters.filter(cash => cash.employee == movement.createBy).length>0 ?
                                     movement.status
                                     : <>
                                       <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
