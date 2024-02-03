@@ -342,6 +342,10 @@ const ManagerDash = () => {
     setFilteredOrders(orders);
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 559b8d757036881d7ae2c37b5651daffa3a4743d
   useEffect(() => {
     fetchOrdersData()
     fetchActiveEmployees();
@@ -445,10 +449,16 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
+<<<<<<< HEAD
                     
                     <div className="d-flex align-content-center justify-content-center align-items-center text-dark">
                       <div className="d-flex align-content-center justify-content-center align-items-center">
                         <div className="d-flex align-content-center justify-content-center align-items-center">
+=======
+                    <div className="row text-dark">
+                      <div className="col-md-3">
+                        <div className="show-entries">
+>>>>>>> 559b8d757036881d7ae2c37b5651daffa3a4743d
                           <span>عرض</span>
                           <select
                             className="form-control"
@@ -467,8 +477,13 @@ const ManagerDash = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
+<<<<<<< HEAD
                       <div className="d-flex align-content-center justify-content-center align-items-center">
                         <div className="d-flex align-content-center justify-content-center align-items-center">
+=======
+                      <div className="col-md-4">
+                        <div className="filter-group">
+>>>>>>> 559b8d757036881d7ae2c37b5651daffa3a4743d
                           <label>رقم الفاتورة</label>
                           <div className="input-group">
                             <input
@@ -476,12 +491,24 @@ const ManagerDash = () => {
                               className="form-control"
                               onChange={(e) => searchBySerial(e.target.value)}
                             />
+<<<<<<< HEAD
 
                           </div>
                         </div>
                       </div>
                       <div className="d-flex align-content-center justify-content-center align-items-center">
                         <div className="d-flex align-content-center justify-content-center align-items-center">
+=======
+                            <div className="input-group-append">
+                              <button type="button" className="btn btn-primary">
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="filter-group">
+>>>>>>> 559b8d757036881d7ae2c37b5651daffa3a4743d
                           <label>نوع الاوردر</label>
                           <select
                             className="form-control"

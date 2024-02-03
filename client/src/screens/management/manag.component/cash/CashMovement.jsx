@@ -431,6 +431,7 @@ const CashMovement = () => {
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
                                 <td>{movement.status == 'Pending' ?
+<<<<<<< HEAD
                                   AllCashRegisters.find(cash => cash.employee == movement.createBy) ?
                                     movement.status
                                     : <>
@@ -440,6 +441,15 @@ const CashMovement = () => {
                                       >رفض</button>
                                     </>
                                   : ""}</td>
+=======
+                                  <>
+                                    <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
+                                    >قبول</button>
+                                    <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
+                                    >رفض</button>
+                                  </>
+                                  : movement.status}</td>
+>>>>>>> 559b8d757036881d7ae2c37b5651daffa3a4743d
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
