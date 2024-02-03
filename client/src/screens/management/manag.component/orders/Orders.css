@@ -84,6 +84,12 @@
 	border-radius: 3px;
 	border-color: #ddd;
 	box-shadow: none;
+	display: inline-block;
+	margin-left: 5px;
+	font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+	
 }
 
 .table-filter {
@@ -101,19 +107,14 @@
 	margin-left: 10px;
 }
 
-.table-filter select,
-.table-filter input {
-	display: inline-block;
-	margin-left: 5px;
-}
 
 .table-filter input {
-	width: 200px;
+	width: 130px;
 	display: inline-block;
 }
 
 .filter-group select.form-control {
-	width: 110px;
+	width: 130px;
 }
 
 .filter-icon {
@@ -129,7 +130,7 @@
 table.table tr th,
 table.table tr td {
 	border-color: #e9e9e9;
-	padding: 12px 5px;
+	padding: 12px 10px;
 	vertical-align: middle;
 	text-align: center;
 
