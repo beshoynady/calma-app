@@ -1,0 +1,284 @@
+.dashboard {
+  width: 100%;
+  padding: 5px;
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+.dashboard .container .header {
+  grid-gap: 16px;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+}
+.dashboard .container .header .titel-dashbord h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-right: 5px;
+}
+.dashboard .container .header .titel-dashbord .breadcrumb {
+  display: flex;
+  align-items: center;
+  grid-gap: 16px;
+}
+.dashboard .container .header .titel-dashbord .breadcrumb li {
+  color: var(--dark);
+}
+.dashboard .container .header .titel-dashbord .breadcrumb li a {
+  color: var(--dark-grey);
+  pointer-events: none;
+}
+.dashboard .container .header .titel-dashbord .breadcrumb li a.active {
+  color: var(--primary);
+  pointer-events: none;
+}
+.dashboard .container .header .website {
+  height: 40px;
+  width: 126px;
+  padding: 0 16px;
+  border-radius: 36px;
+  background: var(--primary);
+  color: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 10px;
+  font-weight: 500;
+}
+.dashboard .container .insights {
+  grid-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 20px;
+  direction: rtl;
+}
+.dashboard .container .insights li {
+  padding: 10px;
+  background: var(--light);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  grid-gap: 24px;
+  cursor: pointer;
+}
+.dashboard .container .insights li .bx {
+  width: 50px;
+  height: 80px;
+  border-radius: 10px;
+  font-size: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard .container .insights li:nth-child(1) .bx {
+  background: var(--light-primary);
+  color: var(--primary);
+}
+.dashboard .container .insights li:nth-child(2) .bx {
+  background: var(--light-warning);
+  color: var(--warning);
+}
+.dashboard .container .insights li:nth-child(3) .bx {
+  background: var(--light-success);
+  color: var(--success);
+}
+.dashboard .container .insights li:nth-child(4) .bx {
+  background: var(--light-danger);
+  color: var(--danger);
+}
+.dashboard .container .insights li:nth-child(5) .bx {
+  background: var(--light-danger);
+  color: var(--danger);
+}
+.dashboard .container .insights li .info {
+  text-align: center;
+}
+.dashboard .container .insights li .info p {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--dark);
+}
+.dashboard .container .insights li .info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.dashboard .container .bottom-data {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 24px;
+  margin-top: 24px;
+  width: 100%;
+  color: var(--dark);
+}
+.dashboard .container .bottom-data > div {
+  border-radius: 20px;
+  background: var(--light);
+  padding: 24px;
+  overflow-x: auto;
+}
+.dashboard .container .bottom-data .header {
+  display: flex;
+  align-items: center;
+  grid-gap: 16px;
+  margin-bottom: 24px;
+}
+.dashboard .container .bottom-data .header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.dashboard .container .bottom-data .header .bx {
+  cursor: pointer;
+}
+.dashboard .container .bottom-data .reminders {
+  flex-grow: 1;
+  flex-basis: 300px;
+  direction: rtl;
+}
+.dashboard .container .bottom-data .reminders .task-list {
+  width: 100%;
+}
+.dashboard .container .bottom-data .reminders .task-list li {
+  width: 100%;
+  margin-bottom: 16px;
+  background: var(--grey);
+  padding: 14px 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard .container .bottom-data .reminders .task-list li .task-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard .container .bottom-data .reminders .task-list li .task-title > p {
+  margin-left: 6px;
+  margin-bottom: 0 !important;
+}
+.dashboard .container .bottom-data .reminders .task-list li .bx {
+  cursor: pointer;
+}
+.dashboard .container .bottom-data .reminders .task-list li:last-child {
+  margin-bottom: 0;
+}
+.dashboard .container .bottom-data .reminders .task-list li.completed {
+  border-left: 10px solid var(--success);
+}
+.dashboard .container .bottom-data .reminders .task-list li.not-completed {
+  border-left: 10px solid var(--danger);
+}
+.dashboard .container .bottom-data .orders {
+  flex-grow: 1;
+  flex-basis: 650px;
+  direction: rtl;
+}
+.dashboard .container .bottom-data .orders table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dashboard .container .bottom-data .orders table th {
+  padding-bottom: 12px;
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid var(--grey);
+}
+.dashboard .container .bottom-data .orders table td {
+  padding: 16px 0;
+  text-align: center;
+}
+.dashboard .container .bottom-data .orders table td img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.dashboard .container .bottom-data .orders table tr td:first-child {
+  align-items: center;
+  grid-gap: 12px;
+  padding-left: 6px;
+}
+.dashboard .container .bottom-data .orders table tr td .status {
+  font-size: 10px;
+  padding: 5px 5px;
+  color: var(--light);
+  border-radius: 20px;
+  font-weight: 700;
+}
+.dashboard .container .bottom-data .orders table tr td .status.completed {
+  background: var(--success);
+}
+.dashboard .container .bottom-data .orders table tr td .status.process {
+  background: var(--primary);
+}
+.dashboard .container .bottom-data .orders table tr td .status.pending {
+  background: var(--warning);
+}
+.dashboard .container .bottom-data .orders table tbody tr {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+}
+.dashboard .container .bottom-data .orders table tbody tr:hover {
+  background: var(--grey);
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+  .content {
+    width: calc(100% - 60px);
+    left: 200px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .content nav form .form-input input {
+    display: none;
+  }
+  .content nav form .form-input button {
+    width: auto;
+    height: auto;
+    background: transparent;
+    color: var(--dark);
+    border-radius: none;
+  }
+  .content nav form.show .form-input input {
+    display: block;
+    width: 100%;
+  }
+  .content nav form.show .form-input button {
+    width: 36px;
+    height: 100%;
+    color: var(--light);
+    background: var(--danger);
+    border-radius: 0 36px 36px 0;
+  }
+  .content nav form.show ~ .notif {
+    display: none;
+  }
+  .content nav form.show ~ .profile {
+    display: none;
+  }
+  .dashboard .insights {
+    grid-template-columns: 1fr;
+  }
+  .dashboard .bottom-data .header {
+    min-width: 340px;
+  }
+  .dashboard .bottom-data .orders table {
+    min-width: 340px;
+  }
+  .dashboard .bottom-data .reminders .task-list {
+    min-width: 340px;
+  }
+}/*# sourceMappingURL=ManagerDash.css.map */

@@ -1,0 +1,128 @@
+.Waiter {
+    width: 100%;
+    padding: 36px 24px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    background-color: rgb(226, 250, 159);
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+
+    .wai-card {
+        width: 280px;
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        border: 2px solid gray;
+        border-radius: 10px;
+
+        .card-info {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-radius: 10px 10px 0 0;
+            background-color: rgb(34, 255, 34);
+
+            .info-p {
+                width: max-content;
+                height: 30px;
+                font-size: 14px;
+                font-weight: 900;
+                color: rgb(0, 0, 0);
+                text-align: right;
+                padding: 5px;
+                margin: 5px;
+                border: 1px solid white;
+            }
+        }
+
+        .card-product {
+            width: 100%;
+            height: max-content;
+            box-sizing: border-box;
+            background-color: white;
+
+            .card-ul {
+                width: 100%;
+                height: 100%;
+
+                .card-li {
+                    width: 98%;
+                    height: 40px;
+                    font-size: 24px;
+                    font-family: Arial, Helvetica, sans-serif;
+                    list-style: decimal;
+                    margin-right: 5px;
+                    padding: 5px 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: 2px solid gray;
+
+                    &:last-child {
+                        border-bottom: none
+                    }
+
+                    .product-name {
+                        width: 70%;
+                        height: 100%;
+                        color: black;
+                        text-align: right;
+                        // float: right;
+                    }
+
+                    .product-quantity {
+                        display: inline-block;
+                        width: 25%;
+                        height: 100%;
+                        color: white;
+                        background-color: red;
+                        text-align: center;
+                        // float: left;
+                    }
+                }
+            }
+        }
+
+        .card-btn {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .btn-start{
+                width: 90%;
+                height: 100%;
+                font-size: 30px;
+                border: 2px solid greenyellow;
+                border-radius: 20px;
+                background-color: green;
+                vertical-align: middle;
+            }
+            .btn-ready{
+                width: 90%;
+                height: 100%;
+                font-size: 30px;
+                border: 2px solid rgb(253, 255, 128);
+                border-radius: 20px;
+                background-color: rgb(255, 252, 45);
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .Waiter{
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+}

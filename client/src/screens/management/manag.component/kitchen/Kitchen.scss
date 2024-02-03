@@ -1,0 +1,126 @@
+.Kitchen{
+    width: 100%;
+    padding: 36px 24px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;  
+    background-color: rgb(226, 250, 159);
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    .kit-card{
+        width: 280px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        border: 2px solid gray;
+        border-radius: 10px;
+        .card-info{
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-radius: 10px 10px 0 0;
+            background-color: rgb(34, 255, 34);
+            .info-p{
+                width:max-content;
+                height: 30px;
+                font-size: 15px;
+                font-weight: 800;
+                color: white;
+                text-align: right;
+                padding: 5px;
+                margin: 5px;
+                border: 1px solid white;
+            }
+        }
+        .card-product{
+            width: 100%;
+            height:min-content ;
+            box-sizing: border-box;
+            background-color: white;
+            .card-ul{
+                width: 100%;
+                height: 100%;
+                .card-li{
+                    width: 98%;
+                    height:max-content ;
+                    list-style:decimal;
+                    margin-right: 5px;
+                    padding: 5px 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start;
+                    border-bottom: 2px solid rgb(27, 27, 27);
+                    &:last-child{
+                        border-bottom: none
+                    }
+                    .product-card-det{
+                        width: 100%;
+                        height: 30px;
+                        font-size: 20px;
+                        font-family: Arial, Helvetica, sans-serif;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        .product-name{
+                            width: 70%;
+                            height: 100%;
+                            text-align: right;
+                            color: black;
+                            font-size: 20px;
+                            font-weight: 900;
+                        }
+                        .product-quantity{
+                            display: inline-block;
+                            width: 25%;
+                            height: 100%;
+                            background-color: red;
+                            text-align: center;
+                            padding: 2px;
+                        }
+                    }
+                    .product-note{
+                        width: 100%;
+                        height:auto;
+                        font-size: 20px;
+                        background-color: rgb(161, 161, 161);
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                }
+            }
+        }
+        .card-btn{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .btn-start{
+                width: 90%;
+                height: 100%;
+                font-size: 30px;
+                border: 2px solid greenyellow;
+                border-radius: 20px;
+                background-color: green;
+                vertical-align: middle;
+            }
+            .btn-ready{
+                width: 90%;
+                height: 100%;
+                font-size: 30px;
+                border: 2px solid rgb(253, 255, 128);
+                border-radius: 20px;
+                background-color: rgb(255, 252, 45);
+                vertical-align: middle;
+            }
+        }
+    }
+}

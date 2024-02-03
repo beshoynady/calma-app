@@ -1,0 +1,129 @@
+.Kitchen {
+  width: 100%;
+  padding: 36px 24px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  background-color: rgb(226, 250, 159);
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+.Kitchen .kit-card {
+  width: 280px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+.Kitchen .kit-card .card-info {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-radius: 10px 10px 0 0;
+  background-color: rgb(34, 255, 34);
+}
+.Kitchen .kit-card .card-info .info-p {
+  width: -moz-max-content;
+  width: max-content;
+  height: 30px;
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+  text-align: right;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid white;
+}
+.Kitchen .kit-card .card-product {
+  width: 100%;
+  height: -moz-min-content;
+  height: min-content;
+  box-sizing: border-box;
+  background-color: white;
+}
+.Kitchen .kit-card .card-product .card-ul {
+  width: 100%;
+  height: 100%;
+}
+.Kitchen .kit-card .card-product .card-ul .card-li {
+  width: 98%;
+  height: -moz-max-content;
+  height: max-content;
+  list-style: decimal;
+  margin-right: 5px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid rgb(27, 27, 27);
+}
+.Kitchen .kit-card .card-product .card-ul .card-li:last-child {
+  border-bottom: none;
+}
+.Kitchen .kit-card .card-product .card-ul .card-li .product-card-det {
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Kitchen .kit-card .card-product .card-ul .card-li .product-card-det .product-name {
+  width: 70%;
+  height: 100%;
+  text-align: right;
+  color: black;
+  font-size: 20px;
+  font-weight: 900;
+}
+.Kitchen .kit-card .card-product .card-ul .card-li .product-card-det .product-quantity {
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  background-color: red;
+  text-align: center;
+  padding: 2px;
+}
+.Kitchen .kit-card .card-product .card-ul .card-li .product-note {
+  width: 100%;
+  height: auto;
+  font-size: 20px;
+  background-color: rgb(161, 161, 161);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.Kitchen .kit-card .card-btn {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Kitchen .kit-card .card-btn .btn-start {
+  width: 90%;
+  height: 100%;
+  font-size: 30px;
+  border: 2px solid greenyellow;
+  border-radius: 20px;
+  background-color: green;
+  vertical-align: middle;
+}
+.Kitchen .kit-card .card-btn .btn-ready {
+  width: 90%;
+  height: 100%;
+  font-size: 30px;
+  border: 2px solid rgb(253, 255, 128);
+  border-radius: 20px;
+  background-color: rgb(255, 252, 45);
+  vertical-align: middle;
+}/*# sourceMappingURL=Kitchen.css.map */
