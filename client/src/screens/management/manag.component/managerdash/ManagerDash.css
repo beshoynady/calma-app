@@ -180,6 +180,9 @@
   flex-basis: 650px;
   direction: rtl;
 }
+.dashboard .container .bottom-data .orders .table-filter {
+  color: var(--dark);
+}
 .dashboard .container .bottom-data .orders table {
   width: 100%;
   border-collapse: collapse;
