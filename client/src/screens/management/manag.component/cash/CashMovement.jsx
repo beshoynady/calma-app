@@ -429,22 +429,20 @@ const CashMovement = () => {
                                 }</td>
                                 <td>{
                                   AllCashRegisters.find(cash => cash._id == movement.registerId)
-                                    ?usertitle( AllCashRegisters.find(cash => cash._id == movement.registerId).employee)
+                                    ? usertitle(AllCashRegisters.find(cash => cash._id == movement.registerId).employee)
                                     : 'No register found'
                                 }</td>
                                 <td>{movement.type}</td>
                                 <td>{usertitle(movement.createBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
-                                <td>{movement.status == 'Pending' ?
-                                  AllCashRegisters.filter(cash => cash.employee == movement.createBy).length>0 ?
-                                    movement.status
-                                    : <>
-                                      <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
-                                      >قبول</button>
-                                      <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
-                                      >رفض</button>
-                                    </>
+                                <td>{movement.status == 'Pending' && AllCashRegisters.filter(cash => cash.employee == movement.createBy).length > 0 ?
+                                  <>
+                                    <button className="btn btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
+                                    >قبول</button>
+                                    <button className="btn btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
+                                    >رفض</button>
+                                  </>
                                   : movement.status}</td>
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
