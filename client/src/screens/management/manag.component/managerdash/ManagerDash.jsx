@@ -446,17 +446,12 @@ const ManagerDash = () => {
                     <div className="header">
                       <h3>الاوردرات الحالية</h3>
                     </div>
-                    <div className="row text-dark">
-                      <div className="col-md-3">
-                        <div className="show-entries">
+                    <div class="table-filter">
+                    <div class="row text-dark">
+                      <div class="col-sm-3">
+                        <div class="show-entries">
                           <span>عرض</span>
-                          <select
-                            className="form-control"
-                            onChange={(e) => {
-                              setstartpagination(0);
-                              setendpagination(e.target.value);
-                            }}
-                          >
+                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -467,37 +462,35 @@ const ManagerDash = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div className="col-md-4">
-                        <div className="filter-group">
+                      <div class="col-sm-9">
+                        <div class="filter-group">
                           <label>رقم الفاتورة</label>
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              className="form-control"
-                              onChange={(e) => searchBySerial(e.target.value)}
-                            />
-                            <div className="input-group-append">
-                              <button type="button" className="btn btn-primary">
-                              </button>
-                            </div>
-                          </div>
+                          <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
+                          {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
                         </div>
-                      </div>
-                      <div className="col-md-4">
-                        <div className="filter-group">
+                        <div class="filter-group">
                           <label>نوع الاوردر</label>
-                          <select
-                            className="form-control"
-                            onChange={(e) => getOrdersByType(e.target.value)}
-                          >
-                            <option value={''}>الكل</option>
-                            <option value="Internal">Internal</option>
-                            <option value="Delivery">Delivery</option>
-                            <option value="Takeaway">Takeaway</option>
+                          <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                            <option value={""}>الكل</option>
+                            <option value="Internal" >Internal</option>
+                            <option value="Delivery" >Delivery</option>
+                            <option value="Takeaway" >Takeaway</option>
                           </select>
                         </div>
+                        {/* <div class="filter-group">
+                  <label>Status</label>
+                  <select class="form-control">
+                    <option>Any</option>
+                    <option>Delivered</option>
+                    <option>Shipped</option>
+                    <option>Pending</option>
+                    <option>Cancelled</option>
+                  </select>
+                </div>
+                <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                       </div>
                     </div>
+                  </div>
 
                     <table>
                       <thead>
