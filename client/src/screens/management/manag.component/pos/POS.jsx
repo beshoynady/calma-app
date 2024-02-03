@@ -111,7 +111,7 @@ const POS = () => {
                         <div className="modal-footer">
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                            <input type="submit" className="btn btn-success" value="تم" />
+                            <input type="submit" className="btn btn-success"  data-dismiss="modal" value="تم" />
                           </div>
                         </div>
                       </form>
@@ -180,7 +180,7 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-success" value="تم" />
+                          <input type="submit" className="btn btn-success"  data-dismiss="modal" value="تم" />
                         </div>
                       </form>
                     </div>

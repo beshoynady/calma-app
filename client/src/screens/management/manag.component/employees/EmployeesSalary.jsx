@@ -434,7 +434,7 @@ const EmployeesSalary = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Close" />
-                        <input type="submit" className="btn btn-success" value="Add" />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="Add" />
                       </div>
                     </form>
                   </div>

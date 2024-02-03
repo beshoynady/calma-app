@@ -759,7 +759,7 @@ const ManagerDash = () => {
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
+                              <input type="submit" className="btn btn-success"  data-dismiss="modal" value="Print" onClick={handlePrint} />
                             </div>
                           </form>
                         </div>

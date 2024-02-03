@@ -330,7 +330,7 @@ const Tables = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="ضافه" />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="ضافه" />
                       </div>
                     </form>
                   </div>
@@ -401,7 +401,7 @@ const Tables = () => {
                       </div>
                       <div className="modal-footer">
                         {qrimage ? <button type="button" className="btn btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-success" value="استخراج" />}
+                          : <input type="submit" className="btn btn-success"  data-dismiss="modal" value="استخراج" />}
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>

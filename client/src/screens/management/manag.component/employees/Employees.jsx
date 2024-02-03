@@ -446,7 +446,7 @@ const Employees = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-success" value="اضافه" />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="اضافه" />
                       </div>
                     </form>
                   </div>

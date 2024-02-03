@@ -6,6 +6,10 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const CashMovement = () => {
+
+  let isFunctionExecuting = false;
+
+
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   // Function to retrieve user info from tokens
   const getEmployeeInfoFromToken = () => {
@@ -73,13 +77,11 @@ const CashMovement = () => {
 
   const addCashMovementAndUpdateBalance = async () => {
     // e.preventDefault();
-    console.log({ registerId })
-    console.log({ createBy })
-    console.log({ amount })
-    console.log({ balance })
-    console.log({ type })
-    console.log({ description })
+if (isFunctionExecuting) {
+    return;
+  }
     try {
+      isFunctionExecuting = true;
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId,
@@ -114,7 +116,9 @@ const CashMovement = () => {
         getAllCashRegisters();
       }
 
+      isFunctionExecuting = false;
     } catch (error) {
+      isFunctionExecuting = false;
       // Show error toast message if the process failed
       toast.error('Failed to record cash movement');
     }
@@ -154,7 +158,12 @@ const CashMovement = () => {
 
   const transferCash = async (e) => {
     e.preventDefault();
+    if (isFunctionExecuting) {
+      return;
+    }
     try {
+      isFunctionExecuting = true;
+
       // Send cash movement data to the API
       const sendCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
         registerId: sendRegister,
@@ -190,7 +199,9 @@ const CashMovement = () => {
       // Refresh the displayed cash movements and registers
       getCashMovement();
       getAllCashRegisters();
+      isFunctionExecuting = false;
     } catch (error) {
+      isFunctionExecuting = false;
       // Show error toast message if the process failed
       toast.error('حدث خطأ أثناء تسجيل حركة النقدية');
       console.error(error); // Log the error for debugging purposes
@@ -199,7 +210,11 @@ const CashMovement = () => {
   
 
   const accepteTransferCash = async (id, statusTransfer) => {
+    if (isFunctionExecuting) {
+      return;
+    }
     try {
+      isFunctionExecuting = true;
       // Fetch details of the cash movement
       const receivcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
       const movementId = receivcashMovement.data.movementId;
@@ -261,9 +276,12 @@ const CashMovement = () => {
 
       }
       toast.success('Transfer completed successfully');
+      isFunctionExecuting = false;
     } catch (error) {
+      isFunctionExecuting = false;
       console.error('Error accepting transfer:', error.message);
       toast.error('Error accepting transfer. Please try again.');
+
     }
   };
 
@@ -503,7 +521,7 @@ const CashMovement = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="ايداع" />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="ايداع" />
                       </div>
                     </form>
                   </div>
@@ -537,7 +555,7 @@ const CashMovement = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="سحب" />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="سحب" />
                       </div>
                     </form>
                   </div>
@@ -580,7 +598,7 @@ const CashMovement = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="تحويل " />
+                        <input type="submit" className="btn btn-success"  data-dismiss="modal" value="تحويل " />
                       </div>
                     </form>
                   </div>
