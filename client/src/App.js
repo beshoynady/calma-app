@@ -723,7 +723,7 @@ function App() {
       setorderdiscount(data.discount)
       setordersubtotal(data.subTotal)
       setlist_products_order(data.products)
-      setnewlistofproductorder(data.products)
+      // setnewlistofproductorder(data.products)
     }
   }
 
@@ -731,7 +731,8 @@ function App() {
   const putNumOfPaid =async(id,numOfPaid)=>{
     console.log({numOfPaid})
     // setcount(count + 1)
-    newlistofproductorder.map((product)=>{
+    const arrayofproductorder = [...list_products_order]
+    arrayofproductorder.map((product)=>{
       if(product.productid === id ){
         const oldproduct = list_products_order.find(pro => pro.productid === id);
         console.log({oldproduct})
@@ -740,20 +741,25 @@ function App() {
       console.log({putNumOfPaid:newlistofproductorder})
       
     })
+    setnewlistofproductorder([...arrayofproductorder])
     calcsubtotalSplitOrder(numOfPaid)
   }
   
-  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
-  const calcsubtotalSplitOrder=async(numOfPaid)=>{
-    if(newlistofproductorder.length>0){
-      let total = 0
-      newlistofproductorder.map((product)=>{
-      const subTotal =product.priceAfterDiscount? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid
-      total += subTotal
-    })
-    setsubtotalSplitOrder(subtotalSplitOrder + total)
+  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
+
+const calcsubtotalSplitOrder = async (numOfPaid) => {
+  if (newlistofproductorder.length > 0) {
+    let total = 0;
+
+    newlistofproductorder.forEach((product) => {
+      const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
+      total += subTotal;
+    });
+
+    setsubtotalSplitOrder(total); 
   }
-  }
+};
+
 
   const splitInvoice = async(e)=>{
     e.preventDefault()
