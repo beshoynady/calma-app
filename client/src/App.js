@@ -769,7 +769,7 @@ function App() {
         console.log({ oldproduct })
         console.log({ old_numOfPaid: oldproduct.numOfPaid })
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid;
-        const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
+        const subTotal = product.priceAfterDiscount>0 ? numOfPaid * product.priceAfterDiscount : product.price * numOfPaid;
         total += subTotal;
         console.log({ new_numOfPaid: product.numOfPaid })
       }
