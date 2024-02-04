@@ -762,15 +762,13 @@ function App() {
     console.log({ list_products: list_products_order })
     // const arrayofproductorder = JSON.parse(JSON.stringify(list_products_order));
     console.log({ newlistofproductorder })
-    let total = 0;
     newlistofproductorder.map((product) => {
       if (product.productid === id) {
         const oldproduct = list_products_order.find(pro => pro.productid === id);
         console.log({ oldproduct })
         console.log({ old_numOfPaid: oldproduct.numOfPaid })
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid;
-        const subTotal = oldproduct.priceAfterDiscount > 0 ? numOfPaid * oldproduct.priceAfterDiscount : oldproduct.price * numOfPaid;
-        total += subTotal;
+;
         console.log({ new_numOfPaid: product.numOfPaid })
       }
 
@@ -789,9 +787,9 @@ function App() {
       let total = 0;
 
       newlistofproductorder.map((product) => {
-        const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
-        total += subTotal;
-      });
+        const subTotal = product.priceAfterDiscount > 0 ? numOfPaid * product.priceAfterDiscount : oldproduct.price * numOfPaid;
+        total += subTotal
+        });
 
       setsubtotalSplitOrder(total);
     }
