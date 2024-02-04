@@ -721,8 +721,9 @@ function App() {
     }
   }
   const putNumOfPaid =async(id,numOfPaid)=>{
+    console.log({numOfPaid})
     list_products_order.map((product)=>{
-      if(product.id === id ){
+      if(product.productid === id ){
         product.numOfPaid = numOfPaid
       }
       console.log({putNumOfPaid:list_products_order})
