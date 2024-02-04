@@ -15,10 +15,9 @@ const POS = () => {
     bodyClass: 'printpage'
   });
 
-  const typeOrderModalRef = useRef(null);
 
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
-  const [typeOrderModal, settypeOrderModal] = useState(false)
+  // const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
@@ -356,9 +355,9 @@ const POS = () => {
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
-                        <a href="#typeOrderModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal'); settypeOrderModal(!typeOrderModal) }}>الصالة</a>
-                        <a type="button" className="btn btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway'); settypeOrderModal(!typeOrderModal) }}>التيك أوي</a>
-                        <a type="button" className="btn btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery'); settypeOrderModal(!typeOrderModal) }}>التوصيل</a>
+                        <a href="#typeOrderModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal')}}>الصالة</a>
+                        <a type="button" className="btn btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway')}}>التيك أوي</a>
+                        <a type="button" className="btn btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery')}}>التوصيل</a>
                       </div>
                     </div>
                   </div>
