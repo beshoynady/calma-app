@@ -761,7 +761,7 @@ function App() {
 
       newlistofproductorder.map((product) => {
         if (product.productid == id) {
-          const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
+          const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceAfterDiscount : product.price * numOfPaid;
           total += subTotal;
         }
       });
