@@ -734,6 +734,7 @@ function App() {
     newlistofproductorder.map((product)=>{
       if(product.productid === id ){
         const oldproduct = list_products_order.find(product => product.productid === id);
+        console.log({oldproduct})
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid
       }
       console.log({putNumOfPaid:newlistofproductorder})
