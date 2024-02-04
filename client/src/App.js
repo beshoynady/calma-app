@@ -730,7 +730,7 @@ function App() {
   // const putNumOfPaid = async (id, numOfPaid) => {
   //   console.log({ numOfPaid });
   //   console.log({ list_products: list_products_order });
-    
+
   //   const arrayofproductorder = list_products_order.map((product) => {
   //     if (product.productid === id) {
   //       const oldproduct = list_products_order.find((pro) => pro.productid == id);
@@ -747,7 +747,7 @@ function App() {
   //     const subTotal = product.priceAfterDiscount ? product.numOfPaid * product.priceAfterDiscount : product.numOfPaid * product.price;
   //     return subTotal;
   //   }, 0);
-  
+
   //   setsubtotalSplitOrder(total);
 
   //   console.log({ list_products_order });
@@ -756,50 +756,55 @@ function App() {
   //   // calcsubtotalSplitOrder(id, numOfPaid);
   // };
 
-  const putNumOfPaid = async(id,numOfPaid)=>{
-    console.log({numOfPaid})
+  const putNumOfPaid = async (id, numOfPaid) => {
+    console.log({ numOfPaid })
     // setcount(count + 1)
-    console.log({list_products:list_products_order})
+    console.log({ list_products: list_products_order })
     // const arrayofproductorder = JSON.parse(JSON.stringify(list_products_order));
-    console.log({newlistofproductorder})
-    newlistofproductorder.map((product)=>{
-      if(product.productid === id ){
+    console.log({ newlistofproductorder })
+    let total = 0;
+    newlistofproductorder.map((product) => {
+      if (product.productid === id) {
         const oldproduct = list_products_order.find(pro => pro.productid === id);
-        console.log({oldproduct})
-        console.log({old_numOfPaid:oldproduct.numOfPaid})
-        product.numOfPaid = oldproduct.numOfPaid + numOfPaid
-        console.log({new_numOfPaid:product.numOfPaid})
+        console.log({ oldproduct })
+        console.log({ old_numOfPaid: oldproduct.numOfPaid })
+        product.numOfPaid = oldproduct.numOfPaid + numOfPaid;
+        const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
+        total += subTotal;
+        console.log({ new_numOfPaid: product.numOfPaid })
       }
-      
+
     })
-    console.log({newlistofproductorder})
+    setsubtotalSplitOrder(total);
+
+    console.log({ newlistofproductorder })
     // setnewlistofproductorder([...newlistofproductorder])
     calcsubtotalSplitOrder(numOfPaid)
   }
-  
+
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
 
-const calcsubtotalSplitOrder = async (numOfPaid) => {
-  if (newlistofproductorder.length > 0) {
-    let total = 0;
+  const calcsubtotalSplitOrder = (id, numOfPaid) => {
+    if (newlistofproductorder.length > 0) {
+      let total = 0;
 
-    newlistofproductorder.forEach((product) => {
-      const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
-      total += subTotal;
-    });
+      newlistofproductorder.map((product) => {
+        const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid;
+        total += subTotal;
+      });
 
-    setsubtotalSplitOrder(total); 
-  }
-};
+      setsubtotalSplitOrder(total);
+    }
+  };
 
 
-  const splitInvoice = async(e)=>{
+  const splitInvoice = async (e) => {
     e.preventDefault()
-    const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid,{
-      products : newlistofproductorder,
-      isSplit : true
+    const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid, {
+      products: newlistofproductorder,
+      isSplit: true
     })
-    console.log({updateOrder})
+    console.log({ updateOrder })
   }
 
 
@@ -1099,7 +1104,7 @@ const calcsubtotalSplitOrder = async (numOfPaid) => {
   const [OrderDetalisBySerial, setOrderDetalisBySerial] = useState({})
   const [productOrderTOupdate, setproductOrderTOupdate] = useState([])
   // Fetch orders from API
-  const getOrderDetalisBySerial = async (e,serial) => {
+  const getOrderDetalisBySerial = async (e, serial) => {
     e.preventDefault()
     try {
       console.log({ serial })
@@ -1215,7 +1220,7 @@ const calcsubtotalSplitOrder = async (numOfPaid) => {
       createClientOrderForTable, createClientOrderForUser,
 
       OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,
-      putNumOfPaid, splitInvoice,subtotalSplitOrder
+      putNumOfPaid, splitInvoice, subtotalSplitOrder
 
     }}>
       <BrowserRouter>
