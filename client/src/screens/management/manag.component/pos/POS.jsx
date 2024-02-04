@@ -150,7 +150,6 @@ const POS = () => {
                                   <th scope="col" className="col-md-1">الكمية</th>
                                   <th scope="col" className="col-md-1">الاجمالي</th>
                                   <th scope="col" className="col-md-2">الجزء</th>
-                                  <th scope="col" className="col-md-2">المطلوب</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -162,7 +161,7 @@ const POS = () => {
                                     <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                     <td className="col-md-1 text-nowrap">{item.totalprice}</td>
                                     <td className="col-md-2 text-nowrap"><input type='Number' defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value)); 
-                                    setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}}/></td>
+                                    setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}} style={{width:"50px"}}/></td>
                                   </tr>
                                 ))}
                               </tbody>
