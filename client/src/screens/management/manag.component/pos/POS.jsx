@@ -113,7 +113,7 @@ const POS = () => {
                         <div className="modal-footer">
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                            <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
+                            <input type="submit" className="btn btn-success" onClick={() => modalRef.current.hide()} value="تم" />
                           </div>
                         </div>
                       </form>
@@ -178,7 +178,7 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
+                          <input type="submit" className="btn btn-success" value="تم" />
                         </div>
                       </form>
                     </div>
@@ -242,7 +242,7 @@ const POS = () => {
                             ) : null : ''}
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                            <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
+                            <input type="submit" className="btn btn-success" value="تم" />
                           </div>
                         </form>
                       </div>
