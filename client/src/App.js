@@ -736,8 +736,6 @@ function App() {
         const oldproduct = list_products_order.find((pro) => pro.productid == id);
         console.log({ oldproduct });
         console.log({ old_numOfPaid: oldproduct.numOfPaid });
-
-        // إنشاء نسخة جديدة من الكائن بتحديث خاصية numOfPaid
         return {
           ...product,
           numOfPaid: oldproduct.numOfPaid + numOfPaid,
