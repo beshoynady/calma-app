@@ -738,7 +738,7 @@ function App() {
         console.log({ oldproduct });
         console.log({ old_numOfPaid: oldproduct.numOfPaid });
         const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceAfterDiscount : product.price * numOfPaid;
-          total += subTotal;
+        total += subTotal;
         return {
           ...product,
           numOfPaid: oldproduct.numOfPaid + numOfPaid,
@@ -746,10 +746,11 @@ function App() {
       }
       return product;
     });
-    setsubtotalSplitOrder(total);
 
     console.log({ list_products_order });
     console.log({ arrayofproductorder });
+
+    setsubtotalSplitOrder(total); // نقلها إلى هنا
     setnewlistofproductorder([...arrayofproductorder]);
     // calcsubtotalSplitOrder(id, numOfPaid);
   };
