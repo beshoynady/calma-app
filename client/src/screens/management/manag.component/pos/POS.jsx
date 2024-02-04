@@ -126,7 +126,7 @@ const POS = () => {
                 <div id="getOrderTableModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => {splitInvoice() }}>
+                      <form onSubmit={(e) => {splitInvoice(e) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">اختر الطاوله</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,8 +147,8 @@ const POS = () => {
                                 <tr>
                                   <th scope="col" className="col-md-3">الصنف</th>
                                   <th scope="col" className="col-md-2">السعر</th>
-                                  <th scope="col" className="col-md-2">الكمية</th>
-                                  <th scope="col" className="col-md-2">الاجمالي</th>
+                                  <th scope="col" className="col-md-1">الكمية</th>
+                                  <th scope="col" className="col-md-1">الاجمالي</th>
                                   <th scope="col" className="col-md-2">الجزء</th>
                                   <th scope="col" className="col-md-2">المطلوب</th>
                                 </tr>
@@ -159,8 +159,8 @@ const POS = () => {
                                   <tr key={i}>
                                     <td className="col-md-3 text-truncate">{item.name}</td>
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                    <td className="col-md-1 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-1 text-nowrap">{item.totalprice}</td>
                                     <td className="col-md-2 text-nowrap"><input type='Number' defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value)); 
                                     setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}}/></td>
                                   </tr>
@@ -168,11 +168,11 @@ const POS = () => {
                               </tbody>
                               <tfoot>
                                 <tr>
-                                  <td colSpan="3">المجموع</td>
+                                  <td colSpan="4">المجموع</td>
                                   <td>{subtotalSplitOrder}</td>
                                 </tr>
                                 <tr>
-                                  <td colSpan="3">الاجمالي</td>
+                                  <td colSpan="4">الاجمالي</td>
                                   <td>{ordertotal}</td>
                                 </tr>
                               </tfoot>

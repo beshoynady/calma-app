@@ -729,7 +729,8 @@ function App() {
 
     })
   }
-  const splitInvoice = async()=>{
+  const splitInvoice = async(e)=>{
+    e.preventDefault()
     const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid,{
       products : list_products_order,
       isSplit : true
