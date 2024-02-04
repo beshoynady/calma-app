@@ -744,9 +744,9 @@ function App() {
       }
       return product;
     });
-    const total = arrayofproductorder.reduce((acc, product) => {
+    const total = arrayofproductorder.map((product) => {
       const subTotal = product.priceAfterDiscount ? product.numOfPaid * product.priceAfterDiscount : product.numOfPaid * product.price;
-      return acc + subTotal;
+      return subTotal;
     }, 0);
   
     setsubtotalSplitOrder(total);
