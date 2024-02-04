@@ -252,7 +252,7 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                <div id="invoiceModal"  ref={typeOrderModalRef} className="modal fade">
+                <div id="invoiceModal"  className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
