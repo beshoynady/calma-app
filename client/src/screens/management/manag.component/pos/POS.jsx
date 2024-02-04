@@ -159,7 +159,7 @@ const POS = () => {
                                   <tr key={i}>
                                     <td className="col-md-3 text-truncate">{item.name}</td>
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                    <td className="col-md-1 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                     <td className="col-md-1 text-nowrap">{item.totalprice}</td>
                                     <td className="col-md-2 text-nowrap"><input type='Number' defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value)); 
                                     setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}}/></td>
