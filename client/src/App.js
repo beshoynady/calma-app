@@ -731,14 +731,12 @@ function App() {
   const putNumOfPaid = async (id, numOfPaid) => {
     console.log({ numOfPaid });
     console.log({ list_products: list_products_order });
-    let total = 0;
+    
     const arrayofproductorder = list_products_order.map((product) => {
       if (product.productid === id) {
         const oldproduct = list_products_order.find((pro) => pro.productid == id);
         console.log({ oldproduct });
         console.log({ old_numOfPaid: oldproduct.numOfPaid });
-        const subTotal = product.priceAfterDiscount ? numOfPaid * product.priceAfterDiscount : product.price * numOfPaid;
-        total += subTotal;
         return {
           ...product,
           numOfPaid: oldproduct.numOfPaid + numOfPaid,
@@ -746,11 +744,15 @@ function App() {
       }
       return product;
     });
+    const total = arrayofproductorder.reduce((acc, product) => {
+      const subTotal = product.priceAfterDiscount ? product.numOfPaid * product.priceAfterDiscount : product.numOfPaid * product.price;
+      return acc + subTotal;
+    }, 0);
+  
+    setsubtotalSplitOrder(total);
 
     console.log({ list_products_order });
     console.log({ arrayofproductorder });
-
-    setsubtotalSplitOrder(total); // نقلها إلى هنا
     setnewlistofproductorder([...arrayofproductorder]);
     // calcsubtotalSplitOrder(id, numOfPaid);
   };
