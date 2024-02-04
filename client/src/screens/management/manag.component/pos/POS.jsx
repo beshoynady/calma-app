@@ -14,8 +14,11 @@ const POS = () => {
     removeAfterPrint: true,
     bodyClass: 'printpage'
   });
+
+  const typeOrderModalRef = useRef(null);
+
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
-  const [typeOrderModal, settypeOrderModal] = useState(false)
+  // const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
@@ -242,7 +245,7 @@ const POS = () => {
                           ) : null : ''}
                         <div className="modal-footer">
                           <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                          <input type="save" className="btn btn-success" value="تم" onClick={settypeOrderModal(!typeOrderModal)} />
+                          <input type="save" className="btn btn-success" value="تم" data-dismiss="modal" />
                         </div>
                       </form>
                     </div>
@@ -250,7 +253,7 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                <div id="invoiceModal" className="modal fade">
+                <div id="invoiceModal"  ref={typeOrderModalRef} className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
