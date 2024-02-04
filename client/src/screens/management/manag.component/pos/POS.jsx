@@ -15,7 +15,7 @@ const POS = () => {
     bodyClass: 'printpage'
   });
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
-  // const [typeOrderModal, settypeOrderModal] = useState(false)
+  const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
