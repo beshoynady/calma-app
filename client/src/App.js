@@ -738,10 +738,13 @@ function App() {
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
   const calcsubtotalSplitOrder=async()=>{
     if(list_products_order.length>0){
+      let total = 0
     list_products_order.map((product)=>{
       const subTotal =product.priceAfterDiscount? product.numOfPaid * product.priceBeforeDiscount : product.price * product.numOfPaid
-      setsubtotalSplitOrder(subtotalSplitOrder + subTotal)
-    })}
+      total += subTotal
+    })
+    setsubtotalSplitOrder(subtotalSplitOrder + total)
+  }
   }
 
   const splitInvoice = async(e)=>{
