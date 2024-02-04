@@ -723,7 +723,7 @@ function App() {
       setorderdiscount(data.discount)
       setordersubtotal(data.subTotal)
       setlist_products_order(data.products)
-      // setnewlistofproductorder(data.products)
+      setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)))
     }
   }
 
@@ -760,9 +760,9 @@ function App() {
     console.log({numOfPaid})
     // setcount(count + 1)
     console.log({list_products:list_products_order})
-    const arrayofproductorder = JSON.parse(JSON.stringify(list_products_order));
+    // const arrayofproductorder = JSON.parse(JSON.stringify(list_products_order));
     console.log({newlistofproductorder})
-    arrayofproductorder.map((product)=>{
+    newlistofproductorder.map((product)=>{
       if(product.productid === id ){
         const oldproduct = list_products_order.find(pro => pro.productid === id);
         console.log({oldproduct})
