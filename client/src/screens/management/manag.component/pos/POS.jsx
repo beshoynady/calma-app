@@ -154,13 +154,13 @@ const POS = () => {
                               <tbody>
                                 {/* Replace this with your dynamic data */}
                                 {list_products_order.map((item, i) => (
-                                <tr key={i}>
-                                  <td className="col-md-3 text-truncate">{item.name}</td>
-                                  <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                  <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
-                                  <td className="col-md-1 text-nowrap">{item.totalprice}</td>
-                                  <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} /></td>
-                                </tr>
+                                  <tr key={i}>
+                                    <td className="col-md-3 text-truncate">{item.name}</td>
+                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                    <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
+                                    <td className="col-md-1 text-nowrap">{item.totalprice}</td>
+                                    <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} /></td>
+                                  </tr>
                                 ))}
                               </tbody>
                               <tfoot>
@@ -186,69 +186,68 @@ const POS = () => {
                 </div>
                 {/* اختيار نوع الاوردر */}
                 {typeOrderModal ? (
-                  <div id="typeOrderModal" className="modal fade">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <form>
-                          <div className="modal-header">
-                            <h4 className="modal-title">ادخل بيانات العميل</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          </div>
-                          {ordertype ?
-                            ordertype === 'Internal' ? (
-                              <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                                <div className="w-100">
-                                  <div className="form-group w-100">
-                                    <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                                    <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
-                                      <option>اختر رقم الطاولة</option>
-                                      {allTable.map((table, i) => (
-                                        <option value={table._id} key={i}>{table.tablenum}</option>
-                                      ))}
-                                    </select>
-                                  </div>
+                  <div className="modal fade show" style={{ display: 'block', zIndex: '1050', overflowY: 'auto' }}>
+                    <div className="modal-dialog fixed-top mx-auto">
+                      <div className="modal-content">                        <form>
+                        <div className="modal-header">
+                          <h4 className="modal-title">ادخل بيانات العميل</h4>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        {ordertype ?
+                          ordertype === 'Internal' ? (
+                            <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                              <div className="w-100">
+                                <div className="form-group w-100">
+                                  <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
+                                  <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                                    <option>اختر رقم الطاولة</option>
+                                    {allTable.map((table, i) => (
+                                      <option value={table._id} key={i}>{table.tablenum}</option>
+                                    ))}
+                                  </select>
                                 </div>
                               </div>
-                            ) : ordertype === 'Delivery' ? (
-                              <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                                <div className='w-100'>
-                                  <div className="form-group w-100">
-                                    <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
-                                  </div>
-                                  <div className="form-group w-100">
-                                    <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
-                                  </div>
-                                  <div className="form-group w-100">
-                                    <label htmlFor="address" className='w-40'>العنوان:</label>
-                                    <textarea className="w-60 form-control" required onChange={(e) => setclientaddress(e.target.value)} />
-                                  </div>
+                            </div>
+                          ) : ordertype === 'Delivery' ? (
+                            <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                              <div className='w-100'>
+                                <div className="form-group w-100">
+                                  <label htmlFor="name" className='w-40'>اسم العميل:</label>
+                                  <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                </div>
+                                <div className="form-group w-100">
+                                  <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
+                                  <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                </div>
+                                <div className="form-group w-100">
+                                  <label htmlFor="address" className='w-40'>العنوان:</label>
+                                  <textarea className="w-60 form-control" required onChange={(e) => setclientaddress(e.target.value)} />
                                 </div>
                               </div>
-                            ) : ordertype === 'Takeaway' ? (
-                              <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
-                                <div className='w-100'>
-                                  <div className="form-group w-100">
-                                    <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
-                                  </div>
-                                  <div className="form-group w-100">
-                                    <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
-                                    <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
-                                  </div>
+                            </div>
+                          ) : ordertype === 'Takeaway' ? (
+                            <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
+                              <div className='w-100'>
+                                <div className="form-group w-100">
+                                  <label htmlFor="name" className='w-40'>اسم العميل:</label>
+                                  <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                </div>
+                                <div className="form-group w-100">
+                                  <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
+                                  <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
                                 </div>
                               </div>
-                            ) : null : ''}
-                          <div className="modal-footer">
-                            <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                            <input type="save" className="btn btn-success" value="تم" onClick={settypeOrderModal(!typeOrderModal)} />
-                          </div>
-                        </form>
+                            </div>
+                          ) : null : ''}
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
+                          <input type="save" className="btn btn-success" value="تم" onClick={settypeOrderModal(!typeOrderModal)} />
+                        </div>
+                      </form>
                       </div>
                     </div>
                   </div>
-                 ) : ""}
+                ) : ""}
                 {/* الفاتوره */}
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
