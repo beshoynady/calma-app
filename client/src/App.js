@@ -731,16 +731,17 @@ function App() {
       if(product.productid === id ){
         product.numOfPaid = product.numOfPaid + numOfPaid
       }
+      calcsubtotalSplitOrder(numOfPaid)
       console.log({putNumOfPaid:list_products_order})
       
     })
   }
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
-  const calcsubtotalSplitOrder=async()=>{
+  const calcsubtotalSplitOrder=async(numOfPaid)=>{
     if(list_products_order.length>0){
       let total = 0
     list_products_order.map((product)=>{
-      const subTotal =product.priceAfterDiscount? product.numOfPaid * product.priceBeforeDiscount : product.price * product.numOfPaid
+      const subTotal =product.priceAfterDiscount? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid
       total += subTotal
     })
     setsubtotalSplitOrder(subtotalSplitOrder + total)
@@ -1131,7 +1132,7 @@ function App() {
     getallUsers();
     getallOrders()
     getUserInfoFromToken()
-    calcsubtotalSplitOrder()
+    // calcsubtotalSplitOrder()
     // Payment_pending_orders()
 
   }, [count, ItemsInCart, productOrderTOupdate, isLogin])
