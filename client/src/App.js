@@ -769,7 +769,7 @@ function App() {
         console.log({ oldproduct })
         console.log({ old_numOfPaid: oldproduct.numOfPaid })
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid;
-        const subTotal = product.priceAfterDiscount>0 ? numOfPaid * product.priceAfterDiscount : product.price * numOfPaid;
+        const subTotal = oldproduct.priceAfterDiscount > 0 ? numOfPaid * oldproduct.priceAfterDiscount : oldproduct.price * numOfPaid;
         total += subTotal;
         console.log({ new_numOfPaid: product.numOfPaid })
       }
@@ -779,7 +779,7 @@ function App() {
 
     console.log({ newlistofproductorder })
     // setnewlistofproductorder([...newlistofproductorder])
-    calcsubtotalSplitOrder(numOfPaid)
+    // calcsubtotalSplitOrder(numOfPaid)
   }
 
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
