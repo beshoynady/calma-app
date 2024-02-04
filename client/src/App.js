@@ -726,7 +726,7 @@ function App() {
   }
   const putNumOfPaid =async(id,numOfPaid)=>{
     console.log({numOfPaid})
-    setcount(count + 1)
+    // setcount(count + 1)
     list_products_order.map((product)=>{
       if(product.productid === id ){
         product.numOfPaid = product.numOfPaid + numOfPaid
@@ -736,6 +736,7 @@ function App() {
       
     })
   }
+
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
   const calcsubtotalSplitOrder=async(numOfPaid)=>{
     if(list_products_order.length>0){

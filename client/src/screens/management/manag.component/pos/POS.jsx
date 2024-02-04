@@ -33,7 +33,7 @@ const POS = () => {
 
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
-  
+
   const deleteOrderdetalis = () => {
     setclientname('')
     setclientaddress('')
@@ -43,7 +43,7 @@ const POS = () => {
     setaddaddition(false)
     setadddiscount(false)
   }
-  
+
   // const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
 
 
@@ -51,7 +51,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProduct,
-          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,putNumOfPaid, splitInvoice,subtotalSplitOrder
+          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate, putNumOfPaid, splitInvoice, subtotalSplitOrder
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -59,7 +59,7 @@ const POS = () => {
 
                 <div className='pos-content'>
                   <div className='categ-menu'>
-                  <div className='pos-menu'>
+                    <div className='pos-menu'>
                       {allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
                         return (
                           <div className="pos-card" key={index} onClick={() => additemtocart(product._id)}>
@@ -113,7 +113,7 @@ const POS = () => {
                         <div className="modal-footer">
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                            <input type="submit" className="btn btn-success"  value="تم" />
+                            <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
                           </div>
                         </div>
                       </form>
@@ -125,7 +125,7 @@ const POS = () => {
                 <div id="getOrderTableModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => {splitInvoice(e) }}>
+                      <form onSubmit={(e) => { splitInvoice(e) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">اختر الطاوله</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -159,7 +159,7 @@ const POS = () => {
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                     <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                     <td className="col-md-1 text-nowrap">{item.totalprice}</td>
-                                    <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value))}} style={{width:"50px"}}/></td>
+                                    <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} /></td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -178,7 +178,7 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-success"  value="تم"/>
+                          <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
                         </div>
                       </form>
                     </div>
@@ -242,7 +242,7 @@ const POS = () => {
                             ) : null : ''}
                           <div className="modal-footer">
                             <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                            <input type="save" className="btn btn-success" value="تم" />
+                            <input type="submit" className="btn btn-success" data-dismiss="modal" value="تم" />
                           </div>
                         </form>
                       </div>
@@ -348,7 +348,7 @@ const POS = () => {
                   </div>
                 </div>
 
-             {/* cart section */}
+                {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
@@ -493,7 +493,7 @@ const POS = () => {
                       </div>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                        {productOrderTOupdate.length > 0 ?
+                          {productOrderTOupdate.length > 0 ?
                             <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
                             : <a type="button" className="btn btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
                           }
@@ -514,7 +514,7 @@ const POS = () => {
                                 : <button type="button" className="btn btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
                           <a type="button" className="btn btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { POSinvoice(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
-                          
+
                         </div>
                       </div>
                     </div>
