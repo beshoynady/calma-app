@@ -739,7 +739,7 @@ function App() {
         const oldproduct = list_products_order.find(pro => pro.productid == id);
         console.log({oldproduct})
         console.log({old_numOfPaid:oldproduct.numOfPaid})
-        // product.numOfPaid = oldproduct.numOfPaid + numOfPaid
+        product.numOfPaid = oldproduct.numOfPaid + numOfPaid
         console.log({new_numOfPaid:product.numOfPaid})
       }
       
