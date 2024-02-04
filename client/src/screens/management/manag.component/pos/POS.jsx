@@ -15,7 +15,7 @@ const POS = () => {
     bodyClass: 'printpage'
   });
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
-  const [typeOrderModal, settypeOrderModal] = useState(false)
+  // const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
@@ -185,7 +185,7 @@ const POS = () => {
                   </div>
                 </div>
                 {/* اختيار نوع الاوردر */}
-                {typeOrderModal ? (
+                {/* {typeOrderModal ? ( */}
                   <div id="typeOrderModal" className="modal fade">
                     <div className="modal-dialog">
                       <div className="modal-content">
@@ -248,7 +248,7 @@ const POS = () => {
                       </div>
                     </div>
                   </div>
-                ) : ""}
+                {/* ) : ""} */}
                 {/* الفاتوره */}
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
