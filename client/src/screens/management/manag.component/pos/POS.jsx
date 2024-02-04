@@ -186,7 +186,7 @@ const POS = () => {
                 </div>
                 {/* اختيار نوع الاوردر */}
                 {typeOrderModal ? (
-                  <div id="typeOrderModal" className="modal fade show">
+                  <div id="typeOrderModal" className="fade show">
                     <div className="modal-dialog">
                       <div className="modal-content">
                         <form>
