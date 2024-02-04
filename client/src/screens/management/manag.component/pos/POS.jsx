@@ -14,14 +14,14 @@ const POS = () => {
     removeAfterPrint: true,
     bodyClass: 'printpage'
   });
-  const [getOrderTableModal, setgetOrderTableModal] = useState(false)
+  // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
   const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
-  const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
+  // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
 
   const [tableID, settableID] = useState('')
-  const [itemid, setitemid] = useState([])
+  // const [itemid, setitemid] = useState([])
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
 
@@ -33,7 +33,7 @@ const POS = () => {
 
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
-
+  
   const deleteOrderdetalis = () => {
     setclientname('')
     setclientaddress('')
@@ -43,12 +43,15 @@ const POS = () => {
     setaddaddition(false)
     setadddiscount(false)
   }
+  
+  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
+
 
   return (
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProduct,
-          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
+          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,putNumOfPaid, splitInvoice
         }) => {
           if (employeeLoginInfo) {
             console.log({ productOrderTOupdate })
@@ -146,6 +149,8 @@ const POS = () => {
                                   <th scope="col" className="col-md-2">السعر</th>
                                   <th scope="col" className="col-md-2">الكمية</th>
                                   <th scope="col" className="col-md-2">الاجمالي</th>
+                                  <th scope="col" className="col-md-2">الجزء</th>
+                                  <th scope="col" className="col-md-2">المطلوب</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -156,22 +161,18 @@ const POS = () => {
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                     <td className="col-md-2 text-nowrap">{item.quantity}</td>
                                     <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                    <td className="col-md-2 text-nowrap"><input type='Number' defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value)); 
+                                    setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}}/></td>
                                   </tr>
                                 ))}
                               </tbody>
                               <tfoot>
                                 <tr>
-                                  <td colSpan="3">Subtotal</td>
-                                  <td>{ordersubtotal}</td>
+                                  <td colSpan="3">المجموع</td>
+                                  <td>{subtotalSplitOrder}</td>
                                 </tr>
-                                {orderdeliveryCost > 0 ?
-                                  <tr>
-                                    <td colSpan="3">Delivery</td>
-                                    <td>{orderdeliveryCost}</td>
-                                  </tr>
-                                  : ''}
                                 <tr>
-                                  <td colSpan="3">Total</td>
+                                  <td colSpan="3">الاجمالي</td>
                                   <td>{ordertotal}</td>
                                 </tr>
                               </tfoot>
@@ -350,7 +351,6 @@ const POS = () => {
                   </div>
                 </div>
 
-
              {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
@@ -524,7 +524,6 @@ const POS = () => {
                   </div>
 
                 </div>
-
 
               </section>
             )

@@ -240,6 +240,11 @@ const OrderSchema = new mongoose.Schema({
         default: 'Internal',
         required: true
     },
+    isSplit:{
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     // Indicates if the order is active
     isActive: {
         type: Boolean,

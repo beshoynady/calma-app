@@ -491,25 +491,7 @@ function App() {
 
 
 
-  const getOrderProduct = async (e, tableid) => {
-    e.preventDefault()
-    const tableorder = allOrders.filter((o, i) => o.table == tableid);
-    const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
-    const lasttableorderactive = lasttableorder.isActive
-    console.log({ lasttableorder })
-    console.log({ lasttableorderactive })
-    if (lasttableorderactive) {
-      const id = await lasttableorder._id
-      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
-      const data = myorder.data
-      console.log(data)
-      console.log(data._id)
-      console.log({ products: data.products })
-      setmyorder(data)
-      setmyorderid(data._id)
-      setlist_products_order(data.products)
-    }
-  }
+
 
   const invoice = async (clientid) => {
     console.log(clientid)
@@ -718,6 +700,42 @@ function App() {
       toast.error('حدث خطأ ما. حاول مرة اخرى.');
     }
   };
+
+  const getOrderProduct = async (e, tableid) => {
+    e.preventDefault()
+    const tableorder = allOrders.filter((o, i) => o.table == tableid);
+    const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
+    const lasttableorderactive = lasttableorder.isActive
+    console.log({ lasttableorder })
+    console.log({ lasttableorderactive })
+    if (lasttableorderactive) {
+      const id = await lasttableorder._id
+      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+      const data = myorder.data
+      console.log(data)
+      console.log(data._id)
+      console.log({ list_products_order: data.products })
+      setmyorder(data)
+      setmyorderid(data._id)
+      setlist_products_order(data.products)
+    }
+  }
+  const putNumOfPaid =async(id,numOfPaid)=>{
+    list_products_order.map((product)=>{
+      if(product.id === id ){
+        product.numOfPaid = numOfPaid
+      }
+      console.log({putNumOfPaid:list_products_order})
+
+    })
+  }
+  const splitInvoice = async()=>{
+    const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid,{
+      products : list_products_order,
+      isSplit : true
+    })
+    console.log({updateOrder})
+  }
 
 
   const POSinvoice = async (checkid) => {
@@ -1072,6 +1090,7 @@ function App() {
   }
 
 
+
   useEffect(() => {
     getProducts()
     getCategories()
@@ -1129,7 +1148,8 @@ function App() {
       ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
       createClientOrderForTable, createClientOrderForUser,
 
-      OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate
+      OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,
+      putNumOfPaid, splitInvoice
 
     }}>
       <BrowserRouter>
