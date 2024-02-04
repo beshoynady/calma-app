@@ -126,7 +126,7 @@ const POS = () => {
                 <div id="getOrderTableModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => { getOrderProduct(e, tableID) }}>
+                      <form onSubmit={(e) => {splitInvoice() }}>
                         <div className="modal-header">
                           <h4 className="modal-title">اختر الطاوله</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -135,7 +135,7 @@ const POS = () => {
                           <div className="w-100">
                             <div className="form-group w-100">
                               <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                              <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                              <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProduct(e.target.value)}>
                                 <option>اختر رقم الطاولة</option>
                                 {allTable.map((table, i) => (
                                   <option value={table._id} key={i}>{table.tablenum}</option>
@@ -181,7 +181,7 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-success"  value="تم" />
+                          <input type="submit" className="btn btn-success"  value="تم"/>
                         </div>
                       </form>
                     </div>
