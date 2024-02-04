@@ -728,26 +728,30 @@ function App() {
   }
 
   
-  const putNumOfPaid = async(id,numOfPaid)=>{
-    console.log({numOfPaid})
-    // setcount(count + 1)
-    console.log({list_products:list_products_order})
-    const arrayofproductorder = [...list_products_order]
-    console.log({arrayofproductorder})
-    arrayofproductorder.map((product)=>{
-      if(product.productid === id ){
-        const oldproduct = list_products_order.find(pro => pro.productid == id);
-        console.log({oldproduct})
-        console.log({old_numOfPaid:oldproduct.numOfPaid})
-        product.numOfPaid = oldproduct.numOfPaid + numOfPaid
-        console.log({product})
-        console.log({new_numOfPaid:product.numOfPaid})
+  const putNumOfPaid = async (id, numOfPaid) => {
+    console.log({ numOfPaid });
+    console.log({ list_products: list_products_order });
+    const arrayofproductorder = list_products_order.map((product) => {
+      if (product.productid === id) {
+        const oldproduct = list_products_order.find((pro) => pro.productid == id);
+        console.log({ oldproduct });
+        console.log({ old_numOfPaid: oldproduct.numOfPaid });
+  
+        // إنشاء نسخة جديدة من الكائن بتحديث خاصية numOfPaid
+        return {
+          ...product,
+          numOfPaid: oldproduct.numOfPaid + numOfPaid,
+        };
       }
-      
-    })
-    setnewlistofproductorder([...arrayofproductorder])
-    calcsubtotalSplitOrder(numOfPaid)
-  }
+      return product;
+    });
+  
+    console.log({ list_products_order });
+    console.log({ arrayofproductorder });
+    setnewlistofproductorder([...arrayofproductorder]);
+    calcsubtotalSplitOrder(numOfPaid);
+  };
+  
   
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
 
