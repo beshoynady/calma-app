@@ -772,8 +772,8 @@ function App() {
       }
       
     })
-    console.log({arrayofproductorder})
-    setnewlistofproductorder([...arrayofproductorder])
+    console.log({newlistofproductorder})
+    // setnewlistofproductorder([...newlistofproductorder])
     calcsubtotalSplitOrder(numOfPaid)
   }
   
