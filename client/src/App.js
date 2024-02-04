@@ -701,6 +701,7 @@ function App() {
     }
   };
 
+  const [newlistofproductorder, setnewlistofproductorder] = useState([])
   const getOrderProduct = async (e, tableid) => {
     e.preventDefault()
     const tableorder = allOrders.filter((o, i) => o.table == tableid);
@@ -722,26 +723,30 @@ function App() {
       setorderdiscount(data.discount)
       setordersubtotal(data.subTotal)
       setlist_products_order(data.products)
+      setnewlistofproductorder(data.products)
     }
   }
+
+  
   const putNumOfPaid =async(id,numOfPaid)=>{
     console.log({numOfPaid})
     // setcount(count + 1)
-    list_products_order.map((product)=>{
+    newlistofproductorder.map((product)=>{
       if(product.productid === id ){
-        product.numOfPaid = product.numOfPaid + numOfPaid
+        const oldproduct = list_products_order.find(product => product.productid === id);
+        product.numOfPaid = oldproduct.numOfPaid + numOfPaid
       }
-      calcsubtotalSplitOrder(numOfPaid)
-      console.log({putNumOfPaid:list_products_order})
+      console.log({putNumOfPaid:newlistofproductorder})
       
     })
+    calcsubtotalSplitOrder(numOfPaid)
   }
-
+  
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
   const calcsubtotalSplitOrder=async(numOfPaid)=>{
-    if(list_products_order.length>0){
+    if(newlistofproductorder.length>0){
       let total = 0
-    list_products_order.map((product)=>{
+      newlistofproductorder.map((product)=>{
       const subTotal =product.priceAfterDiscount? numOfPaid * product.priceBeforeDiscount : product.price * numOfPaid
       total += subTotal
     })
@@ -752,7 +757,7 @@ function App() {
   const splitInvoice = async(e)=>{
     e.preventDefault()
     const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid,{
-      products : list_products_order,
+      products : newlistofproductorder,
       isSplit : true
     })
     console.log({updateOrder})
