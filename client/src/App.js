@@ -740,6 +740,7 @@ function App() {
         console.log({oldproduct})
         console.log({old_numOfPaid:oldproduct.numOfPaid})
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid
+        console.log({product})
         console.log({new_numOfPaid:product.numOfPaid})
       }
       
