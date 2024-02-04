@@ -728,11 +728,12 @@ function App() {
   }
 
   
-  const putNumOfPaid =async(id,numOfPaid)=>{
+  const putNumOfPaid =(id,numOfPaid)=>{
     console.log({numOfPaid})
     // setcount(count + 1)
+    console.log({list_products:list_products_order})
     const arrayofproductorder = [...list_products_order]
-    console.log({putNumOfPaid:newlistofproductorder})
+    console.log({newlistofproductorder})
     arrayofproductorder.map((product)=>{
       if(product.productid === id ){
         const oldproduct = list_products_order.find(pro => pro.productid === id);
