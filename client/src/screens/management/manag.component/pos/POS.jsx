@@ -135,7 +135,7 @@ const POS = () => {
                           <div className="w-100">
                             <div className="form-group w-100">
                               <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                              <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProduct(e.target.value)}>
+                              <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProduct(e, e.target.value)}>
                                 <option>اختر رقم الطاولة</option>
                                 {allTable.map((table, i) => (
                                   <option value={table._id} key={i}>{table.tablenum}</option>
