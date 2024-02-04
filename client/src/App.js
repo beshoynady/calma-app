@@ -717,19 +717,33 @@ function App() {
       console.log({ list_products_order: data.products })
       setmyorder(data)
       setmyorderid(data._id)
+      setordertotal(data.total)
+      setorderaddition(data.addition)
+      setorderdiscount(data.discount)
+      setordersubtotal(data.subTotal)
       setlist_products_order(data.products)
     }
   }
   const putNumOfPaid =async(id,numOfPaid)=>{
     console.log({numOfPaid})
+    setcount(count + 1)
     list_products_order.map((product)=>{
       if(product.productid === id ){
         product.numOfPaid = numOfPaid
       }
       console.log({putNumOfPaid:list_products_order})
-
+      
     })
   }
+  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
+  const calcsubtotalSplitOrder=async()=>{
+    if(list_products_order.length>0){
+    list_products_order.map((product)=>{
+      const subTotal =product.priceAfterDiscount? product.numOfPaid * product.priceBeforeDiscount : product.price * product.numOfPaid
+      setsubtotalSplitOrder(subtotalSplitOrder + subTotal)
+    })}
+  }
+
   const splitInvoice = async(e)=>{
     e.preventDefault()
     const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid,{
@@ -1114,6 +1128,7 @@ function App() {
     getallUsers();
     getallOrders()
     getUserInfoFromToken()
+    calcsubtotalSplitOrder()
     // Payment_pending_orders()
 
   }, [count, ItemsInCart, productOrderTOupdate, isLogin])
@@ -1151,7 +1166,7 @@ function App() {
       createClientOrderForTable, createClientOrderForUser,
 
       OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,
-      putNumOfPaid, splitInvoice
+      putNumOfPaid, splitInvoice,subtotalSplitOrder
 
     }}>
       <BrowserRouter>

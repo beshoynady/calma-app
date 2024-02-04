@@ -44,17 +44,16 @@ const POS = () => {
     setadddiscount(false)
   }
   
-  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
+  // const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
 
 
   return (
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, usertitle, setItemsInCart, ItemsInCart, costOrder, createWaiterOrder, createCasherOrder, POSinvoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProduct,
-          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,putNumOfPaid, splitInvoice
+          OrderDetalisBySerial, getOrderDetalisBySerial, updateOrder, productOrderTOupdate,putNumOfPaid, splitInvoice,subtotalSplitOrder
         }) => {
           if (employeeLoginInfo) {
-            console.log({ productOrderTOupdate })
             return (
               <section className='pos-section'>
 
@@ -160,8 +159,7 @@ const POS = () => {
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                     <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                     <td className="col-md-1 text-nowrap">{item.totalprice}</td>
-                                    <td className="col-md-2 text-nowrap"><input type='Number' defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value)); 
-                                    setsubtotalSplitOrder(subtotalSplitOrder+ (item.priceAfterDiscount ? item.priceAfterDiscount *Number(e.target.value)  : item.price * Number(e.target.value) ))}} style={{width:"50px"}}/></td>
+                                    <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e)=>{putNumOfPaid(item.productid, Number(e.target.value))}} style={{width:"50px"}}/></td>
                                   </tr>
                                 ))}
                               </tbody>
