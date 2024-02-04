@@ -732,13 +732,15 @@ function App() {
     console.log({numOfPaid})
     // setcount(count + 1)
     const arrayofproductorder = [...list_products_order]
+    console.log({putNumOfPaid:newlistofproductorder})
     arrayofproductorder.map((product)=>{
       if(product.productid === id ){
         const oldproduct = list_products_order.find(pro => pro.productid === id);
         console.log({oldproduct})
-        product.numOfPaid = oldproduct.numOfPaid + numOfPaid
+        console.log({old_numOfPaid:oldproduct.numOfPaid})
+        // product.numOfPaid = oldproduct.numOfPaid + numOfPaid
+        console.log({new_numOfPaid:product.numOfPaid})
       }
-      console.log({putNumOfPaid:newlistofproductorder})
       
     })
     setnewlistofproductorder([...arrayofproductorder])
