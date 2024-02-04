@@ -729,7 +729,7 @@ function App() {
     setcount(count + 1)
     list_products_order.map((product)=>{
       if(product.productid === id ){
-        product.numOfPaid = numOfPaid
+        product.numOfPaid = product.numOfPaid + numOfPaid
       }
       console.log({putNumOfPaid:list_products_order})
       
