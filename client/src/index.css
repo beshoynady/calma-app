@@ -42,15 +42,6 @@ option{
   font-weight: 700;
   text-align: center;
 }
-:root {
-  --main-color: #4b463e;
-  --blue: #2b1710;
-  --sacand-color: #faf1c0;
-  --yallow-color: #fffc5b;
-  --white : #ffffff;
-}
-
-
 
 .container {
   width: 95% !important;

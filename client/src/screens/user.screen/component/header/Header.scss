@@ -9,9 +9,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    
+
     &.scroll {
-        background: linear-gradient(175deg,#26050b 4%,#624442)
+        background: linear-gradient(175deg,var(--u-dark) 4%,var(--u-main-color));
+        a {
+            color: var(--u-light); 
+        }
+        .shopping_cart{
+            color: var(--u-light);
+        }
     }
 
     .container-lg {
@@ -34,7 +40,7 @@
             .res-name {
                 font-size: 30px;
                 font-weight: 900;
-                color: gold;
+                color: var(--u-dark);
                 margin: 0 auto;
                 text-decoration: none;
             }
@@ -63,7 +69,7 @@
 
                     a {
                         font-size: 24px;
-                        color: rgb(255, 255, 255);
+                        color: var(--u-sacand-color);
                         font-weight: 900;
                         margin-right: 10px;
                     }
@@ -84,7 +90,7 @@
                 height: 60px;
                 background-color: rgb(243, 0, 0);
                 font-size: 18px;
-                color: white;
+                color: var(--u-white);
                 display: flex;
                 align-items: center;
                 justify-content: space-evenly;
@@ -100,7 +106,7 @@
             .nav-login {
                 width: 70px;
                 height: 60px;
-                background-color: var(--white);
+                background-color: var(--u-white);
                 font-size: 20px;
                 font-weight: 500;
                 color: var(--blue);
@@ -113,8 +119,8 @@
                 justify-content: space-evenly;
 
                 &:hover {
-                    color: var(--sacand-color);
-                    background-color: var(--yallow-color);
+                    color: var(--u-light);
+                    background-color: var(--u-sacand-color);
                 }
 
                 >span {
@@ -132,14 +138,14 @@
 
                 .shopping_cart {
                     font-size: 60px;
-                    color: white;
+                    color: var(--u-sacand-color);
                 }
 
                 .cartcounter {
                     width: 25px;
                     height: 25px;
                     background-color: red;
-                    color: white;
+                    color: var(--u-white);
                     font-size: 15px;
                     font-weight: 600;
                     display: flex;
