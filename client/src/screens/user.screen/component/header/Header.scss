@@ -6,7 +6,7 @@
     justify-content: flex-start;
     background: linear-gradient(90deg, rgba(66, 66, 236, 1) 5%, rgba(0, 212, 255, 1) 100%);
     z-index: 1000;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
 
@@ -125,6 +125,7 @@
                 text-align: center;
                 position: relative;
                 cursor: pointer;
+
                 .shopping_cart {
                     font-size: 60px;
                     color: white;
@@ -160,6 +161,7 @@
 @media (max-width: 920px) {
     .header-client {
         width: 100%;
+
         .container-lg {
             .logo {
                 width: 60%;
@@ -167,6 +169,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
                 .mob-menu {
                     max-width: 20%;
                     min-width: 50px;
@@ -195,6 +198,7 @@
                     text-align: end;
                 }
             }
+
             .nav {
                 width: 100% !important;
                 height: calc(100vh - 80px) !important;
@@ -253,6 +257,7 @@
                     border-radius: 10px;
                     cursor: pointer;
                     margin: 0;
+
                     >span {
                         display: none;
                     }
@@ -270,6 +275,7 @@
                     border-radius: 10px;
                     cursor: pointer;
                     margin: 0;
+
                     &:hover {
                         color: var(--sacand-color);
                         background-color: var(--yallow-color);
@@ -286,6 +292,7 @@
                     width: 50px;
                     position: relative;
                     margin-right: 5px;
+
                     .shopping_cart {
                         font-size: 50px;
                         color: white;

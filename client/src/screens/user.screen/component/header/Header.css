@@ -6,7 +6,7 @@
   justify-content: flex-start;
   background: linear-gradient(90deg, rgb(66, 66, 236) 5%, rgb(0, 212, 255) 100%);
   z-index: 1000;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
 }
