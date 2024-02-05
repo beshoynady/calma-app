@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import './Header.css';
 import Cart from '../cart/Cart';
 import LoginRegistr from '../auth/LoginRegistr';
-import logo from '../../../../image/logo-1.png';
+import logo from '../../../../image/logo-calma.png';
 
 const Header = () => {
   const { id } = useParams();
@@ -41,8 +41,7 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
-              
-              <img src={logo} style={{height:"100%" , width:"80px"}} />
+              <img src={logo} alt='Calma' />
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
             <nav ref={navref} className='nav'>
