@@ -11,12 +11,12 @@
     left: 0;
 
     &.scroll {
-        background: linear-gradient(175deg,var(--u-dark) 4%,var(--u-main-color));
+        background: linear-gradient(270deg,#f7ba7c 19%,var(--u-main-color));
         a {
-            color: var(--u-light); 
+            color: var(--u-dark); 
         }
         .shopping_cart{
-            color: var(--u-light);
+            color: var(--u-dark);
         }
     }
 

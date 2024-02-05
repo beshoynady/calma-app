@@ -11,13 +11,13 @@
   left: 0;
 }
 .header-client.scroll {
-  background: linear-gradient(175deg, var(--u-dark) 4%, var(--u-main-color));
+  background: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
 }
 .header-client.scroll a {
-  color: var(--u-light);
+  color: var(--u-dark);
 }
 .header-client.scroll .shopping_cart {
-  color: var(--u-light);
+  color: var(--u-dark);
 }
 .header-client .container-lg {
   display: flex;
