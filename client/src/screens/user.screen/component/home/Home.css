@@ -23,7 +23,7 @@
   justify-content: space-evenly;
   flex-direction: column;
   position: absolute;
-  left: 50px;
+  right: 50px;
 }
 .main-home .container .content .main-title {
   width: 90%;

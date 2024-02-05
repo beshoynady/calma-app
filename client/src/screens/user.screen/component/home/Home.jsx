@@ -18,7 +18,7 @@ const Home = () => {
                   : id?<p className='main-title'>مرحبا ضيوف طاولة {usertitle(id)} <br/> في</p>
                   :<p className='main-title'>مرحبا بكم  <br/> في</p>
                   }
-                  <p className='main-text'>كافيار للمأكولات البحرية <br /> Caviar Seafood</p>
+                  <p className='main-text'> Calma Cafe <br /> ابدأ رحلة استكشاف الحلو من كالما كافيه بمنتجات جديدة</p>
                   <ul className="main-btn">
 
                     {id?<>

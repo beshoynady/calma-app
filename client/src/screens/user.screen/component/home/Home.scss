@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
     scroll-margin-top: 90px;
+
     .container {
         display: flex;
         align-items: center;
@@ -22,7 +23,8 @@
             justify-content: space-evenly;
             flex-direction: column;
             position: absolute;
-            left: 50px;
+            right: 50px;
+
             .main-title {
                 width: 90%;
                 height: 300px;
@@ -58,11 +60,13 @@
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-                    &.mrl-auto{
+
+                    &.mrl-auto {
                         margin-left: auto !important;
                         margin-right: auto !important;
                         width: 50% !important;
                     }
+
                     a {
                         display: inline-block;
                         text-decoration: none;
@@ -85,10 +89,12 @@
 @media (max-width: 768px) {
     .main-home {
         background-image: url('../../../../image/main-cover\ -\ mob.jpg');
+
         .container {
             display: flex;
             align-items: center;
             justify-content: center;
+
             .content {
                 width: 90%;
                 height: 90%;
@@ -98,6 +104,7 @@
                 flex-direction: column;
                 position: static;
                 background-color: rgba(0, 0, 0, 0.322);
+
                 .main-title {
                     width: 100%;
                     height: 150px;
@@ -108,7 +115,7 @@
                     font-weight: bold;
                     color: var(--yallow-color);
                 }
-    
+
                 .main-text {
                     font-size: 30px;
                     font-weight: bolder;
@@ -116,7 +123,7 @@
                     margin-top: 20px;
                     text-align: center;
                 }
-    
+
                 .main-btn {
                     width: 90%;
                     height: 20%;
@@ -124,6 +131,7 @@
                     align-items: center;
                     justify-content: space-between;
                     list-style: none;
+
                     .main-li {
                         width: 130px;
                         height: 60px;
@@ -136,13 +144,14 @@
                         align-items: center;
                         justify-content: center;
                         cursor: pointer;
+
                         a {
                             display: inline-block;
                             text-decoration: none;
                             font-size: 22px;
                             color: white;
                             margin: 10px 0px;
-                        }    
+                        }
                     }
                 }
             }
