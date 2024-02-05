@@ -32,7 +32,7 @@ const SideBar = () => {
               <div ref={sidebarRef} className="sidebar close">
                 <div className="logo-details">
                   <i className='bx bxl-c-plus-plus'></i>
-                  <span className="logo_name">CAVIAR</span>
+                  <span className="logo_name">CALMA</span>
                 </div>
                 <ul className="nav-links">
                   {/* Dashboard */}

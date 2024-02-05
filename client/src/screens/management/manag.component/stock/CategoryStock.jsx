@@ -81,7 +81,7 @@ const CategoryStock = () => {
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
-                    <div className="row">
+                    <div className="row ">
                       <div className="col-sm-6 text-right">
                         <h2>Manage <b>CategoryStocks</b></h2>
                       </div>

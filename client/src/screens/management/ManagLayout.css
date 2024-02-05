@@ -5,7 +5,7 @@
   --bg: #a5a5a5;
   --primary: #1976D2;
   --light-primary: #CFE8FF;
-  --grey: #eee;
+  --grey: #383838;
   --dark-grey: #AAAAAA;
   --dark: #363949;
   --danger: #D32F2F;
@@ -19,9 +19,9 @@
 
 
 .manag-body.dark {
-  --light: ##40454e;
+  --light: #40454e;
   --bg: #000000;
-  --grey: #25252c;
+  --grey: #fffefe;
   --dark: #fbfbfb;
 }
 

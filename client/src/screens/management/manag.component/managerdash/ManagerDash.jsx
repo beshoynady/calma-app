@@ -475,9 +475,9 @@ const ManagerDash = () => {
                               <label>نوع الاوردر</label>
                               <select className="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
                                 <option value={""}>الكل</option>
-                                <option value="Internal" >Internal</option>
-                                <option value="Delivery" >Delivery</option>
-                                <option value="Takeaway" >Takeaway</option>
+                                <option value="Internal" >صاله</option>
+                                <option value="Delivery" >ديليفري</option>
+                                <option value="Takeaway" >تيك اوي</option>
                               </select>
                             </div>
                           </div>
@@ -741,7 +741,8 @@ const ManagerDash = () => {
                               </div>
                               {/* Footer */}
                               <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                                <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
+                                <p>webapp: <span style={{ color: '#5a6268' }}>Smart Menu</span></p>
+                                <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
                               </div>
                             </div>
                             <div className="modal-footer">

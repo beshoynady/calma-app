@@ -159,7 +159,7 @@ const Orders = () => {
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
-                    <div className="row">
+                    <div className="row text-dark">
                       <div className="col-sm-6">
                         <h2>ادارة <b>الاوردرات</b></h2>
                       </div>
