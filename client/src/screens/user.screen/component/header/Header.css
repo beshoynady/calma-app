@@ -81,7 +81,7 @@
 .header-client .container-lg .right-nav .nav-logout {
   width: 70px;
   height: 60px;
-  background-color: rgb(243, 0, 0);
+  background-color: var(--u-log);
   font-size: 18px;
   color: var(--u-white);
   display: flex;
@@ -131,7 +131,7 @@
 .header-client .container-lg .right-nav .cart-icon .cartcounter {
   width: 25px;
   height: 25px;
-  background-color: red;
+  background-color: var(--u-log);
   color: var(--u-white);
   font-size: 15px;
   font-weight: 600;

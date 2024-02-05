@@ -11,11 +11,13 @@
     left: 0;
 
     &.scroll {
-        background: linear-gradient(270deg,#f7ba7c 19%,var(--u-main-color));
+        background: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
+
         a {
-            color: var(--u-dark); 
+            color: var(--u-dark);
         }
-        .shopping_cart{
+
+        .shopping_cart {
             color: var(--u-dark);
         }
     }
@@ -88,7 +90,7 @@
             .nav-logout {
                 width: 70px;
                 height: 60px;
-                background-color: rgb(243, 0, 0);
+                background-color: var(--u-log);
                 font-size: 18px;
                 color: var(--u-white);
                 display: flex;
@@ -144,7 +146,7 @@
                 .cartcounter {
                     width: 25px;
                     height: 25px;
-                    background-color: red;
+                    background-color: var(--u-log);
                     color: var(--u-white);
                     font-size: 15px;
                     font-weight: 600;
