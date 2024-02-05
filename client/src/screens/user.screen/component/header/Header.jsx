@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { detacontext } from '../../../../App';
 import './Header.css';
