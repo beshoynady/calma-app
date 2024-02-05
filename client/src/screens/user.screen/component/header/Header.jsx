@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import './Header.css';
 import Cart from '../cart/Cart';
 import LoginRegistr from '../auth/LoginRegistr';
-import logo from '../../../../image/logo-1.png';
+// import logo from '../../../../image/logo-1.png';
 const Header = () => {
   const { id } = useParams();
   const [opencart, setopencart] = useState(false);
@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <detacontext.Consumer>
       {({ userLoginInfo, logout, ItemsInCart }) => (
-        <header className={`header-client ${isScroll? scroll:''}`}>
+        <header className={`header-client ${isScroll ? 'scroll' : ''}`}>
           <div className="container-lg">
             <div className='logo'>
               <div className="mob-menu" onClick={toggleMobileMenu}>
@@ -39,7 +39,7 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
-              <img src={logo} style={{height:"100%" , width:"50px"}} />
+              {/* <img src={logo} style={{height:"100%" , width:"50px"}} /> */}
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
             <nav ref={navref} className='nav'>
