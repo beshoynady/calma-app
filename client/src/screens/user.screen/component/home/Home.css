@@ -4,7 +4,7 @@
   background-image: url(../../../../image/main-cover.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top center;
+  background-position: bottom center;
   display: flex;
   align-items: center;
   justify-content: center;
