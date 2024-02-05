@@ -41,6 +41,7 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
+              
               <img src={logo} style={{height:"100%" , width:"80px"}} />
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
