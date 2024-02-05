@@ -35,10 +35,11 @@
 }
 .main-home .container .content .main-text {
   color: var(--u-light);
-  font-size: 35px;
+  font-size: 40px;
   font-weight: bolder;
   margin-top: 30px;
   text-align: center;
+  font-family: cursive;
 }
 .main-home .container .content .main-btn {
   width: 350px;
@@ -73,9 +74,9 @@
 }
 
 @media (max-width: 768px) {
-  /* .main-home {
+  .main-home {
     background-image: url("../../../../image/main-cover - mob.jpg");
-  } */
+  }
   .main-home .container {
     display: flex;
     align-items: center;
