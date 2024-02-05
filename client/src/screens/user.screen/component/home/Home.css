@@ -73,9 +73,9 @@
 }
 
 @media (max-width: 768px) {
-  .main-home {
+  /* .main-home {
     background-image: url("../../../../image/main-cover - mob.jpg");
-  }
+  } */
   .main-home .container {
     display: flex;
     align-items: center;
