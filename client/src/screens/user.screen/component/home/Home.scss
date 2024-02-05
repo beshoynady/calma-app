@@ -1,15 +1,13 @@
 .main-home {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100vh;
     background-image: url(../../../../image/main-cover.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top right;
+    background-position: top center;
     display: flex;
     align-items: center;
     justify-content: center;
-    scroll-margin-top: 90px;
-
     .container {
         display: flex;
         align-items: center;

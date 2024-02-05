@@ -4,11 +4,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: linear-gradient(90deg, rgba(66, 66, 236, 1) 5%, rgba(0, 212, 255, 1) 100%);
+    background: transparent;
     z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
+    &.scroll {
+        background: linear-gradient(175deg,#26050b 4%,#624442)
+    }
 
     .container-lg {
         display: flex;

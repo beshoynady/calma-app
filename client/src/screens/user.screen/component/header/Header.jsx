@@ -15,10 +15,23 @@ const Header = () => {
     navref.current.classList.toggle("show");
   };
 
+  const [isScroll, setisScroll] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setisScroll(scrollPosition > 30);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <detacontext.Consumer>
       {({ userLoginInfo, logout, ItemsInCart }) => (
-        <header className='header-client'>
+        <header className={`header-client ${isScroll? scroll:''}`}>
           <div className="container-lg">
             <div className='logo'>
               <div className="mob-menu" onClick={toggleMobileMenu}>
