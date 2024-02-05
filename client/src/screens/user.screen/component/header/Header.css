@@ -67,7 +67,7 @@
 }
 .header-client .container-lg .nav .navigator li a {
   font-size: 24px;
-  color: var(--u-sacand-color);
+  color: var(--u-dark);
   font-weight: 900;
   margin-right: 10px;
 }
@@ -126,7 +126,7 @@
 }
 .header-client .container-lg .right-nav .cart-icon .shopping_cart {
   font-size: 60px;
-  color: var(--u-sacand-color);
+  color: var(--u-log);
 }
 .header-client .container-lg .right-nav .cart-icon .cartcounter {
   width: 25px;
