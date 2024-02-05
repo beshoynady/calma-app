@@ -10,7 +10,7 @@ const Header = () => {
   const { id } = useParams();
   const [opencart, setopencart] = useState(false);
   const [openlogin, setopenlogin] = useState(false);
-  
+
   const navref = useRef();
 
   const toggleMobileMenu = () => {
