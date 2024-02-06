@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@600;700&display=swap');
+
 :root {
     --u-main-color: #4f3131;
     --u-sacand-color: #875f5d;
@@ -16,12 +18,13 @@
     align-items: center;
     justify-content: flex-start;
     overflow-x: hidden;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Marhey', sans-serif;
     background-image: url('../../image/bg-1.jpg');
     background-position: top right;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
+    
 }
 
 

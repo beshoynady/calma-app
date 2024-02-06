@@ -109,8 +109,9 @@
   color: white;
 }
 .contact .container .contact-content .right p {
-  font-size: 25px;
-  font-weight: 900;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Marhey", sans-serif;
   text-align: right;
   display: flex;
   flex-direction: column;
@@ -217,8 +218,8 @@
     justify-content: space-evenly;
   }
   .contact .container .contact-content .right p {
-    font-size: 25px;
-    font-weight: 900;
-    text-align: right;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
   }
 }/*# sourceMappingURL=Contact.css.map */
