@@ -53,13 +53,14 @@ option{
 .section-title{
   width: 200px;
   height: 70px;
-  font-size: 30px;
-  font-weight: 800;
-  font-family: 'Lugrasimo', cursive;
-  background-color:#00adcf ;
-  color: rgb(23, 7, 255);
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: capitalize;
+}
+.section-title > h2{
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Marhey,sans-serif;
+  color: var(--u-light);
 }

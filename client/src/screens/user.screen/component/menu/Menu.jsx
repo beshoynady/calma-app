@@ -14,7 +14,7 @@ const Menu = () => {
             return (
               <div className="container-lg">
                 <div className='section-title'>
-                  <h2>Menu</h2>
+                  <h2>قائمة الطعام</h2>
                 </div>
                 <div className='section-content'>
                   <nav className="menu-nav">

@@ -24,7 +24,7 @@ export default function Offers() {
           return (
             <section id='offer' className='offers-section'>
               <div className='section-title'>
-                <h2>OFFERS</h2>
+                <h2>العروض</h2>
               </div>
               <Swiper
                 effect={'coverflow'}
