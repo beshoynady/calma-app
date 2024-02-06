@@ -29,7 +29,7 @@
                 justify-content: center;
                 width: 50%;
                 flex-direction: column;
-
+                padding: 10px 0;
                 >h2 {
                     font-size: 22px;
                     font-weight: 800;
@@ -40,13 +40,13 @@
                 >form {
                     display: flex;
                     flex-direction: column;
-                    height: 100%;
+                    height: 90%;
                     justify-content: space-around;
                     width: 100%;
                     flex-wrap: nowrap;
                     align-content: center;
                     align-items: center;
-                    
+
                     input {
                         width: 90%;
                         height: 55px;
@@ -64,7 +64,10 @@
 
                         &:focus {
                             border: 2px solid var(--u-dark);
-                            background-color: rgb(255, 255, 255);
+                            background-color: white;
+                            &::placeholder{
+                                color: white;
+                            }
                         }
                     }
 
@@ -85,7 +88,11 @@
 
                         &:focus {
                             border: 2px solid var(--u-dark);
-                            background-color: rgb(255, 255, 255);
+                            background-color: white;
+                            &::placeholder {
+                                text-align: right;
+                                color: white;
+                            }
                         }
                     }
 
@@ -166,7 +173,6 @@
 
                     form {
                         width: 100%;
-                        height: 100%;
 
                         input {
                             width: 90%;
@@ -174,17 +180,14 @@
                             font-size: 24px;
                             border-radius: 10px;
                             text-align: right;
-                            border: 2px solid rgb(255, 255, 255);
-                            background-color: rgba(255, 255, 255, 0);
                             padding: 0 10px;
 
                             &::placeholder {
                                 text-align: right;
-                                color: white;
                             }
 
                             &:focus {
-                                background-color: rgb(255, 255, 255);
+                                background-color: white;
                             }
                         }
 
@@ -193,18 +196,14 @@
                             height: 25%;
                             border-radius: 10px;
                             text-align: right;
-                            border: 2px solid rgb(255, 255, 255);
-                            background-color: rgba(255, 255, 255, 0);
                             padding: 0 10px;
 
                             &::placeholder {
                                 text-align: right;
-                                color: white;
                             }
 
                             &:focus {
-                                border: 2px solid rgb(0, 217, 255);
-                                background-color: rgb(255, 255, 255);
+                                background-color: white;
                             }
                         }
 
