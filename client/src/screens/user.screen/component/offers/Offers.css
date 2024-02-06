@@ -1,7 +1,7 @@
 .offers-section {
   width: 100%;
   height: calc(100vh - 80px);
-  margin-top: 80px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +12,7 @@
 .offers-section .swiper {
   width: 95%;
   height: 90%;
-  padding-top: 25px;
-  padding-bottom: 50px;
+  padding: 10px 5px;
 }
 .offers-section .swiper .swiper-slide {
   width: 250px;
@@ -147,13 +146,13 @@
   justify-content: center;
 }
 .offers-section .swiper .swiper-slide .offer-card .offer-detalis .offer-price .p-price {
-  width: 35%;
-  height: 80%;
-  font-size: 30px;
-  font-weight: 600;
-  display: flex;
   align-items: center;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  height: 80%;
   justify-content: center;
+  width: 35%;
 }
 .offers-section .swiper .swiper-slide .offer-card .offer-detalis .offer-price .p-price > span {
   text-decoration: line-through;
@@ -202,10 +201,8 @@
     padding-bottom: 15px;
   }
   .offers-section .swiper {
-    width: 95%;
+    width: 98%;
     height: 90%;
-    padding-top: 25px;
-    padding-bottom: 25px;
   }
   .offers-section .swiper .swiper-slide {
     width: 250px;

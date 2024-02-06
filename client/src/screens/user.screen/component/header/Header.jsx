@@ -22,7 +22,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setisScroll(scrollPosition > 30);
+      setisScroll(scrollPosition > 70);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {

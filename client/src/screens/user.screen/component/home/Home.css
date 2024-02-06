@@ -4,7 +4,7 @@
   background-image: url(../../../../image/main-cover.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 100% center;
+  background-position: bottom center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,9 +74,9 @@
 }
 
 @media (max-width: 768px) {
-  /* .main-home {
-    background-image: url("../../../../image/main-cover - mob.jpg");
-  } */
+  .main-home {
+    background-image: url("../../../../image/main-cover-mob.jpg");
+  }
   .main-home .container {
     display: flex;
     align-items: center;
