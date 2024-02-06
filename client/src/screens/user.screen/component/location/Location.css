@@ -1,12 +1,11 @@
 #location {
   width: 100%;
   height: calc(100vh - 80px);
-  margin-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   scroll-margin-top: 80px;
-  padding-bottom: 15px;
+  padding: 15px 0;
 }
 #location .container {
   display: flex;
@@ -37,17 +36,21 @@
 }
 #location .container .location-content .right h1 {
   font-size: 30px;
-  color: var(--blue);
-  font-weight: bolder;
+  font-weight: 800;
+  font-family: cursive;
+  color: var(--u-dark);
   text-align: center;
 }
 #location .container .location-content .right p {
   width: 80%;
   height: 24%;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
+  color: beige;
+  font-family: "Marhey";
   margin-top: 30px;
   text-align: center;
+  color: var(--u-light);
 }
 
 @media (max-width: 768px) {
@@ -83,16 +86,9 @@
     background-color: rgba(0, 0, 0, 0.219);
   }
   #location .container .location-content .right h1 {
-    font-size: 24px;
-    font-weight: bolder;
     text-align: center;
   }
   #location .container .location-content .right p {
     width: 80%;
-    height: 20%;
-    font-size: 20px;
-    font-weight: 800;
-    margin-top: 30px;
-    text-align: center;
   }
 }/*# sourceMappingURL=Location.css.map */

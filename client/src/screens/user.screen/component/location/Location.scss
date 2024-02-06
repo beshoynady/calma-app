@@ -1,51 +1,60 @@
-#location{
+#location {
     width: 100%;
     height: calc(100vh - 80px);
-    margin-top: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-margin-top: 80px;
-    padding-bottom: 15px;
-    .container{
+    padding: 15px 0;
+
+    .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        .location-content{
+
+        .location-content {
             width: 100%;
             height: 90%;
             display: flex;
             align-items: center;
-            justify-content:space-between;
+            justify-content: space-between;
+
             .left {
                 width: 45%;
                 height: 100%;
                 border: 2px solid gainsboro;
             }
-            .right{
+
+            .right {
                 width: 45%;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content:center ;
+                justify-content: center;
                 background-color: rgba(0, 0, 0, 0.219);
-                h1{
+
+                h1 {
                     font-size: 30px;
-                    color: var(--blue);
-                    font-weight: bolder;
+                    font-weight: 800;
+                    font-family: cursive;
+                    color: var(--u-dark);
                     text-align: center;
                 }
-                p{
+
+                p {
                     width: 80%;
                     height: 24%;
-                    font-size:20px;
+                    font-size: 24px;
                     font-weight: 800;
+                    color: beige;
+                    font-family: 'Marhey';
                     margin-top: 30px;
                     text-align: center;
+                    color: var(--u-light);
                 }
-    
+
             }
         }
     }
@@ -54,49 +63,47 @@
 
 
 @media (max-width: 768px) {
-    #location{
+    #location {
         height: auto;
-        .container{
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content:flex-start;
-            .location-content{
+            justify-content: flex-start;
+
+            .location-content {
                 width: 100%;
                 height: 90%;
                 display: flex;
                 flex-direction: column-reverse;
                 align-items: center;
-                justify-content:space-between;
+                justify-content: space-between;
+
                 .left {
                     width: 100%;
                     height: calc(100vh - 60px);
                     border: 2px solid gainsboro;
                 }
-                .right{
+
+                .right {
                     width: 100%;
                     height: 300px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content:center ;
+                    justify-content: center;
                     background-color: rgba(0, 0, 0, 0.219);
-                    h1{
-                        font-size: 24px;
-                        font-weight: bolder;
+
+                    h1 {
                         text-align: center;
                     }
-                    p{
+
+                    p {
                         width: 80%;
-                        height: 20%;
-                        font-size:20px;
-                        font-weight: 800;
-                        margin-top: 30px;
-                        text-align: center;
                     }
-        
                 }
             }
         }
-    }   
+    }
 }
