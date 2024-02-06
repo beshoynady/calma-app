@@ -23,14 +23,17 @@
   justify-content: space-between;
 }
 .contact .container .contact-content .left {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.76);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 50%;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
 }
-.contact .container .contact-content .left form {
+.contact .container .contact-content .left > form {
   width: 100%;
   height: 100%;
   display: flex;
@@ -38,7 +41,7 @@
   align-items: flex-start;
   justify-content: space-evenly;
 }
-.contact .container .contact-content .left form input {
+.contact .container .contact-content .left > form input {
   width: 90%;
   height: 55px;
   font-size: 24px;
@@ -48,40 +51,43 @@
   background-color: rgba(255, 255, 255, 0);
   padding: 0 10px;
 }
-.contact .container .contact-content .left form input::-moz-placeholder {
+.contact .container .contact-content .left > form input::-moz-placeholder {
   text-align: right;
   color: var(--u-light);
-}
-.contact .container .contact-content .left form input::placeholder {
-  text-align: right;
   color: var(--u-light);
 }
-.contact .container .contact-content .left form input:focus {
+.contact .container .contact-content .left > form input::placeholder {
+  text-align: right;
+  color: var(--u-light);
+  color: var(--u-light);
+}
+.contact .container .contact-content .left > form input:focus {
   border: 2px solid var(--u-dark);
   background-color: rgb(255, 255, 255);
 }
-.contact .container .contact-content .left form textarea {
+.contact .container .contact-content .left > form textarea {
   width: 90%;
   height: 25%;
+  font-size: 24px;
   border-radius: 10px;
   text-align: right;
   border: 2px solid var(--u-light);
   background-color: rgba(255, 255, 255, 0);
   padding: 0 10px;
 }
-.contact .container .contact-content .left form textarea::-moz-placeholder {
+.contact .container .contact-content .left > form textarea::-moz-placeholder {
   text-align: right;
   color: var(--u-light);
 }
-.contact .container .contact-content .left form textarea::placeholder {
+.contact .container .contact-content .left > form textarea::placeholder {
   text-align: right;
   color: var(--u-light);
 }
-.contact .container .contact-content .left form textarea:focus {
+.contact .container .contact-content .left > form textarea:focus {
   border: 2px solid var(--u-dark);
   background-color: rgb(255, 255, 255);
 }
-.contact .container .contact-content .left form > button {
+.contact .container .contact-content .left > form > button {
   width: 90%;
   height: 50px;
   background-color: var(--u-main-color);
@@ -93,7 +99,7 @@
   letter-spacing: 5px;
   border-radius: 10px;
 }
-.contact .container .contact-content .left form > button :hover {
+.contact .container .contact-content .left > form > button :hover {
   background-color: var(--u-sacand-color);
 }
 .contact .container .contact-content .right {
@@ -127,13 +133,13 @@
 @media (max-width: 768px) {
   .contact {
     width: 100%;
-    height: calc(150vh - 80px);
-    margin-top: 80px;
+    min-height: calc(150vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-margin-top: 80px;
     padding: 10px 0;
+    overflow: hidden;
   }
   .contact .container .contact-content {
     width: 100%;
@@ -145,18 +151,11 @@
   }
   .contact .container .contact-content .left {
     width: 100%;
-    height: 90vh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    height: 48%;
   }
   .contact .container .contact-content .left form {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
   }
   .contact .container .contact-content .left form input {
     width: 90%;
@@ -211,11 +210,7 @@
   }
   .contact .container .contact-content .right {
     width: 100%;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+    height: 48%;
   }
   .contact .container .contact-content .right p {
     font-size: 22px;
