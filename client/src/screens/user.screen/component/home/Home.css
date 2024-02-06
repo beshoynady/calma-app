@@ -77,6 +77,9 @@
 @media (max-width: 768px) {
   .main-home {
     background-image: url("../../../../image/main-cover-mob.jpg");
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    background-position: center;
   }
   .main-home .container {
     align-items: center;
@@ -119,16 +122,16 @@
     list-style: none;
   }
   .main-home .container .content .main-btn .main-li {
+    height: 40px;
+    width: 60px;
     align-items: center;
     border: 2px solid transparent;
     border-radius: 25px;
     cursor: pointer;
     display: flex;
     font-size: 22px;
-    height: 60px;
-    justify-content: center;
-    width: 45%;
     font-weight: 800;
+    justify-content: center;
     color: antiquewhite;
   }
   .main-home .container .content .main-btn .main-li a {
@@ -136,5 +139,13 @@
     text-decoration: none;
     font-size: 22px;
     margin: 10px 0px;
+  }
+}
+@media (max-width: 400px) {
+  .main-home {
+    background-image: url("../../../../image/main-cover-mob.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100% 100%;
   }
 }/*# sourceMappingURL=Home.css.map */
