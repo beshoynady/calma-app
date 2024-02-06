@@ -165,26 +165,26 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <div className="invoice side" >
-                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{Width:'100%' , textAlign: 'center' }}>
+                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                          <h2>Restaurant Name</h2>
-                          <p>Casher {usertitle(myorder.casher)} |Invoice #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} | Date: {formatDate(new Date())}</p>
+                          <h2>CALMA CAFE</h2>
+                          <p>Casher {usertitle(myorder.casher)} |فاتوره #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
                         {myorder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                          <h4>Customer Details</h4>
-                          <p>Name: {myorder.name}</p>
-                          <p>Mobile: {myorder.phone}</p>
-                          <p>Address: {myorder.address}</p>
-                          <p>Delivery Man: {usertitle(myorder.deliveryMan)}</p>
+                          <h4>بيانات العميل</h4>
+                          <p>الاسم: {myorder.name}</p>
+                          <p>الموبايل: {myorder.phone}</p>
+                          <p>العنوان: {myorder.address}</p>
+                          <p>الديليفري: {usertitle(myorder.deliveryMan)}</p>
                         </div> : myorder.ordertype == 'Takeaway' ?
                           <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                            <h4>Customer Details</h4>
-                            <p>Name: {myorder.name}</p>
-                            <p>Mobile: {myorder.phone}</p>
-                            <p>order num: {myorder.ordernum}</p>
+                            <h4>بيانات العميل</h4>
+                            <p>الاسم: {myorder.name}</p>
+                            <p>الموبايل: {myorder.phone}</p>
+                            <p>رقم الاوردر: {myorder.ordernum}</p>
                           </div>
                           : ''}
                         {/* Order Details Table */}
@@ -211,7 +211,7 @@ const Cart = (props) => {
                           <tfoot>
                             <tr>
                               <td colSpan="3">المجموع</td>
-                              <td>{ordersubtotal>0?ordersubtotal:0}</td>
+                              <td>{ordersubtotal > 0 ? ordersubtotal : 0}</td>
                             </tr>
                             {orderdeliveryCost > 0 && (
                               <tr>
@@ -220,12 +220,8 @@ const Cart = (props) => {
                               </tr>
                             )}
                             <tr>
-                              <td colSpan="3">الضريبه</td>
-                              <td>{ordertax>0?Math.round(ordertax * 100) / 100:0}</td>
-                            </tr>
-                            <tr>
                               <td colSpan="3">الاجمالي</td>
-                              <td>{ordertotal>0?ordertotal:0}</td>
+                              <td>{ordertotal > 0 ? ordertotal : 0}</td>
                             </tr>
                           </tfoot>
                         </table>
@@ -234,15 +230,15 @@ const Cart = (props) => {
 
                         {/* Restaurant Information */}
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <h4>Restaurant Details</h4>
-                          <p>Restaurant Name</p>
-                          <p>Mobile: 987-654-3210</p>
-                          <p>Address: 456 Street, City</p>
+                          <p>CALMA CAFE</p>
+                          <p>Mobile: 01144001433</p>
+                          <p>Address: بني سويف- الفشن - أخر شارع البحر الأعظم</p>
                         </div>
 
                         {/* Footer */}
                         <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                          <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
+                          <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                          <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                         </div>
                       </div>
                       <div className="total-order">
