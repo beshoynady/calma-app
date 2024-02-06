@@ -30,12 +30,21 @@
   width: 50%;
   flex-direction: column;
 }
+.contact .container .contact-content .left > h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--u-light);
+  text-align: center;
+}
 .contact .container .contact-content .left > form {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
   justify-content: space-around;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
 }
 .contact .container .contact-content .left > form input {
   width: 90%;

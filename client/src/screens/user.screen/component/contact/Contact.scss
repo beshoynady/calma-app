@@ -30,13 +30,23 @@
                 width: 50%;
                 flex-direction: column;
 
+                >h2 {
+                    font-size: 22px;
+                    font-weight: 800;
+                    color: var(--u-light);
+                    text-align: center;
+                }
+
                 >form {
                     display: flex;
                     flex-direction: column;
                     height: 100%;
-                    width: 100%;
                     justify-content: space-around;
-
+                    width: 100%;
+                    flex-wrap: nowrap;
+                    align-content: center;
+                    align-items: center;
+                    
                     input {
                         width: 90%;
                         height: 55px;

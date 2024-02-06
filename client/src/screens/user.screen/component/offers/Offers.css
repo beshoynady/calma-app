@@ -1,13 +1,15 @@
 .offers-section {
-  width: 100%;
-  height: calc(100vh - 80px);
-  margin-top: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  scroll-margin-top: 80px;
+  height: calc(100vh - 80px);
+  justify-content: space-between;
+  margin-top: 0;
   padding: 10px 0;
+  scroll-margin-top: 80px;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
 }
 .offers-section .swiper {
   width: 95%;
@@ -195,9 +197,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     scroll-margin-top: 80px;
-    padding: 10px 0;
+    padding: 15px 0;
   }
   .offers-section .swiper {
     width: 98%;
@@ -205,9 +207,9 @@
     padding-top: 60px;
   }
   .offers-section .swiper .swiper-slide {
-    width: 85%;
-    height: 60%;
     border-radius: 20px;
+    height: 75%;
+    width: 80%;
   }
   .offers-section .swiper .swiper-slide .offer-card {
     width: 100%;
@@ -252,7 +254,7 @@
   .offers-section .swiper .swiper-slide .offer-card .offers-note form .note-btn > button {
     width: 45%;
     height: 100%;
-    background-color: aqua;
+    background-color: rgb(255, 201, 52);
     border-radius: 10px;
   }
   .offers-section .swiper .swiper-slide .offer-card .offer-img {
