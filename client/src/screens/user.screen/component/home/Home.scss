@@ -3,7 +3,7 @@
     height: 100vh;
     background-image: url(../../../../image/main-cover.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: 100% right;
     display: flex;
     align-items: center;
@@ -164,8 +164,8 @@
 @media (max-width: 400px) {
     .main-home {
         background-image: url('../../../../image/main-cover-mob.jpg');
+        background-position: top center;
         background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 100% 100%;
+        background-size: 100% 100vh;
     }
 }
