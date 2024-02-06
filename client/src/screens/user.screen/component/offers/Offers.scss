@@ -1,12 +1,14 @@
 .offers-section {
+  width: 100%;
   height: calc(100vh - 80px);
+  margin-top: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 15px 0;
+  align-items: center;
+  justify-content: center;
   scroll-margin-top: 80px;
-  width: 100%;
-  
+  padding: 10px 0;
+
   .swiper {
     width: 95%;
     height: 90%;
@@ -34,7 +36,7 @@
           position: absolute;
           top: 0;
           left: 0;
-          border-radius: 20px 20px 0 0;
+          border-radius: 20px 20p 0 0;
 
           form {
             width: 100%;
@@ -45,7 +47,7 @@
             align-items: center;
             justify-content: center;
 
-            textarea {
+            >textarea {
               width: 95%;
               height: 70%;
               margin: 5px;
@@ -58,12 +60,14 @@
               align-items: center;
               justify-content: center;
 
-              button {
+              >button {
                 width: 45%;
                 height: 100%;
                 background-color: var(--u-sacand-color);
-                border-radius: 10px;
+                border-radius: 10px
               }
+
+              ;
             }
           }
         }
@@ -74,7 +78,7 @@
           border-radius: 20px 20px 0 0;
         }
 
-        .offer-details {
+        .offer-detalis {
           width: 95%;
           height: 60%;
           display: flex;
@@ -119,7 +123,9 @@
               font-size: 16px;
               font-weight: 500;
               padding: 5px 0;
+
             }
+
           }
 
           .offer-price {
@@ -150,7 +156,7 @@
                 width: 30%;
                 height: 100%;
                 font-size: 30px;
-                font-weight: 600;
+                font-family: 600;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -158,15 +164,15 @@
             }
 
             .p-price {
-              width: 35%;
-              height: 100%;
+              align-items: center;
+              display: flex;
               font-size: 20px;
               font-weight: 700;
-              display: flex;
-              align-items: center;
+              height: 80%;
               justify-content: center;
+              width: 35%;
 
-              span {
+              >span {
                 text-decoration: line-through;
                 font-size: 18px;
               }
@@ -180,23 +186,27 @@
             align-items: center;
             justify-content: center;
 
-            .delcart,
-            .addtocart {
+            .delcart {
               width: 90%;
               height: 95%;
               font-size: 24px;
-              font-weight: 600;
+              font-family: 600;
               border-radius: 15px;
               display: flex;
               align-items: center;
               justify-content: center;
-            }
-
-            .delcart {
               background-color: rgb(216, 0, 0);
             }
 
             .addtocart {
+              width: 90%;
+              height: 95%;
+              font-size: 24px;
+              font-family: 600;
+              border-radius: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
               background-color: rgb(153, 255, 0);
             }
           }
@@ -204,22 +214,36 @@
       }
     }
   }
+
 }
 
 @media (max-width: 480px) {
   .offers-section {
-    padding: 15px 0;
     width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    scroll-margin-top: 80px;
+    padding: 10px 0;
 
     .swiper {
       width: 98%;
-      height: 80%;
-
+      height: 90%;
+      padding-top: 60px;
       .swiper-slide {
-        width: 70%;
+        width: 85%;
         height: 60%;
+        border-radius: 20px;
 
         .offer-card {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
           background-color: rgba(255, 255, 255, 0.575);
           border-radius: 20px;
           position: relative;
@@ -230,7 +254,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            border-radius: 20px 20px 0 0;
+            border-radius: 20px 20p 0 0;
 
             form {
               width: 100%;
@@ -241,7 +265,7 @@
               align-items: center;
               justify-content: center;
 
-              textarea {
+              >textarea {
                 width: 95%;
                 height: 70%;
                 margin: 5px;
@@ -254,12 +278,14 @@
                 align-items: center;
                 justify-content: center;
 
-                button {
+                >button {
                   width: 45%;
                   height: 100%;
                   background-color: aqua;
-                  border-radius: 10px;
+                  border-radius: 10px
                 }
+
+                ;
               }
             }
           }
@@ -270,7 +296,7 @@
             border-radius: 20px 20px 0 0;
           }
 
-          .offer-details {
+          .offer-detalis {
             width: 95%;
             height: 60%;
             display: flex;
@@ -315,7 +341,9 @@
                 font-size: 16px;
                 font-weight: 500;
                 padding: 5px 0;
+
               }
+
             }
 
             .offer-price {
@@ -346,7 +374,7 @@
                   width: 30%;
                   height: 100%;
                   font-size: 30px;
-                  font-weight: 600;
+                  font-family: 600;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -355,14 +383,14 @@
 
               .p-price {
                 width: 35%;
-                height: 100%;
-                font-size: 20px;
-                font-weight: 700;
+                height: 80%;
+                font-size: 30px;
+                font-weight: 600;
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
-                span {
+                >span {
                   text-decoration: line-through;
                   font-size: 18px;
                 }
@@ -376,23 +404,27 @@
               align-items: center;
               justify-content: center;
 
-              .delcart,
-              .addtocart {
+              .delcart {
                 width: 90%;
                 height: 95%;
                 font-size: 24px;
-                font-weight: 600;
+                font-family: 600;
                 border-radius: 15px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-              }
-
-              .delcart {
                 background-color: rgb(216, 0, 0);
               }
 
               .addtocart {
+                width: 90%;
+                height: 95%;
+                font-size: 24px;
+                font-family: 600;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 background-color: rgb(153, 255, 0);
               }
             }
