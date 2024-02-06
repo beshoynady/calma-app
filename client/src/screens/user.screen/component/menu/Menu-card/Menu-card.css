@@ -55,7 +55,8 @@
 .card-group .menu-card form .note-btn > button {
   width: 45%;
   height: 100%;
-  background-color: aqua;
+  color: var(--u-light);
+  background-color: var(--u-dark);
   border-radius: 10px;
 }
 .card-group .menu-card .detalis {
