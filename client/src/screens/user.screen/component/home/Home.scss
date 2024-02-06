@@ -56,12 +56,11 @@
                     height: 60px;
                     border: 2px solid transparent;
                     border-radius: 25px;
-                    background-color: var(--u-dark);
+                    color: var(--u-white);
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-
                     &.mrl-auto {
                         margin-left: auto !important;
                         margin-right: auto !important;
@@ -72,7 +71,7 @@
                         display: inline-block;
                         text-decoration: none;
                         font-size: 25px;
-                        color: var(--white);
+                        color: var(--u-white);
                         margin: 10px 0px;
 
                     }
@@ -81,8 +80,6 @@
             }
         }
     }
-
-
 }
 
 
@@ -133,15 +130,17 @@
                     list-style: none;
 
                     .main-li {
-                        width: 130px;
-                        height: 60px;
-                        font-size: 22px;
+                        align-items: center;
                         border: 2px solid transparent;
                         border-radius: 25px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
                         cursor: pointer;
+                        display: flex;
+                        font-size: 22px;
+                        height: 60px;
+                        justify-content: center;
+                        width: 45%;
+                        font-weight: 800;
+                        color: antiquewhite;
 
                         a {
                             display: inline-block;
