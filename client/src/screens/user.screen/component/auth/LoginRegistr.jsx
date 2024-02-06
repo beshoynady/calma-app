@@ -73,10 +73,10 @@ const LoginRegistr = (props) => {
               <div className="wrapper">
                 <div className="title-text">
                   <Link to={'login'} ref={loginText} className="title login">
-                    Login Form
+                    تسجيل دخول
                   </Link>
                   <Link to={'signup'} className="title signup">
-                    Signup Form
+                    تسجيل عضو جديد
                   </Link>
         
                 </div>
@@ -87,11 +87,11 @@ const LoginRegistr = (props) => {
                     <label htmlFor="login" className="slide login" onClick={() => {
                       loginForm.current.style.marginRight = "0%";
                       loginText.current.style.marginRight = "0%";
-                    }}>Login</label>
+                    }}>دخول</label>
                     <label htmlFor="signup" className="slide signup" onClick={() => {
                       loginForm.current.style.marginRight = "-50%";
                       loginText.current.style.marginRight = "-50%";
-                    }}>Signup</label>
+                    }}>عضو جديد</label>
                     <div className="slider-tab"></div>
                   </div>
                   <div className="form-inner">
@@ -103,18 +103,18 @@ const LoginRegistr = (props) => {
                         <input type="password" placeholder="Password" required onChange={(e) => setpassword(e.target.value)} />
                       </div>
                       <div className="pass-link">
-                        <a href="#">Forgot password?</a>
+                        <a href="#">نسيت الباسورد?</a>
                       </div>
                       <div className="field btn">
                         <div className="btn-layer"></div>
                         <input type="submit" value="Login"  onClick={closeform}/>
                       </div>
                       <div className="signup-link" >
-                        Not a member? <a ref={signupLink} href="" onClick={(e) => {
-                          e.preventDefault()
-                          loginForm.current.style.marginLeft = "-50%";
-                          loginText.current.style.marginLeft = "-50%";
-                        }}>Signup now</a>
+                        غير مسجل ? <p onClick={() => {
+                          
+                      loginForm.current.style.marginRight = "-50%";
+                      loginText.current.style.marginRight = "-50%";
+                        }}>التسجيل الان</p>
                       </div>
                     </form>
                     <form className="signup" onSubmit={(e)=>signup(e,username,password,phone,address,email)}>
