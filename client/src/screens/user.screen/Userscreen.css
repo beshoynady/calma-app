@@ -23,4 +23,14 @@
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .userscreen {
+    background-image: url("../../image/bg-1--mob.jpg");
+    background-position: top right;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }/*# sourceMappingURL=Userscreen.css.map */
