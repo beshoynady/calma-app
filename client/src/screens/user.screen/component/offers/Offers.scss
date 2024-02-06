@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   scroll-margin-top: 80px;
-  padding-bottom: 15px;
+  padding: 10px 0;
 
   .swiper {
     width: 95%;
@@ -26,7 +26,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
-        background-color: rgba(255, 255, 255, 0.575);
+        background-color: #ffffff;
         border-radius: 20px;
         position: relative;
 
@@ -41,7 +41,7 @@
           form {
             width: 100%;
             height: 100%;
-            background-color: white;
+            background-color: rgb(255, 242, 167);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -63,7 +63,7 @@
               >button {
                 width: 45%;
                 height: 100%;
-                background-color: aqua;
+                background-color: var(--u-sacand-color);
                 border-radius: 10px
               }
 
@@ -221,18 +221,17 @@
   .offers-section {
     width: 100%;
     height: calc(100vh - 80px);
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     scroll-margin-top: 80px;
-    padding-bottom: 15px;
+    padding: 10px 0;
 
     .swiper {
       width: 98%;
       height: 90%;
-
+      padding-top: 60px;
       .swiper-slide {
         width: 250px;
         height: 400px;
