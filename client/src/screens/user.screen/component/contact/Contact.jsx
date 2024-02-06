@@ -24,7 +24,7 @@ const Contact = () => {
                         </p>
                     </div>
                     <div className="left">
-                        <h2></h2>
+                        <h2>لارسال الشكاوي و الملاحظات</h2>
                         <form action="">
                             <input placeholder='الاسم' type="text" id='name' required />
                             <input placeholder='E-Mail' type="email" id='email' />

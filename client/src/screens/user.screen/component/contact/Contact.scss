@@ -23,23 +23,19 @@
             justify-content: space-between;
 
             .left {
-                align-items: center;
-                background-color: rgba(0,0,0,.76);
+                background-color: rgba(0, 0, 0, .76);
                 display: flex;
                 height: 100%;
                 justify-content: center;
                 width: 50%;
-                flex-wrap: nowrap;
                 flex-direction: column;
-                align-content: center;
 
                 >form {
-                    width: 100%;
-                    height: 100%;
                     display: flex;
                     flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: space-evenly;
+                    height: 100%;
+                    width: 100%;
+                    justify-content: space-around;
 
                     input {
                         width: 90%;
@@ -53,7 +49,6 @@
 
                         &::placeholder {
                             text-align: right;
-                            color: var(--u-light);
                             color: var(--u-light);
                         }
 
@@ -104,17 +99,14 @@
             }
 
             .right {
-                align-items: center;
-                background-color: rgba(0,0,0,.76);
+                background-color: rgba(0, 0, 0, .76);
                 display: flex;
                 flex-direction: column;
                 height: 100%;
                 justify-content: space-evenly;
                 width: 40%;
-                flex-wrap: nowrap;
-                align-content: center;
                 color: white;
-            
+
                 p {
                     font-size: 24px;
                     font-weight: 700;
@@ -122,10 +114,9 @@
                     text-align: right;
                     display: flex;
                     flex-direction: column;
-                    flex-wrap: nowrap;
-                    align-content: center;
                     justify-content: center;
                     align-items: center;
+
                     a {
                         img {
                             width: 80px;
@@ -137,6 +128,8 @@
     }
 }
 
+
+
 @media (max-width: 768px) {
     .contact {
         width: 100%;
@@ -147,6 +140,7 @@
         scroll-margin-top: 80px;
         padding: 10px 0;
         overflow: hidden;
+
         .container {
             .contact-content {
                 width: 100%;
@@ -159,9 +153,11 @@
                 .left {
                     width: 100%;
                     height: 48%;
+
                     form {
                         width: 100%;
                         height: 100%;
+
                         input {
                             width: 90%;
                             height: 55px;
@@ -217,6 +213,7 @@
                 .right {
                     width: 100%;
                     height: 48%;
+
                     p {
                         font-size: 22px;
                         font-weight: 600;
@@ -227,5 +224,3 @@
         }
     }
 }
-
-
