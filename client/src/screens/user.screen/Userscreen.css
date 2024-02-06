@@ -28,9 +28,9 @@
 @media (max-width: 768px) {
   .userscreen {
     background-image: url("../../image/bg-1-mob.jpg");
-    background-position: top right;
     background-attachment: fixed;
-    background-size: cover;
+    background-position: top center;
     background-repeat: no-repeat;
+    background-size: 100vh 100%;
   }
 }/*# sourceMappingURL=Userscreen.css.map */

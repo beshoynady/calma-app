@@ -1,39 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Marhey:wght@600;700&display=swap');
 
 :root {
-    --u-main-color: #4f3131;
-    --u-sacand-color: #875f5d;
-    --u-dark: #630000;
-    --u-light: #ffc034;
-    --u-white : #ffffff;
-    --u-log : #770000;
-  }
+  --u-main-color: #4f3131;
+  --u-sacand-color: #875f5d;
+  --u-dark: #630000;
+  --u-light: #ffc034;
+  --u-white: #ffffff;
+  --u-log: #770000;
+}
 
 .userscreen {
-    direction: rtl;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow-x: hidden;
-    font-family: 'Marhey', sans-serif;
-    background-image: url('../../image/bg-1.jpg');
-    background-position: top right;
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    
+  direction: rtl;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  font-family: 'Marhey', sans-serif;
+  background-image: url('../../image/bg-1.jpg');
+  background-position: top right;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+
 }
 
 @media (max-width: 768px) {
   .userscreen {
     background-image: url('../../image/bg-1-mob.jpg');
-    background-position: top right;
     background-attachment: fixed;
-    background-size: cover;
+    background-position: top center;
     background-repeat: no-repeat;
-    
-}
+    background-size: 100vh 100%;
+  }
 }
