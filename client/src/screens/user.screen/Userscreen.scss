@@ -27,6 +27,32 @@
 
 }
 
+.container {
+  width: 95% !important;
+  height: 100% !important;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.section-title {
+  width: 200px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  border: 4px solid var(--u-dark);
+  border-radius: 10px;
+  background-color: #4f3131bf;
+
+  >h2 {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: Marhey, sans-serif;
+    color: var(--u-light);
+  }
+}
+
 @media (max-width: 768px) {
   .userscreen {
     background-image: url('../../image/bg-1-mob.jpg');

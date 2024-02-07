@@ -44,10 +44,10 @@
   cursor: pointer;
   background-color: var(--u-main-color);
   color: var(--u-light);
+  border: 2px solid var(--u-dark);
   height: 60px;
   min-width: -moz-max-content;
   min-width: max-content;
-  border: 2px solid var(--u-dark);
   border-radius: 5px;
   font-size: 22px;
   font-weight: 600;
@@ -55,7 +55,9 @@
   padding: 10px 20px;
 }
 #menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn.active {
-  background-color: rgb(0, 130, 134);
+  background-color: var(--u-main-color--u-light);
+  color: var(r--u-dark);
+  border: 2px solid var(--u-main-color);
 }
 
 @media (max-width: 768px) {
@@ -112,6 +114,8 @@
     padding: 5px 10px;
   }
   #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn.active {
-    background-color: rgb(0, 130, 134);
+    background-color: var(--u-main-color--u-light);
+    color: var(r--u-dark);
+    border: 2px solid var(--u-main-color);
   }
 }/*# sourceMappingURL=Menu.css.map */
