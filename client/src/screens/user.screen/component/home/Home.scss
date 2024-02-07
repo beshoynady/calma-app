@@ -36,11 +36,11 @@
 
             .main-text {
                 color: var(--u-light);
-                font-size: 40px;
-                font-weight: bolder;
-                margin-top: 30px;
-                text-align: center;
                 font-family: cursive;
+                font-size: 36px;
+                font-weight: 600;
+                margin-top: 30px;
+                text-align: center
             }
 
             .main-btn {
@@ -123,10 +123,9 @@
                 }
 
                 .main-text {
-                    font-size: 24px;
-                    font-weight: bolder;
-                    text-align: center;
+                    font-size: 26px;
                     font-weight: 600;
+                    text-align: center;
                 }
 
                 .main-btn {
@@ -148,7 +147,7 @@
                         height: 90%;
                         justify-content: center;
                         width: 45%;
-                        
+
                         a {
                             display: inline-block;
                             text-decoration: none;
