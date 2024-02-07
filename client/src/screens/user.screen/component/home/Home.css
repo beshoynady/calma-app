@@ -27,11 +27,12 @@
 }
 .main-home .container .content .main-title {
   color: var(--u-light);
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
-  height: 100px;
+  height: -moz-fit-content;
+  height: fit-content;
   text-align: center;
-  width: 90%;
+  width: 98%;
 }
 .main-home .container .content .main-text {
   color: var(--u-light);
@@ -103,9 +104,10 @@
   .main-home .container .content .main-title {
     align-items: center;
     display: flex;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 800;
-    height: 80px;
+    height: -moz-fit-content;
+    height: fit-content;
     justify-content: center;
     width: 100%;
   }
@@ -124,12 +126,16 @@
     list-style: none;
   }
   .main-home .container .content .main-btn .main-li {
-    height: 40px;
     align-items: center;
     border: 2px solid transparent;
     border-radius: 25px;
     cursor: pointer;
     display: flex;
+    font-size: 22px;
+    font-weight: 800;
+    height: 90%;
+    justify-content: center;
+    width: 45%;
   }
   .main-home .container .content .main-btn .main-li a {
     display: inline-block;
