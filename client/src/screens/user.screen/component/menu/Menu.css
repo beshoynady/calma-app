@@ -55,7 +55,7 @@
   padding: 10px 20px;
 }
 #menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn.active {
-  background-color: var(--u-main-color--u-light);
+  background-color: var(--u-light);
   color: var(r--u-dark);
   border: 2px solid var(--u-main-color);
 }
@@ -114,7 +114,7 @@
     padding: 5px 10px;
   }
   #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn.active {
-    background-color: var(--u-main-color--u-light);
+    background-color: var(--u-light);
     color: var(r--u-dark);
     border: 2px solid var(--u-main-color);
   }
