@@ -58,10 +58,10 @@
   color: var(--u-light);
   cursor: pointer;
   display: flex;
-  height: 60px;
+  height: 90%;
   justify-content: center;
-  width: 45%;
-  font-size: 24px;
+  width: 40%;
+  font-size: 26px;
   font-weight: 800;
 }
 .main-home .container .content .main-btn .main-li.mrl-auto {
@@ -71,7 +71,7 @@
 .main-home .container .content .main-btn .main-li a {
   display: inline-block;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
   color: var(--u-light);
   margin: 10px 0px;
