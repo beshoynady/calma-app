@@ -147,6 +147,7 @@
   width: 100%;
   margin-bottom: 16px;
   background: var(--grey);
+  color: var(--dark);
   padding: 14px 10px;
   border-radius: 10px;
   display: flex;

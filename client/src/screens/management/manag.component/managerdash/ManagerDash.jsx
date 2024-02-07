@@ -426,7 +426,7 @@ const ManagerDash = () => {
                     <ul className="task-list">
                       {pending_payment.filter((order) => order.payment_status == 'Pending' && order.order_type == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
                         return (
-                          <li className="completed" key={i}>
+                          <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
                               <p><i className='bx bx-check-circle'></i> {usertitle(order.table)}</p>
                               <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
