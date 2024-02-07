@@ -165,7 +165,7 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <div className="invoice side" >
-                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
+                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height:"88%", textAlign: 'center' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>CALMA CAFE</h2>
@@ -245,10 +245,10 @@ const Cart = (props) => {
                         {id ? <button className='total-order-btn' onClick={() => checkout()}>طلب الحساب</button> : ""}
 
                         <button className='total-order-btn' onClick={handlePrint}>طباعه</button>
-                        <div className='total-order-details'>
+                        {/* <div className='total-order-details'>
                           <h2>الاجمالي</h2>
                           <p>{ordertotal}</p>
-                        </div>
+                        </div> */}
 
                       </div>
                     </div>

@@ -232,22 +232,25 @@ input[type="radio"] {
   height: 70px;
   justify-content: space-between;
   left: 0;
-  position: absolute;
-  width: 100%;
   margin: 0;
   padding: 0;
+  position: sticky;
+  width: 100%;
 }
 
 .total-order .total-order-btn {
+  color: var(--u-dark);
   border-radius: 10px;
   font-size: 20px;
+  font-weight: 800;
   height: 80%;
   margin: auto 20px;
   text-align: center;
-  width: 40%;
+  width: 37%;
+  background-color: var(--u-light);
 }
 
-.side .total-order .total-order-details {
+/* .side .total-order .total-order-details {
   align-items: center;
   background-color: var(--u-light);
   display: flex;
@@ -255,9 +258,9 @@ input[type="radio"] {
   height: 100%;
   justify-content: center;
   width: 40%;
-}
+} */
 
-.side .total-order .total-order-details>h2 {
+/* .side .total-order .total-order-details>h2 {
   width: 100%;
   font-size: 20px;
   font-weight: 600;
@@ -269,8 +272,9 @@ input[type="radio"] {
   font-size: 20px;
   font-weight: 700;
   background-color: var(--u-dark);
+  color: var(--u-white);
   text-align: center;
-}
+} */
 
 
 
