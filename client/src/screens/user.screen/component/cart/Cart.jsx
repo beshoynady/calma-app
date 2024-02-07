@@ -169,7 +169,7 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>CALMA CAFE</h2>
-                          <p>Casher {usertitle(myorder.casher)} |فاتوره #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {usertitle(myorder.casher)} |فاتوره #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
