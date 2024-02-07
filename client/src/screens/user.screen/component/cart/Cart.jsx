@@ -3,6 +3,7 @@ import { detacontext } from '../../../../App'
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import './Cart.css'
+import html2pdf from 'html2pdf.js';
 
 const Cart = (props) => {
   const open_cart = props.opencart
@@ -10,16 +11,21 @@ const Cart = (props) => {
   const orderside = useRef()
   const printContainer = useRef();
 
-  const Print = useReactToPrint({
-    content: () => printContainer.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage'
-  });
+  // const Print = useReactToPrint({
+  //   content: () => printContainer.current,
+  //   copyStyles: true,
+  //   removeAfterPrint: true,
+  //   bodyClass: 'printpage'
+  // });
 
-  const handlePrint = (e) => {
-    e.preventDefault();
-    Print();
+  // const handlePrint = (e) => {
+  //   e.preventDefault();
+  //   Print();
+  // };
+
+  const handlePrint = () => {
+    const element = document.querySelector('.printpage');
+    html2pdf(element);
   };
 
   // Function to format the date
@@ -165,7 +171,7 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <div className="invoice side" >
-                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height:"88%", textAlign: 'center' }}>
+                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height:"80%", textAlign: 'center' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>CALMA CAFE</h2>
