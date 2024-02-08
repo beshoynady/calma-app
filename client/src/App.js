@@ -37,7 +37,7 @@ export const detacontext = createContext({});
 
 function App() {
 
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   axios.defaults.withCredentials = true;
 
