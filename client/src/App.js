@@ -166,14 +166,32 @@ function App() {
   // +++++++++++++++ user +++++++++++++
   const [allUsers, setallUsers] = useState([])
   const getallUsers = async () => {
-    const users = await axios.get(apiUrl + '/api/user');
-    setallUsers(users.data)
-  }
+    try {
+      const response = await axios.get(`${apiUrl}/api/user`);
+      if (response.status === 200) {
+        setallUsers(response.data);
+      } else {
+        console.error('Failed to fetch users data: Unexpected response status', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching users data:', error);
+    }
+  };
+  
   const [allemployees, setallemployees] = useState([])
   const getallemployees = async () => {
-    const employees = await axios.get(apiUrl + '/api/employee');
-    setallemployees(employees.data)
-  }
+    try {
+      const response = await axios.get(`${apiUrl}/api/employee`);
+      if (response.status === 200) {
+        setallemployees(response.data);
+      } else {
+        console.error('Failed to fetch employees data: Unexpected response status', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching employees data:', error);
+    }
+  };
+  
 
 
 
@@ -781,13 +799,18 @@ function App() {
 
 
   const splitInvoice = async (e) => {
-    e.preventDefault()
-    const updateOrder = await axios.put(apiUrl + '/api/order/' + myorderid, {
-      products: newlistofproductorder,
-      isSplit: true
-    })
-    console.log({ updateOrder })
-  }
+    try {
+      e.preventDefault();
+      const updateOrder = await axios.put(`${apiUrl}/api/order/${myorderid}`, {
+        products: newlistofproductorder,
+        isSplit: true
+      });
+      // console.log({ updateOrder });
+    } catch (error) {
+      console.error('Error updating order:', error);
+    }
+  };
+  
 
 
   const POSinvoice = async (checkid) => {
@@ -922,13 +945,13 @@ function App() {
     try {
       // Check if any field is empty
       if (!username || !password || !phone || !address || !email) {
-        toast.error('Please fill in all required fields.');
+        toast.error('هناك حقول فارغه.');
         return;
       }
 
       // Check if passwords match if passconfirm is provided
       if (passconfirm !== undefined && password !== passconfirm) {
-        toast.error('Passwords do not match.');
+        toast.error('كلمة السر غير متماثله.');
         return;
       }
 
@@ -944,13 +967,13 @@ function App() {
       // Handle successful signup
       if (response && response.data) {
         const { accessToken, newUser } = response.data;
-        toast.success('Signup successful!');
+        toast.success('تم انشاء حساب !');
         // Perform actions with accessToken or newUser if needed
       }
     } catch (error) {
       // Handle signup error
       console.error('Signup error:', error);
-      toast.error('Signup failed. Please try again.');
+      toast.error('حدث خطأ في انشاء الحساب . حاول مرة اخري');
     }
   };
 
@@ -995,7 +1018,7 @@ function App() {
     console.log({ phone, password })
     try {
       if (!phone || !password) {
-        toast.error('Phone and password are required.');
+        toast.error('رقم الموبايل او كلمة السر غير صحيحة.');
         return;
       }
 
@@ -1012,9 +1035,9 @@ function App() {
           // Retrieve user info from token if needed
           getUserInfoFromToken();
           setisLogin(!isLogin)
-          toast.success('Login successful!');
+          toast.success('تم تسجيل الدخول!');
         } else {
-          toast.error('User is not active.');
+          toast.error('هذا المستخدم غير نشط .الرجاء الاتصال بنا');
         }
       }
     } catch (error) {
@@ -1024,7 +1047,7 @@ function App() {
       } else if (error.response && error.response.status === 401) {
         toast.error('Incorrect password.');
       } else {
-        toast.error('Login failed. Please check your credentials.');
+        toast.error('حدث خطا في تسجيل الدخول. االرجاء مراجعه البيانات المحاوله مره اخري.');
       }
     }
   };
@@ -1035,7 +1058,7 @@ function App() {
     e.preventDefault();
 
     if (!phone || !password) {
-      toast('Phone and Password are required');
+      toast('الموبايل و كلمة السره مطلوبان');
       return;
     }
 
@@ -1061,7 +1084,7 @@ function App() {
         if (data.findEmployee.isActive === true) {
           window.location.href = `https://${window.location.hostname}/management`;
         } else {
-          toast('This user is not authorized to log in');
+          toast('غير مسموح لك بالدخول');
         }
       }
     } catch (error) {
