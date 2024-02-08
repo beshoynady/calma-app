@@ -8,24 +8,23 @@ const connectdb = require('./database/connectdb.js');
 
 
 // Import all route files
-const routers = {
-  category: require('./router/Category.router.js'),
-  categoryStock: require('./router/CategoryStock.router.js'),
-  product: require('./router/Product.router.js'),
-  user: require('./router/User.router.js'),
-  employee: require('./router/Employee.router.js'),
-  salaryMovement: require('./router/EmployeeSalary.router.js'),
-  table: require('./router/Table.router.js'),
-  order: require('./router/Order.router.js'),
-  auth: require('./router/Auth.router.js'),
-  stockItems: require('./router/StockItem.router.js'),
-  stockManagement: require('./router/StockMang.router.js'),
-  kitchenConsumption: require('./router/kitchenConsumption.router.js'),
-  expense: require('./router/Expense.router.js'),
-  dailyExpense: require('./router/DailyExpense.router.js'),
-  cashRegister: require('./router/CashRegister,router.js'),
-  cashMovement: require('./router/CashMovement,router.js'),
-};
+const routecategory = require('./router/Category.router.js');
+const routecategoryStock = require('./router/CategoryStock.router.js');
+const routeproduct = require('./router/Product.router.js');
+const routeuser = require('./router/User.router.js');
+const routeemployee = require('./router/Employee.router.js');
+const routesalarymovement = require('./router/EmployeeSalary.router.js');
+const routetable = require('./router/Table.router.js');
+const routeorder = require('./router/Order.router.js');
+const routeauth = require('./router/Auth.router.js');
+const routestockitems = require('./router/StockItem.router.js');
+const routestockmanag = require('./router/StockMang.router.js');
+const routekitchenconsumption = require('./router/kitchenConsumption.router.js');
+const routeexpense = require('./router/Expense.router.js');
+const routedailyexpense = require('./router/DailyExpense.router.js');
+const routecashRegister = require('./router/CashRegister,router.js');
+const routecashMovement = require('./router/CashMovement,router.js');
+
 
 dotenv.config();
 connectdb();
