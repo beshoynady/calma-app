@@ -9,20 +9,20 @@ const Category = () => {
   const [allCategory, setallCategory] = useState([])
   
   const getallCategory = async () => {
-    const res = await axios.get("https://calma-api-puce.vercel.app/api/category/");
+    const res = await axios.get(apiUrl + "/api/category/");
     setallCategory(res.data)
   }
 
 
   const createCategory = async () => {
-    const send = await axios.post("https://calma-api-puce.vercel.app/api/category/", { name: categoryname });
+    const send = await axios.post(apiUrl + "/api/category/", { name: categoryname });
   }
 
 
   const editCategory = async () => {
     console.log(categoryId)
     try {
-      const edit = await axios.put("https://calma-api-puce.vercel.app/api/category/" + categoryId, { name: categoryname })
+      const edit = await axios.put(apiUrl + "/api/category/" + categoryId, { name: categoryname })
       console.log(edit)
     } catch (error) {
       console.log(error)
@@ -30,7 +30,7 @@ const Category = () => {
   }
   const deleteCategory = async () => {
     try {
-      const deleted = await axios.delete("https://calma-api-puce.vercel.app/api/category/" + categoryId)
+      const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId)
       console.log(categoryId)
       console.log(deleted)
     } catch (error) {
@@ -61,7 +61,7 @@ const Category = () => {
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6 text-right">
-                        <h2>Manage <b>Categorys</b></h2>
+                        <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>

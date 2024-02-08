@@ -9,7 +9,7 @@ const StockManag = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/product/');
+      const response = await axios.get(apiUrl+'/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -24,7 +24,7 @@ const StockManag = () => {
   const [StockItems, setStockItems] = useState([]);
   const getaStockItems = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
+      const response = await axios.get(apiUrl+'/api/stockitem/');
       console.log(response.data)
       setStockItems(response.data.reverse())
 
@@ -57,7 +57,7 @@ const StockManag = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
+      const response = await axios.get(apiUrl+'/api/cashregister');
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -78,7 +78,7 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`https://calma-api-puce.vercel.app/api/stockitem/movement/${itemId}`, {
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, {
         newBalance,
         newcost,
         price,
@@ -89,7 +89,7 @@ const StockManag = () => {
 
       if (changeItem.status === 200) {
         // Create a new stock action
-        const response = await axios.post('https://calma-api-puce.vercel.app/api/stockmanag/', {
+        const response = await axios.post(apiUrl+'/api/stockmanag/', {
           itemId,
           movement,
           Quantity,
@@ -122,7 +122,7 @@ const StockManag = () => {
 
                 // Update the product with the modified recipe and total cost
                 const updateRecipeToProduct = await axios.put(
-                  `https://calma-api-puce.vercel.app/api/product/addrecipe/${productid}`,
+                  `${apiUrl}/api/product/addrecipe/${productid}`,
                   { Recipe: arrayRecipe, totalcost },
                   {
                     headers: {
@@ -165,11 +165,11 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`https://calma-api-puce.vercel.app/api/stockitem/movement/${itemId}`, { newBalance, newcost, price });
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price });
 
       if (changeItem.status === 200) {
         // Update the existing stock action
-        const response = await axios.put(`https://calma-api-puce.vercel.app/api/stockmanag/${actionId}`, {
+        const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
           itemId, movement, Quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
           actionBy
         });
@@ -195,7 +195,7 @@ const StockManag = () => {
 
   const getallStockaction = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockmanag/');
+      const response = await axios.get(apiUrl+'/api/stockmanag/');
       console.log(response.data)
       const Stockactions = await response.data;
       setAllStockactions(Stockactions.reverse())
@@ -209,7 +209,7 @@ const StockManag = () => {
     e.preventDefault();
     try {
       // Delete the selected stock action
-      const response = await axios.delete(`https://calma-api-puce.vercel.app/api/stockmanag/${actionId}`);
+      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`);
       console.log(response);
 
       if (response) {

@@ -36,7 +36,7 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/employee');
+      const response = await axios.get(apiUrl+'/api/employee');
       setListOfEmployee(response.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ const PayRoll = () => {
   const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([])
   const getSalaryMovement = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/salarymovement');
+      const response = await axios.get(apiUrl+'/api/salarymovement');
       const currentDate = new Date().getMonth();
       const filterByMonth = response.data.filter((m) => new Date(m.createdAt).getMonth() === currentDate);
       setListOfSalaryMovement(filterByMonth);
@@ -124,7 +124,7 @@ const PayRoll = () => {
         Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`https://calma-api-puce.vercel.app/api/employee/payroll/${id}`, {
+        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
           month,
           salary,
           additional: Additional,
@@ -151,7 +151,7 @@ const PayRoll = () => {
 
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`https://calma-api-puce.vercel.app/api/employee/payroll/${id}`, {
+        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
           month,
           salary,
           additional: Additional,
@@ -180,7 +180,7 @@ const PayRoll = () => {
       console.log(manager)
 
       // Fetch all cash registers
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashRegister');
+      const response = await axios.get(apiUrl+'/api/cashRegister');
       const allCashRegisters = await response.data;
       console.log(response)
       console.log(allCashRegisters)
@@ -214,7 +214,7 @@ const PayRoll = () => {
   // // Fetch all cash registers from the API
   // const getAllcashRegisters = async () => {
   //   try {
-  //     const response = await axios.get('https://calma-api-puce.vercel.app/api/cashRegister');
+  //     const response = await axios.get(apiUrl+'/api/cashRegister');
   //     setAllcashRegisters(response.data);
   //   } catch (err) {
   //     toast.error('Error fetching cash registers');
@@ -233,7 +233,7 @@ const PayRoll = () => {
   const createDailyExpense = async () => {
     const updatedBalance = balance - amount;
     try {
-      const cashMovement = await axios.post('https://calma-api-puce.vercel.app/api/cashMovement/', {
+      const cashMovement = await axios.post(apiUrl+'/api/cashMovement/', {
         registerId: cashRegister,
         createBy: paidBy,
         amount,
@@ -243,7 +243,7 @@ const PayRoll = () => {
 
       const cashMovementId = cashMovement.data.cashMovement._id;
 
-      const dailyExpense = await axios.post('https://calma-api-puce.vercel.app/api/dailyexpense/', {
+      const dailyExpense = await axios.post(apiUrl+'/api/dailyexpense/', {
         expenseID,
         expenseDescription,
         cashRegister,
@@ -253,7 +253,7 @@ const PayRoll = () => {
         notes,
       });
 
-      const updateCashRegister = await axios.put(`https://calma-api-puce.vercel.app/api/cashRegister/${cashRegister}`, {
+      const updateCashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedBalance,
       });
 
@@ -282,7 +282,7 @@ const PayRoll = () => {
       };
 
       // Update payroll status via API call
-      const updatePayRoll = await axios.put(`https://calma-api-puce.vercel.app/api/employee/paid/${employeeId}`, payload);
+      const updatePayRoll = await axios.put(`${apiUrl}/api/employee/paid/${employeeId}`, payload);
 
       // Log the update result
       console.log(updatePayRoll);

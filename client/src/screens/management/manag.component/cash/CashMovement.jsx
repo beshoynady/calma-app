@@ -28,7 +28,7 @@ const CashMovement = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
+      const response = await axios.get(apiUrl+'/api/cashregister');
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -43,7 +43,7 @@ const CashMovement = () => {
       console.log({ EmployeeLoginInfo })
       const id = EmployeeLoginInfo.id
       console.log({ id })
-      const getCashRegisters = await axios.get('https://calma-api-puce.vercel.app/api/cashregister');
+      const getCashRegisters = await axios.get(apiUrl+'/api/cashregister');
       const CashRegisters = getCashRegisters.data
       console.log({ CashRegisters })
 
@@ -51,7 +51,7 @@ const CashMovement = () => {
       console.log({ myregister })
       const myregisterid = myregister._id
       console.log({ myregisterid })
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/cashmovement/');
+      const response = await axios.get(apiUrl+'/api/cashmovement/');
       const AllCashMovement = response.data
       console.log({ AllCashMovement })
       const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
@@ -77,7 +77,7 @@ const CashMovement = () => {
   const addCashMovementAndUpdateBalance = async () => {
     try {
       // Send cash movement data to the API
-      const cashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+      const cashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
         registerId,
         createBy,
         amount,
@@ -92,7 +92,7 @@ const CashMovement = () => {
         const newBalance = balance + updateAmount;
 
         // Update the cash register balance on the server
-        const updateRegisterBalance = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${registerId}`, {
+        const updateRegisterBalance = await axios.put(`${apiUrl}/api/cashregister/${registerId}`, {
           balance: newBalance,
         });
 
@@ -156,7 +156,7 @@ const CashMovement = () => {
     try {
 
       // Send cash movement data to the API
-      const sendCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+      const sendCashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
         registerId: sendRegister,
         createBy,
         amount,
@@ -170,7 +170,7 @@ const CashMovement = () => {
       const movementId = sendCashMovementData.cashMovement._id;
       console.log({ movementId })
       // Send receiving cash movement data to the API
-      const receivCashMovementResponse = await axios.post('https://calma-api-puce.vercel.app/api/cashmovement/', {
+      const receivCashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
         registerId: receivRegister,
         createBy,
         amount,
@@ -202,7 +202,7 @@ const CashMovement = () => {
   const accepteTransferCash = async (id, statusTransfer) => {
     try {
       // Fetch details of the cash movement
-      const receivcashMovement = await axios.get(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`);
+      const receivcashMovement = await axios.get(`${apiUrl}/api/cashmovement/${id}`);
       const movementId = receivcashMovement.data.movementId;
       const sendregister = receivcashMovement.data.transferFrom;
       const receivregister = receivcashMovement.data.registerId;
@@ -212,50 +212,50 @@ const CashMovement = () => {
       // Check the transfer status
       if (statusTransfer === 'Rejected') {
         // Reject transfer
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
+        await axios.put(`${apiUrl}/api/cashmovement/${id}`, {
           status: 'Rejected',
         });
 
         // Update sender's cash movement status
-        await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+        await axios.put(`${apiUrl}/api/cashmovement/${movementId}`, {
           status: 'Rejected',
         });
 
         toast.error('Transfer rejected successfully');
       } else if (statusTransfer === 'Completed') {
         // Update receiver's cash movement status
-        const updatereceivcashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${id}`, {
+        const updatereceivcashMovement = await axios.put(`${apiUrl}/api/cashmovement/${id}`, {
           status: 'Completed',
         });
         console.log(updatereceivcashMovement)
         // Update receiver's cash register balance
-        const receivregisterBalance = (await axios.get(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`)).data.balance;
+        const receivregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${receivregister}`)).data.balance;
 
         console.log({ receivregisterBalance })
 
         const newreceivBalance = receivregisterBalance + amount
         console.log({ newreceivBalance })
-        const updatereceivregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${receivregister}`, {
+        const updatereceivregister = await axios.put(`${apiUrl}/api/cashregister/${receivregister}`, {
           balance: newreceivBalance,
         });
         console.log(updatereceivregister)
 
         // Update sender's cash movement status
-        const updatesendercashMovement = await axios.put(`https://calma-api-puce.vercel.app/api/cashmovement/${movementId}`, {
+        const updatesendercashMovement = await axios.put(`${apiUrl}/api/cashmovement/${movementId}`, {
           status: 'Completed',
         });
 
         console.log(updatesendercashMovement)
 
         // Update sender's cash register balance
-        const senderregisterBalance = (await axios.get(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`)).data.balance;
+        const senderregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${sendregister}`)).data.balance;
 
         console.log({ senderregisterBalance })
 
         const newsenderBalance = senderregisterBalance - amount
 
         console.log({ newsenderBalance })
-        const updatesenderregister = await axios.put(`https://calma-api-puce.vercel.app/api/cashregister/${sendregister}`, {
+        const updatesenderregister = await axios.put(`${apiUrl}/api/cashregister/${sendregister}`, {
           balance: newsenderBalance,
         });
         console.log(updatesenderregister)

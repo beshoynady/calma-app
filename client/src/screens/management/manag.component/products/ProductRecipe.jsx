@@ -10,7 +10,7 @@ const ProductRecipe = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/product/');
+      const response = await axios.get(apiUrl+'/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -37,7 +37,7 @@ const ProductRecipe = () => {
   const [listofcategories, setlistofcategories] = useState([])
   const getallCategories = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/category/');
+      const response = await axios.get(apiUrl+'/api/category/');
       const categories = await response.data;
       // console.log(response.data)
       setlistofcategories(categories)
@@ -53,7 +53,7 @@ const ProductRecipe = () => {
 
   const getallStockItem = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
+      const response = await axios.get(apiUrl+'/api/stockitem/');
       const StockItems = await response.data;
       console.log(response.data)
       setAllStockItems(StockItems)
@@ -68,7 +68,7 @@ const ProductRecipe = () => {
   const [producttotalcost, setproducttotalcost] = useState()
   const getProductRecipe = async (id) => {
     console.log(id)
-    const product = await axios.get(`https://calma-api-puce.vercel.app/api/product/${id}`)
+    const product = await axios.get(`${apiUrl}/api/product/${id}`)
     console.log({ product: product })
     const productRecipe = await product.data.Recipe
     console.log({ productRecipe: productRecipe })
@@ -100,7 +100,7 @@ const ProductRecipe = () => {
 
       const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-      const addRecipetoProduct = await axios.put(`https://calma-api-puce.vercel.app/api/product/addrecipe/${productid}`, { Recipe, totalcost },
+      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
         {
           headers: {
             'authorization': `Bearer ${token}`,
@@ -115,7 +115,7 @@ const ProductRecipe = () => {
       const Recipe = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
       const totalcost = totalcostofitem
 
-      const addRecipetoProduct = await axios.put(`https://calma-api-puce.vercel.app/api/product/addrecipe/${productid}`, { Recipe, totalcost },
+      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
         {
           headers: {
             'authorization': `Bearer ${token}`,
@@ -153,7 +153,7 @@ const ProductRecipe = () => {
     
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const editRecipetoProduct = await axios.put(`https://calma-api-puce.vercel.app/api/product/addrecipe/${productid}`, { Recipe: productRecipe, totalcost },
+    const editRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: productRecipe, totalcost },
     {
       headers: {
         'authorization': `Bearer ${token}`,
@@ -181,7 +181,7 @@ const ProductRecipe = () => {
     }
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`https://calma-api-puce.vercel.app/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
+    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
     {
       headers: {
         'authorization': `Bearer ${token}`,

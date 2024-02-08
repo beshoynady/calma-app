@@ -9,7 +9,7 @@ const CategoryStock = () => {
   const [allCategoryStock, setallCategoryStock] = useState([])
 
   const getallCategoryStock = async () => {
-    const res = await axios.get("https://calma-api-puce.vercel.app/api/categoryStock/");
+    const res = await axios.get(apiUrl + "/api/categoryStock/");
     setallCategoryStock(res.data.reverse())
   }
 
@@ -17,7 +17,7 @@ const CategoryStock = () => {
 
   const getallStockItem = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/stockitem/');
+      const response = await axios.get(apiUrl+'/api/stockitem/');
       const StockItems = await response.data.reverse();
       console.log(response.data)
       setAllStockItems(StockItems)
@@ -31,7 +31,7 @@ const CategoryStock = () => {
 
   const createCategoryStock = async () => {
     try {
-      const send = await axios.post("https://calma-api-puce.vercel.app/api/categoryStock/", { name: categoryStockname });
+      const send = await axios.post(apiUrl + "/api/categoryStock/", { name: categoryStockname });
       getallCategoryStock()
     } catch (error) {
       console.log(error)
@@ -43,7 +43,7 @@ const CategoryStock = () => {
     e.preventDefault();
     console.log(categoryStockId)
     try {
-      const edit = await axios.put("https://calma-api-puce.vercel.app/api/categoryStock/" + categoryStockId, { name: categoryStockname })
+      const edit = await axios.put(apiUrl + "/api/categoryStock/" + categoryStockId, { name: categoryStockname })
       console.log(edit)
       getallCategoryStock()
     } catch (error) {
@@ -52,7 +52,7 @@ const CategoryStock = () => {
   }
   const deleteCategoryStock = async () => {
     try {
-      const deleted = await axios.delete("https://calma-api-puce.vercel.app/api/categoryStock/" + categoryStockId)
+      const deleted = await axios.delete(apiUrl + "/api/categoryStock/" + categoryStockId)
       console.log(categoryStockId)
       console.log(deleted)
     } catch (error) {

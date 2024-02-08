@@ -20,7 +20,7 @@ const Kitchen = () => {
   const getOrdersFromAPI = async () => {
     try {
       // Fetch orders from the API
-      const orders = await axios.get('https://calma-api-puce.vercel.app/api/order');
+      const orders = await axios.get(apiUrl+'/api/order');
       // Set all orders state
       setAllOrders(orders.data);
 
@@ -33,7 +33,7 @@ const Kitchen = () => {
       setOrderActive(activeOrders);
 
       // Fetch all products from the API
-      const getAllProducts = await axios.get('https://calma-api-puce.vercel.app/api/product/');
+      const getAllProducts = await axios.get(apiUrl+'/api/product/');
       // Extract product data
       const listAllProducts = await getAllProducts.data;
 
@@ -99,7 +99,7 @@ const Kitchen = () => {
     try {
       setFilteredKitchenConsumptionToday([])
       console.log('Fetching kitchen consumption...');
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/kitchenconsumption');
+      const response = await axios.get(apiUrl+'/api/kitchenconsumption');
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
         setAllKitchenConsumption(kitchenConsumptions);
@@ -123,7 +123,7 @@ const Kitchen = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/product/');
+      const response = await axios.get(apiUrl+'/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -140,7 +140,7 @@ const Kitchen = () => {
 
   const getAllWaiters = async () => {
     try {
-      const allEmployees = await axios.get('https://calma-api-puce.vercel.app/api/employee');
+      const allEmployees = await axios.get(apiUrl+'/api/employee');
       const allWaiters = allEmployees.data.filter((employee) => employee.role === 'waiter');
       const waiterActive = allWaiters.filter((waiter) => waiter.isActive);
       setAllWaiters(waiterActive);
@@ -161,7 +161,7 @@ const Kitchen = () => {
     console.log({ tableId: tableId });
 
     try {
-      const getTable = await axios.get(`https://calma-api-puce.vercel.app/api/table/${tableId}`);
+      const getTable = await axios.get(`${apiUrl}/api/table/${tableId}`);
       console.log({ getTable: getTable });
 
       const tablesectionNumber = getTable.data.sectionNumber;
@@ -211,10 +211,10 @@ const Kitchen = () => {
         orderData.waiter = waiter;
       }
 
-      const response = await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, orderData);
+      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData);
       if (response.status === 200) {
         // Fetch orders from the API
-        const orders = await axios.get('https://calma-api-puce.vercel.app/api/order');
+        const orders = await axios.get(apiUrl+'/api/order');
         // Set all orders state
         setAllOrders(orders.data);
 
@@ -241,7 +241,7 @@ const Kitchen = () => {
   const updateOrderDone = async (id) => {
     try {
       // Fetch order data by ID
-      const orderData = await axios.get(`https://calma-api-puce.vercel.app/api/order/${id}`);
+      const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = orderData.data.products;
 
       // Loop through each product in the order
@@ -249,7 +249,7 @@ const Kitchen = () => {
         if (!product.isDone) {
           // Fetch kitchen consumption data
           // await getKitchenConsumption();
-          const getKitchenConsumption = await axios.get('https://calma-api-puce.vercel.app/api/kitchenconsumption');
+          const getKitchenConsumption = await axios.get(apiUrl+'/api/kitchenconsumption');
           const Allkitchenconsumption = await getKitchenConsumption.data.data
           const quantity = product.quantity;
           const productId = product.productid;
@@ -292,7 +292,7 @@ const Kitchen = () => {
 
               try {
                 // Update kitchen consumption data
-                const update = await axios.put(`https://calma-api-puce.vercel.app/api/kitchenconsumption/${kitconsumption._id}`, {
+                const update = await axios.put(`${apiUrl}/api/kitchenconsumption/${kitconsumption._id}`, {
                   consumptionQuantity,
                   bookBalance,
                   productsProduced: kitconsumption.productsProduced
@@ -312,10 +312,10 @@ const Kitchen = () => {
       // Update order status or perform other tasks
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, { products: updateproducts, status });
+      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status });
 
       // Fetch orders from the API
-      const orders = await axios.get('https://calma-api-puce.vercel.app/api/order');
+      const orders = await axios.get(apiUrl+'/api/order');
       // Set all orders state
       setAllOrders(orders.data);
 

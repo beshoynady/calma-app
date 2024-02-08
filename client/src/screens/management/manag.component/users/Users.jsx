@@ -10,7 +10,7 @@ const Users = () => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get('https://calma-api-puce.vercel.app/api/user');
+      const response = await axios.get(apiUrl+'/api/user');
       setAllUsers(response.data)
     } catch (error) {
       console.log(error)
@@ -23,7 +23,7 @@ const Users = () => {
       console.log(e.target.value)
 
       // Send a request to update the 'isVarified' status
-      const response = await axios.put(`https://calma-api-puce.vercel.app/api/user/update-status/${id}`, { isVarified });
+      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isVarified });
       console.log(response.data)
 
       // Notify success using toast
@@ -44,7 +44,7 @@ const Users = () => {
       const isActive = e.target.value;
 
       // Send a request to update the 'isActive' status
-      const response = await axios.put(`https://calma-api-puce.vercel.app/api/user/update-status/${id}`, { isActive });
+      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isActive });
 
       // Notify success using toast
       toast.success('Status updated successfully');

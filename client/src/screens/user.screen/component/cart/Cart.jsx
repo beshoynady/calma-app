@@ -54,7 +54,7 @@ const Cart = (props) => {
   // const getOrderDetalis = async (id) => {
   //   try {
 
-  //     const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
+  //     const res = await axios.get(apiUrl+'/api/order');
 
   //     const order = res.data.find(o => o.serial == serial)
 

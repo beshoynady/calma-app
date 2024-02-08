@@ -103,7 +103,7 @@ function App() {
   const getProducts = async () => {
     const token = localStorage.getItem('token_u');
 
-    const products = await axios.get('https://calma-api-puce.vercel.app/api/product', {
+    const products = await axios.get(apiUrl+'/api/product', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -115,7 +115,7 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getCategories = async () => {
     try {
-      const allcategories = await axios.get('https://calma-api-puce.vercel.app/api/category')
+      const allcategories = await axios.get(apiUrl+'/api/category')
       setallcategories(allcategories.data)
     } catch (error) {
       console.log(error)
@@ -137,7 +137,7 @@ function App() {
   // ++++++++++ order ++++++++++++
   const [allOrders, setallOrders] = useState([])
   const getallOrders = async () => {
-    const orders = await axios.get('https://calma-api-puce.vercel.app/api/order');
+    const orders = await axios.get(apiUrl+'/api/order');
     setallOrders(orders.data)
   }
 
@@ -146,7 +146,7 @@ function App() {
   //+++++++++++ table ++++++++++++++
   const [allTable, setallTable] = useState([])
   const getallTable = async () => {
-    const tables = await axios.get('https://calma-api-puce.vercel.app/api/table');
+    const tables = await axios.get(apiUrl+'/api/table');
     setallTable(tables.data)
   }
 
@@ -154,12 +154,12 @@ function App() {
   // +++++++++++++++ user +++++++++++++
   const [allUsers, setallUsers] = useState([])
   const getallUsers = async () => {
-    const users = await axios.get('https://calma-api-puce.vercel.app/api/user');
+    const users = await axios.get(apiUrl+'/api/user');
     setallUsers(users.data)
   }
   const [allemployees, setallemployees] = useState([])
   const getallemployees = async () => {
-    const employees = await axios.get('https://calma-api-puce.vercel.app/api/employee');
+    const employees = await axios.get(apiUrl+'/api/employee');
     setallemployees(employees.data)
   }
 
@@ -299,7 +299,7 @@ function App() {
           const products = [...additem, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
+          const neworder = await axios.put(apiUrl+'/api/order/' + id, {
             products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
@@ -314,7 +314,7 @@ function App() {
           const products = [...ItemsInCart, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
+          const neworder = await axios.put(apiUrl+'/api/order/' + id, {
             products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
@@ -344,7 +344,7 @@ function App() {
           const deliveryCost = 10;
           // const total = subTotal + tax + deliveryCost;
           const total = subTotal + deliveryCost;
-          const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
+          const neworder = await axios.post(apiUrl+'/api/order', {
             serial,
             products,
             subTotal,
@@ -405,7 +405,7 @@ function App() {
           }
           const products = [...additem, ...oldproducts];
           const status = 'Pending';
-          const neworder = await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, {
+          const neworder = await axios.put(`${apiUrl}/api/order/${id}`, {
             products,
             subTotal,
             total,
@@ -420,7 +420,7 @@ function App() {
         } else {
           const products = [...ItemsInCart, ...oldproducts];
           const status = 'Pending';
-          const neworder = await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, {
+          const neworder = await axios.put(`${apiUrl}/api/order/${id}`, {
             products,
             subTotal,
             total,
@@ -446,7 +446,7 @@ function App() {
         const total = subTotal;
         const order_type = 'Internal';
 
-        const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
+        const neworder = await axios.post(apiUrl+'/api/order', {
           serial,
           products,
           subTotal,
@@ -507,7 +507,7 @@ function App() {
     if (clientid) {
       if (lasttableorderactive) {
         const id = await lasttableorder._id
-        const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+        const myorder = await axios.get(apiUrl+'/api/order/' + id,)
         const data = myorder.data
         console.log(data)
         console.log(data._id)
@@ -522,7 +522,7 @@ function App() {
 
       } else if (lastuserorderactive) {
         const id = await lastuserorder._id
-        const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+        const myorder = await axios.get(apiUrl+'/api/order/' + id,)
         const data = await myorder.data
         console.log(data)
         setmyorder(data)
@@ -548,7 +548,7 @@ function App() {
       const help = 'Requesting the bill';
 
       // Update order to mark it for checkout
-      const updatedOrder = await axios.put(`https://calma-api-puce.vercel.app/api/order/${id}`, {
+      const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, {
         isActive,
         help
       });
@@ -591,7 +591,7 @@ function App() {
         const status = 'Pending';
         const createBy = waiterid;
 
-        const updatedOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
+        const updatedOrder = await axios.put(apiUrl+'/api/order/' + id, {
           products,
           subTotal,
           total,
@@ -617,7 +617,7 @@ function App() {
         const total = subTotal + addition - discount;
         const order_type = 'Internal';
 
-        const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
+        const neworder = await axios.post(apiUrl+'/api/order', {
           serial,
           table: tableid,
           products,
@@ -666,7 +666,7 @@ function App() {
       const casher = casherid;
       const status = 'Approved';
 
-      const newOrder = await axios.post('https://calma-api-puce.vercel.app/api/order', {
+      const newOrder = await axios.post(apiUrl+'/api/order', {
         serial,
         ordernum,
         products,
@@ -711,7 +711,7 @@ function App() {
     console.log({ lasttableorderactive })
     if (lasttableorderactive) {
       const id = await lasttableorder._id
-      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+      const myorder = await axios.get(apiUrl+'/api/order/' + id,)
       const data = myorder.data
       console.log(data)
       console.log(data._id)
@@ -769,7 +769,7 @@ function App() {
 
   const splitInvoice = async (e) => {
     e.preventDefault()
-    const updateOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + myorderid, {
+    const updateOrder = await axios.put(apiUrl+'/api/order/' + myorderid, {
       products: newlistofproductorder,
       isSplit: true
     })
@@ -789,7 +789,7 @@ function App() {
 
     // if (lasttableorderactive) {
     //   const id = await lasttableorder._id
-    //   const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+    //   const myorder = await axios.get(apiUrl+'/api/order/' + id,)
     //   const data = await myorder.data
     //   setmyorder(data)
     //   setmyorderid(data._id)
@@ -805,7 +805,7 @@ function App() {
     // } else 
     if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
-      const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+      const myorder = await axios.get(apiUrl+'/api/order/' + id,)
       const data = await myorder.data
       console.log(data)
       setmyorder(data)
@@ -825,19 +825,19 @@ function App() {
 
 
   const updatecountofsales = async (id) => {
-    const myorder = await axios.get('https://calma-api-puce.vercel.app/api/order/' + id,)
+    const myorder = await axios.get(apiUrl+'/api/order/' + id,)
     const data = myorder.data
     for (var i = 0; i < data.products.length; i++) {
       const productid = await data.products[i]._id
       const productquantity = await data.products[i].quantity
-      const findprduct = await axios.get('https://calma-api-puce.vercel.app/api/product/' + productid)
+      const findprduct = await axios.get(apiUrl+'/api/product/' + productid)
       const sales = await findprduct.data.sales + productquantity
 
       // console.log(productid)
       // console.log(findprduct)
       // console.log(sales)
       // console.log(productquantity)
-      const updatprduct = await axios.put('https://calma-api-puce.vercel.app/api/product/withoutimage/' + productid, {
+      const updatprduct = await axios.put(apiUrl+'/api/product/withoutimage/' + productid, {
         sales
       })
       // console.log(updatprduct)
@@ -857,12 +857,12 @@ function App() {
     const help = 'Requests assistance';
     const table = tablenum
     if (!lasttableorderactive) {
-      const neworder = await axios.post('https://calma-api-puce.vercel.app/api/order/', {
+      const neworder = await axios.post(apiUrl+'/api/order/', {
         serial, table, help
       })
       console.log(neworder)
     } else {
-      const neworder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
+      const neworder = await axios.put(apiUrl+'/api/order/' + id, {
         help
       })
       console.log(neworder)
@@ -918,7 +918,7 @@ function App() {
       }
 
       // Send signup request
-      const response = await axios.post('https://calma-api-puce.vercel.app/api/auth/signup', {
+      const response = await axios.post(apiUrl+'/api/auth/signup', {
         username,
         password,
         phone,
@@ -984,7 +984,7 @@ function App() {
         return;
       }
 
-      const response = await axios.post('https://calma-api-puce.vercel.app/api/auth/login', {
+      const response = await axios.post(apiUrl+'/api/auth/login', {
         phone,
         password,
       });
@@ -1025,7 +1025,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post('https://calma-api-puce.vercel.app/api/employee/login', {
+      const response = await axios.post(apiUrl+'/api/employee/login', {
         phone,
         password,
       });
@@ -1077,7 +1077,7 @@ function App() {
     e.preventDefault()
     try {
       console.log({ serial })
-      const res = await axios.get('https://calma-api-puce.vercel.app/api/order');
+      const res = await axios.get(apiUrl+'/api/order');
       const activeOrder = res.data.filter(o => o.isActive == true)
       const order = activeOrder.find(o => o.serial == serial)
       console.log({ activeOrder })
@@ -1105,7 +1105,7 @@ function App() {
       console.log({ total })
       console.log({ updatelist: productOrderTOupdate })
 
-      const updatedOrder = await axios.put('https://calma-api-puce.vercel.app/api/order/' + id, {
+      const updatedOrder = await axios.put(apiUrl+'/api/order/' + id, {
         products: productOrderTOupdate,
         subTotal,
         discount,
