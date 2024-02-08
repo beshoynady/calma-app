@@ -151,6 +151,7 @@ function App() {
     try {
       const response = await axios.get(apiUrl + '/api/table');
       if (response.status === 200 && response.data) {
+        console.log({apiUrl: apiUrl + '/api/table'});
         console.log("Received tables data:", response.data);
         setallTable(response.data);
       } else {
