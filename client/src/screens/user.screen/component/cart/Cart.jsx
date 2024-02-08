@@ -6,6 +6,7 @@ import './Cart.css'
 import html2pdf from 'html2pdf.js';
 
 const Cart = (props) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const open_cart = props.opencart
   const ordersText = useRef()

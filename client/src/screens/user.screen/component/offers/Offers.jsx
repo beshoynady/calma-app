@@ -15,6 +15,9 @@ import './Offers.css';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
 export default function Offers() {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
   return (
