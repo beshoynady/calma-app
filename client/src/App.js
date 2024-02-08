@@ -146,10 +146,20 @@ function App() {
 
   //+++++++++++ table ++++++++++++++
   const [allTable, setallTable] = useState([])
+
   const getallTable = async () => {
-    const tables = await axios.get(apiUrl + '/api/table');
-    setallTable(tables.data)
-  }
+    try {
+      const response = await axios.get(apiUrl + '/api/table');
+      if (response.status === 200 && response.data) {
+        console.log("Received tables data:", response.data);
+        setallTable(response.data);
+      } else {
+        console.error("Failed to receive valid tables data");
+      }
+    } catch (error) {
+      console.error("Error fetching tables data:", error);
+    }
+  };
 
 
   // +++++++++++++++ user +++++++++++++
