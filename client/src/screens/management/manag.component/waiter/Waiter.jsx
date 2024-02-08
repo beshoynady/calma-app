@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const Waiter = () => {
+  const apiUrl = process.env.API_URL;
+
  // Refs for buttons
  const start = useRef();
  const ready = useRef();

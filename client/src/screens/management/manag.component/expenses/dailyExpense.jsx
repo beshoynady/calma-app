@@ -4,6 +4,8 @@ import { detacontext } from '../../../../App';
 import { ToastContainer, toast } from 'react-toastify';
 
 const DailyExpense = () => {
+  const apiUrl = process.env.API_URL;
+
   const [expenseID, setexpenseID] = useState('');
   const [cashMovementId, setcashMovementId] = useState('');
   const [dailyexpenseID, setdailyexpenseID] = useState('');

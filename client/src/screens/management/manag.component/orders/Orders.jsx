@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const Orders = () => {
+  const apiUrl = process.env.API_URL;
 
   const formatdate = (d) => {
     let date = new Date(d)

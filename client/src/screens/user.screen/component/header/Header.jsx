@@ -7,6 +7,7 @@ import LoginRegistr from '../auth/LoginRegistr';
 import logo from '../../../../image/logo-calma.png';
 
 const Header = () => {
+
   const { id } = useParams();
   const [opencart, setopencart] = useState(false);
   const [openlogin, setopenlogin] = useState(false);

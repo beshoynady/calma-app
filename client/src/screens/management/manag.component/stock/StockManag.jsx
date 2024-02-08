@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const StockManag = () => {
+  const apiUrl = process.env.API_URL;
+
   const [listofProducts, setlistofProducts] = useState([]);
 
   const getallproducts = async () => {

@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi');
 
 const EmployeesSalary = () => {
+  const apiUrl = process.env.API_URL;
 
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])

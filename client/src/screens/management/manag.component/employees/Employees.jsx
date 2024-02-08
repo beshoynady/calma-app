@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 const Employees = () => {
+  const apiUrl = process.env.API_URL;
 
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {

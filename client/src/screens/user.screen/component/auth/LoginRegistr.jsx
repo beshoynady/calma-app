@@ -6,6 +6,8 @@ import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginRegistr = (props) => {
+  const apiUrl = process.env.API_URL;
+
   // const navigate = useNavigate()
   const openlogin = props.openlogin;
   const [openform, setopenform] = useState(props.openlogin)

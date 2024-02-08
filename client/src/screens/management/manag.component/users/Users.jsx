@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Users = () => {
+  const apiUrl = process.env.API_URL;
+
   const [AllUsers, setAllUsers] = useState([])
 
   const getAllUsers = async () => {

@@ -4,6 +4,7 @@ import { detacontext } from '../../../../App';
 
 
 const Products = () => {
+  const apiUrl = process.env.API_URL;
 
   const [productname, setproductname] = useState("");
   const [productprice, setproductprice] = useState(0);

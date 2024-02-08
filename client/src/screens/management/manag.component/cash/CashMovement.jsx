@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const CashMovement = () => {
+  const apiUrl = process.env.API_URL;
 
 
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})

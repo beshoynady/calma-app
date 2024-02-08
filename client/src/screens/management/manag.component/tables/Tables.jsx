@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const Tables = () => {
+  const apiUrl = process.env.API_URL;
 
   const [tableid, settableid] = useState("")
   const [qrimage, setqrimage] = useState("")

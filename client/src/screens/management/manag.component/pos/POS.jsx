@@ -5,6 +5,8 @@ import './POS.css'
 import { number } from 'joi';
 
 const POS = () => {
+  const apiUrl = process.env.API_URL;
+
   const ordersText = useRef()
   const orderside = useRef()
   const printContainer = useRef()

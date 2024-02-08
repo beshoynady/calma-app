@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const PayRoll = () => {
+  const apiUrl = process.env.API_URL;
+
   // Array of months in Arabic
   const months = [
     'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',

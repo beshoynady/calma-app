@@ -3,6 +3,8 @@ import axios from 'axios';
 import { detacontext } from '../../../../App';
 
 const ExpenseItem = () => {
+    const apiUrl = process.env.API_URL;
+
     const [expenseId, setexpenseId] = useState('');
     const [description, setDescription] = useState('');
     const [createAt] = useState(new Date().toLocaleString());

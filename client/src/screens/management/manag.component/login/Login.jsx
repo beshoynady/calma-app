@@ -1,28 +1,30 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import './Login.css'
 import { detacontext } from '../../../../App'
 import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
-const [phone, setphone] = useState('')
-const [password, setpassword] = useState('')
+    const apiUrl = process.env.API_URL;
+
+    const [phone, setphone] = useState('')
+    const [password, setpassword] = useState('')
     return (
         <detacontext.Consumer>
             {
                 ({ employeelogin }) => {
                     return (
                         <div className="login-container">
-                            <ToastContainer/>
+                            <ToastContainer />
                             <div className="screen">
                                 <div className="screen__content">
-                                    <form className="login-dash" onSubmit={(e)=>employeelogin(e,phone, password)} >
+                                    <form className="login-dash" onSubmit={(e) => employeelogin(e, phone, password)} >
                                         <div className="login__field">
                                             <i className="login__icon fas fa-user"></i>
-                                            <input type="text" className="login__input" placeholder="Your Phone" onChange={(e)=>setphone(e.target.value)}/>
+                                            <input type="text" className="login__input" placeholder="Your Phone" onChange={(e) => setphone(e.target.value)} />
                                         </div>
                                         <div className="login__field">
                                             <i className="login__icon fas fa-lock"></i>
-                                            <input type="password" className="login__input" placeholder="Password" onChange={(e)=>setpassword(e.target.value)}/>
+                                            <input type="password" className="login__input" placeholder="Password" onChange={(e) => setpassword(e.target.value)} />
                                         </div>
                                         <button className="button login__submit">
                                             <span className="button__text">تسجيل الدخول</span>

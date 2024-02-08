@@ -6,6 +6,8 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const DeliveryMan = () => {
+  const apiUrl = process.env.API_URL;
+
   // // State for pending orders and payments
   // const [pendingOrders, setPendingOrders] = useState([]);
   // const [pendingPayments, setPendingPayments] = useState([]);

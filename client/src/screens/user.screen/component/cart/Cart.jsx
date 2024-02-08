@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import { detacontext } from '../../../../App'
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
@@ -6,6 +6,7 @@ import './Cart.css'
 import html2pdf from 'html2pdf.js';
 
 const Cart = (props) => {
+
   const open_cart = props.opencart
   const ordersText = useRef()
   const orderside = useRef()

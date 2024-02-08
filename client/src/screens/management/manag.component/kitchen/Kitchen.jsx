@@ -6,6 +6,8 @@ import { toast, ToastContainer } from 'react-toastify'; // Importing toast from 
 import 'react-toastify/dist/ReactToastify.css'; // Importing default CSS for toast notifications
 
 const Kitchen = () => {
+  const apiUrl = process.env.API_URL;
+
   const start = useRef();
   const ready = useRef();
 

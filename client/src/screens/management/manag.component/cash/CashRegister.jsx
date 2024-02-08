@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CashRegister = () => {
+  const apiUrl = process.env.API_URL;
+
   const [cashRegisters, setCashRegisters] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
   const [name, setname] = useState('');
