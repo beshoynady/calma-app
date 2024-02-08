@@ -36,6 +36,7 @@ import TablesPage from './screens/management/manag.component/tables/TablesPage';
 export const detacontext = createContext({});
 
 function App() {
+
   const apiUrl = process.env.API_URL;
 
   axios.defaults.withCredentials = true;
@@ -103,7 +104,7 @@ function App() {
   const getProducts = async () => {
     const token = localStorage.getItem('token_u');
 
-    const products = await axios.get(apiUrl+'/api/product', {
+    const products = await axios.get(apiUrl + '/api/product', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -115,7 +116,7 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getCategories = async () => {
     try {
-      const allcategories = await axios.get(apiUrl+'/api/category')
+      const allcategories = await axios.get(apiUrl + '/api/category')
       setallcategories(allcategories.data)
     } catch (error) {
       console.log(error)
@@ -137,7 +138,7 @@ function App() {
   // ++++++++++ order ++++++++++++
   const [allOrders, setallOrders] = useState([])
   const getallOrders = async () => {
-    const orders = await axios.get(apiUrl+'/api/order');
+    const orders = await axios.get(apiUrl + '/api/order');
     setallOrders(orders.data)
   }
 
@@ -146,7 +147,7 @@ function App() {
   //+++++++++++ table ++++++++++++++
   const [allTable, setallTable] = useState([])
   const getallTable = async () => {
-    const tables = await axios.get(apiUrl+'/api/table');
+    const tables = await axios.get(apiUrl + '/api/table');
     setallTable(tables.data)
   }
 
@@ -154,12 +155,12 @@ function App() {
   // +++++++++++++++ user +++++++++++++
   const [allUsers, setallUsers] = useState([])
   const getallUsers = async () => {
-    const users = await axios.get(apiUrl+'/api/user');
+    const users = await axios.get(apiUrl + '/api/user');
     setallUsers(users.data)
   }
   const [allemployees, setallemployees] = useState([])
   const getallemployees = async () => {
-    const employees = await axios.get(apiUrl+'/api/employee');
+    const employees = await axios.get(apiUrl + '/api/employee');
     setallemployees(employees.data)
   }
 
@@ -299,7 +300,7 @@ function App() {
           const products = [...additem, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put(apiUrl+'/api/order/' + id, {
+          const neworder = await axios.put(apiUrl + '/api/order/' + id, {
             products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
@@ -314,7 +315,7 @@ function App() {
           const products = [...ItemsInCart, ...oldproducts];
           const status = 'Pending';
           const order_type = 'Delivery';
-          const neworder = await axios.put(apiUrl+'/api/order/' + id, {
+          const neworder = await axios.put(apiUrl + '/api/order/' + id, {
             products, subTotal, total, deliveryCost, status, order_type
           }, {
             headers: {
@@ -344,7 +345,7 @@ function App() {
           const deliveryCost = 10;
           // const total = subTotal + tax + deliveryCost;
           const total = subTotal + deliveryCost;
-          const neworder = await axios.post(apiUrl+'/api/order', {
+          const neworder = await axios.post(apiUrl + '/api/order', {
             serial,
             products,
             subTotal,
@@ -446,7 +447,7 @@ function App() {
         const total = subTotal;
         const order_type = 'Internal';
 
-        const neworder = await axios.post(apiUrl+'/api/order', {
+        const neworder = await axios.post(apiUrl + '/api/order', {
           serial,
           products,
           subTotal,
@@ -507,7 +508,7 @@ function App() {
     if (clientid) {
       if (lasttableorderactive) {
         const id = await lasttableorder._id
-        const myorder = await axios.get(apiUrl+'/api/order/' + id,)
+        const myorder = await axios.get(apiUrl + '/api/order/' + id,)
         const data = myorder.data
         console.log(data)
         console.log(data._id)
@@ -522,7 +523,7 @@ function App() {
 
       } else if (lastuserorderactive) {
         const id = await lastuserorder._id
-        const myorder = await axios.get(apiUrl+'/api/order/' + id,)
+        const myorder = await axios.get(apiUrl + '/api/order/' + id,)
         const data = await myorder.data
         console.log(data)
         setmyorder(data)
@@ -591,7 +592,7 @@ function App() {
         const status = 'Pending';
         const createBy = waiterid;
 
-        const updatedOrder = await axios.put(apiUrl+'/api/order/' + id, {
+        const updatedOrder = await axios.put(apiUrl + '/api/order/' + id, {
           products,
           subTotal,
           total,
@@ -617,7 +618,7 @@ function App() {
         const total = subTotal + addition - discount;
         const order_type = 'Internal';
 
-        const neworder = await axios.post(apiUrl+'/api/order', {
+        const neworder = await axios.post(apiUrl + '/api/order', {
           serial,
           table: tableid,
           products,
@@ -666,7 +667,7 @@ function App() {
       const casher = casherid;
       const status = 'Approved';
 
-      const newOrder = await axios.post(apiUrl+'/api/order', {
+      const newOrder = await axios.post(apiUrl + '/api/order', {
         serial,
         ordernum,
         products,
@@ -711,7 +712,7 @@ function App() {
     console.log({ lasttableorderactive })
     if (lasttableorderactive) {
       const id = await lasttableorder._id
-      const myorder = await axios.get(apiUrl+'/api/order/' + id,)
+      const myorder = await axios.get(apiUrl + '/api/order/' + id,)
       const data = myorder.data
       console.log(data)
       console.log(data._id)
@@ -728,19 +729,19 @@ function App() {
   }
 
 
-  const putNumOfPaid =  (id, numOfPaid) => {
+  const putNumOfPaid = (id, numOfPaid) => {
     console.log({ numOfPaid })
     // setcount(count + 1)
     console.log({ list_products: list_products_order })
     // const arrayofproductorder = JSON.parse(JSON.stringify(list_products_order));
     console.log({ newlistofproductorder })
-     newlistofproductorder.map((product) => {
+    newlistofproductorder.map((product) => {
       if (product.productid === id) {
         const oldproduct = list_products_order.find(pro => pro.productid === id);
         console.log({ oldproduct })
         console.log({ old_numOfPaid: oldproduct.numOfPaid })
         product.numOfPaid = oldproduct.numOfPaid + numOfPaid;
-;
+        ;
         console.log({ new_numOfPaid: product.numOfPaid })
       }
 
@@ -753,23 +754,24 @@ function App() {
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
 
   const calcsubtotalSplitOrder = () => {
-      let total = 0;
+    let total = 0;
 
-      newlistofproductorder.map((product) => {
-        const oldproduct = list_products_order.find(pro => pro.productid == product.productid);
-        if (oldproduct.numOfPaid != product.numOfPaid) {
-          const newnumOfPaid = Math.abs(oldproduct.numOfPaid - product.numOfPaid)
+    newlistofproductorder.map((product) => {
+      const oldproduct = list_products_order.find(pro => pro.productid == product.productid);
+      if (oldproduct.numOfPaid != product.numOfPaid) {
+        const newnumOfPaid = Math.abs(oldproduct.numOfPaid - product.numOfPaid)
         const subTotal = product.priceAfterDiscount > 0 ? newnumOfPaid * product.priceAfterDiscount : oldproduct.price * newnumOfPaid;
         total += subTotal
-        }});
+      }
+    });
 
-      setsubtotalSplitOrder(total);
+    setsubtotalSplitOrder(total);
   };
 
 
   const splitInvoice = async (e) => {
     e.preventDefault()
-    const updateOrder = await axios.put(apiUrl+'/api/order/' + myorderid, {
+    const updateOrder = await axios.put(apiUrl + '/api/order/' + myorderid, {
       products: newlistofproductorder,
       isSplit: true
     })
@@ -805,7 +807,7 @@ function App() {
     // } else 
     if (lastemployeeorderactive) {
       const id = await lastemployeeorder._id
-      const myorder = await axios.get(apiUrl+'/api/order/' + id,)
+      const myorder = await axios.get(apiUrl + '/api/order/' + id,)
       const data = await myorder.data
       console.log(data)
       setmyorder(data)
@@ -825,19 +827,19 @@ function App() {
 
 
   const updatecountofsales = async (id) => {
-    const myorder = await axios.get(apiUrl+'/api/order/' + id,)
+    const myorder = await axios.get(apiUrl + '/api/order/' + id,)
     const data = myorder.data
     for (var i = 0; i < data.products.length; i++) {
       const productid = await data.products[i]._id
       const productquantity = await data.products[i].quantity
-      const findprduct = await axios.get(apiUrl+'/api/product/' + productid)
+      const findprduct = await axios.get(apiUrl + '/api/product/' + productid)
       const sales = await findprduct.data.sales + productquantity
 
       // console.log(productid)
       // console.log(findprduct)
       // console.log(sales)
       // console.log(productquantity)
-      const updatprduct = await axios.put(apiUrl+'/api/product/withoutimage/' + productid, {
+      const updatprduct = await axios.put(apiUrl + '/api/product/withoutimage/' + productid, {
         sales
       })
       // console.log(updatprduct)
@@ -857,12 +859,12 @@ function App() {
     const help = 'Requests assistance';
     const table = tablenum
     if (!lasttableorderactive) {
-      const neworder = await axios.post(apiUrl+'/api/order/', {
+      const neworder = await axios.post(apiUrl + '/api/order/', {
         serial, table, help
       })
       console.log(neworder)
     } else {
-      const neworder = await axios.put(apiUrl+'/api/order/' + id, {
+      const neworder = await axios.put(apiUrl + '/api/order/' + id, {
         help
       })
       console.log(neworder)
@@ -872,20 +874,22 @@ function App() {
 
 
   const usertitle = (id) => {
-    const istable = allTable ? allTable.find((table, i) => table._id == id) : null;
-    const isuser = allUsers ? allUsers.find((user, i) => user._id == id) : null
-    const isemployee = allemployees ? allemployees.find((employee, i) => employee._id == id) : null
+    const istable = allTable ? allTable.find((table) => table._id === id) : null;
+    const isuser = allUsers ? allUsers.find((user) => user._id === id) : null;
+    const isemployee = allemployees ? allemployees.find((employee) => employee._id === id) : null;
+
     if (istable) {
-      const table_num = istable.tablenum
-      return table_num
+      const table_num = istable.tablenum;
+      return table_num;
     } else if (isuser) {
-      const user_name = isuser.username
-      return user_name
+      const user_name = isuser.username;
+      return user_name;
     } else if (isemployee) {
-      const employee_name = isemployee.username
-      return employee_name
+      const employee_name = isemployee.username;
+      return employee_name;
     }
-  }
+  };
+
 
 
   //++++++++++++++++++++++++++ AUTH ++++++++++++++++++++++++++++
@@ -918,7 +922,7 @@ function App() {
       }
 
       // Send signup request
-      const response = await axios.post(apiUrl+'/api/auth/signup', {
+      const response = await axios.post(apiUrl + '/api/auth/signup', {
         username,
         password,
         phone,
@@ -984,7 +988,7 @@ function App() {
         return;
       }
 
-      const response = await axios.post(apiUrl+'/api/auth/login', {
+      const response = await axios.post(apiUrl + '/api/auth/login', {
         phone,
         password,
       });
@@ -1025,7 +1029,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post(apiUrl+'/api/employee/login', {
+      const response = await axios.post(apiUrl + '/api/employee/login', {
         phone,
         password,
       });
@@ -1077,7 +1081,7 @@ function App() {
     e.preventDefault()
     try {
       console.log({ serial })
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       const activeOrder = res.data.filter(o => o.isActive == true)
       const order = activeOrder.find(o => o.serial == serial)
       console.log({ activeOrder })
@@ -1105,7 +1109,7 @@ function App() {
       console.log({ total })
       console.log({ updatelist: productOrderTOupdate })
 
-      const updatedOrder = await axios.put(apiUrl+'/api/order/' + id, {
+      const updatedOrder = await axios.put(apiUrl + '/api/order/' + id, {
         products: productOrderTOupdate,
         subTotal,
         discount,
