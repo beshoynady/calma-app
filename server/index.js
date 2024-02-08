@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');
+
 const connectdb = require('./database/connectdb.js');
+
 
 // Import all route files
 const routers = {
