@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CashRegister = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [cashRegisters, setCashRegisters] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
@@ -17,21 +17,36 @@ const CashRegister = () => {
   // Fetch employees
   const getEmployees = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/employee')
-      const data = await response.data
-      setallEmployee(data)
+      const response = await axios.get(`${apiUrl}/api/employee`);
+      const data = response.data;
+      setallEmployee(data);
     } catch (error) {
-      console.log(error)
+      if (error.response) {
+        // يتم استخدام هذا الجزء إذا تم استرداد استجابة من الخادم برمز الحالة خاطئ
+        console.error('Server responded with status code:', error.response.status);
+        console.error('Error message:', error.response.data);
+        toast.error('An error occurred while fetching employees. Please try again later.');
+      } else if (error.request) {
+        // يتم استخدام هذا الجزء إذا تم إرسال الطلب ولكن لم يتم الرد عليه بأي شكل
+        console.error('No response received from server.');
+        toast.error('No response received from server. Please check your internet connection.');
+      } else {
+        // يتم استخدام هذا الجزء لأي أخطاء أخرى تم التقاطها
+        console.error('An unexpected error occurred:', error.message);
+        toast.error('An unexpected error occurred. Please try again later.');
+      }
     }
-  }
+  };
+
 
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister');
       setCashRegisters(response.data.reverse());
     } catch (err) {
-      toast.error('Error fetching cash registers');
+      console.error('Error fetching cash registers:', err);
+      toast.error('An error occurred while fetching cash registers. Please try again later.');
     }
   };
 
@@ -50,7 +65,7 @@ const CashRegister = () => {
     e.preventDefault()
     const newCashRegister = { name, balance, employee };
     try {
-      const response = await axios.post(apiUrl+'/api/cashregister', newCashRegister);
+      const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister);
       console.log(response);
       toast.success('Cash register created successfully');
       getAllCashRegisters()
@@ -139,52 +154,52 @@ const CashRegister = () => {
         return (
           <div className="container-xl mlr-auto">
             <ToastContainer />
-              <div className="table-responsive">
-                <div className="table-wrapper">
-                  <div className="table-title">
-                    <div className="row">
-                      <div className="col-sm-6 text-right">
-                        <h2>ادارة <b>الخزينه</b></h2>
-                      </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addCashRegisterModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
-                        <a href="#deleteListCashRegisterModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
-                      </div>
+            <div className="table-responsive">
+              <div className="table-wrapper">
+                <div className="table-title">
+                  <div className="row">
+                    <div className="col-sm-6 text-right">
+                      <h2>ادارة <b>الخزينه</b></h2>
+                    </div>
+                    <div className="col-sm-6 d-flex justify-content-end">
+                      <a href="#addCashRegisterModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
+                      <a href="#deleteListCashRegisterModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
-                  <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
-                          <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                            <option value={20}>20</option>
-                            <option value={25}>25</option>
-                            <option value={30}>30</option>
-                          </select>
-                          <span>صفوف</span>
-                        </div>
+                </div>
+                <div class="table-filter">
+                  <div class="row text-dark">
+                    <div class="col-sm-3">
+                      <div class="show-entries">
+                        <span>عرض</span>
+                        <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <option value={5}>5</option>
+                          <option value={10}>10</option>
+                          <option value={15}>15</option>
+                          <option value={20}>20</option>
+                          <option value={25}>25</option>
+                          <option value={30}>30</option>
+                        </select>
+                        <span>صفوف</span>
                       </div>
-                      <div class="col-sm-9">
-                        <div class="filter-group">
-                          <label>اسم الخزينه</label>
-                          <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
-                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </div>
-                        <div class="filter-group">
-                          <label>المسؤل</label>
-                          <select class="form-control" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
-                            <option >اختر</option>
-                            {allEmployee&&allEmployee.map((Employee, i) => {
-                              return <option value={Employee._id} key={i} >{Employee.username}</option>
-                            })
-                            }
-                          </select>
-                        </div>
-                        {/* 
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="filter-group">
+                        <label>اسم الخزينه</label>
+                        <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
+                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                      </div>
+                      <div class="filter-group">
+                        <label>المسؤل</label>
+                        <select class="form-control" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
+                          <option >اختر</option>
+                          {allEmployee && allEmployee.map((Employee, i) => {
+                            return <option value={Employee._id} key={i} >{Employee.username}</option>
+                          })
+                          }
+                        </select>
+                      </div>
+                      {/* 
                         <div class="filter-group">
                           <label>Status</label>
                           <select class="form-control">
@@ -196,181 +211,182 @@ const CashRegister = () => {
                           </select>
                         </div>
                         <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
-                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <table className="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th>
-                        <th>م</th>
-                        <th>الخزينة</th>
-                        <th>المسؤل</th>
-                        <th>الرصيد</th>
-                        <th>اجراءات</th>
-                      </tr>
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        <span className="custom-checkbox">
+                          <input type="checkbox" id="selectAll" />
+                          <label htmlFor="selectAll"></label>
+                        </span>
+                      </th>
+                      <th>م</th>
+                      <th>الخزينة</th>
+                      <th>المسؤل</th>
+                      <th>الرصيد</th>
+                      <th>اجراءات</th>
+                    </tr>
 
-                    </thead>
-                    <tbody>
-                      {cashRegisters && cashRegisters.map((cash, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
+                  </thead>
+                  <tbody>
+                    {cashRegisters.length > 0 ? cashRegisters.map((cash, i) => {
+                      if (i >= startpagination & i < endpagination) {
+                        return (
+                          <tr key={i}>
+                            <td>
+                              <span className="custom-checkbox">
                                 <input
-                                      type="checkbox"
-                                      id={`checkbox${i}`}
-                                      name="options[]"
-                                      value={cash._id}
-                                      onChange={handleCheckboxChange}
-                                    />
-                                    <label htmlFor={`checkbox${i}`}></label>                               
-                                </span>
-                              </td>
-                              <td>{i + 1}</td>
-                              <td>{cash.name}</td>
-                              <td>{usertitle(cash.employee)}</td>
-                              <td>{cash.balance}</td>
-                              <td>
-                                <a href="#editCashRegisterModal" className="edit" data-toggle="modal" onClick={() => { setcashID(cash._id); setname(cash.name); setemployee(cash.employee); setbalance(cash.balance) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteCashRegisterModal" className="delete" data-toggle="modal" onClick={() => setcashID(cash._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })}
+                                  type="checkbox"
+                                  id={`checkbox${i}`}
+                                  name="options[]"
+                                  value={cash._id}
+                                  onChange={handleCheckboxChange}
+                                />
+                                <label htmlFor={`checkbox${i}`}></label>
+                              </span>
+                            </td>
+                            <td>{i + 1}</td>
+                            <td>{cash.name}</td>
+                            <td>{usertitle(cash.employee)}</td>
+                            <td>{cash.balance}</td>
+                            <td>
+                              <a href="#editCashRegisterModal" className="edit" data-toggle="modal" onClick={() => { setcashID(cash._id); setname(cash.name); setemployee(cash.employee); setbalance(cash.balance) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                              <a href="#deleteCashRegisterModal" className="delete" data-toggle="modal" onClick={() => setcashID(cash._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                          </tr>
+                        )
+                      }
+                    })
+                      : ''}
 
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{cashRegisters.length > endpagination ? endpagination : cashRegisters.length}</b> من <b>{cashRegisters.length}</b> عنصر</div>
-                    <ul className="pagination">
-                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                      <li onClick={EditPagination} className="page-item active"><a href="#" className="page-link">3</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div id="addCashRegisterModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={createCashRegister}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">اضافه خزينه</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group">
-                          <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setname(e.target.value)} />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label>المسؤل</label>
-                        <select name="Employee" id="Employee" form="carform" onChange={(e) => setemployee(e.target.value)}>
-                          <option>احتر الموظف</option>
-                          {allEmployee.map((Employee, i) => {
-                            return <option value={Employee._id} key={i} >{Employee.username}</option>
-                          })
-                          }
-                        </select>
-                      </div>
-
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div id="editCashRegisterModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={updateCashRegister}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">تعديل التصنيف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group">
-                          <label>الاسم</label>
-                          <input type="text" className="form-control" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label>المسؤل</label>
-                        <select name="category" id="category" form="carform" defaultValue={employee} onChange={(e) => setemployee(e.target.value)}>
-                          <option>احتر الموظف</option>
-                          {allEmployee.map((Employee, i) => {
-                            return <option value={Employee._id} key={i} >{Employee.username}</option>
-                          })
-                          }
-                        </select>
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="حفظ" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div id="deleteCashRegisterModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={deleteCashRegister}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">حذف تصنيف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <p>هل انت متاكد من حذف هذا التصنيف?</p>
-                        <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div id="deleteListCashRegisterModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={deleteSelectedIds}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">حذف الخزن المحدده</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <p>هل انت متاكد من حذف هذا التصنيف?</p>
-                        <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
-                      </div>
-                    </form>
-                  </div>
+                  </tbody>
+                </table>
+                <div className="clearfix">
+                  <div className="hint-text text-dark">عرض <b>{cashRegisters.length > endpagination ? endpagination : cashRegisters.length}</b> من <b>{cashRegisters.length}</b> عنصر</div>
+                  <ul className="pagination">
+                    <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                    <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                    <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                    <li onClick={EditPagination} className="page-item active"><a href="#" className="page-link">3</a></li>
+                    <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                    <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                    <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                  </ul>
                 </div>
               </div>
             </div>
-          )
-        }
+            <div id="addCashRegisterModal" className="modal fade">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <form onSubmit={createCashRegister}>
+                    <div className="modal-header">
+                      <h4 className="modal-title">اضافه خزينه</h4>
+                      <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="form-group">
+                        <label>الاسم</label>
+                        <input type="text" className="form-control" required onChange={(e) => setname(e.target.value)} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>المسؤل</label>
+                      <select name="Employee" id="Employee" form="carform" onChange={(e) => setemployee(e.target.value)}>
+                        <option>احتر الموظف</option>
+                        {allEmployee.map((Employee, i) => {
+                          return <option value={Employee._id} key={i} >{Employee.username}</option>
+                        })
+                        }
+                      </select>
+                    </div>
+
+                    <div className="modal-footer">
+                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-success" value="اضافه" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="editCashRegisterModal" className="modal fade">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <form onSubmit={updateCashRegister}>
+                    <div className="modal-header">
+                      <h4 className="modal-title">تعديل التصنيف</h4>
+                      <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="form-group">
+                        <label>الاسم</label>
+                        <input type="text" className="form-control" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>المسؤل</label>
+                      <select name="category" id="category" form="carform" defaultValue={employee} onChange={(e) => setemployee(e.target.value)}>
+                        <option>احتر الموظف</option>
+                        {allEmployee.length > 0 ? allEmployee.map((Employee, i) => {
+                          return <option value={Employee._id} key={i} >{Employee.username}</option>
+                        })
+                          : ""}
+                      </select>
+                    </div>
+                    <div className="modal-footer">
+                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-info" value="حفظ" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="deleteCashRegisterModal" className="modal fade">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <form onSubmit={deleteCashRegister}>
+                    <div className="modal-header">
+                      <h4 className="modal-title">حذف تصنيف</h4>
+                      <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div className="modal-body">
+                      <p>هل انت متاكد من حذف هذا التصنيف?</p>
+                      <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
+                    </div>
+                    <div className="modal-footer">
+                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-danger" value="حذف" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="deleteListCashRegisterModal" className="modal fade">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <form onSubmit={deleteSelectedIds}>
+                    <div className="modal-header">
+                      <h4 className="modal-title">حذف الخزن المحدده</h4>
+                      <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div className="modal-body">
+                      <p>هل انت متاكد من حذف هذا التصنيف?</p>
+                      <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
+                    </div>
+                    <div className="modal-footer">
+                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-danger" value="حذف" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
       }
     </detacontext.Consumer>
   )

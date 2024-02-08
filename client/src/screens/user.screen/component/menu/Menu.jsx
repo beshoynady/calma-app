@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './Menu.css'
 import MenuCard from './Menu-card/Menu-card';
 import { detacontext } from '../../../../App'
@@ -10,7 +10,7 @@ const Menu = () => {
     <section id='menu'>
       <detacontext.Consumer>
         {
-          ({ allcategories,setcategoryid, filterByCategoryId, categoryid }) => {
+          ({ allcategories, setcategoryid, filterByCategoryId, categoryid }) => {
             return (
               <div className="container-lg">
                 <div className='section-title'>
@@ -19,9 +19,10 @@ const Menu = () => {
                 <div className='section-content'>
                   <nav className="menu-nav">
                     <ul className='menu-ul'>
-                      {allcategories.map((c, i) => <li key={i} className= 'menu-nav-li'>
-                        <a href='#menu' className={`category-btn ${activeItem === i ? 'active' : ''}`} onClick={()=>{setcategoryid(c._id);setActiveItem(i)}}>{c.name}</a> 
-                        </li>)}
+                      {allcategories.length > 0 ? allcategories.map((c, i) => <li key={i} className='menu-nav-li'>
+                        <a href='#menu' className={`category-btn ${activeItem === i ? 'active' : ''}`} onClick={() => { setcategoryid(c._id); setActiveItem(i) }}>{c.name}</a>
+                      </li>)
+                        : ""}
                     </ul>
                   </nav>
                   <MenuCard />

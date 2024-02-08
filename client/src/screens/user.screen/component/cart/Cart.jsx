@@ -126,12 +126,12 @@ const Cart = (props) => {
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
                       <div className='side-content'>
-                        {ItemsInCart.map((i, index) => {
+                        {ItemsInCart.length>0?ItemsInCart.map((i, index) => {
                           return (
                             i.quantity > 0 ?
                               <div className="cart-item" key={index}>
                                 <div className="cart-img">
-                                  <img src={`https://raw.githubusercontent.com/beshoynady/restaurant-api/main/server/images/${i.image}`} />
+                                  <img src={`${apiUrl}/images/${i.image}`} />
                                 </div>
                                 <div className='cart-det'>
                                   <div className="item-head">
@@ -152,7 +152,7 @@ const Cart = (props) => {
                               : ''
                           )
                         })
-                        }
+                        :''}
                       </div>
                       <div className="total-order">
 

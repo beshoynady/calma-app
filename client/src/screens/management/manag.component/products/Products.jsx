@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 
 
 const Products = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [productname, setproductname] = useState("");
   const [productprice, setproductprice] = useState(0);
@@ -365,7 +365,7 @@ const Products = () => {
                                   </span>
                                 </td>
                                 <td>{i + 1}</td>
-                                <td><img src={`https://raw.githubusercontent.com/beshoynady/restaurant-api/main/server/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
+                                <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
                                 <td>{p.description}</td>
                                 <td>{listofcategories.length > 0 ? listofcategories.find(c => c._id == p.category).name : ""}</td>
@@ -397,7 +397,7 @@ const Products = () => {
                                   </span>
                                 </td>
                                 <td>{i + 1}</td>
-                                <td><img src={`https://raw.githubusercontent.com/beshoynady/restaurant-api/main/server/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
+                                <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
                                 <td>{p.description}</td>
                                 <td>{listofcategories.length > 0 ? listofcategories.find(c => c._id == p.category).name : ""}</td>

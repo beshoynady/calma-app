@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const DeliveryMan = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // // State for pending orders and payments
   // const [pendingOrders, setPendingOrders] = useState([]);
@@ -33,7 +33,7 @@ const DeliveryMan = () => {
 
   const fetchDeliveryOrders = async () => {
     try {
-      const orders = await axios.get(apiUrl+'/api/order');
+      const orders = await axios.get(apiUrl + '/api/order');
       const activeOrders = orders.data.filter(order => order.isActive === true && order.order_type === 'Delivery');
       console.log({ activeOrders: activeOrders });
       const deliveryOrdersData = activeOrders.filter(order => order.status === 'Prepared' || order.status === 'On the way');
@@ -95,39 +95,39 @@ const DeliveryMan = () => {
                 // const undeliveredProducts = order.products.filter(pr => !pr.isDeleverd);
 
                 // if (undeliveredProducts.length > 0) {
-                  const { name, serial, address, deliveryMan, createdAt, updatedAt, _id, status,user ,total, products} = order;
+                const { name, serial, address, deliveryMan, createdAt, updatedAt, _id, status, user, total, products } = order;
 
-                  return (
-                    <div className="card text-white bg-success" style={{ width: "265px" }} key={i}>
-                      <div className="card-body text-right d-flex justify-content-between p-0 m-1">
-                        <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">العميل: {user?usertitle(user):name}</p>
-                          <p className="card-text">رقم الفاتورة: {serial}</p>
-                          <p className="card-text">العنوان: {address}</p>
-                        </div>
-                        <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text"> الطيار: {usertitle(deliveryMan)}</p>
-                          <p className="card-text">الاستلام: {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                          <p className="card-text">التنفيذ: {new Date(updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                        </div>
+                return (
+                  <div className="card text-white bg-success" style={{ width: "265px" }} key={i}>
+                    <div className="card-body text-right d-flex justify-content-between p-0 m-1">
+                      <div style={{ maxWidth: "50%" }}>
+                        <p className="card-text">العميل: {user ? usertitle(user) : name}</p>
+                        <p className="card-text">رقم الفاتورة: {serial}</p>
+                        <p className="card-text">العنوان: {address}</p>
                       </div>
-                      <ul className="list-group list-group-flush">
-                        {products.map((product, j) => (
-                          <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={j}>
-                            <span style={{ fontSize: "18px" }}>{j + 1}- {product.name}</span>
-                            <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>× {product.quantity}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p>الاجمالي : {total}</p>
-                      <div className="card-footer text-center">
-                        {status === 'Prepared' ?
-                          <button className="btn btn-primary btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
-                          <button className="btn btn-warning btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
-                        }
+                      <div style={{ maxWidth: "50%" }}>
+                        <p className="card-text"> الطيار: {usertitle(deliveryMan)}</p>
+                        <p className="card-text">الاستلام: {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                        <p className="card-text">التنفيذ: {new Date(updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
                     </div>
-                  );
+                    <ul className="list-group list-group-flush">
+                      {products.length>0?products.map((product, j) => (
+                        <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={j}>
+                          <span style={{ fontSize: "18px" }}>{j + 1}- {product.name}</span>
+                          <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>× {product.quantity}</span>
+                        </li>
+                      )):''}
+                    </ul>
+                    <p>الاجمالي : {total}</p>
+                    <div className="card-footer text-center">
+                      {status === 'Prepared' ?
+                        <button className="btn btn-primary btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
+                        <button className="btn btn-warning btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
+                      }
+                    </div>
+                  </div>
+                );
                 // }
 
                 return null; // لا تقم بعرض شيء إذا كانت جميع المنتجات تم تسليمها

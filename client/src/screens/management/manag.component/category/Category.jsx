@@ -3,13 +3,13 @@ import axios from 'axios';
 import { detacontext } from '../../../../App';
 
 const Category = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [categoryname, setcategoryname] = useState('')
   const [categoryId, setcategoryId] = useState('')
 
   const [allCategory, setallCategory] = useState([])
-  
+
   const getallCategory = async () => {
     const res = await axios.get(apiUrl + "/api/category/");
     setallCategory(res.data)
@@ -42,7 +42,7 @@ const Category = () => {
 
   const [CategoryFilterd, setCategoryFilterd] = useState([])
   const searchByCategory = (category) => {
-    const categories = allCategory.filter((Category) => Category.name.startsWith(category)== true)
+    const categories = allCategory.filter((Category) => Category.name.startsWith(category) == true)
     setCategoryFilterd(categories)
   }
 
@@ -55,7 +55,7 @@ const Category = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, calcTotalSalesOfCategory ,EditPagination, startpagination,endpagination,setstartpagination,setendpagination }) => {
+        ({ allProducts, calcTotalSalesOfCategory, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -75,7 +75,7 @@ const Category = () => {
                     <div class="row text-dark">
                       <div class="col-sm-3">
                         <div class="show-entries">
-                        <span>عرض</span>
+                          <span>عرض</span>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
@@ -92,7 +92,7 @@ const Category = () => {
                         <div class="filter-group">
                           <label>اسم التصنيف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
-                        </div>                        
+                        </div>
                         {/* <div class="filter-group">
                           <label>Location</label>
                           <select class="form-control">
@@ -136,54 +136,54 @@ const Category = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {CategoryFilterd.length>0?
+                      {CategoryFilterd.length > 0 ?
                         CategoryFilterd.map((category, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
-                            <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td>
-                              <td>{i + 1}</td>
-                              <td>{category.name}</td>
-                              <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
-                              <td>{calcTotalSalesOfCategory(category._id)}</td>
-                              <td>
-                                <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                              <tr key={i}>
+                                <td>
+                                  <span className="custom-checkbox">
+                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                    <label htmlFor="checkbox1"></label>
+                                  </span>
+                                </td>
+                                <td>{i + 1}</td>
+                                <td>{category.name}</td>
+                                <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
+                                <td>{calcTotalSalesOfCategory(category._id)}</td>
+                                <td>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })
-                      :allCategory && allCategory.map((category, i) => {
+                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                </td>
+                              </tr>
+                            )
+                          }
+                        })
+                        : allCategory.length > 0 ? allCategory.map((category, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
-                            <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td>
-                              <td>{i + 1}</td>
-                              <td>{category.name}</td>
-                              <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
-                              <td>{calcTotalSalesOfCategory(category._id)}</td>
-                              <td>
-                                <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                              <tr key={i}>
+                                <td>
+                                  <span className="custom-checkbox">
+                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                    <label htmlFor="checkbox1"></label>
+                                  </span>
+                                </td>
+                                <td>{i + 1}</td>
+                                <td>{category.name}</td>
+                                <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
+                                <td>{calcTotalSalesOfCategory(category._id)}</td>
+                                <td>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })
-                    }
+                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                </td>
+                              </tr>
+                            )
+                          }
+                        })
+                          : ''}
 
                     </tbody>
                   </table>
@@ -217,7 +217,7 @@ const Category = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>

@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 
 
 const ProductRecipe = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [productid, setproductid] = useState("")
   const [listofProducts, setlistofProducts] = useState([]);

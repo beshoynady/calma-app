@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 const Employees = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
@@ -141,9 +141,9 @@ const Employees = () => {
     let filteredEmployees;
 
     if (status === 'true') {
-      filteredEmployees = listofemployee.filter((employee) => employee.isActive === true);
+      filteredEmployees = listofemployee.length>0?listofemployee.filter((employee) => employee.isActive === true):'';
     } else if (status === 'false') {
-      filteredEmployees = listofemployee.filter((employee) => employee.isActive === false);
+      filteredEmployees = listofemployee?listofemployee.filter((employee) => employee.isActive === false):"";
     } else {
       filteredEmployees = listofemployee; // If status is not 'true' or 'false', show all employees
     }
@@ -319,7 +319,7 @@ const Employees = () => {
                           )
                         }
                       })
-                        : listofemployee.map((emp, i) => {
+                        : listofemployee.length>0?listofemployee.map((emp, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
@@ -356,7 +356,7 @@ const Employees = () => {
                             )
                           }
                         })
-                      }
+                      :""}
                     </tbody>
                   </table>
                   <div className="clearfix">

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const PayRoll = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // Array of months in Arabic
   const months = [
@@ -38,7 +38,7 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/employee');
+      const response = await axios.get(apiUrl + '/api/employee');
       setListOfEmployee(response.data);
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ const PayRoll = () => {
   const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([])
   const getSalaryMovement = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/salarymovement');
+      const response = await axios.get(apiUrl + '/api/salarymovement');
       const currentDate = new Date().getMonth();
       const filterByMonth = response.data.filter((m) => new Date(m.createdAt).getMonth() === currentDate);
       setListOfSalaryMovement(filterByMonth);
@@ -182,7 +182,7 @@ const PayRoll = () => {
       console.log(manager)
 
       // Fetch all cash registers
-      const response = await axios.get(apiUrl+'/api/cashRegister');
+      const response = await axios.get(apiUrl + '/api/cashRegister');
       const allCashRegisters = await response.data;
       console.log(response)
       console.log(allCashRegisters)
@@ -235,7 +235,7 @@ const PayRoll = () => {
   const createDailyExpense = async () => {
     const updatedBalance = balance - amount;
     try {
-      const cashMovement = await axios.post(apiUrl+'/api/cashMovement/', {
+      const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
         createBy: paidBy,
         amount,
@@ -245,7 +245,7 @@ const PayRoll = () => {
 
       const cashMovementId = cashMovement.data.cashMovement._id;
 
-      const dailyExpense = await axios.post(apiUrl+'/api/dailyexpense/', {
+      const dailyExpense = await axios.post(apiUrl + '/api/dailyexpense/', {
         expenseID,
         expenseDescription,
         cashRegister,
@@ -394,9 +394,9 @@ const PayRoll = () => {
                           <label>الشهر</label>
                           <select className="form-control" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>
-                            {arryeofmonth.map((month, i) => (
+                            {arryeofmonth.length>0?arryeofmonth.map((month, i) => (
                               <option value={month} key={i}>{months[month - 1]}</option>
-                            ))}
+                            )):""}
                           </select>
                         </div>
                       </div>
@@ -494,7 +494,7 @@ const PayRoll = () => {
                           }
                         })
                           :
-                          ListOfEmployee.map((em, i) => {
+                          ListOfEmployee.length>0?ListOfEmployee.map((em, i) => {
                             if (em.isActive == true && em.payRoll.length > 0) {
                               return (
                                 em.payRoll.map((Roll, j) => {
@@ -548,7 +548,7 @@ const PayRoll = () => {
                               )
                             }
                           })
-                      }
+                      :""}
                     </tbody>
                   </table>
                   <div className="clearfix">

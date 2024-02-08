@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import { Link } from 'react-router-dom';
 
 const SideBar = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const arrowRefs = {
     arrowmen: useRef(),

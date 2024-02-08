@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const KitchenConsumption = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [stockItemId, setstockItemId] = useState('');
   const [stockItemName, setstockItemName] = useState('');

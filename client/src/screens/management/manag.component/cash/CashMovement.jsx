@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const CashMovement = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
 
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
@@ -29,7 +29,7 @@ const CashMovement = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister');
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -44,7 +44,7 @@ const CashMovement = () => {
       console.log({ EmployeeLoginInfo })
       const id = EmployeeLoginInfo.id
       console.log({ id })
-      const getCashRegisters = await axios.get(apiUrl+'/api/cashregister');
+      const getCashRegisters = await axios.get(apiUrl + '/api/cashregister');
       const CashRegisters = getCashRegisters.data
       console.log({ CashRegisters })
 
@@ -52,7 +52,7 @@ const CashMovement = () => {
       console.log({ myregister })
       const myregisterid = myregister._id
       console.log({ myregisterid })
-      const response = await axios.get(apiUrl+'/api/cashmovement/');
+      const response = await axios.get(apiUrl + '/api/cashmovement/');
       const AllCashMovement = response.data
       console.log({ AllCashMovement })
       const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
@@ -78,7 +78,7 @@ const CashMovement = () => {
   const addCashMovementAndUpdateBalance = async () => {
     try {
       // Send cash movement data to the API
-      const cashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
+      const cashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId,
         createBy,
         amount,
@@ -157,7 +157,7 @@ const CashMovement = () => {
     try {
 
       // Send cash movement data to the API
-      const sendCashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
+      const sendCashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId: sendRegister,
         createBy,
         amount,
@@ -171,7 +171,7 @@ const CashMovement = () => {
       const movementId = sendCashMovementData.cashMovement._id;
       console.log({ movementId })
       // Send receiving cash movement data to the API
-      const receivCashMovementResponse = await axios.post(apiUrl+'/api/cashmovement/', {
+      const receivCashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId: receivRegister,
         createBy,
         amount,
@@ -418,7 +418,7 @@ const CashMovement = () => {
                         //   }
                         // })
                         //   : 
-                        AllCashMovement.map((movement, i) => {
+                        AllCashMovement.length > 0 ? AllCashMovement.map((movement, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -460,7 +460,7 @@ const CashMovement = () => {
                             )
                           }
                         })
-                      }
+                          : ''}
                     </tbody>
                   </table>
                   <div className="clearfix">

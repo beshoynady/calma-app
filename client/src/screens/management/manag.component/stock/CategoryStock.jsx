@@ -3,7 +3,7 @@ import axios from 'axios';
 import { detacontext } from '../../../../App';
 
 const CategoryStock = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [categoryStockname, setcategoryStockname] = useState('')
   const [categoryStockId, setcategoryStockId] = useState('')

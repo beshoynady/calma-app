@@ -5,13 +5,13 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const StockManag = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [listofProducts, setlistofProducts] = useState([]);
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/product/');
+      const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -26,7 +26,7 @@ const StockManag = () => {
   const [StockItems, setStockItems] = useState([]);
   const getaStockItems = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/stockitem/');
+      const response = await axios.get(apiUrl + '/api/stockitem/');
       console.log(response.data)
       setStockItems(response.data.reverse())
 
@@ -59,7 +59,7 @@ const StockManag = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister');
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -91,7 +91,7 @@ const StockManag = () => {
 
       if (changeItem.status === 200) {
         // Create a new stock action
-        const response = await axios.post(apiUrl+'/api/stockmanag/', {
+        const response = await axios.post(apiUrl + '/api/stockmanag/', {
           itemId,
           movement,
           Quantity,
@@ -197,7 +197,7 @@ const StockManag = () => {
 
   const getallStockaction = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/stockmanag/');
+      const response = await axios.get(apiUrl + '/api/stockmanag/');
       console.log(response.data)
       const Stockactions = await response.data;
       setAllStockactions(Stockactions.reverse())
@@ -554,7 +554,7 @@ const StockManag = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -630,7 +630,7 @@ const StockManag = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>

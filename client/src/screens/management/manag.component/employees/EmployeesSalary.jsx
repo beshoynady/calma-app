@@ -6,13 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi');
 
 const EmployeesSalary = () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/employee')
+      const response = await axios.get(apiUrl + '/api/employee')
       const employee = await response.data
       setlistofemployee(employee)
     } catch (error) {
@@ -77,9 +77,9 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.post(apiUrl+'/api/salarymovement', data);
-      if(response){
-        
+      const response = await axios.post(apiUrl + '/api/salarymovement', data);
+      if (response) {
+
       }
       getSalaryMovement();
       toast.success('Movement added successfully');
@@ -135,7 +135,7 @@ const EmployeesSalary = () => {
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
-    const movement = await axios.get(apiUrl+'/api/salarymovement')
+    const movement = await axios.get(apiUrl + '/api/salarymovement')
     console.log(movement)
     setlistofsalarymovement(movement.data.reverse())
   }
@@ -333,7 +333,7 @@ const EmployeesSalary = () => {
                           )
                         }
                       })
-                        : listofsalarymovement.map((mov, i) => {
+                        : listofsalarymovement.length ? listofsalarymovement.map((mov, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
@@ -362,7 +362,7 @@ const EmployeesSalary = () => {
                             )
                           }
                         })
-                      }
+                          : ""}
                     </tbody>
                   </table>
                   <div className="clearfix">
@@ -391,25 +391,26 @@ const EmployeesSalary = () => {
                         <div className="form-group">
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
-                            setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value);
+                            setEmployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setEmployeeId(e.target.value);
                             filterEmployeeSalaryMovement(e.target.value)
                           }}>
                             <option>اختار</option>
-                            {listofemployee.map((employee, i) => {
+                            {listofemployee.length > 0 ? listofemployee.map((employee, i) => {
                               return (
                                 <option value={employee._id} key={i}>{employee.fullname}</option>
                               )
-                            })}
+                            })
+                              : ""}
                           </select>
                         </div>
                         <div className="form-group">
                           <label>التعامل</label>
                           <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
-                            {listofmovement.map((movement, i) => {
+                            {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
                               )
-                            })}
+                            }) : ""}
                           </select>
                         </div>
                         <div className="form-group">
@@ -435,7 +436,7 @@ const EmployeesSalary = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Close" />
-                        <input type="submit" className="btn btn-success"  value="Add" />
+                        <input type="submit" className="btn btn-success" value="Add" />
                       </div>
                     </form>
                   </div>
@@ -455,21 +456,21 @@ const EmployeesSalary = () => {
                           <label>الاسم</label>
                           <select form="carform" defaultValue={EmployeeName} required onChange={(e) => { setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
                             <option>اختر</option>
-                            {listofemployee.map(employee => {
+                            {listofemployee.length>0?listofemployee.map(employee => {
                               return (
                                 <option value={employee._id}>{employee.fullname}</option>
                               )
-                            })}
+                            }):""}
                           </select>
                         </div>
                         <div className="form-group">
                           <label>الحركه</label>
                           <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
-                            {listofmovement.map((movement, i) => {
+                            {listofmovement.length>0?listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
                               )
-                            })}
+                            }):""}
                           </select>
                         </div>
                         <div className="form-group">

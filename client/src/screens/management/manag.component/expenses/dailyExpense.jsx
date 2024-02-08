@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import { ToastContainer, toast } from 'react-toastify';
 
 const DailyExpense = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const [expenseID, setexpenseID] = useState('');
   const [cashMovementId, setcashMovementId] = useState('');
@@ -327,7 +327,7 @@ const DailyExpense = () => {
                           )
                         }
                       })
-                        : allDailyExpenses.map((dailyexpense, i) => {
+                        : allDailyExpenses.length>0?allDailyExpenses.map((dailyexpense, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -358,7 +358,7 @@ const DailyExpense = () => {
                               </tr>
                             )
                           }
-                        })}
+                        }):""}
                   </tbody>
                 </table>
                 <div className="clearfix">
@@ -388,12 +388,12 @@ const DailyExpense = () => {
                         <label>المصروف</label>
                         <select name="category" id="category" form="carform" onChange={(e) => {
                           setexpenseID(e.target.value);
-                          setexpenseDescription(allExpenses.find(ex => ex._id == e.target.value).description);
+                          setexpenseDescription(allExpenses.length>0?allExpenses.find(ex => ex._id == e.target.value).description:"");
                         }}>
-                          {allExpenses.map((expense, i) => {
+                          {allExpenses.length>0?allExpenses.map((expense, i) => {
                             return <option value={expense._id} key={i} >{expense.description}</option>
                           })
-                          }
+                          :""}
                         </select>
                       </div>
                       <div className="form-group">
@@ -436,12 +436,12 @@ const DailyExpense = () => {
                         <label>المصروف</label>
                         <select name="category" id="category" form="carform" onChange={(e) => {
                           setexpenseID(e.target.value);
-                          setexpenseDescription(allExpenses.find(ex => ex._id == e.target.value).description);
+                          setexpenseDescription(allExpenses?allExpenses.find(ex => ex._id == e.target.value).description:"");
                         }}>
-                          {allExpenses.map((expense, i) => {
+                          {allExpenses?allExpenses.map((expense, i) => {
                             return <option value={expense._id} key={i} >{expense.description}</option>
                           })
-                          }
+                          :""}
                         </select>
                       </div>
                       <div className="form-group">

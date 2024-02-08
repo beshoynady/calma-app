@@ -47,7 +47,7 @@ export default function Offers() {
                   return (
                     <SwiperSlide>
                       <div className="offer-card" key={index}>
-                        <img className='offer-img' src={`https://raw.githubusercontent.com/beshoynady/restaurant-api/main/server/images/${product.image}`} alt="" />
+                        <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" />
                         {product._id == productid & noteArea == true ?
                           <div className='offers-note'>
                             <form onSubmit={(e) => { addnotrstoproduct(e, product._id); setnoteArea(!noteArea) }}>

@@ -5,7 +5,7 @@ import './POS.css'
 import { number } from 'joi';
 
 const POS = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const ordersText = useRef()
   const orderside = useRef()
@@ -67,7 +67,7 @@ const POS = () => {
                       {allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
                         return (
                           <div className="pos-card" key={index} onClick={() => additemtocart(product._id)}>
-                            <img className='pos-img-card' src={`https://raw.githubusercontent.com/beshoynady/restaurant-api/main/server/images/${product.image}`} alt="" />
+                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
                             <div className="pos-card-detalis">
                               <div className='card-name'>
                                 <div className='product-name'>{product.name}</div>

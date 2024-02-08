@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify'; // Importing toast from 
 import 'react-toastify/dist/ReactToastify.css'; // Importing default CSS for toast notifications
 
 const Kitchen = () => {
-  const apiUrl = process.env.API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const start = useRef();
   const ready = useRef();
@@ -143,11 +143,11 @@ const Kitchen = () => {
   const getAllWaiters = async () => {
     try {
       const allEmployees = await axios.get(apiUrl+'/api/employee');
-      const allWaiters = allEmployees.data.filter((employee) => employee.role === 'waiter');
-      const waiterActive = allWaiters.filter((waiter) => waiter.isActive);
+      const allWaiters = allEmployees.length>0?allEmployees.data.filter((employee) => employee.role === 'waiter'):"";
+      const waiterActive = allWaiters.length>0?allWaiters.filter((waiter) => waiter.isActive):"";
       setAllWaiters(waiterActive);
 
-      const waiterIds = waiterActive.map((waiter) => waiter._id);
+      const waiterIds = waiterActive?waiterActive.map((waiter) => waiter._id):"";
       setWaiters(waiterIds);
     } catch (error) {
       console.log(error);
@@ -166,12 +166,12 @@ const Kitchen = () => {
       const getTable = await axios.get(`${apiUrl}/api/table/${tableId}`);
       console.log({ getTable: getTable });
 
-      const tablesectionNumber = getTable.data.sectionNumber;
+      const tablesectionNumber = await getTable.data.sectionNumber;
       console.log({ tablesectionNumber: tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
 
-      const findwaiter = AllWaiters.find((waiter) => waiter.sectionNumber == tablesectionNumber);
+      const findwaiter =AllWaiters? AllWaiters.find((waiter) => waiter.sectionNumber == tablesectionNumber):"";
       console.log({ findwaiter: findwaiter });
 
       const waiterId = findwaiter ? findwaiter._id : '';
@@ -221,9 +221,9 @@ const Kitchen = () => {
         setAllOrders(orders.data);
 
         // Filter active orders based on certain conditions
-        const activeOrders = orders.data.filter(
+        const activeOrders = orders.length>0?orders.data.filter(
           (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        );
+        ):"";
         console.log({ activeOrders });
         // Set active orders state
         setOrderActive(activeOrders);
@@ -244,7 +244,7 @@ const Kitchen = () => {
     try {
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
-      const products = orderData.data.products;
+      const products = await orderData.data.products;
 
       // Loop through each product in the order
       for (const product of products) {
@@ -259,7 +259,7 @@ const Kitchen = () => {
           console.log({ productId, quantity, name });
 
           // Find product details
-          const foundProduct = listofProducts.find((p) => p._id === productId);
+          const foundProduct = listofProducts.length>0?listofProducts.find((p) => p._id === productId):"";
           const recipe = foundProduct ? foundProduct.Recipe : [];
 
           // Calculate consumption for each ingredient in the recipe
