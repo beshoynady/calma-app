@@ -54,9 +54,23 @@ app.get('/', (req, res) => {
 });
 
 // Route requests to appropriate routers
-for (const [route, router] of Object.entries(routers)) {
-  app.use(`/api/${route}`, router);
-}
+app.use('/api/product', routeproduct)
+app.use('/api/category', routecategory);
+app.use('/api/user', routeuser);
+app.use('/api/employee', routeemployee);
+app.use('/api/salarymovement', routesalarymovement);
+app.use('/api/table', routetable);
+app.use('/api/order', routeorder);
+app.use('/api/auth', routeauth);
+app.use('/api/categoryStock', routecategoryStock);
+app.use('/api/stockitem', routestockitems);
+app.use('/api/stockmanag', routestockmanag);
+app.use('/api/kitchenconsumption', routekitchenconsumption);
+app.use('/api/expenses', routeexpense);
+app.use('/api/dailyexpense', routedailyexpense);
+app.use('/api/cashRegister', routecashRegister);
+app.use('/api/cashMovement', routecashMovement);
+
 
 const port = process.env.PORT || 8000;
 
