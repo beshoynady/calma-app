@@ -11,14 +11,38 @@ const Category = () => {
   const [allCategory, setallCategory] = useState([])
 
   const getallCategory = async () => {
-    const res = await axios.get(apiUrl + "/api/category/");
-    setallCategory(res.data)
+    try {
+      const res = await axios.get(apiUrl + "/api/category/");
+      setallCategory(res.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("حدث خطأ أثناء استلام البيانات:", error.response.data);
+      } else if (error.request) {
+        console.error("لم يتم الرد على الطلب:", error.request);
+      } else {
+        console.error("حدث خطأ أثناء إعداد الطلب:", error.message);
+      }
+      alert("حدث خطأ أثناء جلب البيانات، يرجى المحاولة مرة أخرى لاحقًا.");
+    }
   }
+  
 
 
-  const createCategory = async () => {
-    const send = await axios.post(apiUrl + "/api/category/", { name: categoryname });
+  const createCategory = async (e) => {
+    try {
+      e.preventDefault();
+      const response = await axios.post(apiUrl + "/api/category/", { name: categoryname });
+
+      if (response.status === 200) {
+        console.log("تم إنشاء الفئة بنجاح.");
+      } else {
+        console.error("حدث خطأ أثناء إنشاء الفئة.");
+      }
+    } catch (error) {
+      console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
+    }
   }
+
 
 
   const editCategory = async () => {
@@ -42,7 +66,7 @@ const Category = () => {
 
   const [CategoryFilterd, setCategoryFilterd] = useState([])
   const searchByCategory = (category) => {
-    const categories = allCategory.filter((Category) => Category.name.startsWith(category) == true)
+    const categories = allCategory?allCategory.filter((Category) => Category.name.startsWith(category) == true):""
     setCategoryFilterd(categories)
   }
 

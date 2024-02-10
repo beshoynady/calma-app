@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+
 import { detacontext } from '../../../../App';
 
 
 const Products = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [productname, setproductname] = useState("");
   const [productprice, setproductprice] = useState(0);
@@ -13,8 +15,10 @@ const Products = () => {
   const [avaliable, setavaliable] = useState();
   const [productimg, setproductimg] = useState("");
 
+
   const createProduct = async (e) => {
     e.preventDefault();
+    
     try {
       const formdata = new FormData();
       formdata.append('productname', productname);
@@ -23,22 +27,56 @@ const Products = () => {
       formdata.append('productcategoryid', productcategoryid);
       formdata.append('avaliable', avaliable);
       formdata.append('image', productimg);
-      console.log(...formdata)
-
-      const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+  
+      const token = localStorage.getItem('token_e');
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       };
-
-      const response = await axios.post(apiUrl+'/api/product/', formdata, config);
-      console.log(response.data);
+  
+      const response = await axios.post(apiUrl + '/api/product/', formdata, config);
+      
+      if (response.status === 200) {
+        getallproducts()
+        console.log(response.data);
+        toast.success("Product created successfully.");
+      } else {
+        throw new Error("Failed to create product.");
+      }
     } catch (error) {
-      console.log(error)
+      console.error("Error occurred while creating product:", error);
+      
+      // Display error toast notification
+      toast.error("Failed to create product. Please try again later.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
-  }
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const maxSize = 1024 * 1024;
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    if (file && file.size <= maxSize && allowedTypes.includes(file.type)) {
+      setproductimg(file);
+    } else {
+      let errorMessage = "Invalid file.";
+
+      if (file && !allowedTypes.includes(file.type)) {
+        errorMessage = "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
+      } else if (file && file.size > maxSize) {
+        errorMessage = "Maximum file size exceeded (1 MB). Please select a smaller file.";
+      }
+
+      toast.error(errorMessage, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+      });
+    }
+  };
 
   const [productid, setproductid] = useState("")
   const [productdiscount, setproductdiscount] = useState(null)
@@ -49,6 +87,7 @@ const Products = () => {
       const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
 
       if (productimg) {
+        console.log({ productimg })
         const formdata = new FormData();
         formdata.append('productname', productname);
         formdata.append('productprice', productprice);
@@ -101,10 +140,10 @@ const Products = () => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/product/');
+      const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
       // console.log(response.data)
-      setlistofProducts(products)
+      setlistofProducts(products.reverse())
       // console.log(listofProducts)
 
     } catch (error) {
@@ -118,7 +157,7 @@ const Products = () => {
 
   const calcsalseofproducts = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/order');
+      const response = await axios.get(apiUrl + '/api/order');
 
       if (response.status === 200) {
         const allOrders = response.data;
@@ -193,7 +232,7 @@ const Products = () => {
   const [listofcategories, setlistofcategories] = useState([])
   const getallCategories = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/category/');
+      const response = await axios.get(apiUrl + '/api/category/');
       const categories = await response.data;
       // console.log(response.data)
       setlistofcategories(categories)
@@ -205,48 +244,6 @@ const Products = () => {
   }
 
 
-  // const [AllStockItems, setAllStockItems] = useState([]);
-
-  // const getallStockItem = async () => {
-  //   try {
-  //     const response = await axios.get(apiUrl+'/api/stockitem/');
-  //     const StockItems = await response.data;
-  //     console.log(response.data)
-  //     setAllStockItems(StockItems)
-
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-
-  // }
-
-  // const [itemId, setitemId] = useState("")
-  // const [name, setname] = useState("")
-  // const [amount, setamount] = useState()
-  // const [costofitem, setcostofitem] = useState()
-  // const [unit, setunit] = useState("")
-  // const [totalcostofitem, settotalcostofitem] = useState()
-
-  // const [totalcost, settotalcost] = useState()
-
-
-  // const [recipe, setrecipe] = useState([{ itemId: '', name: '', amount: 0, costofitem: 0, unit: '', totalcostofitem: 0 }])
-  // const [recipe, setrecipe] = useState([])
-
-  // const add = (e) => {
-  //   e.preventDefault()
-  //   console.log({ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem })
-  //   if (recipe.length > 0){
-  //     setrecipe([...recipe, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }])
-  //   }else{
-  //     setrecipe([{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }])      
-  //   }
-  //   console.log(recipe)
-  // }
-
-  // const createRecipe = async () => {
-
-  // }
 
 
   useEffect(() => {
@@ -262,6 +259,7 @@ const Products = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
+              <ToastContainer />
               <div className="table-responsive mt-1">
                 <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">
@@ -376,7 +374,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
 
@@ -408,7 +406,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -448,7 +446,7 @@ const Products = () => {
                         </div>
                         <div className="form-group">
                           <label>الوصف</label>
-                          <textarea className="form-control" required onChange={(e) => setproductdescription(e.target.value)}></textarea>
+                          <textarea className="form-control" onChange={(e) => setproductdescription(e.target.value)}></textarea>
                         </div>
                         <div className="form-group">
                           <label>السعر</label>
@@ -457,6 +455,7 @@ const Products = () => {
                         <div className="form-group">
                           <label>التصنيف</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setproductcategoryid(e.target.value)}>
+                            <option defaultValue={productcategoryid}>اختر تصنيف</option>
                             {listofcategories.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
                             })
@@ -466,18 +465,20 @@ const Products = () => {
                         <div className="form-group">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setavaliable(e.target.value)}>
+
+                            <option defaultValue={avaliable} >اختر الحاله</option>
                             <option value={true} >متاح</option>
                             <option value={false} >غير متاح</option>
                           </select>
                         </div>
                         <div className="form-group">
                           <label>الصورة</label>
-                          <input type="file" className="form-control" required onChange={(e) => setproductimg(e.target.files[0])} />
+                          <input type="file" className="form-control" required onChange={(e) => handleFileUpload(e)} />
                         </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -526,7 +527,7 @@ const Products = () => {
                         </div>
                         <div className="form-group">
                           <label>الصورة</label>
-                          <input type="file" className="form-control" onChange={(e) => setproductimg(e.target.files[0])} />
+                          <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -537,53 +538,7 @@ const Products = () => {
                   </div>
                 </div>
               </div>
-              {/* <div id="recipeProductModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={createRecipe}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">تعديل منتج</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group">
-                          <label>الاسم</label>
-                          <select form="carform" onChange={(e) => { console.log(AllStockItems.find(s => s._id == e.target.value).costOfPart); setitemId(e.target.value); setname(AllStockItems.find(s => s._id == e.target.value).itemName); setunit(AllStockItems.find(s => s._id == e.target.value).smallUnit); setcostofitem(AllStockItems.find(s => s._id == e.target.value).costOfPart) }}>
-                            <option >اختر</option>
-                            {AllStockItems && AllStockItems.map((item, i) => {
-                              return (
-                                <option value={item._id} key={i} >{item.itemName}</option>
-                              )
-                            })
-                            }
-                          </select>
-                        </div>
-                        <div className="form-group">
-                          <label>التكلفة</label>
-                          <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
-                        </div>
-                        <div className="form-group">
-                          <label>الكمية</label>
-                          <input type="Number" className="form-control" required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
-                          <input type="text" className="form-control" defaultValue={unit} readOnly required />
-                        </div>
-                        <div className="form-group">
-                          <label>التكلفة الاجمالية</label>
-                          <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
-                        </div>
-                        <div className="form-group">
-                          <button onClick={add}>اضافه جديدة</button>
-                        </div>
 
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="Save" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div> */}
               <div id="deleteProductModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">

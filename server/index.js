@@ -48,7 +48,7 @@ app.use(cors({
 
 // Serve static files
 app.use('/', express.static("public"));
-app.use('/', express.static("images"));
+app.use('/images', express.static("images"));
 
 // Simple test endpoint to check if the server is running
 app.get('/', (req, res) => {

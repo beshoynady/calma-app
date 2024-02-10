@@ -46,10 +46,10 @@ const productSchema = new mongoose.Schema(
     totalcost: {
       type: Number,
       required: [true, 'Total cost is required'],
+      default: 0,
     },
     description: {
       type: String,
-      required: [true, 'Description is required'],
       maxlength: [100, 'Description cannot exceed 100 characters'],
       minlength: [3, 'Description must have at least 3 characters'],
     },

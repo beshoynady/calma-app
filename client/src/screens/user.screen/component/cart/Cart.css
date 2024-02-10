@@ -250,31 +250,31 @@ input[type="radio"] {
   background-color: var(--u-light);
 }
 
-/* .side .total-order .total-order-details {
-  align-items: center;
-  background-color: var(--u-light);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
+.side .total-order .total-order-details {
+  text-align: center;
+  color: var(--u-light);
+  font-size: 16px;
+  font-weight: 800;
   width: 40%;
-} */
+  height: 100%;
+  padding: 3px;
+}
 
-/* .side .total-order .total-order-details>h2 {
+.side .total-order .total-order-details>h2 {
   width: 100%;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
   text-align: center;
 }
 
 .side .total-order .total-order-details>p {
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   background-color: var(--u-dark);
   color: var(--u-white);
   text-align: center;
-} */
+}
 
 
 

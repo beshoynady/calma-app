@@ -56,7 +56,7 @@
 }
 #menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn.active {
   background-color: var(--u-light);
-  color: var(r--u-dark);
+  color: var(--u-dark);
   border: 2px solid var(--u-main-color);
 }
 

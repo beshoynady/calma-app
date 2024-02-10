@@ -406,6 +406,8 @@ const EmployeesSalary = () => {
                         <div className="form-group">
                           <label>التعامل</label>
                           <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
+                            <option>اختر العملية</option>
+
                             {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
@@ -416,7 +418,6 @@ const EmployeesSalary = () => {
                         <div className="form-group">
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
-                          <small className="text-danger">Please enter a valid number.</small>
                         </div>
                         <div className="form-group">
                           <label>الرصيد</label>
@@ -456,21 +457,21 @@ const EmployeesSalary = () => {
                           <label>الاسم</label>
                           <select form="carform" defaultValue={EmployeeName} required onChange={(e) => { setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
                             <option>اختر</option>
-                            {listofemployee.length>0?listofemployee.map(employee => {
+                            {listofemployee.length > 0 ? listofemployee.map(employee => {
                               return (
                                 <option value={employee._id}>{employee.fullname}</option>
                               )
-                            }):""}
+                            }) : ""}
                           </select>
                         </div>
                         <div className="form-group">
                           <label>الحركه</label>
                           <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
-                            {listofmovement.length>0?listofmovement.map((movement, i) => {
+                            {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
                               )
-                            }):""}
+                            }) : ""}
                           </select>
                         </div>
                         <div className="form-group">

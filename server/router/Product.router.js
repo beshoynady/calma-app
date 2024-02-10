@@ -15,6 +15,7 @@ const {
 } = require("../controllers/product.controller");
 
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "images/");
@@ -23,10 +24,25 @@ const storage = multer.diskStorage({
     const uniqueSuffix = new Date().toISOString().replace(/:/g, "-");
     cb(null, uniqueSuffix + file.originalname);
   },
+})
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 ,
+  },
+  fileFilter: function (req, file, cb) {
+    if (
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/jpg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only JPEG, JPG, and PNG file types are allowed."));
+    }
+  },
 });
-
-const upload = multer({ storage: storage });
-
 const router = express.Router();
 
 
@@ -47,7 +63,7 @@ const deleteOldImage = (imagePath) => {
 const deleteOldImageMiddleware = async (req, res, next) => {
   try {
     // Replace this with a method to retrieve the product from your database or storage
-    const product = await getProductById(req.params.productid);
+    const product = await getOneProduct(req.params.productid);
 
     // Checking if the product and image exist
     if (product && product.image) {
@@ -68,7 +84,7 @@ router.route('/')
   .get(getAllProducts);
 
 router.route('/getproductbycategory/:categoryid').get(getProductByCategory)
-router.route('/:productid').get(getOneProduct).put(deleteOldImageMiddleware, upload.single("image"), updateProduct).delete(authenticateToken, deleteProduct);
+router.route('/:productid').get(getOneProduct).put(deleteOldImageMiddleware, upload.single("image"), updateProduct).delete(deleteProduct);
 router.route('/withoutimage/:productid').put(updateProductWithoutImage)
 router.route('/addrecipe/:productid').put(addRecipe)
 

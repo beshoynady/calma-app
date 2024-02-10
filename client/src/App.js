@@ -260,23 +260,30 @@ function App() {
 
   // delete item from cart by id
   const quantityzero = (id) => {
-    const product = productOrderTOupdate.length > 0 ? productOrderTOupdate.find(product => product._id == id) : allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ? 
+    productOrderTOupdate.find(product => product._id == id) 
+    : allProducts.find(product => product._id == id)
     product.quantity = 0
     product.notes = ''
   }
 
   const deleteitems = (id) => {
-    const withotdeleted = productOrderTOupdate.length > 0 ?
+    const withoutDeleted = productOrderTOupdate.length > 0 ?
       productOrderTOupdate.filter(product => product.productid !== id)
-      : ItemsInCart.filter(item => item._id !== id)
+      : ItemsInCart.filter(item => item._id !== id);
+  
+    const updatedItemId = itemid.filter(itemId => itemId !== id);
+    
     if (productOrderTOupdate.length > 0) {
-      setproductOrderTOupdate(withotdeleted)
-      quantityzero(id)
+      setproductOrderTOupdate(withoutDeleted);
     } else {
-      setItemsInCart(withotdeleted);
-      quantityzero(id)
+      setItemsInCart(withoutDeleted);
+      setitemid(updatedItemId);
     }
+  
+    quantityzero(id); // استدعاء الوظيفة لتحديث الكمية والملاحظات
   }
+  
 
 
   // Calculate costOrder of cart item
