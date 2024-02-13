@@ -1,3 +1,6 @@
+const path = require("path");
+const fs = require('fs');
+
 const ProductModel = require('../models/Product.model.js');
 
 // Create a new product
@@ -63,12 +66,18 @@ const getProductByCategory = async (req, res) => {
 const getOneProduct = async (req, res) => {
   try {
     const productid = req.params.productid;
-    const oneProduct = await ProductModel.findById(productid);
-    res.status(200).json(oneProduct);
-  } catch (err) {
-    res.status(400).json(err);
+    const product = await ProductModel.findById(productid);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    console.error('Error fetching product', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 // Update a product by its ID
 const updateProduct = async (req, res) => {
@@ -84,8 +93,23 @@ const updateProduct = async (req, res) => {
       avaliable
     } = req.body;
 
-    const image = req.file.filename;
-    const priceAfterDiscount =productdiscount>0? productprice - productdiscount:0;
+    if (req.file) {
+      const image = req.file.filename;
+
+      const product = await ProductModel.findById(productid);
+      if (product && product.image) {
+        const oldImagePath = path.join(__dirname, '..', 'images', product.image);
+        fs.unlinkSync(oldImagePath);
+        console.log('Old image deleted successfully');
+      }
+    }
+
+    const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
+
+    const existingProduct = await ProductModel.findById(productid);
+    if (!existingProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
 
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       { _id: productid },
@@ -97,17 +121,22 @@ const updateProduct = async (req, res) => {
         discount: productdiscount,
         priceAfterDiscount: priceAfterDiscount,
         sales: sales,
-        image: image,
+        // استخدم الاسم الجديد للصورة إذا كانت موجودة
+        image: req.file ? req.file.filename : existingProduct.image,
         avaliable
       },
       { new: true }
     );
 
+    // إرجاع المنتج المحدث
     res.status(200).json(updatedProduct);
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (error) {
+    // معالجة الأخطاء
+    console.error('Error updating product:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 // Update a product by its ID without changing the image
 const updateProductWithoutImage = async (req, res) => {
@@ -150,10 +179,17 @@ const updateProductWithoutImage = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const productid = req.params.productid;
-    const productdelete = await ProductModel.findByIdAndDelete(productid);
-    res.status(200).send("Product deleted successfully").json(productdelete);
+    const product = await ProductModel.findById(productid);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    await ProductModel.findByIdAndDelete(productid);
+    res.status(200).json({ message: 'Product deleted successfully', deletedProduct: product });
   } catch (err) {
-    res.status(400).json(err);
+    console.error('Error deleting product:', err);
+    res.status(500).json({ message: 'Failed to delete product', error: err.message });
   }
 };
 

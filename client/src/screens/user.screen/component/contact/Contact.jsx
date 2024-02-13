@@ -17,7 +17,7 @@ const Contact = () => {
                             <a href='https://www.facebook.com/calmacafeegy' target="_blank"> <img src={facebook} alt="facebook Icon" /></a>
                         </p>
                         <p> واتساب
-                            <a href="https://api.whatsapp.com/send?phone=01144001433" target="_blank"><img src={whatsapp} alt="WhatsApp Icon" /></a>
+                            <a href="https://api.whatsapp.com/send?phone=+201144001433" target="_blank"><img src={whatsapp} alt="WhatsApp Icon" /></a>
                         </p>
                         <p>موبايل
                             <a href="tel:01144001433">01144001433</a>

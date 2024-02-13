@@ -159,10 +159,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--light);
 }
-.dashboard .container .bottom-data .reminders .task-list li .task-title > p {
+.dashboard .container .bottom-data .reminders .task-list li .task-title p {
+  font-size: 20px;
+  font-weight: 700;
   margin-left: 6px;
   margin-bottom: 0 !important;
+  color: var(--light);
 }
 .dashboard .container .bottom-data .reminders .task-list li .bx {
   cursor: pointer;
@@ -235,6 +239,13 @@
 .dashboard .container .bottom-data .orders table tbody tr:hover {
   background: var(--grey);
 }
+.dashboard .container .bottom-data .orders table tbody tr td {
+  background-color: inherit !important;
+}
+.dashboard .container .bottom-data .orders table tbody tr td a {
+  text-decoration: none;
+  color: inherit !important;
+}
 
 @media screen and (max-width: 768px) {
   .sidebar {
@@ -284,5 +295,10 @@
   }
   .dashboard .bottom-data .reminders .task-list {
     min-width: 340px;
+  }
+}
+@media print {
+  .printpage {
+    width: auto;
   }
 }/*# sourceMappingURL=ManagerDash.css.map */

@@ -202,10 +202,13 @@ $color_7: var(--danger);
 							display: flex;
 							align-items: center;
 							justify-content: space-between;
+							color: var(--light);
 
-							>p {
+							p {
 								margin-left: 6px;
 								margin-bottom: 0 !important;
+								color: var(--light);
+
 							}
 						}
 
@@ -301,15 +304,24 @@ $color_7: var(--danger);
 							&:hover {
 								background: var(--grey);
 							}
+
+							td {
+								background-color: inherit !important;
+
+								a {
+									text-decoration: none;
+									color: inherit !important;
+								}
+							}
 						}
 					}
 				}
 			}
-
-
 		}
 	}
 }
+
+
 
 @media screen and (max-width: 768px) {
 	.sidebar {
@@ -390,5 +402,12 @@ $color_7: var(--danger);
 				}
 			}
 		}
+	}
+}
+
+
+@media print {
+	.printpage {
+		width: auto;
 	}
 }

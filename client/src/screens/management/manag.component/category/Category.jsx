@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+
 import { detacontext } from '../../../../App';
 
 const Category = () => {
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [categoryname, setcategoryname] = useState('')
@@ -25,48 +28,92 @@ const Category = () => {
       alert("حدث خطأ أثناء جلب البيانات، يرجى المحاولة مرة أخرى لاحقًا.");
     }
   }
-  
+
 
 
   const createCategory = async (e) => {
+    e.preventDefault();
+    
     try {
-      e.preventDefault();
       const response = await axios.post(apiUrl + "/api/category/", { name: categoryname });
-
+  
       if (response.status === 200) {
-        console.log("تم إنشاء الفئة بنجاح.");
+        getallCategory();
+        toast.success("تم إنشاء الفئة بنجاح.");
       } else {
-        console.error("حدث خطأ أثناء إنشاء الفئة.");
+        throw new Error("حدث خطأ أثناء إنشاء الفئة.");
       }
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
+  
+      // عرض رسالة الخطأ باستخدام toast
+      toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
-  }
+  };
 
 
+ // Function to edit a category
+ const editCategory = async (e) => {
+  e.preventDefault();
+  
+  try {
+    // Send a PUT request to edit the category
+    const edit = await axios.put(apiUrl + "/api/category/" + categoryId, { name: categoryname });
 
-  const editCategory = async () => {
-    console.log(categoryId)
-    try {
-      const edit = await axios.put(apiUrl + "/api/category/" + categoryId, { name: categoryname })
-      console.log(edit)
-    } catch (error) {
-      console.log(error)
+    // Check if the request was successful
+    if (edit.status === 200) {
+      // Call the function to get all categories
+      getallCategory();
+
+      // Log the response from the edit operation
+      console.log(edit);
+
+      // Display a success toast
+      toast.success("تم تعديل التصنيف", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    } else {
+      throw new Error("Failed to edit category");
     }
+  } catch (error) {
+    // Handle errors if any exception occurs
+    console.error("Error occurred while editing category:", error);
+
+    // Display an error toast
+    toast.error("Failed to edit category. Please try again later.", {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
-  const deleteCategory = async () => {
-    try {
-      const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId)
-      console.log(categoryId)
-      console.log(deleted)
-    } catch (error) {
-      console.log(error)
+};
+
+
+const deleteCategory = async (e) => {
+  e.preventDefault()
+  try {
+    const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId);
+
+    if (deleted.status === 200) {
+      getallCategory()
+      console.log("Category deleted successfully.");
+      toast.success("Category deleted successfully.");
+    } else {
+      throw new Error("Failed to delete category.");
     }
+  } catch (error) {
+    console.error("Error occurred while deleting category:", error);
+
+    // Display error toast notification
+    toast.error("Failed to delete category. Please try again later.", {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
+};
 
   const [CategoryFilterd, setCategoryFilterd] = useState([])
   const searchByCategory = (category) => {
-    const categories = allCategory?allCategory.filter((Category) => Category.name.startsWith(category) == true):""
+    const categories = allCategory?allCategory.filter((Category) => Category.name.startsWith(category) == true):[]
     setCategoryFilterd(categories)
   }
 
@@ -82,6 +129,7 @@ const Category = () => {
         ({ allProducts, calcTotalSalesOfCategory, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
+              <ToastContainer/>
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
@@ -184,7 +232,7 @@ const Category = () => {
                             )
                           }
                         })
-                        : allCategory.length > 0 ? allCategory.map((category, i) => {
+                        : allCategory && allCategory.map((category, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -207,7 +255,7 @@ const Category = () => {
                             )
                           }
                         })
-                          : ''}
+                      }
 
                     </tbody>
                   </table>
@@ -236,7 +284,7 @@ const Category = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} />
+                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} style={{ width: "100%" }} />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -258,7 +306,7 @@ const Category = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} />
+                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} style={{ width: "100%" }} />
                         </div>
                       </div>
                       <div className="modal-footer">

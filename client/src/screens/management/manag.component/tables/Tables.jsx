@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const Tables = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [tableid, settableid] = useState("")
   const [qrimage, setqrimage] = useState("")
@@ -15,7 +15,14 @@ const Tables = () => {
   const createQR = async (e) => {
     e.preventDefault();
     const URL = `https://${window.location.hostname}/${tableid}`;
-    const qr = await axios.post(apiUrl+'/api/table/qr', { URL });
+    const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
+    // console.log(qr.data);
+    setqrimage(qr.data);
+  }
+  const createwebQR = async (e) => {
+    e.preventDefault();
+    const URL = `https://${window.location.hostname}/`;
+    const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
     // console.log(qr.data);
     setqrimage(qr.data);
   }
@@ -25,7 +32,7 @@ const Tables = () => {
 
   const getallTable = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/table');
+      const response = await axios.get(apiUrl + '/api/table');
       const tables = response.data;
       setlistoftable(tables);
 
@@ -50,7 +57,7 @@ const Tables = () => {
     // console.log(tablenum);
     // console.log(chairs)
     try {
-      const response = await axios.post(apiUrl+'/api/table/', { "description": tabledesc, tablenum, chairs, sectionNumber });
+      const response = await axios.post(apiUrl + '/api/table/', { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
       console.log(response.data);
       getallTable();
     } catch (error) {
@@ -92,8 +99,8 @@ const Tables = () => {
     const tables = listoftable.filter((table) => table.tablenum.toString().startsWith(num) == true)
     settableFiltered(tables)
   }
-  const filterBySection = (description) => {
-    const filter = listoftable.filter(table => table.description == description)
+  const filterByStatus = (Status) => {
+    const filter = listoftable.filter(table => table.isValid == Status)
     settableFiltered(filter)
   }
 
@@ -154,6 +161,8 @@ const Tables = () => {
                         <h2>ادارة <b>الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
+                        <a href="#qrwebModal" className="btn btn-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
+                          <span>انشاء qr للسايت</span></a>
                         <a href="#addTableModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
                         <a href="#deleteListTableModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
@@ -171,6 +180,10 @@ const Tables = () => {
                             <option value={20}>20</option>
                             <option value={25}>25</option>
                             <option value={30}>30</option>
+                            <option value={35}>35</option>
+                            <option value={40}>40</option>
+                            <option value={45}>45</option>
+                            <option value={50}>50</option>
                           </select>
                           <span>صفوف</span>
                         </div>
@@ -179,18 +192,16 @@ const Tables = () => {
                         <div class="filter-group">
                           <label>رقم الطاولة</label>
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
-                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </div>
-                        <div class="filter-group">
-                          <label>الموقع</label>
-                          <select class="form-control" onChange={e => filterBySection(e.target.value)}>
-                            <option>Any</option>
-                            {listoftabledescription && listoftabledescription.map((description, i) =>
-                              <option key={i} value={description}>{description}</option>
-                            )}
+
+                        <div className="form-group">
+                          <label>الحالة</label>
+                          <select name="category" id="category" form="carform" onChange={(e) => filterByStatus(e.target.value)}>
+                            <option >اختر</option>
+                            <option value={true} >متاح</option>
+                            <option value={false} >غير متاح</option>
                           </select>
                         </div>
-                        <span class="filter-icon"><i class="fa fa-filter"></i></span>
                       </div>
                     </div>
                   </div>
@@ -229,7 +240,8 @@ const Tables = () => {
                                       value={table._id}
                                       onChange={handleCheckboxChange}
                                     />
-                                    <label htmlFor={`checkbox${i}`}></label>                                </span>
+                                    <label htmlFor={`checkbox${i}`}></label>
+                                  </span>
                                 </td>
                                 <td>{i + 1}</td>
                                 <td>{table.tablenum}</td>
@@ -238,7 +250,7 @@ const Tables = () => {
                                 <td>{table.sectionNumber}</td>
                                 <td>{table.isValid ? 'متاح' : 'غير متاح'}</td>
                                 {/* <td>{table.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum) }}>
+                                <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setqrimage('') }}>
                                   <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                 </a></td>
                                 <td>
@@ -274,7 +286,7 @@ const Tables = () => {
                                   <td>{table.isValid ? 'متاح' : 'غير متاح'}</td>
 
                                   {/* <td>{table.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                  <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum) }}>
+                                  <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setqrimage('') }}>
                                     <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                   </a></td>
                                   <td>
@@ -331,7 +343,7 @@ const Tables = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="ضافه" />
+                        <input type="submit" className="btn btn-success" value="ضافه" />
                       </div>
                     </form>
                   </div>
@@ -402,7 +414,36 @@ const Tables = () => {
                       </div>
                       <div className="modal-footer">
                         {qrimage ? <button type="button" className="btn btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-success"  value="استخراج" />}
+                          : <input type="submit" className="btn btn-success" value="استخراج" />}
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="qrwebModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={createwebQR}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">استخراج QR</h4>
+                      </div>
+                      <div className="modal-body">
+                        <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group">
+
+                          <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', alignContent: 'center', marginTop: '10px' }}>
+
+                            <p style={{ width: '100%', height: '40px', textAlign: 'center', fontSize: '26px', fontFamily: 'Noto Nastaliq Urdu , serif' }}>CALMA CAFE</p>
+                            {qrimage && <a href={qrimage} download>
+                              <img src={qrimage} style={{ width: "350px", height: "350px" }} className='qrprint' download />
+                            </a>}
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        {qrimage ? <button type="button" className="btn btn-info" onClick={handlePrint}>طباعه</button>
+                          : <input type="submit" className="btn btn-success" value="استخراج" />}
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>

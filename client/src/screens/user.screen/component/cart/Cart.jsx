@@ -119,7 +119,10 @@ const Cart = (props) => {
                         orderside.current.style.marginRight = "-50%";
                         // ordersText.current.style.marginRight = "-50%";
                       }}>الفاتورة</label>
-                        : ""}
+                        :<label htmlFor="invoice-radio" className="slide invoice" onClick={() => {
+                          orderside.current.style.marginRight = "-50%";
+                          // ordersText.current.style.marginRight = "-50%";
+                        }}>الفاتورة</label> }
                     <div className="slider-tab">
 
                     </div>
@@ -132,7 +135,7 @@ const Cart = (props) => {
                             i.quantity > 0 ?
                               <div className="cart-item" key={index}>
                                 <div className="cart-img">
-                                  <img src={`${apiUrl}/images/${i.image}`} />
+                                  <img src={i.image?`${apiUrl}/images/${i.image}`:''} />
                                 </div>
                                 <div className='cart-det'>
                                   <div className="item-head">
@@ -207,7 +210,7 @@ const Cart = (props) => {
                           </thead>
                           <tbody>
                             {/* Replace this with your dynamic data */}
-                            {list_products_order.map((item, i) => (
+                            {list_products_order&&list_products_order.map((item, i) => (
                               <tr key={i}>
                                 <td className="col-md-3 text-truncate">{item.name}</td>
                                 <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>

@@ -406,8 +406,7 @@ const EmployeesSalary = () => {
                         <div className="form-group">
                           <label>التعامل</label>
                           <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
-                            <option>اختر العملية</option>
-
+                            <option>اختر</option>
                             {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
@@ -433,7 +432,8 @@ const EmployeesSalary = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <p className="form-control" readOnly>{new Date().toLocaleString()}</p>                        </div>
+                          <p className="form-control" readOnly>{new Date().toLocaleString()}</p>
+                        </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="Close" />
@@ -467,6 +467,7 @@ const EmployeesSalary = () => {
                         <div className="form-group">
                           <label>الحركه</label>
                           <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
+                            <option>اختر</option>
                             {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>

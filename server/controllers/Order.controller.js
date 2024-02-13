@@ -1,5 +1,6 @@
 const OrderModel = require('../models/Order.model');
 
+
 // Create a new order
 const createOrder = async (req, res) => {
     try {
@@ -61,8 +62,12 @@ const createOrder = async (req, res) => {
             payment_date // Include if available in req.body
         });
 
-        // io.emit('newOrderNotification', newOrder);
-        res.status(201).json(newOrder);
+        if (newOrder) {
+            res.status(201).json(newOrder);            
+
+        } else {
+            throw new Error('Failed to create new order');
+        }
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
@@ -32,6 +33,10 @@ import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
+import io from 'socket.io-client';
+const socket = io(process.env.REACT_APP_API_URL, {
+  reconnection: true,
+});
 
 export const detacontext = createContext({});
 
@@ -39,7 +44,9 @@ function App() {
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
+
   axios.defaults.withCredentials = true;
+
 
   //++++++++++++++++++++ pagination ++++++++++
 
@@ -151,7 +158,7 @@ function App() {
     try {
       const response = await axios.get(apiUrl + '/api/table');
       if (response.status === 200 && response.data) {
-        console.log({apiUrl: apiUrl + '/api/table'});
+        console.log({ apiUrl: apiUrl + '/api/table' });
         console.log("Received tables data:", response.data);
         setallTable(response.data);
       } else {
@@ -177,7 +184,7 @@ function App() {
       console.error('Error fetching users data:', error);
     }
   };
-  
+
   const [allemployees, setallemployees] = useState([])
   const getallemployees = async () => {
     try {
@@ -191,12 +198,12 @@ function App() {
       console.error('Error fetching employees data:', error);
     }
   };
-  
+
 
 
 
   // ++++++++ client screen +++++++++++++ 
-  const [categoryid, setcategoryid] = useState('64ae859234fac5c2c966f337')
+  const [categoryid, setcategoryid] = useState('65c56874584af14d9511fc1e')
   const filterByCategoryId = (e) => {
     // console.log(e.target.value)
     setcategoryid(e.target.value)
@@ -260,9 +267,9 @@ function App() {
 
   // delete item from cart by id
   const quantityzero = (id) => {
-    const product = productOrderTOupdate.length > 0 ? 
-    productOrderTOupdate.find(product => product._id == id) 
-    : allProducts.find(product => product._id == id)
+    const product = productOrderTOupdate.length > 0 ?
+      productOrderTOupdate.find(product => product._id == id)
+      : allProducts.find(product => product._id == id)
     product.quantity = 0
     product.notes = ''
   }
@@ -271,19 +278,19 @@ function App() {
     const withoutDeleted = productOrderTOupdate.length > 0 ?
       productOrderTOupdate.filter(product => product.productid !== id)
       : ItemsInCart.filter(item => item._id !== id);
-  
+
     const updatedItemId = itemid.filter(itemId => itemId !== id);
-    
+
     if (productOrderTOupdate.length > 0) {
       setproductOrderTOupdate(withoutDeleted);
     } else {
       setItemsInCart(withoutDeleted);
       setitemid(updatedItemId);
     }
-  
+
     quantityzero(id); // استدعاء الوظيفة لتحديث الكمية والملاحظات
   }
-  
+
 
 
   // Calculate costOrder of cart item
@@ -343,6 +350,7 @@ function App() {
               Authorization: `Bearer ${token}`
             }
           });
+
           setItemsInCart([]);
           setitemid([])
           getProducts();
@@ -358,6 +366,7 @@ function App() {
               Authorization: `Bearer ${token}`
             }
           });
+
           setItemsInCart([]);
           getProducts();
         }
@@ -407,6 +416,7 @@ function App() {
           toast.error("An error occurred while creating the order");
         }
       }
+      socket.emit("sendorder", "socket new order created")
       setItemsInCart([]);
       setitemid([])
     } catch (error) {
@@ -805,19 +815,34 @@ function App() {
   };
 
 
+  // Function to split the invoice and pay a portion of it
   const splitInvoice = async (e) => {
     try {
       e.preventDefault();
+
+      // Send a PUT request to update the order with split details
       const updateOrder = await axios.put(`${apiUrl}/api/order/${myorderid}`, {
         products: newlistofproductorder,
-        isSplit: true
+        isSplit: true,
+        subtotalSplitOrder
       });
-      // console.log({ updateOrder });
+      if (updateOrder) {
+        // Display a success toast message upon successful payment
+        toast.success("تم دفع جزء من الفاتورة بنجاح");
+
+        // Log the updated order details
+        // console.log({ updateOrder });
+      }
     } catch (error) {
+      // Display an error toast message if payment fails
+      toast.error("حدث خطأ أثناء دفع الجزء من الفاتورة");
+
+      // Log the error to the console
       console.error('Error updating order:', error);
     }
   };
-  
+
+
 
 
   const POSinvoice = async (checkid) => {
@@ -1137,7 +1162,7 @@ function App() {
       // Display toast or handle error
     }
   };
-  
+
 
   const updateOrder = async () => {
     const id = OrderDetalisBySerial._id
@@ -1173,7 +1198,6 @@ function App() {
 
     }
   }
-
 
 
   useEffect(() => {

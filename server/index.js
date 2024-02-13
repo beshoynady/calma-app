@@ -3,8 +3,12 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');
+const http = require('http');
+const socketIo = require('socket.io');
+
 
 const connectdb = require('./database/connectdb.js');
+
 
 
 // Import all route files
@@ -30,20 +34,20 @@ dotenv.config();
 connectdb();
 
 const app = express();
-const frontEnd = process.env.FRONT_END; // Use FRONT_END variable from .env file
+const frontEnd = process.env.FRONR_END
 
 // Security middleware
-app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 
 // Set up middleware
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: `${frontEnd}`, // Use FRONT_END value as the origin for allowed requests
+  origin: `${frontEnd}`,
   methods: ['GET', 'POST', 'PUT', 'UPDATE', 'DELETE'],
-  credentials: true,
+  credentials: true
 }));
 
 // Serve static files
@@ -74,41 +78,40 @@ app.use('/api/cashRegister', routecashRegister);
 app.use('/api/cashMovement', routecashMovement);
 
 
+
+const server = http.createServer(app);
+
+
+const io = socketIo(server, {
+  cors: {
+    origin: `${frontEnd}`,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["content-type"]
+  },
+});
+
+io.on('connect', (socket) => {
+  console.log('New client connected');
+
+  // Listen for new order notifications
+  socket.on('sendorder', (notification) => {
+    console.log("Notification received:", notification); // تأكيد الاستقبال
+    // Emit the notification back to the client for testing purposes
+    socket.broadcast.emit('reciveorder', notification);
+  });
+
+  // Listen for disconnect event
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+
 const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 
 
-
-
-// const http = require('http');
-// const express = require('express');
-// const socketIo = require('socket.io');
-
-// const app = express();
-// const server = http.createServer(app);
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "https://caviar-demo.vercel.app",
-//     methods: ["GET", "POST"],
-//     credentials: true
-//   }
-// });
-
-// io.on('connection', (socket) => {
-//   console.log('New client connected');
-//   socket.on('newOrder', (data) => {
-//     console.log('New order received:', data);
-//     io.emit('newOrderNotification', data); 
-//   });
-//   socket.on('disconnect', () => {
-//     console.log('Client disconnected');
-//   });
-// });
-
-// server.listen(port, () => {
-//   console.log(`listening on port ${port}`);
-// });

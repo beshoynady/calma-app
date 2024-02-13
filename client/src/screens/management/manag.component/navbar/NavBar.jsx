@@ -1,71 +1,70 @@
-import React,{useEffect} from 'react'
-import './NavBar.css'
-import { detacontext } from '../../../../App'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { detacontext } from '../../../../App';
+import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
+import './NavBar.css';
 
+const socket = io(process.env.REACT_APP_API_URL, {
+  reconnection: true,
+});
 
 const NavBar = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const toggler = document.getElementById('theme-toggle');
-    const managBody = document.querySelector('.manag-body');
-
-    toggler.addEventListener('change', function () {
-      if (this.checked) {
-        managBody.classList.add('dark');
-      } else {
-        managBody.classList.remove('dark');
-      }
+    // Listen for new order notifications
+    socket.on('reciveorder', (notification) => {
+      console.log("socket Notification received:", notification);
+      setNotifications(prevNotifications => [...prevNotifications, notification]);
     });
-
-    return () => {
-      toggler.removeEventListener('change', () => {});
-    };
   }, []);
+
+  const handleNotificationClick = (index) => {
+    // Remove notification at the specified index
+    const updatedNotifications = [...notifications];
+    updatedNotifications.splice(index, 1);
+    setNotifications(updatedNotifications);
+  };
+
   return (
     <detacontext.Consumer>
-      {
-        ({ employeeLoginInfo, employeelogout }) => {
-          return (
-            <nav>
-              {/* <i class='bx bx-menu'></i> */}
-              {/* <form action="#">
-                <div class="form-input">
-                  <input type="search" placeholder="Search..."/>
-                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
-                </div>
-              </form> */}
-              <input type="checkbox" id="theme-toggle" hidden/>
-                <label for="theme-toggle" class="theme-toggle"></label>
-                <a href="#" class="notif">
-                  <i class='bx bx-bell'></i>
-                  <span class="count">12</span>
-                </a>
-                <a href="#" class="profile">
-                  <img src="images/logo.png"/>
-                </a>
-            </nav>
-            // <header className='manag-header'>
-            //   <div className='container'>
-            //     <nav className='manag-nav'>
-            //       <div className="profile">
-            //         <div className="info">
-            //           <p>اهلا, <b>{employeeLoginInfo && employeeLoginInfo.employeeinfo ? employeeLoginInfo.employeeinfo.username :''}</b></p>
-            //         </div>
-            //         <div className="logout-btn">
-            //           <a href='/login' onClick={employeelogout}>خروج</a>
-            //         </div>
-            //       </div>
-
-            //     </nav>
-            //   </div>
-            // </header>
-          )
-        }
-      }
+      {({ employeeLoginInfo, employeelogout }) => (
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <input type="checkbox" id="theme-toggle" hidden />
+          <label htmlFor="theme-toggle" className="theme-toggle"></label>
+          <div className="dropdown">
+            <a href="#" className="dropdown-toggle"
+              id="dropdownMenuButton"
+              onClick={() => setShowNotifications(!showNotifications)}
+              aria-haspopup="true"
+              aria-expanded={showNotifications ? "true" : "false"}>
+              <i className="bx bx-bell" style={{ color: "--light" }}></i>
+              <span className="badge badge-pill badge-danger">{notifications.length}</span>
+            </a>
+            {showNotifications &&
+              <div className="dropdown-menu dropdown-menu-right show" aria-labelledby="dropdownMenuButton">
+                {notifications.map((notification, index) => (
+                  <a key={index} className="dropdown-item" href="#" onClick={() => handleNotificationClick(index)}>
+                    {notification}
+                  </a>
+                ))}
+              </div>
+            }
+          </div>
+        </nav>
+      )}
     </detacontext.Consumer>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
+
+
