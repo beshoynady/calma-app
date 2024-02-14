@@ -460,113 +460,6 @@ function App() {
   };
 
 
-
-
-
-  // const createDeliveryOrderByClient = async (userId) => {
-  //   try {
-  //     const token = localStorage.getItem('token_u');
-
-  //     const userorder = allOrders.filter((o, i) => o.user == userId);
-  //     const lastuserorder = userorder.length > 0 ? userorder[userorder.length - 1] : [];
-  //     const lastuserorderactive = lastuserorder.isActive;
-
-  //     if (lastuserorderactive == true) {
-  //       const id = await lastuserorder._id;
-  //       const oldproducts = await allOrders.find((order) => order._id == id).products;
-  //       const oldsubTotal = await allOrders.find((order) => order._id == id).subTotal;
-  //       const subTotal = costOrder + oldsubTotal;
-  //       // const tax = subTotal * 0.10;
-  //       const deliveryCost = 10;
-  //       // const total = subTotal + tax + deliveryCost;
-  //       const total = subTotal + deliveryCost;
-
-  //       if (lastuserorder.status == 'Preparing') {
-  //         const additem = itemsInCart.map((item) => ({ ...item, isAdd: true }));
-  //         const products = [...additem, ...oldproducts];
-  //         const status = 'Pending';
-  //         const order_type = 'Delivery';
-  //         const neworder = await axios.put(apiUrl + '/api/order/' + id, {
-  //           products, subTotal, total, deliveryCost, status, order_type
-  //         }, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`
-  //           }
-  //         });
-
-  //         setitemsInCart([]);
-  //         setitemId([])
-  //         getAllProducts();
-  //         toast.success("Items added to the current order!");
-  //       } else {
-  //         const products = [...itemsInCart, ...oldproducts];
-  //         const status = 'Pending';
-  //         const order_type = 'Delivery';
-  //         const neworder = await axios.put(apiUrl + '/api/order/' + id, {
-  //           products, subTotal, total, deliveryCost, status, order_type
-  //         }, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`
-  //           }
-  //         });
-
-  //         setitemsInCart([]);
-  //         getAllProducts();
-  //       }
-
-  //       setitemsInCart([]);
-  //       getAllProducts();
-  //       toast.success("Order updated successfully!");
-  //     } else {
-  //       try {
-  //         console.log([...itemsInCart])
-  //         const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
-  //         const finduser = allUsers.find((u, i) => u._id == userId);
-  //         const user = finduser ? userId : null;
-  //         const products = [...itemsInCart];
-  //         const subTotal = costOrder;
-  //         // const tax = subTotal * 0.14;
-  //         const name = finduser ? finduser.username : '';
-  //         const phone = finduser ? finduser.phone : '';
-  //         const address = finduser ? finduser.address : '';
-  //         const order_type = 'Delivery';
-  //         const deliveryCost = 10;
-  //         // const total = subTotal + tax + deliveryCost;
-  //         const total = subTotal + deliveryCost;
-  //         const neworder = await axios.post(apiUrl + '/api/order', {
-  //           serial,
-  //           products,
-  //           subTotal,
-  //           // tax,
-  //           deliveryCost,
-  //           total,
-  //           user,
-  //           name,
-  //           address,
-  //           phone,
-  //           order_type,
-  //         }, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`
-  //           }
-  //         });
-  //         setitemsInCart([]);
-  //         setitemId([])
-  //         getAllProducts();
-  //         toast.success("New order created successfully!");
-  //       } catch (error) {
-  //         console.log(error);
-  //         toast.error("An error occurred while creating the order");
-  //       }
-  //     }
-  //     socket.emit("sendorder", "socket new order created")
-  //     setitemsInCart([]);
-  //     setitemId([])
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("An error occurred while processing the order");
-  //   }
-  // };
   const createDeliveryOrderByClient = async (userId) => {
     try {
       const token = localStorage.getItem('token_u');
@@ -760,13 +653,13 @@ function App() {
 
 
 
-  const [myorder, setmyorder] = useState({})
-  const [list_products_order, setlist_products_order] = useState([])
-  const [orderupdate_date, setorderupdate_date] = useState('')
-  const [myorderid, setmyorderid] = useState()
+  const [myOrder, setmyOrder] = useState({})
+  const [listProductsOrder, setlistProductsOrder] = useState([])
+  const [orderUpdateDate, setorderUpdateDate] = useState('')
+  const [myOrderId, setmyOrderId] = useState()
   const [ordertax, setordertax] = useState()
-  const [ordertotal, setordertotal] = useState()
-  const [ordersubtotal, setordersubtotal] = useState()
+  const [orderTotal, setorderTotal] = useState()
+  const [orderSubtotal, setorderSubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
   const [orderdiscount, setorderdiscount] = useState(0)
   const [orderaddition, setorderaddition] = useState(0)
@@ -793,12 +686,12 @@ function App() {
           const data = myOrder.data;
           console.log(data);
           console.log(data._id);
-          setMyOrder(data);
-          setMyOrderId(data._id);
-          setListProductsOrder(data.products);
-          setOrderUpdateDate(data.updatedAt);
-          setOrderTotal(data.total);
-          setOrderSubtotal(data.subTotal);
+          setmyOrder(data);
+          setmyOrderId(data._id);
+          setlistProductsOrder(data.products);
+          setorderUpdateDate(data.updatedAt);
+          setorderTotal(data.total);
+          setorderSubtotal(data.subTotal);
           // setOrderTax(data.tax);
           setitemsInCart([]);
         } else if (lastUserOrderActive) {
@@ -806,12 +699,12 @@ function App() {
           const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
           const data = myOrder.data;
           console.log(data);
-          setMyOrder(data);
-          setMyOrderId(data._id);
-          setListProductsOrder(data.products);
-          setOrderUpdateDate(data.updatedAt);
-          setOrderTotal(data.total);
-          setOrderSubtotal(data.subTotal);
+          setmyOrder(data);
+          setmyOrderId(data._id);
+          setlistProductsOrder(data.products);
+          setorderUpdateDate(data.updatedAt);
+          setorderTotal(data.total);
+          setorderSubtotal(data.subTotal);
           // setOrderTax(data.tax);
           setOrderDeliveryCost(data.deliveryCost);
           setitemsInCart([]);
@@ -828,7 +721,7 @@ function App() {
 
   const checkout = async () => {
     try {
-      const id = myorderid;
+      const id = myOrderId;
       const isActive = false;
       const help = 'Requesting the bill';
 
@@ -966,7 +859,7 @@ function App() {
       });
 
       if (newOrder && newOrder.data._id) {
-        setPosOrderId(newOrder.data._id);
+        setposOrderId(newOrder.data._id);
         toast.success('تم إنشاء الطلب بنجاح');
         setitemsInCart([]);
         setitemId([]);
@@ -993,18 +886,18 @@ function App() {
       console.log({ lasttableorderactive });
       if (lasttableorderactive) {
         const id = await lasttableorder._id;
-        const myorder = await axios.get(apiUrl + '/api/order/' + id);
-        const data = myorder.data;
+        const myOrder = await axios.get(apiUrl + '/api/order/' + id);
+        const data = myOrder.data;
         console.log(data);
         console.log(data._id);
-        console.log({ list_products_order: data.products });
-        setmyorder(data);
-        setmyorderid(data._id);
-        setordertotal(data.total);
+        console.log({ listProductsOrder: data.products });
+        setmyOrder(data);
+        setmyOrderId(data._id);
+        setorderTotal(data.total);
         setorderaddition(data.addition);
         setorderdiscount(data.discount);
-        setordersubtotal(data.subTotal);
-        setlist_products_order(data.products);
+        setorderSubtotal(data.subTotal);
+        setlistProductsOrder(data.products);
         setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
       }
     } catch (error) {
@@ -1017,12 +910,12 @@ function App() {
   const putNumOfPaid = (id, numOfPaid) => {
     try {
       // console.log({ numOfPaid });
-      // console.log({ list_products: list_products_order });
+      // console.log({ list_products: listProductsOrder });
       // console.log({ newlistofproductorder });
 
       newlistofproductorder.map((product) => {
         if (product.productid === id) {
-          const oldProduct = list_products_order.find(pro => pro.productid === id);
+          const oldProduct = listProductsOrder.find(pro => pro.productid === id);
           // console.log({ oldProduct });
           // console.log({ old_numOfPaid: oldProduct.numOfPaid });
           product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
@@ -1049,7 +942,7 @@ function App() {
       // Iterate over each product in the split order list
       newlistofproductorder.map((product) => {
         // Find the corresponding product in the original order list
-        const oldProduct = list_products_order.find(pro => pro.productid === product.productid);
+        const oldProduct = listProductsOrder.find(pro => pro.productid === product.productid);
 
         // Calculate subtotal only if the number of paid items has changed
         if (oldProduct.numOfPaid !== product.numOfPaid) {
@@ -1071,7 +964,7 @@ function App() {
       console.error(error);
 
       // Display an error toast message
-      toast.error('An error occurred while calculating the subtotal for split order.');
+      toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
 
@@ -1082,7 +975,7 @@ function App() {
       e.preventDefault();
 
       // Send a PUT request to update the order with split details
-      const updateOrder = await axios.put(`${apiUrl}/api/order/${myorderid}`, {
+      const updateOrder = await axios.put(`${apiUrl}/api/order/${myOrderId}`, {
         products: newlistofproductorder,
         isSplit: true,
         subtotalSplitOrder
@@ -1124,14 +1017,14 @@ function App() {
         const orderData = response.data;
 
         // Update states with order details
-        setmyorder(orderData);
-        setmyorderid(orderData._id);
-        setlist_products_order(orderData.products);
-        setorderupdate_date(orderData.updatedAt);
-        setordertotal(orderData.total);
+        setmyOrder(orderData);
+        setmyOrderId(orderData._id);
+        setlistProductsOrder(orderData.products);
+        setorderUpdateDate(orderData.updatedAt);
+        setorderTotal(orderData.total);
         setorderaddition(orderData.addition);
         setorderdiscount(orderData.discount);
-        setordersubtotal(orderData.subTotal);
+        setorderSubtotal(orderData.subTotal);
         setorderdeliveryCost(orderData.deliveryCost);
         setitemsInCart([]);
       }
@@ -1148,8 +1041,8 @@ function App() {
 
 
   const updatecountofsales = async (id) => {
-    const myorder = await axios.get(apiUrl + '/api/order/' + id,)
-    const data = myorder.data
+    const myOrder = await axios.get(apiUrl + '/api/order/' + id,)
+    const data = myOrder.data
     for (var i = 0; i < data.products.length; i++) {
       const productid = await data.products[i]._id
       const productquantity = await data.products[i].quantity
@@ -1560,7 +1453,7 @@ function App() {
       setproductNote, addNoteToProduct,
 
       // Functions related to order processing and calculations
-      invoice, list_products_order, orderupdate_date, myorder,
+      invoice, listProductsOrder, orderUpdateDate, myOrder,
       categoryid, itemsInCart, costOrder,
       addItemToCart, setitemsInCart, incrementProductQuantity, decrementProductQuantity,
       getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
@@ -1574,7 +1467,7 @@ function App() {
 
       // Other utility functions or state variables
       itemId, setitemId, showDate,
-      ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
+      orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
 
       OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate,

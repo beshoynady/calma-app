@@ -261,15 +261,15 @@ const ManagerDash = () => {
     }
   };
 
-  const [list_products_order, setlist_products_order] = useState([])
+  const [listProductsOrder, setlistProductsOrder] = useState([])
   const [serial, setserial] = useState('')
   const [ordertype, setordertype] = useState('')
   const [name, setname] = useState('')
   const [address, setaddress] = useState('')
   const [phone, setphone] = useState('')
   const [ordertax, setordertax] = useState()
-  const [ordertotal, setordertotal] = useState()
-  const [ordersubtotal, setordersubtotal] = useState()
+  const [orderTotal, setorderTotal] = useState()
+  const [orderSubtotal, setorderSubtotal] = useState()
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
   const [deliveryMan, setdeliveryMan] = useState()
@@ -286,10 +286,10 @@ const ManagerDash = () => {
     try {
       const res = await axios.get(apiUrl + '/api/order');
       const order = res.data.find(o => o.serial == serial)
-      setlist_products_order(order.products)
-      setordertotal(order.total)
+      setlistProductsOrder(order.products)
+      setorderTotal(order.total)
       setsubtotalSplitOrder(order.subtotalSplitOrder)
-      setordersubtotal(order.subTotal)
+      setorderSubtotal(order.subTotal)
       setordertax(order.tax)
       setorderdeliveryCost(order.deliveryCost)
       setserial(order.serial)
@@ -829,7 +829,7 @@ const ManagerDash = () => {
                                 </thead>
                                 <tbody>
                                   {/* Replace this with your dynamic data */}
-                                  {list_products_order.map((item, i) => (
+                                  {listProductsOrder.map((item, i) => (
                                     <tr key={i}>
                                       <td className="col-md-3 text-truncate">{item.name}</td>
                                       <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -841,7 +841,7 @@ const ManagerDash = () => {
                                 <tfoot>
                                   <tr>
                                     <td colSpan="3">المجموع</td>
-                                    <td>{ordersubtotal}</td>
+                                    <td>{orderSubtotal}</td>
                                   </tr>
                                   {orderdeliveryCost > 0 && (
                                     <tr>
@@ -864,7 +864,7 @@ const ManagerDash = () => {
                                   }
                                   <tr>
                                     <td colSpan="3">الاجمالي</td>
-                                    <td>{ordertotal}</td>
+                                    <td>{orderTotal}</td>
                                   </tr>
                                 </tfoot>
                               </table>
@@ -932,7 +932,7 @@ const ManagerDash = () => {
                                 </thead>
                                 <tbody>
                                   {/* Replace this with your dynamic data */}
-                                  {list_products_order.map((item, i) => (
+                                  {listProductsOrder.map((item, i) => (
                                     item.quantity - item.numOfPaid > 0 ?
                                       <tr key={i}>
                                         <td className="col-md-3 text-truncate">{item.name}</td>
@@ -945,7 +945,7 @@ const ManagerDash = () => {
                                 <tfoot>
                                   <tr>
                                     <td colSpan="3">المجموع</td>
-                                    <td>{ordersubtotal - subtotalSplitOrder}</td>
+                                    <td>{orderSubtotal - subtotalSplitOrder}</td>
                                   </tr>
                                   {orderdeliveryCost > 0 && (
                                     <tr>
@@ -968,7 +968,7 @@ const ManagerDash = () => {
                                   }
                                   <tr>
                                     <td colSpan="3">الاجمالي</td>
-                                    <td>{ordertotal - subtotalSplitOrder}</td>
+                                    <td>{orderTotal - subtotalSplitOrder}</td>
                                   </tr>
                                 </tfoot>
                               </table>

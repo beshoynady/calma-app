@@ -26,15 +26,15 @@ const Orders = () => {
       // Display toast or handle error
     }
   };
-  const [list_products_order, setlist_products_order] = useState([])
+  const [listProductsOrder, setlistProductsOrder] = useState([])
   const [serial, setserial] = useState('')
   const [ordertype, setordertype] = useState('')
   const [name, setname] = useState('')
   const [address, setaddress] = useState('')
   const [phone, setphone] = useState('')
   const [ordertax, setordertax] = useState()
-  const [ordertotal, setordertotal] = useState()
-  const [ordersubtotal, setordersubtotal] = useState()
+  const [orderTotal, setorderTotal] = useState()
+  const [orderSubtotal, setorderSubtotal] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
   const [deliveryMan, setdeliveryMan] = useState()
   const [ordernum, setordernum] = useState()
@@ -47,9 +47,9 @@ const Orders = () => {
     try {
       const res = await axios.get(apiUrl+'/api/order');
       const order = res.data.find(o => order.serial == serial)
-      setlist_products_order(order.products)
-      setordertotal(order.total)
-      setordersubtotal(order.subTotal)
+      setlistProductsOrder(order.products)
+      setorderTotal(order.total)
+      setorderSubtotal(order.subTotal)
       setordertax(order.tax)
       setorderdeliveryCost(order.deliveryCost)
       setserial(order.serial)
@@ -379,7 +379,7 @@ const Orders = () => {
                           </thead>
                           <tbody>
                             {/* Example rows, replace with dynamic data */}
-                            {list_products_order.map((item, i) => (
+                            {listProductsOrder.map((item, i) => (
                               <tr key={i}>
                                 <td className="text-truncate" style={{ maxWidth: '200px', fontSize: '18px' }}>{item.name}</td>
                                 <td className="text-nowrap" style={{ fontSize: '18px' }}>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -391,7 +391,7 @@ const Orders = () => {
                           <tfoot>
                             <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">المجموع</td>
-                              <td>{ordersubtotal}</td>
+                              <td>{orderSubtotal}</td>
                             </tr>
                             {orderdeliveryCost > 0 && (
                               <tr style={{ fontSize: '20px' }}>
@@ -405,7 +405,7 @@ const Orders = () => {
                             </tr>
                             <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">الاجمالي</td>
-                              <td>{ordertotal}</td>
+                              <td>{orderTotal}</td>
                             </tr>
                           </tfoot>
                         </table>

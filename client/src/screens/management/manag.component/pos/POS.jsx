@@ -54,7 +54,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderTOupdate, putNumOfPaid, splitInvoice, subtotalSplitOrder
         }) => {
           if (employeeLoginInfo) {
@@ -157,7 +157,7 @@ const POS = () => {
                               </thead>
                               <tbody>
                                 {/* Replace this with your dynamic data */}
-                                {list_products_order.map((item, i) => (
+                                {listProductsOrder.map((item, i) => (
                                   <tr key={i}>
                                     <td className="col-md-3 text-truncate">{item.name}</td>
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -174,7 +174,7 @@ const POS = () => {
                                 </tr>
                                 <tr>
                                   <td colSpan="4">الاجمالي</td>
-                                  <td>{ordertotal}</td>
+                                  <td>{orderTotal}</td>
                                 </tr>
                               </tfoot>
                             </table>
@@ -268,21 +268,21 @@ const POS = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>Restaurant Name</h2>
-                            <p>Casher {usertitle(myorder.casher)} |Invoice #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} |Date: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <p>Casher {usertitle(myOrder.casher)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |Date: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
-                          {myorder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                          {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>Customer Details</h4>
-                            <p>Name: {myorder.name}</p>
-                            <p>Mobile: {myorder.phone}</p>
-                            <p>Address: {myorder.address}</p>
-                            <p>Delivery Man: {usertitle(myorder.deliveryMan)}</p>
-                          </div> : myorder.ordertype == 'Takeaway' ?
+                            <p>Name: {myOrder.name}</p>
+                            <p>Mobile: {myOrder.phone}</p>
+                            <p>Address: {myOrder.address}</p>
+                            <p>Delivery Man: {usertitle(myOrder.deliveryMan)}</p>
+                          </div> : myOrder.ordertype == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>Customer Details</h4>
-                              <p>Name: {myorder.name}</p>
-                              <p>Mobile: {myorder.phone}</p>
-                              <p>order num: {myorder.ordernum}</p>
+                              <p>Name: {myOrder.name}</p>
+                              <p>Mobile: {myOrder.phone}</p>
+                              <p>order num: {myOrder.ordernum}</p>
                             </div>
                             : ''}
 
@@ -296,7 +296,7 @@ const POS = () => {
                           </thead>
                             <tbody>
                               {/* Replace this with your dynamic data */}
-                              {list_products_order.map((item, i) => (
+                              {listProductsOrder.map((item, i) => (
                                 <tr key={i}>
                                   <td className="col-md-3 text-truncate">{item.name}</td>
                                   <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -308,7 +308,7 @@ const POS = () => {
                             <tfoot>
                               <tr>
                                 <td colSpan="3">المجموع</td>
-                                <td>{ordersubtotal}</td>
+                                <td>{orderSubtotal}</td>
                               </tr>
                               {orderdeliveryCost > 0 ?
                                 <tr>
@@ -331,7 +331,7 @@ const POS = () => {
                               }
                               <tr>
                                 <td colSpan="3">الاجمالي</td>
-                                <td>{ordertotal}</td>
+                                <td>{orderTotal}</td>
                               </tr>
                             </tfoot>
                           </table>

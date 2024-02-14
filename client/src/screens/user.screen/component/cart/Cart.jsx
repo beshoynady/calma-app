@@ -36,15 +36,15 @@ const Cart = (props) => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  // const [list_products_order, setlist_products_order] = useState([])
+  // const [listProductsOrder, setlistProductsOrder] = useState([])
   // const [serial, setserial] = useState('')
   // const [ordertype, setordertype] = useState('')
   // const [name, setname] = useState('')
   // const [address, setaddress] = useState('')
   // const [phone, setphone] = useState('')
   // const [ordertax, setordertax] = useState()
-  // const [ordertotal, setordertotal] = useState()
-  // const [ordersubtotal, setordersubtotal] = useState()
+  // const [orderTotal, setorderTotal] = useState()
+  // const [orderSubtotal, setorderSubtotal] = useState()
   // const [orderdeliveryCost, setorderdeliveryCost] = useState()
   // const [deliveryMan, setdeliveryMan] = useState()
   // const [ordernum, setordernum] = useState()
@@ -60,9 +60,9 @@ const Cart = (props) => {
 
   //     const order = res.data.find(o => o.serial == serial)
 
-  //     setlist_products_order(order.products)
-  //     setordertotal(order.total)
-  //     setordersubtotal(order.subTotal)
+  //     setlistProductsOrder(order.products)
+  //     setorderTotal(order.total)
+  //     setorderSubtotal(order.subTotal)
   //     setordertax(order.tax)
   //     setorderdeliveryCost(order.deliveryCost)
   //     setserial(order.serial)
@@ -88,7 +88,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost
+        ({ userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -180,22 +180,22 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>CALMA CAFE</h2>
-                          <p>كاشير: {usertitle(myorder.casher)} |فاتوره #{myorder.serial} |{myorder.ordertype == 'Internal' ? `Table ${usertitle(myorder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {usertitle(myOrder.casher)} |فاتوره #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
-                        {myorder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                        {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                           <h4>بيانات العميل</h4>
-                          <p>الاسم: {myorder.name}</p>
-                          <p>الموبايل: {myorder.phone}</p>
-                          <p>العنوان: {myorder.address}</p>
-                          <p>الديليفري: {usertitle(myorder.deliveryMan)}</p>
-                        </div> : myorder.ordertype == 'Takeaway' ?
+                          <p>الاسم: {myOrder.name}</p>
+                          <p>الموبايل: {myOrder.phone}</p>
+                          <p>العنوان: {myOrder.address}</p>
+                          <p>الديليفري: {usertitle(myOrder.deliveryMan)}</p>
+                        </div> : myOrder.ordertype == 'Takeaway' ?
                           <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                             <h4>بيانات العميل</h4>
-                            <p>الاسم: {myorder.name}</p>
-                            <p>الموبايل: {myorder.phone}</p>
-                            <p>رقم الاوردر: {myorder.ordernum}</p>
+                            <p>الاسم: {myOrder.name}</p>
+                            <p>الموبايل: {myOrder.phone}</p>
+                            <p>رقم الاوردر: {myOrder.ordernum}</p>
                           </div>
                           : ''}
                         {/* Order Details Table */}
@@ -210,7 +210,7 @@ const Cart = (props) => {
                           </thead>
                           <tbody>
                             {/* Replace this with your dynamic data */}
-                            {list_products_order&&list_products_order.map((item, i) => (
+                            {listProductsOrder&&listProductsOrder.map((item, i) => (
                               <tr key={i}>
                                 <td className="col-md-3 text-truncate">{item.name}</td>
                                 <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -222,7 +222,7 @@ const Cart = (props) => {
                           <tfoot>
                             <tr>
                               <td colSpan="3">المجموع</td>
-                              <td>{ordersubtotal > 0 ? ordersubtotal : 0}</td>
+                              <td>{orderSubtotal > 0 ? orderSubtotal : 0}</td>
                             </tr>
                             {orderdeliveryCost > 0 && (
                               <tr>
@@ -232,7 +232,7 @@ const Cart = (props) => {
                             )}
                             <tr>
                               <td colSpan="3">الاجمالي</td>
-                              <td>{ordertotal > 0 ? ordertotal : 0}</td>
+                              <td>{orderTotal > 0 ? orderTotal : 0}</td>
                             </tr>
                           </tfoot>
                         </table>
@@ -258,7 +258,7 @@ const Cart = (props) => {
                         <button className='total-order-btn' onClick={handlePrint}>طباعه</button>
                         {/* <div className='total-order-details'>
                           <h2>الاجمالي</h2>
-                          <p>{ordertotal}</p>
+                          <p>{orderTotal}</p>
                         </div> */}
 
                       </div>
