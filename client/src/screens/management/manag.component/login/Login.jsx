@@ -11,13 +11,13 @@ const Login = () => {
     return (
         <detacontext.Consumer>
             {
-                ({ employeelogin }) => {
+                ({ adminLogin }) => {
                     return (
                         <div className="login-container">
                             <ToastContainer />
                             <div className="screen">
                                 <div className="screen__content">
-                                    <form className="login-dash" onSubmit={(e) => employeelogin(e, phone, password)} >
+                                    <form className="login-dash" onSubmit={(e) => adminLogin(e, phone, password)} >
                                         <div className="login__field">
                                             <i className="login__icon fas fa-user"></i>
                                             <input type="text" className="login__input" placeholder="Your Phone" onChange={(e) => setphone(e.target.value)} />

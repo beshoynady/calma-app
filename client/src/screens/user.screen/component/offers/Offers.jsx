@@ -23,7 +23,7 @@ export default function Offers() {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, itemid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, }) => {
+        ({ allProducts, itemId, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, }) => {
           return (
             <section id='offer' className='offers-section'>
               <div className='section-title'>
@@ -53,8 +53,8 @@ export default function Offers() {
                         <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" />
                         {product._id == productid & noteArea == true ?
                           <div className='offers-note'>
-                            <form onSubmit={(e) => { addnotrstoproduct(e, product._id); setnoteArea(!noteArea) }}>
-                              <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق ' name="note" cols="100" rows="3" onChange={(e) => { setproductnote(e.target.value) }}></textarea>
+                            <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
+                              <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق ' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
                               <div className='note-btn'>
                                 <button>تاكيد</button>
                                 <button onClick={() => setnoteArea(!noteArea)}>الغاء</button>
@@ -73,16 +73,16 @@ export default function Offers() {
                           </div>
                           <div className="offer-price">
                             <div className="p-counter">
-                              <button className='counter-symb' onClick={() => descrement(product._id)}>-</button>
+                              <button className='counter-symb' onClick={() => decrementProductQuantity(product._id)}>-</button>
                               <div className='counter-num'>{product.quantity}</div>
-                              <button className='counter-symb' onClick={() => increment(product._id)}>+</button>
+                              <button className='counter-symb' onClick={() => incrementProductQuantity(product._id)}>+</button>
                             </div>
                             <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                           </div>
                           <div className='offer-card-btn'>
-                            {itemid.filter((i)=>i == product._id).length>0 && product.quantity>0?
-                              <button className='delcart' onClick={() => { deleteitems(product._id) }}>احذف من الطلبات</button>
-                              : <button className='addtocart' onClick={() => { if (product.quantity > 0) { additemtocart(product._id, product.quantity)} }}>اضف الي طلباتي</button>}
+                            {itemId.filter((i)=>i == product._id).length>0 && product.quantity>0?
+                              <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
+                              : <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, product.quantity)} }}>اضف الي طلباتي</button>}
                           </div>
                         </div>
                       </div>

@@ -40,7 +40,7 @@ const TablesPage = () => {
 
   const [listoftable, setlistoftable] = useState([]);
 
-  const getallTable = async () => {
+  const getAllTable = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/table');
       const tables = response.data;
@@ -54,7 +54,7 @@ const TablesPage = () => {
 
 
   useEffect(() => {
-    getallTable()
+    getAllTable()
     getOrdersFromAPI()
   }, [])
 

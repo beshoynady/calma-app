@@ -18,13 +18,13 @@ const Offers = () => {
   const [offerproducts, setofferproducts] = useState(products)
   const [count, setcount] = useState(0)
 
-  const increment =(id) =>{ 
+  const incrementProductQuantity =(id) =>{ 
     setcount(count + 1)
     offerproducts[id].count = offerproducts[id].count + 1;
     // setofferproducts(offerproducts[id].count + 1)
   };
 
-  const descrement =(id) =>{
+  const decrementProductQuantity =(id) =>{
     setcount(count -1)
     offerproducts[id].count = offerproducts[id].count - 1;
     // setofferproducts(offerproducts[id].count -1)
@@ -69,9 +69,9 @@ const Offers = () => {
                   <div className="price">
                     <p>السعر{product.price}</p>
                     <div className="count">
-                      <button className='symb' onClick={()=>descrement(index)}>-</button>
+                      <button className='symb' onClick={()=>decrementProductQuantity(index)}>-</button>
                       <span className='num'>{product.count<1?0:product.count}</span>
-                      <button className='symb' onClick={()=>increment(index)}>+</button>
+                      <button className='symb' onClick={()=>incrementProductQuantity(index)}>+</button>
                     </div>
                   </div>
                     <div className='add_cart'>

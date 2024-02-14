@@ -142,7 +142,7 @@ const loginEmployee = async (req, res) => {
 
 
 
-const getallEmployees = async (req, res) => {
+const getAllemployees = async (req, res) => {
     try {
         const allemployees = await Employeemodel.find({});
         res.status(200).json(allemployees);
@@ -329,4 +329,4 @@ const paidPayrollForMonth = async (req, res) => {
 
 
 
-module.exports = { createEmployee, getoneEmployee, loginEmployee, updateOrAddPayrollForMonth, paidPayrollForMonth, getallEmployees, updateEmployee, deleteEmployee };
+module.exports = { createEmployee, getoneEmployee, loginEmployee, updateOrAddPayrollForMonth, paidPayrollForMonth, getAllemployees, updateEmployee, deleteEmployee };

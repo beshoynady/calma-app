@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <detacontext.Consumer>
-      {({ userLoginInfo, logout, ItemsInCart }) => (
+      {({ userLoginInfo, logout, itemsInCart }) => (
         <header className={`header-client ${isScroll ? 'scroll' : ''}`}>
           <div className="container-lg">
             <div className='logo'>
@@ -70,7 +70,7 @@ const Header = () => {
               )}
               <div className='cart-icon' onClick={() => setopencart(!opencart)}>
                 <span className="material-symbols-rounded shopping_cart">shopping_cart</span>
-                <span className='cartcounter'>{ItemsInCart.length}</span>
+                <span className='cartcounter'>{itemsInCart.length}</span>
               </div>
               <LoginRegistr openlogin={openlogin} />
               <Cart opencart={opencart} />

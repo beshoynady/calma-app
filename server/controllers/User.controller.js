@@ -66,7 +66,7 @@ const getoneuser = async (req, res) => {
 };
 
 // Function to retrieve all users
-const getallUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
         const allUsers = await Usermodel.find({});
         res.status(200).json(allUsers);
@@ -169,4 +169,4 @@ const deleteuser = async (req, res) => {
     }
 };
 
-module.exports = { createuser, getoneuser, getallUsers, updateuser, updateUserStatus, deleteuser };
+module.exports = { createuser, getoneuser, getAllUsers, updateuser, updateUserStatus, deleteuser };

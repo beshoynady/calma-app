@@ -39,31 +39,43 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    try {
+  try {
       const { phone, password } = req.body;
-  
+
+      // Validate input
+      if (!phone || !password) {
+          return res.status(400).json({ success: false, error: 'Phone number and password are required' });
+      }
+
+      // Find user by phone number
       const findUser = await Usermodel.findOne({ phone });
       if (!findUser) {
-        return res.status(404).json({ message: 'Phone number is not registered' });
+          return res.status(404).json({ success: false, error: 'Phone number is not registered' });
       }
-  
+
+      // Check if user is active
       if (!findUser.isActive) {
-        return res.status(401).json({ message: 'User is not active' });
+          return res.status(401).json({ success: false, error: 'User is not active' });
       }
-  
+
+      // Validate password
       const match = await bcrypt.compare(password, findUser.password);
       if (!match) {
-        return res.status(401).json({ message: 'Incorrect password' });
+          return res.status(401).json({ success: false, error: 'Incorrect password' });
       }
-  
+
+      // Generate access token
       const accessToken = generateAccessToken(findUser);
-  
-      res.status(200).json({ findUser, accessToken });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
-  
+
+      // Send successful response with user data and access token
+      res.status(200).json({ success: true, data: { findUser }, accessToken });
+  } catch (error) {
+      // Handle server errors
+      console.error('Login error:', error);
+      res.status(500).json({ success: false, error: 'Internal server error' });
+  }
+};
+
 
 const generateAccessToken = (user) => {
     return jwt.sign(

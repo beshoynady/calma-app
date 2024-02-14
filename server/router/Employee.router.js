@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { createEmployee, getoneEmployee, loginEmployee,updateOrAddPayrollForMonth,paidPayrollForMonth, getallEmployees, updateEmployee, deleteEmployee } = require('../controllers/Employee.controller.js');
+const { createEmployee, getoneEmployee, loginEmployee,updateOrAddPayrollForMonth,paidPayrollForMonth, getAllemployees, updateEmployee, deleteEmployee } = require('../controllers/Employee.controller.js');
 
-router.route('/').post(createEmployee).get(getallEmployees);
+router.route('/').post(createEmployee).get(getAllemployees);
 
 router.route('/:employeeId').get(getoneEmployee).put(updateEmployee).delete(deleteEmployee);
 

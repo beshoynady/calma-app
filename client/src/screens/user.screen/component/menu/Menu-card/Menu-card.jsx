@@ -10,15 +10,15 @@ const MenuCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, additemtocart, deleteitems, increment, descrement, setproductnote, addnotrstoproduct, itemid }) => {
+        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
             <div className="card-group">
               {allProducts.length > 0 ? allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
                 return (
                   <div className="menu-card" key={index}>
                     <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" />
-                    {product._id == productid & noteArea == true ? <form onSubmit={(e) => { addnotrstoproduct(e, product._id);; setnoteArea(!noteArea) }}>
-                      <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductnote(e.target.value) }}></textarea>
+                    {product._id == productid & noteArea == true ? <form onSubmit={(e) => { addNoteToProduct(e, product._id);; setnoteArea(!noteArea) }}>
+                      <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
                       <div className='note-btn'>
                         <button>تاكيد</button>
                         <button onClick={() => setnoteArea(!noteArea)}>الغاء</button>
@@ -35,9 +35,9 @@ const MenuCard = () => {
                       </div>
                       <div className="price">
                         <div className="counter">
-                          <button className='symb' onClick={() => descrement(product._id)}>-</button>
+                          <button className='symb' onClick={() => decrementProductQuantity(product._id)}>-</button>
                           <span className='num'>{product.quantity}</span>
-                          <button className='symb' onClick={() => increment(product._id)}>+</button>
+                          <button className='symb' onClick={() => incrementProductQuantity(product._id)}>+</button>
                         </div>
                         {product.discount > 0 ?
                           <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p> :
@@ -45,9 +45,9 @@ const MenuCard = () => {
                       </div>
                       {product.avaliable ?
                         <div className='card-btn'>
-                          {itemid.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
-                            <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteitems(product._id) }}>احذف من الطلبات</button>
-                            : <button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { additemtocart(product._id) } }}> اضف الي طلباتي</button>
+                          {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
+                            <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
+                            : <button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button>
                           }
                         </div>
                         : <div className='card-btn'>

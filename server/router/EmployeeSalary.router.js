@@ -18,7 +18,7 @@ module.exports = router;
 
 
 // route.post("/create", createEmployee);
-// route.get("/allEmployees", getallEmployees);
+// route.get("/allEmployees", getAllemployees);
 // route.get("/:Employeeid", getoneEmployee);
 // route.put("/update/:Employeeid", updateEmployee);
 // route.delete("/delete/:Employeeid", deleteEmployee);

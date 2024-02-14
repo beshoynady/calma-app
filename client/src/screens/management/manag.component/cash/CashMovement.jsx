@@ -289,7 +289,7 @@ const CashMovement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, showdate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle, showDate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <ToastContainer />
@@ -501,7 +501,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" value={showdate()} readOnly />
+                          <input type="text" className="form-control" value={showDate()} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -535,7 +535,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" Value={showdate} readOnly />
+                          <input type="text" className="form-control" Value={showDate} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -578,7 +578,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" Value={showdate} readOnly />
+                          <input type="text" className="form-control" Value={showDate} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">

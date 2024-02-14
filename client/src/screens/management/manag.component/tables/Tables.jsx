@@ -30,7 +30,7 @@ const Tables = () => {
   const [listoftable, setlistoftable] = useState([]);
   const [listoftabledescription, setlistoftabledescription] = useState([]);
 
-  const getallTable = async () => {
+  const getAllTable = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/table');
       const tables = response.data;
@@ -59,7 +59,7 @@ const Tables = () => {
     try {
       const response = await axios.post(apiUrl + '/api/table/', { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
       console.log(response.data);
-      getallTable();
+      getAllTable();
     } catch (error) {
       console.log(error)
     }
@@ -73,7 +73,7 @@ const Tables = () => {
     try {
       const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
       console.log(response.data);
-      getallTable();
+      getAllTable();
     } catch (error) {
       console.log(error)
     }
@@ -88,7 +88,7 @@ const Tables = () => {
       const response = await axios.delete(`${apiUrl}/api/table/${tableid}`);
       console.log(response.data);
       settableid(null);
-      getallTable();
+      getAllTable();
     } catch (error) {
       console.log(error)
     }
@@ -131,7 +131,7 @@ const Tables = () => {
       for (const Id of selectedIds) {
         await axios.delete(`${apiUrl}/api/order/${Id}`);
       }
-      getallTable()
+      getAllTable()
       toast.success('Selected orders deleted successfully');
       setSelectedIds([]);
     } catch (error) {
@@ -142,7 +142,7 @@ const Tables = () => {
 
 
   useEffect(() => {
-    getallTable()
+    getAllTable()
   }, [])
 
   return (

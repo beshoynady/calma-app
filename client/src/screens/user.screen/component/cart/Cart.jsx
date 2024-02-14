@@ -88,8 +88,8 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ userLoginInfo, usertitle, ItemsInCart, costOrder, deleteitems, invoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost
-          , createClientOrderForUser, createClientOrderForTable, checkout }) => {
+        ({ userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myorder, list_products_order, ordertotal, ordersubtotal, ordertax, orderdeliveryCost
+          , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="cart-wrapper">
@@ -130,7 +130,7 @@ const Cart = (props) => {
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
                       <div className='side-content'>
-                        {ItemsInCart.length>0?ItemsInCart.map((i, index) => {
+                        {itemsInCart.length>0?itemsInCart.map((i, index) => {
                           return (
                             i.quantity > 0 ?
                               <div className="cart-item" key={index}>
@@ -140,7 +140,7 @@ const Cart = (props) => {
                                 <div className='cart-det'>
                                   <div className="item-head">
                                     <p>{i.name}</p>
-                                    <button onClick={() => deleteitems(i._id)}>حذف</button>
+                                    <button onClick={() => deleteItemFromCart(i._id)}>حذف</button>
                                   </div>
                                   <div className="del-cost">
                                     <div className='cart-price'>
@@ -160,12 +160,12 @@ const Cart = (props) => {
                       </div>
                       <div className="total-order">
 
-                        {ItemsInCart.length > 0 && (
+                        {itemsInCart.length > 0 && (
                           <div className="total-order">
                             {id ? (
-                              <button className='total-order-btn' onClick={() => createClientOrderForTable(id)}>تأكيد الطلب</button>
+                              <button className='total-order-btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createClientOrderForUser(userLoginInfo.userinfo.id)}>تأكيد الطلب</button>
+                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
