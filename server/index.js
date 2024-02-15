@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-import { rateLimit } from 'express-rate-limit';
+const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');

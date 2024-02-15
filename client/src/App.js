@@ -311,7 +311,7 @@ function App() {
       if (findProduct.quantity < 1) {
         findProduct.quantity = 0;
         findProduct.notes = '';
-        deleteItems(productId);
+        deleteItemFromCart(productId);
       } else {
         findProduct.quantity -= 1;
       }
@@ -527,7 +527,8 @@ function App() {
       } else {
         // Create a new order
         const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
-        const user = userId;
+        const findUser = allUsers.find((u, i) => u._id == userId);
+        const user = findUser ? userId : null;
         const products = [...itemsInCart];
         const subTotal = costOrder;
         const deliveryCost = 10;
@@ -660,7 +661,7 @@ function App() {
   const [ordertax, setordertax] = useState()
   const [orderTotal, setorderTotal] = useState()
   const [orderSubtotal, setorderSubtotal] = useState()
-  const [orderdeliveryCost, setorderdeliveryCost] = useState()
+  const [orderDeliveryCost, setorderDeliveryCost] = useState()
   const [orderdiscount, setorderdiscount] = useState(0)
   const [orderaddition, setorderaddition] = useState(0)
   const [discount, setdiscount] = useState(0)
@@ -706,7 +707,7 @@ function App() {
           setorderTotal(data.total);
           setorderSubtotal(data.subTotal);
           // setOrderTax(data.tax);
-          setOrderDeliveryCost(data.deliveryCost);
+          setorderDeliveryCost(data.deliveryCost);
           setitemsInCart([]);
         }
       } catch (error) {
@@ -1025,7 +1026,7 @@ function App() {
         setorderaddition(orderData.addition);
         setorderdiscount(orderData.discount);
         setorderSubtotal(orderData.subTotal);
-        setorderdeliveryCost(orderData.deliveryCost);
+        setorderDeliveryCost(orderData.deliveryCost);
         setitemsInCart([]);
       }
     } catch (error) {
@@ -1343,10 +1344,10 @@ function App() {
 
 
   //######### get order ditalis by serial 
-  const [OrderDetalisBySerial, setOrderDetalisBySerial] = useState({})
+  const [orderDetalisBySerial, setorderDetalisBySerial] = useState({})
   const [productOrderToUpdate, setproductOrderToUpdate] = useState([])
   // Fetch orders from API
-  const getOrderDetailsBySerial = async (e, serial) => {
+  const getorderDetailsBySerial = async (e, serial) => {
     e.preventDefault();
     try {
       // Fetch all orders
@@ -1359,10 +1360,10 @@ function App() {
       const order = activeOrders.find(o => o.serial === serial);
 
       // Set order details and update states
-      setOrderDetailsBySerial(order);
-      setProductOrderToUpdate(order.products);
-      setAddition(order.addition);
-      setDiscount(order.discount);
+      setorderDetalisBySerial(order);
+      setproductOrderToUpdate(order.products);
+      setaddition(order.addition);
+      setdiscount(order.discount);
     } catch (error) {
       // Handle error
       console.error('Error fetching order details:', error);
@@ -1373,7 +1374,7 @@ function App() {
 
 
   const updateOrder = async () => {
-    const id = OrderDetalisBySerial._id
+    const id = orderDetalisBySerial._id
     console.log({ id })
     console.log({ discount })
     console.log({ addition })
@@ -1392,7 +1393,7 @@ function App() {
         total,
       })
       if (updatedOrder) {
-        setOrderDetalisBySerial({})
+        setorderDetalisBySerial({})
         setproductOrderToUpdate([])
         setaddition(0)
         setdiscount(0)
@@ -1463,10 +1464,10 @@ function App() {
 
       // Other utility functions or state variables
       itemId, setitemId, showDate,
-      orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setorderdeliveryCost,
+      orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
 
-      OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate,
+      orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder
 
     }}>
