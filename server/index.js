@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+import { rateLimit } from 'express-rate-limit';
 const dotenv = require('dotenv');
 const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');
@@ -41,7 +42,9 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 
 // Set up middleware
-app.use(express.json());
+app.use(express.json({
+  limit:"100kb"
+}));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
@@ -58,6 +61,16 @@ app.use('/images', express.static("images"));
 app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+})
+
+// Apply the rate limiting middleware to all requests.
+app.use("/api",limiter)
 
 // Route requests to appropriate routers
 app.use('/api/product', routeproduct)
