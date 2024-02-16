@@ -27,8 +27,9 @@ const routestockmanag = require('./router/StockMang.router.js');
 const routekitchenconsumption = require('./router/kitchenConsumption.router.js');
 const routeexpense = require('./router/Expense.router.js');
 const routedailyexpense = require('./router/DailyExpense.router.js');
-const routecashRegister = require('./router/CashRegister,router.js');
-const routecashMovement = require('./router/CashMovement,router.js');
+const routecashRegister = require('./router/CashRegister.router.js');
+const routecashMovement = require('./router/CashMovement.router.js');
+const routereservation = require('./router/RouteReservation.router.js');
 
 
 dotenv.config();
@@ -89,6 +90,7 @@ app.use('/api/expenses', routeexpense);
 app.use('/api/dailyexpense', routedailyexpense);
 app.use('/api/cashRegister', routecashRegister);
 app.use('/api/cashMovement', routecashMovement);
+app.use('/api/reservation', routereservation);
 
 
 
@@ -102,6 +104,7 @@ const io = socketIo(server, {
     allowedHeaders: ["content-type"]
   },
 });
+
 
 io.on('connect', (socket) => {
   console.log('New client connected');

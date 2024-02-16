@@ -2,38 +2,11 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// const ReservationSchema = new Schema(
-//     {
-//         tableNumber: {
-//             type: Number,
-//             required: true,
-//         },
-//         userId: {
-//             type: Schema.Types.ObjectId,
-//             ref: 'User',
-//             required: true,
-//         },
-//         customerName: {
-//             type: String,
-//             required: true,
-//         },
-//         customerPhone: {
-//             type: String,
-//             required: true,
-//         },
-//         dateTime: {
-//             type: Date,
-//             required: true,
-//         }
-//     },
-//     {
-//         timestamps: true,
-//     }
-// );
-
+// Define the schema for the Table model
 const TableSchema = new Schema(
     {
-        tablenum: {
+        // Table number
+        tableNumber: {
             type: Number,
             required: true,
             unique: true,
@@ -47,6 +20,7 @@ const TableSchema = new Schema(
                 message: '{VALUE} is not a valid table number'
             }
         },
+        // Description of the table
         description: {
             type: String,
             required: true,
@@ -54,6 +28,7 @@ const TableSchema = new Schema(
             minlength: 1,
             maxlength: 100,
         },
+        // Number of chairs at the table
         chairs: {
             type: Number,
             required: true,
@@ -67,23 +42,26 @@ const TableSchema = new Schema(
                 message: '{VALUE} is not a valid number of chairs'
             }
         },
+        // Whether the table is valid or not
         isValid: {
             type: Boolean,
             default: true,
             required: true
         },
-        // reservations: [ReservationSchema],
+        // Section number where the table is located
         sectionNumber: {
             type: Number,
             required: true,
             min: 1,
             max: 100,
         },
+        // Creation date of the table
         createdAt: {
             type: Date,
             default: Date.now,
             required: true,
         },
+        // Last update date of the table
         updatedAt: {
             type: Date,
             default: Date.now,
@@ -94,5 +72,8 @@ const TableSchema = new Schema(
     }
 );
 
+// Define the Table model
 const TableModel = mongoose.model('Table', TableSchema);
+
+// Export the Table model
 module.exports = TableModel;
