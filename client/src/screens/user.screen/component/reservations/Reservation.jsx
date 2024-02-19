@@ -29,7 +29,7 @@ const Reservation = () => {
                   <div className="col-md-6">
                     <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
                     <select className="form-control" id="tableNumber">
-                        <option>اختار رقم الطاوله</option>
+                        <option>اختار رقم الطاوله</option> 
                       {allTable.map((table,i) => (
                         <option key={i} value={table._id}>{table.tablenum}</option>
                       ))}
