@@ -1,4 +1,4 @@
-const ReservationModel = require('../models/Reservation.model');
+const ReservationModel = require('../models/ReservationTable.model');
 
 // Create a new reservation
 const createReservation = async (req, res) => {

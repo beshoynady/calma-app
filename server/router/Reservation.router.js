@@ -1,11 +1,11 @@
 const express = require("express");
-import {
+const {
     createReservation,
     getAllReservations,
     getReservationById,
     updateReservation,
     deleteReservation
-} from '../controllers/Reservation.controler';
+} = require('../controllers/Reservation.controler');
 
 const router = express.Router();
 
