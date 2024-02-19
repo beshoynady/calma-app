@@ -1409,6 +1409,124 @@ function App() {
   }
 
 
+  // ----------- reservation table------------//
+  //============================================
+  const [allReservations, setallReservations] = useState([])
+  const getAllReservations = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/reservation`);
+      if (response.data) {
+        setallReservations(response.data);
+      } else {
+        console.log("No data returned from the server");
+      }
+    } catch (error) {
+      console.error("Error fetching reservations:", error);
+    }
+  };
+
+
+  const createReservations = async(tableId, userId ,customerName,customerPhone ,createBy, reservationDate, startTime, endTime)=>{
+    try {
+      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
+
+      const filterReservationsByTime = filterReservationsByTable.find(reservation =>
+        (reservation.startTime <= startTime && reservation.endTime >= startTime) ||
+        (reservation.startTime <= endTime && reservation.endTime >= endTime) ||
+        (startTime <= reservation.startTime && endTime >= reservation.endTime)
+    );
+    if(filterReservationsByTime !== undefined ){
+      toast.error('هذه الطاوله محجوزه في هذا الوقت')
+      return
+    }
+      const response = await axios.post(`${apiUrl}/api/reservation`,{
+        tableId, reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null
+      })
+      if (response.status === 201){
+        getAllReservations()
+        toast.success("تم حجز الطاوله بنجاح")
+      }else{
+        toast.error("حدث خطأ اثناء عمليه الحجز ! حاول مره اخري")
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error("فشل عملية الحجز ! رجاء المحاولة مرة اخري")
+    }
+  }
+
+  const getReservationById = async(id) =>{
+    try {
+      if(!id){
+        toast.error("رجاء اختيار الحجز بشكل صحيح")
+        return
+      }
+
+      const reservation = await axios.get(`${apiUrl}/api/reservation/${id}`)
+      if (!reservation){
+        toast.error('هذا الحجز غير موجود')
+      }
+
+    } catch (error) {
+      toast.error(' حدث خطأ اثناء الوصول الي الحجز !حاول مرة اخري')
+    }
+  }
+
+  const updateReservation = async(id,tableId,numberOfGuests, reservationDate, startTime, endTime, status) => {
+    try {
+      if(!id){
+        toast.error("رجاء اختيار الحجز بشكل صحيح")
+        return
+      }
+
+      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
+
+      const filterReservationsByTime = filterReservationsByTable.filter(reservation =>
+        (reservation.startTime <= startTime && reservation.endTime >= startTime) ||
+        (reservation.startTime <= endTime && reservation.endTime >= endTime) ||
+        (startTime <= reservation.startTime && endTime >= reservation.endTime)
+    );
+
+    if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id){
+      const response = await axios.update(`${apiUrl}/api/reservation/${id}`,{
+        tableId,numberOfGuests, reservationDate, startTime, endTime, status 
+      })
+      if (response.status == 200){
+        getAllReservations()
+        toast.success('تم تعديل ميعاد الحجز بنجاح')
+      }else{
+        getAllReservations()
+        toast.error('حدث خطأ اثناء التعديل ! حاول مرة اخري')
+      }
+    } else {
+      toast.error('لا يمكن تغير الحجز في هذا الميعاد')
+    }
+      
+    } catch (error) {
+      toast.error('حدث خطأاثناء تعديل الحجز ! حاول مرة اخري')
+    }
+  }
+
+  const deleteReservation = async (id)=>{
+    try {
+      if(!id){
+        toast.error("رجاء اختيار الحجز بشكل صحيح")
+        return
+      }
+
+      const response = await axios.delete(`${apiUrl}/api/reservation/${id}`)
+      if( response.status === 200) {
+        getAllReservations()
+        toast.success("تم حذف الحجز بنجاح")
+      }else {
+        toast.error("حدث خطأ اثناء حذف الحجز !حاول مره اخري")
+      }
+
+    } catch (error) {
+      toast.error('حدث خطاء عملية الحذف !حاول مره اخري')
+    }
+  }
+
+
   useEffect(() => {
     getAllProducts()
     getAllCategories()
@@ -1416,6 +1534,7 @@ function App() {
     getAllTable();
     getAllUsers();
     getAllemployees()
+    getAllReservations()
   }, [])
 
 
@@ -1468,7 +1587,8 @@ function App() {
       createOrderForTableByClient, createDeliveryOrderByClient,
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
-      putNumOfPaid, splitInvoice, subtotalSplitOrder
+      putNumOfPaid, splitInvoice, subtotalSplitOrder,
+      createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation 
 
     }}>
       <BrowserRouter>

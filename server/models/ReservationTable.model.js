@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const ReservationSchema = new Schema(
     {
         // Table number for the reservation
-        tableNumber: {
+        tableId: {
             type: Schema.Types.ObjectId,
             ref: 'Table',
             required: true,
@@ -25,6 +25,14 @@ const ReservationSchema = new Schema(
         customerPhone: {
             type: String,
             required: true,
+        },
+        // Number of guests for the reservation
+        numberOfGuests: {
+            type: Number,
+            required: true,
+            default: 1,
+            min: 1,
+            max: 10, // Adjust as needed
         },
         // Date of the reservation
         reservationDate: {
