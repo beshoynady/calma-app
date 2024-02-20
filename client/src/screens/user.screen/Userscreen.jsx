@@ -1,7 +1,7 @@
 import React from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import './Userscreen.css'
-import Header from './component/header/Header'
+import Header from './component/header/Header.jsx'
 import Home from './component/home/Home.jsx';
 import Offers from './component/offers/Offers.jsx';
 import Menu from './component/menu/Menu.jsx';
