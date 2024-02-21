@@ -1,9 +1,10 @@
-import React from 'react';
-import './Contact.css';
-import whatsapp from '../../../../image/whatsapp.png';
-import facebook from '../../../../image/facebook.png';
+import React from 'react'
+import './Contact.css'
+import whatsapp from '../../../../image/whatsapp.png'
+import facebook from '../../../../image/facebook.png'
 
 const Contact = () => {
+
     return (
         <section className='contact' id='contact'>
             <div className="container">
@@ -13,9 +14,9 @@ const Contact = () => {
                 <div className='contact-content'>
                     <div className="right">
                         <p>صفحتنا علي الفيس بوك<br />
-                            <a href='https://www.facebook.com/calmacafeegy' target="_blank"  rel="noreferrer"> <img src={facebook} alt="Facebook Icon" /></a>
+                            <a href='https://www.facebook.com/calmacafeegy' target="_blank"  rel="noreferrer"> <img src={facebook} alt="facebook Icon" /></a>
                         </p>
-                        <p>واتساب
+                        <p> واتساب
                             <a href="https://api.whatsapp.com/send?phone=+201144001433" target="_blank"  rel="noreferrer"><img src={whatsapp} alt="WhatsApp Icon" /></a>
                         </p>
                         <p>موبايل
@@ -24,18 +25,19 @@ const Contact = () => {
                     </div>
                     <div className="left">
                         <h2>لارسال الشكاوي و الملاحظات</h2>
-                        <form action="your-backend-url" method="POST">
-                            <input placeholder='الاسم' type="text" name="name" required />
-                            <input placeholder='E-Mail' type="email" name="email" />
-                            <input placeholder='الموبايل' type="tel" name="phone" required />
-                            <textarea placeholder='رسالتك' maxLength={150} type="text" id='supject' name="message" required />
+                        <form action="">
+                            <input placeholder='الاسم' type="text" id='name' required />
+                            <input placeholder='E-Mail' type="email" id='email' />
+                            <input placeholder='الموبايل' type="tel" id='phone' required />
+                            <textarea placeholder='رسالتك' maxLength={150} type="text" id='supject' required />
                             <button type='Submit'>ارسال</button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </section>
-    );
+    )
 }
 
-export default Contact;
+export default Contact

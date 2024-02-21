@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import './Userscreen.css'
 import Header from './component/header/Header'
 import Home from './component/home/Home.jsx';
@@ -9,6 +9,8 @@ import Location from './component/location/Location.jsx';
 import Contact from './component/contact/Contact.jsx';
 import Reservation from './component/reservations/Reservation.jsx';
 import Footer from './component/footer/Footer.jsx';
+
+
 
 
 const Userscreen = () => {
@@ -21,12 +23,10 @@ const Userscreen = () => {
             <Menu />
             <Location />
             <Contact/>
-            {/* <Reservation/> */}
+            <Reservation/>
             <Footer />
         </div>
     )
 }
-
-
 
 export default Userscreen
