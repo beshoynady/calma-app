@@ -46,7 +46,7 @@ export default function Offers() {
                 className="mySwiper"
               >
                 
-                {allProducts.filter(pro => pro.discount > 0).map((product, index) => {
+                {allProducts.length>0 && allProducts.filter(pro => pro.discount > 0).map((product, index) => {
                   return (
                     <SwiperSlide>
                       <div className="offer-card" key={index}>
