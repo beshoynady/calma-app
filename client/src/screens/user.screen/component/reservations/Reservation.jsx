@@ -72,23 +72,23 @@ const Reservation = () => {
                       required
                       onChange={(e) => {
                         setStartTimeClicked(true);
-                        if(reservationDate){
-                          const selectedDate = reservationDate; 
+                        if (reservationDate) {
+                          const StartedDate = new Date(reservationDate);
                           const timeParts = e.target.value.split(':');
                           console.log({ timeParts })
-                          if (selectedDate) {
-                            selectedDate.setHours(parseInt(timeParts[0]));
-                            selectedDate.setMinutes(parseInt(timeParts[1]));
-                            console.log(selectedDate)
-                            setStartTime(selectedDate);
+                          if (StartedDate) {
+                            StartedDate.setHours(parseInt(timeParts[0]));
+                            StartedDate.setMinutes(parseInt(timeParts[1]));
+                            console.log(StartedDate)
+                            setStartTime(StartedDate);
                           }
-                        }else {
+                        } else {
                           e.target.value = ''
                         }
                       }}
                     />
-                     {startTimeClicked && !reservationDate && (
-                      <div style={{ color: 'red',fontSize:"18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                    {startTimeClicked && !reservationDate && (
+                      <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                     )}
                   </div>
                   <div className="col-md-3 mb-1">
@@ -100,24 +100,24 @@ const Reservation = () => {
                       required
                       onChange={(e) => {
                         setEndTimeClicked(true);
-                        if(reservationDate){
-                        const selectedDate = reservationDate; 
-                        const timeParts = e.target.value.split(':');
-                        console.log({ timeParts })
-                        if (selectedDate) {
-                          selectedDate.setHours(parseInt(timeParts[0]));
-                          selectedDate.setMinutes(parseInt(timeParts[1]));
-                          console.log(selectedDate)
-                          setEndTime(selectedDate);
+                        if (reservationDate) {
+                          const EndedDate = new Date(reservationDate);
+                          const timeParts = e.target.value.split(':');
+                          console.log({ timeParts })
+                          if (EndedDate) {
+                            EndedDate.setHours(parseInt(timeParts[0]));
+                            EndedDate.setMinutes(parseInt(timeParts[1]));
+                            console.log({EndedDate})
+                            setEndTime(EndedDate);
+                          }
+                        } else {
+                          e.target.value = ''
                         }
-                      }else {
-                        e.target.value = ''
-                      }
                       }}
                     />
-                     {endTimeClicked && !reservationDate && (
-                      <div style={{ color: 'red',fontSize:"18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                      )}
+                    {endTimeClicked && !reservationDate && (
+                      <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                    )}
                   </div>
                 </div>
                 <div className="mb-1">
