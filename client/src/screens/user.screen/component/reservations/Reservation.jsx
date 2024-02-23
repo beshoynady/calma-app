@@ -78,8 +78,8 @@ const Reservation = () => {
                           const timeParts = e.target.value.split(':');
                           console.log({ timeParts })
                           if (selectedDate) {
-                            reservationDate.setHours(parseInt(timeParts[0]));
-                            reservationDate.setMinutes(parseInt(timeParts[1]));
+                            selectedDate.setHours(parseInt(timeParts[0]));
+                            selectedDate.setMinutes(parseInt(timeParts[1]));
                           }
                           setStartTime(selectedDate);
                         }else {
@@ -105,8 +105,8 @@ const Reservation = () => {
                         const timeParts = e.target.value.split(':');
                         console.log({ timeParts })
                         if (selectedDate) {
-                          reservationDate.setHours(parseInt(timeParts[0]));
-                          reservationDate.setMinutes(parseInt(timeParts[1]));
+                          selectedDate.setHours(parseInt(timeParts[0]));
+                          selectedDate.setMinutes(parseInt(timeParts[1]));
                         }
                         setEndTime(selectedDate);
                       }else {
