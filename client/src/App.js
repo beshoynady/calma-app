@@ -1426,7 +1426,8 @@ function App() {
   };
 
 
-  const createReservations = async(tableId, userId ,customerName,customerPhone ,createBy, reservationDate, startTime, endTime)=>{
+  const createReservations = async(e, tableId, userId ,customerName,customerPhone ,createBy, reservationDate, startTime, endTime, reservationNote)=>{
+    e.preventDefault()
     try {
       const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
 
@@ -1440,7 +1441,7 @@ function App() {
       return
     }
       const response = await axios.post(`${apiUrl}/api/reservation`,{
-        tableId, reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null
+        tableId, reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null, reservationNote:reservationNote? reservationNote : "",
       })
       if (response.status === 201){
         getAllReservations()

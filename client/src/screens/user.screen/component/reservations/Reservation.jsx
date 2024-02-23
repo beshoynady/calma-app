@@ -2,9 +2,15 @@ import React from 'react';
 import { detacontext } from '../../../../App';
 
 const Reservation = () => {
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [tableId, setTableId] = useState('');
+  const [reservationDate, setReservationDate] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   return (
     <detacontext.Consumer>
-      {({ allTable }) => {
+      {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation }) => {
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
             <div className='section-title'>
@@ -16,19 +22,20 @@ const Reservation = () => {
               backgroundColor: 'rgba(0, 0, 0, 0.7)',
               paddingBottom: '50px',
             }}>
-              <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}>
+              <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
+              onSubmit={()=>createReservations(e, tableId, userId ,customerName,customerPhone ,createBy, reservationDate, startTime, endTime)}>
                 <div className="mb-1">
                   <label htmlFor="name" className="form-label">الاسم</label>
-                  <input type="text" className="form-control" id="name" />
+                  <input type="text" className="form-control" id="name" onChange={(e)=>setCustomerName(e.target.value)} />
                 </div>
                 <div className="row mb-1">
                   <div className="col-md-6">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                    <input type="tel" className="form-control" id="mobile" />
+                    <input type="tel" className="form-control" id="mobile" onChange={(e)=>setCustomerPhone(e.target.value)} />
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                    <select className="form-control" id="tableNumber">
+                    <select className="form-control" id="tableNumber" onChange={(e)=>setTableId(e.target.value)}>
                         <option>اختار رقم الطاوله</option> 
                       {allTable.map((table,i) => (
                         <option key={i} value={table._id}>{table.tablenum}</option>
@@ -39,20 +46,20 @@ const Reservation = () => {
                 <div className="row">
                   <div className="col-md-6 mb-1">
                     <label htmlFor="date" className="form-label">التاريخ</label>
-                    <input type="date" className="form-control" id="date" />
+                    <input type="date" className="form-control" id="date" onChange={(e)=>setReservationDate(e.target.value)} />
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
-                    <input type="time" className="form-control" id="arrivalTime" />
+                    <input type="time" className="form-control" id="arrivalTime" onChange={(e)=>setStartTime(e.target.value)} />
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
-                    <input type="time" className="form-control" id="departureTime" />
+                    <input type="time" className="form-control" id="departureTime" onChange={(e)=>setEndTime(e.target.value)} />
                   </div>
                 </div>
                 <div className="mb-1">
                   <label htmlFor="notes" className="form-label">ملاحظات</label>
-                  <textarea className="form-control" id="notes" rows="2"></textarea>
+                  <textarea className="form-control" id="notes" rows="2" onChange={(e)=>set}></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', height: '50px' }}>تأكيد الحجز</button>
               </form>

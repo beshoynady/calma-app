@@ -47,6 +47,9 @@ app.use(express.json({
   limit:"100kb"
 }));
 app.use(cookieParser());
+
+app.set('trust proxy', true);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: `${frontEnd}`,
