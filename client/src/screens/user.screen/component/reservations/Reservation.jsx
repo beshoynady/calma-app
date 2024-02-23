@@ -10,6 +10,7 @@ const Reservation = () => {
   const [reservationDate, setReservationDate] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
+
   return (
     <detacontext.Consumer>
       {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation,userLoginInfo }) => {
@@ -55,11 +56,11 @@ const Reservation = () => {
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
-                    <input type="time" className="form-control" id="arrivalTime" onChange={(e)=>setStartTime(new Date(e.target.value))} />
+                    <input type="time" className="form-control" id="arrivalTime" onChange={(e)=>setStartTime(e.target.value)} />
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
-                    <input type="time" className="form-control" id="departureTime" onChange={(e)=>setEndTime(new Date(e.target.value))} />
+                    <input type="time" className="form-control" id="departureTime" onChange={(e)=>setEndTime(e.target.value)} />
                   </div>
                 </div>
                 <div className="mb-1">
