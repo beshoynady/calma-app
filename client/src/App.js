@@ -561,7 +561,7 @@ function App() {
         toast.success("تم عمل اوردر جديد بنجاح!");
       }
 
-      socket.emit("sendorder", "socket new order created");
+      // socket.emit("sendorder", "socket new order created");
       setitemsInCart([]);
       setitemId([]);
     } catch (error) {

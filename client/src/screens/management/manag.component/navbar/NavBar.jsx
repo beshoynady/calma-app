@@ -27,12 +27,12 @@ const NavBar = () => {
   //   });
   // }, []);
 
-  // const handleNotificationClick = (index) => {
-  //   // Remove notification at the specified index
-  //   const updatedNotifications = [...notifications];
-  //   updatedNotifications.splice(index, 1);
-  //   setNotifications(updatedNotifications);
-  // };
+  const handleNotificationClick = (index) => {
+    // Remove notification at the specified index
+    const updatedNotifications = [...notifications];
+    updatedNotifications.splice(index, 1);
+    setNotifications(updatedNotifications);
+  };
 
   return (
     <detacontext.Consumer>
