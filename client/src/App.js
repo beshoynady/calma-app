@@ -1426,37 +1426,42 @@ function App() {
 
 
   const createReservations = async (e, tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
-    e.preventDefault()
-    console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote })
+    e.preventDefault();
+    console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote });
+  
     try {
-      console.log({fromdate : new Date(reservation.reservationDate)})
-      console.log({newdate : new Date(reservationDate)})
-      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && new Date(reservation.reservationDate) === new Date(reservationDate))
-      console.log({filterReservationsByTable})
-      
+      const selectedDate = new Date(reservationDate);
+  
+      // فحص وجود بيانات الحجز للطاولة والتاريخ المحدد
+      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && new Date(reservation.reservationDate).getTime() === selectedDate.getTime());
+      console.log({ filterReservationsByTable });
+  
+      // التحقق من عدم وجود حجوزات في الوقت المحدد
       const filterReservationsByTime = filterReservationsByTable.find(reservation => {
-        const startReservationTime = new Date(reservation.startTime);
-        const endReservationTime = new Date(reservation.endTime);
-        const startSelectedTime = new Date(startTime);
-        const endSelectedTime = new Date(endTime);
+        const startReservationTime = new Date(reservation.startTime).getTime();
+        const endReservationTime = new Date(reservation.endTime).getTime();
+        const startSelectedTime = new Date(startTime).getTime();
+        const endSelectedTime = new Date(endTime).getTime();
         console.log({startReservationTime})
         console.log({endReservationTime})
         console.log({startSelectedTime})
         console.log({endSelectedTime})
-        
         return (
           (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
           (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
           (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
         );
       });
-      console.log({filterReservationsByTime})
-
+  
+      console.log({ filterReservationsByTime });
+  
+      // الرسالة الخطأ في حالة وجود حجز في الوقت المحدد
       if (filterReservationsByTime) {
-        toast.error('هذه الطاوله محجوزه في هذا الوقت')
-        return
+        toast.error('هذه الطاوله محجوزه في هذا الوقت');
+        return;
       }
-
+  
+      // إرسال الطلب إلى الخادم
       const response = await axios.post(`${apiUrl}/api/reservation`, {
         tableId,
         customerName,
@@ -1468,18 +1473,20 @@ function App() {
         createBy: createBy || null,
         reservationNote: reservationNote || "",
       });
-
+  
+      // التحقق من نجاح العملية
       if (response.status === 201) {
-        getAllReservations()
-        toast.success("تم حجز الطاوله بنجاح")
+        getAllReservations();
+        toast.success("تم حجز الطاوله بنجاح");
       } else {
-        toast.error("حدث خطأ اثناء عمليه الحجز ! حاول مره اخري")
+        toast.error("حدث خطأ أثناء عملية الحجز! الرجاء المحاولة مرة أخرى");
       }
     } catch (error) {
-      console.error(error)
-      toast.error("فشل عملية الحجز ! رجاء المحاولة مرة اخري")
+      console.error(error);
+      toast.error("فشل عملية الحجز! الرجاء المحاولة مرة أخرى");
     }
-  }
+  };
+  
 
   const getReservationById = async (id) => {
     try {
