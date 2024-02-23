@@ -1440,7 +1440,7 @@ function App() {
       return
     }
       const response = await axios.post(`${apiUrl}/api/reservation`,{
-        tableId, reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null, reservationNote:reservationNote? reservationNote : "",
+        tableId, customerName, customerPhone , reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null, reservationNote:reservationNote? reservationNote : "",
       })
       if (response.status === 201){
         getAllReservations()
