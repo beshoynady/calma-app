@@ -58,7 +58,6 @@ const Reservation = () => {
                       type="date"
                       className="form-control"
                       id="date"
-                      disabled={!reservationDate?true:false}
                       onChange={(e) => {
                         const selectedDate = new Date(e.target.value);
                         setReservationDate(selectedDate);
@@ -72,7 +71,6 @@ const Reservation = () => {
                       className="form-control"
                       id="arrivalTime"
                       required
-                      disabled={!reservationDate?true:false}
                       onChange={(e) => {
                         setStartTimeClicked(true);
                         if(reservationDate){
