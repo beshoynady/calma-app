@@ -1134,11 +1134,7 @@ function App() {
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-  const [userLoginInfo, setUserLoginInfo] = useState(null);
-  const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
   const [isLogin, setisLogin] = useState(false);
-
-  axios.defaults.withCredentials = true;
 
   // Function to handle user signup
   const signup = async (e, username, password, phone, address, email, passconfirm) => {
@@ -1181,11 +1177,14 @@ function App() {
 
 
 
+  const [userLoginInfo, setUserLoginInfo] = useState(null);
+  const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
 
   // Function to retrieve user info from tokens
   const getUserInfoFromToken = () => {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
+    console.log("getUserInfoFromToken")
     console.log({userToken})
     let decodedToken = null;
 
@@ -1193,10 +1192,9 @@ function App() {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
       setEmployeeLoginInfo(decodedToken);
-      console.log(decodedToken.employeeinfo);
+      console.log({EmployeeLoginInfo: decodedToken});
       
       decodedToken = jwt_decode(userToken);
-      console.log(decodedToken.employeeinfo);
       // Set user login info
       setUserLoginInfo(decodedToken);
       console.log({userToken:decodedToken});
@@ -1214,8 +1212,6 @@ function App() {
       setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
     }
-
-    return decodedToken;
   };
 
   // Function for user login
