@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { detacontext } from '../../../../App';
 
 const Reservation = () => {
@@ -10,7 +10,8 @@ const Reservation = () => {
   const [endTime, setEndTime] = useState('');
   return (
     <detacontext.Consumer>
-      {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation }) => {
+      {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation,userLoginInfo }) => {
+        const userId = userLoginInfo.userinfo.id
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
             <div className='section-title'>
@@ -23,7 +24,7 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-              onSubmit={()=>createReservations(e, tableId, userId ,customerName,customerPhone ,createBy, reservationDate, startTime, endTime)}>
+              onSubmit={(e)=>createReservations(e, tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime)}>
                 <div className="mb-1">
                   <label htmlFor="name" className="form-label">الاسم</label>
                   <input type="text" className="form-control" id="name" onChange={(e)=>setCustomerName(e.target.value)} />
