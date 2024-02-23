@@ -1427,6 +1427,7 @@ function App() {
 
   const createReservations = async(e, tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote,createBy)=>{
     e.preventDefault()
+    console.log({tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote})
     try {
       const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
 
