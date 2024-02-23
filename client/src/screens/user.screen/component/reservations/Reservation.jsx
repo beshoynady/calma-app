@@ -10,6 +10,7 @@ const Reservation = () => {
   const [reservationDate, setReservationDate] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
+  const [timeFieldClicked, setTimeFieldClicked] = useState(false);
 
   return (
     <detacontext.Consumer>
@@ -68,18 +69,22 @@ const Reservation = () => {
                       type="time"
                       className="form-control"
                       id="arrivalTime"
+                      required
                       onChange={(e) => {
-                        const selectedDate = reservationDate; // إنشاء كائن Date
-                        const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
+                        setTimeFieldClicked(true);
+                        const selectedDate = reservationDate; 
+                        const timeParts = e.target.value.split(':');
                         console.log({ timeParts })
-                        // إذا كان هناك تاريخ محدد، اجمع الوقت معه
                         if (selectedDate) {
                           reservationDate.setHours(parseInt(timeParts[0]));
                           reservationDate.setMinutes(parseInt(timeParts[1]));
                         }
-                        setStartTime(selectedDate); // تعيين الوقت
+                        setStartTime(selectedDate);
                       }}
                     />
+                     {timeFieldClicked && !reservationDate && (
+                      <div style={{ color: 'red', marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                    )}
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
@@ -87,18 +92,22 @@ const Reservation = () => {
                       type="time"
                       className="form-control"
                       id="departureTime"
+                      required
                       onChange={(e) => {
-                        const selectedDate = reservationDate; // إنشاء كائن Date
-                        const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
+                        setTimeFieldClicked(true);
+                        const selectedDate = reservationDate; 
+                        const timeParts = e.target.value.split(':');
                         console.log({ timeParts })
-                        // إذا كان هناك تاريخ محدد، اجمع الوقت معه
                         if (selectedDate) {
                           reservationDate.setHours(parseInt(timeParts[0]));
                           reservationDate.setMinutes(parseInt(timeParts[1]));
                         }
-                        setEndTime(selectedDate); // تعيين الوقت
+                        setEndTime(selectedDate);
                       }}
                     />
+                     {timeFieldClicked && !reservationDate && (
+                      <div style={{ color: 'red', marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                    )}
                   </div>
                 </div>
                 <div className="mb-1">
