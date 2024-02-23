@@ -1186,7 +1186,7 @@ function App() {
   const getUserInfoFromToken = () => {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
-
+    console.log({userToken})
     let decodedToken = null;
 
     if (employeeToken && userToken) {
@@ -1194,10 +1194,11 @@ function App() {
       // Set employee login info
       setEmployeeLoginInfo(decodedToken);
       console.log(decodedToken.employeeinfo);
-
+      
       decodedToken = jwt_decode(userToken);
       // Set user login info
       setUserLoginInfo(decodedToken);
+      console.log({userToken:decodedToken});
     } else if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
@@ -1535,6 +1536,7 @@ function App() {
     getAllTable();
     getAllUsers();
     getAllemployees()
+    getUserInfoFromToken()
     getAllReservations()
   }, [])
 
