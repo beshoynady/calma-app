@@ -33,10 +33,10 @@ import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
-import io from 'socket.io-client';
-const socket = io(process.env.REACT_APP_API_URL, {
-  reconnection: true,
-});
+// import io from 'socket.io-client';
+// const socket = io(process.env.REACT_APP_API_URL, {
+//   reconnection: true,
+// });
 
 export const detacontext = createContext({});
 

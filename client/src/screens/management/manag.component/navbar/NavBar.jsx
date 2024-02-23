@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import './NavBar.css';
 
-const socket = io(process.env.REACT_APP_API_URL, {
-  reconnection: true,
-});
+// const socket = io(process.env.REACT_APP_API_URL, {
+//   reconnection: true,
+// });
 
 const NavBar = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,20 +19,20 @@ const NavBar = () => {
 
   const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    // Listen for new order notifications
-    socket.on('reciveorder', (notification) => {
-      console.log("socket Notification received:", notification);
-      setNotifications(prevNotifications => [...prevNotifications, notification]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   // Listen for new order notifications
+  //   socket.on('reciveorder', (notification) => {
+  //     console.log("socket Notification received:", notification);
+  //     setNotifications(prevNotifications => [...prevNotifications, notification]);
+  //   });
+  // }, []);
 
-  const handleNotificationClick = (index) => {
-    // Remove notification at the specified index
-    const updatedNotifications = [...notifications];
-    updatedNotifications.splice(index, 1);
-    setNotifications(updatedNotifications);
-  };
+  // const handleNotificationClick = (index) => {
+  //   // Remove notification at the specified index
+  //   const updatedNotifications = [...notifications];
+  //   updatedNotifications.splice(index, 1);
+  //   setNotifications(updatedNotifications);
+  // };
 
   return (
     <detacontext.Consumer>

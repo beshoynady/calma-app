@@ -58,10 +58,12 @@ app.use(cors({
 app.use('/', express.static("public"));
 app.use('/images', express.static("images"));
 
+
 // Simple test endpoint to check if the server is running
 app.get('/', (req, res) => {
   res.send('Welcome to the server!');
 });
+
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -128,6 +130,7 @@ const port = process.env.PORT || 8000;
 // server.listen(port, () => {
 //   console.log(`Server is running on port ${port}`);
 // });
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
