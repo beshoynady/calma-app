@@ -4,8 +4,8 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');
-// const http = require('http');
-// const socketIo = require('socket.io');
+const http = require('http');
+const socketIo = require('socket.io');
 
 
 const connectdb = require('./database/connectdb.js');
