@@ -4,10 +4,11 @@ import { detacontext } from '../../../../App';
 const Reservation = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
+  const [reservationNote, setReservationNote] = useState('');
   const [tableId, setTableId] = useState('');
-  const [reservationDate, setReservationDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [reservationDate, setReservationDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
   return (
     <detacontext.Consumer>
       {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation,userLoginInfo }) => {
@@ -24,7 +25,7 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-              onSubmit={(e)=>createReservations(e, tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime)}>
+              onSubmit={(e)=>createReservations(e, tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote)}>
                 <div className="mb-1">
                   <label htmlFor="name" className="form-label">الاسم</label>
                   <input type="text" className="form-control" id="name" onChange={(e)=>setCustomerName(e.target.value)} />
@@ -60,7 +61,7 @@ const Reservation = () => {
                 </div>
                 <div className="mb-1">
                   <label htmlFor="notes" className="form-label">ملاحظات</label>
-                  <textarea className="form-control" id="notes" rows="2" onChange={(e)=>set}></textarea>
+                  <textarea className="form-control" id="notes" rows="2" onChange={(e)=>setReservationNote(e.target.value)}></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', height: '50px' }}>تأكيد الحجز</button>
               </form>
