@@ -16,7 +16,6 @@ const Reservation = () => {
   return (
     <detacontext.Consumer>
       {({ allTable, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, userLoginInfo }) => {
-        console.log({ userLoginInfo })
         const userId = userLoginInfo?.userinfo?.id;
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
@@ -80,8 +79,9 @@ const Reservation = () => {
                           if (selectedDate) {
                             selectedDate.setHours(parseInt(timeParts[0]));
                             selectedDate.setMinutes(parseInt(timeParts[1]));
+                            console.log(selectedDate)
+                            setStartTime(selectedDate);
                           }
-                          setStartTime(selectedDate);
                         }else {
                           e.target.value = ''
                         }
@@ -107,8 +107,9 @@ const Reservation = () => {
                         if (selectedDate) {
                           selectedDate.setHours(parseInt(timeParts[0]));
                           selectedDate.setMinutes(parseInt(timeParts[1]));
+                          console.log(selectedDate)
+                          setEndTime(selectedDate);
                         }
-                        setEndTime(selectedDate);
                       }else {
                         e.target.value = ''
                       }
