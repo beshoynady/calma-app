@@ -1448,15 +1448,11 @@ function App() {
       console.log({ filterReservationsByTable });
   
       // التحقق من عدم وجود حجوزات في الوقت المحدد
-      const filterReservationsByTime = filterReservationsByTable.find(reservation => {
+      const conflictingReservation = filterReservationsByTable.find(reservation => {
         const startReservationTime = new Date(reservation.startTime).getTime();
         const endReservationTime = new Date(reservation.endTime).getTime();
         const startSelectedTime = new Date(startTime).getTime();
         const endSelectedTime = new Date(endTime).getTime();
-        console.log({startReservationTime})
-        console.log({endReservationTime})
-        console.log({startSelectedTime})
-        console.log({endSelectedTime})
         return (
           (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
           (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
@@ -1464,10 +1460,10 @@ function App() {
         );
       });
   
-      console.log({ filterReservationsByTime });
+      console.log({ conflictingReservation });
   
       // الرسالة الخطأ في حالة وجود حجز في الوقت المحدد
-      if (filterReservationsByTime) {
+      if (conflictingReservation) {
         toast.error('هذه الطاوله محجوزه في هذا الوقت');
         return;
       }
