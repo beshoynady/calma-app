@@ -10,7 +10,8 @@ const Reservation = () => {
   const [reservationDate, setReservationDate] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
-  const [timeFieldClicked, setTimeFieldClicked] = useState(false);
+  const [startTimeClicked, setStartTimeClicked] = useState(false);
+  const [endTimeClicked, setEndTimeClicked] = useState(false);
 
   return (
     <detacontext.Consumer>
@@ -71,19 +72,21 @@ const Reservation = () => {
                       id="arrivalTime"
                       required
                       onChange={(e) => {
-                        setTimeFieldClicked(true);
-                        const selectedDate = reservationDate; 
-                        const timeParts = e.target.value.split(':');
-                        console.log({ timeParts })
-                        if (selectedDate) {
-                          reservationDate.setHours(parseInt(timeParts[0]));
-                          reservationDate.setMinutes(parseInt(timeParts[1]));
+                        setStartTimeClicked(true);
+                        if(reservationDate){
+                          const selectedDate = reservationDate; 
+                          const timeParts = e.target.value.split(':');
+                          console.log({ timeParts })
+                          if (selectedDate) {
+                            reservationDate.setHours(parseInt(timeParts[0]));
+                            reservationDate.setMinutes(parseInt(timeParts[1]));
+                          }
+                          setStartTime(selectedDate);
                         }
-                        setStartTime(selectedDate);
                       }}
                     />
-                     {timeFieldClicked && !reservationDate && (
-                      <div style={{ color: 'red', marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                     {startTimeClicked && !reservationDate && (
+                      <div style={{ color: 'red',fontSize:"18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                     )}
                   </div>
                   <div className="col-md-3 mb-1">
@@ -94,7 +97,8 @@ const Reservation = () => {
                       id="departureTime"
                       required
                       onChange={(e) => {
-                        setTimeFieldClicked(true);
+                        setEndTimeClicked(true);
+                        if(reservationDate){
                         const selectedDate = reservationDate; 
                         const timeParts = e.target.value.split(':');
                         console.log({ timeParts })
@@ -103,11 +107,12 @@ const Reservation = () => {
                           reservationDate.setMinutes(parseInt(timeParts[1]));
                         }
                         setEndTime(selectedDate);
+                      }
                       }}
                     />
-                     {timeFieldClicked && !reservationDate && (
-                      <div style={{ color: 'red', marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                    )}
+                     {endTimeClicked && !reservationDate && (
+                      <div style={{ color: 'red',fontSize:"18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                      )}
                   </div>
                 </div>
                 <div className="mb-1">
