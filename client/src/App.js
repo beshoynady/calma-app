@@ -1185,19 +1185,19 @@ function App() {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
     console.log("getUserInfoFromToken")
-    console.log({userToken})
+    console.log({ userToken })
     let decodedToken = null;
 
     if (employeeToken && userToken) {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
       setEmployeeLoginInfo(decodedToken);
-      console.log({EmployeeLoginInfo: decodedToken});
-      
+      console.log({ EmployeeLoginInfo: decodedToken });
+
       decodedToken = jwt_decode(userToken);
       // Set user login info
       setUserLoginInfo(decodedToken);
-      console.log({userToken:decodedToken});
+      console.log({ userToken: decodedToken });
     } else if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       // Set employee login info
@@ -1207,7 +1207,7 @@ function App() {
       decodedToken = jwt_decode(userToken);
       // Set user login info
       setUserLoginInfo(decodedToken);
-      console.log({userToken2:decodedToken});
+      console.log({ userToken2: decodedToken });
     } else {
       setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
@@ -1425,29 +1425,39 @@ function App() {
   };
 
 
-  const createReservations = async(e, tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote,createBy)=>{
+  const createReservations = async (e, tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
     e.preventDefault()
-    console.log({tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote})
+    console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote })
     try {
-      const filterReservationsByTable = allReservations.length>0? allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate ):[]
+      const filterReservationsByTable = allReservations.length > 0 ? allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate) : []
 
       const filterReservationsByTime = filterReservationsByTable.length > 0 ? filterReservationsByTable.find(reservation =>
         (reservation.startTime <= startTime && reservation.endTime >= startTime) ||
         (reservation.startTime <= endTime && reservation.endTime >= endTime) ||
         (startTime <= reservation.startTime && endTime >= reservation.endTime)
-    ):[];
-    
-    if(filterReservationsByTime !== undefined ){
-      toast.error('هذه الطاوله محجوزه في هذا الوقت')
-      return
-    }
-      const response = await axios.post(`${apiUrl}/api/reservation`,{
-        tableId, customerName, customerPhone , reservationDate, startTime, endTime, userId: userId?userId:null, createBy: createBy? createBy : null, reservationNote:reservationNote? reservationNote : "",
-      })
-      if (response.status === 201){
+      ) : [];
+
+      if (filterReservationsByTime) {
+        toast.error('هذه الطاوله محجوزه في هذا الوقت')
+        return
+      }
+      
+      const response = await axios.post(`${apiUrl}/api/reservation`, {
+        tableId,
+        customerName,
+        customerPhone,
+        reservationDate,
+        startTime,
+        endTime,
+        userId: userId || null,
+        createBy: createBy || null,
+        reservationNote: reservationNote || "",
+      });
+
+      if (response.status === 201) {
         getAllReservations()
         toast.success("تم حجز الطاوله بنجاح")
-      }else{
+      } else {
         toast.error("حدث خطأ اثناء عمليه الحجز ! حاول مره اخري")
       }
     } catch (error) {
@@ -1456,15 +1466,15 @@ function App() {
     }
   }
 
-  const getReservationById = async(id) =>{
+  const getReservationById = async (id) => {
     try {
-      if(!id){
+      if (!id) {
         toast.error("رجاء اختيار الحجز بشكل صحيح")
         return
       }
 
       const reservation = await axios.get(`${apiUrl}/api/reservation/${id}`)
-      if (!reservation){
+      if (!reservation) {
         toast.error('هذا الحجز غير موجود')
       }
 
@@ -1473,53 +1483,53 @@ function App() {
     }
   }
 
-  const updateReservation = async(id,tableId,numberOfGuests, reservationDate, startTime, endTime, status) => {
+  const updateReservation = async (id, tableId, numberOfGuests, reservationDate, startTime, endTime, status) => {
     try {
-      if(!id){
+      if (!id) {
         toast.error("رجاء اختيار الحجز بشكل صحيح")
         return
       }
 
-      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
+      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate)
 
       const filterReservationsByTime = filterReservationsByTable.filter(reservation =>
         (reservation.startTime <= startTime && reservation.endTime >= startTime) ||
         (reservation.startTime <= endTime && reservation.endTime >= endTime) ||
         (startTime <= reservation.startTime && endTime >= reservation.endTime)
-    );
+      );
 
-    if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id){
-      const response = await axios.update(`${apiUrl}/api/reservation/${id}`,{
-        tableId,numberOfGuests, reservationDate, startTime, endTime, status 
-      })
-      if (response.status == 200){
-        getAllReservations()
-        toast.success('تم تعديل ميعاد الحجز بنجاح')
-      }else{
-        getAllReservations()
-        toast.error('حدث خطأ اثناء التعديل ! حاول مرة اخري')
+      if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id) {
+        const response = await axios.update(`${apiUrl}/api/reservation/${id}`, {
+          tableId, numberOfGuests, reservationDate, startTime, endTime, status
+        })
+        if (response.status == 200) {
+          getAllReservations()
+          toast.success('تم تعديل ميعاد الحجز بنجاح')
+        } else {
+          getAllReservations()
+          toast.error('حدث خطأ اثناء التعديل ! حاول مرة اخري')
+        }
+      } else {
+        toast.error('لا يمكن تغير الحجز في هذا الميعاد')
       }
-    } else {
-      toast.error('لا يمكن تغير الحجز في هذا الميعاد')
-    }
-      
+
     } catch (error) {
       toast.error('حدث خطأاثناء تعديل الحجز ! حاول مرة اخري')
     }
   }
 
-  const deleteReservation = async (id)=>{
+  const deleteReservation = async (id) => {
     try {
-      if(!id){
+      if (!id) {
         toast.error("رجاء اختيار الحجز بشكل صحيح")
         return
       }
 
       const response = await axios.delete(`${apiUrl}/api/reservation/${id}`)
-      if( response.status === 200) {
+      if (response.status === 200) {
         getAllReservations()
         toast.success("تم حذف الحجز بنجاح")
-      }else {
+      } else {
         toast.error("حدث خطأ اثناء حذف الحجز !حاول مره اخري")
       }
 
@@ -1591,7 +1601,7 @@ function App() {
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation 
+      createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>
