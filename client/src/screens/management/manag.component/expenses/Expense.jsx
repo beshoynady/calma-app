@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ExpenseItem = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -75,6 +76,7 @@ const ExpenseItem = () => {
       {({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
+            <ToastContainer/>
             <div className="table-responsive mt-1">
               <div className="table-wrapper p-3 mw-100">
                 <div className="table-title">

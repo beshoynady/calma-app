@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import { detacontext } from '../../../../App'
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { useReactToPrint } from 'react-to-print';
 import './Cart.css'
 import html2pdf from 'html2pdf.js';
@@ -92,6 +94,7 @@ const Cart = (props) => {
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
+             <ToastContainer/>
               <div className="cart-wrapper">
                 {/* <div className="title-text">
                   <div ref={ordersText} className="title order" >

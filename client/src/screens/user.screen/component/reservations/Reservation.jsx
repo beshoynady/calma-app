@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { detacontext } from '../../../../App';
+import { ToastContainer } from 'react-toastify';
 
 const Reservation = () => {
   const [customerName, setCustomerName] = useState('');
@@ -16,6 +17,7 @@ const Reservation = () => {
         const userId = userLoginInfo?.userinfo?.id;
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
+            <ToastContainer/>
             <div className='section-title'>
               <h2>حجز طاولة</h2>
             </div>

@@ -1429,13 +1429,14 @@ function App() {
     e.preventDefault()
     console.log({tableId, userId ,customerName,customerPhone , reservationDate, startTime, endTime, reservationNote})
     try {
-      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate )
+      const filterReservationsByTable = allReservations.length>0? allReservations.filter(reservation => reservation.tableId === tableId && reservation.reservationDate === reservationDate ):[]
 
-      const filterReservationsByTime = filterReservationsByTable.find(reservation =>
+      const filterReservationsByTime = filterReservationsByTable.length > 0 ? filterReservationsByTable.find(reservation =>
         (reservation.startTime <= startTime && reservation.endTime >= startTime) ||
         (reservation.startTime <= endTime && reservation.endTime >= endTime) ||
         (startTime <= reservation.startTime && endTime >= reservation.endTime)
-    );
+    ):[];
+    
     if(filterReservationsByTime !== undefined ){
       toast.error('هذه الطاوله محجوزه في هذا الوقت')
       return

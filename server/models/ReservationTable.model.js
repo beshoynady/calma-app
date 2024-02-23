@@ -29,7 +29,7 @@ const ReservationSchema = new Schema(
         // Number of guests for the reservation
         numberOfGuests: {
             type: Number,
-            required: true,
+            required: [true,'Number of guests for the reservation required'], 
             default: 1,
             min: 1,
             max: 10, // Adjust as needed
@@ -48,6 +48,10 @@ const ReservationSchema = new Schema(
         endTime: {
             type: Date,
             required: true,
+        },
+        reservationNote: {
+            type: String,
+            maxLength: 255,
         },
         // Employee ID referencing the employee who created the reservation
         createdBy: {

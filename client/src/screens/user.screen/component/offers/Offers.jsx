@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { detacontext } from '../../../../App'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -26,6 +27,7 @@ export default function Offers() {
         ({ allProducts, itemId, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, }) => {
           return (
             <section id='offer' className='offers-section'>
+              <ToastContainer/>
               <div className='section-title'>
                 <h2>العروض</h2>
               </div>
