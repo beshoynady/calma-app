@@ -1429,20 +1429,28 @@ function App() {
     e.preventDefault()
     console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote })
     try {
+      console.log({fromdate : new Date(reservation.reservationDate)})
+      console.log({newdate : new Date(reservationDate)})
       const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && new Date(reservation.reservationDate) === new Date(reservationDate))
-
+      console.log({filterReservationsByTable})
+      
       const filterReservationsByTime = filterReservationsByTable.find(reservation => {
         const startReservationTime = new Date(reservation.startTime);
         const endReservationTime = new Date(reservation.endTime);
         const startSelectedTime = new Date(startTime);
         const endSelectedTime = new Date(endTime);
-      
+        console.log({startReservationTime})
+        console.log({endReservationTime})
+        console.log({startSelectedTime})
+        console.log({endSelectedTime})
+        
         return (
           (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
           (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
           (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
         );
       });
+      console.log({filterReservationsByTime})
 
       if (filterReservationsByTime) {
         toast.error('هذه الطاوله محجوزه في هذا الوقت')
