@@ -52,27 +52,55 @@ const Reservation = () => {
                 <div className="row">
                   <div className="col-md-6 mb-1">
                     <label htmlFor="date" className="form-label">التاريخ</label>
-                    <input type="date" className="form-control" id="date" onChange={(e) => setReservationDate(e.target.value)} />
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="date"
+                      onChange={(e) => {
+                        const selectedDate = new Date(e.target.value);
+                        setReservationDate(selectedDate);
+                      }}
+                    />
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
-                    <input type="time" className="form-control" id="arrivalTime" onChange={(e) => {
-                      const selectedTime = new Date(); // إنشاء كائن Date
-                      const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
-                      selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
-                      selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
-                      setStartTime(selectedTime); // تعيين الوقت
-                    }} />
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="arrivalTime"
+                      onChange={(e) => {
+                        const selectedTime = new Date(); // إنشاء كائن Date
+                        const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
+                        selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
+                        selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
+                        // إذا كان هناك تاريخ محدد، اجمع الوقت معه
+                        if (reservationDate) {
+                          reservationDate.setHours(selectedTime.getHours());
+                          reservationDate.setMinutes(selectedTime.getMinutes());
+                        }
+                        setStartTime(selectedTime); // تعيين الوقت
+                      }}
+                    />
                   </div>
                   <div className="col-md-3 mb-1">
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
-                    <input type="time" className="form-control" id="departureTime" oonChange={(e) => {
-                      const selectedTime = new Date(); // إنشاء كائن Date
-                      const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
-                      selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
-                      selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
-                      setStartTime(selectedTime); // تعيين الوقت
-                    }} />
+                    <input
+                      type="time"
+                      className="form-control"
+                      id="departureTime"
+                      onChange={(e) => {
+                        const selectedTime = new Date(); // إنشاء كائن Date
+                        const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
+                        selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
+                        selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
+                        // إذا كان هناك تاريخ محدد، اجمع الوقت معه
+                        if (reservationDate) {
+                          reservationDate.setHours(selectedTime.getHours());
+                          reservationDate.setMinutes(selectedTime.getMinutes());
+                        }
+                        setEndTime(selectedTime); // تعيين الوقت
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="mb-1">
