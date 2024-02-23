@@ -1434,7 +1434,17 @@ function App() {
       console.log({selectedDate:selectedDate.getTime()})
   
       // فحص وجود بيانات الحجز للطاولة والتاريخ المحدد
-      const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && new Date(reservation.reservationDate).getTime() === selectedDate.getTime());
+      const filterReservationsByTable = allReservations.filter(reservation => {
+        const reservationDateObj = new Date(reservation.reservationDate);
+        const selectedDateObj = new Date(selectedDate);
+        
+        return (
+          reservation.tableId === tableId &&
+          reservationDateObj.getFullYear() === selectedDateObj.getFullYear() &&
+          reservationDateObj.getMonth() === selectedDateObj.getMonth() &&
+          reservationDateObj.getDate() === selectedDateObj.getDate()
+        );
+      });
       console.log({ filterReservationsByTable });
   
       // التحقق من عدم وجود حجوزات في الوقت المحدد
