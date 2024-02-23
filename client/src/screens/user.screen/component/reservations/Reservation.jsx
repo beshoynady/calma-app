@@ -69,16 +69,15 @@ const Reservation = () => {
                       className="form-control"
                       id="arrivalTime"
                       onChange={(e) => {
-                        const selectedTime = new Date(); // إنشاء كائن Date
+                        const selectedDate = reservationDate; // إنشاء كائن Date
                         const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
-                        selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
-                        selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
+                        console.log({ timeParts })
                         // إذا كان هناك تاريخ محدد، اجمع الوقت معه
-                        if (reservationDate) {
-                          reservationDate.setHours(selectedTime.getHours());
-                          reservationDate.setMinutes(selectedTime.getMinutes());
+                        if (selectedDate) {
+                          reservationDate.setHours(parseInt(timeParts[0]));
+                          reservationDate.setMinutes(parseInt(timeParts[1]));
                         }
-                        setStartTime(selectedTime); // تعيين الوقت
+                        setStartTime(selectedDate); // تعيين الوقت
                       }}
                     />
                   </div>
@@ -89,16 +88,15 @@ const Reservation = () => {
                       className="form-control"
                       id="departureTime"
                       onChange={(e) => {
-                        const selectedTime = new Date(); // إنشاء كائن Date
+                        const selectedDate = reservationDate; // إنشاء كائن Date
                         const timeParts = e.target.value.split(':'); // تقسيم الوقت إلى ساعات ودقائق
-                        selectedTime.setHours(parseInt(timeParts[0])); // تعيين الساعات
-                        selectedTime.setMinutes(parseInt(timeParts[1])); // تعيين الدقائق
+                        console.log({ timeParts })
                         // إذا كان هناك تاريخ محدد، اجمع الوقت معه
-                        if (reservationDate) {
-                          reservationDate.setHours(selectedTime.getHours());
-                          reservationDate.setMinutes(selectedTime.getMinutes());
+                        if (selectedDate) {
+                          reservationDate.setHours(parseInt(timeParts[0]));
+                          reservationDate.setMinutes(parseInt(timeParts[1]));
                         }
-                        setEndTime(selectedTime); // تعيين الوقت
+                        setEndTime(selectedDate); // تعيين الوقت
                       }}
                     />
                   </div>
