@@ -12,7 +12,8 @@ const Reservation = () => {
   return (
     <detacontext.Consumer>
       {({ allTable, createReservations, updateReservation, getAllReservations , allReservations , getReservationById,deleteReservation,userLoginInfo }) => {
-        const userId = userLoginInfo.userinfo.id
+        console.log({userLoginInfo})
+        // const userId = userLoginInfo.userinfo.id
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
             <div className='section-title'>
