@@ -1196,6 +1196,7 @@ function App() {
       console.log(decodedToken.employeeinfo);
       
       decodedToken = jwt_decode(userToken);
+      console.log(decodedToken.employeeinfo);
       // Set user login info
       setUserLoginInfo(decodedToken);
       console.log({userToken:decodedToken});
@@ -1208,6 +1209,7 @@ function App() {
       decodedToken = jwt_decode(userToken);
       // Set user login info
       setUserLoginInfo(decodedToken);
+      console.log({userToken2:decodedToken});
     } else {
       setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
