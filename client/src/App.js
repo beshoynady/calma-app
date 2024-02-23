@@ -1430,7 +1430,8 @@ function App() {
     console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote });
   
     try {
-      const selectedDate = new Date(reservationDate);
+      const selectedDate = new Date(reservationDate)
+      console.log({selectedDate:selectedDate.getTime()})
   
       // فحص وجود بيانات الحجز للطاولة والتاريخ المحدد
       const filterReservationsByTable = allReservations.filter(reservation => reservation.tableId === tableId && new Date(reservation.reservationDate).getTime() === selectedDate.getTime());
