@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { detacontext } from '../../../../App';
-import { ToastContainer } from 'react-toastify';
 
 const Reservation = () => {
   const [customerName, setCustomerName] = useState('');

@@ -32,11 +32,14 @@ const ReservationTables = () => {
       console.log(error);
     }
   };
-  
+
   const [userId, setUserId] = useState("");
-  const clientByName = (allusers , name) => {
+  const [filteredClients, setFilteredClients] = useState([]);
+
+  const clientByName = (allusers, name) => {
     setCustomerName(name);
-    const client = allusers.find(user => user.username.startsWith(name) == true);
+    const client = allusers.filter(user => user.username.startsWith(name) == true);
+    setFilteredClients(client)
     const userId = client._id
     setUserId(userId)
     console.log(client);
@@ -92,7 +95,7 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
 
           const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
@@ -206,44 +209,44 @@ const ReservationTables = () => {
                         //   }
                         // })
                         //   :
-                          allReservations.map((reservation, i) => {
-                            if (i >= startpagination & i < endpagination) {
-                              return (
-                                <tr key={i}>
-                                  <td>
-                                    <span className="custom-checkbox">
-                                      <input
-                                        type="checkbox"
-                                        id={`checkbox${i}`}
-                                        name="options[]"
-                                        value={reservation._id}
-                                        // onChange={handleCheckboxChange}
-                                      />
-                                      <label htmlFor={`checkbox${i}`}></label>
-                                    </span>
-                                  </td>
-                                  <td>{i + 1}</td>
-                                  <td>{reservation.tablenum}</td>
-                                  <td>{reservation.customerName}</td>
-                                  <td>{reservation.customerPhone}</td>
-                                  <td>{reservation.numberOfGuests}</td>
-                                  <td>{reservation.reservationDate}</td>
-                                  <td>{reservation.startTime}</td>
-                                  <td>{reservation.endTime}</td>
+                        allReservations.map((reservation, i) => {
+                          if (i >= startpagination & i < endpagination) {
+                            return (
+                              <tr key={i}>
+                                <td>
+                                  <span className="custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      id={`checkbox${i}`}
+                                      name="options[]"
+                                      value={reservation._id}
+                                    // onChange={handleCheckboxChange}
+                                    />
+                                    <label htmlFor={`checkbox${i}`}></label>
+                                  </span>
+                                </td>
+                                <td>{i + 1}</td>
+                                <td>{reservation.tablenum}</td>
+                                <td>{reservation.customerName}</td>
+                                <td>{reservation.customerPhone}</td>
+                                <td>{reservation.numberOfGuests}</td>
+                                <td>{reservation.reservationDate}</td>
+                                <td>{reservation.startTime}</td>
+                                <td>{reservation.endTime}</td>
 
-                                  {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                  <td>
-                                    <a href="#editTableModal" className="edit" data-toggle="modal" 
-                                      ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
+                                <td>
+                                  <a href="#editTableModal" className="edit" data-toggle="modal"
+                                  ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                    <a href="#deleteTableModal" className="delete" data-toggle="modal" 
-                                    >
-                                      <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                  </td>
-                                </tr>
-                              )
-                            }
-                          })
+                                  <a href="#deleteTableModal" className="delete" data-toggle="modal"
+                                  >
+                                    <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                </td>
+                              </tr>
+                            )
+                          }
+                        })
                       }
                     </tbody>
                   </table>
@@ -261,8 +264,8 @@ const ReservationTables = () => {
                   </div>
                 </div>
               </div>
-              {<div id="createreservationModal" className="modal fade">
-                <div className="modal-dialog">
+              <div id="createreservationModal" className="modal fade">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
                     <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
                       <div className="modal-header">
@@ -270,104 +273,74 @@ const ReservationTables = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group mb-1">
-                          <label htmlFor="name" className="form-label">الاسم</label>
-                          <input type="text" className="form-control" id="name" onChange={(e) => clientByName(e.target.value)} />
-                        </div>
-                        <div className="form-group row mb-1">
-                          <div className="col-md-">
-                            <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                            <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="name" className="form-label">الاسم</label>
+                                <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
+                                <ul>
+                                  {filteredClients.map((client, index) => (
+                                    <li key={index}>{client.username}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
+                                <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
+                              </div>
+                            </div>
                           </div>
-                          <div className="col-md-3">
-                            <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                            <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
-                              <option>اختار رقم الطاوله</option>
-                              {listoftable.map((table, i) => (
-                                <option key={i} value={table._id}>{table.tablenum}</option>
-                              ))}
-                            </select>
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
+                                <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                                  <option>اختار رقم الطاوله</option>
+                                  {listoftable.map((table, i) => (
+                                    <option key={i} value={table._id}>{table.tablenum}</option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
+                                <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="date" className="form-label">التاريخ</label>
+                                <input type="date" className="form-control" id="date" onChange={(e) => setReservationDate(new Date(e.target.value))} />
+                              </div>
+                            </div>
                           </div>
-                          <div className="col-md-3">
-                            <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                            <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
+                                <input type="time" className="form-control" id="arrivalTime" required onChange={(e) => handleStartTimeChange(e)} />
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
+                                <input type="time" className="form-control" id="departureTime" required onChange={(e) => handleEndTimeChange(e)} />
+                              </div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label htmlFor="notes" className="form-label">ملاحظات</label>
+                                <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="form-group row">
-                          <div className="col-md-6 mb-1">
-                            <label htmlFor="date" className="form-label">التاريخ</label>
-                            <input
-                              type="date"
-                              className="form-control"
-                              id="date"
-                              onChange={(e) => {
-                                const selectedDate = new Date(e.target.value);
-                                setReservationDate(selectedDate);
-                              }}
-                            />
-                          </div>
-                          <div className="col-md-3 mb-1">
-                            <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
-                            <input
-                              type="time"
-                              className="form-control"
-                              id="arrivalTime"
-                              required
-                              onChange={(e) => {
-                                setStartTimeClicked(true);
-                                if (reservationDate) {
-                                  const StartedDate = new Date(reservationDate);
-                                  const timeParts = e.target.value.split(':');
-                                  console.log({ timeParts })
-                                  if (StartedDate) {
-                                    StartedDate.setHours(parseInt(timeParts[0]));
-                                    StartedDate.setMinutes(parseInt(timeParts[1]));
-                                    console.log({ StartedDate })
-                                    setStartTime(StartedDate);
-                                  }
-                                } else {
-                                  e.target.value = ''
-                                }
-                              }}
-                            />
-                            {startTimeClicked && !reservationDate && (
-                              <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                            )}
-                          </div>
-                          <div className="col-md-3 mb-1">
-                            <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
-                            <input
-                              type="time"
-                              className="form-control"
-                              id="departureTime"
-                              required
-                              onChange={(e) => {
-                                setEndTimeClicked(true);
-                                if (reservationDate) {
-                                  const EndedDate = new Date(reservationDate);
-                                  const timeParts = e.target.value.split(':');
-                                  console.log({ timeParts })
-                                  if (EndedDate) {
-                                    EndedDate.setHours(parseInt(timeParts[0]));
-                                    EndedDate.setMinutes(parseInt(timeParts[1]));
-                                    console.log({ EndedDate })
-                                    setEndTime(EndedDate);
-                                  }
-                                } else {
-                                  e.target.value = ''
-                                }
-                              }}
-                            />
-                            {endTimeClicked && !reservationDate && (
-                              <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="form-group mb-1">
-                          <label htmlFor="notes" className="form-label">ملاحظات</label>
-                          <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
                         </div>
                       </div>
+
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-success" value="ضافه" />
@@ -375,7 +348,7 @@ const ReservationTables = () => {
                     </form>
                   </div>
                 </div>
-              </div>}
+              </div>
               {/* {tableid && <div id="editTableModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
