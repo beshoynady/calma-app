@@ -6,6 +6,7 @@ const Reservation = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [reservationNote, setReservationNote] = useState('');
+  const [numberOfGuests, setNumberOfGuests] = useState('');
   const [tableId, setTableId] = useState('');
   const [reservationDate, setReservationDate] = useState();
   const [startTime, setStartTime] = useState();
@@ -19,7 +20,6 @@ const Reservation = () => {
         const userId = userLoginInfo?.userinfo?.id;
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
-            <ToastContainer />
             <div className='section-title'>
               <h2>حجز طاولة</h2>
             </div>
@@ -30,17 +30,17 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-                onSubmit={(e) => createReservations(e, tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
+                onSubmit={(e) => createReservations(e, tableId, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
                 <div className="mb-1">
                   <label htmlFor="name" className="form-label">الاسم</label>
                   <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
                 </div>
                 <div className="row mb-1">
-                  <div className="col-md-6">
+                  <div className="col-md-5">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                     <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-3">
                     <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
                     <select className="form-control" id="tableNumber" onChange={(e) => setTableId(e.target.value)}>
                       <option>اختار رقم الطاوله</option>
@@ -48,6 +48,10 @@ const Reservation = () => {
                         <option key={i} value={table._id}>{table.tablenum}</option>
                       ))}
                     </select>
+                  </div>
+                  <div className="col-md-3">
+                    <label htmlFor="numberOfGuests" className="form-label">رقم الموبايل</label>
+                    <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                   </div>
                 </div>
                 <div className="row">
@@ -79,7 +83,7 @@ const Reservation = () => {
                           if (StartedDate) {
                             StartedDate.setHours(parseInt(timeParts[0]));
                             StartedDate.setMinutes(parseInt(timeParts[1]));
-                            console.log(StartedDate)
+                            console.log({StartedDate})
                             setStartTime(StartedDate);
                           }
                         } else {

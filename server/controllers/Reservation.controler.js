@@ -6,7 +6,7 @@ const createReservation = async (req, res) => {
 
     try {
         // Validate input data
-        if (!tableId || (!userId && !createdBy) || !customerName || !customerPhone || !reservationDate || !startTime || !endTime) {
+        if (!tableId || (!userId && !createdBy) || !numberOfGuests || !customerName || !customerPhone || !reservationDate || !startTime || !endTime) {
             throw new Error("All fields are required");
         }
 

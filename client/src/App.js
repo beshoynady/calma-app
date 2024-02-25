@@ -1425,7 +1425,7 @@ function App() {
   };
 
 
-  const createReservations = async (e, tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
+  const createReservations = async (e, tableId, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
     e.preventDefault();
     console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote });
   
@@ -1471,6 +1471,7 @@ function App() {
       // إرسال الطلب إلى الخادم
       const response = await axios.post(`${apiUrl}/api/reservation`, {
         tableId,
+        numberOfGuests,
         customerName,
         customerPhone,
         reservationDate,

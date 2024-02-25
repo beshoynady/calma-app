@@ -27,7 +27,6 @@ export default function Offers() {
         ({ allProducts, itemId, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, }) => {
           return (
             <section id='offer' className='offers-section'>
-              <ToastContainer/>
               <div className='section-title'>
                 <h2>العروض</h2>
               </div>
