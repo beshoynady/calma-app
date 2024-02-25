@@ -217,7 +217,7 @@ const ReservationTables = () => {
                                         id={`checkbox${i}`}
                                         name="options[]"
                                         value={reservation._id}
-                                        onChange={handleCheckboxChange}
+                                        // onChange={handleCheckboxChange}
                                       />
                                       <label htmlFor={`checkbox${i}`}></label>
                                     </span>
