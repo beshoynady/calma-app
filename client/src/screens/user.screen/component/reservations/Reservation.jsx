@@ -50,7 +50,7 @@ const Reservation = () => {
                     </select>
                   </div>
                   <div className="col-md-3">
-                    <label htmlFor="numberOfGuests" className="form-label">رقم الموبايل</label>
+                    <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
                     <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                   </div>
                 </div>
