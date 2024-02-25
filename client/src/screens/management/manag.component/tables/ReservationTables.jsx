@@ -287,7 +287,7 @@ const ReservationTables = () => {
                               <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
                               <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
                                 <option>اختار رقم الطاوله</option>
-                                {allTable.map((table, i) => (
+                                {listoftable.map((table, i) => (
                                   <option key={i} value={table._id}>{table.tablenum}</option>
                                 ))}
                               </select>
