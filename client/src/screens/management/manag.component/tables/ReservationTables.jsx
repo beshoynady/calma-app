@@ -276,46 +276,39 @@ const ReservationTables = () => {
                         <div className="container">
                           <div className="row">
                             <div className="col-md-6">
-                              <div className="form-group">
-                                <label htmlFor="name" className="form-label">الاسم</label>
-                                <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
-                                <ul>
-                                  {filteredClients.map((client, index) => (
-                                    <li key={index}>{client.username}</li>
-                                  ))}
-                                </ul>
-                              </div>
+
+                              <label htmlFor="name" className="form-label">الاسم</label>
+                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
+                              <ul>
+                                {filteredClients.map((client, index) => (
+                                  <li key={index}>{client.username}</li>
+                                ))}
+                              </ul>
                             </div>
                             <div className="col-md-6">
-                              <div className="form-group">
-                                <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                                <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
-                              </div>
+
+                              <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
+                              <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                             </div>
                           </div>
                           <div className="row">
                             <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                                <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
-                                  <option>اختار رقم الطاوله</option>
-                                  {listoftable.map((table, i) => (
-                                    <option key={i} value={table._id}>{table.tablenum}</option>
-                                  ))}
-                                </select>
-                              </div>
+
+                              <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
+                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                                <option>اختار رقم الطاوله</option>
+                                {listoftable.map((table, i) => (
+                                  <option key={i} value={table._id}>{table.tablenum}</option>
+                                ))}
+                              </select>
                             </div>
                             <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                                <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
-                              </div>
+                              <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
+                              <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                             </div>
                             <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="date" className="form-label">التاريخ</label>
-                                <input type="date" className="form-control" id="date" onChange={(e) => setReservationDate(new Date(e.target.value))} />
-                              </div>
+                              <label htmlFor="date" className="form-label">التاريخ</label>
+                              <input type="date" className="form-control" id="date" onChange={(e) => setReservationDate(new Date(e.target.value))} />
                             </div>
                           </div>
                           <div className="row">
@@ -376,23 +369,21 @@ const ReservationTables = () => {
                               )}
                             </div>
                             <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="notes" className="form-label">ملاحظات</label>
-                                <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
-                              </div>
+
+                              <label htmlFor="notes" className="form-label">ملاحظات</label>
+                              <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
                             </div>
                           </div>
                         </div>
                       </div>
-
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-success" value="ضافه" />
                       </div>
                     </form>
                   </div>
-                </div>
-              </div>
+                </div >
+              </div >
               {/* {tableid && <div id="editTableModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -475,11 +466,11 @@ const ReservationTables = () => {
                   </div>
                 </div>
               </div> */}
-            </div>
+            </div >
           )
         }
       }
-    </detacontext.Consumer>
+    </detacontext.Consumer >
   )
 }
 
