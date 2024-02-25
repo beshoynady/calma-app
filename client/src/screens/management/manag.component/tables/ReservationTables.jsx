@@ -22,63 +22,67 @@ const ReservationTables = () => {
 
 
   const [listoftable, setlistoftable] = useState([]);
-  const [listoftabledescription, setlistoftabledescription] = useState([]);
 
   const getAllTable = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/table');
       const tables = response.data;
       setlistoftable(tables);
-
-      setlistoftabledescription(prevDescription => {
-        const descriptions = tables.map(table => reservation.description);
-        return [...prevDescription, ...descriptions];
-      });
     } catch (error) {
       console.log(error);
     }
   };
-
-
-
-  const [tableFiltered, settableFiltered] = useState([])
-  const searchByNum = (num) => {
-    const tables = listofreservation.filter((table) => reservation.tablenum.toString().startsWith(num) == true)
-    settableFiltered(tables)
+  
+  const [userId, setUserId] = useState("");
+  const clientByName = (allusers , name) => {
+    setCustomerName(name);
+    const client = allusers.find(user => user.username.startsWith(name) == true);
+    const userId = client._id
+    setUserId(userId)
+    console.log(client);
+    console.log(name);
+    console.log(userId);
   }
-  const filterByStatus = (Status) => {
-    const filter = listofreservation.filter(table => reservation.isValid == Status)
-    settableFiltered(filter)
-  }
 
-  const [selectedIds, setSelectedIds] = useState([]);
-  const handleCheckboxChange = (e) => {
-    const Id = e.target.value;
-    const isChecked = e.target.checked;
 
-    if (isChecked) {
-      setSelectedIds([...selectedIds, Id]);
-    } else {
-      const updatedSelectedIds = selectedIds.filter((id) => id !== Id);
-      setSelectedIds(updatedSelectedIds);
-    }
-  };
+  // const [tableFiltered, settableFiltered] = useState([])
+  // const searchByNum = (num) => {
+  //   const tables = allReservations.filter((table) => reservation.tablenum.toString().startsWith(num) == true)
+  //   settableFiltered(tables)
+  // }
+  // const filterByStatus = (Status) => {
+  //   const filter = allReservations.filter(table => reservation.isValid == Status)
+  //   settableFiltered(filter)
+  // }
 
-  const deleteSelectedIds = async (e) => {
-    e.preventDefault();
-    console.log(selectedIds)
-    try {
-      for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`);
-      }
-      getAllTable()
-      toast.success('Selected orders deleted successfully');
-      setSelectedIds([]);
-    } catch (error) {
-      console.log(error);
-      toast.error('Failed to delete selected orders');
-    }
-  };
+  // const [selectedIds, setSelectedIds] = useState([]);
+  // const handleCheckboxChange = (e) => {
+  //   const Id = e.target.value;
+  //   const isChecked = e.target.checked;
+
+  //   if (isChecked) {
+  //     setSelectedIds([...selectedIds, Id]);
+  //   } else {
+  //     const updatedSelectedIds = selectedIds.filter((id) => id !== Id);
+  //     setSelectedIds(updatedSelectedIds);
+  //   }
+  // };
+
+  // const deleteSelectedIds = async (e) => {
+  //   e.preventDefault();
+  //   console.log(selectedIds)
+  //   try {
+  //     for (const Id of selectedIds) {
+  //       await axios.delete(`${apiUrl}/api/order/${Id}`);
+  //     }
+  //     getAllTable()
+  //     toast.success('Selected orders deleted successfully');
+  //     setSelectedIds([]);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error('Failed to delete selected orders');
+  //   }
+  // };
 
 
   useEffect(() => {
@@ -88,8 +92,9 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo }) => {
 
+          const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
             <div className="container-xl mlr-auto">
               <ToastContainer />
@@ -165,42 +170,43 @@ const ReservationTables = () => {
                     </thead>
                     <tbody>
                       {
-                        tableFiltered.length > 0 ? tableFiltered.map((table, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
-                              <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input
-                                      type="checkbox"
-                                      id={`checkbox${i}`}
-                                      name="options[]"
-                                      value={reservation._id}
-                                      onChange={handleCheckboxChange}
-                                    />
-                                    <label htmlFor={`checkbox${i}`}></label>
-                                  </span>
-                                </td>
-                                <td>{i + 1}</td>
-                                <td>{reservation.tablenum}</td>
-                                <td>{reservation.description}</td>
-                                <td>{reservation.chairs}</td>
-                                <td>{reservation.sectionNumber}</td>
-                                <td>{reservation.isValid ? 'متاح' : 'غير متاح'}</td>
-                                {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setqrimage('') }}>
-                                  <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
-                                </a></td>
-                                <td>
-                                  <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        // tableFiltered.length > 0 ? tableFiltered.map((table, i) => {
+                        //   if (i >= startpagination & i < endpagination) {
+                        //     return (
+                        //       <tr key={i}>
+                        //         <td>
+                        //           <span className="custom-checkbox">
+                        //             <input
+                        //               type="checkbox"
+                        //               id={`checkbox${i}`}
+                        //               name="options[]"
+                        //               value={reservation._id}
+                        //               onChange={handleCheckboxChange}
+                        //             />
+                        //             <label htmlFor={`checkbox${i}`}></label>
+                        //           </span>
+                        //         </td>
+                        //         <td>{i + 1}</td>
+                        //         <td>{reservation.tablenum}</td>
+                        //         <td>{reservation.description}</td>
+                        //         <td>{reservation.chairs}</td>
+                        //         <td>{reservation.sectionNumber}</td>
+                        //         <td>{reservation.isValid ? 'متاح' : 'غير متاح'}</td>
+                        //         {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
+                        //         <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setqrimage('') }}>
+                        //           <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
+                        //         </a></td>
+                        //         <td>
+                        //           <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                  <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                              </tr>
-                            )
-                          }
-                        })
-                          : allReservations.map((reservation, i) => {
+                        //           <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        //         </td>
+                        //       </tr>
+                        //     )
+                        //   }
+                        // })
+                        //   :
+                          allReservations.map((reservation, i) => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i}>
@@ -227,9 +233,12 @@ const ReservationTables = () => {
 
                                   {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
                                   <td>
-                                    <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#editTableModal" className="edit" data-toggle="modal" 
+                                      ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                    <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <a href="#deleteTableModal" className="delete" data-toggle="modal" 
+                                    >
+                                      <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                   </td>
                                 </tr>
                               )
@@ -239,7 +248,7 @@ const ReservationTables = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{listofreservation.length > endpagination ? endpagination : listofreservation.length}</b> من <b>{listofreservation.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{allReservations.length > endpagination ? endpagination : allReservations.length}</b> من <b>{allReservations.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
@@ -255,7 +264,7 @@ const ReservationTables = () => {
               {<div id="createreservationModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createReservations(e, tableInfo.id,tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
+                    <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -263,7 +272,7 @@ const ReservationTables = () => {
                       <div className="modal-body">
                         <div className="form-group mb-1">
                           <label htmlFor="name" className="form-label">الاسم</label>
-                          <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
+                          <input type="text" className="form-control" id="name" onChange={(e) => clientByName(e.target.value)} />
                         </div>
                         <div className="form-group row mb-1">
                           <div className="col-md-">
@@ -274,7 +283,7 @@ const ReservationTables = () => {
                             <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
                             <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
                               <option>اختار رقم الطاوله</option>
-                              {allTable.map((table, i) => (
+                              {listoftable.map((table, i) => (
                                 <option key={i} value={table._id}>{table.tablenum}</option>
                               ))}
                             </select>
@@ -382,15 +391,15 @@ const ReservationTables = () => {
                         </div>
                         <div className="form-group">
                           <label>رقم الطاولة</label>
-                          <input type="Number" defaultValue={listofreservation.length > 0 ? listoftable[listofreservation.length - 1].tablenum : ""} className="form-control" required onChange={(e) => settablenum(e.target.value)} />
+                          <input type="Number" defaultValue={allReservations.length > 0 ? listoftable[allReservations.length - 1].tablenum : ""} className="form-control" required onChange={(e) => settablenum(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>عدد المقاعد</label>
-                          <input type="Number" defaultValue={listofreservation.length > 0 ? listofreservation.find((table, i) => reservation._id == tableid).chairs : ''} className="form-control" required onChange={(e) => setchairs(e.target.value)} />
+                          <input type="Number" defaultValue={allReservations.length > 0 ? allReservations.find((table, i) => reservation._id == tableid).chairs : ''} className="form-control" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الوصف</label>
-                          <textarea defaultValue={listofreservation.length > 0 ? listofreservation.find((table, i) => reservation._id == tableid).description : ""} className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
+                          <textarea defaultValue={allReservations.length > 0 ? allReservations.find((table, i) => reservation._id == tableid).description : ""} className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                         <div className="form-group">
                           <label>متاح</label>
