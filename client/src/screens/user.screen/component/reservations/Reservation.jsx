@@ -36,7 +36,7 @@ const Reservation = () => {
                   <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
                 </div>
                 <div className="row mb-1">
-                  <div className="col-md-">
+                  <div className="col-md-6">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                     <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                   </div>
