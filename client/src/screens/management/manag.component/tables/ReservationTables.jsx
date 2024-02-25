@@ -131,7 +131,7 @@ const ReservationTables = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div class="col-sm-9">
+                      {/* <div class="col-sm-9">
                         <div class="filter-group">
                           <label>رقم الطاولة</label>
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
@@ -145,7 +145,7 @@ const ReservationTables = () => {
                             <option value={false} >غير متاح</option>
                           </select>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <table className="table table-striped table-hover">
