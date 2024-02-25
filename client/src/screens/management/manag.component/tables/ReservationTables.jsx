@@ -319,17 +319,61 @@ const ReservationTables = () => {
                             </div>
                           </div>
                           <div className="row">
-                            <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
-                                <input type="time" className="form-control" id="arrivalTime" required onChange={(e) => handleStartTimeChange(e)} />
-                              </div>
+                            <div className="col-md-3 mb-1">
+                              <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
+                              <input
+                                type="time"
+                                className="form-control"
+                                id="arrivalTime"
+                                required
+                                onChange={(e) => {
+                                  setStartTimeClicked(true);
+                                  if (reservationDate) {
+                                    const StartedDate = new Date(reservationDate);
+                                    const timeParts = e.target.value.split(':');
+                                    console.log({ timeParts })
+                                    if (StartedDate) {
+                                      StartedDate.setHours(parseInt(timeParts[0]));
+                                      StartedDate.setMinutes(parseInt(timeParts[1]));
+                                      console.log({ StartedDate })
+                                      setStartTime(StartedDate);
+                                    }
+                                  } else {
+                                    e.target.value = ''
+                                  }
+                                }}
+                              />
+                              {startTimeClicked && !reservationDate && (
+                                <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                              )}
                             </div>
-                            <div className="col-md-4">
-                              <div className="form-group">
-                                <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
-                                <input type="time" className="form-control" id="departureTime" required onChange={(e) => handleEndTimeChange(e)} />
-                              </div>
+                            <div className="col-md-3 mb-1">
+                              <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
+                              <input
+                                type="time"
+                                className="form-control"
+                                id="departureTime"
+                                required
+                                onChange={(e) => {
+                                  setEndTimeClicked(true);
+                                  if (reservationDate) {
+                                    const EndedDate = new Date(reservationDate);
+                                    const timeParts = e.target.value.split(':');
+                                    console.log({ timeParts })
+                                    if (EndedDate) {
+                                      EndedDate.setHours(parseInt(timeParts[0]));
+                                      EndedDate.setMinutes(parseInt(timeParts[1]));
+                                      console.log({ EndedDate })
+                                      setEndTime(EndedDate);
+                                    }
+                                  } else {
+                                    e.target.value = ''
+                                  }
+                                }}
+                              />
+                              {endTimeClicked && !reservationDate && (
+                                <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
+                              )}
                             </div>
                             <div className="col-md-4">
                               <div className="form-group">
