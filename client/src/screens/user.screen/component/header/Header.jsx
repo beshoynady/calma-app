@@ -50,6 +50,7 @@ const Header = () => {
                 <li onClick={toggleMobileMenu}><a href="#main">الرئيسيه</a></li>
                 <li onClick={toggleMobileMenu}><a href="#menu">قائمة الطعام</a></li>
                 <li onClick={toggleMobileMenu}><a href="#offer">العروض</a></li>
+                <li onClick={toggleMobileMenu}><a href="#reservation">حجز الطاولات</a></li>
                 <li onClick={toggleMobileMenu}><a href="#location">موقعنا</a></li>
                 <li onClick={toggleMobileMenu}><a href="#contact">تواصل معنا</a></li>
               </ul>

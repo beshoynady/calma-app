@@ -7,7 +7,7 @@ const Reservation = () => {
   const [customerPhone, setCustomerPhone] = useState('');
   const [reservationNote, setReservationNote] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState('');
-  const [tableId, setTableId] = useState('');
+  const [tableInfo, setTableInfo] = useState({});
   const [reservationDate, setReservationDate] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
@@ -30,19 +30,19 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-                onSubmit={(e) => createReservations(e, tableId, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
+                onSubmit={(e) => createReservations(e, tableInfo.id,tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
                 <div className="mb-1">
                   <label htmlFor="name" className="form-label">الاسم</label>
                   <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
                 </div>
                 <div className="row mb-1">
-                  <div className="col-md-6">
+                  <div className="col-md-">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                     <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                   </div>
                   <div className="col-md-3">
                     <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                    <select className="form-control" id="tableNumber" onChange={(e) => setTableId(e.target.value)}>
+                    <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
                       <option>اختار رقم الطاوله</option>
                       {allTable.map((table, i) => (
                         <option key={i} value={table._id}>{table.tablenum}</option>
@@ -83,7 +83,7 @@ const Reservation = () => {
                           if (StartedDate) {
                             StartedDate.setHours(parseInt(timeParts[0]));
                             StartedDate.setMinutes(parseInt(timeParts[1]));
-                            console.log({StartedDate})
+                            console.log({ StartedDate })
                             setStartTime(StartedDate);
                           }
                         } else {
@@ -111,7 +111,7 @@ const Reservation = () => {
                           if (EndedDate) {
                             EndedDate.setHours(parseInt(timeParts[0]));
                             EndedDate.setMinutes(parseInt(timeParts[1]));
-                            console.log({EndedDate})
+                            console.log({ EndedDate })
                             setEndTime(EndedDate);
                           }
                         } else {

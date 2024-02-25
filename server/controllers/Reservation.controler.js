@@ -2,17 +2,18 @@ const ReservationModel = require('../models/ReservationTable.model');
 
 // Create a new reservation
 const createReservation = async (req, res) => {
-    const { tableId, userId, customerName, customerPhone, numberOfGuests, reservationDate, startTime, endTime, reservationNote, createdBy } = req.body;
+    const { tableId,tableNum, userId, customerName, customerPhone, numberOfGuests, reservationDate, startTime, endTime, reservationNote, createdBy } = req.body;
 
     try {
         // Validate input data
-        if (!tableId || (!userId && !createdBy) || !numberOfGuests || !customerName || !customerPhone || !reservationDate || !startTime || !endTime) {
+        if (!tableId || tableNum || (!userId && !createdBy) || !numberOfGuests || !customerName || !customerPhone || !reservationDate || !startTime || !endTime) {
             throw new Error("All fields are required");
         }
 
         // Create the reservation
         const reservation = await ReservationModel.create({
             tableId,
+            tableNum,
             userId,
             customerName,
             customerPhone,

@@ -125,6 +125,7 @@ const SideBar = () => {
                     <ul className="sub-menu">
                       <li><a className="link_name" href="#">الطاولات</a></li>
                       <li><Link to="tables">ادارة الطاولات</Link></li>
+                      <li><Link to="reservation">حجز الطاولات</Link></li>
                       <li><Link to="tablespage">الطاولات</Link></li>
                     </ul>
                   </li>

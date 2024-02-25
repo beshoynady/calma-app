@@ -11,6 +11,10 @@ const ReservationSchema = new Schema(
             ref: 'Table',
             required: true,
         },
+        tableNum: {
+            type: String,
+            required: [true, 'number of tables required'],
+        },
         // User ID referencing the user who made the reservation
         userId: {
             type: Schema.Types.ObjectId,
@@ -23,7 +27,7 @@ const ReservationSchema = new Schema(
         },
         // Customer phone number for the reservation
         customerPhone: {
-            type: String,
+            type: String, 
             required: true,
         },
         // Number of guests for the reservation

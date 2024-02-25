@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Userscreen from './screens/user.screen/Userscreen';
@@ -11,8 +11,15 @@ import ManagLayout from './screens/management/ManagLayout';
 import ManagerDash from './screens/management/manag.component/managerdash/ManagerDash';
 import Orders from './screens/management/manag.component/orders/Orders';
 import Products from './screens/management/manag.component/products/Products';
+
 import Tables from './screens/management/manag.component/tables/Tables';
+import TablesPage from './screens/management/manag.component/tables/TablesPage';
+import ReservationTables from './screens/management/manag.component/tables/ReservationTables';
+
 import Employees from './screens/management/manag.component/employees/Employees';
+import EmployeesSalary from './screens/management/manag.component/employees/EmployeesSalary';
+import PayRoll from './screens/management/manag.component/employees/PayRoll';
+
 import Category from './screens/management/manag.component/category/Category';
 import CategoryStock from './screens/management/manag.component/stock/CategoryStock';
 import Kitchen from './screens/management/manag.component/kitchen/Kitchen';
@@ -23,15 +30,12 @@ import POS from './screens/management/manag.component/pos/POS';
 import StockItem from './screens/management/manag.component/stock/StockItem';
 import StockManag from './screens/management/manag.component/stock/StockManag';
 import ProductRecipe from './screens/management/manag.component/products/ProductRecipe';
-import EmployeesSalary from './screens/management/manag.component/employees/EmployeesSalary';
-import PayRoll from './screens/management/manag.component/employees/PayRoll';
 import ExpenseItem from './screens/management/manag.component/expenses/Expense';
 import DailyExpense from './screens/management/manag.component/expenses/dailyExpense';
 import CashRegister from './screens/management/manag.component/cash/CashRegister';
 import CashMovement from './screens/management/manag.component/cash/CashMovement';
 import Users from './screens/management/manag.component/users/Users';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
-import TablesPage from './screens/management/manag.component/tables/TablesPage';
 
 // import io from 'socket.io-client';
 // const socket = io(process.env.REACT_APP_API_URL, {
@@ -1425,9 +1429,9 @@ function App() {
   };
 
 
-  const createReservations = async (e, tableId, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
+  const createReservations = async (e, tableId,tableNum, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
     e.preventDefault();
-    console.log({ tableId, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote });
+    console.log({ tableId, tableNum, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote });
   
     try {
       const selectedDate = new Date(reservationDate)
@@ -1471,6 +1475,7 @@ function App() {
       // إرسال الطلب إلى الخادم
       const response = await axios.post(`${apiUrl}/api/reservation`, {
         tableId,
+        tableNum,
         numberOfGuests,
         customerName,
         customerPhone,
@@ -1648,6 +1653,7 @@ function App() {
             <Route path='productrecipe' element={<ProductRecipe />} />
             <Route path='tables' element={<Tables />} />
             <Route path='tablespage' element={<TablesPage />} />
+            <Route path='reservation' element={<ReservationTables/>}/>
             <Route path='employees' element={<Employees />} />
             <Route path='Employeessalary' element={<EmployeesSalary />} />
             <Route path='payroll' element={<PayRoll />} />
