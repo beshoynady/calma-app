@@ -1437,23 +1437,23 @@ function App() {
       console.log({ tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
 
 
-        // Convert reservationDate to Date object
-        const selectedDate = new Date(reservationDate);
+      // Convert reservationDate to Date object
+      const selectedDate = new Date(reservationDate);
 
-        // Logging selectedDate for debugging purposes
-        console.log({ selectedDate: selectedDate.getTime() });
+      // Logging selectedDate for debugging purposes
+      console.log({ selectedDate: selectedDate.getTime() });
 
-        // Filter reservations by table and selected date
-        const filterReservationsByTable = allReservations.filter(reservation => {
-            const reservationDateObj = new Date(reservation.reservationDate);
-            return (
-                reservation.tableId === tableId &&
-                reservationDateObj.toDateString() === selectedDate.toDateString()
-            );
-        });
+      // Filter reservations by table and selected date
+      const filterReservationsByTable = allReservations.filter(reservation => {
+        const reservationDateObj = new Date(reservation.reservationDate);
+        return (
+          reservation.tableId === tableId &&
+          reservationDateObj.toDateString() === selectedDate.toDateString()
+        );
+      });
 
-        // Logging filterReservationsByTable for debugging purposes
-        console.log({ filterReservationsByTable });
+      // Logging filterReservationsByTable for debugging purposes
+      console.log({ filterReservationsByTable });
       // Filter reservations by table and selected date
       const conflictingReservation = filterReservationsByTable.find(reservation => {
         const startReservationTime = new Date(reservation.startTime).getTime();
