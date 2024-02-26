@@ -1537,7 +1537,7 @@ function App() {
     }
   }
 
-  const updateReservation = async (id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
+  const updateReservation = async (e, id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
     e.preventDefault();
 
     try {
