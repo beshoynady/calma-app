@@ -242,7 +242,7 @@ const ReservationTables = () => {
                                   </select>
                                 </td>
                                 <td>
-                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => {setReservationId(reservation._id) ;setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.startDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
+                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.startDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
                                   ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 </td>
                               </tr>
@@ -435,7 +435,8 @@ const ReservationTables = () => {
                                 type="date"
                                 className="form-control"
                                 id="date"
-                                defaultValue={formatDate(reservationDate)} onChange={(e) => {
+                                defaultValue={reservationDate ? reservationDate.toISOString().split('T')[0] : ''}
+                                onChange={(e) => {
                                   const selectedDate = new Date(e.target.value);
                                   setReservationDate(selectedDate);
                                 }}
@@ -447,20 +448,17 @@ const ReservationTables = () => {
                                 type="time"
                                 className="form-control"
                                 required
-                                defaultValue={formatTime(startTime)} onChange={(e) => {
+                                defaultValue={startTime ? startTime.toTimeString().split(' ')[0] : ''}
+                                onChange={(e) => {
                                   setStartTimeClicked(true);
                                   if (reservationDate) {
                                     const StartedDate = new Date(reservationDate);
                                     const timeParts = e.target.value.split(':');
-                                    console.log({ timeParts })
-                                    if (StartedDate) {
-                                      StartedDate.setHours(parseInt(timeParts[0]));
-                                      StartedDate.setMinutes(parseInt(timeParts[1]));
-                                      console.log({ StartedDate })
-                                      setStartTime(StartedDate);
-                                    }
+                                    StartedDate.setHours(parseInt(timeParts[0]));
+                                    StartedDate.setMinutes(parseInt(timeParts[1]));
+                                    setStartTime(StartedDate);
                                   } else {
-                                    e.target.value = ''
+                                    e.target.value = '';
                                   }
                                 }}
                               />
@@ -475,20 +473,17 @@ const ReservationTables = () => {
                                 className="form-control"
                                 id="departureTime"
                                 required
-                                defaultValue={formatTime(endTime)} onChange={(e) => {
+                                defaultValue={endTime ? endTime.toTimeString().split(' ')[0] : ''}
+                                onChange={(e) => {
                                   setEndTimeClicked(true);
                                   if (reservationDate) {
                                     const EndedDate = new Date(reservationDate);
                                     const timeParts = e.target.value.split(':');
-                                    console.log({ timeParts })
-                                    if (EndedDate) {
-                                      EndedDate.setHours(parseInt(timeParts[0]));
-                                      EndedDate.setMinutes(parseInt(timeParts[1]));
-                                      console.log({ EndedDate })
-                                      setEndTime(EndedDate);
-                                    }
+                                    EndedDate.setHours(parseInt(timeParts[0]));
+                                    EndedDate.setMinutes(parseInt(timeParts[1]));
+                                    setEndTime(EndedDate);
                                   } else {
-                                    e.target.value = ''
+                                    e.target.value = '';
                                   }
                                 }}
                               />
@@ -496,6 +491,7 @@ const ReservationTables = () => {
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
                             </div>
+
                           </div>
                           <div className="mb-1">
                             <label htmlFor="notes" className="form-label">ملاحظات</label>
