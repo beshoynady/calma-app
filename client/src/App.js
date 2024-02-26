@@ -1538,6 +1538,8 @@ function App() {
   }
 
   const updateReservation = async (id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
+    e.preventDefault();
+
     try {
       if (!id) {
         toast.error("رجاء اختيار الحجز بشكل صحيح")

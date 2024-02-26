@@ -242,7 +242,7 @@ const ReservationTables = () => {
                                   </select>
                                 </td>
                                 <td>
-                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.startDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
+                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.reservationDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
                                   ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 </td>
                               </tr>
