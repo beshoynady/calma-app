@@ -442,7 +442,7 @@ const ReservationTables = () => {
                               />
                             </div>
                             <div className="col-md-3 mb-1">
-                              <label className="form-label">وقت الحضور</label>
+                              {/* <label className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
                                 className="form-control"
@@ -467,7 +467,7 @@ const ReservationTables = () => {
 
                               {startTimeClicked && !reservationDate && (
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                              )}
+                              )} */}
                             </div>
                             <div className="col-md-3 mb-1">
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
