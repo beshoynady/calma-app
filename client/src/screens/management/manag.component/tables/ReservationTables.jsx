@@ -454,11 +454,15 @@ const ReservationTables = () => {
                                   if (reservationDate) {
                                     const StartedDate = new Date(reservationDate);
                                     const timeParts = e.target.value.split(':');
-                                    StartedDate.setHours(parseInt(timeParts[0]));
-                                    StartedDate.setMinutes(parseInt(timeParts[1]));
-                                    setStartTime(StartedDate);
+                                    console.log({ timeParts })
+                                    if (StartedDate) {
+                                      StartedDate.setHours(parseInt(timeParts[0]));
+                                      StartedDate.setMinutes(parseInt(timeParts[1]));
+                                      console.log({ StartedDate })
+                                      setStartTime(StartedDate);
+                                    }
                                   } else {
-                                    e.target.value = '';
+                                    e.target.value = ''
                                   }
                                 }}
                               />
@@ -479,11 +483,15 @@ const ReservationTables = () => {
                                   if (reservationDate) {
                                     const EndedDate = new Date(reservationDate);
                                     const timeParts = e.target.value.split(':');
-                                    EndedDate.setHours(parseInt(timeParts[0]));
-                                    EndedDate.setMinutes(parseInt(timeParts[1]));
-                                    setEndTime(EndedDate);
+                                    console.log({ timeParts })
+                                    if (EndedDate) {
+                                      EndedDate.setHours(parseInt(timeParts[0]));
+                                      EndedDate.setMinutes(parseInt(timeParts[1]));
+                                      console.log({ EndedDate })
+                                      setEndTime(EndedDate);
+                                    }
                                   } else {
-                                    e.target.value = '';
+                                    e.target.value = ''
                                   }
                                 }}
                               />
@@ -491,7 +499,6 @@ const ReservationTables = () => {
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
                             </div>
-
                           </div>
                           <div className="mb-1">
                             <label htmlFor="notes" className="form-label">ملاحظات</label>
