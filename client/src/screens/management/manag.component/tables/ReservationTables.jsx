@@ -435,7 +435,7 @@ const ReservationTables = () => {
                                 type="date"
                                 className="form-control"
                                 id="date"
-                                defaultValue={reservationDate ? reservationDate.toISOString().split('T')[0] : ''}
+                                defaultValue={reservationDate ? new Date(reservationDate).toISOString().split('T')[0] : ''}
                                 onChange={(e) => {
                                   const selectedDate = new Date(e.target.value);
                                   setReservationDate(selectedDate);
@@ -448,7 +448,7 @@ const ReservationTables = () => {
                                 type="time"
                                 className="form-control"
                                 required
-                                defaultValue={startTime ? startTime.toISOString().split('T')[1].slice(0, 5) : ''}
+                                defaultValue={startTime ? new Date(startTime).toISOString().split('T')[1].slice(0, 5) : ''}
                                 onChange={(e) => {
                                   setStartTimeClicked(true);
                                   if (reservationDate) {
@@ -477,7 +477,7 @@ const ReservationTables = () => {
                                 className="form-control"
                                 id="departureTime"
                                 required
-                                defaultValue={endTime ? endTime.toISOString().split('T')[1].slice(0, 5) : ''}
+                                defaultValue={endTime ? new Date(endTime).toISOString().split('T')[1].slice(0, 5) : ''}
                                 onChange={(e) => {
                                   setEndTimeClicked(true);
                                   if (reservationDate) {
