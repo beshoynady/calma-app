@@ -1446,9 +1446,13 @@ function App() {
       // Filter reservations by table and selected date
       const filterReservationsByTable = allReservations.filter(reservation => {
         const reservationDateObj = new Date(reservation.reservationDate);
+        const selectedDateObj = new Date(selectedDate);
+        
         return (
           reservation.tableId === tableId &&
-          reservationDateObj.toDateString() === selectedDate.toDateString()
+          reservationDateObj.getFullYear() === selectedDateObj.getFullYear() &&
+          reservationDateObj.getMonth() === selectedDateObj.getMonth() &&
+          reservationDateObj.getDate() === selectedDateObj.getDate()
         );
       });
 
