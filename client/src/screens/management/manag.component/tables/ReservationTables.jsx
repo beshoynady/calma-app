@@ -435,7 +435,7 @@ const ReservationTables = () => {
                                 type="date"
                                 className="form-control"
                                 id="date"
-                                defaultValue={reservationDate} onChange={(e) => {
+                                defaultValue={formatDate(reservationDate)} onChange={(e) => {
                                   const selectedDate = new Date(e.target.value);
                                   setReservationDate(selectedDate);
                                 }}
@@ -447,7 +447,7 @@ const ReservationTables = () => {
                                 type="time"
                                 className="form-control"
                                 required
-                                defaultValue={startTime} onChange={(e) => {
+                                defaultValue={formatTime(startTime)} onChange={(e) => {
                                   setStartTimeClicked(true);
                                   if (reservationDate) {
                                     const StartedDate = new Date(reservationDate);
@@ -475,7 +475,7 @@ const ReservationTables = () => {
                                 className="form-control"
                                 id="departureTime"
                                 required
-                                defaultValue={endTime} onChange={(e) => {
+                                defaultValue={formatTime(endTime)} onChange={(e) => {
                                   setEndTimeClicked(true);
                                   if (reservationDate) {
                                     const EndedDate = new Date(reservationDate);
