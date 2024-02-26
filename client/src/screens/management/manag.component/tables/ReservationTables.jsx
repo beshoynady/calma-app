@@ -227,7 +227,7 @@ const ReservationTables = () => {
                                   </span>
                                 </td>
                                 <td>{i + 1}</td>
-                                <td>{reservation.tablenum}</td>
+                                <td>{reservation.tableNum}</td>
                                 <td>{reservation.customerName}</td>
                                 <td>{reservation.customerPhone}</td>
                                 <td>{reservation.numberOfGuests}</td>
