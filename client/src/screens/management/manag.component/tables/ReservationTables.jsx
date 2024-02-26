@@ -242,7 +242,7 @@ const ReservationTables = () => {
                                   </select>
                                 </td>
                                 <td>
-                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id), setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.startDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
+                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => {setReservationId(reservation._id) ;setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.startDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
                                   ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 </td>
                               </tr>
@@ -442,7 +442,7 @@ const ReservationTables = () => {
                               />
                             </div>
                             <div className="col-md-3 mb-1">
-                              {/* <label className="form-label">وقت الحضور</label>
+                              <label className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
                                 className="form-control"
@@ -460,14 +460,13 @@ const ReservationTables = () => {
                                       setStartTime(StartedDate);
                                     }
                                   } else {
-                                    setStartTime(null);
+                                    e.target.value = ''
                                   }
                                 }}
                               />
-
                               {startTimeClicked && !reservationDate && (
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
-                              )} */}
+                              )}
                             </div>
                             <div className="col-md-3 mb-1">
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
@@ -489,7 +488,7 @@ const ReservationTables = () => {
                                       setEndTime(EndedDate);
                                     }
                                   } else {
-                                    setEndTime(null);
+                                    e.target.value = ''
                                   }
                                 }}
                               />
