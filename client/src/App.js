@@ -1429,29 +1429,20 @@ function App() {
   };
 
 
-  const createReservations = async (e, tableId,tableNum, userId,numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy) => {
-    e.preventDefault();
-    console.log({ tableId, tableNum, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy });
-  
+  const createReservations = async (e, tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy) => {
     try {
-      const selectedDate = new Date(reservationDate)
-      console.log({selectedDate:selectedDate.getTime()})
-  
-      // فحص وجود بيانات الحجز للطاولة والتاريخ المحدد
-      const filterReservationsByTable = allReservations.filter(reservation => {
-        const reservationDateObj = new Date(reservation.reservationDate);
-        const selectedDateObj = new Date(selectedDate);
-        
-        return (
-          reservation.tableId === tableId &&
-          reservationDateObj.getFullYear() === selectedDateObj.getFullYear() &&
-          reservationDateObj.getMonth() === selectedDateObj.getMonth() &&
-          reservationDateObj.getDate() === selectedDateObj.getDate()
-        );
-      });
-      console.log({ filterReservationsByTable });
-  
-      // التحقق من عدم وجود حجوزات في الوقت المحدد
+      e.preventDefault();
+
+      // Logging input data for debugging purposes
+      console.log({ tableId, tableNum, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
+
+      // Convert reservationDate to Date object
+      const selectedDate = new Date(reservationDate);
+
+      // Logging selectedDate for debugging purposes
+      console.log({ selectedDate: selectedDate.getTime() });
+
+      // Filter reservations by table and selected date
       const conflictingReservation = filterReservationsByTable.find(reservation => {
         const startReservationTime = new Date(reservation.startTime).getTime();
         const endReservationTime = new Date(reservation.endTime).getTime();
@@ -1463,16 +1454,16 @@ function App() {
           (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
         );
       });
-  
+
       console.log({ conflictingReservation });
-  
-      // الرسالة الخطأ في حالة وجود حجز في الوقت المحدد
+
+      // Display error message if there is a conflicting reservation
       if (conflictingReservation) {
-        toast.error('هذه الطاوله محجوزه في هذا الوقت');
+        toast.error('هذه الطاولة محجوزة في هذا الوقت');
         return;
       }
-  
-      // إرسال الطلب إلى الخادم
+
+      // Send request to the server
       const response = await axios.post(`${apiUrl}/api/reservation`, {
         tableId,
         tableNum,
@@ -1483,23 +1474,26 @@ function App() {
         startTime,
         endTime,
         userId: userId || null,
-        createBy: createBy || null,
+        createdBy: createdBy || null,
         reservationNote: reservationNote || "",
       });
-  
-      // التحقق من نجاح العملية
+
+      // Check if the request was successful
       if (response.status === 201) {
+        // Update reservations data
         getAllReservations();
-        toast.success("تم حجز الطاوله بنجاح");
+        // Display success message
+        toast.success("تم حجز الطاولة بنجاح");
       } else {
+        // Display error message if the request was unsuccessful
         toast.error("حدث خطأ أثناء عملية الحجز! الرجاء المحاولة مرة أخرى");
       }
     } catch (error) {
+      // Display error message if an error occurred
       console.error(error);
       toast.error("فشل عملية الحجز! الرجاء المحاولة مرة أخرى");
     }
   };
-  
 
   const getReservationById = async (id) => {
     try {
@@ -1653,7 +1647,7 @@ function App() {
             <Route path='productrecipe' element={<ProductRecipe />} />
             <Route path='tables' element={<Tables />} />
             <Route path='tablespage' element={<TablesPage />} />
-            <Route path='reservation' element={<ReservationTables/>}/>
+            <Route path='reservation' element={<ReservationTables />} />
             <Route path='employees' element={<Employees />} />
             <Route path='Employeessalary' element={<EmployeesSalary />} />
             <Route path='payroll' element={<PayRoll />} />
