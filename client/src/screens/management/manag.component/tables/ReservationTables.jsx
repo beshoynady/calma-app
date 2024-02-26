@@ -488,7 +488,7 @@ const ReservationTables = () => {
                                       setEndTime(EndedDate);
                                     }
                                   } else {
-                                    setStartTime(null);
+                                    setEndTime(null);
                                   }
                                 }}
                               />
