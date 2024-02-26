@@ -101,15 +101,24 @@ function App() {
     };
   }
 
-  const showDate = () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = (`0${currentDate.getMonth() + 1}`).slice(-2);
-    const day = (`0${currentDate.getDate()}`).slice(-2);
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate
-  }
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+  
+  const formatTime = (timeString) => {
+    const time = new Date(timeString);
+    let hours = time.getHours();
+    const minutes = time.getMinutes();
+    const ampm = hours >= 12 ? 'م' : 'ص';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    return formattedTime;
+  };
   //+++++++++++++++++ product ++++++++++++++++++++
   const [allProducts, setallProducts] = useState([])
 
@@ -1563,7 +1572,7 @@ function App() {
     }
   }
 
-  
+
   const confirmReservation = async (id, status) => {
     try {
       if (!id) {
@@ -1665,7 +1674,7 @@ function App() {
       EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
 
       // Other utility functions or state variables
-      itemId, setitemId, showDate,
+      itemId, setitemId, formatDate,formatTime,
       orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
 

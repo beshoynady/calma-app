@@ -228,7 +228,7 @@ const DailyExpense = () => {
 
   return (
     <detacontext.Consumer>
-      {({ employeeLoginInfo, usertitle, showDate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+      {({ employeeLoginInfo, usertitle, formatDate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
             <ToastContainer />

@@ -87,6 +87,20 @@ const ReservationTables = () => {
   //   }
   // };
 
+  const translateStatus = (status) => {
+    switch (status) {
+      case 'confirmed':
+        return 'تم التأكيد';
+      case 'awaiting confirmation':
+        return 'في انتظار التأكيد';
+      case 'canceled':
+        return 'تم الإلغاء';
+      case 'Missed reservation time':
+        return 'تم التخلف عن الميعاد';
+      default:
+        return status;
+    }
+  };
 
   useEffect(() => {
     getAllTable()
@@ -95,7 +109,8 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers,
+        formatDate, formatTime }) => {
 
           const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
@@ -231,12 +246,12 @@ const ReservationTables = () => {
                                 <td>{reservation.customerName}</td>
                                 <td>{reservation.customerPhone}</td>
                                 <td>{reservation.numberOfGuests}</td>
-                                <td>{reservation.reservationDate}</td>
-                                <td>{reservation.startTime}</td>
-                                <td>{reservation.endTime}</td>
+                                <td>{formatDate(reservation.reservationDate)}</td>
+                                <td>{formatTime(reservation.startTime)}</td>
+                                <td>{formatTime(reservation.endTime)}</td>
                                 <td>
                                   <select name="status" id="status" onChange={(e) => confirmReservation(reservation._id, e.target.value)}>
-                                    <option >{reservation.status}</option>
+                                    <option >{translateStatus(reservation.status)}</option>
                                     <option value='confirmed'>تاكيد</option>
                                     <option value='awaiting confirmation'>انتظار التاكيد</option>
                                     <option value='canceled'>الغاء</option>
