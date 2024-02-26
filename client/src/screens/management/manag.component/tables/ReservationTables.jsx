@@ -95,7 +95,7 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation,updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
 
           const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
@@ -235,13 +235,13 @@ const ReservationTables = () => {
                                 <td>{reservation.startTime}</td>
                                 <td>{reservation.endTime}</td>
                                 <td>
-                              <select className="form-control" id="tableNumber" onChange={(e) => confirmReservation(reservation._id, e.target.value)}>
-                                <option >{reservation.status}</option>
-                                <option value='confirmed'>تاكيد</option>
-                                <option value='awaiting confirmation'>انتظار التاكيد</option>
-                                <option value='canceled'>الغاء</option>
-                                <option value='Missed reservation time'>تخلف عن الميعاد</option>
-                              </select>
+                                  <select name="status" id="status" onChange={(e) => confirmReservation(reservation._id, e.target.value)}>
+                                    <option >{reservation.status}</option>
+                                    <option value='confirmed'>تاكيد</option>
+                                    <option value='awaiting confirmation'>انتظار التاكيد</option>
+                                    <option value='canceled'>الغاء</option>
+                                    <option value='Missed reservation time'>تخلف عن الميعاد</option>
+                                  </select>
                                 </td>
                                 <td>
                                   <a href="#editTableModal" className="edit" data-toggle="modal"
