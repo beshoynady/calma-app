@@ -439,15 +439,12 @@ const ReservationTables = () => {
                                   const selectedDate = new Date(e.target.value);
                                   setReservationDate(selectedDate);
                                 }}
-                              />
+                              />   
                             </div>
                             <div className="col-md-3 mb-1">
                               <label className="form-label">وقت الحضور</label>
-                              <input
-                                type="time"
-                                className="form-control"
-                                required
-                                defaultValue={startTime} onChange={(e) => {
+                              <input type="time" className="form-control"
+                                required onChange={(e) => {
                                   setStartTimeClicked(true);
                                   if (reservationDate) {
                                     const StartedDate = new Date(reservationDate);
