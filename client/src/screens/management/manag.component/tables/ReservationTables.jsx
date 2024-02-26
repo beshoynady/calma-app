@@ -448,7 +448,7 @@ const ReservationTables = () => {
                                 type="time"
                                 className="form-control"
                                 required
-                                defaultValue={startTime ? startTime.toTimeString().split(' ')[0] : ''}
+                                defaultValue={startTime ? startTime.toLocaleTimeString().split(' ')[0] : ''}
                                 onChange={(e) => {
                                   setStartTimeClicked(true);
                                   if (reservationDate) {
@@ -477,7 +477,7 @@ const ReservationTables = () => {
                                 className="form-control"
                                 id="departureTime"
                                 required
-                                defaultValue={endTime ? endTime.toTimeString().split(' ')[0] : ''}
+                                defaultValue={endTime ? endTime.toLocaleTimeString().split(' ')[0] : ''}
                                 onChange={(e) => {
                                   setEndTimeClicked(true);
                                   if (reservationDate) {
