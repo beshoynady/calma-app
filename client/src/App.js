@@ -1528,7 +1528,7 @@ function App() {
     }
   }
 
-  const updateReservation = async (id, tableId, numberOfGuests, reservationDate, startTime, endTime, status) => {
+  const updateReservation = async (id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
     try {
       if (!id) {
         toast.error("رجاء اختيار الحجز بشكل صحيح")
@@ -1545,7 +1545,7 @@ function App() {
 
       if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id) {
         const response = await axios.update(`${apiUrl}/api/reservation/${id}`, {
-          tableId, numberOfGuests, reservationDate, startTime, endTime, status
+          tableId,tableNum, numberOfGuests, reservationDate, startTime, endTime, status
         })
         if (response.status == 200) {
           getAllReservations()
@@ -1560,6 +1560,29 @@ function App() {
 
     } catch (error) {
       toast.error('حدث خطأاثناء تعديل الحجز ! حاول مرة اخري')
+    }
+  }
+  const confirmReservation = async (id, status) => {
+    try {
+      if (!id) {
+        toast.error("رجاء اختيار الحجز بشكل صحيح")
+        return
+      }
+
+        const response = await axios.update(`${apiUrl}/api/reservation/${id}`, {
+           status
+        })
+        if (response.status == 200) {
+          getAllReservations()
+          toast.success('تم تاكيد الحجز بنجاح')
+        } else {
+          getAllReservations()
+          toast.error('حدث خطأ اثناء التاكيد ! حاول مرة اخري')
+        }
+
+
+    } catch (error) {
+      toast.error('حدث خطأاثناء تاكيد الحجز ! حاول مرة اخري')
     }
   }
 
@@ -1646,7 +1669,7 @@ function App() {
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+      createReservations,confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>

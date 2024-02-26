@@ -95,7 +95,7 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation,updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers }) => {
 
           const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
@@ -168,6 +168,7 @@ const ReservationTables = () => {
                         <th>التاريخ</th>
                         <th>من</th>
                         <th>الي</th>
+                        <th>تاكيد</th>
                         <th>اجراءات</th>
                       </tr>
                     </thead>
@@ -233,8 +234,15 @@ const ReservationTables = () => {
                                 <td>{reservation.reservationDate}</td>
                                 <td>{reservation.startTime}</td>
                                 <td>{reservation.endTime}</td>
-
-                                {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
+                                <td>
+                              <select className="form-control" id="tableNumber" onChange={(e) => confirmReservation(reservation._id, e.target.value)}>
+                                <option >{reservation.status}</option>
+                                <option value='confirmed'>تاكيد</option>
+                                <option value='awaiting confirmation'>انتظار التاكيد</option>
+                                <option value='canceled'>الغاء</option>
+                                <option value='Missed reservation time'>تخلف عن الميعاد</option>
+                              </select>
+                                </td>
                                 <td>
                                   <a href="#editTableModal" className="edit" data-toggle="modal"
                                   ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
