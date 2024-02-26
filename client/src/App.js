@@ -1544,7 +1544,7 @@ function App() {
       );
 
       if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id) {
-        const response = await axios.update(`${apiUrl}/api/reservation/${id}`, {
+        const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
           tableId,tableNum, numberOfGuests, reservationDate, startTime, endTime, status
         })
         if (response.status == 200) {
@@ -1562,6 +1562,8 @@ function App() {
       toast.error('حدث خطأاثناء تعديل الحجز ! حاول مرة اخري')
     }
   }
+
+  
   const confirmReservation = async (id, status) => {
     try {
       if (!id) {
@@ -1569,7 +1571,7 @@ function App() {
         return
       }
 
-        const response = await axios.update(`${apiUrl}/api/reservation/${id}`, {
+        const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
            status
         })
         if (response.status == 200) {
