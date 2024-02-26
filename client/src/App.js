@@ -1434,7 +1434,7 @@ function App() {
       e.preventDefault();
 
       // Logging input data for debugging purposes
-      console.log({ tableId, tableNum, userId, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
+      console.log({ tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
 
       // Convert reservationDate to Date object
       const selectedDate = new Date(reservationDate);
