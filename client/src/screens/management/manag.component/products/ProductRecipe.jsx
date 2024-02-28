@@ -65,23 +65,43 @@ const ProductRecipe = () => {
 
   }
 
+  const [recipeOfProduct, setrecipeOfProduct] = useState()
   const [productRecipe, setproductRecipe] = useState([])
   const [producttotalcost, setproducttotalcost] = useState()
+  // const getProductRecipe = async (id) => {
+  //   console.log(id)
+  //   const product = await axios.get(`${apiUrl}/api/product/${id}`)
+  //   console.log({ product: product })
+  //   const productRecipe = await product.data.Recipe
+  //   console.log({ productRecipe: productRecipe })
+
+  //   if (productRecipe) {
+  //     setproductRecipe(productRecipe.reverse())
+  //   }
+  //   const totalProductRecipe = await product.data.totalcost
+  //   if (totalProductRecipe) {
+  //     setproducttotalcost(totalProductRecipe)
+  //   }
+  // }
   const getProductRecipe = async (id) => {
     console.log(id)
-    const product = await axios.get(`${apiUrl}/api/product/${id}`)
-    console.log({ product: product })
-    const productRecipe = await product.data.Recipe
-    console.log({ productRecipe: productRecipe })
-
-    if (productRecipe) {
-      setproductRecipe(productRecipe.reverse())
+    const allRecipe = await axios.get(`${apiUrl}/api/recipe`).data
+    console.log({ allRecipe })
+    const recipeOfProduct = await allRecipe.find(recipe => recipe.prduct.id === id)
+    console.log({ recipeOfProduct })
+    setrecipeOfProduct(recipeOfProduct)
+    const ingredients = await recipeOfProduct.ingredients
+    if (ingredients) {
+      setproductRecipe(ingredients.reverse())
     }
-    const totalProductRecipe = await product.data.totalcost
-    if (totalProductRecipe) {
-      setproducttotalcost(totalProductRecipe)
+    const totalrecipeOfProduct = await recipeOfProduct.totalcost
+    console.log({ totalrecipeOfProduct })
+    if (totalrecipeOfProduct) {
+      setproducttotalcost(totalrecipeOfProduct)
     }
   }
+
+
 
   const [itemId, setitemId] = useState("")
   const [name, setname] = useState("")
@@ -101,7 +121,7 @@ const ProductRecipe = () => {
 
       const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
+      const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { Recipe, totalcost },
         {
           headers: {
             'authorization': `Bearer ${token}`,
