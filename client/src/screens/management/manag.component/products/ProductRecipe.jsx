@@ -373,7 +373,7 @@ const ProductRecipe = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {productRecipe.length > 0 ? productRecipe.map((rec, i) => {
+                      {ingredients.length > 0 ? ingredients.map((rec, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
@@ -472,7 +472,7 @@ const ProductRecipe = () => {
                 </div>
               </div>
 
-              <div id="editRecipeModal" className="modal fade">
+              {/* <div id="editRecipeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={editRecipe}>
@@ -526,7 +526,7 @@ const ProductRecipe = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )
         }
