@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 const ProductRecipe = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [productid, setproductid] = useState("")
   const [listofProducts, setlistofProducts] = useState([]);
 
   const getallproducts = async () => {
@@ -125,6 +124,12 @@ const ProductRecipe = () => {
   // }
 
 
+
+  const [productid, setproductid] = useState("")
+  const [productname, setproductname] = useState("")
+
+  
+
   const [recipeOfProduct, setrecipeOfProduct] = useState()
   const [ingredients, setingredients] = useState([])
   const [producttotalcost, setproducttotalcost] = useState()
@@ -184,7 +189,7 @@ const ProductRecipe = () => {
       const ingredients = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
       const totalcost = totalcostofitem
 
-      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, {
+      const addRecipetoProduct = await axios.post(`${apiUrl}/api/recipe`, {
         productid, productname, ingredients, totalcost },
         {
           headers: {
@@ -318,7 +323,7 @@ const ProductRecipe = () => {
                         </div>
                         <div class="filter-group">
                           <label>المنتج</label>
-                          <select class="form-control" onChange={(e) => { setproductid(e.target.value); getProductRecipe(e.target.value) }} >
+                          <select class="form-control" onChange={(e) => { setproductid(e.target.value);setproductname(e.target.selectedOptions[0].innerText); getProductRecipe(e.target.value) }} >
                             <option value={""}>الكل</option>
                             {productFilterd.map((product, i) => {
                               return <option value={product._id} key={i} >{product.name}</option>
