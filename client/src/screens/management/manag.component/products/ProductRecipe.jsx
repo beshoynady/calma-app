@@ -188,7 +188,7 @@ const ProductRecipe = () => {
     } else {
       const ingredients = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
       const totalcost = totalcostofitem
-
+      console.log({productid, productname, ingredients})
       const addRecipetoProduct = await axios.post(`${apiUrl}/api/recipe`, {
         productid, productname, ingredients, totalcost },
         {
@@ -212,61 +212,61 @@ const ProductRecipe = () => {
 
 
   const [recipeid, setrecipeid] = useState('')
-  const editRecipe = async (e) => {
-    e.preventDefault()
-    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    const getRecipe = productRecipe.find(recipe => recipe._id == recipeid)
-    console.log(getRecipe)
-    const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
-    console.log(recipeIndex)
-    productRecipe[recipeIndex] = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-    console.log(productRecipe)
-    let total = 0;
+  // const editRecipe = async (e) => {
+  //   e.preventDefault()
+  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+  //   const getRecipe = productRecipe.find(recipe => recipe._id == recipeid)
+  //   console.log(getRecipe)
+  //   const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
+  //   console.log(recipeIndex)
+  //   productRecipe[recipeIndex] = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+  //   console.log(productRecipe)
+  //   let total = 0;
 
-    for (let i = 0; i < productRecipe.length; i++) {
-      total += productRecipe[i].totalcostofitem;
-    }
+  //   for (let i = 0; i < productRecipe.length; i++) {
+  //     total += productRecipe[i].totalcostofitem;
+  //   }
     
-    const totalcost = Math.round(total * 100) / 100;
+  //   const totalcost = Math.round(total * 100) / 100;
     
-    console.log({ totalcost: total })
-    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const editRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: productRecipe, totalcost },
-    {
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    }
-    )
-    getProductRecipe(productid)
-    setitemId('')
-    setname('')
-    setamount()
-    setunit('')
-    setcostofitem()
-  }
+  //   console.log({ totalcost: total })
+  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+  //   const editRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: productRecipe, totalcost },
+  //   {
+  //     headers: {
+  //       'authorization': `Bearer ${token}`,
+  //     },
+  //   }
+  //   )
+  //   getProductRecipe(productid)
+  //   setitemId('')
+  //   setname('')
+  //   setamount()
+  //   setunit('')
+  //   setcostofitem()
+  // }
 
-  const deleteRecipe = async (e) => {
-    e.preventDefault()
-    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    console.log(productRecipe)
-    const newRecipe = productRecipe.filter(recipe => recipe._id != recipeid)
-    console.log(newRecipe)
-    let total = 0
-    for (let i = 0; i < newRecipe.length; i++) {
-      total += newRecipe[i].totalcostofitem
-    }
-    console.log({ totalcost: total })
-    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
-    {
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    })
-    console.log(deleteRecipetoProduct)
-    getProductRecipe(productid)
-  }
+  // const deleteRecipe = async (e) => {
+  //   e.preventDefault()
+  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+  //   console.log(productRecipe)
+  //   const newRecipe = productRecipe.filter(recipe => recipe._id != recipeid)
+  //   console.log(newRecipe)
+  //   let total = 0
+  //   for (let i = 0; i < newRecipe.length; i++) {
+  //     total += newRecipe[i].totalcostofitem
+  //   }
+  //   console.log({ totalcost: total })
+  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+  //   const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
+  //   {
+  //     headers: {
+  //       'authorization': `Bearer ${token}`,
+  //     },
+  //   })
+  //   console.log(deleteRecipetoProduct)
+  //   getProductRecipe(productid)
+  // }
 
 
   useEffect(() => {
