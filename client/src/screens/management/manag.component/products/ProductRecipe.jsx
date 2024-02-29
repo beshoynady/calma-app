@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
+import { toast } from 'react-toastify';
 
 
 const ProductRecipe = () => {
@@ -65,9 +66,6 @@ const ProductRecipe = () => {
 
   }
 
-  const [recipeOfProduct, setrecipeOfProduct] = useState()
-  const [productRecipe, setproductRecipe] = useState([])
-  const [producttotalcost, setproducttotalcost] = useState()
   // const getProductRecipe = async (id) => {
   //   console.log(id)
   //   const product = await axios.get(`${apiUrl}/api/product/${id}`)
@@ -76,23 +74,72 @@ const ProductRecipe = () => {
   //   console.log({ productRecipe: productRecipe })
 
   //   if (productRecipe) {
-  //     setproductRecipe(productRecipe.reverse())
+  //     setingredients(productRecipe.reverse())
   //   }
   //   const totalProductRecipe = await product.data.totalcost
   //   if (totalProductRecipe) {
   //     setproducttotalcost(totalProductRecipe)
   //   }
   // }
+  
+    // const createRecipe = async (e) => {
+  //   e.preventDefault()
+  //   // console.log(productRecipe)
+  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+
+  //   if (productRecipe.length > 0) {
+  //     const Recipe = [...productRecipe, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
+
+  //     const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
+
+  //     const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { Recipe, totalcost },
+  //       {
+  //         headers: {
+  //           'authorization': `Bearer ${token}`,
+  //         },
+  //       }
+  //     )
+
+  //     console.log({ addRecipetoProduct: addRecipetoProduct })
+
+  //     getProductRecipe(productid)
+  //   } else {
+  //     const Recipe = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
+  //     const totalcost = totalcostofitem
+
+  //     const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
+  //       {
+  //         headers: {
+  //           'authorization': `Bearer ${token}`,
+  //         },
+  //       }
+  //     )
+  //     console.log({ addRecipetoProduct: addRecipetoProduct })
+  //     getProductRecipe(productid)
+  //     setitemId('')
+  //     setname('')
+  //     setamount()
+  //     setunit('')
+  //     setcostofitem()
+  //   }
+  // }
+
+
+  const [recipeOfProduct, setrecipeOfProduct] = useState()
+  const [ingredients, setingredients] = useState([])
+  const [producttotalcost, setproducttotalcost] = useState()
+
+
   const getProductRecipe = async (id) => {
     console.log(id)
     const allRecipe = await axios.get(`${apiUrl}/api/recipe`).data
     console.log({ allRecipe })
-    const recipeOfProduct = await allRecipe.find(recipe => recipe.prduct.id === id)
+    const recipeOfProduct =allRecipe && allRecipe.find(recipe => recipe.prduct.id === id)
     console.log({ recipeOfProduct })
     setrecipeOfProduct(recipeOfProduct)
     const ingredients = await recipeOfProduct.ingredients
     if (ingredients) {
-      setproductRecipe(ingredients.reverse())
+      setingredients(ingredients.reverse())
     }
     const totalrecipeOfProduct = await recipeOfProduct.totalcost
     console.log({ totalrecipeOfProduct })
@@ -111,17 +158,18 @@ const ProductRecipe = () => {
   const [totalcostofitem, settotalcostofitem] = useState()
 
 
+
   const createRecipe = async (e) => {
     e.preventDefault()
     // console.log(productRecipe)
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
 
-    if (productRecipe.length > 0) {
-      const Recipe = [...productRecipe, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
+    if (ingredients.length > 0) {
+      const newingredients = [...ingredients, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
 
       const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-      const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { Recipe, totalcost },
+      const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { ingredients:newingredients, totalcost },
         {
           headers: {
             'authorization': `Bearer ${token}`,
@@ -133,23 +181,27 @@ const ProductRecipe = () => {
 
       getProductRecipe(productid)
     } else {
-      const Recipe = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
+      const ingredients = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
       const totalcost = totalcostofitem
 
-      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
+      const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, {
+        productid, productname, ingredients, totalcost },
         {
           headers: {
             'authorization': `Bearer ${token}`,
           },
         }
       )
-      console.log({ addRecipetoProduct: addRecipetoProduct })
-      getProductRecipe(productid)
-      setitemId('')
-      setname('')
-      setamount()
-      setunit('')
-      setcostofitem()
+      if(addRecipetoProduct.status===201){
+        console.log({ addRecipetoProduct: addRecipetoProduct })
+        getProductRecipe(productid)
+        setitemId('')
+        setname('')
+        setamount()
+        setunit('')
+        setcostofitem()
+        toast.success("تم اضافه المكون بنجاح")
+      }
     }
   }
 
@@ -187,7 +239,6 @@ const ProductRecipe = () => {
     setamount()
     setunit('')
     setcostofitem()
-
   }
 
   const deleteRecipe = async (e) => {
