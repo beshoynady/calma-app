@@ -138,16 +138,20 @@ const ProductRecipe = () => {
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`);
       console.log({ allRecipe });
       const recipeOfProduct = allRecipe.data && allRecipe.data.find(recipe => recipe.product.id === id);
-      console.log({ recipeOfProduct });
-      setrecipeOfProduct(recipeOfProduct);
-      const ingredients = await recipeOfProduct.ingredients;
-      if (ingredients) {
-        setingredients(ingredients.reverse());
-      }
-      const totalrecipeOfProduct = await recipeOfProduct.totalcost;
-      console.log({ totalrecipeOfProduct });
-      if (totalrecipeOfProduct) {
-        setproducttotalcost(totalrecipeOfProduct);
+      if(recipeOfProduct){
+        console.log({ recipeOfProduct });
+        setrecipeOfProduct(recipeOfProduct);
+        const ingredients = await recipeOfProduct.ingredients;
+        if (ingredients) {
+          setingredients(ingredients.reverse());
+        }
+        const totalrecipeOfProduct = await recipeOfProduct.totalcost;
+        console.log({ totalrecipeOfProduct });
+        if (totalrecipeOfProduct) {
+          setproducttotalcost(totalrecipeOfProduct);
+        }else{setrecipeOfProduct({});
+        console.log({ recipeOfProduct });
+        }
       }
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);
