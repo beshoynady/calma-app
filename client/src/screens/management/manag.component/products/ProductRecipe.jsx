@@ -257,8 +257,7 @@ const createRecipe = async (e) => {
   const deleteRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    console.log(productRecipe)
-    const newRecipe = productRecipe.filter(recipe => recipe._id != recipeid)
+    const newRecipe = ingredients.filter(ingredient => ingredient.itemId != itemId)
     console.log(newRecipe)
     let total = 0
     for (let i = 0; i < newRecipe.length; i++) {
@@ -266,7 +265,7 @@ const createRecipe = async (e) => {
     }
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
+    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients, totalcost: total },
     {
       headers: {
         'authorization': `Bearer ${token}`,
