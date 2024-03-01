@@ -221,23 +221,26 @@ const createRecipe = async (e) => {
   const editRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    const getRecipe = ingredients.find(ingredient => ingredient.itemId == itemId)
-    console.log({getRecipe})
+    const newingredients = ingredients.map((ingredient, i) =>{ 
+      if(ingredient.itemId == itemId){
+        ingredients[i] = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+      }})
+    // console.log({getRecipe})
     // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
     // console.log(recipeIndex)
-    getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-    console.log({getRecipe})
+    // getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+    console.log({newingredients})
     let total = 0;
 
-    for (let i = 0; i < ingredients.length; i++) {
-      total += ingredients[i].totalcostofitem;
+    for (let i = 0; i < newingredients.length; i++) {
+      total += newingredients[i].totalcostofitem;
     }
 
     const totalcost = Math.round(total * 100) / 100;
 
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients, totalcost },
+    const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost },
     {
       headers: {
         'authorization': `Bearer ${token}`,
@@ -257,7 +260,7 @@ const createRecipe = async (e) => {
   const deleteRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    const newRecipe = ingredients.filter(ingredient => ingredient.itemId != itemId)
+    const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
     console.log(newRecipe)
     let total = 0
     for (let i = 0; i < newRecipe.length; i++) {
@@ -265,7 +268,7 @@ const createRecipe = async (e) => {
     }
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients, totalcost: total },
+    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost: total },
     {
       headers: {
         'authorization': `Bearer ${token}`,
