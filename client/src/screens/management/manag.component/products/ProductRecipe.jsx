@@ -170,7 +170,7 @@ const ProductRecipe = () => {
         const newingredients = [...ingredients, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }];
         const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-        const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { ingredients: newingredients, totalcost }, {
+        const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newingredients, totalcost }, {
           headers: {
             'authorization': `Bearer ${token}`,
           },
