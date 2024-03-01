@@ -223,7 +223,7 @@ const createRecipe = async (e) => {
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
     const newingredients = ingredients.map((ingredient, i) =>{ 
       if(ingredient.itemId == itemId){
-        ingredients[i] = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+        ingredient = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
       }})
     // console.log({getRecipe})
     // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
@@ -261,10 +261,10 @@ const createRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
     const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
-    console.log(newRecipe)
+    console.log({newingredients})
     let total = 0
-    for (let i = 0; i < newRecipe.length; i++) {
-      total += newRecipe[i].totalcostofitem
+    for (let i = 0; i < newingredients.length; i++) {
+      total += newingredients[i].totalcostofitem
     }
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
