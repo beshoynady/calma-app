@@ -149,10 +149,12 @@ const ProductRecipe = () => {
         console.log({ totalrecipeOfProduct });
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
-        }else{setrecipeOfProduct({});
+        }
+    }else{
+          setrecipeOfProduct({});
+          setingredients([]);
         console.log({ recipeOfProduct });
         }
-      }
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);
     }
