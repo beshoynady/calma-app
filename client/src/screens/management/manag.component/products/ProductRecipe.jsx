@@ -218,42 +218,89 @@ const createRecipe = async (e) => {
 
   const [recipeid, setrecipeid] = useState('')
 
-  const editRecipe = async (e) => {
-    e.preventDefault()
-    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-    const newingredients = ingredients.map((ingredient, i) =>{ 
-      if(ingredient.itemId == itemId){
-        ingredient = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-      }})
-    // console.log({getRecipe})
-    // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
-    // console.log(recipeIndex)
-    // getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-    console.log({newingredients})
+  // const editRecipe = async (e) => {
+  //   e.preventDefault()
+  //   console.log({ingredients})
+  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+  //   const newingredients = ingredients.map((ingredient, i) =>{ 
+  //     if(ingredient.itemId == itemId){
+  //       ingredient = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+  //     }})
+  //   // console.log({getRecipe})
+  //   // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
+  //   // console.log(recipeIndex)
+  //   // getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+  //   console.log({newingredients})
+  //   let total = 0;
+
+  //   for (let i = 0; i < newingredients.length; i++) {
+  //     total += newingredients[i].totalcostofitem;
+  //   }
+
+  //   const totalcost = Math.round(total * 100) / 100;
+
+  //   console.log({ totalcost: total })
+  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+  //   const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost },
+  //   {
+  //     headers: {
+  //       'authorization': `Bearer ${token}`,
+  //     },
+  //   }
+  //   )
+  //   getProductRecipe(productid)
+  //   setitemId('')
+  //   setname('')
+  //   setamount()
+  //   setunit('')
+  //   setcostofitem()
+  // }
+
+const editRecipe = async (e) => {
+  try {
+    e.preventDefault();
+    console.log({ingredients});
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+    const newIngredients = ingredients.map((ingredient) => { 
+      if (ingredient.itemId === itemId) {
+        return { itemId, name, amount, costofitem, unit, totalcostofitem };
+      } else {
+        return ingredient;
+      }
+    });
+
+    console.log({newIngredients});
+
     let total = 0;
-
-    for (let i = 0; i < newingredients.length; i++) {
-      total += newingredients[i].totalcostofitem;
+    for (let i = 0; i < newIngredients.length; i++) {
+      total += newIngredients[i].totalcostofitem;
     }
-
     const totalcost = Math.round(total * 100) / 100;
 
-    console.log({ totalcost: total })
-    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost },
-    {
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    }
-    )
-    getProductRecipe(productid)
-    setitemId('')
-    setname('')
-    setamount()
-    setunit('')
-    setcostofitem()
+    console.log({ totalcost });
+
+    const editRecipeToProduct = await axios.put(
+      `${apiUrl}/api/recipe/${recipeOfProduct._id}`,
+      { ingredients: newIngredients, totalcost },
+      {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log({ editRecipeToProduct });
+    getProductRecipe(productid);
+    setitemId('');
+    setname('');
+    setamount('');
+    setunit('');
+    setcostofitem('');
+  } catch (error) {
+    console.error("Error editing recipe:", error.message);
+    toast.error("حدث خطأ أثناء تعديل الوصفة");
   }
+};
 
 
 
