@@ -408,7 +408,7 @@ const createRecipe = async (e) => {
                                   settotalcostofitem(rec.settotalcostofitem)
                                 }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => { setrecipeid(rec._id) }}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => { setitemId(rec.itemId) }}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )
@@ -514,7 +514,7 @@ const createRecipe = async (e) => {
                   </div>
                 </div>
               </div>
-              {/* <div id="deleteProductModal" className="modal fade">
+              <div id="deleteProductModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteRecipe}>
@@ -533,7 +533,7 @@ const createRecipe = async (e) => {
                     </form>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           )
         }
