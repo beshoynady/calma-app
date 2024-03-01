@@ -307,6 +307,8 @@ const editRecipe = async (e) => {
   const deleteRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+
+    if(ingredients.length>2){
     const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
     console.log({newingredients})
     let total = 0
@@ -321,9 +323,47 @@ const editRecipe = async (e) => {
         'authorization': `Bearer ${token}`,
       },
     })
+  }else{
+    const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`
+    ,{
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
+    })
     console.log(deleteRecipetoProduct)
+  }
     getProductRecipe(productid)
   }
+
+
+  const deleteAllRecipe = async (e) => {
+    try {
+      e.preventDefault();
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
+      if (recipeOfProduct) {
+        const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
+        });
+  
+        console.log(deleteRecipeToProduct);
+        getProductRecipe(productid);
+  
+        deleteRecipeToProduct.status === 200 ? toast.success('تم حذف الوصفة بنجاح') : toast.error('حدث خطأ أثناء الحذف');
+        getProductRecipe(productid)
+
+      } else {
+        toast.error('يرجى اختيار الصفنف والمنتج أولاً');
+      }
+    } catch (error) {
+      console.error("Error deleting recipe:", error.message);
+      toast.error('فشل عملية الحذف! يرجى المحاولة مرة أخرى');
+      getProductRecipe(productid)
+    }
+  };
+  
 
 
   useEffect(() => {
@@ -349,7 +389,7 @@ const editRecipe = async (e) => {
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addRecipeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteProductModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteAllProductModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -568,6 +608,26 @@ const editRecipe = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteRecipe}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">حذف منتج</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div className="modal-body">
+                        <p>هل انت متاكد من حذف هذا السجل؟</p>
+                        <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
+                      </div>
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-danger" value="حذف" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="deleteAllProductModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={deleteAllRecipe}>
                       <div className="modal-header">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
