@@ -161,111 +161,120 @@ const ProductRecipe = () => {
   const [unit, setunit] = useState("");
   const [totalcostofitem, settotalcostofitem] = useState();
 
-  const createRecipe = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+const createRecipe = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-    try {
-      if (ingredients.length > 0) {
-        const newingredients = [...ingredients, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }];
-        const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
+  try {
+    if (ingredients.length > 0) {
+      // If there are existing ingredients, create a new array with the added ingredient
+      const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
+      // Calculate the total cost by adding the cost of the new ingredient
+      const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-        const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newingredients, totalcost }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+      // Update the recipe by sending a PUT request
+      const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
 
-        console.log({ addRecipetoProduct: addRecipetoProduct });
+      console.log({ addRecipeToProduct }); // Log the response from the server
 
-        getProductRecipe(productid);
-      } else {
-        const ingredients = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }];
-        const totalcost = totalcostofitem;
+      getProductRecipe(productid); // Refresh the product recipe
+    } else {
+      // If there are no existing ingredients, create a new array with the single ingredient
+      const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
+      const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
 
-        console.log({ productid, productname, ingredients });
+      console.log({ productid, productname, newIngredients }); // Log the product ID, name, and ingredients
 
-        const addRecipetoProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients, totalcost }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+      // Add the new recipe to the product by sending a POST request
+      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients: newIngredients, totalcost: totalCost }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
 
-        if (addRecipetoProduct.status === 201) {
-          console.log({ addRecipetoProduct: addRecipetoProduct });
-          getProductRecipe(productid);
-          setitemId('');
-          setname('');
-          setamount();
-          setunit('');
-          setcostofitem('');
-          settotalcostofitem('');
-          toast.success("تم اضافه المكون بنجاح");
-        }
+      if (addRecipeToProduct.status === 201) {
+        console.log({ addRecipeToProduct }); // Log the response from the server
+        getProductRecipe(productid); // Refresh the product recipe
+        setitemId(''); // Clear the input fields
+        setname('');
+        setamount('');
+        setunit('');
+        setcostofitem('');
+        settotalcostofitem('');
+        toast.success("تم إضافة المكون بنجاح"); // Notify success in adding ingredient
       }
-    } catch (error) {
-      console.error("Error creating/updating recipe:", error.message);
     }
-  };
+  } catch (error) {
+    console.error("Error creating/updating recipe:", error.message); // Log any errors that occur during the process
+    toast.error("حدث خطأ أثناء إنشاء/تحديث الوصفة"); // Notify error in creating/updating recipe
+  }
+};
 
 
 
   const [recipeid, setrecipeid] = useState('')
-  // const editRecipe = async (e) => {
-  //   e.preventDefault()
-  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-  //   const getRecipe = productRecipe.find(recipe => recipe._id == recipeid)
-  //   console.log(getRecipe)
-  //   const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
-  //   console.log(recipeIndex)
-  //   productRecipe[recipeIndex] = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-  //   console.log(productRecipe)
-  //   let total = 0;
 
-  //   for (let i = 0; i < productRecipe.length; i++) {
-  //     total += productRecipe[i].totalcostofitem;
-  //   }
+  const editRecipe = async (e) => {
+    e.preventDefault()
+    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+    const getRecipe = ingredients.find(ingredient => ingredient.itemId == itemId)
+    console.log({getRecipe})
+    // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
+    // console.log(recipeIndex)
+    getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
+    console.log({getRecipe})
+    let total = 0;
 
-  //   const totalcost = Math.round(total * 100) / 100;
+    for (let i = 0; i < ingredients.length; i++) {
+      total += ingredients[i].totalcostofitem;
+    }
 
-  //   console.log({ totalcost: total })
-  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-  //   const editRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: productRecipe, totalcost },
-  //   {
-  //     headers: {
-  //       'authorization': `Bearer ${token}`,
-  //     },
-  //   }
-  //   )
-  //   getProductRecipe(productid)
-  //   setitemId('')
-  //   setname('')
-  //   setamount()
-  //   setunit('')
-  //   setcostofitem()
-  // }
+    const totalcost = Math.round(total * 100) / 100;
 
-  // const deleteRecipe = async (e) => {
-  //   e.preventDefault()
-  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-  //   console.log(productRecipe)
-  //   const newRecipe = productRecipe.filter(recipe => recipe._id != recipeid)
-  //   console.log(newRecipe)
-  //   let total = 0
-  //   for (let i = 0; i < newRecipe.length; i++) {
-  //     total += newRecipe[i].totalcostofitem
-  //   }
-  //   console.log({ totalcost: total })
-  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-  //   const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
-  //   {
-  //     headers: {
-  //       'authorization': `Bearer ${token}`,
-  //     },
-  //   })
-  //   console.log(deleteRecipetoProduct)
-  //   getProductRecipe(productid)
-  // }
+    console.log({ totalcost: total })
+    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+    const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients, totalcost },
+    {
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
+    }
+    )
+    getProductRecipe(productid)
+    setitemId('')
+    setname('')
+    setamount()
+    setunit('')
+    setcostofitem()
+  }
+
+
+
+  const deleteRecipe = async (e) => {
+    e.preventDefault()
+    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
+    console.log(productRecipe)
+    const newRecipe = productRecipe.filter(recipe => recipe._id != recipeid)
+    console.log(newRecipe)
+    let total = 0
+    for (let i = 0; i < newRecipe.length; i++) {
+      total += newRecipe[i].totalcostofitem
+    }
+    console.log({ totalcost: total })
+    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe: newRecipe, totalcost: total },
+    {
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
+    })
+    console.log(deleteRecipetoProduct)
+    getProductRecipe(productid)
+  }
 
 
   useEffect(() => {
@@ -471,7 +480,7 @@ const ProductRecipe = () => {
                 </div>
               </div>
 
-              {/* <div id="editRecipeModal" className="modal fade">
+              <div id="editRecipeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={editRecipe}>
@@ -506,7 +515,7 @@ const ProductRecipe = () => {
                   </div>
                 </div>
               </div>
-              <div id="deleteProductModal" className="modal fade">
+              {/* <div id="deleteProductModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteRecipe}>
