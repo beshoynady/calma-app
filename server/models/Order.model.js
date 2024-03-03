@@ -102,6 +102,17 @@ const OrderSchema = new mongoose.Schema({
             }
         }
     ],
+    subtotalSplitOrder: {
+        type: Number,
+        required: true,
+        default: 0,
+        validate: {
+            validator: function (v) {
+                return v >= 0;
+            },
+            message: '{VALUE} should be greater than zero'
+        }
+    },
     subTotal: {
         type: Number,
         required: true,
