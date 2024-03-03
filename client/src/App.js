@@ -371,7 +371,7 @@ function App() {
       const cartItem = allProducts.filter(item => item._id === productId);
 
       // Assign the product ID to the cart item
-      cartItem[0].productId = productId;
+      cartItem[0].productid = productId;
 
       console.log({cartItem});
 
