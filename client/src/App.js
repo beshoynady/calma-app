@@ -913,6 +913,8 @@ function App() {
         setorderSubtotal(data.subTotal);
         setlistProductsOrder(data.products);
         setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
+        console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
+
       }
     } catch (error) {
       console.error(error);
@@ -923,21 +925,21 @@ function App() {
 
   const putNumOfPaid = (id, numOfPaid) => {
     try {
-      // console.log({ numOfPaid });
-      // console.log({ list_products: listProductsOrder });
-      // console.log({ newlistofproductorder });
+      console.log({ numOfPaid });
+      console.log({ list_products: listProductsOrder });
+      console.log({ newlistofproductorder });
 
       newlistofproductorder.map((product) => {
         if (product.productid === id) {
           const oldProduct = listProductsOrder.find(pro => pro.productid === id);
-          // console.log({ oldProduct });
-          // console.log({ old_numOfPaid: oldProduct.numOfPaid });
+          console.log({ oldProduct });
+          console.log({ old_numOfPaid: oldProduct.numOfPaid });
           product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-          // console.log({ new_numOfPaid: product.numOfPaid });
+          console.log({ new_numOfPaid: product.numOfPaid });
         }
       });
 
-      // console.log({ newlistofproductorder });
+      console.log({ newlistofproductorder });
       calcsubtotalSplitOrder();
     } catch (error) {
       console.error(error);
@@ -954,24 +956,28 @@ function App() {
       let total = 0;
 
       // Iterate over each product in the split order list
+      console.log({newlistofproductorder})
       newlistofproductorder.map((product) => {
         // Find the corresponding product in the original order list
         const oldProduct = listProductsOrder.find(pro => pro.productid === product.productid);
-
+        console.log({oldProduct})
         // Calculate subtotal only if the number of paid items has changed
         if (oldProduct.numOfPaid !== product.numOfPaid) {
           // Calculate the difference in the number of paid items
           const newNumOfPaid = Math.abs(oldProduct.numOfPaid - product.numOfPaid);
-
+          
           // Calculate the subtotal based on the number of paid items and the product price
           const subTotal = product.priceAfterDiscount > 0 ? newNumOfPaid * product.priceAfterDiscount : oldProduct.price * newNumOfPaid;
-
+          console.log({subTotal})
+          
           // Accumulate the subtotal to the total
           total += subTotal;
         }
       });
 
       // Set the calculated total as the subtotal for the split order
+      
+      console.log({total})
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
