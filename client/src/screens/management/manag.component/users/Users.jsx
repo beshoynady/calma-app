@@ -6,13 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Users = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [AllUsers, setAllUsers] = useState([])
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/user');
+      const response = await axios.get(apiUrl + '/api/user');
       setAllUsers(response.data)
     } catch (error) {
       console.log(error)
@@ -66,6 +66,16 @@ const Users = () => {
     setfilteruser(user)
   }
 
+  const exportToExcel= ()=> {
+    TableExport(document.querySelector('.table'), {
+        headers: true,
+        footers: true,
+        formats: ['xlsx'],
+        filename: 'clients-table',
+        exportButtons: false,
+    }).export();
+}
+
 
   useEffect(() => {
     getAllUsers()
@@ -77,7 +87,6 @@ const Users = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
@@ -85,10 +94,11 @@ const Users = () => {
                       <div className="col-sm-6">
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
-                      {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#adduserloyeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                      <div className="col-sm-6 d-flex justify-content-end">
+                        <a className="btn btn-success" onClick={exportToExcel}>
+                          <i className="material-icons">&#xE147;</i> <span>تحميل</span></a>
                         <a href="#deleteuserloyeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                   <div class="table-filter">

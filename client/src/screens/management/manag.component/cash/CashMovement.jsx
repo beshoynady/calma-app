@@ -302,7 +302,6 @@ const CashMovement = () => {
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#DepositModal" className="btn btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
-
                         <a href="#WithdrawModal" className="btn btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
                         <a href="#Transferodal" className="btn btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
                       </div>
