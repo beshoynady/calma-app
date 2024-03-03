@@ -6,6 +6,7 @@ import NavBar from './manag.component/navbar/NavBar';
 import SideBar from './manag.component/sidebar/SideBar';
 import jwt_decode from "jwt-decode";
 import io from 'socket.io-client';
+import { ToastContainer } from 'react-toastify';
 
 
 const ManagLayout = () => {
@@ -17,6 +18,7 @@ const ManagLayout = () => {
       if (decodetoken.employeeinfo.isActive) {
         return (
           <div className='manag-body '>
+            <ToastContainer/>
             <SideBar />
             <main className='content'>
               <NavBar />
