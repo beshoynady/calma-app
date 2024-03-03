@@ -318,7 +318,7 @@ const printContainerInvoice = useRef();
 const printContainerInvoiceSplit = useRef();
 const printContainerKitchen = useRef();
 
-  const PrintInvoice = useReactToPrint({
+  const Print = useReactToPrint({
     content: () => printContainerInvoice.current,
     copyStyles: true,
     removeAfterPrint: true,
@@ -326,27 +326,17 @@ const printContainerKitchen = useRef();
     // silent: true // تعيين silent إلى true للطباعة بدون معاينة
 
   });
-  const PrintInvoiceSplit = useReactToPrint({
-    content: () => ref.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
 
-  });
-  const PrintKitchen = useReactToPrint({
-    content: () => printContainerKitchen.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
-
-  });
-
-  const handlePrint = (e,ref) => {
+  const handlePrint = (e) => {
     e.preventDefault();
-    
-    PrintInvoice();
+    useReactToPrint({
+      content: () => printContainerInvoice.current,
+      copyStyles: true,
+      removeAfterPrint: true,
+      bodyClass: 'printpage',
+      // silent: true // تعيين silent إلى true للطباعة بدون معاينة
+  
+    });
     setisPrint(true);
   };
 
@@ -901,7 +891,7 @@ const printContainerKitchen = useRef();
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={(e)=>handlePrint(e)} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
                             </div>
                           </form>
                         </div>
