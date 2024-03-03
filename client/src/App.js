@@ -925,25 +925,28 @@ function App() {
 
   const putNumOfPaid = (id, numOfPaid) => {
     try {
-      console.log({ numOfPaid });
-      // console.log({ list_products: listProductsOrder });
-      console.log({ newlistofproductorder });
+        console.log({ numOfPaid });
+        console.log({ newlistofproductorder });
 
-      newlistofproductorder.forEach((product) => {
-        if (product.productid === id) {
-            console.log({ old_numOfPaid: product.numOfPaid });
-            product.numOfPaid += numOfPaid;
-            console.log({ new_numOfPaid: product.numOfPaid });
-        }
-    });
+        const updatedList = newlistofproductorder.map(product => {
+            if (product.productid === id) {
+                const updatedProduct = {...product}; // نسخ العنصر
+                console.log({ old_numOfPaid: updatedProduct.numOfPaid });
+                updatedProduct.numOfPaid += numOfPaid;
+                console.log({ new_numOfPaid: updatedProduct.numOfPaid });
+                return updatedProduct;
+            }
+            return product;
+        });
 
-      console.log({ newlistofproductorder });
-      calcsubtotalSplitOrder();
+        console.log({ updatedList });
+        setnewlistofproductorder(updatedList);
+        calcsubtotalSplitOrder();
     } catch (error) {
-      console.error(error);
-      toast.error('An error occurred while updating the number of paid products.');
+        console.error(error);
+        toast.error('An error occurred while updating the number of paid products.');
     }
-  };
+};
 
 
 
