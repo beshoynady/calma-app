@@ -318,7 +318,7 @@ const printContainerInvoice = useRef();
 const printContainerInvoiceSplit = useRef();
 const printContainerKitchen = useRef();
   const Print = useReactToPrint({
-    content: () => printContainer.current,
+    content: () => printContainerInvoice.current,
     copyStyles: true,
     removeAfterPrint: true,
     bodyClass: 'printpage',
