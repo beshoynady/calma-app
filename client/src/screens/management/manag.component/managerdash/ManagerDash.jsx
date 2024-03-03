@@ -318,27 +318,46 @@ const printContainerInvoice = useRef();
 const printContainerInvoiceSplit = useRef();
 const printContainerKitchen = useRef();
 
-  const Print = useReactToPrint({
-    content: () => printContainerInvoice.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
+const PrintInvoice = useReactToPrint({
+  content: () => printContainerInvoice.current,
+  copyStyles: true,
+  removeAfterPrint: true,
+  bodyClass: 'printpage'
+});
 
-  });
+const PrintInvoiceSplit = useReactToPrint({
+  content: () => printContainerInvoiceSplit.current,
+  copyStyles: true,
+  removeAfterPrint: true,
+  bodyClass: 'printpage'
+});
 
-  const handlePrint = (e) => {
-    e.preventDefault();
-    useReactToPrint({
-      content: () => printContainerInvoice.current,
-      copyStyles: true,
-      removeAfterPrint: true,
-      bodyClass: 'printpage',
-      // silent: true // تعيين silent إلى true للطباعة بدون معاينة
-  
-    });
-    setisPrint(true);
-  };
+const PrintKitchen = useReactToPrint({
+  content: () => printContainerKitchen.current,
+  copyStyles: true,
+  removeAfterPrint: true,
+  bodyClass: 'printpage'
+});
+
+
+const handlePrintInvoice = (e) => {
+  e.preventDefault();
+  PrintInvoice();
+  setisPrint(true);
+};
+
+const handlePrintInvoiceSplit = (e) => {
+  e.preventDefault();
+  printContainerInvoiceSplit();
+  setisPrint(true);
+};
+
+const handlePrintKitchen = (e) => {
+  e.preventDefault();
+  printContainerKitchen();
+  setisPrint(true);
+};
+
 
   // Function to format the date
   const formatDate = (date) => {
@@ -891,7 +910,7 @@ const printContainerKitchen = useRef();
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrintInvoice} />
                             </div>
                           </form>
                         </div>
@@ -995,7 +1014,7 @@ const printContainerKitchen = useRef();
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
                             </div>
                           </form>
                         </div>
@@ -1008,7 +1027,7 @@ const printContainerKitchen = useRef();
                             <div className="modal-header">
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrint(e)}>طباعه للشيف</button>
+                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
                             </div>
                             <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
