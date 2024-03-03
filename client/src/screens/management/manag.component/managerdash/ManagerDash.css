@@ -137,11 +137,12 @@
 }
 .dashboard .container .bottom-data .reminders {
   flex-grow: 1;
-  flex-basis: 300px;
+  flex-basis: 220px;
   direction: rtl;
 }
 .dashboard .container .bottom-data .reminders .task-list {
   width: 100%;
+  padding-left: 0 !important;
 }
 .dashboard .container .bottom-data .reminders .task-list li {
   width: 100%;
@@ -162,8 +163,8 @@
   color: var(--light);
 }
 .dashboard .container .bottom-data .reminders .task-list li .task-title p {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   margin-left: 6px;
   margin-bottom: 0 !important;
   color: var(--light);
