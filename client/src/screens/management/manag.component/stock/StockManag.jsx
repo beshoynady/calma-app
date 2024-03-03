@@ -71,6 +71,7 @@ const StockManag = () => {
   const actionAt = new Date().toLocaleString()
 
   const createStockAction = async (e, employeeId) => {
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
     e.preventDefault();
     console.log({ newBalance: newBalance })
     console.log({ newcost: newcost })
@@ -112,13 +113,15 @@ const StockManag = () => {
         if (movement === 'Purchase') {
           for (const recipe of allrecipes) {
             const recipeid = recipe._id;
+            const productname = recipe.product.name;
             const arrayingredients = recipe.ingredients;
 
             const newIngredients = arrayingredients.map((ingredient) => {
               if (ingredient.itemId === itemId) {
-                ingredient.costofitem = costOfPart;
-                ingredient.totalcostofitem = ingredient.amount * costOfPart
-
+                const costofitem = costOfPart;
+                const unit = ingredient.unit
+                const amount = ingredient.amount
+                const totalcostofitem = amount * costOfPart
                 return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
               } else {
                 return ingredient;
@@ -141,7 +144,7 @@ const StockManag = () => {
             console.log({ updateRecipe });
 
             // Toast for successful update based on recipe change
-            toast.success(`Recipe updated for product ${productid}`);
+            toast.success(`Recipe updated for product ${productname}`);
           }
         }
       }
@@ -166,6 +169,7 @@ const StockManag = () => {
   const updateStockaction = async (e, employeeId) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       const actionBy = employeeId;
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
@@ -183,13 +187,15 @@ const StockManag = () => {
         if (movement === 'Purchase') {
           for (const recipe of allrecipes) {
             const recipeid = recipe._id;
+            const productname = recipe.product.name;
             const arrayingredients = recipe.ingredients;
 
             const newIngredients = arrayingredients.map((ingredient) => {
               if (ingredient.itemId === itemId) {
-                ingredient.costofitem = costOfPart;
-                ingredient.totalcostofitem = ingredient.amount * costOfPart
-
+                const costofitem = costOfPart;
+                const unit = ingredient.unit
+                const amount = ingredient.amount
+                const totalcostofitem = amount * costOfPart
                 return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
               } else {
                 return ingredient;
@@ -212,7 +218,7 @@ const StockManag = () => {
             console.log({ updateRecipe });
 
             // Toast for successful update based on recipe change
-            toast.success(`Recipe updated for product ${productid}`);
+            toast.success(`Recipe updated for product ${productname}`);
           }
         }
         // Update the stock actions list and stock items
@@ -442,7 +448,7 @@ const StockManag = () => {
                               <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>{usertitle(action.actionBy)}</td>
                               <td>
-                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName);setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -471,7 +477,7 @@ const StockManag = () => {
                                 <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>{usertitle(action.actionBy)}</td>
                                 <td>
-                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName);setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
