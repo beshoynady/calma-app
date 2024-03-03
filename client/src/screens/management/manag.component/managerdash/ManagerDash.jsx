@@ -794,7 +794,7 @@ const printContainerKitchen = useRef();
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>CALMA CAFE</h2>
@@ -897,7 +897,7 @@ const printContainerKitchen = useRef();
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>CALMA CAFE</h2>
@@ -1002,7 +1002,7 @@ const printContainerKitchen = useRef();
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                               <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrint(e)}>طباعه للشيف</button>
                             </div>
-                            <div ref={printContainer} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
                                 <div className="card text-white bg-success" style={{ width: "265px" }}>
                                   <div className="card-body text-right d-flex justify-content-between p-0 m-1">
