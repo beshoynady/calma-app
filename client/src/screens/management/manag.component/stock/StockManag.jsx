@@ -71,7 +71,6 @@ const StockManag = () => {
   const actionAt = new Date().toLocaleString()
 
   const createStockAction = async (e, employeeId) => {
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
     e.preventDefault();
     console.log({ newBalance: newBalance })
     console.log({ newcost: newcost })
@@ -100,7 +99,7 @@ const StockManag = () => {
           cost,
           oldCost,
           unit,
-          newBalance,
+          balance:newBalance,
           oldBalance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
@@ -328,6 +327,7 @@ const StockManag = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
+              <ToastContainer/>
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
