@@ -314,51 +314,23 @@ const ManagerDash = () => {
   };
 
 
-  const printContainerInvoice = useRef(null);
-  const printContainerInvoiceSplit = useRef(null);
-  const printContainerKitchen = useRef(null);
-  
-  const handlePrint = (e, ref) => {
-      e.preventDefault();
-      setisPrint(true);
-      useReactToPrint({
-        content: () => ref.current,
-        copyStyles: true,
-        removeAfterPrint: true,
-        bodyClass: 'printpage'
-      });
+const printContainerInvoice = useRef();
+const printContainerInvoiceSplit = useRef();
+const printContainerKitchen = useRef();
+  const Print = useReactToPrint({
+    content: () => printContainer.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
 
-      // ref===printContainerInvoice?
-      // PrintInvoice()
-      // :ref ===printContainerInvoiceSplit?
-      // PrintInvoiceSplit()
-      // :ref===printContainerKitchen?
-      // PrintKitchen()
-      // :''
+  });
+
+  const handlePrint = (e) => {
+    e.preventDefault();
+    Print();
+    setisPrint(true);
   };
-
-  const PrintInvoice = useReactToPrint({
-    content: () => printContainerInvoice.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage'
-  });
-  
-  const PrintInvoiceSplit = useReactToPrint({
-    content: () => printContainerInvoiceSplit.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage'
-  });
-  
-  const PrintKitchen = useReactToPrint({
-    content: () => printContainerKitchen.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage'
-  });
-
-  
 
   // Function to format the date
   const formatDate = (date) => {
@@ -822,7 +794,7 @@ const ManagerDash = () => {
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>CALMA CAFE</h2>
@@ -911,8 +883,7 @@ const ManagerDash = () => {
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={
-                                (e)=>handlePrint(e,printContainerInvoice)} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
                             </div>
                           </form>
                         </div>
@@ -926,7 +897,7 @@ const ManagerDash = () => {
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>CALMA CAFE</h2>
@@ -1016,7 +987,7 @@ const ManagerDash = () => {
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={(e)=>handlePrint(e,printContainerInvoiceSplit)} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
                             </div>
                           </form>
                         </div>
@@ -1029,9 +1000,9 @@ const ManagerDash = () => {
                             <div className="modal-header">
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e)=>handlePrint(e,printContainerKitchen)}>طباعه للشيف</button>
+                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrint(e)}>طباعه للشيف</button>
                             </div>
-                            <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                            <div ref={printContainer} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
                                 <div className="card text-white bg-success" style={{ width: "265px" }}>
                                   <div className="card-body text-right d-flex justify-content-between p-0 m-1">
