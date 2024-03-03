@@ -373,7 +373,7 @@ function App() {
       // Assign the product ID to the cart item
       cartItem[0].productId = productId;
 
-      console.log(cartItem);
+      console.log({cartItem});
 
       // Check if the cart is not empty
       if (itemsInCart.length > 0) {
