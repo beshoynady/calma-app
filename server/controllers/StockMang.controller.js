@@ -26,6 +26,7 @@ const createStockAction = async (req, res, next) => {
             oldBalance,
             balance,
             price,
+            oldCost,
             cost,
             actionBy,
             actionAt,
