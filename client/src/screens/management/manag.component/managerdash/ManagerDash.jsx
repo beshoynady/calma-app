@@ -323,11 +323,11 @@ const ManagerDash = () => {
       e.preventDefault();
       setisPrint(true);
       ref===printContainerInvoice?
-      PrintInvoice
+      PrintInvoice()
       :ref ===printContainerInvoiceSplit?
-      PrintInvoiceSplit
+      PrintInvoiceSplit(())
       :ref===printContainerKitchen?
-      PrintKitchen
+      PrintKitchen()
       :''
     };
   };
