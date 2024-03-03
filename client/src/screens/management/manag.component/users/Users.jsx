@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 
 const Users = () => {
@@ -66,15 +66,6 @@ const Users = () => {
     setfilteruser(user)
   }
 
-  const exportToExcel= ()=> {
-    TableExport(document.querySelector('.table'), {
-        headers: true,
-        footers: true,
-        formats: ['xlsx'],
-        filename: 'clients-table',
-        exportButtons: false,
-    }).export();
-}
 
 
   useEffect(() => {
@@ -95,8 +86,13 @@ const Users = () => {
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a className="btn btn-success" onClick={exportToExcel}>
-                          <i className="material-icons">&#xE147;</i> <span>تحميل</span></a>
+                        <ReactHtmlTableToExcel
+                          className="btn btn-success"
+                          table="my-table"
+                          filename="table_excel"
+                          sheet="sheet1"
+                          buttonText={<span><i className="material-icons">&#xE147;</i> تحميل</span>}
+                        />
                         <a href="#deleteuserloyeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
