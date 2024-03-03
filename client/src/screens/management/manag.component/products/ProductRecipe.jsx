@@ -65,64 +65,6 @@ const ProductRecipe = () => {
 
   }
 
-  // const getProductRecipe = async (id) => {
-  //   console.log(id)
-  //   const product = await axios.get(`${apiUrl}/api/product/${id}`)
-  //   console.log({ product: product })
-  //   const productRecipe = await product.data.Recipe
-  //   console.log({ productRecipe: productRecipe })
-
-  //   if (productRecipe) {
-  //     setingredients(productRecipe.reverse())
-  //   }
-  //   const totalProductRecipe = await product.data.totalcost
-  //   if (totalProductRecipe) {
-  //     setproducttotalcost(totalProductRecipe)
-  //   }
-  // }
-
-  // const createRecipe = async (e) => {
-  //   e.preventDefault()
-  //   // console.log(productRecipe)
-  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-
-  //   if (productRecipe.length > 0) {
-  //     const Recipe = [...productRecipe, { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
-
-  //     const totalcost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
-
-  //     const addRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${productid}`, { Recipe, totalcost },
-  //       {
-  //         headers: {
-  //           'authorization': `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-
-  //     console.log({ addRecipetoProduct: addRecipetoProduct })
-
-  //     getProductRecipe(productid)
-  //   } else {
-  //     const Recipe = [{ itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }]
-  //     const totalcost = totalcostofitem
-
-  //     const addRecipetoProduct = await axios.put(`${apiUrl}/api/product/addrecipe/${productid}`, { Recipe, totalcost },
-  //       {
-  //         headers: {
-  //           'authorization': `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     console.log({ addRecipetoProduct: addRecipetoProduct })
-  //     getProductRecipe(productid)
-  //     setitemId('')
-  //     setname('')
-  //     setamount()
-  //     setunit('')
-  //     setcostofitem()
-  //   }
-  // }
-
 
 
   const [productid, setproductid] = useState("");
@@ -153,7 +95,6 @@ const ProductRecipe = () => {
     }else{
           setrecipeOfProduct({});
           setingredients([]);
-        console.log({ recipeOfProduct });
         }
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);

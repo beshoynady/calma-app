@@ -7,15 +7,15 @@ import { ToastContainer, toast } from 'react-toastify';
 const StockManag = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [listofProducts, setlistofProducts] = useState([]);
+  const [allrecipes, setallrecipes] = useState([]);
 
-  const getallproducts = async () => {
+  const getallrecipes = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/product/');
-      const products = await response.data;
-      // console.log(response.data)
-      setlistofProducts(products)
-      // console.log(listofProducts)
+      const response = await axios.get(`${apiUrl}/api/recipe`);
+      console.log(response)
+      const allRecipe = await response.data;
+      setallrecipes(allRecipe)
+      console.log(allRecipe)
 
     } catch (error) {
       console.log(error)
@@ -39,6 +39,7 @@ const StockManag = () => {
   const Stockmovement = ["Purchase", "Expense", "Return", "Wastage"];
   const [movement, setmovement] = useState('');
   const [itemId, setitemId] = useState("");
+  const [itemName, seitemName] = useState("");
   const [largeUnit, setlargeUnit] = useState('')
   const [smallUnit, setsmallUnit] = useState('')
   const [Quantity, setQuantity] = useState(0);
@@ -109,46 +110,48 @@ const StockManag = () => {
         console.log(response.data);
 
         if (movement === 'Purchase') {
-          for (const product of listofProducts) {
-            const arrayRecipe = product.Recipe;
-            const productid = product._id;
+          for (const recipe of allrecipes) {
+            const recipeid = recipe._id;
+            const arrayingredients = recipe.ingredients;
 
-            for (const recipe of arrayRecipe) {
-              if (recipe.itemId === itemId) {
-                recipe.costofitem = costOfPart;
-                recipe.totalcostofitem = recipe.amount * costOfPart;
+            const newIngredients = arrayingredients.map((ingredient) => {
+              if (ingredient.itemId === itemId) {
+                ingredient.costofitem = costOfPart;
+                ingredient.totalcostofitem = ingredient.amount * costOfPart
 
-                const totalcost = arrayRecipe.reduce((acc, curr) => {
-                  return acc + (curr.totalcostofitem || 0);
-                }, 0);
-
-                // Update the product with the modified recipe and total cost
-                const updateRecipeToProduct = await axios.put(
-                  `${apiUrl}/api/product/addrecipe/${productid}`,
-                  { Recipe: arrayRecipe, totalcost },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
-
-                console.log({ updateRecipeToProduct: updateRecipeToProduct.data });
-
-                // Toast for successful update based on recipe change
-                toast.success(`Recipe updated for product ${productid}`);
+                return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+              } else {
+                return ingredient;
               }
-            }
+            });
+            const totalcost = arrayingredients.reduce((acc, curr) => {
+              return acc + (curr.totalcostofitem || 0);
+            }, 0);
+            // Update the product with the modified recipe and total cost
+            const updateRecipe = await axios.put(
+              `${apiUrl}/api/recipe/${recipeid}`,
+              { ingredients: newIngredients, totalcost },
+              {
+                headers: {
+                  'authorization': `Bearer ${token}`,
+                },
+              }
+            );
+
+            console.log({ updateRecipe });
+
+            // Toast for successful update based on recipe change
+            toast.success(`Recipe updated for product ${productid}`);
           }
         }
-
-        // Update the stock actions list and stock items
-        getallStockaction();
-        getaStockItems();
-
-        // Toast notification for successful creation
-        toast.success('Stock action created successfully');
       }
+
+      // Update the stock actions list and stock items
+      getallStockaction();
+      getaStockItems();
+
+      // Toast notification for successful creation
+      toast.success('Stock action created successfully');
     } catch (error) {
       console.log(error);
       // Toast notification for error
@@ -177,6 +180,41 @@ const StockManag = () => {
         });
         console.log(response.data);
 
+        if (movement === 'Purchase') {
+          for (const recipe of allrecipes) {
+            const recipeid = recipe._id;
+            const arrayingredients = recipe.ingredients;
+
+            const newIngredients = arrayingredients.map((ingredient) => {
+              if (ingredient.itemId === itemId) {
+                ingredient.costofitem = costOfPart;
+                ingredient.totalcostofitem = ingredient.amount * costOfPart
+
+                return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+              } else {
+                return ingredient;
+              }
+            });
+            const totalcost = arrayingredients.reduce((acc, curr) => {
+              return acc + (curr.totalcostofitem || 0);
+            }, 0);
+            // Update the product with the modified recipe and total cost
+            const updateRecipe = await axios.put(
+              `${apiUrl}/api/recipe/${recipeid}`,
+              { ingredients: newIngredients, totalcost },
+              {
+                headers: {
+                  'authorization': `Bearer ${token}`,
+                },
+              }
+            );
+
+            console.log({ updateRecipe });
+
+            // Toast for successful update based on recipe change
+            toast.success(`Recipe updated for product ${productid}`);
+          }
+        }
         // Update the stock actions list and stock items
         getallStockaction();
         getaStockItems();
@@ -248,25 +286,13 @@ const StockManag = () => {
     setStockitemFilterd(items)
   }
 
-  // const calcBalance = (qu) => {
-  //   console.log('+++++++++')
-  //   console.log(quantity)
-  //   const quantity = Number(qu)
-  //   if (movement == 'Expense') {
-  //     setnewBalance(oldBalance - quantity)
-  //     setnewcost(oldCost - cost)
-  //   } else {
-  //     console.log(oldBalance + quantity)
-  //     setnewBalance(oldBalance + quantity)
-  //     setnewcost(oldCost + cost)
-  //   }
-  // }
+
 
   useEffect(() => {
     getallStockaction()
     getaStockItems()
     getAllCashRegisters()
-    getallproducts()
+    getallrecipes()
   }, [])
 
   useEffect(() => {
@@ -416,7 +442,7 @@ const StockManag = () => {
                               <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>{usertitle(action.actionBy)}</td>
                               <td>
-                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName);setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -445,7 +471,7 @@ const StockManag = () => {
                                 <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>{usertitle(action.actionBy)}</td>
                                 <td>
-                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName);setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
@@ -492,6 +518,7 @@ const StockManag = () => {
                           <select name="" id="" onChange={(e) => {
                             setitemId(e.target.value);
                             setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
+                            seitemName(StockItems.filter(i => i._id == e.target.value)[0].itemName);
                             setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
                             setcostOfPart(StockItems.filter(i => i._id == e.target.value)[0].costOfPart);
                             setprice(StockItems.filter(i => i._id == e.target.value)[0].price)
