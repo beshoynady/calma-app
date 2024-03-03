@@ -913,7 +913,7 @@ function App() {
         setorderSubtotal(data.subTotal);
         setlistProductsOrder(data.products);
         setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
-        console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
+        // console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
 
       }
     } catch (error) {
@@ -1002,6 +1002,7 @@ function App() {
         subtotalSplitOrder
       });
       if (updateOrder) {
+        console.log({updateOrder})
         // Display a success toast message upon successful payment
         toast.success("تم دفع جزء من الفاتورة بنجاح");
 
@@ -1010,7 +1011,7 @@ function App() {
       }
     } catch (error) {
       // Display an error toast message if payment fails
-      toast.error("حدث خطأ أثناء دفع الجزء من الفاتورة");
+      toast.error("حدث خطأ أثناء دفع جزء من الفاتورة");
 
       // Log the error to the console
       console.error('Error updating order:', error);
