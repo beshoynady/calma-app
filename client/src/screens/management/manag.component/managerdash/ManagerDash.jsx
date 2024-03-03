@@ -327,7 +327,7 @@ const printContainerKitchen = useRef();
 
   });
   const PrintInvoiceSplit = useReactToPrint({
-    content: () => printContainerInvoiceSplit.current,
+    content: () => ref.current,
     copyStyles: true,
     removeAfterPrint: true,
     bodyClass: 'printpage',
@@ -343,9 +343,10 @@ const printContainerKitchen = useRef();
 
   });
 
-  const handlePrint = (e) => {
+  const handlePrint = (e,ref) => {
     e.preventDefault();
-    printContainerInvoice();
+    
+    PrintInvoice();
     setisPrint(true);
   };
 
