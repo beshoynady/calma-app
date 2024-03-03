@@ -10,7 +10,6 @@ const POS = () => {
   const ordersText = useRef()
   const orderside = useRef()
   const printContainer = useRef()
-  
   const handlePrint = useReactToPrint({
     content: () => printContainer.current,
     copyStyles: true,
@@ -56,7 +55,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
-          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderTOupdate, putNumOfPaid, splitInvoice, subtotalSplitOrder
+          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -404,7 +403,7 @@ const POS = () => {
                           </div>
                         ))
                           :
-                          productOrderTOupdate ? productOrderTOupdate.map((i, index) => (
+                          productOrderToUpdate.length > 0 ? productOrderToUpdate.map((i, index) => (
                             <div className="card mb-3" key={index}>
                               {i.productid === productid && noteArea ? (
                                 <form className="card-body" style={{ padding: '5px', margin: '0' }}>
@@ -498,7 +497,7 @@ const POS = () => {
                       </div>
                       <div className="col-12">
                         <div className="btn-group btn-block">
-                          {productOrderTOupdate.length > 0 ?
+                          {productOrderToUpdate.length > 0 ?
                             <button type="button" className="btn btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
                             : <a type="button" className="btn btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
                           }
