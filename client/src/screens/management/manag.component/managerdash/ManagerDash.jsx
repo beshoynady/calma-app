@@ -318,17 +318,19 @@ const ManagerDash = () => {
   const printContainerInvoiceSplit = useRef();
   const printContainerKitchen = useRef();
 
- const handlePrint = (e, ref) => {
-  e.preventDefault();
-  setisPrint(true);
-  return useReactToPrint({
-    content: () => ref.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true
-  });
-};
+  const handlePrint = (e, ref) => {
+    e.preventDefault();
+    return () => {
+      setisPrint(true);
+      useReactToPrint({
+        content: () => ref.current,
+        copyStyles: true,
+        removeAfterPrint: true,
+        bodyClass: 'printpage',
+        // silent: true
+      });
+    };
+  };
 
   // const handlePrint = (e) => {
   //   e.preventDefault();
@@ -887,7 +889,7 @@ const ManagerDash = () => {
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={(e)=>handlePrint(e, printContainerInvoice)} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={(e) => handlePrint(e, printContainerInvoice)} />
                             </div>
                           </form>
                         </div>
@@ -991,7 +993,7 @@ const ManagerDash = () => {
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={(e)=>handlePrint(e, printContainerInvoiceSplit)} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={(e) => handlePrint(e, printContainerInvoiceSplit)} />
                             </div>
                           </form>
                         </div>
@@ -1004,7 +1006,7 @@ const ManagerDash = () => {
                             <div className="modal-header">
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e)=>handlePrint(e, printContainerKitchen)}>طباعه للشيف</button>
+                              <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrint(e, printContainerKitchen)}>طباعه للشيف</button>
                             </div>
                             <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
