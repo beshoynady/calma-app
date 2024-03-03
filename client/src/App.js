@@ -941,7 +941,7 @@ function App() {
       });
 
       console.log({ newlistofproductorder });
-      // calcsubtotalSplitOrder();
+      calcsubtotalSplitOrder();
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
