@@ -325,7 +325,7 @@ const ManagerDash = () => {
       ref===printContainerInvoice?
       PrintInvoice()
       :ref ===printContainerInvoiceSplit?
-      PrintInvoiceSplit(())
+      PrintInvoiceSplit()
       :ref===printContainerKitchen?
       PrintKitchen()
       :''
