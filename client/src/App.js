@@ -978,7 +978,7 @@ function App() {
 
       // Set the calculated total as the subtotal for the split order
       
-      console.log({subTotal})
+      console.log({total})
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
