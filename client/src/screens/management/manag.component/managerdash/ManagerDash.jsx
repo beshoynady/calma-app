@@ -322,21 +322,25 @@ const PrintInvoice = useReactToPrint({
   content: () => printContainerInvoice.current,
   copyStyles: true,
   removeAfterPrint: true,
-  bodyClass: 'printpage'
+  bodyClass: 'printpage',
+  printerName: 'cashier'
 });
 
 const PrintInvoiceSplit = useReactToPrint({
   content: () => printContainerInvoiceSplit.current,
   copyStyles: true,
   removeAfterPrint: true,
-  bodyClass: 'printpage'
+  bodyClass: 'printpage',
+  printerName: 'cashier'
 });
 
 const PrintKitchen = useReactToPrint({
   content: () => printContainerKitchen.current,
   copyStyles: true,
   removeAfterPrint: true,
-  bodyClass: 'printpage'
+  bodyClass: 'printpage',
+  printerName: 'Kitchen'
+
 });
 
 
