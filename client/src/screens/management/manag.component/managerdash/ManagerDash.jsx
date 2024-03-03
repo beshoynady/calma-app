@@ -348,13 +348,13 @@ const handlePrintInvoice = (e) => {
 
 const handlePrintInvoiceSplit = (e) => {
   e.preventDefault();
-  printContainerInvoiceSplit();
+  PrintInvoiceSplit();
   setisPrint(true);
 };
 
 const handlePrintKitchen = (e) => {
   e.preventDefault();
-  printContainerKitchen();
+  PrintKitchen();
   setisPrint(true);
 };
 
