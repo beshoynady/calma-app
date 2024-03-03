@@ -322,16 +322,35 @@ const ManagerDash = () => {
     return (e) => {
       e.preventDefault();
       setisPrint(true);
-      print(ref);
+      ref===printContainerInvoice?
+      PrintInvoice
+      :ref ===printContainerInvoiceSplit?
+      PrintInvoiceSplit
+      :ref===printContainerKitchen?
+      PrintKitchen
+      :''
     };
   };
 
-  const print = useReactToPrint({
-    content: () => printContainer.current,
+  const PrintInvoice = useReactToPrint({
+    content: () => printContainerInvoice.current,
     copyStyles: true,
     removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true
+    bodyClass: 'printpage'
+  });
+  
+  const PrintInvoiceSplit = useReactToPrint({
+    content: () => printContainerInvoiceSplit.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage'
+  });
+  
+  const PrintKitchen = useReactToPrint({
+    content: () => printContainerKitchen.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage'
   });
 
   
