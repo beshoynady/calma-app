@@ -326,7 +326,7 @@ const ManagerDash = () => {
     };
   };
 
-  const print = useReactToPrint({
+  const print =(ref)=> useReactToPrint({
     content: () => ref.current,
     copyStyles: true,
     removeAfterPrint: true,
