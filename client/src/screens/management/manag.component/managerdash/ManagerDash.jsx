@@ -322,15 +322,17 @@ const ManagerDash = () => {
     return (e) => {
       e.preventDefault();
       setisPrint(true);
-      useReactToPrint({
-        content: () => ref.current,
-        copyStyles: true,
-        removeAfterPrint: true,
-        bodyClass: 'printpage',
-        // silent: true
-      });;
+      print(ref);
     };
   };
+
+  const print = useReactToPrint({
+    content: () => ref.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    // silent: true
+  });
 
   
 
