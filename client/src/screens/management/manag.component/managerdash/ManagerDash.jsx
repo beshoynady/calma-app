@@ -322,17 +322,17 @@ const ManagerDash = () => {
     return (e) => {
       e.preventDefault();
       setisPrint(true);
-      print(ref);
+      useReactToPrint({
+        content: () => ref.current,
+        copyStyles: true,
+        removeAfterPrint: true,
+        bodyClass: 'printpage',
+        // silent: true
+      });;
     };
   };
 
-  const print =(ref)=> useReactToPrint({
-    content: () => ref.current,
-    copyStyles: true,
-    removeAfterPrint: true,
-    bodyClass: 'printpage',
-    // silent: true
-  });
+  
 
   // Function to format the date
   const formatDate = (date) => {
