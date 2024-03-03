@@ -164,8 +164,6 @@ const StockManag = () => {
 
 
 
-
-
   const updateStockaction = async (e, employeeId) => {
     e.preventDefault();
     try {
