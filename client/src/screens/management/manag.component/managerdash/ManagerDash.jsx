@@ -319,9 +319,9 @@ const ManagerDash = () => {
   const printContainerKitchen = useRef(null);
   
   const handlePrint = (ref) => {
-    return (e) => {
       e.preventDefault();
       setisPrint(true);
+
       ref===printContainerInvoice?
       PrintInvoice()
       :ref ===printContainerInvoiceSplit?
@@ -329,7 +329,6 @@ const ManagerDash = () => {
       :ref===printContainerKitchen?
       PrintKitchen()
       :''
-    };
   };
 
   const PrintInvoice = useReactToPrint({

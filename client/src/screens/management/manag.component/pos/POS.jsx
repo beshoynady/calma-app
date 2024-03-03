@@ -10,6 +10,7 @@ const POS = () => {
   const ordersText = useRef()
   const orderside = useRef()
   const printContainer = useRef()
+  
   const handlePrint = useReactToPrint({
     content: () => printContainer.current,
     copyStyles: true,
