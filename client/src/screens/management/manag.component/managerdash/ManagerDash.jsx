@@ -317,8 +317,25 @@ const ManagerDash = () => {
 const printContainerInvoice = useRef();
 const printContainerInvoiceSplit = useRef();
 const printContainerKitchen = useRef();
-  const Print = useReactToPrint({
+
+  const PrintInvoice = useReactToPrint({
     content: () => printContainerInvoice.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
+
+  });
+  const PrintInvoiceSplit = useReactToPrint({
+    content: () => printContainerInvoiceSplit.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    // silent: true // تعيين silent إلى true للطباعة بدون معاينة
+
+  });
+  const PrintKitchen = useReactToPrint({
+    content: () => printContainerKitchen.current,
     copyStyles: true,
     removeAfterPrint: true,
     bodyClass: 'printpage',
@@ -328,14 +345,8 @@ const printContainerKitchen = useRef();
 
   const handlePrint = (e) => {
     e.preventDefault();
-    useReactToPrint({
-      content: () => printContainerInvoice.current,
-      copyStyles: true,
-      removeAfterPrint: true,
-      bodyClass: 'printpage',
-      // silent: true // تعيين silent إلى true للطباعة بدون معاينة
-  
-    });
+    if()
+    printContainerInvoice();
     setisPrint(true);
   };
 
