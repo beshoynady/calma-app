@@ -345,7 +345,6 @@ const printContainerKitchen = useRef();
 
   const handlePrint = (e) => {
     e.preventDefault();
-    if()
     printContainerInvoice();
     setisPrint(true);
   };
@@ -901,7 +900,7 @@ const printContainerKitchen = useRef();
                             </div>
                             <div className="modal-footer">
                               <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
+                              <input type="submit" className="btn btn-success" value="Print" onClick={(e)=>handlePrint(e)} />
                             </div>
                           </form>
                         </div>
