@@ -5,7 +5,7 @@ import './POS.css'
 import { number } from 'joi';
 
 const POS = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const ordersText = useRef()
   const orderside = useRef()
@@ -163,9 +163,12 @@ const POS = () => {
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                     <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                     <td className="col-md-1 text-nowrap">{item.totalprice}</td>
-                                    <td className="col-md-2 text-nowrap"><input type='Number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} /></td>
+                                    <td className="col-md-2 text-nowrap">
+                                      <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} />
+                                    </td>
                                   </tr>
                                 ))}
+
                               </tbody>
                               <tfoot>
                                 <tr>
@@ -254,7 +257,7 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                <div id="invoiceModal"  className="modal fade">
+                <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -357,9 +360,9 @@ const POS = () => {
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
                       <div className="btn-group btn-block">
-                        <a href="#typeOrderModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal')}}>الصالة</a>
-                        <a type="button" className="btn btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway')}}>التيك أوي</a>
-                        <a type="button" className="btn btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery')}}>التوصيل</a>
+                        <a href="#typeOrderModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal') }}>الصالة</a>
+                        <a type="button" className="btn btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway') }}>التيك أوي</a>
+                        <a type="button" className="btn btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery') }}>التوصيل</a>
                       </div>
                     </div>
                   </div>
