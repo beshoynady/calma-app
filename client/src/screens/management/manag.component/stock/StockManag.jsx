@@ -201,7 +201,8 @@ const StockManag = () => {
                 return ingredient;
               }
             });
-            const totalcost = arrayingredients.reduce((acc, curr) => {
+            console.log({newIngredients})
+            const totalcost = newIngredients.reduce((acc, curr) => {
               return acc + (curr.totalcostofitem || 0);
             }, 0);
             // Update the product with the modified recipe and total cost
