@@ -328,7 +328,14 @@ const printContainerKitchen = useRef();
 
   const handlePrint = (e) => {
     e.preventDefault();
-    Print();
+    useReactToPrint({
+      content: () => printContainerInvoice.current,
+      copyStyles: true,
+      removeAfterPrint: true,
+      bodyClass: 'printpage',
+      // silent: true // تعيين silent إلى true للطباعة بدون معاينة
+  
+    });
     setisPrint(true);
   };
 
