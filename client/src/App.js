@@ -925,28 +925,28 @@ function App() {
 
   const putNumOfPaid = (id, numOfPaid) => {
     try {
-        console.log({ numOfPaid });
-        console.log({ newlistofproductorder });
+      console.log({ id });
+      console.log({ numOfPaid });
+      console.log({ list_products: listProductsOrder });
+      console.log({ newlistofproductorder });
 
-        const updatedList = newlistofproductorder.map(product => {
-            if (product.productid === id) {
-                const updatedProduct = {...product}; // نسخ العنصر
-                console.log({ old_numOfPaid: updatedProduct.numOfPaid });
-                updatedProduct.numOfPaid += numOfPaid;
-                console.log({ new_numOfPaid: updatedProduct.numOfPaid });
-                return updatedProduct;
-            }
-            return product;
-        });
+      newlistofproductorder.map((product) => {
+        if (product.productid === id) {
+          const oldProduct = listProductsOrder.find(pro => pro.productid === id);
+          console.log({ oldProduct });
+          console.log({ old_numOfPaid: oldProduct.numOfPaid });
+          product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
+          console.log({ new_numOfPaid: product.numOfPaid });
+        }
+      });
 
-        console.log({ updatedList });
-        setnewlistofproductorder(updatedList);
-        calcsubtotalSplitOrder();
+      console.log({ newlistofproductorder });
+      // calcsubtotalSplitOrder();
     } catch (error) {
-        console.error(error);
-        toast.error('An error occurred while updating the number of paid products.');
+      console.error(error);
+      toast.error('An error occurred while updating the number of paid products.');
     }
-};
+  };
 
 
 
@@ -968,7 +968,7 @@ function App() {
           const newNumOfPaid = Math.abs(oldProduct.numOfPaid - product.numOfPaid);
           
           // Calculate the subtotal based on the number of paid items and the product price
-          const subTotal = product.priceAfterDiscount > 0 ? newNumOfPaid * product.priceAfterDiscount : newNumOfPaid * oldProduct.price;
+          const subTotal = product.priceAfterDiscount > 0 ? newNumOfPaid * product.priceAfterDiscount : oldProduct.price * newNumOfPaid;
           console.log({subTotal})
           
           // Accumulate the subtotal to the total
@@ -978,7 +978,7 @@ function App() {
 
       // Set the calculated total as the subtotal for the split order
       
-      console.log({total})
+      console.log({subTotal})
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
