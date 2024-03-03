@@ -404,7 +404,7 @@ const POS = () => {
                           </div>
                         ))
                           :
-                          productOrderTOupdate.length > 0 ? productOrderTOupdate.map((i, index) => (
+                          productOrderTOupdate ? productOrderTOupdate.map((i, index) => (
                             <div className="card mb-3" key={index}>
                               {i.productid === productid && noteArea ? (
                                 <form className="card-body" style={{ padding: '5px', margin: '0' }}>
