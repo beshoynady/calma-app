@@ -316,7 +316,8 @@ const Products = () => {
                       </div>
                       <div className="row text-dark">
                         <div className="col-md-12">
-                          <div className="filter-group">
+                          {/* <div className="filter-group"> */}
+                            <label>عدد المبيعات في فتره محدده</label>
                             <label>بداية التاريخ</label>
                             <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
                             <label>نهاية التاريخ</label>
@@ -324,7 +325,7 @@ const Products = () => {
                             <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
                               <i className="fa fa-search"></i> فلتر
                             </button>
-                          </div>
+                          {/* </div> */}
                         </div>
                       </div>
                     </div>
