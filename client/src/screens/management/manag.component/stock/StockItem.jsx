@@ -372,7 +372,7 @@ const StockItem = () => {
                           <label>نوع المخزن</label>
                           <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
                             {/* <option>{AllCategoryStock.length>0?AllCategoryStock.filter(c=>c._id == categoryId)[0].name:''}</option> */}
-                            <option value={categoryId}>{AllCategoryStock.find(category => category._id === categoryId).name}</option>
+                            <option value={categoryId}>{AllCategoryStock.length > 0 ? AllCategoryStock.filter(c => c._id == categoryId)[0].name : ''}</option>
                             {AllCategoryStock.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
                             })
