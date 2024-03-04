@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { detacontext } from '../../../../App';
+import { toast } from 'react-toastify';
+
 
 const CategoryStock = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -128,7 +130,7 @@ const CategoryStock = () => {
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addCategoryStockModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteCategoryStockModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        {/* <a href="#deleteCategoryStockModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -183,12 +185,12 @@ const CategoryStock = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
+                        {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
-                        </th>
+                        </th> */}
                         <th>م</th>
                         <th>الاسم</th>
                         <th>عدد المنتجات</th>
@@ -201,12 +203,12 @@ const CategoryStock = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                             <tr key={i}>
-                              <td>
+                              {/* <td>
                                 <span className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
                                 </span>
-                              </td>
+                              </td> */}
                               <td>{i + 1}</td>
                               <td>{categoryStock.name}</td>
                               <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
@@ -223,12 +225,12 @@ const CategoryStock = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                             <tr key={i}>
-                              <td>
+                              {/* <td>
                                 <span className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
                                 </span>
-                              </td>
+                              </td> */}
                               <td>{i + 1}</td>
                               <td>{categoryStock.name}</td>
                               <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
