@@ -101,6 +101,8 @@ const Orders = () => {
       toast.error('Failed to delete order');
     }
   };
+
+
   const [selectedIds, setSelectedIds] = useState([]);
   const handleCheckboxChange = (e) => {
     const Id = e.target.value;
@@ -432,7 +434,7 @@ const Orders = () => {
 
                 </div>
               </div>
-              <div id="addOrderModal" className="modal fade">
+              {/* <div id="addOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
@@ -465,8 +467,8 @@ const Orders = () => {
                     </form>
                   </div>
                 </div>
-              </div>
-              <div id="editOrderModal" className="modal fade">
+              </div> */}
+              {/* <div id="editOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
@@ -499,8 +501,8 @@ const Orders = () => {
                     </form>
                   </div>
                 </div>
-              </div>
-              <div id="deleteOrderModal" className="modal fade">
+              </div> */}
+              {/* <div id="deleteOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteOrder}>
@@ -519,8 +521,8 @@ const Orders = () => {
                     </form>
                   </div>
                 </div>
-              </div>
-              <div id="deleteListOrderModal" className="modal fade">
+              </div> */}
+              {/* <div id="deleteListOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
@@ -539,7 +541,7 @@ const Orders = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )
         }

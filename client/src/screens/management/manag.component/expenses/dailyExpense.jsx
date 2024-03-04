@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 
 const DailyExpense = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -231,7 +231,6 @@ const DailyExpense = () => {
       {({ employeeLoginInfo, usertitle, formatDate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
-            <ToastContainer />
             <div className="table-responsive mt-1">
               <div className="table-wrapper p-3 mw-100">
                 <div className="table-title">
@@ -242,7 +241,7 @@ const DailyExpense = () => {
                     <div className="col-sm-6 d-flex justify-content-end">
                       <a href="#addDailyExpensesModal" className="btn btn-success" data-toggle="modal" onClick={() => handlecashRegister(employeeLoginInfo.employeeinfo.id)}><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
 
-                      <a href="#deleteDailyExpensesModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      {/* <a href="#deleteDailyExpensesModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                     </div>
                   </div>
                 </div>
@@ -274,12 +273,6 @@ const DailyExpense = () => {
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>
-                        <span className="custom-checkbox">
-                          <input type="checkbox" id="selectAll" />
-                          <label htmlFor="selectAll"></label>
-                        </span>
-                      </th>
                       <th>م</th>
                       <th>اسم المصروف</th>
                       <th>المبلغ </th>
@@ -297,12 +290,7 @@ const DailyExpense = () => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td>
+                             
                               <td>{i + 1}</td>
                               <td>{dailyexpense.expenseDescription}</td>
                               <td>{dailyexpense.amount}</td>
@@ -331,12 +319,7 @@ const DailyExpense = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
+                                
                                 <td>{i + 1}</td>
                                 <td>{dailyexpense.expenseDescription}</td>
                                 <td>{dailyexpense.amount}</td>
