@@ -145,6 +145,8 @@ const Products = () => {
       // console.log(response.data)
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
+      calcsalseofproducts()
+
     } catch (error) {
       console.log(error)
     }
@@ -194,7 +196,7 @@ const Products = () => {
             });
           });
         });
-        setlistofProducts(filteredOrders)
+        setlistofProducts(updatedListofProducts)
       } else {
         console.error('Failed to fetch orders');
       }
@@ -233,7 +235,7 @@ const Products = () => {
     try {
       const response = await axios.get(apiUrl + '/api/category/');
       const categories = await response.data;
-      console.log(response.data)
+      // console.log(response.data)
       setlistofcategories(categories)
       // console.log(listofcategories)
 
@@ -258,6 +260,7 @@ const Products = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
+              <ToastContainer />
               <div className="table-responsive mt-1">
                 <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">
@@ -370,7 +373,7 @@ const Products = () => {
                             )
                           }
                         })
-                        : listofcategories && listofProducts.map((p, i) => {
+                        : listofProducts.map((p, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
