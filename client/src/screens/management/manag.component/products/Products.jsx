@@ -145,7 +145,6 @@ const Products = () => {
       // console.log(response.data)
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
-      calcsalseofproducts()
 
     } catch (error) {
       console.log(error)
@@ -153,9 +152,9 @@ const Products = () => {
 
   }
 
-  const [StartDate, setStartDate] = useState(new Date());
-  const [EndDate, setEndDate] = useState(new Date());
-  
+  const [StartDate, setStartDate] = useState(null);
+  const [EndDate, setEndDate] = useState(null);
+
   const calcsalseofproducts = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/order');
@@ -250,8 +249,8 @@ const Products = () => {
   useEffect(() => {
     getallproducts()
     getallCategories()
-    calcsalseofproducts()
-    }, [])
+    // getallStockItem()
+  }, [])
 
 
   return (
@@ -331,6 +330,12 @@ const Products = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
+                        <th>
+                          <span className="custom-checkbox">
+                            <input type="checkbox" id="selectAll" />
+                            <label htmlFor="selectAll"></label>
+                          </span>
+                        </th>
                         <th>م</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
@@ -351,6 +356,12 @@ const Products = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
+                                <td>
+                                  <span className="custom-checkbox">
+                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                    <label htmlFor="checkbox1"></label>
+                                  </span>
+                                </td>
                                 <td>{i + 1}</td>
                                 <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
@@ -377,6 +388,12 @@ const Products = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
+                                <td>
+                                  <span className="custom-checkbox">
+                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                    <label htmlFor="checkbox1"></label>
+                                  </span>
+                                </td>
                                 <td>{i + 1}</td>
                                 <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
