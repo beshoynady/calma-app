@@ -57,6 +57,7 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
+      
       const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
@@ -259,7 +260,7 @@ const StockItem = () => {
                               <td>{item.createBy ? usertitle(item.createBy) : '--'}</td>
                               <td>{item.createdAt}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit);setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -405,7 +406,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group">
                           <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" defaultValue required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
+                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
                         </div>
                         <div className="form-group">
                           <label>تكلفة الوحده</label>
