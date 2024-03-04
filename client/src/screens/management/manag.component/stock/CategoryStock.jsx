@@ -11,9 +11,14 @@ const CategoryStock = () => {
   const [allCategoryStock, setallCategoryStock] = useState([])
 
   const getallCategoryStock = async () => {
-    const res = await axios.get(apiUrl + "/api/categoryStock/");
-    setallCategoryStock(res.data.reverse())
-  }
+  
+    try {
+      const response = await axios.get(apiUrl + "/api/categoryStock/");
+      setallCategoryStock(response.data.reverse());
+  } catch (error) {
+      console.error('Error fetching category stock:', error);
+  }  }
+
 
   const [AllStockItems, setAllStockItems] = useState([]);
 
@@ -33,34 +38,68 @@ const CategoryStock = () => {
 
   const createCategoryStock = async () => {
     try {
-      const send = await axios.post(apiUrl + "/api/categoryStock/", { name: categoryStockname });
-      getallCategoryStock()
+      // Validate category stock name
+      if (!categoryStockname.trim()) {
+        throw new Error("اسم الفئة مطلوب");
+      }
+  
+      const response = await axios.post(apiUrl + "/api/categoryStock/", { name: categoryStockname });
+  
+      // Check if the response indicates success
+      if (response) {
+        // Update the list of category stocks after successfully creating a new one
+        getallCategoryStock();
+  
+        // Display success toast message
+        toast.success("تم إنشاء الفئة بنجاح");
+      } else {
+        throw new Error("حدث خطأ أثناء إنشاء الفئة. يرجى المحاولة مرة أخرى.");
+      }
     } catch (error) {
-      console.log(error)
+      // Log the error
+      console.error("Error creating category stock:", error);
+      
+      // Display error toast message
+      toast.error(error.message || "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
     }
   }
+  
 
 
   const editCategoryStock = async (e) => {
     e.preventDefault();
-    console.log(categoryStockId)
+    // console.log(categoryStockId); // Log the category stock ID
     try {
-      const edit = await axios.put(apiUrl + "/api/categoryStock/" + categoryStockId, { name: categoryStockname })
-      console.log(edit)
-      getallCategoryStock()
+      // Attempt to send a PUT request to update the category stock
+      const edit = await axios.put(apiUrl + "/api/categoryStock/" + categoryStockId, { name: categoryStockname });
+      console.log(edit); // Log the response from the server
+      getallCategoryStock(); // Fetch updated category stock data
+      getallStockItem(); // Fetch updated stock item data
+      // Display success toast message
+      toast.success("تم تعديل التصنيف بنجاح");
     } catch (error) {
-      console.log(error)
+      console.log(error); // Log any errors that occur
+      // Display error toast message
+      toast.error("حدث خطأ أثناء تعديل التصنيف. يرجى المحاولة مرة أخرى.");
     }
   }
+  
+
   const deleteCategoryStock = async () => {
     try {
-      const deleted = await axios.delete(apiUrl + "/api/categoryStock/" + categoryStockId)
-      console.log(categoryStockId)
-      console.log(deleted)
+      // Attempt to send a DELETE request to delete the category stock
+      const deleted = await axios.delete(apiUrl + "/api/categoryStock/" + categoryStockId);
+      // console.log(categoryStockId); // Log the category stock ID
+      // console.log(deleted); // Log the response from the server
+      // Display success toast message
+      toast.success("تم حذف التصنيف بنجاح");
     } catch (error) {
-      console.log(error)
+      console.log(error); // Log any errors that occur
+      // Display error toast message
+      toast.error("حدث خطأ أثناء حذف التصنيف. يرجى المحاولة مرة أخرى.");
     }
   }
+  
 
   const [CategoryStockFilterd, setCategoryStockFilterd] = useState([])
   const searchByCategoryStock = (CategoryStock) => {
@@ -70,8 +109,8 @@ const CategoryStock = () => {
 
 
   useEffect(() => {
-    getallCategoryStock()
     getallStockItem()
+    getallCategoryStock()
   }, [])
 
   return (
@@ -85,7 +124,7 @@ const CategoryStock = () => {
                   <div className="table-title">
                     <div className="row ">
                       <div className="col-sm-6 text-right">
-                        <h2>Manage <b>CategoryStocks</b></h2>
+                        <h2>إدارة <b>المخازن</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addCategoryStockModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
@@ -170,7 +209,7 @@ const CategoryStock = () => {
                               </td>
                               <td>{i + 1}</td>
                               <td>{categoryStock.name}</td>
-                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId == categoryStock._id).length : 0}</td>
+                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
                               <td>
                                 <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
@@ -192,7 +231,7 @@ const CategoryStock = () => {
                               </td>
                               <td>{i + 1}</td>
                               <td>{categoryStock.name}</td>
-                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId == categoryStock._id).length : 0}</td>
+                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
                               <td>
                                 <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 

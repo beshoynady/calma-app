@@ -5,6 +5,7 @@ const StockItemSchema = new mongoose.Schema(
   {
     itemName: {
       type: String,
+      trim : true,
       required: true,
       unique: true
     },
