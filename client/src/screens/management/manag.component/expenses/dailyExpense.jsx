@@ -411,7 +411,7 @@ const DailyExpense = () => {
                 <div className="modal-content">
                   <form onSubmit={editDailyExpense}>
                     <div className="modal-header">
-                      <h4 className="modal-title">تعديل صنف بالمخزن</h4>
+                      <h4 className="modal-title">تعديل مصروف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App'
 import { useReactToPrint } from 'react-to-print';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 
 
 const Orders = () => {
@@ -158,7 +158,6 @@ const Orders = () => {
         ({ usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
