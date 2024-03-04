@@ -145,6 +145,7 @@ const Products = () => {
       // console.log(response.data)
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
+      calcsalseofproducts()
 
     } catch (error) {
       console.log(error)
