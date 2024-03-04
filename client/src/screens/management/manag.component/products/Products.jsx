@@ -18,7 +18,7 @@ const Products = () => {
 
   const createProduct = async (e) => {
     e.preventDefault();
-    
+
     try {
       const formdata = new FormData();
       formdata.append('productname', productname);
@@ -27,7 +27,7 @@ const Products = () => {
       formdata.append('productcategoryid', productcategoryid);
       formdata.append('avaliable', avaliable);
       formdata.append('image', productimg);
-  
+
       const token = localStorage.getItem('token_e');
       const config = {
         headers: {
@@ -35,9 +35,9 @@ const Products = () => {
           'Content-Type': 'multipart/form-data',
         },
       };
-  
+
       const response = await axios.post(apiUrl + '/api/product/', formdata, config);
-      
+
       if (response.status === 200) {
         getallproducts()
         console.log(response.data);
@@ -47,7 +47,7 @@ const Products = () => {
       }
     } catch (error) {
       console.error("Error occurred while creating product:", error);
-      
+
       // Display error toast notification
       toast.error("Failed to create product. Please try again later.", {
         position: toast.POSITION.TOP_RIGHT
@@ -293,13 +293,13 @@ const Products = () => {
                         </div>
                         <div className="col-md-9">
                           <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                               <div className="filter-group">
                                 <label>Name</label>
                                 <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
                               </div>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                               <div className="filter-group">
                                 <label>التصنيف</label>
                                 <select className="form-control" onChange={(e) => getemployeesByCategory(e.target.value)} >
@@ -310,17 +310,20 @@ const Products = () => {
                                 </select>
                               </div>
                             </div>
-                            <div className="col-md-4">
-                              <div className="filter-group">
-                                <label>بداية التاريخ</label>
-                                <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                                <label>نهاية التاريخ</label>
-                                <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                                <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
-                                  <i className="fa fa-search"></i> فلتر
-                                </button>
-                              </div>
-                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row text-dark">
+                        <div className="col-md-12">
+                          <div className="filter-group">
+                            <label>بداية التاريخ</label>
+                            <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                            <label>نهاية التاريخ</label>
+                            <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                            <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
+                              <i className="fa fa-search"></i> فلتر
+                            </button>
                           </div>
                         </div>
                       </div>
