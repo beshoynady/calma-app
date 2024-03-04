@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
-import ReactHtmlTableToExcel from 'react-html-table-to-excel';
+import {toast } from 'react-toastify';
 
 
 const Users = () => {
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [AllUsers, setAllUsers] = useState([])
@@ -29,14 +29,14 @@ const Users = () => {
       console.log(response.data)
 
       // Notify success using toast
-      toast.success('Status updated successfully');
+      toast.success('تم تغير الحاله بنجاح');
 
       // Reload the user list or perform necessary actions
       getAllUsers();
     } catch (error) {
       // Handle errors and notify using toast
       console.error(error);
-      toast.error('Failed to update status');
+      toast.error('فشل تغير الحاله');
     }
   };
 
@@ -49,14 +49,14 @@ const Users = () => {
       const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isActive });
 
       // Notify success using toast
-      toast.success('Status updated successfully');
+      toast.success('تم تغير الحاله بنجاح');
 
       // Reload the user list or perform necessary actions
       getAllUsers();
     } catch (error) {
       // Handle errors and notify using toast
       console.error(error);
-      toast.error('Failed to update status');
+      toast.error('فشل تغير الحاله');
     }
   };
 
@@ -65,7 +65,6 @@ const Users = () => {
     const user = AllUsers.filter(user => user.phone.startsWith(phone));
     setfilteruser(user)
   }
-
 
 
   useEffect(() => {
@@ -85,16 +84,10 @@ const Users = () => {
                       <div className="col-sm-6">
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <ReactHtmlTableToExcel
-                          className="btn btn-success"
-                          table="my-table"
-                          filename="table_excel"
-                          sheet="sheet1"
-                          buttonText={<span><i className="material-icons">&#xE147;</i> تحميل</span>}
-                        />
+                      {/* <div className="col-sm-6 d-flex justify-content-end">
+                        <a href="#adduserloyeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
                         <a href="#deleteuserloyeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div class="table-filter">
