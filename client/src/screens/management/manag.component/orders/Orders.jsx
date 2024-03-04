@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App'
 import { useReactToPrint } from 'react-to-print';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const Orders = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const formatdate = (d) => {
     let date = new Date(d)
@@ -19,7 +19,7 @@ const Orders = () => {
   // Fetch orders from API
   const getOrders = async () => {
     try {
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ const Orders = () => {
   // Fetch orders from API
   const getProductsOrder = async (serial) => {
     try {
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       const order = res.data.find(o => order.serial == serial)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
@@ -147,6 +147,62 @@ const Orders = () => {
     setFilteredOrders(orders.reverse());
   };
 
+
+
+
+
+  const [StartDate, setStartDate] = useState(null);
+  const [EndDate, setEndDate] = useState(null);
+
+  const calcsalseofproducts = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/order');
+
+      if (response.status === 200) {
+        const allOrders = response.data;
+        console.log({ allOrders });
+        const updatedListofProducts = listofProducts.map((pro) => {
+          return { ...pro, sales: 0 };
+        });
+        console.log({ updatedListofProducts })
+
+        const filteredOrders = allOrders.filter((order) => {
+          const orderDate = new Date(order.createdAt);
+          const startDateObj = new Date(StartDate);
+          const endDateObj = new Date(EndDate);
+
+          return (
+            orderDate.getFullYear() === startDateObj.getFullYear() &&
+            orderDate.getMonth() === startDateObj.getMonth() &&
+            orderDate.getDate() >= startDateObj.getDate() &&
+            orderDate.getFullYear() === endDateObj.getFullYear() &&
+            orderDate.getMonth() === endDateObj.getMonth() &&
+            orderDate.getDate() <= endDateObj.getDate()
+          );
+        });
+
+        console.log({ filteredOrders });
+
+        filteredOrders.forEach((order) => {
+          order.products.forEach((product) => {
+            updatedListofProducts.forEach((pro) => {
+              // console.log({pro})
+              if (product.productid === pro._id) {
+                pro.sales += product.quantity;
+                console.log({ pro })
+              }
+            });
+          });
+        });
+        setlistofProducts(updatedListofProducts)
+      } else {
+        console.error('Failed to fetch orders');
+      }
+    } catch (error) {
+      console.error('Error fetching orders', error);
+    }
+  };
+
   // Fetch orders on component mount
   useEffect(() => {
     getOrders();
@@ -204,17 +260,17 @@ const Orders = () => {
                             <option value="Takeaway" >Takeaway</option>
                           </select>
                         </div>
-                        {/* <div class="filter-group">
-                  <label>Status</label>
-                  <select class="form-control">
-                    <option>Any</option>
-                    <option>Delivered</option>
-                    <option>Shipped</option>
-                    <option>Pending</option>
-                    <option>Cancelled</option>
-                  </select>
-                </div>
-                <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                        <div className="col-md-4">
+                          <div className="filter-group">
+                            <label>بداية التاريخ</label>
+                            <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                            <label>نهاية التاريخ</label>
+                            <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                            <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
+                              <i className="fa fa-search"></i> فلتر
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
