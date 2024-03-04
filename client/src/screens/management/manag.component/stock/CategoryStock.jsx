@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 
 const CategoryStock = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [categoryStockname, setcategoryStockname] = useState('')
   const [categoryStockId, setcategoryStockId] = useState('')
@@ -13,20 +13,21 @@ const CategoryStock = () => {
   const [allCategoryStock, setallCategoryStock] = useState([])
 
   const getallCategoryStock = async () => {
-  
+
     try {
       const response = await axios.get(apiUrl + "/api/categoryStock/");
       setallCategoryStock(response.data.reverse());
-  } catch (error) {
+    } catch (error) {
       console.error('Error fetching category stock:', error);
-  }  }
+    }
+  }
 
 
   const [AllStockItems, setAllStockItems] = useState([]);
 
   const getallStockItem = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/stockitem/');
+      const response = await axios.get(apiUrl + '/api/stockitem/');
       const StockItems = await response.data.reverse();
       console.log(response.data)
       setAllStockItems(StockItems)
@@ -38,20 +39,21 @@ const CategoryStock = () => {
   }
 
 
-  const createCategoryStock = async () => {
+  const createCategoryStock = async (e) => {
+    e.preventDefault()
     try {
       // Validate category stock name
       if (!categoryStockname.trim()) {
         throw new Error("اسم الفئة مطلوب");
       }
-  
+
       const response = await axios.post(apiUrl + "/api/categoryStock/", { name: categoryStockname });
-  
+
       // Check if the response indicates success
       if (response) {
         // Update the list of category stocks after successfully creating a new one
         getallCategoryStock();
-  
+
         // Display success toast message
         toast.success("تم إنشاء الفئة بنجاح");
       } else {
@@ -60,12 +62,12 @@ const CategoryStock = () => {
     } catch (error) {
       // Log the error
       console.error("Error creating category stock:", error);
-      
+
       // Display error toast message
       toast.error(error.message || "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
     }
   }
-  
+
 
 
   const editCategoryStock = async (e) => {
@@ -85,27 +87,34 @@ const CategoryStock = () => {
       toast.error("حدث خطأ أثناء تعديل التصنيف. يرجى المحاولة مرة أخرى.");
     }
   }
-  
 
-  const deleteCategoryStock = async () => {
+
+  const deleteCategoryStock = async (e) => {
+    e.preventDefault();
+
     try {
       // Attempt to send a DELETE request to delete the category stock
       const deleted = await axios.delete(apiUrl + "/api/categoryStock/" + categoryStockId);
       // console.log(categoryStockId); // Log the category stock ID
       // console.log(deleted); // Log the response from the server
-      // Display success toast message
-      toast.success("تم حذف التصنيف بنجاح");
+
+      if (deleted) {
+        getallCategoryStock(); // Fetch updated category stock data
+        getallStockItem(); // Fetch updated stock item data
+        // Display success toast message
+        toast.success("تم حذف التصنيف بنجاح");
+      }
     } catch (error) {
       console.log(error); // Log any errors that occur
       // Display error toast message
       toast.error("حدث خطأ أثناء حذف التصنيف. يرجى المحاولة مرة أخرى.");
     }
   }
-  
+
 
   const [CategoryStockFilterd, setCategoryStockFilterd] = useState([])
   const searchByCategoryStock = (CategoryStock) => {
-    const categories = allCategoryStock.filter((Category) => Category.name.startsWith(CategoryStock)== true)
+    const categories = allCategoryStock.filter((Category) => Category.name.startsWith(CategoryStock) == true)
     setCategoryStockFilterd(categories)
   }
 
@@ -118,7 +127,7 @@ const CategoryStock = () => {
   return (
     <detacontext.Consumer>
       {
-        ({EditPagination, startpagination,endpagination,setstartpagination,setendpagination }) => {
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -138,7 +147,7 @@ const CategoryStock = () => {
                     <div class="row text-dark">
                       <div class="col-sm-3">
                         <div class="show-entries">
-                        <span>عرض</span>
+                          <span>عرض</span>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
@@ -196,12 +205,12 @@ const CategoryStock = () => {
                         <th>عدد المنتجات</th>
                         <th>اجراءات</th>
                       </tr>
-                      
+
                     </thead>
                     <tbody>
-                      {CategoryStockFilterd.length>0? CategoryStockFilterd.map((categoryStock, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
+                      {CategoryStockFilterd.length > 0 ? CategoryStockFilterd.map((categoryStock, i) => {
+                        if (i >= startpagination & i < endpagination) {
+                          return (
                             <tr key={i}>
                               {/* <td>
                                 <span className="custom-checkbox">
@@ -221,28 +230,28 @@ const CategoryStock = () => {
                           )
                         }
                       })
-                      :allCategoryStock.map((categoryStock, i) => {
+                        : allCategoryStock.map((categoryStock, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
-                            <tr key={i}>
-                              {/* <td>
+                              <tr key={i}>
+                                {/* <td>
                                 <span className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
                                 </span>
                               </td> */}
-                              <td>{i + 1}</td>
-                              <td>{categoryStock.name}</td>
-                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
-                              <td>
-                                <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <td>{i + 1}</td>
+                                <td>{categoryStock.name}</td>
+                                <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
+                                <td>
+                                  <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })}
+                                  <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                </td>
+                              </tr>
+                            )
+                          }
+                        })}
 
                     </tbody>
                   </table>
@@ -276,7 +285,7 @@ const CategoryStock = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>

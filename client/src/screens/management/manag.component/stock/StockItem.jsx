@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 
 const StockItem = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [itemName, setitemName] = useState('');
   const [stockItemId, setStockItemid] = useState('');
@@ -21,11 +21,12 @@ const StockItem = () => {
   const [minThreshold, setminThreshold] = useState();
 
 
+  // Function to create a stock item
   const createItem = async (e, userId) => {
     e.preventDefault();
     const createBy = userId;
     try {
-      const response = await axios.post(apiUrl+'/api/stockitem/', {
+      const response = await axios.post(apiUrl + '/api/stockitem/', {
         itemName,
         categoryId,
         smallUnit,
@@ -42,12 +43,12 @@ const StockItem = () => {
       getStockItems(); // Update the list of stock items after creating a new one
 
       // Notify on success
-      toast.success('Stock item created successfully');
+      toast.success('تم إنشاء عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
 
       // Notify on error
-      toast.error('Failed to create stock item');
+      toast.error('فشل في إنشاء عنصر المخزون');
     }
   };
 
@@ -75,12 +76,12 @@ const StockItem = () => {
       }
 
       // Notify on success
-      toast.success('Stock item updated successfully');
+      toast.success('تم تحديث عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
 
       // Notify on error
-      toast.error('Failed to update stock item');
+      toast.error('فشل في تحديث عنصر المخزون');
     }
   };
 
@@ -94,22 +95,23 @@ const StockItem = () => {
         getStockItems(); // Update the list of stock items after deletion
 
         // Notify on success
-        toast.success('Stock item deleted successfully');
+        toast.success('تم حذف عنصر المخزون بنجاح');
       }
     } catch (error) {
       console.log(error);
 
       // Notify on error
-      toast.error('Failed to delete stock item');
+      toast.error('فشل في حذف عنصر المخزون');
     }
   };
 
 
   const [AllStockItems, setAllStockItems] = useState([])
+
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/stockitem/');
+      const response = await axios.get(apiUrl + '/api/stockitem/');
       const stockItems = await response.data.reverse();
       console.log(response.data);
       setAllStockItems(stockItems);
@@ -117,21 +119,22 @@ const StockItem = () => {
       console.log(error);
 
       // Notify on error
-      toast.error('Failed to retrieve stock items');
+      toast.error('فشل في استرداد عناصر المخزون');
     }
   };
 
   const [AllCategoryStock, setAllCategoryStock] = useState([])
+
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
-      const res = await axios.get(apiUrl+'/api/categoryStock/');
+      const res = await axios.get(apiUrl + '/api/categoryStock/');
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);
 
       // Notify on error
-      toast.error('Failed to retrieve category stock');
+      toast.error('فشل في استرداد فئة المخزون');
     }
   };
 
@@ -146,7 +149,6 @@ const StockItem = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive mt-1">
                 <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">
@@ -157,7 +159,7 @@ const StockItem = () => {
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addStockItemModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteStockItemModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        {/* <a href="#deleteStockItemModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -221,12 +223,7 @@ const StockItem = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th>
+
                         <th>م</th>
                         <th>اسم الصنف</th>
                         <th>المخزن</th>
@@ -248,12 +245,6 @@ const StockItem = () => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td>
                               <td>{i + 1}</td>
                               <td>{item.itemName}</td>
                               <td>{AllCategoryStock.length > 0 ? AllCategoryStock.filter(c => c._id == item.categoryId)[0].name : ''}</td>
@@ -268,7 +259,7 @@ const StockItem = () => {
                               <td>{item.createBy ? usertitle(item.createBy) : '--'}</td>
                               <td>{item.createdAt}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart) ;setminThreshold(item.minThreshold);settotalCost(item.totalCost)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -291,6 +282,8 @@ const StockItem = () => {
                   </div>
                 </div>
               </div>
+
+
               <div id="addStockItemModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -327,9 +320,9 @@ const StockItem = () => {
                           <input type='Number' className="form-control" required onChange={(e) => setBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                              <label>الحد الادني</label>
-                              <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
-                            </div>
+                          <label>الحد الادني</label>
+                          <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
+                        </div>
                         <div className="form-group">
                           <label>السعر</label>
                           <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
@@ -353,12 +346,14 @@ const StockItem = () => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
+
+
               <div id="editStockItemModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -396,9 +391,9 @@ const StockItem = () => {
                           <input type='Number' className="form-control" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                              <label>الحد الادني</label>
-                              <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
-                            </div>
+                          <label>الحد الادني</label>
+                          <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
+                        </div>
 
                         <div className="form-group">
                           <label>السعر</label>
