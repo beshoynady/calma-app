@@ -233,7 +233,7 @@ const Products = () => {
     try {
       const response = await axios.get(apiUrl + '/api/category/');
       const categories = await response.data;
-      // console.log(response.data)
+      console.log(response.data)
       setlistofcategories(categories)
       // console.log(listofcategories)
 
@@ -258,7 +258,6 @@ const Products = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive mt-1">
                 <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">
