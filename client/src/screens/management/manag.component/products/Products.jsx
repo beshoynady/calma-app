@@ -145,8 +145,6 @@ const Products = () => {
       // console.log(response.data)
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
-      calcsalseofproducts()
-
     } catch (error) {
       console.log(error)
     }
@@ -163,7 +161,7 @@ const Products = () => {
       if (response.status === 200) {
         const allOrders = response.data;
         console.log({ allOrders });
-        const updatedListofProducts = listofProducts.map((pro) => {
+        const updatedListofProducts = products.map((pro) => {
           return { ...pro, sales: 0 };
         });
         console.log({ updatedListofProducts })
@@ -196,7 +194,7 @@ const Products = () => {
             });
           });
         });
-        setlistofProducts(updatedListofProducts)
+        setlistofProducts(filteredOrders)
       } else {
         console.error('Failed to fetch orders');
       }
