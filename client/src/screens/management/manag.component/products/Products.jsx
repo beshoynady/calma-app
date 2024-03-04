@@ -371,7 +371,7 @@ const Products = () => {
                             )
                           }
                         })
-                        : listofProducts.map((p, i) => {
+                        : listofcategories && listofProducts.map((p, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
