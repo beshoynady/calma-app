@@ -161,7 +161,7 @@ const Products = () => {
       if (response.status === 200) {
         const allOrders = response.data;
         console.log({ allOrders });
-        const updatedListofProducts = products.map((pro) => {
+        const updatedListofProducts = listofProducts.map((pro) => {
           return { ...pro, sales: 0 };
         });
         console.log({ updatedListofProducts })
