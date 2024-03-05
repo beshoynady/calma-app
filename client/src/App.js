@@ -262,6 +262,8 @@ function App() {
   const [allemployees, setallemployees] = useState([])
   const getAllemployees = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(`${apiUrl}/api/employee`, {
         headers: {
           'authorization': `Bearer ${token}`,

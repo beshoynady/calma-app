@@ -37,6 +37,8 @@ const ManagerDash = () => {
 
   const fetchOrdersData = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const res = await axios.get(apiUrl + '/api/order', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -123,6 +125,8 @@ const ManagerDash = () => {
 
   const fetchActiveEmployees = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl + '/api/employee', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -213,6 +217,8 @@ const ManagerDash = () => {
 
   const handleCashRegister = async (id) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl + '/api/cashregister', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -236,6 +242,8 @@ const ManagerDash = () => {
   const RevenueRecording = async (id, amount, description) => {
     handleCashRegister(id);
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       if (cashRegister) {
         const updatedBalance = balance + amount;
         const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
@@ -422,6 +430,8 @@ const handlePrintKitchen = (e) => {
   const aproveOrder = async (e, casher) => {
     e.preventDefault()
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`);
       const products = await orderData.data.products;
