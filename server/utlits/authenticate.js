@@ -21,7 +21,7 @@ const authenticateToken = (req, res, next) => {
             return res.status(403).json({ message: 'Forbidden: employee not authorized' }); // Forbidden
         }
 
-        req.employee = employee;
+        req.employee = employee.employeeinfo;
         next();
     });
 };
