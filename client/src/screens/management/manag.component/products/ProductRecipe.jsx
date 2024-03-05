@@ -117,7 +117,10 @@ const ProductRecipe = () => {
 const createRecipe = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+  if (!token) {
+    // Handle case where token is not available
+    throw new Error('توكن غير متاح');
+  }
   try {
     if (ingredients.length > 0) {
       // If there are existing ingredients, create a new array with the added ingredient

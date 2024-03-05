@@ -109,7 +109,7 @@ function App() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
-  
+
   const formatTime = (timeString) => {
     const time = new Date(timeString);
     let hours = time.getHours();
@@ -263,21 +263,29 @@ function App() {
   const getAllemployees = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       const response = await axios.get(`${apiUrl}/api/employee`, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
+
       if (response.status === 200) {
         setallemployees(response.data);
+        console.log('Employees data fetched successfully:', response.data);
       } else {
         console.error('Failed to fetch employees data: Unexpected response status', response.status);
+        // يمكنك إطلاق استثناء هنا أو عرض رسالة خطأ للمستخدم
       }
     } catch (error) {
       console.error('Error fetching employees data:', error);
+      // يمكنك إطلاق استثناء هنا أو عرض رسالة خطأ للمستخدم
     }
   };
+
 
 
 
@@ -384,7 +392,7 @@ function App() {
       // Assign the product ID to the cart item
       cartItem[0].productid = productId;
 
-      console.log({cartItem});
+      console.log({ cartItem });
 
       // Check if the cart is not empty
       if (itemsInCart.length > 0) {
@@ -968,28 +976,28 @@ function App() {
       let total = 0;
 
       // Iterate over each product in the split order list
-      console.log({newlistofproductorder})
+      console.log({ newlistofproductorder })
       newlistofproductorder.map((product) => {
         // Find the corresponding product in the original order list
         const oldProduct = listProductsOrder.find(pro => pro.productid === product.productid);
-        console.log({oldProduct})
+        console.log({ oldProduct })
         // Calculate subtotal only if the number of paid items has changed
         if (oldProduct.numOfPaid !== product.numOfPaid) {
           // Calculate the difference in the number of paid items
           const newNumOfPaid = Math.abs(oldProduct.numOfPaid - product.numOfPaid);
-          
+
           // Calculate the subtotal based on the number of paid items and the product price
           const subTotal = product.priceAfterDiscount > 0 ? newNumOfPaid * product.priceAfterDiscount : oldProduct.price * newNumOfPaid;
-          console.log({subTotal})
-          
+          console.log({ subTotal })
+
           // Accumulate the subtotal to the total
           total += subTotal;
         }
       });
 
       // Set the calculated total as the subtotal for the split order
-      
-      console.log({total})
+
+      console.log({ total })
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
@@ -1013,7 +1021,7 @@ function App() {
         subtotalSplitOrder
       });
       if (updateOrder) {
-        console.log({updateOrder})
+        console.log({ updateOrder })
         // Display a success toast message upon successful payment
         toast.success("تم دفع جزء من الفاتورة بنجاح");
 
@@ -1475,7 +1483,7 @@ function App() {
       const filterReservationsByTable = allReservations.filter(reservation => {
         const reservationDateObj = new Date(reservation.reservationDate);
         const selectedDateObj = new Date(selectedDate);
-        
+
         return (
           reservation.tableId === tableId &&
           reservationDateObj.getFullYear() === selectedDateObj.getFullYear() &&
@@ -1556,7 +1564,7 @@ function App() {
     }
   }
 
-  
+
   const updateReservation = async (e, id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
     e.preventDefault();
 
@@ -1576,7 +1584,7 @@ function App() {
 
       if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id) {
         const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
-          tableId,tableNum, numberOfGuests, reservationDate, startTime, endTime, status
+          tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status
         })
         if (response.status == 200) {
           getAllReservations()
@@ -1602,16 +1610,16 @@ function App() {
         return
       }
 
-        const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
-           status
-        })
-        if (response.status == 200) {
-          getAllReservations()
-          toast.success('تم تاكيد الحجز بنجاح')
-        } else {
-          getAllReservations()
-          toast.error('حدث خطأ اثناء التاكيد ! حاول مرة اخري')
-        }
+      const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
+        status
+      })
+      if (response.status == 200) {
+        getAllReservations()
+        toast.success('تم تاكيد الحجز بنجاح')
+      } else {
+        getAllReservations()
+        toast.error('حدث خطأ اثناء التاكيد ! حاول مرة اخري')
+      }
 
 
     } catch (error) {
@@ -1696,13 +1704,13 @@ function App() {
       EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
 
       // Other utility functions or state variables
-      itemId, setitemId, formatDate,formatTime,
+      itemId, setitemId, formatDate, formatTime,
       orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations,confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+      createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>

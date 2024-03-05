@@ -38,7 +38,10 @@ const ManagerDash = () => {
   const fetchOrdersData = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       const res = await axios.get(apiUrl + '/api/order', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -126,7 +129,10 @@ const ManagerDash = () => {
   const fetchActiveEmployees = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       const response = await axios.get(apiUrl + '/api/employee', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -218,7 +224,10 @@ const ManagerDash = () => {
   const handleCashRegister = async (id) => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       const response = await axios.get(apiUrl + '/api/cashregister', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -243,7 +252,10 @@ const ManagerDash = () => {
     handleCashRegister(id);
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       if (cashRegister) {
         const updatedBalance = balance + amount;
         const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
