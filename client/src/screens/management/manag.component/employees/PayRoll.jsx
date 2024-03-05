@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const PayRoll = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   // Array of months in Arabic
   const months = [
@@ -284,7 +285,11 @@ const PayRoll = () => {
       };
 
       // Update payroll status via API call
-      const updatePayRoll = await axios.put(`${apiUrl}/api/employee/paid/${employeeId}`, payload);
+      const updatePayRoll = await axios.put(`${apiUrl}/api/employee/paid/${employeeId}`, payload , {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
 
       // Log the update result
       console.log(updatePayRoll);

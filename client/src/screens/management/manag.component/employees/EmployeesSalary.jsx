@@ -7,12 +7,18 @@ const Joi = require('joi');
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
+  
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/employee')
+      const response = await axios.get(apiUrl + '/api/employee', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      })
       const employee = await response.data
       setlistofemployee(employee)
     } catch (error) {
@@ -77,7 +83,11 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.post(apiUrl + '/api/salarymovement', data);
+      const response = await axios.post(apiUrl + '/api/salarymovement', data, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       if (response) {
 
       }
@@ -111,7 +121,11 @@ const EmployeesSalary = () => {
     // }
 
     try {
-      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data);
+      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       getSalaryMovement();
       toast.success('Movement updated successfully');
     } catch (error) {
@@ -124,7 +138,11 @@ const EmployeesSalary = () => {
   const deleteSalaryMovement = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`);
+      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       getSalaryMovement();
       toast.success('Movement deleted successfully');
     } catch (error) {
@@ -135,7 +153,11 @@ const EmployeesSalary = () => {
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
-    const movement = await axios.get(apiUrl + '/api/salarymovement')
+    const movement = await axios.get(apiUrl + '/api/salarymovement', {
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
+    })
     console.log(movement)
     setlistofsalarymovement(movement.data.reverse())
   }

@@ -47,6 +47,7 @@ export const detacontext = createContext({});
 function App() {
 
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
 
   axios.defaults.withCredentials = true;
@@ -198,7 +199,11 @@ function App() {
   const getAllOrders = async () => {
     try {
       // Fetch all orders from the API
-      const response = await axios.get(apiUrl + '/api/order');
+      const response = await axios.get(apiUrl + '/api/order', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
 
       // Check if response is successful
       if (response.status !== 200) {
@@ -257,7 +262,11 @@ function App() {
   const [allemployees, setallemployees] = useState([])
   const getAllemployees = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/employee`);
+      const response = await axios.get(`${apiUrl}/api/employee`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         setallemployees(response.data);
       } else {
