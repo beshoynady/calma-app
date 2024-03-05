@@ -51,7 +51,7 @@ const Kitchen = () => {
 
       // Create a copy of the existing productsOrderActive array
       const updatedProductsOrderActive = [...productsOrderActive];
-
+      const ingredients =[]
       // Iterate through active orders and update the productsOrderActive array
       activeOrders.forEach((order) => {
         order.products.forEach((product) => {
@@ -64,7 +64,7 @@ const Kitchen = () => {
               // If the product does not exist, add it to the array
               console.log({ listAllProducts });
               const foundProductRecipe = allRecipe.length>0?allRecipe.find((Recipe) => Recipe.productId === product._id):"";
-              const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
+              ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
                   updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, ingredients });
             }
           }
