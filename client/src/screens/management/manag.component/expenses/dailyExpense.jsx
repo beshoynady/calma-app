@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const DailyExpense = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [expenseID, setexpenseID] = useState('');
   const [cashMovementId, setcashMovementId] = useState('');
@@ -22,7 +22,12 @@ const DailyExpense = () => {
 
   const getAllcashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/cashRegister');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      const response = await axios.get(apiUrl + '/api/cashRegister', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       setAllcashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -39,7 +44,13 @@ const DailyExpense = () => {
 
   const getallExpenses = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/expenses/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/expenses/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       setallExpenses(response.data.reverse());
     } catch (error) {
       console.log(error);
@@ -51,19 +62,25 @@ const DailyExpense = () => {
     const updatedbalance = balance - amount; // Calculate the updated balance
 
     try {
-      const cashMovement = await axios.post(apiUrl+'/api/cashMovement/', {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
         createBy: paidBy,
         amount,
         type: 'Withdraw',
         description: expenseDescription,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
 
       const cashMovementId = await cashMovement.data.cashMovement._id; // Retrieve the cashMovementId from the response data
 
-      const dailyexpense = await axios.post(apiUrl+'/api/dailyexpense/', {
+      const dailyexpense = await axios.post(apiUrl + '/api/dailyexpense/', {
         expenseID,
         expenseDescription,
         cashRegister,
@@ -71,10 +88,18 @@ const DailyExpense = () => {
         paidBy,
         amount,
         notes,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedbalance, // Use the updated balance
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       // Update the state after successful updates
@@ -99,7 +124,13 @@ const DailyExpense = () => {
   const editDailyExpense = async (e) => {
     e.preventDefault();
     try {
-      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new amount and the previous amount
@@ -115,6 +146,10 @@ const DailyExpense = () => {
           paidBy,
           amount,
           notes,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
         });
 
         const data = response.data;
@@ -126,11 +161,19 @@ const DailyExpense = () => {
           amount,
           type: 'Withdraw',
           description: expenseDescription,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
         });
 
         if (data) {
           const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           });
           if (updatecashRegister) {
             // Toast notification for successful edit
@@ -158,8 +201,14 @@ const DailyExpense = () => {
   const deleteDailyExpense = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Fetch the previous expense data to calculate the balance update
-      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new balance and the previous amount
@@ -167,13 +216,21 @@ const DailyExpense = () => {
 
       if (cashMovementId) { // Ensure cashMovementId has a value before sending the request
         // Delete the expense record after extracting previous expense data
-        const deleteExpenseRecord = await axios.delete(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`);
+        const deleteExpenseRecord = await axios.delete(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
+        });
         const data = deleteExpenseRecord.data;
 
         if (data) {
           // Update the cash register balance with the updatedbalance
           const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
             balance: updatedbalance,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           });
 
           if (updatecashRegister) {
@@ -202,7 +259,13 @@ const DailyExpense = () => {
 
   const getallDailyExpenses = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/dailyexpense/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/dailyexpense/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const dailyExpenses = await response.data.reverse();
       console.log(response.data);
       setallDailyExpenses(dailyExpenses);
@@ -290,7 +353,7 @@ const DailyExpense = () => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
-                             
+
                               <td>{i + 1}</td>
                               <td>{dailyexpense.expenseDescription}</td>
                               <td>{dailyexpense.amount}</td>
@@ -315,11 +378,11 @@ const DailyExpense = () => {
                           )
                         }
                       })
-                        : allDailyExpenses.length>0?allDailyExpenses.map((dailyexpense, i) => {
+                        : allDailyExpenses.length > 0 ? allDailyExpenses.map((dailyexpense, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                
+
                                 <td>{i + 1}</td>
                                 <td>{dailyexpense.expenseDescription}</td>
                                 <td>{dailyexpense.amount}</td>
@@ -341,7 +404,7 @@ const DailyExpense = () => {
                               </tr>
                             )
                           }
-                        }):""}
+                        }) : ""}
                   </tbody>
                 </table>
                 <div className="clearfix">
@@ -371,12 +434,12 @@ const DailyExpense = () => {
                         <label>المصروف</label>
                         <select name="category" id="category" form="carform" onChange={(e) => {
                           setexpenseID(e.target.value);
-                          setexpenseDescription(allExpenses.length>0?allExpenses.find(ex => ex._id == e.target.value).description:"");
+                          setexpenseDescription(allExpenses.length > 0 ? allExpenses.find(ex => ex._id == e.target.value).description : "");
                         }}>
-                          {allExpenses.length>0?allExpenses.map((expense, i) => {
+                          {allExpenses.length > 0 ? allExpenses.map((expense, i) => {
                             return <option value={expense._id} key={i} >{expense.description}</option>
                           })
-                          :""}
+                            : ""}
                         </select>
                       </div>
                       <div className="form-group">
@@ -400,7 +463,7 @@ const DailyExpense = () => {
                     </div>
                     <div className="modal-footer">
                       <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-success"  value="اضافه" />
+                      <input type="submit" className="btn btn-success" value="اضافه" />
                     </div>
                   </form>
                 </div>
@@ -419,12 +482,12 @@ const DailyExpense = () => {
                         <label>المصروف</label>
                         <select name="category" id="category" form="carform" onChange={(e) => {
                           setexpenseID(e.target.value);
-                          setexpenseDescription(allExpenses?allExpenses.find(ex => ex._id == e.target.value).description:"");
+                          setexpenseDescription(allExpenses ? allExpenses.find(ex => ex._id == e.target.value).description : "");
                         }}>
-                          {allExpenses?allExpenses.map((expense, i) => {
+                          {allExpenses ? allExpenses.map((expense, i) => {
                             return <option value={expense._id} key={i} >{expense.description}</option>
                           })
-                          :""}
+                            : ""}
                         </select>
                       </div>
                       <div className="form-group">
