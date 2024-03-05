@@ -17,21 +17,18 @@ const Kitchen = () => {
   const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
   const [consumptionOrderActive, setconsumptionOrderActive] = useState([]); // State for active orders
   const [allOrders, setAllOrders] = useState([]); // State for all orders
-  
-  
-  const [allRecipe, setAllRecipe] = useState([]); // State for all orders
+  const [allRecipe, setallRecipe] = useState([]); // State for all orders
 
-  const getProductRecipe = async () => {
+  const getProductRecipe = async (id) => {
     try {
       console.log(id);
-      const allRecipe = await axios.get(`${apiUrl}/api/recipe`);
-      console.log({ allRecipe });
-      setAllRecipe(allRecipe.data)
+      const getAllRecipe = await axios.get(`${apiUrl}/api/recipe`);
+      console.log({ getAllRecipe });
+      setallRecipe(getAllRecipe.data)
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);
     }
   };
-
   const getOrdersFromAPI = async () => {
     try {
       // Fetch orders from the API
@@ -66,7 +63,8 @@ const Kitchen = () => {
             } else {
               // If the product does not exist, add it to the array
               console.log({ listAllProducts });
-              updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity });
+              const recipe = listAllProducts.find((pro) => pro._id == product.productid).Recipe;
+              updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, recipe });
             }
           }
         });
@@ -256,70 +254,98 @@ const Kitchen = () => {
     try {
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
-      const { products } = orderData.data;
-  
+      const products = await orderData.data.products;
+
       // Loop through each product in the order
       for (const product of products) {
         if (!product.isDone) {
-          const productId = product.productid;
-          const productName = product.name;
+          // Fetch kitchen consumption data
+          // await getKitchenConsumption();
+          const getKitchenConsumption = await axios.get(apiUrl+'/api/kitchenconsumption');
+          const Allkitchenconsumption = await getKitchenConsumption.data.data
           const quantity = product.quantity;
-  
-          // Find recipe for the product
-          const recipe = await RecipeModel.findOne({ 'product.id': productId });
-  
+          const productId = product.productid;
+          const name = product.name;
+          console.log({ productId, quantity, name });
+
+          // Find product details
+          const foundProductRecipe = allRecipe.length>0?allRecipe.find((Recipe) => Recipe.productId === product._id):"";
+          const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
+
           // Calculate consumption for each ingredient in the recipe
-          if (recipe) {
-            for (const ingredient of recipe.ingredients) {
-              const { itemId, name, amount } = ingredient;
-              const productAmount = amount * quantity;
-  
-              // Fetch kitchen consumption data for today
-              const today = new Date().toISOString().split('T')[0];
-              const kitchenConsumptionToday = await axios.get(`${apiUrl}/api/kitchenconsumption?date=${today}`);
-  
-              // Find kitchen consumption entry for the ingredient
-              const kitConsumption = kitchenConsumptionToday.data.find(item => item.itemId === itemId);
-  
-              if (kitConsumption) {
-                const consumptionQuantity = kitConsumption.consumptionQuantity + productAmount;
-                const bookBalance = kitConsumption.quantityTransferredToKitchen - consumptionQuantity;
-  
+          for (const ingredient of ingredients) {
+            const today = new Date().toISOString().split('T')[0]; // تاريخ اليوم بتنسيق YYYY-MM-DD
+            const kitconsumptionToday = Allkitchenconsumption.filter((kitItem) => {
+              const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
+              return itemDate === today;
+            });
+
+            let kitconsumption = null;
+            if (kitconsumptionToday.length > 0) {
+              kitconsumption = kitconsumptionToday.find((kitItem) => kitItem.stockItemId === ingredient.itemId);
+            }
+            if (kitconsumption) {
+              const productAmount = ingredient.amount * quantity;
+              console.log({ productAmount });
+
+              const consumptionQuantity = kitconsumption.consumptionQuantity + productAmount;
+              console.log({ consumptionQuantity });
+
+              const bookBalance = kitconsumption.quantityTransferredToKitchen - consumptionQuantity;
+
+              let foundProducedProduct = kitconsumption.productsProduced.find((produced) => produced.productId === productId);
+
+              if (!foundProducedProduct) {
+                foundProducedProduct = { productId: productId, productionCount: quantity, productName: name };
+                kitconsumption.productsProduced.push(foundProducedProduct);
+              } else {
+                foundProducedProduct.productionCount += quantity;
+              }
+
+              try {
                 // Update kitchen consumption data
-                await axios.put(`${apiUrl}/api/kitchenconsumption/${kitConsumption._id}`, {
+                const update = await axios.put(`${apiUrl}/api/kitchenconsumption/${kitconsumption._id}`, {
                   consumptionQuantity,
                   bookBalance,
-                  $push: { productsProduced: { productId, productionCount: quantity, productName } }
+                  productsProduced: kitconsumption.productsProduced
                 });
+                console.log({ update: update });
+              } catch (error) {
+                console.log({ error: error });
               }
+            } else {
+
             }
           }
         }
       }
-  
-      // Update order status to 'Prepared' and set products to 'isDone: true'
+
+      // Perform other operations if needed after the loop completes
+      // Update order status or perform other tasks
       const status = 'Prepared';
-      const updatedProducts = products.map(prod => ({ ...prod, isDone: true }));
-      await axios.put(`${apiUrl}/api/order/${id}`, { products: updatedProducts, status });
-  
-      // Fetch all orders from the API
-      const allOrders = await axios.get(`${apiUrl}/api/order`);
-      setAllOrders(allOrders.data);
-  
+      const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
+      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status });
+
+      // Fetch orders from the API
+      const orders = await axios.get(apiUrl+'/api/order');
+      // Set all orders state
+      setAllOrders(orders.data);
+
       // Filter active orders based on certain conditions
-      const activeOrders = allOrders.data.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
+      const activeOrders = orders.data.filter(
+        (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+      );
+      console.log({ activeOrders });
+      // Set active orders state
       setOrderActive(activeOrders);
-  
-      // Trigger function to fetch kitchen consumption data
-      getKitchenConsumption();
-  
-      toast.success('Order is prepared!');
+      getKitchenConsumption()
+      toast.success('Order is prepared!'); // Notifies success in completing order
+
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error('Failed to complete order!');
     }
   };
-  
 
 
 
@@ -344,8 +370,8 @@ const Kitchen = () => {
 
   // Fetches orders and active waiters on initial render
   useEffect(() => {
-    getKitchenConsumption()
     getProductRecipe()
+    getKitchenConsumption()
     getallproducts()
     getAllWaiters();
     getOrdersFromAPI();

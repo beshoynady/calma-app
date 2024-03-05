@@ -11,38 +11,6 @@ const productSchema = new mongoose.Schema(
       maxlength: [50, 'Name cannot exceed 50 characters'],
       minlength: [2, 'Name must have at least 2 characters'],
     },
-    Recipe: [
-      {
-        itemId: {
-          type: ObjectId,
-          ref: 'StockItem',
-          trim: true,
-          required: [true, 'Item ID is required'],
-        },
-        name: {
-          type: String,
-          trim: true,
-          required: [true, 'Name is required'],
-        },
-        amount: {
-          type: Number,
-          required: [true, 'Amount is required'],
-        },
-        unit: {
-          type: String,
-          trim: true,
-          required: [true, 'Unit is required'],
-        },
-        costofitem: {
-          type: Number,
-          required: [true, 'Cost of item is required'],
-        },
-        totalcostofitem: {
-          type: Number,
-          required: [true, 'Total cost of item is required'],
-        },
-      },
-    ],
     totalcost: {
       type: Number,
       required: [true, 'Total cost is required'],
