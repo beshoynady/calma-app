@@ -14,7 +14,6 @@ const Login = () => {
                 ({ adminLogin }) => {
                     return (
                         <div className="login-container">
-                            <ToastContainer />
                             <div className="screen">
                                 <div className="screen__content">
                                     <form className="login-dash" onSubmit={(e) => adminLogin(e, phone, password)} >
