@@ -11,6 +11,8 @@ const Employees = () => {
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl+'/api/employee', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -76,10 +78,12 @@ const Employees = () => {
       !role
     ) {
       // Notify the user that some fields are missing
-      notify('Please fill in all required fields', 'error');
+      notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
       return;
     }
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address, phone, email, isActive, role, sectionNumber }, {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -90,7 +94,7 @@ const Employees = () => {
       getemployees();
     } catch (error) {
       console.log(error);
-      notify('Failed to create employee', 'error');
+      notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
     }
   };
 
@@ -107,6 +111,8 @@ const Employees = () => {
     console.log(role)
     console.log(basicSalary)
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
       // if (error) {
       //     notify(error.details[0].message, 'error');
@@ -168,6 +174,8 @@ const Employees = () => {
   const deleteEmployee = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -198,6 +206,8 @@ const Employees = () => {
     e.preventDefault();
     console.log(selectedIds)
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       for (const Id of selectedIds) {
         await axios.delete(`${apiUrl}/api/order/${Id}`, {
           headers: {
