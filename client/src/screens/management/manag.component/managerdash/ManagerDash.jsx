@@ -12,6 +12,7 @@ import { useReactToPrint } from 'react-to-print';
 
 const ManagerDash = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   // useEffect(() => {
   //   const socket = io(apiUrl+'', { withCredentials: true });
@@ -36,7 +37,11 @@ const ManagerDash = () => {
 
   const fetchOrdersData = async () => {
     try {
-      const res = await axios.get(apiUrl + '/api/order');
+      const res = await axios.get(apiUrl + '/api/order', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const orders = res.data;
       setallOrders(orders);
 
@@ -118,7 +123,11 @@ const ManagerDash = () => {
 
   const fetchActiveEmployees = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/employee');
+      const response = await axios.get(apiUrl + '/api/employee', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const activeEmployees = response.data.filter((employee) => employee.isActive === true);
 
       const waiters = activeEmployees.filter((employee) => employee.role === 'waiter');
@@ -204,7 +213,11 @@ const ManagerDash = () => {
 
   const handleCashRegister = async (id) => {
     try {
-      const response = await axios.get(apiUrl + '/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       setAllCashRegisters(response.data.reverse());
       const data = response.data;
       const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
@@ -231,9 +244,17 @@ const ManagerDash = () => {
           amount,
           type: 'Revenue',
           description,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
         });
         const updatecashRegister = await axios.put(`${apiUrl}/api/cashregister/${cashRegister}`, {
           balance: updatedBalance,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
         });
         if (updatecashRegister) {
           setbalance(updatedBalance);
