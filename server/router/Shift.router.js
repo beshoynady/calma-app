@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const shiftController = require('../controllers/shiftController');
+const shiftController = require('../controllers/Shift.controller');
 const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
