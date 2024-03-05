@@ -131,21 +131,35 @@ const StockItem = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
   
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('رجاء تسجيل الدخول مره اخري');
+      }
+  
       const response = await axios.get(apiUrl + '/api/stockitem/', {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
         },
       });
-      const stockItems = await response.data.reverse();
-      console.log(response.data);
+  
+      if (!response || !response.data) {
+        // Handle unexpected response or empty data
+        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
+      }
+  
+      const stockItems = response.data.reverse();
       setAllStockItems(stockItems);
+  
+      // Notify on success
+      toast.success('تم استرداد عناصر المخزون بنجاح');
     } catch (error) {
-      console.log(error);
+      console.error(error);
   
       // Notify on error
       toast.error('فشل في استرداد عناصر المخزون');
     }
   };
+  
   
   const [AllCategoryStock, setAllCategoryStock] = useState([]);
   
