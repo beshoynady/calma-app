@@ -157,22 +157,29 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getAllCategories = async () => {
     try {
-      // Fetch all categories from the API
-      const response = await axios.get(apiUrl + '/api/category');
+        const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      // Check if response is successful
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch categories.');
-      }
+        // Fetch all categories from the API
+        const response = await axios.get(apiUrl + '/api/category', {
+            headers: {
+                'authorization': `Bearer ${token}`, // Send the token in the authorization header
+            },
+        });
 
-      // Set fetched categories in the state
-      setallcategories(response.data);
+        // Check if response is successful
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch categories.');
+        }
+
+        // Set fetched categories in the state
+        setallcategories(response.data);
     } catch (error) {
-      // Handle errors
-      console.error('Error fetching categories:', error.message);
-      // You can add additional error handling logic here, such as displaying an error message to the user.
+        // Handle errors
+        console.error('Error fetching categories:', error.message);
+        // You can add additional error handling logic here, such as displaying an error message to the user.
     }
-  }
+}
+
 
 
   const calcTotalSalesOfCategory = (id) => {

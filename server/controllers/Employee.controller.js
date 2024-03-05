@@ -128,7 +128,7 @@ const loginEmployee = async (req, res) => {
                 }
             },
             process.env.jwt_secret_key,
-            { expiresIn: process.env.jwt_expire }
+            { expiresIn: process.env.jwt_expire}
         );
 
         if (!accessToken) {

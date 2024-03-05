@@ -35,78 +35,89 @@ const Kitchen = () => {
       console.error("Error fetching product recipe:", error.message);
     }
   };
-  const getOrdersFromAPI = async () => {
+
+
+
+const getOrdersFromAPI = async () => {
     try {
-      // Fetch orders from the API
-      const orders = await axios.get(apiUrl+'/api/order');
-      // Set all orders state
-      setAllOrders(orders.data);
+        // Fetch orders from the API
+        const orders = await axios.get(apiUrl + '/api/order');
+        // Set all orders state
+        setAllOrders(orders.data);
 
-      // Filter active orders based on certain conditions
-      const activeOrders = orders.data.filter(
-        (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-      );
-      console.log({ activeOrders });
-      // Set active orders state
-      setOrderActive(activeOrders);
+        // Filter active orders based on certain conditions
+        const activeOrders = orders.data.filter(
+            (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+        );
+        console.log({ activeOrders });
+        // Set active orders state
+        setOrderActive(activeOrders);
 
-      // Fetch all products from the API
-      const getAllProducts = await axios.get(apiUrl+'/api/product/');
-      // Extract product data
-      const listAllProducts = await getAllProducts.data;
+        // Fetch all products from the API
+        const getAllProducts = await axios.get(apiUrl + '/api/product/');
+        // Extract product data
+        const listAllProducts = getAllProducts.data;
 
-      // Create a copy of the existing productsOrderActive array
-      const updatedProductsOrderActive = [...productsOrderActive];
-      const ingredients =[]
-      // Iterate through active orders and update the productsOrderActive array
-      activeOrders.forEach((order) => {
-        order.products.forEach((product) => {
-          if (product.isDone === false) {
-            const existingProduct = updatedProductsOrderActive.find((p) => p.productid === product.productid);
-            if (existingProduct) {
-              // If the product already exists, update the quantity
-              existingProduct.quantity += product.quantity;
-            } else {
-              // If the product does not exist, add it to the array
-              console.log({ listAllProducts });
-              const foundProductRecipe = allRecipe.length>0?allRecipe.find((Recipe) => Recipe.productId === product._id):"";
-              ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
-                  updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, ingredients });
-            }
-          }
+        // Create a copy of the existing productsOrderActive array
+        const updatedProductsOrderActive = [...productsOrderActive];
+
+        // Iterate through active orders and update the productsOrderActive array
+        activeOrders.forEach((order) => {
+            order.products.forEach((product) => {
+                if (!product.isDone) {
+                    const existingProduct = updatedProductsOrderActive.find((p) => p.productid === product.productid);
+                    if (existingProduct) {
+                        // If the product already exists, update the quantity
+                        existingProduct.quantity += product.quantity;
+                    } else {
+                        // If the product does not exist, add it to the array
+                        const foundProductRecipe = allRecipe.find((Recipe) => Recipe.productId === product._id);
+                        const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
+                        updatedProductsOrderActive.push({
+                            productid: product.productid,
+                            quantity: product.quantity,
+                            ingredients
+                        });
+                    }
+                }
+            });
         });
-      });
 
-      // Create a copy of the existing consumptionOrderActive array
-      const updatedconsumptionOrderActive = [...consumptionOrderActive];
+        // Create a copy of the existing consumptionOrderActive array
+        const updatedconsumptionOrderActive = [...consumptionOrderActive];
 
-      // Iterate through updatedProductsOrderActive and update the consumptionOrderActive array
-      updatedProductsOrderActive.forEach((product) => {
-        ingredients.forEach((ingredient) => {
-          const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId == ingredient.itemId);
-          if (existingItem) {
-            // If the item already exists, update the amount
-            const Amount = ingredient.amount * product.quantity;
-            existingItem.amount += Amount;
-          } else {
-            // If the item does not exist, add it to the array
-            const Amount = ingredient.amount * product.quantity;
-            updatedconsumptionOrderActive.push({ itemId: ingredient.itemId, name: ingredient.name, amount: Amount });
-          }
+        // Iterate through updatedProductsOrderActive and update the consumptionOrderActive array
+        updatedProductsOrderActive.forEach((product) => {
+            product.ingredients.forEach((ingredient) => {
+                const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId === ingredient.itemId);
+                if (existingItem) {
+                    // If the item already exists, update the amount
+                    const amount = ingredient.amount * product.quantity;
+                    existingItem.amount += amount;
+                } else {
+                    // If the item does not exist, add it to the array
+                    const amount = ingredient.amount * product.quantity;
+                    updatedconsumptionOrderActive.push({
+                        itemId: ingredient.itemId,
+                        name: ingredient.name,
+                        amount: amount
+                    });
+                }
+            });
         });
-      });
 
-      console.log({ updatedProductsOrderActive });
-      // Set updated productsOrderActive state
-      setproductsOrderActive(updatedProductsOrderActive);
-      console.log({ updatedconsumptionOrderActive });
-      // Set updated consumptionOrderActive state
-      setconsumptionOrderActive(updatedconsumptionOrderActive);
+        console.log({ updatedProductsOrderActive });
+        // Set updated productsOrderActive state
+        setproductsOrderActive(updatedProductsOrderActive);
+        console.log({ updatedconsumptionOrderActive });
+        // Set updated consumptionOrderActive state
+        setconsumptionOrderActive(updatedconsumptionOrderActive);
     } catch (error) {
-      // Handle errors
-      console.log(error);
+        // Handle errors
+        console.error('Error fetching orders:', error);
     }
-  };
+};
+
 
 
   const today = new Date().toISOString().split('T')[0];
@@ -165,17 +176,25 @@ const Kitchen = () => {
 
   const getAllWaiters = async () => {
     try {
-      const allEmployees = await axios.get(apiUrl+'/api/employee');
-      const allWaiters = allEmployees.length>0?allEmployees.data.filter((employee) => employee.role === 'waiter'):"";
-      const waiterActive = allWaiters.length>0?allWaiters.filter((waiter) => waiter.isActive):"";
-      setAllWaiters(waiterActive);
+        const token = localStorage.getItem('token_e'); 
 
-      const waiterIds = waiterActive?waiterActive.map((waiter) => waiter._id):"";
-      setWaiters(waiterIds);
+        const allEmployees = await axios.get(apiUrl+'/api/employee', {
+            headers: {
+                'Authorization': `Bearer ${token}` 
+            }
+        });
+
+        const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
+        const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive) : [];
+        setAllWaiters(waiterActive);
+
+        const waiterIds = waiterActive.length > 0 ? waiterActive.map((waiter) => waiter._id) : [];
+        setWaiters(waiterIds);
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
+};
+
 
   // Determines the next available waiter to take an order
   const specifiedWaiter = async (id) => {
