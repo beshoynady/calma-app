@@ -301,8 +301,9 @@ table.table .avatar {
 
 /* Modal styles */
 .modal .modal-dialog {
-	max-width: 90%;
-	max-height: 100vh;
+	max-width: 60%;
+	max-height: 90vh;
+	z-index: 999999;
 }
 
 .modal .modal-header,
