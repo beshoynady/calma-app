@@ -28,7 +28,7 @@ const SideBar = () => {
     <detacontext.Consumer>
       {
         ({ employeeLoginInfo, employeelogout }) => {
-          const { role } = employeeLoginInfo.employeeinfo;
+          const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>
               <div ref={sidebarRef} className="sidebar close">
