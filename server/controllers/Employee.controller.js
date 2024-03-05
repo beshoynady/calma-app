@@ -1,6 +1,7 @@
 const Employeemodel = require('../models/Employee.model.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const Joi = require('joi');
 
@@ -136,9 +137,11 @@ const loginEmployee = async (req, res) => {
 
         res.status(200).json({ findEmployee, accessToken, message: 'Login successful' });
     } catch (error) {
+        console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 
 

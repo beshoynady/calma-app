@@ -12,7 +12,6 @@ import { useReactToPrint } from 'react-to-print';
 
 const ManagerDash = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   // useEffect(() => {
   //   const socket = io(apiUrl+'', { withCredentials: true });
