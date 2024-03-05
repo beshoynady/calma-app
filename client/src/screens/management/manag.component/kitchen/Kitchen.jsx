@@ -63,8 +63,9 @@ const Kitchen = () => {
             } else {
               // If the product does not exist, add it to the array
               console.log({ listAllProducts });
-              const recipe = listAllProducts.find((pro) => pro._id == product.productid).Recipe;
-              updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, recipe });
+              const foundProductRecipe = allRecipe.length>0?allRecipe.find((Recipe) => Recipe.productId === product._id):"";
+              const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
+                  updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, ingredients });
             }
           }
         });
@@ -75,16 +76,16 @@ const Kitchen = () => {
 
       // Iterate through updatedProductsOrderActive and update the consumptionOrderActive array
       updatedProductsOrderActive.forEach((product) => {
-        product.recipe.forEach((rec) => {
-          const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId == rec.itemId);
+        ingredients.forEach((ingredient) => {
+          const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId == ingredient.itemId);
           if (existingItem) {
             // If the item already exists, update the amount
-            const Amount = rec.amount * product.quantity;
+            const Amount = ingredient.amount * product.quantity;
             existingItem.amount += Amount;
           } else {
             // If the item does not exist, add it to the array
-            const Amount = rec.amount * product.quantity;
-            updatedconsumptionOrderActive.push({ itemId: rec.itemId, name: rec.name, amount: Amount });
+            const Amount = ingredient.amount * product.quantity;
+            updatedconsumptionOrderActive.push({ itemId: ingredient.itemId, name: ingredient.name, amount: Amount });
           }
         });
       });
