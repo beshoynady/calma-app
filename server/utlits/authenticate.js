@@ -17,7 +17,7 @@ const authenticateToken = (req, res, next) => {
         }
         
         // Check if employee is admin and active
-        if (!employee.isAdmin || !employee.isActive) {
+        if (!employee.employeeinfo.isAdmin || !employee.employeeinfo.isActive) {
             return res.status(403).json({ message: 'Forbidden: employee not authorized' }); // Forbidden
         }
 
