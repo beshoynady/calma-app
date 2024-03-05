@@ -40,11 +40,17 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       const EmployeeLoginInfo = getEmployeeInfoFromToken()
       console.log({ EmployeeLoginInfo })
       const id = EmployeeLoginInfo.id
       console.log({ id })
-      const getCashRegisters = await axios.get(apiUrl + '/api/cashregister');
+      const getCashRegisters = await axios.get(apiUrl + '/api/cashregister'
+      , {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       const CashRegisters = getCashRegisters.data
       console.log({ CashRegisters })
 
@@ -52,7 +58,12 @@ const CashMovement = () => {
       console.log({ myregister })
       const myregisterid = myregister._id
       console.log({ myregisterid })
-      const response = await axios.get(apiUrl + '/api/cashmovement/');
+      const response = await axios.get(apiUrl + '/api/cashmovement/'
+      , {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       const AllCashMovement = response.data
       console.log({ AllCashMovement })
       const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
@@ -77,6 +88,8 @@ const CashMovement = () => {
   // Function to add cash movement and update balance
   const addCashMovementAndUpdateBalance = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId,
@@ -84,6 +97,10 @@ const CashMovement = () => {
         amount,
         type,
         description,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
 
       // If the cash movement is recorded successfully
@@ -95,6 +112,10 @@ const CashMovement = () => {
         // Update the cash register balance on the server
         const updateRegisterBalance = await axios.put(`${apiUrl}/api/cashregister/${registerId}`, {
           balance: newBalance,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
 
         // If the cash register balance is updated successfully
@@ -155,6 +176,7 @@ const CashMovement = () => {
   const transferCash = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Send cash movement data to the API
       const sendCashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
@@ -165,6 +187,10 @@ const CashMovement = () => {
         description,
         transferTo: receivRegister,
         status: 'Pending',
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
 
       const sendCashMovementData = sendCashMovementResponse.data;
@@ -180,6 +206,10 @@ const CashMovement = () => {
         transferFrom: sendRegister,
         status: 'Pending',
         movementId
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
 
       const receivCashMovementData = receivCashMovementResponse.data;
@@ -202,8 +232,14 @@ const CashMovement = () => {
 
   const accepteTransferCash = async (id, statusTransfer) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Fetch details of the cash movement
-      const receivcashMovement = await axios.get(`${apiUrl}/api/cashmovement/${id}`);
+      const receivcashMovement = await axios.get(`${apiUrl}/api/cashmovement/${id}`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       const movementId = receivcashMovement.data.movementId;
       const sendregister = receivcashMovement.data.transferFrom;
       const receivregister = receivcashMovement.data.registerId;
@@ -215,11 +251,19 @@ const CashMovement = () => {
         // Reject transfer
         await axios.put(`${apiUrl}/api/cashmovement/${id}`, {
           status: 'Rejected',
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
 
         // Update sender's cash movement status
         await axios.put(`${apiUrl}/api/cashmovement/${movementId}`, {
           status: 'Rejected',
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
 
         toast.error('Transfer rejected successfully');
@@ -227,10 +271,18 @@ const CashMovement = () => {
         // Update receiver's cash movement status
         const updatereceivcashMovement = await axios.put(`${apiUrl}/api/cashmovement/${id}`, {
           status: 'Completed',
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
         console.log(updatereceivcashMovement)
         // Update receiver's cash register balance
-        const receivregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${receivregister}`)).data.balance;
+        const receivregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${receivregister}`, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
+        })).data.balance;
 
         console.log({ receivregisterBalance })
 
@@ -238,6 +290,10 @@ const CashMovement = () => {
         console.log({ newreceivBalance })
         const updatereceivregister = await axios.put(`${apiUrl}/api/cashregister/${receivregister}`, {
           balance: newreceivBalance,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
         console.log(updatereceivregister)
 
@@ -249,7 +305,11 @@ const CashMovement = () => {
         console.log(updatesendercashMovement)
 
         // Update sender's cash register balance
-        const senderregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${sendregister}`)).data.balance;
+        const senderregisterBalance = (await axios.get(`${apiUrl}/api/cashregister/${sendregister}`, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
+        })).data.balance;
 
         console.log({ senderregisterBalance })
 
@@ -258,6 +318,10 @@ const CashMovement = () => {
         console.log({ newsenderBalance })
         const updatesenderregister = await axios.put(`${apiUrl}/api/cashregister/${sendregister}`, {
           balance: newsenderBalance,
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
         console.log(updatesenderregister)
 

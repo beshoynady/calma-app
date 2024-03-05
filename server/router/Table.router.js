@@ -1,4 +1,5 @@
 const express = require("express");
+const authenticateToken = require('../utlits/authenticate')
 
 const {
   createTable,
@@ -11,8 +12,8 @@ const {
 
 const router = express.Router();
 
-router.route('/').post(createTable).get(showAllTables);
-router.route('/:tableid').get(showOneTable).delete(deleteTable).put(updateTable);
-router.route('/qr').post(createQR)
+router.route('/').post(authenticateToken,createTable).get(showAllTables);
+router.route('/:tableid').get(showOneTable).delete(authenticateToken,deleteTable).put(authenticateToken, updateTable);
+router.route('/qr').post(authenticateToken, createQR)
 module.exports = router;
 

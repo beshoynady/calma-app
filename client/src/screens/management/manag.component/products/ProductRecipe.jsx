@@ -137,7 +137,8 @@ const createRecipe = async (e) => {
       console.log({ productid, productname, newIngredients }); // Log the product ID, name, and ingredients
 
       // Add the new recipe to the product by sending a POST request
-      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients: newIngredients, totalcost: totalCost }, {
+      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients: newIngredients, totalcost: totalCost }
+      , {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
         },

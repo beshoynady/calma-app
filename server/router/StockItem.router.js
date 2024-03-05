@@ -8,11 +8,12 @@ const {
     movements,
     deleteItem,
   } = require('../controllers/StockItem.constroller')
+  const authenticateToken = require('../utlits/authenticate')
 
 
 const router = express.Router();
 
-router.route('/').post(createStockItem).get(getAllStockItems);
-router.route('/:itemId').get(getOneItem).delete(deleteItem).put(updateStockItem);
-router.route('/movement/:itemId').put(movements)
+router.route('/').post(authenticateToken, createStockItem).get(authenticateToken, getAllStockItems);
+router.route('/:itemId').get(authenticateToken, getOneItem).delete(authenticateToken ,deleteItem).put(authenticateToken, updateStockItem);
+router.route('/movement/:itemId').put(authenticateToken, movements)
 module.exports = router;

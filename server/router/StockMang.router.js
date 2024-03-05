@@ -7,9 +7,11 @@ const {
     deleteStockAction,
 } = require('../controllers/StockMang.controller');
 
+const authenticateToken = require('../utlits/authenticate')
+
 const router = express.Router();
 
-router.route('/').post(createStockAction).get(getAllStockActions)
-router.route('/:actionid').get(getOneStockAction).put(updateStockAction).delete(deleteStockAction)
+router.route('/').post(authenticateToken, createStockAction).get(authenticateToken, getAllStockActions)
+router.route('/:actionid').get(authenticateToken,getOneStockAction).put(authenticateToken,updateStockAction).delete(deleteStockAction)
 
 module.exports = router;

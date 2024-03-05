@@ -11,11 +11,17 @@ const authenticateToken = (req, res, next) => {
         return res.status(401).json({ message: 'Unauthorized: Token missing' }); // Unauthorized
     }
 
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, secretKey, (err, employee) => {
         if (err) {
             return res.status(403).json({ message: 'Forbidden: Invalid token' }); // Forbidden
         }
-        req.user = user;
+        
+        // Check if employee is admin and active
+        if (!employee.isAdmin || !employee.isActive) {
+            return res.status(403).json({ message: 'Forbidden: employee not authorized' }); // Forbidden
+        }
+
+        req.employee = employee;
         next();
     });
 };

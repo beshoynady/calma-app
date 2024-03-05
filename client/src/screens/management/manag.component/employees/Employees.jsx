@@ -77,7 +77,7 @@ const Employees = () => {
     try {
       const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address, phone, email, isActive, role, sectionNumber })
       console.log(newemployee)
-      notify('Employee created successfully', 'success');
+      notify('تم انشاء حساب الموظف بنجاح', 'success');
       getemployees();
     } catch (error) {
       console.log(error);

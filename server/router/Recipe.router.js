@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipe.controller');
+const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
-    .post(recipeController.createRecipe)
-    .get(recipeController.getAllRecipe);
+    .post(authenticateToken, recipeController.createRecipe)
+    .get(authenticateToken, recipeController.getAllRecipe);
 
 router.route('/:id')
-    .get(recipeController.getOneRecipe)
-    .put(recipeController.updateRecipe)
-    .delete(recipeController.deleteRecipe);
+    .get(authenticateToken, recipeController.getOneRecipe)
+    .put(authenticateToken, recipeController.updateRecipe)
+    .delete(authenticateToken, recipeController.deleteRecipe);
 
 module.exports = router;

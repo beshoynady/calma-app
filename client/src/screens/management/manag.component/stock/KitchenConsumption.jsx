@@ -23,7 +23,7 @@ const KitchenConsumption = () => {
   // Function to add an item to kitchen consumption
   const addKitchenItem = async (e) => {
     e.preventDefault()
-    const today = new Date().toISOString().split('T')[0]; // تاريخ اليوم بتنسيق YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0]; // Today's date in the format YYYY-MM-DD
     const kitconsumptionToday = allKitchenConsumption.filter((kitItem) => {
       const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
       return itemDate === today;
@@ -34,30 +34,30 @@ const KitchenConsumption = () => {
     }
     if (kitconsumption) {
       try {
-        // Make a POST request to add an item
+        // Make a PUT request to update an item
         const newquantityTransferredToKitchen = kitconsumption.quantityTransferredToKitchen + quantityTransferredToKitchen
         const newBalance = kitconsumption.bookBalance + quantityTransferredToKitchen
         const response = await axios.put(`${apiUrl}/api/kitchenconsumption/${kitconsumption._id}`, {
           quantityTransferredToKitchen: newquantityTransferredToKitchen,
           createdBy,
-          bookBalance:newBalance
+          bookBalance: newBalance
         });
 
-        // Check if the item was added successfully
+        // Check if the item was updated successfully
         if (response.status === 200) {
           setstockItemId('')
           setstockItemName('')
           setquantityTransferredToKitchen(0)
           getKitchenConsumption()
-          // Show a success toast if the item is added
-          toast.success('quantity added successfully');
+          // Show a success toast if the quantity is added
+          toast.success('تمت إضافة الكمية بنجاح');
         } else {
-          // Show an error toast if adding the item failed
-          toast.error('Failed to add item');
+          // Show an error toast if adding the quantity failed
+          toast.error('فشلت عملية إضافة الكمية');
         }
       } catch (error) {
         // Show an error toast if an error occurs during the request
-        toast.error('Failed to add item');
+        toast.error('فشلت عملية إضافة الكمية');
         console.error(error);
       }
 
@@ -68,7 +68,7 @@ const KitchenConsumption = () => {
           stockItemId,
           stockItemName,
           quantityTransferredToKitchen,
-          bookBalance:quantityTransferredToKitchen,
+          bookBalance: quantityTransferredToKitchen,
           unit,
           createdBy
         });
@@ -80,21 +80,21 @@ const KitchenConsumption = () => {
           setquantityTransferredToKitchen(0)
           getKitchenConsumption()
           // Show a success toast if the item is added
-          toast.success('Item added successfully');
+          toast.success('تمت إضافة العنصر بنجاح');
         } else {
           // Show an error toast if adding the item failed
-          toast.error('Failed to add item');
+          toast.error('فشلت عملية إضافة العنصر');
         }
       } catch (error) {
         // Show an error toast if an error occurs during the request
-        toast.error('Failed to add item');
+        toast.error('فشلت عملية إضافة العنصر');
         console.error(error);
       }
 
     }
   };
 
-  const updateKitchenItem = async (e) => {
+const updateKitchenItem = async (e) => {
     e.preventDefault()
     console.log('updateKitchenItem')
     try {
@@ -108,8 +108,8 @@ const KitchenConsumption = () => {
         const response = await axios.post(apiUrl+'/api/kitchenconsumption', {
           stockItemId,
           stockItemName,
-          quantityTransferredToKitchen:actualBalance,
-          bookBalance:actualBalance,
+          quantityTransferredToKitchen: actualBalance,
+          bookBalance: actualBalance,
           unit,
           createdBy
         });
@@ -121,25 +121,24 @@ const KitchenConsumption = () => {
           setquantityTransferredToKitchen(0)
           getKitchenConsumption()
           // Show a success toast if the item is added
-          toast.success('Item added successfully');
+          toast.success('تمت تعديل العنصر بنجاح');
         } else {
           // Show an error toast if adding the item failed
-          toast.error('Failed to add item');
+          toast.error('فشلت عملية تعديل العنصر');
         }
       } catch (error) {
         // Show an error toast if an error occurs during the request
-        toast.error('Failed to add item');
+        toast.error('فشلت عملية تعديل العنصر');
         console.error(error);
       }
       }
-
-
     } catch (error) {
       console.error('Error occurred:', error);
       // Add toast for error
-      toast.error('An error occurred');
+      toast.error('حدث خطأ');
     }
-  };
+};
+
 
 
   const [listOfOrders, setlistOfOrders] = useState([])
@@ -295,7 +294,7 @@ const KitchenConsumption = () => {
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addItemModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#updateItemModal" className="btn btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        {/* <a href="#updateItemModal" className="btn btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -365,12 +364,6 @@ const KitchenConsumption = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th>
                         <th>م</th>
                         <th>اسم الصنف</th>
                         <th>الكمية المضافه</th>
@@ -390,12 +383,7 @@ const KitchenConsumption = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
+                                
                                 <td>{i + 1}</td>
                                 <td>{item.stockItemName}</td>
                                 <td>{item.quantityTransferredToKitchen}</td>
@@ -422,12 +410,7 @@ const KitchenConsumption = () => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i}>
-                                  <td>
-                                    <span className="custom-checkbox">
-                                      <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                      <label htmlFor="checkbox1"></label>
-                                    </span>
-                                  </td>
+                                 
                                   <td>{i + 1}</td>
                                   <td>{item.stockItemName}</td>
                                   <td>{item.quantityTransferredToKitchen}</td>

@@ -372,7 +372,6 @@ const Kitchen = () => {
         ({ usertitle, updatecountofsales }) => {
           return (
             <>
-              <ToastContainer />
               <div className="container-fluid py-5 px-3" style={{ backgroundColor: 'rgba(0, 0, 255, 0.1)' }}>
                 <div className="row justify-content-around align-items-start">
                   {orderactive && consumptionOrderActive.map((item, index) => (

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CashRegister = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
   const [cashRegisters, setCashRegisters] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
   const [name, setname] = useState('');
@@ -153,7 +154,6 @@ const CashRegister = () => {
       {({ EditPagination, usertitle, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
-            <ToastContainer />
             <div className="table-responsive">
               <div className="table-wrapper">
                 <div className="table-title">

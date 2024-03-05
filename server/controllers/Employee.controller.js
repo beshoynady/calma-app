@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const Joi = require('joi');
-const EmployeeModel = require('../models/Employee.model.js');
+
 
 const createEmployeeSchema = Joi.object({
     fullname: Joi.string().min(3).max(100).required(),

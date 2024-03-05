@@ -97,14 +97,14 @@ const router = express.Router();
 // router.use(verifyJWT)
 
 router.route('/')
-  .post(upload.single("image"), createProduct)
+  .post(authenticateToken, upload.single("image"), createProduct)
   .get(getAllProducts);
 
 router.route('/getproductbycategory/:categoryid').get(getProductByCategory)
 router.route('/:productid')
-.get(getOneProduct).put(upload.single("image"), updateProduct)
+.get(getOneProduct).put(authenticateToken, upload.single("image"), updateProduct)
 .delete(deleteProduct);
-router.route('/withoutimage/:productid').put(updateProductWithoutImage)
-router.route('/addrecipe/:productid').put(addRecipe)
+router.route('/withoutimage/:productid').put(authenticateToken, updateProductWithoutImage)
+// router.route('/addrecipe/:productid').put(addRecipe)
 
 module.exports = router;

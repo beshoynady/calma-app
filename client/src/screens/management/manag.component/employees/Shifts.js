@@ -4,119 +4,44 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
 
-const Category = () => {
+const ShiftManagement = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [categoryname, setcategoryname] = useState('')
-  const [categoryId, setcategoryId] = useState('')
+ 
 
-  const [allCategory, setallCategory] = useState([])
-
-  const getallCategory = async () => {
+  const createShift = async () => {
     try {
-      const res = await axios.get(apiUrl + "/api/category/");
-      setallCategory(res.data);
-    } catch (error) {
-      if (error.response) {
-        console.error("حدث خطأ أثناء استلام البيانات:", error.response.data);
-      } else if (error.request) {
-        console.error("لم يتم الرد على الطلب:", error.request);
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      const newShiftData = {
+        employeeId,
+        date,
+        startTime,
+        endTime,
+        shiftType,
+        isOvertime,
+        notes
+      };
+
+      // Make a POST request to create a new shift
+      const response = await axios.post(`${apiUrl}/api/shift`, newShiftData
+      , {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        }});
+
+      if (response.status === 201) {
+        // Shift created successfully
+        console.log('تم انشاء الشيفت بنجاح:');
+        // Add any further logic here, such as updating UI or state
       } else {
-        console.error("حدث خطأ أثناء إعداد الطلب:", error.message);
-      }
-      alert("حدث خطأ أثناء جلب البيانات، يرجى المحاولة مرة أخرى لاحقًا.");
-    }
-  }
-
-
-
-  const createCategory = async (e) => {
-    e.preventDefault();
-    
-    try {
-      const response = await axios.post(apiUrl + "/api/category/", { name: categoryname });
-  
-      if (response.status === 200) {
-        getallCategory();
-        toast.success("تم إنشاء الفئة بنجاح.");
-      } else {
-        throw new Error("حدث خطأ أثناء إنشاء الفئة.");
+        throw new Error('فشل عمليه انشاء الشيفت!حاول مره اخري');
       }
     } catch (error) {
-      console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
-  
-      // عرض رسالة الخطأ باستخدام toast
-      toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
-        position: toast.POSITION.TOP_RIGHT
-      });
+      console.error('حدث خطأ اثناء انشاء الشيفت !حاول مره اخري:');
+      // Handle error, display message, etc.
     }
   };
-
-
- // Function to edit a category
- const editCategory = async (e) => {
-  e.preventDefault();
-  
-  try {
-    // Send a PUT request to edit the category
-    const edit = await axios.put(apiUrl + "/api/category/" + categoryId, { name: categoryname });
-
-    // Check if the request was successful
-    if (edit.status === 200) {
-      // Call the function to get all categories
-      getallCategory();
-
-      // Log the response from the edit operation
-      console.log(edit);
-
-      // Display a success toast
-      toast.success("تم تعديل التصنيف", {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    } else {
-      throw new Error("Failed to edit category");
-    }
-  } catch (error) {
-    // Handle errors if any exception occurs
-    console.error("Error occurred while editing category:", error);
-
-    // Display an error toast
-    toast.error("Failed to edit category. Please try again later.", {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  }
-};
-
-
-const deleteCategory = async (e) => {
-  e.preventDefault()
-  try {
-    const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId);
-
-    if (deleted.status === 200) {
-      getallCategory()
-      console.log("Category deleted successfully.");
-      toast.success("Category deleted successfully.");
-    } else {
-      throw new Error("Failed to delete category.");
-    }
-  } catch (error) {
-    console.error("Error occurred while deleting category:", error);
-
-    // Display error toast notification
-    toast.error("Failed to delete category. Please try again later.", {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  }
-};
-
-  const [CategoryFilterd, setCategoryFilterd] = useState([])
-  const searchByCategory = (category) => {
-    const categories = allCategory?allCategory.filter((Category) => Category.name.startsWith(category) == true):[]
-    setCategoryFilterd(categories)
-  }
-
 
 
   useEffect(() => {
@@ -201,7 +126,7 @@ const deleteCategory = async (e) => {
                         </th>
                         <th>م</th>
                         <th>الاسم</th>
-                        <th>عدد المنتجات</th>
+                        <th></th>
                         <th>عدد المنتجات المباعه</th>
                         <th>اجراءات</th>
                       </tr>
