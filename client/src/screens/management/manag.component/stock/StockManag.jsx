@@ -69,6 +69,7 @@ const StockManag = () => {
 
   const [actionId, setactionId] = useState("")
   const actionAt = new Date().toLocaleString()
+  const [AllStockactions, setAllStockactions] = useState([]);
 
   const createStockAction = async (e, employeeId) => {
     e.preventDefault();
@@ -86,6 +87,10 @@ const StockManag = () => {
         newcost,
         price,
         costOfPart,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       console.log(changeItem);
@@ -99,13 +104,17 @@ const StockManag = () => {
           cost,
           oldCost,
           unit,
-          balance:newBalance,
+          balance: newBalance,
           oldBalance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
           actionBy,
           actionAt,
-        })
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
+        });
 
         console.log(response.data);
 
@@ -126,7 +135,7 @@ const StockManag = () => {
                 return ingredient;
               }
             });
-            console.log({newIngredients})
+            console.log({ newIngredients })
             const totalcost = newIngredients.reduce((acc, curr) => {
               return acc + (curr.totalcostofitem || 0);
             }, 0);
@@ -163,7 +172,6 @@ const StockManag = () => {
   };
 
 
-
   const updateStockaction = async (e, employeeId) => {
     e.preventDefault();
     try {
@@ -172,13 +180,21 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price });
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
 
       if (changeItem.status === 200) {
         // Update the existing stock action
         const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
           itemId, movement, Quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
           actionBy
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`,
+          },
         });
         console.log(response.data);
 
@@ -199,7 +215,7 @@ const StockManag = () => {
                 return ingredient;
               }
             });
-            console.log({newIngredients})
+            console.log({ newIngredients })
             const totalcost = newIngredients.reduce((acc, curr) => {
               return acc + (curr.totalcostofitem || 0);
             }, 0);
@@ -235,26 +251,32 @@ const StockManag = () => {
   }
 
 
-
-  const [AllStockactions, setAllStockactions] = useState([]);
-
   const getallStockaction = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/stockmanag/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      const response = await axios.get(apiUrl + '/api/stockmanag/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log(response.data)
       const Stockactions = await response.data;
       setAllStockactions(Stockactions.reverse())
     } catch (error) {
       console.log(error)
     }
-
   }
 
   const deleteStockaction = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       // Delete the selected stock action
-      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`);
+      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log(response);
 
       if (response) {
@@ -327,7 +349,7 @@ const StockManag = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer/>
+              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
