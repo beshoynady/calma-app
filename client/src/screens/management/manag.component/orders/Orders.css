@@ -79,7 +79,7 @@
 
 .table-filter input,
 .table-filter select {
-	width: 70px;
+	width: 75px;
 	height: 34px;
 	border-radius: 3px;
 	border-color: #ddd;
@@ -364,7 +364,7 @@ table.table .avatar {
 .form-group {
 	margin-bottom: 1.1rem;
 	display: flex;
-	width: 50%;
+	width: 47%;
 	height: 45px;
 	align-items: center;
 	justify-content: space-around;
@@ -373,7 +373,7 @@ table.table .avatar {
 
 .modal form label {
 	font-weight: 600;
-	width: 80%;
+	width: 25%;
 	text-align: right;
 	font-size: 14px;
 	padding-right: 5px;
@@ -384,4 +384,5 @@ table.table .avatar {
 	font-size: 16px;
 	border: 2px solid;
 	font-weight: 600;
+	width: 100%;
 }
