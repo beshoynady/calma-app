@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const KitchenConsumption = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [stockItemId, setstockItemId] = useState('');
   const [stockItemName, setstockItemName] = useState('');
@@ -23,6 +23,8 @@ const KitchenConsumption = () => {
   // Function to add an item to kitchen consumption
   const addKitchenItem = async (e) => {
     e.preventDefault()
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
     const today = new Date().toISOString().split('T')[0]; // Today's date in the format YYYY-MM-DD
     const kitconsumptionToday = allKitchenConsumption.filter((kitItem) => {
       const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
@@ -41,6 +43,10 @@ const KitchenConsumption = () => {
           quantityTransferredToKitchen: newquantityTransferredToKitchen,
           createdBy,
           bookBalance: newBalance
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
 
         // Check if the item was updated successfully
@@ -63,14 +69,20 @@ const KitchenConsumption = () => {
 
     } else {
       try {
+        const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
         // Make a POST request to add an item
-        const response = await axios.post(apiUrl+'/api/kitchenconsumption', {
+        const response = await axios.post(apiUrl + '/api/kitchenconsumption', {
           stockItemId,
           stockItemName,
           quantityTransferredToKitchen,
           bookBalance: quantityTransferredToKitchen,
           unit,
           createdBy
+        }, {
+          headers: {
+            'authorization': `Bearer ${token}`, // Send the token in the authorization header
+          },
         });
 
         // Check if the item was added successfully
@@ -94,50 +106,60 @@ const KitchenConsumption = () => {
     }
   };
 
-const updateKitchenItem = async (e) => {
+  const updateKitchenItem = async (e) => {
     e.preventDefault()
     console.log('updateKitchenItem')
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const update = await axios.put(`${apiUrl}/api/kitchenconsumption/${KitchenItemId}`, {
         adjustment,
         actualBalance
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
-      if(update.status === 200){
+      if (update.status === 200) {
         try {
-        // Make a POST request to add an item
-        const response = await axios.post(apiUrl+'/api/kitchenconsumption', {
-          stockItemId,
-          stockItemName,
-          quantityTransferredToKitchen: actualBalance,
-          bookBalance: actualBalance,
-          unit,
-          createdBy
-        });
+          // Make a POST request to add an item
+          const response = await axios.post(apiUrl + '/api/kitchenconsumption', {
+            stockItemId,
+            stockItemName,
+            quantityTransferredToKitchen: actualBalance,
+            bookBalance: actualBalance,
+            unit,
+            createdBy
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`, // Send the token in the authorization header
+            },
+          });
 
-        // Check if the item was added successfully
-        if (response.status === 201) {
-          setstockItemId('')
-          setstockItemName('')
-          setquantityTransferredToKitchen(0)
-          getKitchenConsumption()
-          // Show a success toast if the item is added
-          toast.success('تمت تعديل العنصر بنجاح');
-        } else {
-          // Show an error toast if adding the item failed
+          // Check if the item was added successfully
+          if (response.status === 201) {
+            setstockItemId('')
+            setstockItemName('')
+            setquantityTransferredToKitchen(0)
+            getKitchenConsumption()
+            // Show a success toast if the item is added
+            toast.success('تمت تعديل العنصر بنجاح');
+          } else {
+            // Show an error toast if adding the item failed
+            toast.error('فشلت عملية تعديل العنصر');
+          }
+        } catch (error) {
+          // Show an error toast if an error occurs during the request
           toast.error('فشلت عملية تعديل العنصر');
+          console.error(error);
         }
-      } catch (error) {
-        // Show an error toast if an error occurs during the request
-        toast.error('فشلت عملية تعديل العنصر');
-        console.error(error);
-      }
       }
     } catch (error) {
       console.error('Error occurred:', error);
       // Add toast for error
       toast.error('حدث خطأ');
     }
-};
+  };
 
 
 
@@ -145,7 +167,7 @@ const updateKitchenItem = async (e) => {
   // Fetch orders from API
   const getAllOrders = async () => {
     try {
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -158,7 +180,13 @@ const updateKitchenItem = async (e) => {
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/stockitem/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/stockitem/', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
 
       if (response.status === 200) {
         const stockItems = response.data.reverse();
@@ -194,7 +222,7 @@ const updateKitchenItem = async (e) => {
 
   const getallproducts = async () => {
     try {
-      const response = await axios.get(apiUrl+'/api/product/');
+      const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
       // console.log(response.data)
       setlistofProducts(products)
@@ -214,8 +242,14 @@ const updateKitchenItem = async (e) => {
 
   const getKitchenConsumption = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       console.log('Fetching kitchen consumption...');
-      const response = await axios.get(apiUrl+'/api/kitchenconsumption');
+      const response = await axios.get(apiUrl + '/api/kitchenconsumption', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
         setAllKitchenConsumption(kitchenConsumptions);
@@ -383,7 +417,7 @@ const updateKitchenItem = async (e) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                
+
                                 <td>{i + 1}</td>
                                 <td>{item.stockItemName}</td>
                                 <td>{item.quantityTransferredToKitchen}</td>
@@ -410,7 +444,7 @@ const updateKitchenItem = async (e) => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i}>
-                                 
+
                                   <td>{i + 1}</td>
                                   <td>{item.stockItemName}</td>
                                   <td>{item.quantityTransferredToKitchen}</td>
@@ -426,8 +460,9 @@ const updateKitchenItem = async (e) => {
                                   <td>{item.createdBy ? usertitle(item.createdBy) : '--'}</td>
                                   <td>{item.createdAt}</td>
                                   <td>
-                                    <a href="#updateKitchenItemModal" className="edit" data-toggle="modal" onClick={()=>{setcreatedBy(employeeLoginInfo.employeeinfo.id);setKitchenItemId(item._id);
-                                      setstockItemId(item.stockItemId);setstockItemName(item.stockItemName);setquantityTransferredToKitchen(item.quantityTransferredToKitchen);setbookBalance(item.bookBalance);setunit(item.unit);
+                                    <a href="#updateKitchenItemModal" className="edit" data-toggle="modal" onClick={() => {
+                                      setcreatedBy(employeeLoginInfo.employeeinfo.id); setKitchenItemId(item._id);
+                                      setstockItemId(item.stockItemId); setstockItemName(item.stockItemName); setquantityTransferredToKitchen(item.quantityTransferredToKitchen); setbookBalance(item.bookBalance); setunit(item.unit);
                                       setconsumptionQuantity(item.consumptionQuantity);
                                     }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteStockItemModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -488,7 +523,7 @@ const updateKitchenItem = async (e) => {
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success"  value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -517,12 +552,12 @@ const updateKitchenItem = async (e) => {
                         </div>
                         <div className="form-group">
                           <label>الرصيد الدفتري</label>
-                          <input type="text" className="form-control" defaultValue={bookBalance} required readOnly/>
+                          <input type="text" className="form-control" defaultValue={bookBalance} required readOnly />
                         </div>
                         <div className="form-group">
                           <label>الرصيد الفعلي</label>
-                          <input type="Number" className="form-control"  required onChange={(e)=>{
-                            setadjustment(Number(e.target.value) - bookBalance);setactualBalance(e.target.value)
+                          <input type="Number" className="form-control" required onChange={(e) => {
+                            setadjustment(Number(e.target.value) - bookBalance); setactualBalance(e.target.value)
                           }} />
                         </div>
                         <div className="form-group">
@@ -546,7 +581,7 @@ const updateKitchenItem = async (e) => {
                   </div>
                 </div>
               </div>
-                       
+
 
               {/* <div id="updateItemModal" className="modal fade">
                 <div className="modal-dialog">

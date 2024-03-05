@@ -26,6 +26,8 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
       const response = await axios.post(apiUrl + '/api/stockitem/', {
         itemName,
         categoryId,
@@ -38,26 +40,31 @@ const StockItem = () => {
         minThreshold,
         price,
         createBy,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
       console.log(response.data);
       getStockItems(); // Update the list of stock items after creating a new one
-
+  
       // Notify on success
       toast.success('تم إنشاء عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
-
+  
       // Notify on error
       toast.error('فشل في إنشاء عنصر المخزون');
     }
   };
-
+  
   // Function to edit a stock item
   const editStockItem = async (e, userId) => {
     e.preventDefault();
     const createBy = userId;
     try {
-
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
       const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
@@ -70,74 +77,97 @@ const StockItem = () => {
         minThreshold,
         price,
         createBy,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
       });
       console.log(response.data);
       if (response) {
         getStockItems(); // Update the list of stock items after editing
       }
-
+  
       // Notify on success
       toast.success('تم تحديث عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
-
+  
       // Notify on error
       toast.error('فشل في تحديث عنصر المخزون');
     }
   };
-
+  
   // Function to delete a stock item
   const deleteStockItem = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`);
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
+      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       if (response.status === 200) {
         console.log(response);
         getStockItems(); // Update the list of stock items after deletion
-
+  
         // Notify on success
         toast.success('تم حذف عنصر المخزون بنجاح');
       }
     } catch (error) {
       console.log(error);
-
+  
       // Notify on error
       toast.error('فشل في حذف عنصر المخزون');
     }
   };
-
-
-  const [AllStockItems, setAllStockItems] = useState([])
-
+  
+  
+  const [AllStockItems, setAllStockItems] = useState([]);
+  
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/stockitem/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
+      const response = await axios.get(apiUrl + '/api/stockitem/', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       const stockItems = await response.data.reverse();
       console.log(response.data);
       setAllStockItems(stockItems);
     } catch (error) {
       console.log(error);
-
+  
       // Notify on error
       toast.error('فشل في استرداد عناصر المخزون');
     }
   };
-
-  const [AllCategoryStock, setAllCategoryStock] = useState([])
-
+  
+  const [AllCategoryStock, setAllCategoryStock] = useState([]);
+  
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
-      const res = await axios.get(apiUrl + '/api/categoryStock/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  
+      const res = await axios.get(apiUrl + '/api/categoryStock/', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);
-
+  
       // Notify on error
       toast.error('فشل في استرداد فئة المخزون');
     }
   };
+  
 
 
   useEffect(() => {

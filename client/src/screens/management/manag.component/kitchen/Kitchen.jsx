@@ -19,12 +19,18 @@ const Kitchen = () => {
   const [allOrders, setAllOrders] = useState([]); // State for all orders
   const [allRecipe, setallRecipe] = useState([]); // State for all orders
 
-  const getProductRecipe = async (id) => {
+  const getAllRecipe = async (id) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       console.log(id);
-      const getAllRecipe = await axios.get(`${apiUrl}/api/recipe`);
-      console.log({ getAllRecipe });
-      setallRecipe(getAllRecipe.data)
+      const response = await axios.get(`${apiUrl}/api/recipe`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
+      console.log({ response });
+      setallRecipe(response.data)
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);
     }
@@ -110,9 +116,15 @@ const Kitchen = () => {
 
   const getKitchenConsumption = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       setFilteredKitchenConsumptionToday([])
       console.log('Fetching kitchen consumption...');
-      const response = await axios.get(apiUrl+'/api/kitchenconsumption');
+      const response = await axios.get(apiUrl+'/api/kitchenconsumption', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
         setAllKitchenConsumption(kitchenConsumptions);
@@ -213,6 +225,8 @@ const Kitchen = () => {
   // Updates an order status to 'Preparing'
   const orderInProgress = async (id, type) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const status = 'Preparing';
       let waiter = '';
 
@@ -224,7 +238,11 @@ const Kitchen = () => {
         orderData.waiter = waiter;
       }
 
-      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData);
+      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       if (response.status === 200) {
         // Fetch orders from the API
         const orders = await axios.get(apiUrl+'/api/order');
@@ -253,6 +271,8 @@ const Kitchen = () => {
 
   const updateOrderDone = async (id) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = await orderData.data.products;
@@ -262,7 +282,11 @@ const Kitchen = () => {
         if (!product.isDone) {
           // Fetch kitchen consumption data
           // await getKitchenConsumption();
-          const getKitchenConsumption = await axios.get(apiUrl+'/api/kitchenconsumption');
+          const getKitchenConsumption = await axios.get(apiUrl+'/api/kitchenconsumption', {
+            headers: {
+              'authorization': `Bearer ${token}`, // Send the token in the authorization header
+            },
+          });
           const Allkitchenconsumption = await getKitchenConsumption.data.data
           const quantity = product.quantity;
           const productId = product.productid;
@@ -309,6 +333,10 @@ const Kitchen = () => {
                   consumptionQuantity,
                   bookBalance,
                   productsProduced: kitconsumption.productsProduced
+                }, {
+                  headers: {
+                    'authorization': `Bearer ${token}`, // Send the token in the authorization header
+                  },
                 });
                 console.log({ update: update });
               } catch (error) {
@@ -371,7 +399,7 @@ const Kitchen = () => {
 
   // Fetches orders and active waiters on initial render
   useEffect(() => {
-    getProductRecipe()
+    getAllRecipe()
     getKitchenConsumption()
     getallproducts()
     getAllWaiters();

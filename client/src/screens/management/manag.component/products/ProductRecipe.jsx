@@ -76,8 +76,14 @@ const ProductRecipe = () => {
 
   const getProductRecipe = async (id) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       console.log(id);
-      const allRecipe = await axios.get(`${apiUrl}/api/recipe`);
+      const allRecipe = await axios.get(`${apiUrl}/api/recipe`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log({ allRecipe });
       const recipeOfProduct = allRecipe.data && allRecipe.data.find(recipe => recipe.product.id === id);
       if(recipeOfProduct){
