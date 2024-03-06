@@ -1,7 +1,7 @@
 .Kitchen{
     width: 100%;
     padding: 36px 24px;
-    height: calc(100vh - 56px);
+	max-height: calc(100vh - 56px);
     overflow-y: auto;  
     background-color: rgb(226, 250, 159);
     display: flex;

@@ -127,7 +127,6 @@ const Waiter = () => {
         ({ usertitle, employeeLoginInfo }) => {
           return (
             <div className='container-fluid d-flex flex-wrap align-content-start justify-content-around align-items-start h-100 overflow-auto bg-transparent py-5 px-3'>
-              <ToastContainer/>
               {pendingPayments && pendingPayments.filter((order) => order.helpStatus == 'Send waiter' || order.helpStatus == 'On the way').map((order, i) => {
                 return (
                   <div className="card text-white bg-success" style={{ width: "265px" }}>
