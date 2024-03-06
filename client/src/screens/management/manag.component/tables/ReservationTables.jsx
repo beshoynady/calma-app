@@ -268,7 +268,7 @@ const ReservationTables = () => {
                           <div className="row">
                             <div className="col-md-8 mb-1">
                               <label htmlFor="name" className="form-label">الاسم</label>
-                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(e.target.value)} />
+                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
                               <ul>
                                 {filteredClients && filteredClients.map((client, index) => (
                                   <li key={index}>{client.username}</li>
@@ -399,8 +399,8 @@ const ReservationTables = () => {
                         <div className="container">
                           <div className='row'>
                             <div className="col-md-7 mb-1">
-                              <label className="form-label">الاسم</label>
-                              <input type="text" className="form-control" defaultValue={customerName} onChange={(e) => clientByName(e.target.value)} />
+                            <label htmlFor="name" className="form-label">الاسم</label>
+                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
                               <ul>
                                 {filteredClients && filteredClients.map((client, index) => (
                                   <li key={index}>{client.username}</li>
