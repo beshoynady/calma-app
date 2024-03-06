@@ -13,12 +13,11 @@ const Kitchen = () => {
 
   const [waittime, setWaitTime] = useState(''); // State for waiting time
 
-  const [orderactive, setOrderActive] = useState([]); // State for active orders
-  const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
   const [consumptionOrderActive, setconsumptionOrderActive] = useState([]); // State for active orders
-  const [allOrders, setAllOrders] = useState([]); // State for all orders
+  
+  
   const [allRecipe, setallRecipe] = useState([]); // State for all orders
-
+  
   const getAllRecipe = async (id) => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -35,80 +34,29 @@ const Kitchen = () => {
       console.error("Error fetching product recipe:", error.message);
     }
   };
+  
+  
+  const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
+  
+  const [allOrders, setAllOrders] = useState([]); // State for all orders
+  const [orderactive, setOrderActive] = useState([]); // State for active orders
 
-
-
-  const getOrdersFromAPI = async () => {
-    try {
+const getAllOrders = async () => {
+  try {
         // Fetch orders from the API
-        const ordersResponse = await axios.get(apiUrl + '/api/order');
-        const orders = ordersResponse.data;
-
+        const orders = await axios.get(apiUrl + '/api/order');
         // Set all orders state
-        setAllOrders(orders);
+        setAllOrders(orders.data);
 
         // Filter active orders based on certain conditions
-        const activeOrders = orders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
-
+        const activeOrders = orders.data.filter(
+            (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+        );
+        console.log({ activeOrders });
         // Set active orders state
         setOrderActive(activeOrders);
 
-        // Fetch all products from the API
-        const productsResponse = await axios.get(apiUrl + '/api/product/');
-        const allProducts = productsResponse.data;
-
-        // Extract product data
-        const listAllProducts = allProducts;
-
-        // Process active orders to update productsOrderActive and consumptionOrderActive
-        const updatedProductsOrderActive = [];
-        const updatedConsumptionOrderActive = [];
-
-        activeOrders.forEach(order => {
-            order.products.forEach(product => {
-                if (!product.isDone) {
-                    const existingProductIndex = updatedProductsOrderActive.findIndex(p => p.productid === product.productid);
-                    const foundProductRecipe = allRecipe.find(recipe => recipe.productId === product._id);
-                    const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
-                    const amount = ingredients.reduce((total, ingredient) => total + (ingredient.amount * product.quantity), 0);
-
-                    if (existingProductIndex !== -1) {
-                        // If the product already exists, update the quantity
-                        updatedProductsOrderActive[existingProductIndex].quantity += product.quantity;
-                    } else {
-                        // If the product does not exist, add it to the array
-                        updatedProductsOrderActive.push({
-                            productid: product.productid,
-                            quantity: product.quantity,
-                            ingredients
-                        });
-                    }
-
-                    // Update consumptionOrderActive
-                    ingredients.forEach(ingredient => {
-                        const existingItemIndex = updatedConsumptionOrderActive.findIndex(con => con.itemId === ingredient.itemId);
-                        const itemAmount = ingredient.amount * product.quantity;
-                        if (existingItemIndex !== -1) {
-                            // If the item already exists, update the amount
-                            updatedConsumptionOrderActive[existingItemIndex].amount += itemAmount;
-                        } else {
-                            // If the item does not exist, add it to the array
-                            updatedConsumptionOrderActive.push({
-                                itemId: ingredient.itemId,
-                                name: ingredient.name,
-                                amount: itemAmount
-                            });
-                        }
-                    });
-                }
-            });
-        });
-
-        // Set updated productsOrderActive state
-        setProductsOrderActive(updatedProductsOrderActive);
-
-        // Set updated consumptionOrderActive state
-        setConsumptionOrderActive(updatedConsumptionOrderActive);
+        // Create a copy of the existing productsOrderActive array
     } catch (error) {
         // Handle errors
         console.error('Error fetching orders:', error);
@@ -118,9 +66,11 @@ const Kitchen = () => {
 
 
 
+
+
   const today = new Date().toISOString().split('T')[0];
   const [date, setDate] = useState(today);
-  const [allKitchenConsumption, setAllKitchenConsumption] = useState([]);
+  // const [allKitchenConsumption, setAllKitchenConsumption] = useState([]);
   const [filteredKitchenConsumptionToday, setFilteredKitchenConsumptionToday] = useState([]);
 
   const getKitchenConsumption = async () => {
@@ -136,7 +86,7 @@ const Kitchen = () => {
       });
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
-        setAllKitchenConsumption(kitchenConsumptions);
+        // setAllKitchenConsumption(kitchenConsumptions);
 
         const filtered = kitchenConsumptions.filter((kitItem) => {
           const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
@@ -240,6 +190,7 @@ const Kitchen = () => {
 
 
   // Updates an order status to 'Preparing'
+  
   const orderInProgress = async (id, type) => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -420,7 +371,7 @@ const Kitchen = () => {
     getKitchenConsumption()
     getallproducts()
     getAllWaiters();
-    getOrdersFromAPI();
+    getAllOrders();
   }, []);
 
   return (
