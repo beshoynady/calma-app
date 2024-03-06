@@ -38,85 +38,83 @@ const Kitchen = () => {
 
 
 
-const getOrdersFromAPI = async () => {
+  const getOrdersFromAPI = async () => {
     try {
         // Fetch orders from the API
-        const orders = await axios.get(apiUrl + '/api/order');
+        const ordersResponse = await axios.get(apiUrl + '/api/order');
+        const orders = ordersResponse.data;
+
         // Set all orders state
-        setAllOrders(orders.data);
+        setAllOrders(orders);
 
         // Filter active orders based on certain conditions
-        const activeOrders = orders.data.filter(
-            (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        );
-        console.log({ activeOrders });
+        const activeOrders = orders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
+
         // Set active orders state
         setOrderActive(activeOrders);
 
         // Fetch all products from the API
-        const getAllProducts = await axios.get(apiUrl + '/api/product/');
+        const productsResponse = await axios.get(apiUrl + '/api/product/');
+        const allProducts = productsResponse.data;
+
         // Extract product data
-        const listAllProducts = getAllProducts.data;
+        const listAllProducts = allProducts;
 
-        // Create a copy of the existing productsOrderActive array
-        const updatedProductsOrderActive = [...productsOrderActive];
+        // Process active orders to update productsOrderActive and consumptionOrderActive
+        const updatedProductsOrderActive = [];
+        const updatedConsumptionOrderActive = [];
 
-        // Iterate through active orders and update the productsOrderActive array
-        activeOrders.forEach((order) => {
-            order.products.forEach((product) => {
+        activeOrders.forEach(order => {
+            order.products.forEach(product => {
                 if (!product.isDone) {
-                    const existingProduct = updatedProductsOrderActive.find((p) => p.productid === product.productid);
-                    if (existingProduct) {
+                    const existingProductIndex = updatedProductsOrderActive.findIndex(p => p.productid === product.productid);
+                    const foundProductRecipe = allRecipe.find(recipe => recipe.productId === product._id);
+                    const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
+                    const amount = ingredients.reduce((total, ingredient) => total + (ingredient.amount * product.quantity), 0);
+
+                    if (existingProductIndex !== -1) {
                         // If the product already exists, update the quantity
-                        existingProduct.quantity += product.quantity;
+                        updatedProductsOrderActive[existingProductIndex].quantity += product.quantity;
                     } else {
                         // If the product does not exist, add it to the array
-                        const foundProductRecipe = allRecipe.find((Recipe) => Recipe.productId === product._id);
-                        const ingredients = foundProductRecipe ? foundProductRecipe.ingredients : [];
                         updatedProductsOrderActive.push({
                             productid: product.productid,
                             quantity: product.quantity,
                             ingredients
                         });
                     }
-                }
-            });
-        });
 
-        // Create a copy of the existing consumptionOrderActive array
-        const updatedconsumptionOrderActive = [...consumptionOrderActive];
-
-        // Iterate through updatedProductsOrderActive and update the consumptionOrderActive array
-        updatedProductsOrderActive.forEach((product) => {
-            product.ingredients.forEach((ingredient) => {
-                const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId === ingredient.itemId);
-                if (existingItem) {
-                    // If the item already exists, update the amount
-                    const amount = ingredient.amount * product.quantity;
-                    existingItem.amount += amount;
-                } else {
-                    // If the item does not exist, add it to the array
-                    const amount = ingredient.amount * product.quantity;
-                    updatedconsumptionOrderActive.push({
-                        itemId: ingredient.itemId,
-                        name: ingredient.name,
-                        amount: amount
+                    // Update consumptionOrderActive
+                    ingredients.forEach(ingredient => {
+                        const existingItemIndex = updatedConsumptionOrderActive.findIndex(con => con.itemId === ingredient.itemId);
+                        const itemAmount = ingredient.amount * product.quantity;
+                        if (existingItemIndex !== -1) {
+                            // If the item already exists, update the amount
+                            updatedConsumptionOrderActive[existingItemIndex].amount += itemAmount;
+                        } else {
+                            // If the item does not exist, add it to the array
+                            updatedConsumptionOrderActive.push({
+                                itemId: ingredient.itemId,
+                                name: ingredient.name,
+                                amount: itemAmount
+                            });
+                        }
                     });
                 }
             });
         });
 
-        console.log({ updatedProductsOrderActive });
         // Set updated productsOrderActive state
-        setproductsOrderActive(updatedProductsOrderActive);
-        console.log({ updatedconsumptionOrderActive });
+        setProductsOrderActive(updatedProductsOrderActive);
+
         // Set updated consumptionOrderActive state
-        setconsumptionOrderActive(updatedconsumptionOrderActive);
+        setConsumptionOrderActive(updatedConsumptionOrderActive);
     } catch (error) {
         // Handle errors
         console.error('Error fetching orders:', error);
     }
 };
+
 
 
 
