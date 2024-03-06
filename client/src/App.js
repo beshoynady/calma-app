@@ -1765,7 +1765,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+      createReservations,getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>

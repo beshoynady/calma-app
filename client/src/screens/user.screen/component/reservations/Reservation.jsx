@@ -15,7 +15,7 @@ const Reservation = () => {
 
   return (
     <detacontext.Consumer>
-      {({ allTable,getAvailableTables, availableTableIds, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, userLoginInfo }) => {
+      {({ allTable, getAvailableTables, availableTableIds, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, userLoginInfo }) => {
         const userId = userLoginInfo?.userinfo?.id;
         return (
           <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
@@ -29,13 +29,13 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-                onSubmit={(e) => createReservations(e, tableInfo.id,tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
-                <div className="mb-1">
-                <div className="col-md-8">
-                  <label htmlFor="name" className="form-label">الاسم</label>
-                  <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
-                </div>
-                <div className="col-md-4">
+                onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
+                <div className="row">
+                  <div className="col-md-8 mb-1">
+                    <label htmlFor="name" className="form-label">الاسم</label>
+                    <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
+                  </div>
+                  <div className="col-md-4 mb-1">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                     <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                   </div>
@@ -100,7 +100,7 @@ const Reservation = () => {
                             EndedDate.setMinutes(parseInt(timeParts[1]));
                             console.log({ EndedDate })
                             setEndTime(EndedDate);
-                            getAvailableTables()
+                            getAvailableTables(reservationDate, startTime, EndedDate)
                           }
                         } else {
                           e.target.value = ''
@@ -119,8 +119,8 @@ const Reservation = () => {
                     <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
                       <option>الطاولات المتاحة في هذا الوقت</option>
                       {allTable.map((table, i) => (
-                        availableTableIds.map(availableTable=>{
-                          if(availableTable === table._id){
+                        availableTableIds.map(availableTable => {
+                          if (availableTable === table._id) {
                             <option key={i} value={table._id}>{table.tablenum}</option>
                           }
                         })
