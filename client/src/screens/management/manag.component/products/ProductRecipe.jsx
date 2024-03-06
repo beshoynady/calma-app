@@ -54,7 +54,16 @@ const ProductRecipe = () => {
 
   const getallStockItem = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/stockitem/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
+      const response = await axios.get(apiUrl + '/api/stockitem/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const StockItems = await response.data;
       console.log(response.data)
       setAllStockItems(StockItems)
@@ -77,7 +86,10 @@ const ProductRecipe = () => {
   const getProductRecipe = async (id) => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      if (!token) {
+        // Handle case where token is not available
+        throw new Error('توكن غير متاح');
+      }
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, {
         headers: {
@@ -218,6 +230,10 @@ const editRecipe = async (e) => {
     e.preventDefault();
     console.log({ingredients});
     const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+    if (!token) {
+      // Handle case where token is not available
+      throw new Error('توكن غير متاح');
+    }
     const newIngredients = ingredients.map((ingredient) => { 
       if (ingredient.itemId === itemId) {
         return { itemId, name, amount, costofitem, unit, totalcostofitem };
