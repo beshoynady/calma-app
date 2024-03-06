@@ -60,6 +60,7 @@ const getAllOrders = async () => {
       },
     });    
     const allRecipe = await response.data
+    console.log({allRecipe})
     // Create a copy of the existing productsOrderActive array
     const updatedProductsOrderActive = [...productsOrderActive];
 
@@ -67,7 +68,9 @@ const getAllOrders = async () => {
     activeOrders.forEach((order) => {
       order.products.forEach((product) => {
         if (product.isDone === false) {
+          console.log({updatedProductsOrderActive})
           const existingProduct = updatedProductsOrderActive.find((p) => p.productid === product.productid);
+          console.log({existingProduct})
           if (existingProduct) {
             // If the product already exists, update the quantity
             existingProduct.quantity += product.quantity;
@@ -76,6 +79,7 @@ const getAllOrders = async () => {
             const recipe = allRecipe.find((recipe) => recipe.productId == product.productid).ingredients;
             console.log({ recipe });
             updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, recipe });
+            console.log({ updatedProductsOrderActive });
           }
         }
       });
@@ -88,6 +92,7 @@ const getAllOrders = async () => {
     updatedProductsOrderActive.forEach((product) => {
       product.recipe.forEach((rec) => {
         const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId == rec.itemId);
+        console.log({ existingItem})
         if (existingItem) {
           // If the item already exists, update the amount
           const Amount = rec.amount * product.quantity;
@@ -97,6 +102,7 @@ const getAllOrders = async () => {
           const Amount = rec.amount * product.quantity;
           updatedconsumptionOrderActive.push({ itemId: rec.itemId, name: rec.name, amount: Amount });
         }
+        console.log({ updatedconsumptionOrderActive})
       });
     });
 
