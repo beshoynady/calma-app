@@ -39,7 +39,13 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/employee');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/employee', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       setListOfEmployee(response.data);
     } catch (error) {
       console.log(error);
@@ -127,7 +133,7 @@ const PayRoll = () => {
         Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
+        const result = await axios.put(`${apiUrl}/api/payroll/${id}`, {
           month,
           salary,
           additional: Additional,

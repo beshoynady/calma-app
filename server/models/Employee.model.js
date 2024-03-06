@@ -9,6 +9,26 @@ const employeeSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 100,
   },
+  username: {
+    type: String,
+    unique: true,
+    required: [true, 'Username is required'],
+    trim: true,
+    minlength: 3,
+    maxlength: 100,
+  },
+  phone: {
+    type: String,
+    trim: true,
+    length: 11,
+  },
+  password: {
+    type: String,
+    trim: true,
+    required: [true, 'Password is required'],
+    maxlength: 200,
+    minlength: 3,
+  },
   numberID: {
     type: String,
     unique: true,
@@ -29,26 +49,6 @@ const employeeSchema = new mongoose.Schema({
     maxlength: 100,
     minlength: 10,
     trim: true,
-  },
-  username: {
-    type: String,
-    unique: true,
-    required: [true, 'Username is required'],
-    trim: true,
-    minlength: 3,
-    maxlength: 100,
-  },
-  phone: {
-    type: String,
-    trim: true,
-    length: 11,
-  },
-  password: {
-    type: String,
-    trim: true,
-    required: [true, 'Password is required'],
-    maxlength: 200,
-    minlength: 3,
   },
   isAdmin: {
     type: Boolean,
@@ -75,6 +75,11 @@ const employeeSchema = new mongoose.Schema({
   },
   payRoll: [
     {
+      Year: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
       Month: {
         type: Number,
         required: true,

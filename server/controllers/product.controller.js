@@ -24,22 +24,22 @@ const createProduct = async (req, res) => {
   }
 };
 
-// Add a recipe to a product
-const addRecipe = async (req, res) => {
-  try {
-    const productId = req.params.productid;
-    const { Recipe, totalcost } = req.body;
+// // Add a recipe to a product
+// const addRecipe = async (req, res) => {
+//   try {
+//     const productId = req.params.productid;
+//     const { Recipe, totalcost } = req.body;
 
-    const productRecipe = await ProductModel.findByIdAndUpdate(
-      { _id: productId },
-      { Recipe, totalcost }
-    );
+//     const productRecipe = await ProductModel.findByIdAndUpdate(
+//       { _id: productId },
+//       { Recipe, totalcost }
+//     );
 
-    res.status(200).json({ Recipe: productRecipe });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
+//     res.status(200).json({ Recipe: productRecipe });
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
 
 // Retrieve all products
 const getAllProducts = async (req, res) => {
@@ -195,7 +195,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   createProduct,
-  addRecipe,
+  // addRecipe,
   getAllProducts,
   getProductByCategory,
   getOneProduct,

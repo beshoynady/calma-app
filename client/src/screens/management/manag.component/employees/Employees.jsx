@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 const Employees = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
