@@ -78,7 +78,7 @@ const getAllOrders = async () => {
             existingProduct.quantity += product.quantity;
           } else {
             // If the product does not exist, add it to the array
-            const recipe = allRecipe.find((recipe) => recipe.productId == product.productid).ingredients;
+            const recipe =allRecipe? allRecipe.find((recipe) => recipe.productId == product.productid).ingredients:[];
             console.log({ recipe });
             updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, recipe });
             console.log({ updatedProductsOrderActive });
