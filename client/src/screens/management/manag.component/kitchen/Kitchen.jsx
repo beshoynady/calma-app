@@ -6,118 +6,157 @@ import { toast, ToastContainer } from 'react-toastify'; // Importing toast from 
 import 'react-toastify/dist/ReactToastify.css'; // Importing default CSS for toast notifications
 
 const Kitchen = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-  const start = useRef();
-  const ready = useRef();
+const start = useRef();
+const ready = useRef();
 
-  const [waittime, setWaitTime] = useState(''); // State for waiting time
+const [waittime, setWaitTime] = useState(''); // State for waiting time
 
-  const [consumptionOrderActive, setconsumptionOrderActive] = useState([]); // State for active orders
-  
-  
-  const [allRecipe, setallRecipe] = useState([]); // State for all orders
-  
-  const getAllRecipe = async (id) => {
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+const [orderactive, setOrderActive] = useState([]); // State for active orders
+const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
+const [consumptionOrderActive, setconsumptionOrderActive] = useState([]); // State for active orders
+const [allOrders, setAllOrders] = useState([]); // State for all orders
 
-      console.log(id);
-      const response = await axios.get(`${apiUrl}/api/recipe`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
-      console.log({ response });
-      setallRecipe(response.data)
-    } catch (error) {
-      console.error("Error fetching product recipe:", error.message);
-    }
-  };
-  
-  
-  const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
-  
-  const [allOrders, setAllOrders] = useState([]); // State for all orders
-  const [orderactive, setOrderActive] = useState([]); // State for active orders
 
-const getAllOrders = async () => {
+
+const [allRecipe, setallRecipe] = useState([]); // State for all orders
+  
+const getAllRecipe = async () => {
   try {
-        // Fetch orders from the API
-        const orders = await axios.get(apiUrl + '/api/order');
-        // Set all orders state
-        setAllOrders(orders.data);
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-        // Filter active orders based on certain conditions
-        const activeOrders = orders.data.filter(
-            (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        );
-        console.log({ activeOrders });
-        // Set active orders state
-        setOrderActive(activeOrders);
-
-        // Create a copy of the existing productsOrderActive array
-    } catch (error) {
-        // Handle errors
-        console.error('Error fetching orders:', error);
-    }
+    const response = await axios.get(`${apiUrl}/api/recipe`, {
+      headers: {
+        'authorization': `Bearer ${token}`, // Send the token in the authorization header
+      },
+    });
+    console.log({ response });
+    setallRecipe(response.data)
+  } catch (error) {
+    console.error("Error fetching product recipe:", error.message);
+  }
 };
 
 
+const getAllOrders = async () => {
+  try {
+    // Fetch orders from the API
+    const orders = await axios.get(apiUrl+'/api/order');
+    // Set all orders state
+    setAllOrders(orders.data);
 
+    // Filter active orders based on certain conditions
+    const activeOrders = orders.data.filter(
+      (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+    );
+    console.log({ activeOrders });
+    // Set active orders state
+    setOrderActive(activeOrders);
 
+    const response = await axios.get(`${apiUrl}/api/recipe`, {
+      headers: {
+        'authorization': `Bearer ${token}`, // Send the token in the authorization header
+      },
+    });    
+    const allRecipe = await response.data
+    // Create a copy of the existing productsOrderActive array
+    const updatedProductsOrderActive = [...productsOrderActive];
 
-
-  const today = new Date().toISOString().split('T')[0];
-  const [date, setDate] = useState(today);
-  // const [allKitchenConsumption, setAllKitchenConsumption] = useState([]);
-  const [filteredKitchenConsumptionToday, setFilteredKitchenConsumptionToday] = useState([]);
-
-  const getKitchenConsumption = async () => {
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      setFilteredKitchenConsumptionToday([])
-      console.log('Fetching kitchen consumption...');
-      const response = await axios.get(apiUrl+'/api/kitchenconsumption', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
+    // Iterate through active orders and update the productsOrderActive array
+    activeOrders.forEach((order) => {
+      order.products.forEach((product) => {
+        if (product.isDone === false) {
+          const existingProduct = updatedProductsOrderActive.find((p) => p.productid === product.productid);
+          if (existingProduct) {
+            // If the product already exists, update the quantity
+            existingProduct.quantity += product.quantity;
+          } else {
+            // If the product does not exist, add it to the array
+            const recipe = allRecipe.find((recipe) => recipe.productId == product.productid).ingredients;
+            console.log({ recipe });
+            updatedProductsOrderActive.push({ productid: product.productid, quantity: product.quantity, recipe });
+          }
+        }
       });
-      if (response && response.data) {
-        const kitchenConsumptions = response.data.data || [];
-        // setAllKitchenConsumption(kitchenConsumptions);
+    });
 
-        const filtered = kitchenConsumptions.filter((kitItem) => {
-          const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
-          return itemDate === date;
-        });
-        console.log('Filtered kitchen consumption for the selected date:', filtered);
-        setFilteredKitchenConsumptionToday(filtered);
-      } else {
-        console.log('Unexpected response or empty data');
-      }
-    } catch (error) {
-      console.error('Error fetching kitchen consumption:', error);
-      // Handle error: Notify user, log error, etc.
-    }
-  };
+    // Create a copy of the existing consumptionOrderActive array
+    const updatedconsumptionOrderActive = [...consumptionOrderActive];
 
-  const [listofProducts, setlistofProducts] = useState([]);
+    // Iterate through updatedProductsOrderActive and update the consumptionOrderActive array
+    updatedProductsOrderActive.forEach((product) => {
+      product.recipe.forEach((rec) => {
+        const existingItem = updatedconsumptionOrderActive.find((con) => con.itemId == rec.itemId);
+        if (existingItem) {
+          // If the item already exists, update the amount
+          const Amount = rec.amount * product.quantity;
+          existingItem.amount += Amount;
+        } else {
+          // If the item does not exist, add it to the array
+          const Amount = rec.amount * product.quantity;
+          updatedconsumptionOrderActive.push({ itemId: rec.itemId, name: rec.name, amount: Amount });
+        }
+      });
+    });
 
-  const getallproducts = async () => {
-    try {
-      const response = await axios.get(apiUrl+'/api/product/');
-      const products = await response.data;
-      // console.log(response.data)
-      setlistofProducts(products)
-      // console.log(listofProducts)
-
-    } catch (error) {
-      console.log(error)
-    }
-
+    console.log({ updatedProductsOrderActive });
+    // Set updated productsOrderActive state
+    setproductsOrderActive(updatedProductsOrderActive);
+    console.log({ updatedconsumptionOrderActive });
+    // Set updated consumptionOrderActive state
+    setconsumptionOrderActive(updatedconsumptionOrderActive);
+  } catch (error) {
+    // Handle errors
+    console.log(error);
   }
+};
+
+
+const today = new Date().toISOString().split('T')[0];
+const [date, setDate] = useState(today);
+const [allKitchenConsumption, setAllKitchenConsumption] = useState([]);
+const [filteredKitchenConsumptionToday, setFilteredKitchenConsumptionToday] = useState([]);
+
+const getKitchenConsumption = async () => {
+  try {
+    setFilteredKitchenConsumptionToday([])
+    console.log('Fetching kitchen consumption...');
+    const response = await axios.get(apiUrl+'/api/kitchenconsumption');
+    if (response && response.data) {
+      const kitchenConsumptions = response.data.data || [];
+      setAllKitchenConsumption(kitchenConsumptions);
+
+      const filtered = kitchenConsumptions.filter((kitItem) => {
+        const itemDate = new Date(kitItem.createdAt).toISOString().split('T')[0];
+        return itemDate === date;
+      });
+      console.log('Filtered kitchen consumption for the selected date:', filtered);
+      setFilteredKitchenConsumptionToday(filtered);
+    } else {
+      console.log('Unexpected response or empty data');
+    }
+  } catch (error) {
+    console.error('Error fetching kitchen consumption:', error);
+    // Handle error: Notify user, log error, etc.
+  }
+};
+
+const [listofProducts, setlistofProducts] = useState([]);
+
+const getallproducts = async () => {
+  try {
+    const response = await axios.get(apiUrl+'/api/product/');
+    const products = await response.data;
+    // console.log(response.data)
+    setlistofProducts(products)
+    // console.log(listofProducts)
+
+  } catch (error) {
+    console.log(error)
+  }
+
+}
   // Fetches all active waiters from the API
   const [AllWaiters, setAllWaiters] = useState([]); // State for active waiters
   const [waiters, setWaiters] = useState([]); // State for active waiters ID
