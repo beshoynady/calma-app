@@ -22,17 +22,6 @@ const ReservationTables = () => {
   const [endTimeClicked, setEndTimeClicked] = useState(false);
 
 
-  const [listoftable, setlistoftable] = useState([]);
-
-  const getAllTable = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/table');
-      const tables = response.data;
-      setlistoftable(tables);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const [userId, setUserId] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
@@ -110,7 +99,7 @@ const ReservationTables = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers,
+        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers, allTable, getAvailableTables, availableTableIds,
           formatDate, formatTime }) => {
 
           const createBy = employeeLoginInfo?.employeeinfo?.id;
@@ -276,36 +265,24 @@ const ReservationTables = () => {
                       </div>
                       <div className="modal-body">
                         <div className="container">
-                          <div className="mb-1">
-                            <label htmlFor="name" className="form-label">الاسم</label>
-                            <input type="text" className="form-control" id="name" onChange={(e) => clientByName(e.target.value)} />
-                            <ul>
-                              {filteredClients && filteredClients.map((client, index) => (
-                                <li key={index}>{client.username}</li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="row mb-1">
-                            <div className="col-md-6">
+                          <div className="row">
+                            <div className="col-md-8 mb-1">
+                              <label htmlFor="name" className="form-label">الاسم</label>
+                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(e.target.value)} />
+                              <ul>
+                                {filteredClients && filteredClients.map((client, index) => (
+                                  <li key={index}>{client.username}</li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                               <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                             </div>
-                            <div className="col-md-3">
-                              <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
-                                <option>اختار رقم الطاوله</option>
-                                {listoftable && listoftable.map((table, i) => (
-                                  <option key={i} value={table._id}>{table.tablenum}</option>
-                                ))}
-                              </select>
-                            </div>
-                            <div className="col-md-3">
-                              <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                              <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
-                            </div>
                           </div>
+
                           <div className="row">
-                            <div className="col-md-6 mb-1">
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="date" className="form-label">التاريخ</label>
                               <input
                                 type="date"
@@ -317,7 +294,7 @@ const ReservationTables = () => {
                                 }}
                               />
                             </div>
-                            <div className="col-md-3 mb-1">
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
@@ -345,7 +322,7 @@ const ReservationTables = () => {
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
                             </div>
-                            <div className="col-md-3 mb-1">
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                               <input
                                 type="time"
@@ -363,15 +340,35 @@ const ReservationTables = () => {
                                       EndedDate.setMinutes(parseInt(timeParts[1]));
                                       console.log({ EndedDate })
                                       setEndTime(EndedDate);
+                                      getAvailableTables(reservationDate, startTime, EndedDate)
                                     }
                                   } else {
                                     e.target.value = ''
-                                  }
+                                  };
+
                                 }}
                               />
                               {endTimeClicked && !reservationDate && (
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
+                            </div>
+                          </div>
+                          <div className="row mb-1">
+                            <div className="col-md-7">
+                              <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
+                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                                <option>الطاولات المتاحة في هذا الوقت</option>
+                                {allTable.map((table, i) => (
+                                  availableTableIds.includes(table._id) && (
+                                    <option key={i} value={table._id}>{table.tablenum}</option>
+                                  )
+                                ))}
+                              </select>
+                            </div>
+
+                            <div className="col-md-5">
+                              <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
+                              <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                             </div>
                           </div>
                           <div className="mb-1">
@@ -400,36 +397,24 @@ const ReservationTables = () => {
                       </div>
                       <div className="modal-body">
                         <div className="container">
-                          <div className="mb-1">
-                            <label className="form-label">الاسم</label>
-                            <input type="text" className="form-control" defaultValue={customerName} onChange={(e) => clientByName(e.target.value)} />
-                            <ul>
-                              {filteredClients && filteredClients.map((client, index) => (
-                                <li key={index}>{client.username}</li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="row mb-1">
-                            <div className="col-md-6">
+                          <div className='row'>
+                            <div className="col-md-7 mb-1">
+                              <label className="form-label">الاسم</label>
+                              <input type="text" className="form-control" defaultValue={customerName} onChange={(e) => clientByName(e.target.value)} />
+                              <ul>
+                                {filteredClients && filteredClients.map((client, index) => (
+                                  <li key={index}>{client.username}</li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div className="col-md-5 mb-1">
                               <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
                               <input type="tel" className="form-control" id="mobile" defaultValue={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} />
                             </div>
-                            <div className="col-md-3">
-                              <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" defaultValue={tableInfo.tablenum} onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
-                                <option>{tableInfo.tablenum}</option>
-                                {listoftable && listoftable.map((table, i) => (
-                                  <option key={i} value={table._id}>{table.tablenum}</option>
-                                ))}
-                              </select>
-                            </div>
-                            <div className="col-md-3">
-                              <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                              <input type="number" className="form-control" id="numberOfGuests" defaultValue={numberOfGuests} onChange={(e) => setNumberOfGuests(e.target.value)} />
-                            </div>
                           </div>
-                          <div className="row">
-                            <div className="col-md-6 mb-1">
+
+                          <div className="row mb-1">
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="date" className="form-label">التاريخ</label>
                               <input
                                 type="date"
@@ -442,7 +427,7 @@ const ReservationTables = () => {
                                 }}
                               />
                             </div>
-                            <div className="col-md-3 mb-1">
+                            <div className="col-md-4 mb-1">
                               <label className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
@@ -470,7 +455,7 @@ const ReservationTables = () => {
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
                             </div>
-                            <div className="col-md-3 mb-1">
+                            <div className="col-md-4 mb-1">
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                               <input
                                 type="time"
@@ -489,6 +474,7 @@ const ReservationTables = () => {
                                       EndedDate.setMinutes(parseInt(timeParts[1]));
                                       console.log({ EndedDate })
                                       setEndTime(EndedDate);
+                                      getAvailableTables(reservationDate, startTime, EndedDate)
                                     }
                                   } else {
                                     e.target.value = ''
@@ -498,6 +484,26 @@ const ReservationTables = () => {
                               {endTimeClicked && !reservationDate && (
                                 <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                               )}
+                            </div>
+                          </div>
+
+                          <div className="row mb-1">
+                            <div className="col-md-7">
+                              <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
+                              <select className="form-control" id="tableNumber" defaultValue={tableInfo.tablenum} onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                                <option>{tableInfo.tablenum}</option>
+                                <option>الطاولات المتاحة في هذا الوقت</option>
+                                {allTable.map((table, i) => (
+                                  availableTableIds.includes(table._id) && (
+                                    <option key={i} value={table._id}>{table.tablenum}</option>
+                                  )
+                                ))}
+
+                              </select>
+                            </div>
+                            <div className="col-md-5">
+                              <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
+                              <input type="number" className="form-control" id="numberOfGuests" defaultValue={numberOfGuests} onChange={(e) => setNumberOfGuests(e.target.value)} />
                             </div>
                           </div>
                           <div className="mb-1">
