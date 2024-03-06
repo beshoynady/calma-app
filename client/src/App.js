@@ -1471,6 +1471,54 @@ function App() {
     }
   };
 
+  const [availableTableIds, setavailableTableIds] = useState([])
+
+const getAvailableTables = (reservationDate, startTime, endTime) => {
+  try {
+    // Filter reservations by selected date and time range
+    const filterReservationsByTime = allReservations.filter(reservation => {
+      const reservationDateObj = new Date(reservation.reservationDate);
+      const selectedDateObj = new Date(reservationDate);
+
+      // Check if the reservation date matches the selected date
+      if (
+        reservationDateObj.getFullYear() !== selectedDateObj.getFullYear() ||
+        reservationDateObj.getMonth() !== selectedDateObj.getMonth() ||
+        reservationDateObj.getDate() !== selectedDateObj.getDate()
+      ) {
+        return false;
+      }
+
+      const startReservationTime = new Date(reservation.startTime).getTime();
+      const endReservationTime = new Date(reservation.endTime).getTime();
+      const startSelectedTime = new Date(startTime).getTime();
+      const endSelectedTime = new Date(endTime).getTime();
+
+      // Check for overlapping time ranges
+      return (
+        (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
+        (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
+        (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
+      );
+    });
+
+    // Create a list of all tableIds
+    const allTableIds = allReservations.map(reservation => reservation.tableId);
+
+    // Create a list of reserved tableIds in the selected time range
+    const reservedTableIds = filterReservationsByTime.map(reservation => reservation.tableId);
+
+    // Find the difference between allTableIds and reservedTableIds to get available tableIds
+    const availableTableIds = allTableIds.filter(tableId => !reservedTableIds.includes(tableId));
+    setavailableTableIds(availableTableIds)
+    return availableTableIds;
+  } catch (error) {
+    // Handle errors
+    console.error("Error getting available tables:", error);
+    return [];
+  }
+};
+
 
   const createReservations = async (e, tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy) => {
     try {
@@ -1717,7 +1765,7 @@ function App() {
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+      createReservations, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>
