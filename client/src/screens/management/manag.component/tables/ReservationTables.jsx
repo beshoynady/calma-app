@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-import { useReactToPrint } from 'react-to-print';
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
 
 
 
 const ReservationTables = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [reservationId, setReservationId] = useState('');
   const [customerName, setCustomerName] = useState('');
@@ -105,7 +101,6 @@ const ReservationTables = () => {
           const createBy = employeeLoginInfo?.employeeinfo?.id;
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
