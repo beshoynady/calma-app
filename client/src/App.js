@@ -1502,15 +1502,19 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
         (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
       );
     });
-
+    console.log({filterReservationsByTime})
+    
     // Create a list of all tableIds
     const allTableIds = allReservations.map(reservation => reservation.tableId);
-
+    console.log({allTableIds})
+    
     // Create a list of reserved tableIds in the selected time range
     const reservedTableIds = filterReservationsByTime.map(reservation => reservation.tableId);
 
+    console.log({reservedTableIds})
     // Find the difference between allTableIds and reservedTableIds to get available tableIds
     const availableTableIds = allTableIds.filter(tableId => !reservedTableIds.includes(tableId));
+    console.log({availableTableIds})
     setavailableTableIds(availableTableIds)
     return availableTableIds;
   } catch (error) {

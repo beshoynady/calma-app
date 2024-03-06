@@ -42,7 +42,7 @@ const Reservation = () => {
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6 mb-1">
+                  <div className="col-md-4 mb-1">
                     <label htmlFor="date" className="form-label">التاريخ</label>
                     <input
                       type="date"
@@ -54,7 +54,7 @@ const Reservation = () => {
                       }}
                     />
                   </div>
-                  <div className="col-md-3 mb-1">
+                  <div className="col-md-4 mb-1">
                     <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
                     <input
                       type="time"
@@ -82,7 +82,7 @@ const Reservation = () => {
                       <div style={{ color: 'red', fontSize: "18px", marginTop: '0.5rem' }}>يرجى تحديد التاريخ أولاً</div>
                     )}
                   </div>
-                  <div className="col-md-3 mb-1">
+                  <div className="col-md-4 mb-1">
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                     <input
                       type="time"
