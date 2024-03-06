@@ -1474,7 +1474,6 @@ function App() {
   const [availableTableIds, setavailableTableIds] = useState([])
 
 const getAvailableTables = (reservationDate, startTime, endTime) => {
-  console.log({reservationDate, startTime, endTime})
   try {
     // Filter reservations by selected date and time range
     const filterReservationsByTime = allReservations.filter(reservation => {
@@ -1503,15 +1502,14 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
       );
     });
     console.log({filterReservationsByTime})
-    
     // Create a list of all tableIds
-    const allTableIds = allReservations.map(reservation => reservation.tableId);
+    const allTableIds = allTable.map(table => table._id);
     console.log({allTableIds})
     
     // Create a list of reserved tableIds in the selected time range
     const reservedTableIds = filterReservationsByTime.map(reservation => reservation.tableId);
-
     console.log({reservedTableIds})
+    
     // Find the difference between allTableIds and reservedTableIds to get available tableIds
     const availableTableIds = allTableIds.filter(tableId => !reservedTableIds.includes(tableId));
     console.log({availableTableIds})
@@ -1519,7 +1517,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
     return availableTableIds;
   } catch (error) {
     // Handle errors
-    console.error("Error getting available tables:", error);
+    console.error("Error getting available tables by date and time:", error);
     return [];
   }
 };
