@@ -70,10 +70,12 @@ const getAllOrders = async () => {
 
       activeOrders.forEach(order => {
           order.products.forEach(product => {
-              if (!product.isDone) {
+            if (!product.isDone) {
+                console.log({product})
+                
                   const existingProductIndex = updatedProductsOrderActive.findIndex(p => p.productid === product.productid);
                   const recipe = allRecipes.find(recipe => recipe.productId === product.productid)?.ingredients || [];
-                console.log(recipe)
+                console.log({recipe})
                   if (existingProductIndex !== -1) {
                       // If the product already exists, update the quantity
                       updatedProductsOrderActive[existingProductIndex].quantity += product.quantity;
