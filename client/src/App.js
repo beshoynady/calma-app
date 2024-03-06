@@ -1474,6 +1474,7 @@ function App() {
   const [availableTableIds, setavailableTableIds] = useState([])
 
 const getAvailableTables = (reservationDate, startTime, endTime) => {
+  console.log({reservationDate, startTime, endTime})
   try {
     // Filter reservations by selected date and time range
     const filterReservationsByTime = allReservations.filter(reservation => {
