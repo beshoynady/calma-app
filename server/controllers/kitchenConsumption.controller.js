@@ -12,7 +12,7 @@ const getAllKitchenConsumptions = async (req, res) => {
 
 // Get single kitchen consumption by ID
 const getKitchenConsumptionById = async (req, res) => {
-  const { id } = req.params;
+  const { id } = await req.params;
   try {
     const kitchenConsumption = await KitchenConsumptionModel.findById(id);
     if (!kitchenConsumption) {

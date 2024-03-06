@@ -3,15 +3,15 @@ require('dotenv').config();
 
 const secretKey = process.env.jwt_secret_key;
 
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    
+const authenticateToken = async(req, res, next) => {
+    const authHeader = await req.headers['authorization'];
+    console.log({authHeader})
     if (!authHeader) {
-        return res.status(401).json({ message: 'Unauthorized: Token missing' }); // Unauthorized
+        return res.status(401).json({ message: 'Unauthorized: Token unfound' }); // Unauthorized
     }
     
-    const token = authHeader.split(' ')[1];
-
+    const token = await authHeader.split(' ')[1];
+    
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized: Token missing' }); // Unauthorized
     }
