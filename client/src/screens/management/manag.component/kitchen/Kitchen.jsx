@@ -41,6 +41,8 @@ const getAllRecipe = async () => {
 
 const getAllOrders = async () => {
   try {
+    const token = localStorage.getItem('token_e'); 
+
     // Fetch orders from the API
     const orders = await axios.get(apiUrl+'/api/order');
     // Set all orders state
@@ -126,9 +128,15 @@ const [filteredKitchenConsumptionToday, setFilteredKitchenConsumptionToday] = us
 
 const getKitchenConsumption = async () => {
   try {
+    const token = localStorage.getItem('token_e'); 
+
     setFilteredKitchenConsumptionToday([])
     console.log('Fetching kitchen consumption...');
-    const response = await axios.get(apiUrl+'/api/kitchenconsumption');
+    const response = await axios.get(apiUrl+'/api/kitchenconsumption', {
+      headers: {
+        'authorization': `Bearer ${token}`, // Send the token in the authorization header
+      },
+    });
     if (response && response.data) {
       const kitchenConsumptions = response.data.data || [];
       setAllKitchenConsumption(kitchenConsumptions);
