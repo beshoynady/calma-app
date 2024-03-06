@@ -128,7 +128,7 @@ const loginEmployee = async (req, res) => {
                 }
             },
             process.env.jwt_secret_key,
-            { expiresIn: process.env.jwt_expire}
+            { expiresIn: '1y' } // صلاحية التوكن لمدة سنة
         );
 
         if (!accessToken) {
@@ -141,6 +141,7 @@ const loginEmployee = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 
 
