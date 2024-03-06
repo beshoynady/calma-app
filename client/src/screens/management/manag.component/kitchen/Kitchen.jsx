@@ -14,8 +14,8 @@ const ready = useRef();
 const [waittime, setWaitTime] = useState(''); // State for waiting time
 
 const [orderactive, setOrderActive] = useState([]); // State for active orders
-const [productsOrderActive, setproductsOrderActive] = useState([]); // State for active orders
-const [consumptionOrderActive, setconsumptionOrderActive] = useState([]); // State for active orders
+const [productsOrderActive, setProductsOrderActive] = useState([]); // State for active orders
+const [consumptionOrderActive, setConsumptionOrderActive] = useState([]); // State for active orders
 const [allOrders, setAllOrders] = useState([]); // State for all orders
 
 
