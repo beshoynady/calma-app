@@ -5,8 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const PayRoll = () => {
+
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   // Array of months in Arabic
   const months = [
@@ -56,7 +56,13 @@ const PayRoll = () => {
   const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([])
   const getSalaryMovement = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/salarymovement');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/salarymovement', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const currentDate = new Date().getMonth();
       const filterByMonth = response.data.filter((m) => new Date(m.createdAt).getMonth() === currentDate);
       setListOfSalaryMovement(filterByMonth);
@@ -187,9 +193,14 @@ const PayRoll = () => {
   const handelPaid = async (salary, manager, employee, name, paidMonth) => {
     try {
       console.log(manager)
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch all cash registers
-      const response = await axios.get(apiUrl + '/api/cashRegister');
+      const response = await axios.get(apiUrl + '/api/cashRegister', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const allCashRegisters = await response.data;
       console.log(response)
       console.log(allCashRegisters)
@@ -242,12 +253,18 @@ const PayRoll = () => {
   const createDailyExpense = async () => {
     const updatedBalance = balance - amount;
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
         createBy: paidBy,
         amount,
         type: 'Withdraw',
         description: expenseDescription,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       const cashMovementId = cashMovement.data.cashMovement._id;
@@ -260,10 +277,18 @@ const PayRoll = () => {
         paidBy,
         amount,
         notes,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       const updateCashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedBalance,
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
 
       if (updateCashRegister) {
@@ -347,7 +372,6 @@ const PayRoll = () => {
         ({ usertitle, EditPagination, employeeLoginInfo, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
