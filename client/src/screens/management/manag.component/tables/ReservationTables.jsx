@@ -88,9 +88,7 @@ const ReservationTables = () => {
     }
   };
 
-  useEffect(() => {
-    getAllTable()
-  }, [])
+
 
   return (
     <detacontext.Consumer>

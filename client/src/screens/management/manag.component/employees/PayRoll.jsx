@@ -305,6 +305,8 @@ const PayRoll = () => {
   const paidSalary = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       // Create daily expense
       await createDailyExpense();
 
