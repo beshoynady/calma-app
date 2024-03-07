@@ -180,7 +180,7 @@ const SideBar = () => {
                         <li><a className="link_name" href="#">الموظفون</a></li>
                         <li><Link to="employees">البيانات</Link></li>
                         <li><Link to="employeessalary">تعاملات</Link></li>
-                        <li><Link to="payrole">المرتبات</Link></li>
+                        <li><Link to="payroll">المرتبات</Link></li>
                       </ul>
                     </li>
                   )}
