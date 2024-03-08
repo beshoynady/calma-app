@@ -471,15 +471,15 @@ const PayRoll = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-      if(updatePayRoll){
-              // Create daily expense
-      await createDailyExpense();
-      // Log the update result
-      console.log(updatePayRoll);
-      getEmployees()
-      getPayRoll()
-      // Display a success toast notification upon successful payment
-      toast.success('تم تسجيل دفع المرتب بنجاح');
+      if (updatePayRoll) {
+        // Create daily expense
+        await createDailyExpense();
+        // Log the update result
+        console.log(updatePayRoll);
+        getEmployees()
+        getPayRoll()
+        // Display a success toast notification upon successful payment
+        toast.success('تم تسجيل دفع المرتب بنجاح');
       }
     } catch (error) {
       // Handle errors by displaying a toast notification
@@ -628,12 +628,65 @@ const PayRoll = () => {
                         filterEmployees.length > 0 ? filterEmployees.map((em, i) => {
                           if (em.isActive == true && em.payRoll.length > 0) {
                             return (
-
                               // {
-                              em.payRoll.map((Roll, j) => {
-                                return (
-                                  Roll.Month == thismonth ?
-                                    (
+                              currentPayRoll.map((Roll, j) => {
+                                if (Roll.employeeId == em._id) {
+                                  return (
+                                    <tr key={i}>
+                                      <td>
+                                        <span className="custom-checkbox">
+                                          <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                          <label htmlFor="checkbox1"></label>
+                                        </span>
+                                      </td>
+                                      <td>{i + 1}</td>
+                                      <td>{Roll.employeeName}</td>
+                                      <td>{em.role}</td>
+                                      <td>{Roll.salary}</td>
+                                      <td>{Roll.OvertimeValue}</td>
+                                      <td>{Roll.Bonus}</td>
+                                      <td>{Roll.TotalDue}</td>
+                                      <td>{Roll.Deduction}</td>
+                                      <td>{Roll.AbsenceDeduction}</td>
+                                      <td>{Roll.Predecessor}</td>
+                                      <td>{Roll.TotalDeductible}</td>
+                                      <td>{Roll.Insurance}</td>
+                                      <td>{Roll.Tax}</td>
+                                      <td>{Roll.NetSalary}</td>
+                                      <td>{usertitle(Roll.paidBy)}</td>
+                                      {Roll.isPaid === false ? (
+                                        <td>
+                                          <a
+                                            href="#paidModal"
+                                            type='button'
+                                            data-toggle="modal"
+                                            className="btn btn-success"
+                                            onClick={() => handelPaid(Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
+                                          >
+                                            دفع
+                                          </a>
+                                        </td>
+                                      ) : (
+                                        <td>تم الدفع</td>
+                                      )}
+                                    </tr>
+                                  )
+                                }
+                              }
+                              )
+                              // }
+
+                              // </tr >
+                            )
+                          }
+                        })
+                          :
+                          ListOfEmployee.length > 0 ? ListOfEmployee.map((em, i) => {
+                            if (em.isActive == true && currentPayRoll.length > 0) {
+                              return (
+                                currentPayRoll.map((Roll, j) => {
+                                  if (Roll.employeeId == em._id) {
+                                    return (
                                       <tr key={i}>
                                         <td>
                                           <span className="custom-checkbox">
@@ -673,66 +726,7 @@ const PayRoll = () => {
                                         )}
                                       </tr>
                                     )
-                                    : ''
-                                )
-                              }
-                              )
-                              // }
-
-                              // </tr >
-                            )
-                          }
-                        })
-                          :
-                          ListOfEmployee.length > 0 ? ListOfEmployee.map((em, i) => {
-                            if (em.isActive == true && currentPayRoll.length > 0) {
-                              return (
-                                currentPayRoll.map((Roll, j) => {
-                                  return (
-                                    Roll.Month == thismonth ?
-                                      (
-                                        <tr key={i}>
-                                          <td>
-                                            <span className="custom-checkbox">
-                                              <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                              <label htmlFor="checkbox1"></label>
-                                            </span>
-                                          </td>
-                                          <td>{i + 1}</td>
-                                          <td>{Roll.employeeName}</td>
-                                          <td>{em.role}</td>
-                                          <td>{Roll.salary}</td>
-                                          <td>{Roll.OvertimeValue}</td>
-                                          <td>{Roll.Bonus}</td>
-                                          <td>{Roll.TotalDue}</td>
-                                          <td>{Roll.Deduction}</td>
-                                          <td>{Roll.AbsenceDeduction}</td>
-                                          <td>{Roll.Predecessor}</td>
-                                          <td>{Roll.TotalDeductible}</td>
-                                          <td>{Roll.Insurance}</td>
-                                          <td>{Roll.Tax}</td>
-                                          <td>{Roll.NetSalary}</td>
-                                          <td>{usertitle(Roll.paidBy)}</td>
-                                          {Roll.isPaid === false ? (
-                                            <td>
-                                              <a
-                                                href="#paidModal"
-                                                type='button'
-                                                data-toggle="modal"
-                                                className="btn btn-success"
-                                                onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, Roll.employeeId, Roll.employeeName, Roll.Month)}
-                                                style={{ color: 'white' }} // White text for unpaid
-                                              >
-                                                دفع
-                                              </a>
-                                            </td>
-                                          ) : (
-                                            <td style={{ color: 'red' }}>تم الدفع</td> // Red text for paid
-                                          )}
-                                        </tr>
-                                      )
-                                      : ''
-                                  )
+                                  }
                                 }
                                 )
                               )
@@ -758,7 +752,7 @@ const PayRoll = () => {
               <div id="paidModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e)=>paidSalary(e, rollId)}>
+                    <form onSubmit={(e) => paidSalary(e, rollId)}>
                       <div className="modal-header">
                         <h4 className="modal-title">دفع راتب</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>

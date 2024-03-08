@@ -88,6 +88,7 @@ const EmployeesSalary = () => {
           'authorization': `Bearer ${token}`,
         },
       });
+      
       getSalaryMovement();
       toast.success('Movement updated successfully');
     } catch (error) {
