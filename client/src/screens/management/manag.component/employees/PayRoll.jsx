@@ -405,10 +405,10 @@ const PayRoll = () => {
 
   // Create daily expense based on selected cash register
   const createDailyExpense = async () => {
-    console.log({balance})
-    console.log({amount})
+    console.log({ balance })
+    console.log({ amount })
     const updatedBalance = balance - amount;
-    console.log({updatedBalance})
+    console.log({ updatedBalance })
 
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -665,7 +665,7 @@ const PayRoll = () => {
                                             type='button'
                                             data-toggle="modal"
                                             className="btn btn-success"
-                                            onClick={() => handelPaid(Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
+                                            onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
                                           >
                                             دفع
                                           </a>
@@ -720,7 +720,7 @@ const PayRoll = () => {
                                               type='button'
                                               data-toggle="modal"
                                               className="btn btn-success"
-                                              onClick={() => handelPaid(Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
+                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
                                             >
                                               دفع
                                             </a>
