@@ -6,7 +6,7 @@ const addSalaryMovement = async (req, res) => {
         const { EmployeeId, EmployeeName, movement, Amount, totalDays, oldAmount, newAmount, actionBy } = req.body;
         
         // Check if all required fields are provided
-        if (!EmployeeId || !EmployeeName || !movement || !Amount || !totalDays || !oldAmount || !newAmount || !actionBy) {
+        if (!EmployeeId || !EmployeeName || !movement || !Amount || !oldAmount || !newAmount || !actionBy) {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
