@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const StockManag = () => {
@@ -11,7 +11,13 @@ const StockManag = () => {
 
   const getallrecipes = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/recipe`);
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(`${apiUrl}/api/recipe`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log(response)
       const allRecipe = await response.data;
       setallrecipes(allRecipe)
@@ -26,7 +32,13 @@ const StockManag = () => {
   const [StockItems, setStockItems] = useState([]);
   const getaStockItems = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/stockitem/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/stockitem/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log(response.data)
       setStockItems(response.data.reverse())
 
@@ -60,7 +72,11 @@ const StockManag = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -349,7 +365,6 @@ const StockManag = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
