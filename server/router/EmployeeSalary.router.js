@@ -1,5 +1,6 @@
 const express = require("express");
-const {addSalaryMovement,
+const {
+    addSalaryMovement,
     getallSalaryMovement,
     getoneSalaryMovement,
     editSalaryMovement,

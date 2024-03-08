@@ -1,20 +1,25 @@
 const EmployeeSalaryModel = require('../models/EmployeeSalary.model');
 
 // Add a salary movement
-const addSalaryMovement = async (req, res, next) => {
+const addSalaryMovement = async (req, res) => {
     try {
         const { EmployeeId, EmployeeName, movement, Amount, totalDays, oldAmount, newAmount, actionBy } = req.body;
-        if (!EmployeeId || !EmployeeName || !movement || !Amount || !oldAmount || !newAmount || !actionBy) {
+        
+        // Check if all required fields are provided
+        if (!EmployeeId || !EmployeeName || !movement || !Amount || !totalDays || !oldAmount || !newAmount || !actionBy) {
             return res.status(400).json({ error: 'All fields are required' });
         }
+
+        // Create a new salary movement
         const addEmployeeSalary = await EmployeeSalaryModel.create({ EmployeeId, EmployeeName, movement, Amount, totalDays, oldAmount, newAmount, actionBy });
 
         res.status(200).json(addEmployeeSalary);
     } catch (error) {
-        res.status(400).json(error);
-        next(error);
+        // Handle errors
+        res.status(400).json({ error: 'Failed to add salary movement', details: error.message });
     }
 };
+
 
 // Get all salary movements
 const getallSalaryMovement = async (req, res) => {
@@ -45,7 +50,7 @@ const editSalaryMovement = async (req, res) => {
     try {
         const salarymovementId = req.params.salarymovementId;
         const { EmployeeId, EmployeeName, movement, Amount, totalDays, oldAmount, newAmount, actionBy } = req.body;
-        
+
         if (!EmployeeId || !EmployeeName || !movement || !Amount || !oldAmount || !newAmount || !actionBy) {
             return res.status(400).json({ error: 'All fields are required' });
         }

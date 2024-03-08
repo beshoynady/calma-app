@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi');
 
@@ -66,39 +66,40 @@ const EmployeesSalary = () => {
   // Function to add new salary movement
   const addSalaryMovement = async (e) => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+        e.preventDefault();
+        const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      e.preventDefault();
-      const data = {
-        EmployeeId,
-        EmployeeName,
-        movement,
-        Amount,
-        totalDays,
-        oldAmount,
-        newAmount,
-        actionBy,
-      };
-  
-      const response = await axios.post(apiUrl + '/api/salarymovement', data, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
-      console.log({response})
-      if (response) {
-        // Display Arabic toast message
-        toast.success('تمت إضافة الحركة بنجاح');
-        getSalaryMovement();
-      } else {
-        toast.error('فشل اضافه الحركه !حاول مره اخري');
-      }
+        const data = {
+            EmployeeId,
+            EmployeeName,
+            movement,
+            Amount,
+            totalDays,
+            oldAmount,
+            newAmount,
+            actionBy,
+        };
+
+        const response = await axios.post(apiUrl + '/api/salarymovement', data, {
+            headers: {
+                'authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (response.status === 200) {
+            // Display Arabic toast message
+            toast.success('تمت إضافة الحركة بنجاح');
+            getSalaryMovement();
+        } else {
+            toast.error('فشل اضافه الحركه !حاول مره اخري');
+        }
     } catch (error) {
-      console.error('Error adding salary movement:', error.message);
-      // Display Arabic toast message
-      toast.error('حدث خطأ أثناء إضافة الحركة');
+        console.error('Error adding salary movement:', error.message);
+        // Display Arabic toast message
+        toast.error('حدث خطأ أثناء إضافة الحركة');
     }
-  };
+};
+
   
   // Function to update salary movement
   const updateSalaryMovement = async (e) => {
