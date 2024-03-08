@@ -460,32 +460,31 @@ const PayRoll = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      // Create daily expense
-      await createDailyExpense();
-
       // Prepare payload for updating payroll status
       const payload = {
         isPaid: true,
         paidBy: paidBy,
       };
-      console.log({payload, id})
       // Update payroll status via API call
       const updatePayRoll = await axios.put(`${apiUrl}/api/payroll/${id}`, payload, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-
+      if(updatePayRoll){
+              // Create daily expense
+      await createDailyExpense();
       // Log the update result
       console.log(updatePayRoll);
       getEmployees()
+      getPayRoll()
       // Display a success toast notification upon successful payment
-      toast.success('Salary payment processed successfully');
+      toast.success('تم تسجيل دفع المرتب بنجاح');
+      }
     } catch (error) {
       // Handle errors by displaying a toast notification
       console.error(error);
-      toast.error('Failed to process salary payment');
+      toast.error('فشل تسجيل المرتب ! حاول مره اخري');
     }
   };
 
