@@ -14,6 +14,8 @@ const EmployeesSalary = () => {
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl + '/api/employee', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -66,6 +68,8 @@ const EmployeesSalary = () => {
   // Function to add new salary movement
   const addSalaryMovement = async (e) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       e.preventDefault();
       const data = {
         EmployeeId,
@@ -101,6 +105,8 @@ const EmployeesSalary = () => {
   // Function to update salary movement
   const updateSalaryMovement = async (e) => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       e.preventDefault();
       const data = {
         EmployeeId,
@@ -139,7 +145,8 @@ const EmployeesSalary = () => {
   const deleteSalaryMovement = async (e) => {
     try {
       e.preventDefault();
-  
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -163,6 +170,8 @@ const EmployeesSalary = () => {
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
+    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
     const movement = await axios.get(apiUrl + '/api/salarymovement', {
       headers: {
         'authorization': `Bearer ${token}`,
