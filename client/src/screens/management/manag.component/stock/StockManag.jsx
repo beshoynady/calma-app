@@ -72,6 +72,8 @@ const StockManag = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl + '/api/cashregister', {
         headers: {
           'authorization': `Bearer ${token}`,
