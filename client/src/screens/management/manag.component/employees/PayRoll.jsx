@@ -368,7 +368,7 @@ const PayRoll = () => {
       // Set values and variables
       setamount(salary);
       setpaidBy(manager);
-      setrollId(rollId);
+      setrollId(rollid);
       setemployeeId(employee);
       setmonth(paidMonth);
       setemployeeName(name);
