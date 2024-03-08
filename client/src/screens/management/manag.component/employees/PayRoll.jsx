@@ -199,7 +199,8 @@ const PayRoll = () => {
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
         
         const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
-        const isSalaryPaid = isSalary? isSalary.find((roll) => roll.isPaid == true) : false
+        const isSalaryPaid = currentPayRoll? currentPayRoll.find((roll) =>roll.employeeId == employeeId && roll.isPaid == true) : false
+        
         console.log({isSalary, isSalaryPaid})
         
         if (isSalary && !isSalaryPaid) {
@@ -330,6 +331,205 @@ const PayRoll = () => {
     }
   }
 
+
+  // const addPayRoll = async () => {
+  //   const token = localStorage.getItem('token_e');
+  //   const currentDate = new Date();
+  //   const Year = currentDate.getFullYear();
+  //   const Month = currentDate.getMonth() + 1;
+  
+  //   for (let i = 0; i < ListOfEmployee.length; i++) {
+  //     const employeeId = ListOfEmployee[i]._id;
+  //     const employeeName = ListOfEmployee[i].fullname;
+  //     const salary = ListOfEmployee[i].basicSalary;
+  //     let Bonus = 0;
+  //     let OvertimeDays = 0;
+  //     let OvertimeValue = 0;
+  //     let AbsenceDays = 0;
+  //     let AbsenceDeduction = 0;
+  //     let Deduction = 0;
+  //     let Predecessor = 0;
+  //     let Insurance = 0;
+  //     let Tax = 0;
+  //     let TotalDeductible = 0;
+  //     let NetSalary = 0;
+  //     let isPaid = false;
+  //     let paidBy = null;
+  
+  //     const employeemov = ListOfSalaryMovement.filter((m) => m.EmployeeId == employeeId);
+  //     console.log({ employeemov: employeemov });
+  
+  //     if (employeemov.length > 0) {
+  //       const filterPre = employeemov.filter((m) => m.movement == 'سلف');
+  //       Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
+  
+  //       const filterDed = employeemov.filter((m) => m.movement == 'خصم');
+  //       Deduction = filterDed.length > 0 ? filterDed[filterDed.length - 1].newAmount : 0;
+  
+  //       const filterAbs = employeemov.filter((m) => m.movement == 'غياب');
+  //       AbsenceDeduction = filterAbs.length > 0 ? filterAbs[filterAbs.length - 1].newAmount : 0;
+  //       AbsenceDays = filterAbs.length > 0 ? filterAbs[filterAbs.length - 1].totalDays : 0;
+  
+  //       const filterAdd = employeemov.filter((m) => m.movement == 'اضافي');
+  //       OvertimeDays = filterAdd.length > 0 ? filterAdd[filterAdd.length - 1].totalDays : 0;
+  //       OvertimeValue = filterAdd.length > 0 ? filterAdd[filterAdd.length - 1].newAmount : 0;
+  
+  //       const filterBon = employeemov.filter((m) => m.movement == 'مكافأة');
+  //       Bonus = filterBon.length > 0 ? filterBon[filterBon.length - 1].newAmount : 0;
+  
+  //       const TotalDue = salary + Bonus + OvertimeValue;
+  //       TotalDeductible = AbsenceDeduction + Deduction + Predecessor;
+  //       // Insurance = TotalDue * .10
+  //       // Tax = TotalDue * 0.15
+  //       NetSalary = TotalDue - TotalDeductible - Insurance - Tax;
+  
+  //       const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId);
+  //       const isSalaryPaid = isSalary ? isSalary.isPaid : false;
+  //       console.log({ isSalary, isSalaryPaid });
+  
+  //       if (isSalary && !isSalaryPaid) {
+  //         const result = await axios.put(
+  //           `${apiUrl}/api/payroll/employee/${employeeId}`,
+  //           {
+  //             employeeName,
+  //             Year,
+  //             Month,
+  //             salary,
+  //             bonus: Bonus,
+  //             totalDue: TotalDue,
+  //             absenceDays: AbsenceDays,
+  //             absenceDeduction: AbsenceDeduction,
+  //             overtimeDays: OvertimeDays,
+  //             overtimeValue: OvertimeValue,
+  //             deduction: Deduction,
+  //             predecessor: Predecessor,
+  //             insurance: Insurance,
+  //             tax: Tax,
+  //             totalDeductible: TotalDeductible,
+  //             netSalary: NetSalary,
+  //           },
+  //           {
+  //             headers: {
+  //               authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log({ result });
+  //         if (result) {
+  //           getEmployees();
+  //         }
+  //       } else if (!isSalary && !isSalaryPaid) {
+  //         const result = await axios.post(
+  //           `${apiUrl}/api/payroll`,
+  //           {
+  //             employeeId,
+  //             employeeName,
+  //             Year,
+  //             Month,
+  //             salary,
+  //             bonus: Bonus,
+  //             totalDue: TotalDue,
+  //             absenceDays: AbsenceDays,
+  //             absenceDeduction: AbsenceDeduction,
+  //             overtimeDays: OvertimeDays,
+  //             overtimeValue: OvertimeValue,
+  //             deduction: Deduction,
+  //             predecessor: Predecessor,
+  //             insurance: Insurance,
+  //             tax: Tax,
+  //             totalDeductible: TotalDeductible,
+  //             netSalary: NetSalary,
+  //           },
+  //           {
+  //             headers: {
+  //               authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log({ result });
+  //         if (result) {
+  //           getEmployees();
+  //         }
+  //       }
+  //     } else {
+  //       const TotalDue = salary + Bonus + OvertimeValue;
+  //       TotalDeductible = AbsenceDeduction + Deduction + Predecessor;
+  //       // Insurance = TotalDue * .10
+  //       // Tax = TotalDue * 0.15
+  //       NetSalary = TotalDue - TotalDeductible - Insurance - Tax;
+  
+  //       const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId);
+  //       const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true);
+  
+  //       if (isSalary && !isSalaryPaid) {
+  //         const result = await axios.put(
+  //           `${apiUrl}/api/payroll/employee/${employeeId}`,
+  //           {
+  //             employeeName,
+  //             Year,
+  //             Month,
+  //             salary,
+  //             bonus: Bonus,
+  //             totalDue: TotalDue,
+  //             absenceDays: AbsenceDays,
+  //             absenceDeduction: AbsenceDeduction,
+  //             overtimeDays: OvertimeDays,
+  //             overtimeValue: OvertimeValue,
+  //             deduction: Deduction,
+  //             predecessor: Predecessor,
+  //             insurance: Insurance,
+  //             tax: Tax,
+  //             totalDeductible: TotalDeductible,
+  //             netSalary: NetSalary,
+  //           },
+  //           {
+  //             headers: {
+  //               authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log(result);
+  //         if (result) {
+  //           getEmployees();
+  //         }
+  //       } else if (!isSalary && !isSalaryPaid) {
+  //         const result = await axios.post(
+  //           `${apiUrl}/api/payroll`,
+  //           {
+  //             employeeId,
+  //             employeeName,
+  //             Year,
+  //             Month,
+  //             salary,
+  //             bonus: Bonus,
+  //             totalDue: TotalDue,
+  //             absenceDays: AbsenceDays,
+  //             absenceDeduction: AbsenceDeduction,
+  //             overtimeDays: OvertimeDays,
+  //             overtimeValue: OvertimeValue,
+  //             deduction: Deduction,
+  //             predecessor: Predecessor,
+  //             insurance: Insurance,
+  //             tax: Tax,
+  //             totalDeductible: TotalDeductible,
+  //             netSalary: NetSalary,
+  //           },
+  //           {
+  //             headers: {
+  //               authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log(result);
+  //         if (result) {
+  //           getEmployees();
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  
+  
   const handelPaid = async (salary, manager, employee, name, paidMonth) => {
     try {
       console.log(manager)
