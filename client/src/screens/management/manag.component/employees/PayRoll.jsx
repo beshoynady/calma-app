@@ -155,6 +155,7 @@ const PayRoll = () => {
         const filterPre = employeemov.filter((m) => m.movement == 'سلف')
         if (filterPre.length > 0) {
           Predecessor = filterPre[filterPre.length - 1].newAmount
+          console.log({Predecessor})
         } else {
           Predecessor = 0
         }
@@ -163,6 +164,7 @@ const PayRoll = () => {
         console.log(filterDed)
         if (filterDed.length > 0) {
           Deduction = filterDed[filterDed.length - 1].newAmount
+          console.log({Deduction})
         } else {
           Deduction = 0
         }
