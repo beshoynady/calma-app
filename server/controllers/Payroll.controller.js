@@ -54,22 +54,25 @@ const updatePayroll = async (req, res) => {
 
 
 const updatePayrollByEmployee = async (req, res) => {
-  const { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
+  const { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary} = req.body;
 
   const employeeId = req.params.employeeId;
   try {
-    const payroll = await PayrollModel.findOneAndUpdate({employeeId:employeeId}, { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary, isPaid, paidBy }, {
-      new: true,
-      runValidators: true,
-    });
+    const payroll = await PayrollModel.findOneAndUpdate(
+      { employeeId: employeeId },
+      { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary },
+      { new: true }
+    );
     if (!payroll) {
       return res.status(404).json({ success: false, error: 'Payroll not found' });
     }
-    res.status(200).json({ success: true, data: payroll });
+    // Check if the update operation was successful
+    res.status(200).json( payroll);
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });
   }
 };
+
 
 const deletePayroll = async (req, res) => {
   try {
