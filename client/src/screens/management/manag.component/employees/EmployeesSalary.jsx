@@ -83,7 +83,7 @@ const EmployeesSalary = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-  
+      console.log({response})
       if (response) {
         // Display Arabic toast message
         toast.success('تمت إضافة الحركة بنجاح');
@@ -119,6 +119,7 @@ const EmployeesSalary = () => {
         },
       });
   
+      console.log({response})
       if (response) {
         // Display Arabic toast message
         toast.success('تم تحديث الحركة بنجاح');
