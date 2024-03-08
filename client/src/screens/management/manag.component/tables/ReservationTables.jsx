@@ -36,7 +36,7 @@ const ReservationTables = () => {
 
   // const [tableFiltered, settableFiltered] = useState([])
   // const searchByNum = (num) => {
-  //   const tables = allReservations.filter((table) => reservation.tablenum.toString().startsWith(num) == true)
+  //   const tables = allReservations.filter((table) => reservation.tableNumber.toString().startsWith(num) == true)
   //   settableFiltered(tables)
   // }
   // const filterByStatus = (Status) => {
@@ -183,17 +183,17 @@ const ReservationTables = () => {
                         //           </span>
                         //         </td>
                         //         <td>{i + 1}</td>
-                        //         <td>{reservation.tablenum}</td>
+                        //         <td>{reservation.tableNumber}</td>
                         //         <td>{reservation.description}</td>
                         //         <td>{reservation.chairs}</td>
                         //         <td>{reservation.sectionNumber}</td>
                         //         <td>{reservation.isValid ? 'متاح' : 'غير متاح'}</td>
                         //         {/* <td>{reservation.reservation ? "Reserved" : "Unreserved"}</td> */}
-                        //         <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setqrimage('') }}>
+                        //         <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settableNumber(reservation.tableNumber); setqrimage('') }}>
                         //           <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                         //         </a></td>
                         //         <td>
-                        //           <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settablenum(reservation.tablenum); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        //           <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settableNumber(reservation.tableNumber); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                         //           <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         //         </td>
@@ -207,7 +207,7 @@ const ReservationTables = () => {
                             return (
                               <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>{reservation.tableNum}</td>
+                                <td>{reservation.tableNumber}</td>
                                 <td>{reservation.customerName}</td>
                                 <td>{reservation.customerPhone}</td>
                                 <td>{reservation.numberOfGuests}</td>
@@ -224,7 +224,7 @@ const ReservationTables = () => {
                                   </select>
                                 </td>
                                 <td>
-                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.reservationDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tablenum: reservation.tableNum }) }}
+                                  <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.reservationDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tableNumber: reservation.tableNumber }) }}
                                   ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 </td>
                               </tr>
@@ -251,7 +251,7 @@ const ReservationTables = () => {
               <div id="createreservationModal" className="modal fade">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
+                    <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -349,11 +349,11 @@ const ReservationTables = () => {
                           <div className="row mb-1">
                             <div className="col-md-7">
                               <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
                                 <option>الطاولات المتاحة في هذا الوقت</option>
                                 {allTable.map((table, i) => (
                                   availableTableIds.includes(table._id) && (
-                                    <option key={i} value={table._id}>{table.tablenum}</option>
+                                    <option key={i} value={table._id}>{table.tableNumber}</option>
                                   )
                                 ))}
                               </select>
@@ -383,7 +383,7 @@ const ReservationTables = () => {
               <div id="updatereservationModal" className="modal fade">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
-                    <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
+                    <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -483,12 +483,12 @@ const ReservationTables = () => {
                           <div className="row mb-1">
                             <div className="col-md-7">
                               <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" defaultValue={tableInfo.tablenum} onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
-                                <option>{tableInfo.tablenum}</option>
+                              <select className="form-control" id="tableNumber" defaultValue={tableInfo.tableNumber} onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
+                                <option>{tableInfo.tableNumber}</option>
                                 <option>الطاولات المتاحة في هذا الوقت</option>
                                 {allTable.map((table, i) => (
                                   availableTableIds.includes(table._id) && (
-                                    <option key={i} value={table._id}>{table.tablenum}</option>
+                                    <option key={i} value={table._id}>{table.tableNumber}</option>
                                   )
                                 ))}
 

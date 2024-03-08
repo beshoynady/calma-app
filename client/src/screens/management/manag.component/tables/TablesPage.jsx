@@ -69,7 +69,7 @@ const TablesPage = () => {
               <span style={{ fontSize: '60px', color: activeTable.find(active => active.table == table._id) ? 'green' : 'red' }} class="material-symbols-outlined">
                 table_restaurant
               </span>
-              <p style={{ fontSize: '30px', color: 'black' }}>{table.tablenum}</p>
+              <p style={{ fontSize: '30px', color: 'black' }}>{table.tableNumber}</p>
             </div>
           </div>
         ))}

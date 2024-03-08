@@ -11,7 +11,7 @@ const ReservationSchema = new Schema(
             ref: 'Table',
             required: true,
         },
-        tableNum: {
+        tableNumber: {
             type: String,
             required: [true, 'number of tables required'],
         },

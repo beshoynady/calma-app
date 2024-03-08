@@ -29,7 +29,7 @@ const Reservation = () => {
               paddingBottom: '50px',
             }}>
               <form className="w-100 text-white" style={{ fontSize: '20px', fontWeight: '800' }}
-                onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tablenum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
+                onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote)}>
                 <div className="row">
                   <div className="col-md-8 mb-1">
                     <label htmlFor="name" className="form-label">الاسم</label>
@@ -116,11 +116,11 @@ const Reservation = () => {
                 <div className="row mb-1">
                   <div className="col-md-7">
                     <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                    <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tablenum: e.target.options[e.target.selectedIndex].text })}>
+                    <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
                       <option>الطاولات المتاحة في هذا الوقت</option>
                       {allTable.map((table, i) => (
                         availableTableIds.includes(table._id) && (
-                          <option key={i} value={table._id}>{table.tablenum}</option>
+                          <option key={i} value={table._id}>{table.tableNumber}</option>
                         )
                       ))}
                     </select>

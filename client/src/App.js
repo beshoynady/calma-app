@@ -1111,10 +1111,10 @@ function App() {
 
 
 
-  const askingForHelp = async (tablenum) => {
+  const askingForHelp = async (tableNumber) => {
     try {
       // Filter orders for the specified table
-      const tableOrders = allOrders.filter((o, i) => o.table == tablenum);
+      const tableOrders = allOrders.filter((o, i) => o.table == tableNumber);
 
       // Get the last order for the table
       const lastTableOrder = tableOrders.length > 0 ? tableOrders[tableOrders.length - 1] : null;
@@ -1134,7 +1134,7 @@ function App() {
         const help = 'Requests assistance';
 
         // Define the table for the new order
-        const table = tablenum;
+        const table = tableNumber;
 
         // Create a new order with the help request
         const newOrder = await axios.post(apiUrl + '/api/order/', { serial, table, help });
@@ -1163,7 +1163,7 @@ function App() {
 
     // Check if id corresponds to a table
     const table = allTable ? allTable.find((table) => table._id === id) : null;
-    if (table) return table.tablenum;
+    if (table) return table.tableNumber;
 
     // Check if id corresponds to a user
     const user = allUsers ? allUsers.find((user) => user._id === id) : null;
@@ -1523,12 +1523,12 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 };
 
 
-  const createReservations = async (e, tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy) => {
+  const createReservations = async (e, tableId, tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy) => {
     try {
       e.preventDefault();
 
       // Logging input data for debugging purposes
-      console.log({ tableId, tableNum, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
+      console.log({ tableId, tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy });
 
 
       // Convert reservationDate to Date object
@@ -1576,7 +1576,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
       // Send request to the server
       const response = await axios.post(`${apiUrl}/api/reservation`, {
         tableId,
-        tableNum,
+        tableNumber,
         numberOfGuests,
         customerName,
         customerPhone,
@@ -1623,7 +1623,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
   }
 
 
-  const updateReservation = async (e, id, tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status) => {
+  const updateReservation = async (e, id, tableId, tableNumber, numberOfGuests, reservationDate, startTime, endTime, status) => {
     e.preventDefault();
 
     try {
@@ -1642,7 +1642,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
       if (filterReservationsByTime.length == 1 && filterReservationsByTime[0]._id == id) {
         const response = await axios.put(`${apiUrl}/api/reservation/${id}`, {
-          tableId, tableNum, numberOfGuests, reservationDate, startTime, endTime, status
+          tableId, tableNumber, numberOfGuests, reservationDate, startTime, endTime, status
         })
         if (response.status == 200) {
           getAllReservations()
