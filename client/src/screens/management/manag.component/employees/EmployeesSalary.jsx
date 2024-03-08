@@ -26,6 +26,7 @@ const EmployeesSalary = () => {
     }
   }
 
+
   const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
   const [salarymovementId, setsalarymovementId] = useState("")
   const [EmployeeId, setEmployeeId] = useState("")
@@ -64,10 +65,10 @@ const EmployeesSalary = () => {
   // };
 
   // Function to add new salary movement
-  const addSalaryMovement = async (e) => {
+const addSalaryMovement = async (e) => {
     try {
         e.preventDefault();
-        const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+        const token = localStorage.getItem('token_e'); // استرجاع الرمز من التخزين المحلي
 
         const data = {
             EmployeeId,
@@ -79,26 +80,29 @@ const EmployeesSalary = () => {
             newAmount,
             actionBy,
         };
+        console.log({data})
 
         const response = await axios.post(apiUrl + '/api/salarymovement', data, {
             headers: {
                 'authorization': `Bearer ${token}`,
             },
         });
-
-        if (response.status === 200) {
-            // Display Arabic toast message
+        console.log({response})
+        if (response) {
+            // عرض رسالة توست باللغة العربية
             toast.success('تمت إضافة الحركة بنجاح');
             getSalaryMovement();
         } else {
+            // عرض رسالة توست باللغة العربية
             toast.error('فشل اضافه الحركه !حاول مره اخري');
         }
     } catch (error) {
-        console.error('Error adding salary movement:', error.message);
-        // Display Arabic toast message
+        console.error('حدث خطأ أثناء إضافة الحركة:', error.message);
+        // عرض رسالة توست باللغة العربية
         toast.error('حدث خطأ أثناء إضافة الحركة');
     }
 };
+
 
   
   // Function to update salary movement
