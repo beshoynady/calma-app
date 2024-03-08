@@ -205,7 +205,6 @@ const EmployeesSalary = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
@@ -403,7 +402,7 @@ const EmployeesSalary = () => {
                         </div>
                         <div className="form-group">
                           <label>الايام</label>
-                          <input type="number" min={0} className="form-control" required  onChange={(e) => {settotalDays(number(e.target.value)) }} />
+                          <input type="number" min={0} className="form-control" required  onChange={(e) => {settotalDays(Number(e.target.value)) }} />
                         </div>
                         <div className="form-group">
                           <label>المبلغ</label>
