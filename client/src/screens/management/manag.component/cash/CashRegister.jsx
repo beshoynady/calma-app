@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const CashRegister = () => {
 
@@ -18,7 +17,11 @@ const CashRegister = () => {
   // Fetch employees
   const getEmployees = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/employee`);
+      const response = await axios.get(`${apiUrl}/api/employee`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       const data = response.data;
       setallEmployee(data);
     } catch (error) {
@@ -43,7 +46,11 @@ const CashRegister = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       setCashRegisters(response.data.reverse());
     } catch (err) {
       console.error('Error fetching cash registers:', err);
@@ -54,7 +61,11 @@ const CashRegister = () => {
   // Fetch a cash register by ID
   const getCashRegisterById = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`);
+      const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       // Handle response (e.g., display details, update state)
     } catch (err) {
       toast.error('Cash register not found');
@@ -66,7 +77,11 @@ const CashRegister = () => {
     e.preventDefault()
     const newCashRegister = { name, balance, employee };
     try {
-      const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister);
+      const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       console.log(response);
       toast.success('Cash register created successfully');
       getAllCashRegisters()
@@ -81,7 +96,11 @@ const CashRegister = () => {
     e.preventDefault()
     const updatedCashRegister = { name, balance, employee };
     try {
-      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister);
+      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister , {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       toast.success('Cash register updated successfully');
       getAllCashRegisters()
     } catch (err) {
@@ -93,7 +112,11 @@ const CashRegister = () => {
   const deleteCashRegister = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`);
+      const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`, {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
       toast.success('Cash register deleted successfully');
     } catch (err) {
       toast.error('Failed to delete cash register');

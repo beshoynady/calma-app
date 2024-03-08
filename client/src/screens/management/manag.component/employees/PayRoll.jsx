@@ -405,7 +405,11 @@ const PayRoll = () => {
 
   // Create daily expense based on selected cash register
   const createDailyExpense = async () => {
+    console.log({balance})
+    console.log({amount})
     const updatedBalance = balance - amount;
+    console.log({updatedBalance})
+
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
