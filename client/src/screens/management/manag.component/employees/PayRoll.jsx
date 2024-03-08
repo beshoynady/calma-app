@@ -364,7 +364,7 @@ const PayRoll = () => {
       setcashRegister(cashRegister[0]._id);
       console.log(cashRegister[0]._id)
       setcashRegistername(cashRegister.name);
-      setbalance(cashRegister.balance);
+      setbalance(cashRegister[0].balance);
       // Set values and variables
       setamount(salary);
       setpaidBy(manager);
