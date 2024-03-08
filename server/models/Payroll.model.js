@@ -2,19 +2,23 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
 const payrollSchema = new mongoose.Schema({
-    Year: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    Month: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-  employee: {
+  Year: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  Month: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  employeeId: {
     type: ObjectId,
     ref: 'Employee',
+    required: true,
+  },
+  employeeName: {
+    type: String,
     required: true,
   },
   salary: {
@@ -23,6 +27,16 @@ const payrollSchema = new mongoose.Schema({
     default: 0,
   },
   Bonus: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  OvertimeDays: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  OvertimeValue: {
     type: Number,
     min: 0,
     default: 0,
@@ -38,16 +52,6 @@ const payrollSchema = new mongoose.Schema({
     default: 0,
   },
   AbsenceDeduction: {
-    type: Number,
-    min: 0,
-    default: 0,
-  },
-  OvertimeDays: {
-    type: Number,
-    min: 0,
-    default: 0,
-  },
-  OvertimeValue: {
     type: Number,
     min: 0,
     default: 0,
@@ -91,9 +95,9 @@ const payrollSchema = new mongoose.Schema({
     ref: 'Employee',
   },
 },
-{
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  });
 
 const PayrollModel = mongoose.model('Payroll', payrollSchema);
 

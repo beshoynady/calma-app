@@ -11,4 +11,6 @@ router.route('/:id')
     .put(authenticateToken, payrollController.updatePayroll)
     .delete(authenticateToken, payrollController.deletePayroll);
 
+router.route('/employee/:employeeId').put(authenticateToken, payrollController.updatePayrollByEmployee)
+
 module.exports = router;

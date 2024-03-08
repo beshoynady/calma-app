@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const PayRoll = () => {
@@ -51,9 +51,37 @@ const PayRoll = () => {
       console.log(error);
     }
   };
+  const [allPayRoll, setallPayRoll] = useState([])
+  const [currentPayRoll, setcurrentPayRoll] = useState([])
+  const getPayRoll = async () => {
+    try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/payroll', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
+      setallPayRoll(response.data);
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1;
+      const filteredSalaries = response.data.filter((salary) => {
+        return salary.Year === currentYear && salary.Month === currentMonth;
+      });
+      setcurrentPayRoll(filteredSalaries)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
 
   // Fetch salary movement data from the API
-  const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([])
+  const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([]);
+
   const getSalaryMovement = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -63,8 +91,14 @@ const PayRoll = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-      const currentDate = new Date().getMonth();
-      const filterByMonth = response.data.filter((m) => new Date(m.createdAt).getMonth() === currentDate);
+
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+      const filterByMonth = response.data.filter((m) => {
+        const createdAt = new Date(m.createdAt);
+        return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
+      });
+
       setListOfSalaryMovement(filterByMonth);
     } catch (error) {
       console.log(error);
@@ -72,24 +106,29 @@ const PayRoll = () => {
   };
 
 
+
   const addPayRoll = async () => {
     for (let i = 0; i < ListOfEmployee.length; i++) {
+      let Year = new Date().getFullYear()
+      let Month = new Date().getMonth() + 1
+      let employeeId = ListOfEmployee[i]._id;
+      let employeeName = ListOfEmployee[i].fullname;
+      let salary = ListOfEmployee[i].basicSalary;
+      let Bonus = 0;
+      let OvertimeDays = 0;
+      let OvertimeValue = 0;
+      let TotalDue = 0;
+      let AbsenceDays = 0;
+      let AbsenceDeduction = 0;
+      let Deduction = 0;
+      let Predecessor = 0;
+      let Insurance = 0;
+      let Tax = 0;
+      let TotalDeductible = 0;
+      let NetSalary = 0;
+      let isPaid = false;
+      let paidBy = null;
 
-      let Predecessor = 0
-      let Deduction = 0
-      let Absence = 0
-      let Additional = 0
-      let Bonus = 0
-      let TotalDue = 0
-      let TotalDeductible = 0
-      let Insurance = 0
-      let Tax = 0
-      let NetSalary = 0
-      let isPaid = false
-      let salary = ListOfEmployee[i].basicSalary
-      let month = new Date().getMonth() + 1
-      let id = ListOfEmployee[i]._id
-      setemployeeId(id)
       const employeemov = ListOfSalaryMovement.length > 0 ? ListOfSalaryMovement.filter((m) => m.EmployeeId == id) : '';
       console.log({ employeemov: employeemov })
 
@@ -112,18 +151,20 @@ const PayRoll = () => {
 
         const filterAbs = employeemov.filter((m) => m.movement == 'غياب')
         if (filterAbs.length > 0) {
-          Absence = filterAbs[filterAbs.length - 1].newAmount
-          Absence = Absence
+          AbsenceDeduction = filterAbs[filterAbs.length - 1].newAmount
+          AbsenceDays = filterAbs[filterAbs.length - 1].totalDays
         } else {
-          Absence = 0
-          Absence = Absence
+          AbsenceDeduction = 0
+          AbsenceDays = 0
         }
 
         const filterAdd = employeemov.filter((m) => m.movement == 'اضافي')
         if (filterAdd.length > 0) {
-          Additional = filterAdd[filterAdd.length - 1].newAmount
+          OvertimeDays = filterAdd[filterAdd.length - 1].totalDays
+          OvertimeValue = filterAdd[filterAdd.length - 1].newAmount
         } else {
-          Additional = 0
+          OvertimeDays =0
+          OvertimeValue = 0
         }
 
         const filterBon = employeemov.filter((m) => m.movement == 'مكافأة')
@@ -133,55 +174,113 @@ const PayRoll = () => {
           Bonus = 0
 
         }
-        TotalDue = salary + Bonus + Additional
-        TotalDeductible = Absence + Deduction + Predecessor
-        Insurance = TotalDue * .10
-        Tax = TotalDue * 0.15
+        TotalDue = salary + Bonus + OvertimeValue
+        TotalDeductible = AbsenceDeduction + Deduction + Predecessor
+        // Insurance = TotalDue * .10
+        // Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`${apiUrl}/api/payroll/${id}`, {
-          month,
-          salary,
-          additional: Additional,
-          bonus: Bonus,
-          totalDue: TotalDue,
-          absence: Absence,
-          deduction: Deduction,
-          predecessor: Predecessor,
-          insurance: Insurance,
-          tax: Tax,
-          totalDeductible: TotalDeductible,
-          netSalary: NetSalary,
-          isPaid,
-        })
-        console.log(result)
+        const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
+        const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true )
+
+        if (isSalary && !isSalaryPaid) {
+          const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+            employeeName,
+            Year,
+            Month,
+            salary,
+            bonus: Bonus,
+            totalDue: TotalDue,
+            absenceDays: AbsenceDays,
+            absenceDeduction: AbsenceDeduction,
+            overtimeDays: OvertimeDays,
+            overtimeValue: OvertimeValue,
+            deduction: Deduction,
+            predecessor: Predecessor,
+            insurance: Insurance,
+            tax: Tax,
+            totalDeductible: TotalDeductible,
+            netSalary: NetSalary,
+          })
+          console.log(result)
+        } else if(!isSalary && !isSalaryPaid){
+          const result = await axios.post(`${apiUrl}/api/payroll`, {
+            employeeId,
+            employeeName,
+            Year,
+            Month,
+            salary,
+            bonus: Bonus,
+            totalDue: TotalDue,
+            absenceDays: AbsenceDays,
+            absenceDeduction: AbsenceDeduction,
+            overtimeDays: OvertimeDays,
+            overtimeValue: OvertimeValue,
+            deduction: Deduction,
+            predecessor: Predecessor,
+            insurance: Insurance,
+            tax: Tax,
+            totalDeductible: TotalDeductible,
+            netSalary: NetSalary,
+          })
+          console.log(result)
+        }
         if (result) {
           getEmployees()
         }
       } else {
-        TotalDue = salary + Bonus + Additional
-        TotalDeductible = Absence + Deduction + Predecessor
-        Insurance = TotalDue * .10
-        Tax = TotalDue * 0.15
+        TotalDue = salary + Bonus + OvertimeValue
+        TotalDeductible = AbsenceDeduction + Deduction + Predecessor
+        // Insurance = TotalDue * .10
+        // Tax = TotalDue * 0.15
 
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const result = await axios.put(`${apiUrl}/api/employee/payroll/${id}`, {
-          month,
-          salary,
-          additional: Additional,
-          bonus: Bonus,
-          totalDue: TotalDue,
-          absence: Absence,
-          deduction: Deduction,
-          predecessor: Predecessor,
-          insurance: Insurance,
-          tax: Tax,
-          totalDeductible: TotalDeductible,
-          netSalary: NetSalary,
-          isPaid,
-        })
-        console.log(result)
+        const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
+        const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true )
+
+        if (isSalary && !isSalaryPaid) {
+          const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+            employeeName,
+            Year,
+            Month,
+            salary,
+            bonus: Bonus,
+            totalDue: TotalDue,
+            absenceDays: AbsenceDays,
+            absenceDeduction: AbsenceDeduction,
+            overtimeDays: OvertimeDays,
+            overtimeValue: OvertimeValue,
+            deduction: Deduction,
+            predecessor: Predecessor,
+            insurance: Insurance,
+            tax: Tax,
+            totalDeductible: TotalDeductible,
+            netSalary: NetSalary,
+          })
+          console.log(result)
+        } else if(!isSalary && !isSalaryPaid){
+          const result = await axios.post(`${apiUrl}/api/payroll`, {
+            employeeId,
+            employeeName,
+            Year,
+            Month,
+            salary,
+            bonus: Bonus,
+            totalDue: TotalDue,
+            absenceDays: AbsenceDays,
+            absenceDeduction: AbsenceDeduction,
+            overtimeDays: OvertimeDays,
+            overtimeValue: OvertimeValue,
+            deduction: Deduction,
+            predecessor: Predecessor,
+            insurance: Insurance,
+            tax: Tax,
+            totalDeductible: TotalDeductible,
+            netSalary: NetSalary,
+          })
+          console.log(result)
+        }
         if (result) {
           getEmployees()
         }
@@ -302,7 +401,7 @@ const PayRoll = () => {
   };
 
   // Function to process and pay employee salary
-  const paidSalary = async (e) => {
+  const paidSalary = async (e, id) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -318,7 +417,7 @@ const PayRoll = () => {
       };
 
       // Update payroll status via API call
-      const updatePayRoll = await axios.put(`${apiUrl}/api/employee/paid/${employeeId}`, payload , {
+      const updatePayRoll = await axios.put(`${apiUrl}/api/payroll/${id}`, payload, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
@@ -365,6 +464,7 @@ const PayRoll = () => {
   // Fetch data on component mount
   useEffect(() => {
     getEmployees();
+    getPayRoll()
     getSalaryMovement();
     // getAllCashRegisters();
   }, []);
@@ -431,9 +531,9 @@ const PayRoll = () => {
                           <label>الشهر</label>
                           <select className="form-control" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>
-                            {arryeofmonth.length>0?arryeofmonth.map((month, i) => (
+                            {arryeofmonth.length > 0 ? arryeofmonth.map((month, i) => (
                               <option value={month} key={i}>{months[month - 1]}</option>
-                            )):""}
+                            )) : ""}
                           </select>
                         </div>
                       </div>
@@ -531,7 +631,7 @@ const PayRoll = () => {
                           }
                         })
                           :
-                          ListOfEmployee.length>0?ListOfEmployee.map((em, i) => {
+                          ListOfEmployee.length > 0 ? ListOfEmployee.map((em, i) => {
                             if (em.isActive == true && em.payRoll.length > 0) {
                               return (
                                 em.payRoll.map((Roll, j) => {
@@ -585,7 +685,7 @@ const PayRoll = () => {
                               )
                             }
                           })
-                      :""}
+                            : ""}
                     </tbody>
                   </table>
                   <div className="clearfix">

@@ -30,6 +30,7 @@ const EmployeesSalary = () => {
   const [salarymovementId, setsalarymovementId] = useState("")
   const [EmployeeId, setEmployeeId] = useState("")
   const [EmployeeName, setEmployeeName] = useState("")
+  const [totalDays, settotalDays] = useState("")
   const [movement, setmovement] = useState("")
   const [Amount, setAmount] = useState()
   const [oldAmount, setoldAmount] = useState(0)
@@ -64,92 +65,100 @@ const EmployeesSalary = () => {
 
   // Function to add new salary movement
   const addSalaryMovement = async (e) => {
-    e.preventDefault();
-    const data = {
-      EmployeeId,
-      EmployeeName,
-      movement,
-      Amount,
-      oldAmount,
-      newAmount,
-      actionBy,
-    };
-
-    // Validating the data before sending the request
-    // const errors = validate(data);
-    // if (errors) {
-    //   toast.error('Please review the entered data');
-    //   return;
-    // }
-
     try {
+      e.preventDefault();
+      const data = {
+        EmployeeId,
+        EmployeeName,
+        movement,
+        Amount,
+        totalDays,
+        oldAmount,
+        newAmount,
+        actionBy,
+      };
+  
       const response = await axios.post(apiUrl + '/api/salarymovement', data, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
+  
       if (response) {
-
+        // Display Arabic toast message
+        toast.success('تمت إضافة الحركة بنجاح');
+        getSalaryMovement();
+      } else {
+        toast.error('فشل اضافه الحركه !حاول مره اخري');
       }
-      getSalaryMovement();
-      toast.success('Movement added successfully');
-
     } catch (error) {
-      console.log(error);
-      toast.error('An error occurred while adding the movement');
+      console.error('Error adding salary movement:', error.message);
+      // Display Arabic toast message
+      toast.error('حدث خطأ أثناء إضافة الحركة');
     }
   };
-
+  
   // Function to update salary movement
   const updateSalaryMovement = async (e) => {
-    e.preventDefault();
-    const data = {
-      EmployeeId,
-      EmployeeName,
-      movement,
-      Amount,
-      oldAmount,
-      newAmount,
-      actionBy,
-    };
-
-    // Validating the data before sending the request
-    // const errors = validate(data);
-    // if (errors) {
-    //   toast.error('Please review the entered data');
-    //   return;
-    // }
-
     try {
+      e.preventDefault();
+      const data = {
+        EmployeeId,
+        EmployeeName,
+        movement,
+        Amount,
+        totalDays,
+        oldAmount,
+        newAmount,
+        actionBy,
+      };
+  
       const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-      getSalaryMovement();
-      toast.success('Movement updated successfully');
+  
+      if (response) {
+        // Display Arabic toast message
+        toast.success('تم تحديث الحركة بنجاح');
+        getSalaryMovement();
+      } else {
+        toast.error('فشل تعديل الحركه !حاول مره اخري');
+      }
     } catch (error) {
-      console.log(error);
-      toast.error('An error occurred while updating the movement');
+      console.error('Error updating salary movement:', error.message);
+      // Display Arabic toast message
+      toast.error('حدث خطأ أثناء تحديث الحركة');
     }
   };
+  
 
   // Function to delete salary movement
   const deleteSalaryMovement = async (e) => {
-    e.preventDefault();
     try {
+      e.preventDefault();
+  
       const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-      getSalaryMovement();
-      toast.success('Movement deleted successfully');
+  
+      if (response) {
+        // Display Arabic toast message
+        toast.success('تم حذف الحركة بنجاح');
+        getSalaryMovement();
+      } else {
+        toast.error('فشل حذف الحركه !حاول مره اخري');
+      }
     } catch (error) {
-      console.log(error);
-      toast.error('An error occurred while deleting the movement');
+      console.error('Error deleting salary movement:', error.message);
+      // Display Arabic toast message
+      toast.error('حدث خطأ أثناء حذف الحركة');
     }
   };
+  
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
@@ -320,6 +329,7 @@ const EmployeesSalary = () => {
                         <th>المبلغ</th>
                         <th>المبلغ السابق</th>
                         <th>الاجمالي</th>
+                        <th>الايام</th>
                         <th>بواسطه</th>
                         <th>اليوم</th>
                       </tr>
@@ -342,6 +352,7 @@ const EmployeesSalary = () => {
                               <td>{mov.Amount}</td>
                               <td>{mov.oldAmount}</td>
                               <td>{mov.newAmount}</td>
+                              <td>{mov.totalDays}</td>
                               <td>{usertitle(mov.actionBy)}</td>
                               <td>{new Date(mov.actionAt).toLocaleString()}</td>
                               <td>
@@ -372,6 +383,7 @@ const EmployeesSalary = () => {
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
                                 <td>{mov.newAmount}</td>
+                                <td>{mov.totalDays}</td>
                                 <td>{usertitle(mov.actionBy)}</td>
                                 <td>{new Date(mov.actionAt).toLocaleString()}</td>
                                 <td>
@@ -436,6 +448,13 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
+                        {movement == 'غياب' && movement == 'اضافي'?
+                        <>
+                        <div className="form-group">
+                          <label>عدد الايام</label>
+                          <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(e.target.value) }} />
+                        </div>
+                        </>:''}
                         <div className="form-group">
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />

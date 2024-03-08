@@ -22,6 +22,11 @@ const EmployeeSalarySchema = new mongoose.Schema(
       default: 0,
       required: true,
     },
+    totalDays:{
+      type: Number, 
+      required: true,
+      default:0
+    },
     oldAmount:{
       type: Number,
       required: true,
