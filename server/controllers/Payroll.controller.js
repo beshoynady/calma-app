@@ -36,9 +36,9 @@ const getPayrollById = async (req, res) => {
 };
 
 const updatePayroll = async (req, res) => {
-  const { salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary, isPaid, paidBy } = req.body;
+  const {isPaid, paidBy } = req.body;
   try {
-    const payroll = await PayrollModel.findByIdAndUpdate(req.params.id, { salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary, isPaid, paidBy }, {
+    const payroll = await PayrollModel.findByIdAndUpdate(req.params.id, { isPaid, paidBy }, {
       new: true,
       runValidators: true,
     });
