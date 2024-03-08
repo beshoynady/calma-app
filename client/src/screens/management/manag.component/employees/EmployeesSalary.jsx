@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi');
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
   
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.get(apiUrl + '/api/employee', {
         headers: {
           'authorization': `Bearer ${token}`,
@@ -26,12 +26,10 @@ const EmployeesSalary = () => {
     }
   }
 
-
   const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
   const [salarymovementId, setsalarymovementId] = useState("")
   const [EmployeeId, setEmployeeId] = useState("")
   const [EmployeeName, setEmployeeName] = useState("")
-  const [totalDays, settotalDays] = useState("")
   const [movement, setmovement] = useState("")
   const [Amount, setAmount] = useState()
   const [oldAmount, setoldAmount] = useState(0)
@@ -65,116 +63,96 @@ const EmployeesSalary = () => {
   // };
 
   // Function to add new salary movement
-const addSalaryMovement = async (e) => {
+  const addSalaryMovement = async (e) => {
+    e.preventDefault();
+    const data = {
+      EmployeeId,
+      EmployeeName,
+      movement,
+      Amount,
+      oldAmount,
+      newAmount,
+      actionBy,
+    };
+
+    // Validating the data before sending the request
+    // const errors = validate(data);
+    // if (errors) {
+    //   toast.error('Please review the entered data');
+    //   return;
+    // }
+
     try {
-        e.preventDefault();
-        const token = localStorage.getItem('token_e'); // استرجاع الرمز من التخزين المحلي
+      const response = await axios.post(apiUrl + '/api/salarymovement', data, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
+      if (response) {
 
-        const data = {
-            EmployeeId,
-            EmployeeName,
-            movement,
-            Amount,
-            totalDays,
-            oldAmount,
-            newAmount,
-            actionBy,
-        };
-        console.log({data})
+      }
+      getSalaryMovement();
+      toast.success('Movement added successfully');
 
-        const response = await axios.post(apiUrl + '/api/salarymovement', data, {
-            headers: {
-                'authorization': `Bearer ${token}`,
-            },
-        });
-        console.log({response})
-        if (response) {
-            // عرض رسالة توست باللغة العربية
-            toast.success('تمت إضافة الحركة بنجاح');
-            getSalaryMovement();
-        } else {
-            // عرض رسالة توست باللغة العربية
-            toast.error('فشل اضافه الحركه !حاول مره اخري');
-        }
     } catch (error) {
-        console.error('حدث خطأ أثناء إضافة الحركة:', error.message);
-        // عرض رسالة توست باللغة العربية
-        toast.error('حدث خطأ أثناء إضافة الحركة');
+      console.log(error);
+      toast.error('An error occurred while adding the movement');
     }
-};
+  };
 
-
-  
   // Function to update salary movement
   const updateSalaryMovement = async (e) => {
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+    e.preventDefault();
+    const data = {
+      EmployeeId,
+      EmployeeName,
+      movement,
+      Amount,
+      oldAmount,
+      newAmount,
+      actionBy,
+    };
 
-      e.preventDefault();
-      const data = {
-        EmployeeId,
-        EmployeeName,
-        movement,
-        Amount,
-        totalDays,
-        oldAmount,
-        newAmount,
-        actionBy,
-      };
-  
+    // Validating the data before sending the request
+    // const errors = validate(data);
+    // if (errors) {
+    //   toast.error('Please review the entered data');
+    //   return;
+    // }
+
+    try {
       const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-  
-      console.log({response})
-      if (response) {
-        // Display Arabic toast message
-        toast.success('تم تحديث الحركة بنجاح');
-        getSalaryMovement();
-      } else {
-        toast.error('فشل تعديل الحركه !حاول مره اخري');
-      }
+      getSalaryMovement();
+      toast.success('Movement updated successfully');
     } catch (error) {
-      console.error('Error updating salary movement:', error.message);
-      // Display Arabic toast message
-      toast.error('حدث خطأ أثناء تحديث الحركة');
+      console.log(error);
+      toast.error('An error occurred while updating the movement');
     }
   };
-  
 
   // Function to delete salary movement
   const deleteSalaryMovement = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-  
-      if (response) {
-        // Display Arabic toast message
-        toast.success('تم حذف الحركة بنجاح');
-        getSalaryMovement();
-      } else {
-        toast.error('فشل حذف الحركه !حاول مره اخري');
-      }
+      getSalaryMovement();
+      toast.success('Movement deleted successfully');
     } catch (error) {
-      console.error('Error deleting salary movement:', error.message);
-      // Display Arabic toast message
-      toast.error('حدث خطأ أثناء حذف الحركة');
+      console.log(error);
+      toast.error('An error occurred while deleting the movement');
     }
   };
-  
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
     const movement = await axios.get(apiUrl + '/api/salarymovement', {
       headers: {
         'authorization': `Bearer ${token}`,
@@ -265,6 +243,7 @@ const addSalaryMovement = async (e) => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
+              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
@@ -341,7 +320,6 @@ const addSalaryMovement = async (e) => {
                         <th>المبلغ</th>
                         <th>المبلغ السابق</th>
                         <th>الاجمالي</th>
-                        <th>الايام</th>
                         <th>بواسطه</th>
                         <th>اليوم</th>
                       </tr>
@@ -364,7 +342,6 @@ const addSalaryMovement = async (e) => {
                               <td>{mov.Amount}</td>
                               <td>{mov.oldAmount}</td>
                               <td>{mov.newAmount}</td>
-                              <td>{mov.totalDays}</td>
                               <td>{usertitle(mov.actionBy)}</td>
                               <td>{new Date(mov.actionAt).toLocaleString()}</td>
                               <td>
@@ -395,7 +372,6 @@ const addSalaryMovement = async (e) => {
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
                                 <td>{mov.newAmount}</td>
-                                <td>{mov.totalDays}</td>
                                 <td>{usertitle(mov.actionBy)}</td>
                                 <td>{new Date(mov.actionAt).toLocaleString()}</td>
                                 <td>
@@ -460,13 +436,6 @@ const addSalaryMovement = async (e) => {
                             }) : ""}
                           </select>
                         </div>
-                        {movement == 'غياب' && movement == 'اضافي'?
-                        <>
-                        <div className="form-group">
-                          <label>عدد الايام</label>
-                          <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(e.target.value) }} />
-                        </div>
-                        </>:''}
                         <div className="form-group">
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
