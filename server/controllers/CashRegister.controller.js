@@ -99,7 +99,7 @@ const updateCashRegister = async (req, res) => {
 // Delete a cash register
 const deleteCashRegister = async (req, res) => {
   try {
-    const cashRegister = await CashRegister.findById(req.params.id);
+    const cashRegister = await CashRegister.findByIdAndDelete(req.params.id);
     if (!cashRegister) {
       return res.status(404).json({ message: 'Cash register not found' });
     }
