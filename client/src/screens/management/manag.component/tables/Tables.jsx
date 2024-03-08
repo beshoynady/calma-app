@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useReactToPrint } from 'react-to-print';
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 
@@ -11,88 +11,142 @@ const Tables = () => {
 
   const [tableid, settableid] = useState("")
   const [qrimage, setqrimage] = useState("")
-
-  const createQR = async (e) => {
-    e.preventDefault();
-    const URL = `https://${window.location.hostname}/${tableid}`;
-    const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
-    // console.log(qr.data);
-    setqrimage(qr.data);
-  }
-  const createwebQR = async (e) => {
-    e.preventDefault();
-    const URL = `https://${window.location.hostname}/`;
-    const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
-    // console.log(qr.data);
-    setqrimage(qr.data);
-  }
-
   const [listoftable, setlistoftable] = useState([]);
   const [listoftabledescription, setlistoftabledescription] = useState([]);
-
-  const getAllTable = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/table');
-      const tables = response.data;
-      setlistoftable(tables);
-
-      setlistoftabledescription(prevDescription => {
-        const descriptions = tables.map(table => table.description);
-        return [...prevDescription, ...descriptions];
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [tablenum, settablenum] = useState(0);
   const [chairs, setchairs] = useState(0);
   const [sectionNumber, setsectionNumber] = useState();
   const [tabledesc, settabledesc] = useState("");
   const [isValid, setisValid] = useState();
+// Function to create QR code for the table URL
+const createQR = async (e) => {
+  try {
+      e.preventDefault();
+      const URL = `https://${window.location.hostname}/${tableid}`;
+      const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
+      // console.log(qr.data);
+      setqrimage(qr.data);
+  } catch (error) {
+      console.error("Error creating QR code:", error);
+  }
+}
 
-  const createTable = async (e) => {
-    e.preventDefault()
-    // console.log(tabledesc);
-    // console.log(tablenum);
-    // console.log(chairs)
-    try {
-      const response = await axios.post(apiUrl + '/api/table/', { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
+// Function to create web QR code
+const createwebQR = async (e) => {
+  try {
+      e.preventDefault();
+      const token = localStorage.getItem('token_e');
+      if (!token) {
+          throw new Error("No token found in localStorage.");
+      }
+      const URL = `https://${window.location.hostname}/`;
+      const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
+          headers: {
+              'authorization': `Bearer ${token}`,
+          },
+      });
+      // console.log(qr.data);
+      setqrimage(qr.data);
+  } catch (error) {
+      console.error("Error creating web QR code:", error);
+  }
+}
+
+// Function to get all tables
+const getAllTable = async () => {
+  try {
+      const response = await axios.get(apiUrl + '/api/table');
+      const tables = response.data;
+      setlistoftable(tables);
+      const descriptions = tables.map(table => table.description);
+      setlistoftabledescription(prevDescription => [...prevDescription, ...descriptions]);
+  } catch (error) {
+      console.error("Error getting all tables:", error);
+  }
+};
+
+// Function to create a new table
+const createTable = async (e) => {
+  try {
+      e.preventDefault();
+      const token = localStorage.getItem('token_e');
+
+      // Ensure token exists
+      if (!token) {
+          throw new Error("must login");
+      }
+
+      // Prepare table data
+      const tableData = {
+          description: tabledesc,
+          tablenum,
+          chairs,
+          sectionNumber,
+          isValid
+      };
+
+      // Send request to create table
+      const response = await axios.post(`${apiUrl}/api/table/`, tableData, {
+          headers: {
+              'Authorization': `Bearer ${token}`,
+          },
+      });
+
+      // Check response status
+      if (response.status === 200) {
+          // Log success message
+          console.log("Table created successfully:", response.data);
+
+          // Update table list
+          getAllTable();
+
+          // Show success toast
+          toast.success("تم إنشاء الطاولة بنجاح.");
+      } else {
+          // Handle unexpected response
+          throw new Error("Unexpected response while creating table.");
+      }
+  } catch (error) {
+      // Log and show error message
+      console.error("Error creating table:", error);
+      toast.error("حدث خطأ أثناء إنشاء الطاولة. الرجاء المحاولة مرة أخرى.");
+  }
+}
+
+
+// Function to edit an existing table
+const editTable = async (e) => {
+  try {
+      e.preventDefault();
+      const token = localStorage.getItem('token_e');
+      if (!token) {
+          throw new Error("No token found in localStorage.");
+      }
+      const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid }, {
+          headers: {
+              'authorization': `Bearer ${token}`,
+          },
+      });
       console.log(response.data);
       getAllTable();
-    } catch (error) {
-      console.log(error)
-    }
+  } catch (error) {
+      console.error("Error editing table:", error);
   }
+}
 
-  const editTable = async (e) => {
-    e.preventDefault()
-    // console.log(tabledesc);
-    // console.log(tablenum);
-    // console.log(chairs)
-    try {
-      const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid });
-      console.log(response.data);
-      getAllTable();
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
-
-  const deleteTable = async (e) => {
-    e.preventDefault()
-    // console.log(tableid)
-    try {
+// Function to delete a table
+const deleteTable = async (e) => {
+  try {
+      e.preventDefault();
       const response = await axios.delete(`${apiUrl}/api/table/${tableid}`);
       console.log(response.data);
       settableid(null);
       getAllTable();
-    } catch (error) {
-      console.log(error)
-    }
+  } catch (error) {
+      console.error("Error deleting table:", error);
   }
+}
+
 
   const [tableFiltered, settableFiltered] = useState([])
   const searchByNum = (num) => {
@@ -129,7 +183,7 @@ const Tables = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`);
+        await axios.delete(`${apiUrl}/api/table/${Id}`);
       }
       getAllTable()
       toast.success('Selected orders deleted successfully');
@@ -152,7 +206,6 @@ const Tables = () => {
 
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
