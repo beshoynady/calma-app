@@ -155,7 +155,7 @@ const PayRoll = () => {
         const filterPre = employeemov.filter((m) => m.movement == 'سلف')
         if (filterPre.length > 0) {
           Predecessor = filterPre[filterPre.length - 1].newAmount
-          console.log({Predecessor})
+          console.log({ Predecessor })
         } else {
           Predecessor = 0
         }
@@ -164,7 +164,7 @@ const PayRoll = () => {
         console.log(filterDed)
         if (filterDed.length > 0) {
           Deduction = filterDed[filterDed.length - 1].newAmount
-          console.log({Deduction})
+          console.log({ Deduction })
         } else {
           Deduction = 0
         }
@@ -832,14 +832,14 @@ const PayRoll = () => {
                                           </span>
                                         </td>
                                         <td>{i + 1}</td>
-                                        <td>{em.fullname}</td>
+                                        <td>{Roll.employeeName}</td>
                                         <td>{em.role}</td>
                                         <td>{Roll.salary}</td>
-                                        <td>{Roll.Additional}</td>
+                                        <td>{Roll.OvertimeValue}</td>
                                         <td>{Roll.Bonus}</td>
                                         <td>{Roll.TotalDue}</td>
                                         <td>{Roll.Deduction}</td>
-                                        <td>{Roll.Absence}</td>
+                                        <td>{Roll.AbsenceDeduction}</td>
                                         <td>{Roll.Predecessor}</td>
                                         <td>{Roll.TotalDeductible}</td>
                                         <td>{Roll.Insurance}</td>
@@ -892,11 +892,11 @@ const PayRoll = () => {
                                           <td>{Roll.employeeName}</td>
                                           <td>{em.role}</td>
                                           <td>{Roll.salary}</td>
-                                          <td>{Roll.Additional}</td>
+                                          <td>{Roll.OvertimeValue}</td>
                                           <td>{Roll.Bonus}</td>
                                           <td>{Roll.TotalDue}</td>
                                           <td>{Roll.Deduction}</td>
-                                          <td>{Roll.Absence}</td>
+                                          <td>{Roll.AbsenceDeduction}</td>
                                           <td>{Roll.Predecessor}</td>
                                           <td>{Roll.TotalDeductible}</td>
                                           <td>{Roll.Insurance}</td>
