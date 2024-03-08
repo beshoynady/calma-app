@@ -199,7 +199,7 @@ const PayRoll = () => {
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
         
         const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
-        const isSalaryPaid = isSalary.find((roll) => roll.isPaid == true )
+        const isSalaryPaid = isSalary? isSalary.find((roll) => roll.isPaid == true) : false
         console.log({isSalary, isSalaryPaid})
         
         if (isSalary && !isSalaryPaid) {
