@@ -7,7 +7,7 @@ const Joi = require('joi');
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  
+
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
@@ -27,83 +27,56 @@ const EmployeesSalary = () => {
   }
 
 
-  const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
-  const [salarymovementId, setsalarymovementId] = useState("")
-  const [EmployeeId, setEmployeeId] = useState("")
-  const [EmployeeName, setEmployeeName] = useState("")
-  const [totalDays, settotalDays] = useState(0)
-  const [movement, setmovement] = useState("")
-  const [Amount, setAmount] = useState()
-  const [oldAmount, setoldAmount] = useState(0)
-  const [newAmount, setnewAmount] = useState(0)
-  const [actionBy, setactionBy] = useState("")
-  const [actionAt, setactionAt] = useState(Date())
+  const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة']);
+  const [salarymovementId, setsalarymovementId] = useState("");
+  const [EmployeeId, setEmployeeId] = useState("");
+  const [EmployeeName, setEmployeeName] = useState("");
+  const [totalDays, settotalDays] = useState(0);
+  const [movement, setmovement] = useState("");
+  const [Amount, setAmount] = useState(0);
+  const [oldAmount, setoldAmount] = useState(0);
+  const [newAmount, setnewAmount] = useState(0);
+  const [actionBy, setactionBy] = useState("");
+  const [actionAt, setactionAt] = useState(new Date());
 
 
-  // Schema for data validation using Joi
-  // const schema = {
-  //   EmployeeId: Joi.string().required(),
-  //   EmployeeName: Joi.string().required(),
-  //   movement: Joi.string().required(),
-  //   Amount: Joi.number().min(0).required(),
-  //   oldAmount: Joi.number().min(0).required(),
-  //   newAmount: Joi.number().min(0).required(),
-  //   actionBy: Joi.string().required(),
-  // };
-
-  // Function to validate data based on schema
-  // const validate = (data) => {
-  //   const options = { abortEarly: false };
-  //   const { error } = Joi.validate(data, schema, options);
-  //   if (!error) return null;
-
-  //   const errors = {};
-  //   for (let item of error.details) {
-  //     errors[item.path[0]] = item.message;
-  //   }
-  //   return errors;
-  // };
-
-  // Function to add new salary movement
-const addSalaryMovement = async (e) => {
+  const addSalaryMovement = async (e) => {
     try {
-        e.preventDefault();
-        const token = localStorage.getItem('token_e');
-        const data = {
-            EmployeeId,
-            EmployeeName,
-            movement,
-            Amount,
-            totalDays,
-            oldAmount,
-            newAmount,
-            actionBy,
-        };
-        console.log({data})
+      e.preventDefault();
+      const token = localStorage.getItem('token_e');
+      const data = {
+        EmployeeId,
+        EmployeeName,
+        movement,
+        Amount,
+        totalDays,
+        oldAmount,
+        newAmount,
+        actionBy,
+      };
+      console.log({ data })
 
-        const response = await axios.post(apiUrl + '/api/salarymovement', data, {
-          headers: {
-                'authorization': `Bearer ${token}`,
-            },
-        });
-        console.log({response})
-        if (response) {
-            // عرض رسالة توست باللغة العربية
-            toast.success('تمت إضافة الحركة بنجاح');
-            getSalaryMovement();
-        } else {
-            // عرض رسالة توست باللغة العربية
-            toast.error('فشل اضافه الحركه !حاول مره اخري');
-        }
+      const response = await axios.post(apiUrl + '/api/salarymovement', data, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
+      console.log({ response })
+      if (response.data) {
+        toast.success('تمت إضافة الحركة بنجاح');
+        getSalaryMovement();
+      } else {
+        toast.error('فشل اضافه الحركه ! حاول مره اخري');
+      }
     } catch (error) {
-        console.error('حدث خطأ أثناء إضافة الحركة:', error.message);
-        // عرض رسالة توست باللغة العربية
-        toast.error('حدث خطأ أثناء إضافة الحركة');
+      console.error('حدث خطأ أثناء إضافة الحركة:', error.message);
+      toast.error('حدث خطأ أثناء إضافة الحركة');
     }
-};
+  };
 
 
-  
+
+
   // Function to update salary movement
   const updateSalaryMovement = async (e) => {
     try {
@@ -120,14 +93,14 @@ const addSalaryMovement = async (e) => {
         newAmount,
         actionBy,
       };
-  
+
       const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-  
-      console.log({response})
+
+      console.log({ response })
       if (response) {
         // Display Arabic toast message
         toast.success('تم تحديث الحركة بنجاح');
@@ -141,20 +114,20 @@ const addSalaryMovement = async (e) => {
       toast.error('حدث خطأ أثناء تحديث الحركة');
     }
   };
-  
+
 
   // Function to delete salary movement
   const deleteSalaryMovement = async (e) => {
     try {
       e.preventDefault();
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-  
+
       if (response) {
         // Display Arabic toast message
         toast.success('تم حذف الحركة بنجاح');
@@ -168,7 +141,7 @@ const addSalaryMovement = async (e) => {
       toast.error('حدث خطأ أثناء حذف الحركة');
     }
   };
-  
+
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
@@ -459,13 +432,13 @@ const addSalaryMovement = async (e) => {
                             }) : ""}
                           </select>
                         </div>
-                        {movement == 'غياب' && movement == 'اضافي'?
-                        <>
-                        <div className="form-group">
-                          <label>عدد الايام</label>
-                          <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(e.target.value) }} />
-                        </div>
-                        </>:''}
+                        {(movement === 'غياب' || movement === 'اضافي') ?
+                          <>
+                            <div className="form-group">
+                              <label>عدد الايام</label>
+                              <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(e.target.value) }} />
+                            </div>
+                          </> : ''}
                         <div className="form-group">
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
@@ -495,6 +468,7 @@ const addSalaryMovement = async (e) => {
                   </div>
                 </div>
               </div>
+
 
               <div id="editSalaryMovementModal" className="modal fade">
                 <div className="modal-dialog">
