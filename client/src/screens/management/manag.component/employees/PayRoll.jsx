@@ -56,6 +56,7 @@ const PayRoll = () => {
 
   const [allPayRoll, setallPayRoll] = useState([])
   const [currentPayRoll, setcurrentPayRoll] = useState([])
+
   const getPayRoll = async () => {
     try {
       const token = localStorage.getItem('token_e');
@@ -64,7 +65,7 @@ const PayRoll = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-  
+      console.log({response})
       if (response.status === 200) {
         // Set all payroll data
         setallPayRoll(response.data);
@@ -76,7 +77,7 @@ const PayRoll = () => {
   
         // Filter salaries for the current year and month
         const filteredSalaries = response.data.filter((salary) => {
-          return salary.Year === currentYear && salary.Month === currentMonth;
+          salary.Year === currentYear && salary.Month === currentMonth;
         });
   
         // Set current payroll data
