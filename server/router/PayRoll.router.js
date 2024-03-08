@@ -4,7 +4,8 @@ const payrollController = require('../controllers/Payroll.controller');
 const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
-    .post(authenticateToken, payrollController.createPayroll);
+    .post(authenticateToken, payrollController.createPayroll)
+    .get(authenticateToken, payrollController.getAllPayroll);
 
 router.route('/:id')
     .get(authenticateToken, payrollController.getPayrollById)

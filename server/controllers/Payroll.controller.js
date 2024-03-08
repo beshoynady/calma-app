@@ -11,6 +11,17 @@ const createPayroll = async (req, res) => {
   }
 };
 
+const getAllPayroll = async (req, res) => {
+  try {
+    const payroll = await PayrollModel.find({});
+    if (!payroll) {
+      return res.status(404).json({ success: false, error: 'Payroll not found' });
+    }
+    res.status(200).json({ success: true, data: payroll });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
 const getPayrollById = async (req, res) => {
   try {
     const id = req.params.id
@@ -73,6 +84,7 @@ const deletePayroll = async (req, res) => {
 
 module.exports = {
   createPayroll,
+  getAllPayroll,
   getPayrollById,
   updatePayroll,
   updatePayrollByEmployee,

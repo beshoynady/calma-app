@@ -51,6 +51,9 @@ const PayRoll = () => {
       console.log(error);
     }
   };
+
+
+  
   const [allPayRoll, setallPayRoll] = useState([])
   const [currentPayRoll, setcurrentPayRoll] = useState([])
   const getPayRoll = async () => {
@@ -638,9 +641,9 @@ const PayRoll = () => {
                         })
                           :
                           ListOfEmployee.length > 0 ? ListOfEmployee.map((em, i) => {
-                            if (em.isActive == true && em.payRoll.length > 0) {
+                            if (em.isActive == true && currentPayRoll.length > 0) {
                               return (
-                                em.payRoll.map((Roll, j) => {
+                                currentPayRoll.map((Roll, j) => {
                                   return (
                                     Roll.Month == thismonth ?
                                       (
