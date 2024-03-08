@@ -53,31 +53,43 @@ const PayRoll = () => {
   };
 
 
-  
+
   const [allPayRoll, setallPayRoll] = useState([])
   const [currentPayRoll, setcurrentPayRoll] = useState([])
   const getPayRoll = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+      const token = localStorage.getItem('token_e');
       const response = await axios.get(apiUrl + '/api/payroll', {
         headers: {
           'authorization': `Bearer ${token}`,
         },
       });
-      setallPayRoll(response.data);
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-      const currentMonth = currentDate.getMonth() + 1;
-      const filteredSalaries = response.data.filter((salary) => {
-        return salary.Year === currentYear && salary.Month === currentMonth;
-      });
-      setcurrentPayRoll(filteredSalaries)
-
+  
+      if (response.status === 200) {
+        // Set all payroll data
+        setallPayRoll(response.data);
+  
+        // Get current date
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+  
+        // Filter salaries for the current year and month
+        const filteredSalaries = response.data.filter((salary) => {
+          return salary.Year === currentYear && salary.Month === currentMonth;
+        });
+  
+        // Set current payroll data
+        setcurrentPayRoll(filteredSalaries);
+      }
     } catch (error) {
-      console.log(error);
+      // Handle error
+      console.error('Error fetching payroll:', error);
+      // Display toast error message
+      toast.error('حدث خطأ أثناء جلب بيانات الرواتب');
     }
   };
+  
 
 
 
