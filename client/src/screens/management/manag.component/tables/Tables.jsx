@@ -13,7 +13,7 @@ const Tables = () => {
   const [qrimage, setqrimage] = useState("")
   const [listoftable, setlistoftable] = useState([]);
   const [listoftabledescription, setlistoftabledescription] = useState([]);
-  const [tablenum, settablenum] = useState(0);
+  const [tableNumber, settableNumber] = useState(0);
   const [chairs, setchairs] = useState(0);
   const [sectionNumber, setsectionNumber] = useState();
   const [tabledesc, settabledesc] = useState("");
@@ -79,7 +79,7 @@ const createTable = async (e) => {
       // Prepare table data
       const tableData = {
           description: tabledesc,
-          tablenum,
+          tableNumber,
           chairs,
           sectionNumber,
           isValid
@@ -122,7 +122,7 @@ const editTable = async (e) => {
       if (!token) {
           throw new Error("No token found in localStorage.");
       }
-      const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tablenum, chairs, sectionNumber, isValid }, {
+      const response = await axios.put(`${apiUrl}/api/table/${tableid}`, { "description": tabledesc, tableNumber, chairs, sectionNumber, isValid }, {
           headers: {
               'authorization': `Bearer ${token}`,
           },
@@ -150,7 +150,7 @@ const deleteTable = async (e) => {
 
   const [tableFiltered, settableFiltered] = useState([])
   const searchByNum = (num) => {
-    const tables = listoftable.filter((table) => table.tablenum.toString().startsWith(num) == true)
+    const tables = listoftable.filter((table) => table.tableNumber.toString().startsWith(num) == true)
     settableFiltered(tables)
   }
   const filterByStatus = (Status) => {
@@ -297,17 +297,17 @@ const deleteTable = async (e) => {
                                   </span>
                                 </td>
                                 <td>{i + 1}</td>
-                                <td>{table.tablenum}</td>
+                                <td>{table.tableNumber}</td>
                                 <td>{table.description}</td>
                                 <td>{table.chairs}</td>
                                 <td>{table.sectionNumber}</td>
                                 <td>{table.isValid ? 'متاح' : 'غير متاح'}</td>
                                 {/* <td>{table.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setqrimage('') }}>
+                                <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setqrimage('') }}>
                                   <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                 </a></td>
                                 <td>
-                                  <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -332,18 +332,18 @@ const deleteTable = async (e) => {
                                     </span>
                                   </td>
                                   <td>{i + 1}</td>
-                                  <td>{table.tablenum}</td>
+                                  <td>{table.tableNumber}</td>
                                   <td>{table.description}</td>
                                   <td>{table.chairs}</td>
                                   <td>{table.sectionNumber}</td>
                                   <td>{table.isValid ? 'متاح' : 'غير متاح'}</td>
 
                                   {/* <td>{table.reservation ? "Reserved" : "Unreserved"}</td> */}
-                                  <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setqrimage('') }}>
+                                  <td><a href="#qrTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setqrimage('') }}>
                                     <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                   </a></td>
                                   <td>
-                                    <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settablenum(table.tablenum); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                     <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                   </td>
@@ -383,7 +383,7 @@ const deleteTable = async (e) => {
                         </div>
                         <div className="form-group">
                           <label>رقم الطاولة</label>
-                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tablenum : ""} className="form-control" required onChange={(e) => settablenum(e.target.value)} />
+                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>عدد المقاعد</label>
@@ -417,7 +417,7 @@ const deleteTable = async (e) => {
                         </div>
                         <div className="form-group">
                           <label>رقم الطاولة</label>
-                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tablenum : ""} className="form-control" required onChange={(e) => settablenum(e.target.value)} />
+                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>عدد المقاعد</label>
@@ -457,7 +457,7 @@ const deleteTable = async (e) => {
 
                           <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', alignContent: 'center', marginTop: '10px' }}>
 
-                            <p style={{ width: '100%', height: '40px', textAlign: 'center', fontSize: '26px', fontFamily: 'Noto Nastaliq Urdu , serif' }}>طاولة رقم {tablenum}</p>
+                            <p style={{ width: '100%', height: '40px', textAlign: 'center', fontSize: '26px', fontFamily: 'Noto Nastaliq Urdu , serif' }}>طاولة رقم {tableNumber}</p>
                             {qrimage && <a href={qrimage} download>
                               <img src={qrimage} style={{ width: "350px", height: "350px" }} className='qrprint' download />
                             </a>}

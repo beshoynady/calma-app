@@ -3,10 +3,10 @@ const TableModel = require('../models/Table.model');
 
 // Create a new table
 const createTable = async (req, res) => {
-    const { tablenum, description, chairs, sectionNumber } = req.body;
+    const { tableNumberber, description, chairs, sectionNumber } = req.body;
 
     try {
-        const tableCreated = await TableModel.create({ tablenum, description, chairs, sectionNumber });
+        const tableCreated = await TableModel.create({ tableNumberber, description, chairs, sectionNumber });
         return res.status(200).json({ message: "Table created successfully", data: tableCreated });
     } catch (err) {
         return res.status(400).json(err.message);
@@ -53,12 +53,12 @@ const showOneTable = async (req, res) => {
 // Update a table by ID
 const updateTable = async (req, res) => {
     const id = req.params.tableid;
-    const { tablenum, description, chairs, sectionNumber, isValid } = req.body;
+    const { tableNumber, description, chairs, sectionNumber, isValid } = req.body;
 
     try {
         const updatedTable = await TableModel.findByIdAndUpdate(
             { _id: id },
-            { $set: { tablenum, description, chairs, sectionNumber, isValid } },
+            { $set: { tableNumber, description, chairs, sectionNumber, isValid } },
             { new: true }
         ).exec();
 
