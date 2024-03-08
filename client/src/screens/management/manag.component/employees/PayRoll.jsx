@@ -197,10 +197,11 @@ const PayRoll = () => {
         // Insurance = TotalDue * .10
         // Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
-
+        
         const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
         const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true )
-
+        console.log({isSalary, isSalaryPaid})
+        
         if (isSalary && !isSalaryPaid) {
           const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
             employeeName,
@@ -224,7 +225,7 @@ const PayRoll = () => {
               'authorization': `Bearer ${token}`,
             },
           })
-          console.log(result)
+          console.log({result})
           if (result) {
             getEmployees()
           }
@@ -252,7 +253,7 @@ const PayRoll = () => {
               'authorization': `Bearer ${token}`,
             },
           })
-          console.log(result)
+          console.log({result})
           if (result) {
             getEmployees()
           }
