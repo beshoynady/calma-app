@@ -199,7 +199,7 @@ const PayRoll = () => {
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
         
         const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId )
-        const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true )
+        const isSalaryPaid = isSalary.find((roll) => roll.isPaid == true )
         console.log({isSalary, isSalaryPaid})
         
         if (isSalary && !isSalaryPaid) {
@@ -591,8 +591,8 @@ const PayRoll = () => {
                         </th>
                         <th>م</th>
                         <th>الاسم</th>
-                        <th>الاسم</th>
                         <th>الوظيفه</th>
+                        <th>الاساسي</th>
                         {/* <th>اجر اليوم</th>
                         <th>اجر الساعه</th>
                         <th>عدد ايام العمل</th> */}
@@ -687,7 +687,7 @@ const PayRoll = () => {
                                             </span>
                                           </td>
                                           <td>{i + 1}</td>
-                                          <td>{em.fullname}</td>
+                                          <td>{Roll.employeeName}</td>
                                           <td>{em.role}</td>
                                           <td>{Roll.salary}</td>
                                           <td>{Roll.Additional}</td>
