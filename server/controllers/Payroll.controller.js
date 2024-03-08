@@ -3,8 +3,7 @@ const PayrollModel = require('../models/Payroll.model');
 const createPayroll = async (req, res) => {
   const { employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
   try {
-    const payroll = PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary });
-    payroll.save();
+    const payroll = await PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary });
     res.status(201).json(payroll);
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
