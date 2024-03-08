@@ -7,7 +7,6 @@ const Joi = require('joi');
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
   
   // Existing state variables and useEffect
