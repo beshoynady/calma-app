@@ -36,12 +36,9 @@ const getPayrollById = async (req, res) => {
 };
 
 const updatePayroll = async (req, res) => {
-  const {isPaid, paidBy } = req.body;
+  const { isPaid, paidBy } = req.body;
   try {
-    const payroll = await PayrollModel.findByIdAndUpdate(req.params.id, { isPaid, paidBy }, {
-      new: true,
-      runValidators: true,
-    });
+    const payroll = await PayrollModel.findByIdAndUpdate(req.params.id, { isPaid, paidBy }, { new: true });
     if (!payroll) {
       return res.status(404).json({ success: false, error: 'Payroll not found' });
     }
@@ -50,6 +47,7 @@ const updatePayroll = async (req, res) => {
     res.status(500).json({ success: false, error: 'Server Error' });
   }
 };
+
 
 
 const updatePayrollByEmployee = async (req, res) => {

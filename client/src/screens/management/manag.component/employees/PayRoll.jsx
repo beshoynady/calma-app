@@ -469,7 +469,7 @@ const PayRoll = () => {
         isPaid: true,
         paidBy: paidBy,
       };
-
+      console.log({payload, id})
       // Update payroll status via API call
       const updatePayRoll = await axios.put(`${apiUrl}/api/payroll/${id}`, payload, {
         headers: {
