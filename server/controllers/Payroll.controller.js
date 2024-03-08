@@ -1,9 +1,9 @@
 const PayrollModel = require('../models/Payroll.model');
 
 const createPayroll = async (req, res) => {
-  const { employee, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
+  const { employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
   try {
-    const payroll = PayrollModel.create({ employee, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary });
+    const payroll = PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary });
     await payroll.save();
     res.status(201).json({ success: true, data: payroll });
   } catch (error) {
@@ -14,14 +14,18 @@ const createPayroll = async (req, res) => {
 const getAllPayroll = async (req, res) => {
   try {
     const payroll = await PayrollModel.find({});
-    if (!payroll) {
-      return res.status(404).json({ success: false, error: 'Payroll not found' });
+    if (payroll.length === 0) {
+      return res.status(404).json({ success: false, error: 'لا يوجد بيانات للرواتب' });
     }
-    res.status(200).json({ success: true, data: payroll });
+    res.status(200).json(payroll);
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Server Error' });
+    console.error('Error fetching payroll:', error);
+    res.status(500).json({ success: false, error: 'خطأ في الخادم' });
   }
 };
+
+
+
 const getPayrollById = async (req, res) => {
   try {
     const id = req.params.id
