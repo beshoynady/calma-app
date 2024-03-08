@@ -138,7 +138,13 @@ const editTable = async (e) => {
 const deleteTable = async (e) => {
   try {
       e.preventDefault();
-      const response = await axios.delete(`${apiUrl}/api/table/${tableid}`);
+      const token = localStorage.getItem('token_e');
+
+      const response = await axios.delete(`${apiUrl}/api/table/${tableid}`, {
+        headers: {
+            'authorization': `Bearer ${token}`,
+        },
+    });
       console.log(response.data);
       settableid(null);
       getAllTable();
@@ -182,8 +188,14 @@ const deleteTable = async (e) => {
     e.preventDefault();
     console.log(selectedIds)
     try {
+      const token = localStorage.getItem('token_e');
+
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/table/${Id}`);
+        await axios.delete(`${apiUrl}/api/table/${Id}`, {
+          headers: {
+              'authorization': `Bearer ${token}`,
+          },
+      });
       }
       getAllTable()
       toast.success('Selected orders deleted successfully');
