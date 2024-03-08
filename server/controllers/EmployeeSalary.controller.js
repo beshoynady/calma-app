@@ -7,10 +7,11 @@ const EmployeeSalarymodel = require('../models/EmployeeSalary.model');
             const EmployeeName = await req.body.EmployeeName;
             const movement = await req.body.movement;
             const Amount = await req.body.Amount;
+            const totalDays = await req.body.totalDays;
             const oldAmount = await req.body.oldAmount;
             const newAmount = await req.body.newAmount;
             const actionBy = await req.body.actionBy;
-            const addEmployeeSalary= await EmployeeSalarymodel.create({EmployeeId,EmployeeName,movement,Amount,oldAmount,newAmount,actionBy});
+            const addEmployeeSalary= await EmployeeSalarymodel.create({EmployeeId,EmployeeName,movement,totalDays,Amount,oldAmount,newAmount,actionBy});
             addEmployeeSalary.save();
             res.status(200).json(addEmployeeSalary)
         }
@@ -47,10 +48,11 @@ const EmployeeSalarymodel = require('../models/EmployeeSalary.model');
             const EmployeeName = await req.body.EmployeeName;
             const movement = await req.body.movement;
             const Amount = await req.body.Amount;
+            const totalDays = await req.body.totalDays;
             const oldAmount = await req.body.oldAmount;
             const newAmount = await req.body.newAmount;
             const actionBy = await req.body.actionBy;
-            const editMovement = await EmployeeSalarymodel.findByIdAndUpdate({_id:salarymovementId},{EmployeeId,EmployeeName,movement,Amount,oldAmount,newAmount,actionBy},{new : true})
+            const editMovement = await EmployeeSalarymodel.findByIdAndUpdate({_id:salarymovementId},{EmployeeId,EmployeeName,movement,totalDays,Amount,oldAmount,newAmount,actionBy},{new : true})
             res.status(200).json(editMovement);
         }catch(error){
             res.status(404).json(error);

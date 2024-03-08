@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const Joi = require('joi');
+import { toast } from 'react-toastify';
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -32,35 +30,12 @@ const EmployeesSalary = () => {
   const [EmployeeName, setEmployeeName] = useState("")
   const [movement, setmovement] = useState("")
   const [Amount, setAmount] = useState()
+  const [totalDays, settotalDays] = useState(0)
   const [oldAmount, setoldAmount] = useState(0)
   const [newAmount, setnewAmount] = useState()
   const [actionBy, setactionBy] = useState("")
   const [actionAt, setactionAt] = useState(Date())
 
-
-  // Schema for data validation using Joi
-  // const schema = {
-  //   EmployeeId: Joi.string().required(),
-  //   EmployeeName: Joi.string().required(),
-  //   movement: Joi.string().required(),
-  //   Amount: Joi.number().min(0).required(),
-  //   oldAmount: Joi.number().min(0).required(),
-  //   newAmount: Joi.number().min(0).required(),
-  //   actionBy: Joi.string().required(),
-  // };
-
-  // Function to validate data based on schema
-  // const validate = (data) => {
-  //   const options = { abortEarly: false };
-  //   const { error } = Joi.validate(data, schema, options);
-  //   if (!error) return null;
-
-  //   const errors = {};
-  //   for (let item of error.details) {
-  //     errors[item.path[0]] = item.message;
-  //   }
-  //   return errors;
-  // };
 
   // Function to add new salary movement
   const addSalaryMovement = async (e) => {
@@ -69,18 +44,12 @@ const EmployeesSalary = () => {
       EmployeeId,
       EmployeeName,
       movement,
+      totalDays,
       Amount,
       oldAmount,
       newAmount,
       actionBy,
     };
-
-    // Validating the data before sending the request
-    // const errors = validate(data);
-    // if (errors) {
-    //   toast.error('Please review the entered data');
-    //   return;
-    // }
 
     try {
       const response = await axios.post(apiUrl + '/api/salarymovement', data, {
@@ -88,11 +57,11 @@ const EmployeesSalary = () => {
           'authorization': `Bearer ${token}`,
         },
       });
+      console.log({response})
       if (response) {
-
+        getSalaryMovement();
+        toast.success('Movement added successfully');
       }
-      getSalaryMovement();
-      toast.success('Movement added successfully');
 
     } catch (error) {
       console.log(error);
@@ -112,13 +81,6 @@ const EmployeesSalary = () => {
       newAmount,
       actionBy,
     };
-
-    // Validating the data before sending the request
-    // const errors = validate(data);
-    // if (errors) {
-    //   toast.error('Please review the entered data');
-    //   return;
-    // }
 
     try {
       const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
@@ -320,6 +282,7 @@ const EmployeesSalary = () => {
                         <th>المبلغ</th>
                         <th>المبلغ السابق</th>
                         <th>الاجمالي</th>
+                        <th>الايام</th>
                         <th>بواسطه</th>
                         <th>اليوم</th>
                       </tr>
@@ -342,6 +305,7 @@ const EmployeesSalary = () => {
                               <td>{mov.Amount}</td>
                               <td>{mov.oldAmount}</td>
                               <td>{mov.newAmount}</td>
+                              <td>{mov.totalDays}</td>
                               <td>{usertitle(mov.actionBy)}</td>
                               <td>{new Date(mov.actionAt).toLocaleString()}</td>
                               <td>
@@ -372,6 +336,7 @@ const EmployeesSalary = () => {
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
                                 <td>{mov.newAmount}</td>
+                                <td>{mov.totalDays}</td>
                                 <td>{usertitle(mov.actionBy)}</td>
                                 <td>{new Date(mov.actionAt).toLocaleString()}</td>
                                 <td>
@@ -435,6 +400,10 @@ const EmployeesSalary = () => {
                               )
                             }) : ""}
                           </select>
+                        </div>
+                        <div className="form-group">
+                          <label>الايام</label>
+                          <input type="number" min={0} className="form-control" required  onChange={(e) => {settotalDays(number(e.target.value)) }} />
                         </div>
                         <div className="form-group">
                           <label>المبلغ</label>
