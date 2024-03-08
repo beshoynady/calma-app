@@ -7,7 +7,7 @@ const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-  
+
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
@@ -57,7 +57,7 @@ const EmployeesSalary = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-      console.log({response})
+      console.log({ response })
       if (response) {
         getSalaryMovement();
         toast.success('Movement added successfully');
@@ -400,10 +400,12 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        <div className="form-group">
-                          <label>الايام</label>
-                          <input type="number" min={0} className="form-control" required  onChange={(e) => {settotalDays(Number(e.target.value)) }} />
-                        </div>
+                        {['غياب', 'اضافي'].includes(movement) && (
+                          <div className="form-group">
+                            <label>الايام</label>
+                            <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(Number(e.target.value)) }} />
+                          </div>
+                        )}
                         <div className="form-group">
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
