@@ -124,6 +124,8 @@ const PayRoll = () => {
 
 
   const addPayRoll = async () => {
+    const token = localStorage.getItem('token_e');
+
     for (let i = 0; i < ListOfEmployee.length; i++) {
       let Year = new Date().getFullYear()
       let Month = new Date().getMonth() + 1
@@ -217,6 +219,10 @@ const PayRoll = () => {
             tax: Tax,
             totalDeductible: TotalDeductible,
             netSalary: NetSalary,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           })
           console.log(result)
           if (result) {
@@ -241,6 +247,10 @@ const PayRoll = () => {
             tax: Tax,
             totalDeductible: TotalDeductible,
             netSalary: NetSalary,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           })
           console.log(result)
           if (result) {
@@ -276,6 +286,10 @@ const PayRoll = () => {
             tax: Tax,
             totalDeductible: TotalDeductible,
             netSalary: NetSalary,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           })
           console.log(result)
           if (result) {
@@ -300,6 +314,10 @@ const PayRoll = () => {
             tax: Tax,
             totalDeductible: TotalDeductible,
             netSalary: NetSalary,
+          }, {
+            headers: {
+              'authorization': `Bearer ${token}`,
+            },
           })
           console.log(result)
           if (result) {

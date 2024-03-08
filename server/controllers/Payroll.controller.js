@@ -14,9 +14,6 @@ const createPayroll = async (req, res) => {
 const getAllPayroll = async (req, res) => {
   try {
     const payroll = await PayrollModel.find({});
-    if (payroll.length === 0) {
-      return res.status(404).json({ success: false, error: 'لا يوجد بيانات للرواتب' });
-    }
     res.status(200).json(payroll);
   } catch (error) {
     console.error('Error fetching payroll:', error);
