@@ -129,7 +129,7 @@ const PayRoll = () => {
       let isPaid = false;
       let paidBy = null;
 
-      const employeemov = ListOfSalaryMovement.length > 0 ? ListOfSalaryMovement.filter((m) => m.EmployeeId == id) : '';
+      const employeemov = ListOfSalaryMovement.length > 0 ? ListOfSalaryMovement.filter((m) => m.EmployeeId == employeeId) : '';
       console.log({ employeemov: employeemov })
 
       if (employeemov.length > 0) {
@@ -203,6 +203,9 @@ const PayRoll = () => {
             netSalary: NetSalary,
           })
           console.log(result)
+          if (result) {
+            getEmployees()
+          }
         } else if(!isSalary && !isSalaryPaid){
           const result = await axios.post(`${apiUrl}/api/payroll`, {
             employeeId,
@@ -224,9 +227,9 @@ const PayRoll = () => {
             netSalary: NetSalary,
           })
           console.log(result)
-        }
-        if (result) {
-          getEmployees()
+          if (result) {
+            getEmployees()
+          }
         }
       } else {
         TotalDue = salary + Bonus + OvertimeValue
@@ -259,6 +262,9 @@ const PayRoll = () => {
             netSalary: NetSalary,
           })
           console.log(result)
+          if (result) {
+            getEmployees()
+          }
         } else if(!isSalary && !isSalaryPaid){
           const result = await axios.post(`${apiUrl}/api/payroll`, {
             employeeId,
@@ -280,9 +286,9 @@ const PayRoll = () => {
             netSalary: NetSalary,
           })
           console.log(result)
-        }
-        if (result) {
-          getEmployees()
+          if (result) {
+            getEmployees()
+          }
         }
       }
 
