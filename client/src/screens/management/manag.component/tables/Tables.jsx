@@ -22,8 +22,14 @@ const Tables = () => {
 const createQR = async (e) => {
   try {
       e.preventDefault();
+      const token = localStorage.getItem('token_e');
+
       const URL = `https://${window.location.hostname}/${tableid}`;
-      const qr = await axios.post(apiUrl + '/api/table/qr', { URL });
+      const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
+        headers: {
+            'authorization': `Bearer ${token}`,
+        },
+    });
       // console.log(qr.data);
       setqrimage(qr.data);
   } catch (error) {
