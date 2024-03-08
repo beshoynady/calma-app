@@ -3,10 +3,10 @@ const TableModel = require('../models/Table.model');
 
 // Create a new table
 const createTable = async (req, res) => {
-    const { tableNumberber, description, chairs, sectionNumber } = req.body;
+    const { tableNumber, description, chairs, sectionNumber } = req.body;
 
     try {
-        const tableCreated = await TableModel.create({ tableNumberber, description, chairs, sectionNumber });
+        const tableCreated = await TableModel.create({ tableNumber, description, chairs, sectionNumber });
         return res.status(200).json({ message: "Table created successfully", data: tableCreated });
     } catch (err) {
         return res.status(400).json(err.message);
