@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const CashRegister = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
-  
+
   const [cashRegisters, setCashRegisters] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
   const [name, setname] = useState('');
@@ -17,6 +17,8 @@ const CashRegister = () => {
   // Fetch employees
   const getEmployees = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(`${apiUrl}/api/employee`, {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
@@ -46,6 +48,8 @@ const CashRegister = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(apiUrl + '/api/cashregister', {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
@@ -61,6 +65,8 @@ const CashRegister = () => {
   // Fetch a cash register by ID
   const getCashRegisterById = async () => {
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`, {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
@@ -77,6 +83,8 @@ const CashRegister = () => {
     e.preventDefault()
     const newCashRegister = { name, balance, employee };
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister, {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
@@ -96,7 +104,9 @@ const CashRegister = () => {
     e.preventDefault()
     const updatedCashRegister = { name, balance, employee };
     try {
-      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister , {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister, {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
         },
@@ -112,6 +122,8 @@ const CashRegister = () => {
   const deleteCashRegister = async (e) => {
     e.preventDefault()
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`, {
         headers: {
           'authorization': `Bearer ${token}`, // Send the token in the authorization header
