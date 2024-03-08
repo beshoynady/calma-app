@@ -7,7 +7,6 @@ const Joi = require('joi');
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
   
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
@@ -261,7 +260,6 @@ const EmployeesSalary = () => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
