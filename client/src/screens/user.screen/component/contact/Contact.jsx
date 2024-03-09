@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import axios from 'axios'
-import toast from 'react-toastify'
+import { toast } from 'react-toastify';
 import './Contact.css'
 import whatsapp from '../../../../image/whatsapp.png'
 import facebook from '../../../../image/facebook.png'
@@ -27,7 +27,6 @@ const Contact = () => {
             },{
                 headers: {
                   'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'multipart/form-data',
                 },
               })
             if (send.status === 201) {
