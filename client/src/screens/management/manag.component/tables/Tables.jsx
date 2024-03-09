@@ -18,43 +18,53 @@ const Tables = () => {
   const [sectionNumber, setsectionNumber] = useState();
   const [tabledesc, settabledesc] = useState("");
   const [isValid, setisValid] = useState();
+
 // Function to create QR code for the table URL
 const createQR = async (e) => {
   try {
-      e.preventDefault();
-      const token = localStorage.getItem('token_e');
+    e.preventDefault();
+    const token = localStorage.getItem('token_e');
 
-      const URL = `https://${window.location.hostname}/${tableid}`;
-      const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
-        headers: {
-            'authorization': `Bearer ${token}`,
-        },
+    const URL = `https://${window.location.hostname}/${tableid}`;
+    const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
     });
-      // console.log(qr.data);
-      setqrimage(qr.data);
+    setqrimage(qr.data);
+    toast.success('تم إنشاء رمز QR بنجاح!');
   } catch (error) {
-      console.error("Error creating QR code:", error);
+    console.error("حدث خطأ أثناء إنشاء رمز QR:", error);
+    toast.error('حدث خطأ أثناء إنشاء رمز QR!');
   }
 }
 
 // Function to create web QR code
 const createwebQR = async (e) => {
   try {
-      e.preventDefault();
-      const token = localStorage.getItem('token_e');
-      if (!token) {
-          throw new Error("No token found in localStorage.");
-      }
-      const URL = `https://${window.location.hostname}/`;
-      const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
-          headers: {
-              'authorization': `Bearer ${token}`,
-          },
-      });
-      // console.log(qr.data);
-      setqrimage(qr.data);
+    e.preventDefault();
+    const token = localStorage.getItem('token_e');
+    if (!token) {
+      throw new Error("لا يوجد رمز مميز مخزن في localStorage.");
+    }
+    const URL = `https://${window.location.hostname}/`;
+    const qr = await axios.post(apiUrl + '/api/table/qr', { URL }, {
+      headers: {
+        'authorization': `Bearer ${token}`,
+      },
+    });
+    setqrimage(qr.data);
+    toast.success('تم إنشاء رمز QR بنجاح!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000
+    });
   } catch (error) {
-      console.error("Error creating web QR code:", error);
+    console.error("حدث خطأ أثناء إنشاء رمز QR للويب:", error);
+    // عرض رسالة خطأ باستخدام toast
+    toast.error('حدث خطأ أثناء إنشاء رمز QR للويب!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 5000
+    });
   }
 }
 
