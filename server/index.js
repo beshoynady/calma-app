@@ -19,7 +19,7 @@ const routeproduct = require('./router/Product.router.js');
 const routerecipe = require('./router/Recipe.router.js');
 const routeuser = require('./router/User.router.js');
 const routeemployee = require('./router/Employee.router.js');
-const routemassage = require('./router/Massage.router.js')
+const routemessage = require('./router/Message.router.js')
 const routepayroll = require('./router/PayRoll.router.js');
 const routeshift = require('./router/Shift.router.js');
 const routesalarymovement = require('./router/EmployeeSalary.router.js');
@@ -88,7 +88,7 @@ app.use('/api/recipe', routerecipe)
 app.use('/api/category', routecategory);
 app.use('/api/user', routeuser);
 app.use('/api/employee', routeemployee);
-app.use('/api/massage', routemassage);
+app.use('/api/message', routemessage);
 app.use('/api/payroll', routepayroll);
 app.use('/api/salarymovement', routesalarymovement);
 app.use('/api/shift', routeshift);

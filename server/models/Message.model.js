@@ -23,6 +23,6 @@ const customerMessageSchema = new mongoose.Schema({
   }
 });
 
-const CustomerMessage = mongoose.model('CustomerMessage', customerMessageSchema);
+const CustomerMessageModel = mongoose.model('CustomerMessage', customerMessageSchema);
 
 module.exports = CustomerMessageModel;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const messageController = require('../controllers/Message.controller');
-const authenticateToken = require('../utils/authenticate');
+const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
     .post(authenticateToken, messageController.createCustomerMessage)
