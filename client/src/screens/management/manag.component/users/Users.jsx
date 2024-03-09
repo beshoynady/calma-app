@@ -85,8 +85,8 @@ const Users = () => {
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#adduserloyeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deleteuserloyeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#adduserModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deleteuserModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -178,12 +178,12 @@ const Users = () => {
                                 </td>
                                 <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  <a href="#edituserloyeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
+                                  <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
                                   //    onClick={() => {
                                   //     setuserloyeeid(user._id); setfullname(user.fullname); setnumberID(user.numberID); setusername(user.username); setaddress(user.address); setemail(user.email); setisActive(user.isActive); setphone(user.phone); setrole(user.role); setbasicSalary(user.basicSalary)
                                   //   }}
                                   >&#xE254;</i></a>
-                                  <a href="#deleteuserloyeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
+                                  <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
                                   //    onClick={() => setuserloyeeid(user._id)}
                                   >&#xE872;</i></a>
                                 </td>
@@ -224,12 +224,12 @@ const Users = () => {
                                   </td>
                                   <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
-                                    <a href="#edituserloyeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
+                                    <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
                                     //    onClick={() => {
                                     //     setuserloyeeid(user._id); setfullname(user.fullname); setnumberID(user.numberID); setusername(user.username); setaddress(user.address); setemail(user.email); setisActive(user.isActive); setphone(user.phone); setrole(user.role); setbasicSalary(user.basicSalary)
                                     //   }}
                                     >&#xE254;</i></a>
-                                    <a href="#deleteuserloyeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
+                                    <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
                                     //    onClick={() => setuserloyeeid(user._id)}
                                     >&#xE872;</i></a>
                                   </td>
@@ -254,7 +254,7 @@ const Users = () => {
                   </div>
                 </div>
               </div>
-              {/* <div id="adduserloyeeModal" className="modal fade">
+              {/* <div id="adduserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createuserloyee}>
@@ -328,7 +328,7 @@ const Users = () => {
                 </div>
               </div>
 
-              <div id="edituserloyeeModal" className="modal fade">
+              <div id="edituserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={edituserloyee}>
@@ -401,7 +401,7 @@ const Users = () => {
                 </div>
               </div>
 
-              <div id="deleteuserloyeeModal" className="modal fade">
+              <div id="deleteuserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteuserloyee}>

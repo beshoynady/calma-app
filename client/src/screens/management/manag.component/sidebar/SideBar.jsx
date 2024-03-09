@@ -9,6 +9,7 @@ const SideBar = () => {
     arrowmen: useRef(),
     arrowemp: useRef(),
     arrowsto: useRef(),
+    arrowmessage: useRef(),
     arrowsexp: useRef(),
     arrowsCash: useRef(),
     arrowtable: useRef(),
@@ -102,18 +103,7 @@ const SideBar = () => {
                     </li>
                   )}
 
-                  {/* Users */}
-                  {role === 'manager' && (
-                    <li>
-                      <Link to="users">
-                        <span className="material-symbols-outlined icon">user_attributes</span>
-                        <span className="link_name">المستخدمين</span>
-                      </Link>
-                      <ul className="sub-menu blank">
-                        <li><Link to="users" className="link_name">المستخدمين</Link></li>
-                      </ul>
-                    </li>
-                  )}
+
 
                   {/* Orders */}
                   {role === 'manager' && (
@@ -185,6 +175,23 @@ const SideBar = () => {
                     </li>
                   )}
 
+                  {/* Users */}
+                  {role === 'manager' && (
+                    <li ref={arrowRefs.arrowmessage} onClick={() => openSubMenu(arrowRefs.arrowmessage)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                        <span className="material-symbols-outlined icon">user_attributes</span>
+                        <span className="link_name">المستخدمين</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
+                        <li><a className="link_name" href="#">العملاء</a></li>
+                        <li><Link to="users">ادارة العملاء</Link></li>
+                        <li><Link to="message">رسائل العملاء</Link></li>
+                      </ul>
+                    </li>
+                  )}
                   {/* Stock */}
                   {role === 'manager' && (
                     <li ref={arrowRefs.arrowsto} onClick={() => openSubMenu(arrowRefs.arrowsto)}>

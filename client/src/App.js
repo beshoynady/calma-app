@@ -1793,6 +1793,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
             <Route path='kitchen' element={<Kitchen />} />
             <Route path='waiter' element={<Waiter />} />
             <Route path='users' element={<Users />} />
+            <Route path='message' element={<Messages />} />
             <Route path='deliveryman' element={<DeliveryMan />} />
             <Route path='pos' element={<POS />} />
             <Route path='categoryStock' element={<CategoryStock />} />
