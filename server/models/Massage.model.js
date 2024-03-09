@@ -14,7 +14,8 @@ const customerMessageSchema = new mongoose.Schema({
   },
   message: {
     type: String,
-    required: true
+    required: true,
+    maxlenght: 255
   },
   createdAt: {
     type: Date,

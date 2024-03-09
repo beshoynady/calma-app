@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const massageController = require('../controllers/Massage.controller');
-const authenticateToken = require('../utlits/authenticate')
+const messageController = require('../controllers/Message.controller');
+const authenticateToken = require('../utils/authenticate');
 
 router.route('/')
-    .post(authenticateToken, massageController.createCustomerMessage)
-    .get(authenticateToken, massageController.getAllCustomerMessages);
+    .post(authenticateToken, messageController.createCustomerMessage)
+    .get(authenticateToken, messageController.getAllCustomerMessages);
 
 router.route('/:id')
-    .get(authenticateToken, massageController.getCustomerMessageById)
-    .put(authenticateToken, massageController.updateCustomerMessageById)
-    .delete(authenticateToken, massageController.deleteCustomerMessageById);
+    .get(authenticateToken, messageController.getCustomerMessageById)
+    .put(authenticateToken, messageController.updateCustomerMessageById)
+    .delete(authenticateToken, messageController.deleteCustomerMessageById);
 
 module.exports = router;

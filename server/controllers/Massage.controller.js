@@ -1,30 +1,33 @@
-const CustomerMessage = require('../models/Massage.model');
+const CustomerMessage = require('../models/Message.model');
 
 // Create a new customer message
-const createCustomerMessage = async (req, res, next) => {
+const createCustomerMessage = async (req, res) => {
     try {
         const { name, email, phone, message } = req.body;
+        if (!name || !phone || !message) {
+            return res.status(400).json({ error: 'Please provide all required fields' });
+        }
         const newMessage = await CustomerMessage.create({ name, email, phone, message });
         res.status(201).json(newMessage);
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        next(error);
+        console.error("Error creating customer message:", error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
 // Get all customer messages
-const getAllCustomerMessages = async (req, res, next) => {
+const getAllCustomerMessages = async (req, res) => {
     try {
         const messages = await CustomerMessage.find();
         res.status(200).json(messages);
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        next(error);
+        console.error("Error getting all customer messages:", error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
 // Get a single customer message by ID
-const getCustomerMessageById = async (req, res, next) => {
+const getCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
         const message = await CustomerMessage.findById(messageId);
@@ -33,13 +36,13 @@ const getCustomerMessageById = async (req, res, next) => {
         }
         res.status(200).json(message);
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        next(error);
+        console.error("Error getting customer message by ID:", error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
 // Update a customer message by ID
-const updateCustomerMessageById = async (req, res, next) => {
+const updateCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
         const updatedMessage = await CustomerMessage.findByIdAndUpdate(messageId, req.body, { new: true });
@@ -48,13 +51,13 @@ const updateCustomerMessageById = async (req, res, next) => {
         }
         res.status(200).json(updatedMessage);
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        next(error);
+        console.error("Error updating customer message by ID:", error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
 // Delete a customer message by ID
-const deleteCustomerMessageById = async (req, res, next) => {
+const deleteCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
         const deletedMessage = await CustomerMessage.findByIdAndDelete(messageId);
@@ -63,8 +66,8 @@ const deleteCustomerMessageById = async (req, res, next) => {
         }
         res.status(200).json(deletedMessage);
     } catch (error) {
-        res.status(400).json({ error: error.message });
-        next(error);
+        console.error("Error deleting customer message by ID:", error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 

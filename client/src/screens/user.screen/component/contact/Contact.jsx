@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import './Contact.css'
@@ -24,11 +24,11 @@ const Contact = () => {
             }
             const send = await axios.post(`${apiUrl}/app/massage`, {
                 name, email, phone, message
-            },{
+            }, {
                 headers: {
-                  'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${token}`,
                 },
-              })
+            })
             if (send.status === 201) {
                 toast.success('تم ارسال رسالتك بنجاح')
             } else {
@@ -60,10 +60,10 @@ const Contact = () => {
                     <div className="left">
                         <h2>لارسال الشكاوي و الملاحظات</h2>
                         <form onSubmit={sendmassage}>
-                            <input placeholder='الاسم' type="text" id='name' required onChange={(e) => setName(e.target.value)} />
+                            <input placeholder='Name' type="text" id='name' required onChange={(e) => setName(e.target.value)} />
                             <input placeholder='E-Mail' type="email" id='email' onChange={(e) => setEmail(e.target.value)} />
-                            <input placeholder='الموبايل' type="tel" id='phone' required onChange={(e) => setPhone(e.target.value)} />
-                            <textarea placeholder='رسالتك' maxLength={150} type="text" id='supject' required onChange={(e) => setMessage(e.target.value)} />
+                            <input placeholder='Mobile' type="tel" id='phone' required onChange={(e) => setPhone(e.target.value)} />
+                            <textarea placeholder='Your message' maxLength={150} type="text" id='subject' required onChange={(e) => setMessage(e.target.value)} />
                             <button type='Submit'>ارسال</button>
                         </form>
                     </div>
