@@ -192,6 +192,7 @@ const SideBar = () => {
                       </ul>
                     </li>
                   )}
+                  
                   {/* Stock */}
                   {role === 'manager' && (
                     <li ref={arrowRefs.arrowsto} onClick={() => openSubMenu(arrowRefs.arrowsto)}>
