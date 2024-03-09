@@ -17,12 +17,19 @@ const Contact = () => {
     const sendmassage = async (e) => {
         e.preventDefault();
         try {
+            const token = localStorage.getItem('token_e');
+
             if (!name || !phone || !message) {
                 toast.error('الاسم و الموبايل و الرساله حقول مطلوبه')
             }
             const send = await axios.post(`${apiUrl}/app/massage`, {
                 name, email, phone, message
-            })
+            },{
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'multipart/form-data',
+                },
+              })
             if (send.status === 201) {
                 toast.success('تم ارسال رسالتك بنجاح')
             } else {
