@@ -1,4 +1,4 @@
-const CustomerMessage = require('../models/Message.model');
+const CustomerMessageModel = require('../models/Message.model');
 
 // Create a new customer message
 const createCustomerMessage = async (req, res) => {
@@ -7,7 +7,7 @@ const createCustomerMessage = async (req, res) => {
         if (!name || !phone || !message) {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
-        const newMessage = await CustomerMessage.create({ name, email, phone, message });
+        const newMessage = await CustomerMessageModel.create({ name, email, phone, message });
         res.status(201).json(newMessage);
     } catch (error) {
         console.error("Error creating customer message:", error);
@@ -18,7 +18,7 @@ const createCustomerMessage = async (req, res) => {
 // Get all customer messages
 const getAllCustomerMessages = async (req, res) => {
     try {
-        const messages = await CustomerMessage.find();
+        const messages = await CustomerMessageModel.find();
         res.status(200).json(messages);
     } catch (error) {
         console.error("Error getting all customer messages:", error);
@@ -30,7 +30,7 @@ const getAllCustomerMessages = async (req, res) => {
 const getCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
-        const message = await CustomerMessage.findById(messageId);
+        const message = await CustomerMessageModel.findById(messageId);
         if (!message) {
             return res.status(404).json({ message: 'Message not found' });
         }
@@ -45,7 +45,7 @@ const getCustomerMessageById = async (req, res) => {
 const updateCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
-        const updatedMessage = await CustomerMessage.findByIdAndUpdate(messageId, req.body, { new: true });
+        const updatedMessage = await CustomerMessageModel.findByIdAndUpdate(messageId, req.body, { new: true });
         if (!updatedMessage) {
             return res.status(404).json({ message: 'Message not found' });
         }
@@ -60,7 +60,7 @@ const updateCustomerMessageById = async (req, res) => {
 const deleteCustomerMessageById = async (req, res) => {
     try {
         const messageId = req.params.id;
-        const deletedMessage = await CustomerMessage.findByIdAndDelete(messageId);
+        const deletedMessage = await CustomerMessageModel.findByIdAndDelete(messageId);
         if (!deletedMessage) {
             return res.status(404).json({ message: 'Message not found' });
         }

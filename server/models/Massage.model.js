@@ -25,4 +25,4 @@ const customerMessageSchema = new mongoose.Schema({
 
 const CustomerMessage = mongoose.model('CustomerMessage', customerMessageSchema);
 
-module.exports = CustomerMessage;
+module.exports = CustomerMessageModel;
