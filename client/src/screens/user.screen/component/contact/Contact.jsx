@@ -14,7 +14,7 @@ const Contact = () => {
     const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
 
-    const sendmassage = async (e) => {
+    const sendmessage = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token_e');
@@ -22,7 +22,7 @@ const Contact = () => {
             if (!name || !phone || !message) {
                 toast.error('الاسم و الموبايل و الرساله حقول مطلوبه')
             }
-            const send = await axios.post(`${apiUrl}/app/massage`, {
+            const send = await axios.post(`${apiUrl}/app/message`, {
                 name, email, phone, message
             }, {
                 headers: {
@@ -60,7 +60,7 @@ const Contact = () => {
                     </div>
                     <div className="left">
                         <h2>لارسال الشكاوي و الملاحظات</h2>
-                        <form onSubmit={sendmassage}>
+                        <form onSubmit={sendmessage}>
                             <input placeholder='Name' type="text" id='name' required onChange={(e) => setName(e.target.value)} />
                             <input placeholder='E-Mail' type="email" id='email' onChange={(e) => setEmail(e.target.value)} />
                             <input placeholder='Mobile' type="tel" id='phone' required onChange={(e) => setPhone(e.target.value)} />
