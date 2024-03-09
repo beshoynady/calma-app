@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 
 
-const Messages = () => {
+const CustomerMessage = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const [name, setName] = useState('');
@@ -273,4 +273,4 @@ const Messages = () => {
   )
 }
 
-export default Messages
+export default CustomerMessage

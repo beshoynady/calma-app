@@ -35,6 +35,7 @@ import DailyExpense from './screens/management/manag.component/expenses/dailyExp
 import CashRegister from './screens/management/manag.component/cash/CashRegister';
 import CashMovement from './screens/management/manag.component/cash/CashMovement';
 import Users from './screens/management/manag.component/users/Users';
+import CustomerMessage from './screens/management/manag.component/users/CustomerMessage';
 import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
 
 // import io from 'socket.io-client';
@@ -1793,7 +1794,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
             <Route path='kitchen' element={<Kitchen />} />
             <Route path='waiter' element={<Waiter />} />
             <Route path='users' element={<Users />} />
-            <Route path='message' element={<Messages />} />
+            <Route path='message' element={<CustomerMessage />} />
             <Route path='deliveryman' element={<DeliveryMan />} />
             <Route path='pos' element={<POS />} />
             <Route path='categoryStock' element={<CategoryStock />} />
