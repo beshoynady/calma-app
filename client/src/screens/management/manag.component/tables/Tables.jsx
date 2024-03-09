@@ -5,7 +5,6 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 
 
-
 const Tables = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 

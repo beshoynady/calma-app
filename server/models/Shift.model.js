@@ -20,7 +20,7 @@ const shiftSchema = new mongoose.Schema({
   },
   shiftType: {
     type: String,
-    enum: ['Morning', 'Evening', 'Night'], // تعريف النوع
+    enum: ['Morning', 'Evening', 'Night'], 
     required: true,
   },
   isOvertime: {

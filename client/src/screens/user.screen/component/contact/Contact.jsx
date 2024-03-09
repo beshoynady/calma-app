@@ -1,9 +1,36 @@
 import React from 'react'
+import axios from 'axios'
 import './Contact.css'
 import whatsapp from '../../../../image/whatsapp.png'
 import facebook from '../../../../image/facebook.png'
 
 const Contact = () => {
+
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [message, setMessage] = useState('');
+
+    const sendmassage = async(e)=>{
+        e.preventDefault();
+        try {
+            if(!name|| !phone|| !message){
+                toast.error('الاسم و الموبايل و الرساله حقول مطلوبه')
+            }
+            const send = await axios.post(`${apiUrl}/app/massage`,{
+                name, email, phone, message
+            })
+            if (send.status === 201){
+                toast.success('تم ارسال رسالتك بنجاح')
+            }else {
+                toast.error('حدث خطأ اثناء ارسال الرساله ! حاول مره اخري')
+            }
+        } catch (error) {
+            toast.error('فشل ارسال الرسال ! حاول مرع اخري')
+        }
+    }
 
     return (
         <section className='contact' id='contact'>
@@ -25,11 +52,11 @@ const Contact = () => {
                     </div>
                     <div className="left">
                         <h2>لارسال الشكاوي و الملاحظات</h2>
-                        <form action="">
-                            <input placeholder='الاسم' type="text" id='name' required />
-                            <input placeholder='E-Mail' type="email" id='email' />
-                            <input placeholder='الموبايل' type="tel" id='phone' required />
-                            <textarea placeholder='رسالتك' maxLength={150} type="text" id='supject' required />
+                        <form onSubmit={sendmassage}>
+                            <input placeholder='الاسم' type="text" id='name' required onChange={(e)=>setName(e.target.value)}/>
+                            <input placeholder='E-Mail' type="email" id='email' onChange={(e)=>setEmail(e.target.value)}/>
+                            <input placeholder='الموبايل' type="tel" id='phone' required onChange={(e)=>setPhone(e.target.value)}/>
+                            <textarea placeholder='رسالتك' maxLength={150} type="text" id='supject' required onChange={(e)=>setMessage(e.target.value)}/>
                             <button type='Submit'>ارسال</button>
                         </form>
                     </div>
