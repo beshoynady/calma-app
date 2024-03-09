@@ -29,6 +29,7 @@ const Contact = () => {
                     'Authorization': `Bearer ${token}`,
                 },
             })
+            console.log({send})
             if (send.status === 201) {
                 toast.success('تم ارسال رسالتك بنجاح')
             } else {
