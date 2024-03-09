@@ -12,7 +12,13 @@ const Users = () => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/user');
+      const token = localStorage.getItem('token_e');
+
+      const response = await axios.get(apiUrl + '/api/user', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
       setAllUsers(response.data)
     } catch (error) {
       console.log(error)
@@ -20,12 +26,18 @@ const Users = () => {
   };
   const changeorderVarified = async (e, id) => {
     try {
+      const token = localStorage.getItem('token_e');
+
       // Get the value from the event
       const isVarified = e.target.value;
       console.log(e.target.value)
 
       // Send a request to update the 'isVarified' status
-      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isVarified });
+      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isVarified }, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
       console.log(response.data)
 
       // Notify success using toast
@@ -42,11 +54,17 @@ const Users = () => {
 
   const changeorderActive = async (e, id) => {
     try {
+      const token = localStorage.getItem('token_e');
+
       // put the value from the event
       const isActive = e.target.value;
 
       // Send a request to update the 'isActive' status
-      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isActive });
+      const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isActive }, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
 
       // Notify success using toast
       toast.success('تم تغير الحاله بنجاح');

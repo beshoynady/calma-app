@@ -16,6 +16,8 @@ const CustomerMessage = () => {
 
   const getAllCustomerMessage = async () => {
     try {
+      const token = localStorage.getItem('token_e');
+
       const response = await axios.get(`${apiUrl}/api/message`, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -28,6 +30,8 @@ const CustomerMessage = () => {
   };
   const deleteCustomerMessage = async () => {
     try {
+      const token = localStorage.getItem('token_e');
+
       const response = await axios.delete(`${apiUrl}/api/message/${messageId}` , {
         headers: {
             'Authorization': `Bearer ${token}`,
