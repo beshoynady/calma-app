@@ -26,9 +26,9 @@ const CustomerMessage = () => {
       console.log(error)
     }
   };
-  const deleteCustomerMessage = async (id) => {
+  const deleteCustomerMessage = async () => {
     try {
-      const response = await axios.delete(`${apiUrl}/api/message/${id}` , {
+      const response = await axios.delete(`${apiUrl}/api/message/${messageId}` , {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -145,14 +145,12 @@ const CustomerMessage = () => {
                                 <td>{message.email}</td>
                                 <td>{new Date(message.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  <a href="#editmessageModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
-                                  //    onClick={() => {
-                                  //     setmessageloyeeid(message._id); setfullname(message.fullname); setnumberID(message.numberID); setmessagename(message.messagename); setaddress(message.address); setemail(message.email); setisActive(message.isActive); setphone(message.phone); setrole(message.role); setbasicSalary(message.basicSalary)
-                                  //   }}
-                                  >&#xE254;</i></a>
-                                  <a href="#deletemessageModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
-                                  //    onClick={() => setmessageloyeeid(message._id)}
-                                  >&#xE872;</i></a>
+                                <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{
+                                      setName(message.name);setPhone(message.phone);setMessage(message.message); setEmail(message.email);setmessageId(message._id);
+                                    }}><i className="material-icons" data-toggle="tooltip" title="Edit"
+                                    >&#xE254;</i></a>
+                                    <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons" data-toggle="tooltip" title="Delete"
+                                    >&#xE872;</i></a>
                                 </td>
 
                               </tr>
@@ -178,11 +176,8 @@ const CustomerMessage = () => {
                                   <td>{new Date(message.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
                                     <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{
-                                      setName(message.name);setPhoto(message.photo);setMessage(message.message); setEmail(message.email);setmessageId(message._id);
+                                      setName(message.name);setPhone(message.phone);setMessage(message.message); setEmail(message.email);setmessageId(message._id);
                                     }}><i className="material-icons" data-toggle="tooltip" title="Edit"
-                                    //    onClick={() => {
-                                    //     setmessageloyeeid(message._id); setfullname(message.fullname); setnumberID(message.numberID); setmessagename(message.messagename); setaddress(message.address); setemail(message.email); setisActive(message.isActive); setphone(message.phone); setrole(message.role); setbasicSalary(message.basicSalary)
-                                    //   }}
                                     >&#xE254;</i></a>
                                     <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons" data-toggle="tooltip" title="Delete"
                                     >&#xE872;</i></a>
