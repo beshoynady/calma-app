@@ -32,7 +32,6 @@ const Products = () => {
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
         },
       };
 
@@ -100,7 +99,6 @@ const Products = () => {
         const response = await axios.put(`${apiUrl}/api/product/${productid}`, formdata, {
           headers: {
             'authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
           },
         });
 
