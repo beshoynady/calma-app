@@ -22,7 +22,7 @@ const Contact = () => {
             if (!name || !phone || !message) {
                 toast.error('الاسم و الموبايل و الرساله حقول مطلوبه')
             }
-            const send = await axios.post(`${apiUrl}/app/message`, {
+            const send = await axios.post(`${apiUrl}/api/message`, {
                 name, email, phone, message
             }, {
                 headers: {
