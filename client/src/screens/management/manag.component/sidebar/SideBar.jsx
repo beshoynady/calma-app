@@ -52,7 +52,7 @@ const SideBar = () => {
                   )}
 
                   {/* POS */}
-                  {(role === 'casher' || role === 'manager') && (
+                  {(role === 'casher' || role === 'waiter' || role === 'manager') && (
                     <li>
                       <Link to="pos">
                         <span className="material-symbols-outlined icon">point_of_sale</span>
@@ -78,7 +78,7 @@ const SideBar = () => {
                   )}
 
                   {/* Waiter */}
-                  {(role === 'waiter' || role === 'manager') && (
+                  {(role === 'manager') && (
                     <li>
                       <Link to="waiter">
                         <span className="material-symbols-outlined icon">concierge</span>
@@ -119,23 +119,28 @@ const SideBar = () => {
                   )}
 
                   {/* Tables */}
-                  {role === 'manager' && (
-                    <li ref={arrowRefs.arrowtable} onClick={() => openSubMenu(arrowRefs.arrowtable)}>
-                      <div className="iocn-link">
-                        <a href="#">
-                          <span className="material-symbols-outlined icon">table_restaurant</span>
-                          <span className="link_name">الطاولات</span>
-                        </a>
-                        <i className='bx bxs-chevron-down arrow'></i>
-                      </div>
-                      <ul className="sub-menu">
-                        <li><a className="link_name" href="#">الطاولات</a></li>
+                  <li ref={arrowRefs.arrowtable} onClick={() => openSubMenu(arrowRefs.arrowtable)}>
+                    <div className="iocn-link">
+                      <a href="#">
+                        <span className="material-symbols-outlined icon">table_restaurant</span>
+                        <span className="link_name">الطاولات</span>
+                      </a>
+                      <i className='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul className="sub-menu">
+                      <li><a className="link_name" href="#">الطاولات</a></li>
+                      {role === 'manager' && (
                         <li><Link to="tables">ادارة الطاولات</Link></li>
+                      )}
+                      {(role === 'casher' || role === 'manager') && (
                         <li><Link to="reservation">حجز الطاولات</Link></li>
+                      )}
+                      {(role === 'casher' || role === 'manager' || role === 'waiter') && (
                         <li><Link to="tablespage">الطاولات</Link></li>
-                      </ul>
-                    </li>
-                  )}
+                      )}
+                    </ul>
+                  </li>
+
 
                   {/* Menu */}
                   {role === 'manager' && (
@@ -157,31 +162,35 @@ const SideBar = () => {
                   )}
 
                   {/* Employees */}
-                  {(role === 'manager' || role === 'casher') && (
-                    <li ref={arrowRefs.arrowemp} onClick={() => openSubMenu(arrowRefs.arrowemp)}>
-                      <div className="iocn-link">
-                        <a href="#">
-                          <span className="material-symbols-outlined icon">group_add</span>
-                          <span className="link_name">الموظفون</span>
-                        </a>
-                        <i className='bx bxs-chevron-down arrow'></i>
-                      </div>
-                      <ul className="sub-menu">
-                        <li><a className="link_name" href="#">الموظفون</a></li>
-                        <li><Link to="employees">البيانات</Link></li>
+                  <li ref={arrowRefs.arrowemp} onClick={() => openSubMenu(arrowRefs.arrowemp)}>
+                    <div className="iocn-link">
+                      <a href="#">
+                        <span className="material-symbols-outlined icon">group_add</span>
+                        <span className="link_name">الموظفون</span>
+                      </a>
+                      <i className='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul className="sub-menu">
+                      <li><a className="link_name" href="#">الموظفون</a></li>
+                      {(role === 'manager') && (
+                        <>
+                          <li><Link to="employees">البيانات</Link></li>
+                          <li><Link to="payroll">المرتبات</Link></li>
+                        </>
+                      )}
+                      {(role === 'manager' || role === 'casher') && (
                         <li><Link to="employeessalary">تعاملات</Link></li>
-                        <li><Link to="payroll">المرتبات</Link></li>
-                      </ul>
-                    </li>
-                  )}
+                      )}
+                    </ul>
+                  </li>
 
                   {/* Users */}
                   {role === 'manager' && (
                     <li ref={arrowRefs.arrowmessage} onClick={() => openSubMenu(arrowRefs.arrowmessage)}>
                       <div className="iocn-link">
                         <a href="#">
-                        <span className="material-symbols-outlined icon">user_attributes</span>
-                        <span className="link_name">المستخدمين</span>
+                          <span className="material-symbols-outlined icon">user_attributes</span>
+                          <span className="link_name">المستخدمين</span>
                         </a>
                         <i className='bx bxs-chevron-down arrow'></i>
                       </div>
@@ -192,7 +201,7 @@ const SideBar = () => {
                       </ul>
                     </li>
                   )}
-                  
+
                   {/* Stock */}
                   {role === 'manager' && (
                     <li ref={arrowRefs.arrowsto} onClick={() => openSubMenu(arrowRefs.arrowsto)}>
@@ -229,7 +238,9 @@ const SideBar = () => {
                           <li><Link to="expense">المصروفات</Link></li>
                         </>
                       )}
-                      {(role === 'manager' || role === 'casher') && <li><Link to="dailyexpense">تسجيل مصروف</Link></li>}
+                      {(role === 'manager' || role === 'casher') &&
+                        <li><Link to="dailyexpense">تسجيل مصروف</Link></li>
+                      }
                     </ul>
                   </li>
 
@@ -244,11 +255,9 @@ const SideBar = () => {
                     </div>
                     <ul className="sub-menu">
                       {role === 'manager' && <li><a className="link_name" href="#">الخزينة</a></li>}
+                      <li><Link to="cashregister">الرصيد</Link></li>
                       {(role === 'manager' || role === 'casher') && (
-                        <>
-                          <li><Link to="cashregister">الرصيد</Link></li>
-                          <li><Link to="cashmovement">تسجيل حركه</Link></li>
-                        </>
+                        <li><Link to="cashmovement">تسجيل حركه</Link></li>
                       )}
                     </ul>
 

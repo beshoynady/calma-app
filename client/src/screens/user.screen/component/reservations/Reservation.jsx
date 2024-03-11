@@ -18,7 +18,7 @@ const Reservation = () => {
       {({ allTable, getAvailableTables, availableTableIds, createReservations, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, userLoginInfo }) => {
         const userId = userLoginInfo?.userinfo?.id;
         return (
-          <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ height: 'calc(100vh - 80px)', width: '100%' }}>
+          <div id='reservation' className='d-flex align-items-center flex-column justify-content-start' style={{ minHeight: 'calc(100vh - 80px)', width: '100%' , scrollMarginTop:'80px'}}>
             <div className='section-title'>
               <h2>حجز طاولة</h2>
             </div>

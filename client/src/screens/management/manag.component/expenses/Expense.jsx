@@ -14,7 +14,13 @@ const ExpenseItem = () => {
   const createExpense = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(apiUrl + '/api/expenses/', { description });
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.post(apiUrl + '/api/expenses/', { description }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       console.log(response.data);
       getAllExpenses();
     } catch (error) {
@@ -25,8 +31,14 @@ const ExpenseItem = () => {
   const editExpense = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
       const response = await axios.put(`${apiUrl}/api/expenses/${expenseId}`, {
         description
+      }, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
       });
       console.log(response.data);
       if (response.status === 200) {
@@ -40,7 +52,13 @@ const ExpenseItem = () => {
   const deleteExpense = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/expenses/${expenseId}`);
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.delete(`${apiUrl}/api/expenses/${expenseId}`, {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         console.log(response);
         getAllExpenses();
@@ -52,7 +70,13 @@ const ExpenseItem = () => {
 
   const getAllExpenses = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/expenses/');
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+      const response = await axios.get(apiUrl + '/api/expenses/', {
+        headers: {
+          'authorization': `Bearer ${token}`,
+        },
+      });
       const expenses = await response.data.reverse();
       console.log(response.data);
       setAllExpenses(expenses);

@@ -3,7 +3,7 @@ const router = express.Router();
 const { createEmployee, getoneEmployee, loginEmployee, updateOrAddPayrollForMonth, paidPayrollForMonth, getAllemployees, updateEmployee, deleteEmployee } = require('../controllers/Employee.controller.js');
 const authenticateToken = require('../utlits/authenticate')
 
-router.route('/').post(authenticateToken, createEmployee).get(authenticateToken, getAllemployees);
+router.route('/').post(authenticateToken,createEmployee).get(authenticateToken, getAllemployees);
 
 router.route('/:employeeId').get(getoneEmployee).put(authenticateToken, updateEmployee).delete(authenticateToken, deleteEmployee);
 

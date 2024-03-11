@@ -4,8 +4,8 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const helmet = require('helmet'); // Security middleware
 const cookieParser = require('cookie-parser');
-// const http = require('http');
-// const socketIo = require('socket.io');
+const http = require('http');
+const socketIo = require('socket.io');
 
 
 const connectdb = require('./database/connectdb.js');
@@ -73,8 +73,8 @@ app.get('/', (req, res) => {
 
 
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	windowMs: 1 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 1 minutes).
 	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
 })
@@ -107,44 +107,44 @@ app.use('/api/reservation', routereservation);
 
 
 
-// const server = http.createServer(app);
+const server = http.createServer(app);
 
 
-// const io = socketIo(server, {
-//   cors: {
-//     origin: `${frontEnd}`,
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["content-type"]
-//   },
-// });
+const io = socketIo(server, {
+  cors: {
+    origin: `${frontEnd}`,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["content-type"]
+  },
+});
 
 
-// io.on('connect', (socket) => {
-//   console.log('New client connected');
+io.on('connect', (socket) => {
+  console.log('New client connected');
 
-//   // Listen for new order notifications
-//   socket.on('sendorder', (notification) => {
-//     console.log("Notification received:", notification); // تأكيد الاستقبال
-//     // Emit the notification back to the client for testing purposes
-//     socket.broadcast.emit('reciveorder', notification);
-//   });
+  // Listen for new order notifications
+  socket.on('sendorder', (notification) => {
+    console.log("Notification received:", notification); // تأكيد الاستقبال
+    // Emit the notification back to the client for testing purposes
+    socket.broadcast.emit('reciveorder', notification);
+  });
 
-//   // Listen for disconnect event
-//   socket.on('disconnect', () => {
-//     console.log('Client disconnected');
-//   });
-// });
+  // Listen for disconnect event
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
 
 
 const port = process.env.PORT || 8000;
 
-// server.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
-
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
 
 
 

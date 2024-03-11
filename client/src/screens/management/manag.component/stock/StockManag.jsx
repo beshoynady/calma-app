@@ -171,7 +171,7 @@ const StockManag = () => {
             console.log({ updateRecipe });
 
             // Toast for successful update based on recipe change
-            toast.success(`Recipe updated for product ${productname}`);
+            toast.success(`تم تحديث وصفة  ${productname}`);
           }
         }
       }
@@ -181,11 +181,11 @@ const StockManag = () => {
       getaStockItems();
 
       // Toast notification for successful creation
-      toast.success('Stock action created successfully');
+      toast.success('تم تسجيل حركه المخزن بنجاح');
     } catch (error) {
       console.log(error);
       // Toast notification for error
-      toast.error('Error creating stock action');
+      toast.error('فشل تسجيل حركه المخزن ! حاول مره اخري');
     }
   };
 
@@ -251,7 +251,7 @@ const StockManag = () => {
             console.log({ updateRecipe });
 
             // Toast for successful update based on recipe change
-            toast.success(`Recipe updated for product ${productname}`);
+            toast.success(`تم تحديث وصفه ${productname}`);
           }
         }
         // Update the stock actions list and stock items
@@ -259,12 +259,12 @@ const StockManag = () => {
         getaStockItems();
 
         // Toast notification for successful update
-        toast.success('Stock action updated successfully');
+        toast.success('تم تحديث العنصر بنجاح');
       }
     } catch (error) {
       console.log(error);
       // Toast notification for error
-      toast.error('Error updating stock action');
+      toast.error('فشل في تحديث العنصر ! حاول مره اخري');
     }
   }
 
@@ -302,12 +302,12 @@ const StockManag = () => {
         getallStockaction();
 
         // Toast notification for successful deletion
-        toast.success('Stock action deleted successfully');
+        toast.success('تم حذف حركه المخزن بنجاح');
       }
     } catch (error) {
       console.log(error);
       // Toast notification for error
-      toast.error('Error deleting stock action');
+      toast.error('فشل حذف حركه المخزن ! حاول مره اخري ');
     }
   }
 

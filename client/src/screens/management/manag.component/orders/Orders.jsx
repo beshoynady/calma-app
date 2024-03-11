@@ -275,7 +275,7 @@ const Orders = () => {
                                 <td>{order.payment_status}</td>
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
@@ -314,7 +314,7 @@ const Orders = () => {
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
 
                                 <td>
-                                  <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
@@ -503,7 +503,7 @@ const Orders = () => {
                   </div>
                 </div>
               </div> */}
-              {/* <div id="deleteOrderModal" className="modal fade">
+              <div id="deleteOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteOrder}>
@@ -522,7 +522,7 @@ const Orders = () => {
                     </form>
                   </div>
                 </div>
-              </div> */}
+              </div>
               {/* <div id="deleteListOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">

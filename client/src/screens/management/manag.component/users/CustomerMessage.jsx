@@ -28,7 +28,9 @@ const CustomerMessage = () => {
       console.log(error)
     }
   };
-  const deleteCustomerMessage = async () => {
+  const deleteCustomerMessage = async (e) => {
+    e.preventDefault();
+
     try {
       const token = localStorage.getItem('token_e');
 
@@ -145,8 +147,8 @@ const CustomerMessage = () => {
                                 <td>{i + 1}</td>
                                 <td>{message.name}</td>
                                 <td>{message.phone}</td>
-                                <td>{message.message}</td>
                                 <td>{message.email}</td>
+                                <td>{message.message}</td>
                                 <td>{new Date(message.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
                                 <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{
@@ -175,8 +177,8 @@ const CustomerMessage = () => {
                                   <td>{i + 1}</td>
                                   <td>{message.name}</td>
                                   <td>{message.phone}</td>
-                                  <td>{message.message}</td>
                                   <td>{message.email}</td>
+                                  <td>{message.message}</td>
                                   <td>{new Date(message.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
                                     <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{

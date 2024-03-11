@@ -106,7 +106,7 @@ const DailyExpense = () => {
       if (updatecashRegister) {
         setbalance(updatedbalance);
         // Toast notification for successful creation
-        toast.success('Expense created successfully');
+        toast.success('تم تسجيل المصروف');
 
         getallExpenses();
         getAllcashRegisters()
@@ -115,7 +115,7 @@ const DailyExpense = () => {
     } catch (error) {
       console.log(error);
       // Toast notification for error
-      toast.error('Failed to create expense');
+      toast.error('فشل في تسجيل المصروف !حاول مره اخري');
 
     }
   };
@@ -177,7 +177,7 @@ const DailyExpense = () => {
           });
           if (updatecashRegister) {
             // Toast notification for successful edit
-            toast.success('Expense updated successfully');
+            toast.success('تم تحديث تفاصيل المصروف بنجاح');
 
             getallExpenses();
             getAllcashRegisters()

@@ -59,7 +59,7 @@ const login = async (req, res) => {
       }
 
       // Validate password
-      const match = await bcrypt.compare(password, findUser.password);
+      const match =  bcrypt.compare(password, findUser.password);
       if (!match) {
           return res.status(401).json({ success: false, error: 'Incorrect password' });
       }
@@ -68,7 +68,7 @@ const login = async (req, res) => {
       const accessToken = generateAccessToken(findUser);
 
       // Send successful response with user data and access token
-      res.status(200).json({ success: true, data: { findUser }, accessToken });
+      res.status(200).json( {findUser, accessToken });
   } catch (error) {
       // Handle server errors
       console.error('Login error:', error);

@@ -52,7 +52,7 @@ const ManagerDash = () => {
       const pendingOrders = orders.filter((order) => order.status === 'Pending');
       setpending_order(pendingOrders);
 
-      const pendingPayments = orders.filter((order) => order.payment_status === 'Pending');
+      const pendingPayments = orders.filter((order) => order.payment_status === 'Pending' && order.status !== "Cancelled" );
       setpending_payment(pendingPayments.reverse());
 
       const today = new Date().toDateString();

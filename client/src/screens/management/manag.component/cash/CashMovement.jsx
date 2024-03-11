@@ -563,7 +563,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" value={formatDate()} readOnly />
+                          <input type="text" className="form-control" value={formatDate(new Date())} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -597,7 +597,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" Value={formatDate} readOnly />
+                          <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -640,7 +640,7 @@ const CashMovement = () => {
                         </div>
                         <div className="form-group">
                           <label>التاريخ</label>
-                          <input type="text" className="form-control" Value={formatDate} readOnly />
+                          <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer">

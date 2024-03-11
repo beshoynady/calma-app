@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import './NavBar.css';
 
-// const socket = io(process.env.REACT_APP_API_URL, {
-//   reconnection: true,
-// });
+const socket = io(process.env.REACT_APP_API_URL, {
+  reconnection: true,
+});
 
 const NavBar = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,13 +19,14 @@ const NavBar = () => {
 
   const [notifications, setNotifications] = useState([]);
 
-  // useEffect(() => {
-  //   // Listen for new order notifications
-  //   socket.on('reciveorder', (notification) => {
-  //     console.log("socket Notification received:", notification);
-  //     setNotifications(prevNotifications => [...prevNotifications, notification]);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // Listen for new order notifications
+    socket.on('reciveorder', (notification) => {
+      console.log("socket Notification received:", notification);
+      setNotifications(prevNotifications => [...prevNotifications, notification]);
+      
+    });
+  }, []);
 
   const handleNotificationClick = (index) => {
     // Remove notification at the specified index
@@ -43,7 +44,7 @@ const NavBar = () => {
           <div className="dropdown">
             <a href="#" className="dropdown-toggle"
               id="dropdownMenuButton"
-              onClick={() => setShowNotifications(!showNotifications)}
+              onClick={() => toggleNotifications()}
               aria-haspopup="true"
               aria-expanded={showNotifications ? "true" : "false"}>
               <i className="bx bx-bell" style={{ color: "--light" }}></i>
@@ -51,11 +52,13 @@ const NavBar = () => {
             </a>
             {showNotifications &&
               <div className="dropdown-menu dropdown-menu-right show" aria-labelledby="dropdownMenuButton">
-                {notifications.map((notification, index) => (
+                {notifications.length>0?notifications.map((notification, index) => (
                   <a key={index} className="dropdown-item" href="#" onClick={() => handleNotificationClick(index)}>
                     {notification}
                   </a>
-                ))}
+                ))
+                : <a> لا يوجد اشعارات جديدة </a>
+              }
               </div>
             }
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 const Employees = () => {
@@ -129,12 +129,12 @@ const Employees = () => {
       });
       if (update.status === 200) {
         getemployees()
-        notify('Employee details updated', 'success');
+        notify('تم تحديث بيانات الموظف', 'success');
         // Additional logic if needed after successful update
       }
 
     } catch (error) {
-      notify('Failed to update employee details', 'error');
+      notify('فشل تحديث بيانات الموظف! حاول مره اخري', 'error');
       console.log(error);
       // Additional error handling
     }
@@ -180,11 +180,11 @@ const Employees = () => {
           'authorization': `Bearer ${token}`,
         },
       });
-      notify('Employee deleted', 'success');
+      notify('تم حذف سجل الموظف بنجاح', 'success');
       getemployees();
     } catch (error) {
       console.log(error);
-      notify('Failed to delete employee', 'error');
+      notify('فشل حذف سجل الموظف !حاول مره اخري', 'error');
     }
   };
 
@@ -232,7 +232,6 @@ const Employees = () => {
         ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
-              <ToastContainer />
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
@@ -295,8 +294,6 @@ const Employees = () => {
                       <tr>
                         <th>
                           <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
                           </span>
                         </th>
                         <th>م</th>
