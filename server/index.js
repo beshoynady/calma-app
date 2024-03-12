@@ -107,44 +107,44 @@ app.use('/api/reservation', routereservation);
 
 
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 
-const io = socketIo(server, {
-  cors: {
-    origin: `${frontEnd}`,
-    methods: ["GET", "POST"],
-    allowedHeaders: ["content-type"]
-  },
-});
+// const io = socketIo(server, {
+//   cors: {
+//     origin: `${frontEnd}`,
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["content-type"]
+//   },
+// });
 
 
-io.on('connect', (socket) => {
-  console.log('New client connected');
+// io.on('connect', (socket) => {
+//   console.log('New client connected');
 
-  // Listen for new order notifications
-  socket.on('sendorder', (notification) => {
-    console.log("Notification received:", notification); // تأكيد الاستقبال
-    // Emit the notification back to the client for testing purposes
-    socket.broadcast.emit('reciveorder', notification);
-  });
+//   // Listen for new order notifications
+//   socket.on('sendorder', (notification) => {
+//     console.log("Notification received:", notification); // تأكيد الاستقبال
+//     // Emit the notification back to the client for testing purposes
+//     socket.broadcast.emit('reciveorder', notification);
+//   });
 
-  // Listen for disconnect event
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-});
+//   // Listen for disconnect event
+//   socket.on('disconnect', () => {
+//     console.log('Client disconnected');
+//   });
+// });
 
 
-const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;
 
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-// app.listen(port, () => {
+// server.listen(port, () => {
 //   console.log(`Server is running on port ${port}`);
 // });
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 
 
