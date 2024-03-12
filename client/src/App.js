@@ -43,6 +43,7 @@ import KitchenConsumption from './screens/management/manag.component/stock/Kitch
 //   reconnection: true,
 // });
 
+
 export const detacontext = createContext({});
 
 function App() {
