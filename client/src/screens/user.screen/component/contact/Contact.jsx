@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 import './Contact.css'
 import whatsapp from '../../../../image/whatsapp.png'
 import facebook from '../../../../image/facebook.png'
-import io from 'socket.io-client';
-const socket = io(process.env.REACT_APP_API_URL, {
-  reconnection: true,
-});
+// import io from 'socket.io-client';
+// const socket = io(process.env.REACT_APP_API_URL, {
+//   reconnection: true,
+// });
 
 
 
@@ -37,7 +37,7 @@ const Contact = () => {
             })
             console.log({send})
             if (send.status === 201) {
-                 socket.emit("sendorder", "هناك رساله جديدة");
+                //  socket.emit("sendorder", "هناك رساله جديدة");
 
                 toast.success('تم ارسال رسالتك بنجاح')
             } else {
