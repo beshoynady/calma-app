@@ -13,19 +13,21 @@ const connectdb = require('./database/connectdb.js');
 
 
 // Import all route files
-const routecategory = require('./router/Category.router.js');
-const routecategoryStock = require('./router/CategoryStock.router.js');
+const routerestaurant = require('./router/Restaurant.router.js');
+const routeattendance = require('./router/Attendance.router.js');
+const routeshift = require('./router/Shift.router.js');
+const routereservation = require('./router/Reservation.router.js');
+const routemessage = require('./router/Message.router.js')
+const routeauth = require('./router/Auth.router.js');
 const routeproduct = require('./router/Product.router.js');
 const routerecipe = require('./router/Recipe.router.js');
 const routeuser = require('./router/User.router.js');
 const routeemployee = require('./router/Employee.router.js');
-const routemessage = require('./router/Message.router.js')
 const routepayroll = require('./router/PayRoll.router.js');
-const routeshift = require('./router/Shift.router.js');
 const routesalarymovement = require('./router/EmployeeSalary.router.js');
 const routetable = require('./router/Table.router.js');
 const routeorder = require('./router/Order.router.js');
-const routeauth = require('./router/Auth.router.js');
+const routecategoryStock = require('./router/CategoryStock.router.js');
 const routestockitems = require('./router/StockItem.router.js');
 const routestockmanag = require('./router/StockMang.router.js');
 const routekitchenconsumption = require('./router/kitchenConsumption.router.js');
@@ -33,7 +35,6 @@ const routeexpense = require('./router/Expense.router.js');
 const routedailyexpense = require('./router/DailyExpense.router.js');
 const routecashRegister = require('./router/CashRegister.router.js');
 const routecashMovement = require('./router/CashMovement.router.js');
-const routereservation = require('./router/Reservation.router.js');
 
 
 dotenv.config();
@@ -83,6 +84,9 @@ const limiter = rateLimit({
 app.use("/api",limiter)
 
 // Route requests to appropriate routers
+app.use('/api/restaurant', routerestaurant)
+app.use('/api/attendance', routeattendance)
+app.use('/api/shift', routeshift);
 app.use('/api/product', routeproduct)
 app.use('/api/recipe', routerecipe)
 app.use('/api/category', routecategory);
@@ -91,7 +95,6 @@ app.use('/api/employee', routeemployee);
 app.use('/api/message', routemessage);
 app.use('/api/payroll', routepayroll);
 app.use('/api/salarymovement', routesalarymovement);
-app.use('/api/shift', routeshift);
 app.use('/api/table', routetable);
 app.use('/api/order', routeorder);
 app.use('/api/auth', routeauth);

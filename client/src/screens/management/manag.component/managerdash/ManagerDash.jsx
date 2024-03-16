@@ -4,8 +4,7 @@ import { detacontext } from '../../../../App'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios'
 // import io from 'socket.io-client';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useReactToPrint } from 'react-to-print';
 
 
@@ -541,7 +540,6 @@ const handlePrintKitchen = (e) => {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <section className='dashboard'>
-              <ToastContainer />
               <div className='container'>
                 <div className="header">
                   <a href={`http://${window.location.hostname}`} className="website">

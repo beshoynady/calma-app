@@ -1,92 +1,83 @@
-const ShiftModel = require('../models/Shift.model');
+const ShiftModel = require('../models/Shift');
+
+const createShift = async (req, res) => {
+    try {
+        const { startTime, endTime, shiftType } = req.body;
+
+        if (!startTime || !endTime || !shiftType) {
+            return res.status(400).json({ error: 'All fields are required: startTime, endTime, shiftType' });
+        }
+
+        const shift = await ShiftModel.create({ startTime, endTime, shiftType });
+        return res.status(201).json(shift);
+    } catch (error) {
+        console.error('Error creating shift:', error);
+        return res.status(500).json({ error: 'Failed to create shift' });
+    }
+};
+
+const getAllShifts = async (req, res) => {
+    try {
+        const shifts = await ShiftModel.find();
+        return res.status(200).json(shifts);
+    } catch (error) {
+        console.error('Error getting all shifts:', error);
+        return res.status(500).json({ error: 'Failed to fetch shifts' });
+    }
+};
+
+const getShiftById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const shift = await ShiftModel.findById(id);
+        if (!shift) {
+            return res.status(404).json({ error: 'Shift not found' });
+        }
+        return res.status(200).json(shift);
+    } catch (error) {
+        console.error('Error getting shift by ID:', error);
+        return res.status(500).json({ error: 'Failed to fetch shift' });
+    }
+};
+
+const updateShift = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { startTime, endTime, shiftType } = req.body;
+
+        if (!startTime || !endTime || !shiftType) {
+            return res.status(400).json({ error: 'All fields are required: startTime, endTime, shiftType' });
+        }
+
+        const updatedShift = await ShiftModel.findByIdAndUpdate(id, { startTime, endTime, shiftType }, { new: true });
+        if (!updatedShift) {
+            return res.status(404).json({ error: 'Shift not found' });
+        }
+        return res.status(200).json(updatedShift);
+    } catch (error) {
+        console.error('Error updating shift:', error);
+        return res.status(500).json({ error: 'Failed to update shift' });
+    }
+};
+
+const deleteShift = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedShift = await ShiftModel.findByIdAndDelete(id);
+        if (!deletedShift) {
+            return res.status(404).json({ error: 'Shift not found' });
+        }
+        return res.status(200).json({ message: 'Shift deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting shift:', error);
+        return res.status(500).json({ error: 'Failed to delete shift' });
+    }
+};
 
 module.exports = {
-  // Create a new shift
-  createShift: async (req, res) => {
-    try {
-      const { employeeId, date, startTime, endTime, shiftType, isOvertime, notes } = req.body;
-
-      // Create a new shift
-      const newShift = await ShiftModel.create({
-        employeeId,
-        date,
-        startTime,
-        endTime,
-        shiftType,
-        isOvertime,
-        notes
-      });
-
-      res.status(201).json(newShift);
-    } catch (error) {
-      res.status(400).json({ message: 'Failed to create shift', error: error.message });
-    }
-  },
-
-  // Get all shifts
-  getAllShifts: async (req, res) => {
-    try {
-      const shifts = await ShiftModel.find();
-      res.status(200).json(shifts);
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to get shifts', error: error.message });
-    }
-  },
-
-  // Get a specific shift by ID
-  getShiftById: async (req, res) => {
-    try {
-      const shiftId = req.params.id;
-      const shift = await ShiftModel.findById(shiftId);
-      if (!shift) {
-        return res.status(404).json({ message: 'Shift not found' });
-      }
-      res.status(200).json(shift);
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to get shift', error: error.message });
-    }
-  },
-
-  // Update a specific shift by ID
-  updateShiftById: async (req, res) => {
-    try {
-      const shiftId = req.params.id;
-      const { employeeId, date, startTime, endTime, shiftType, isOvertime, notes } = req.body;
-
-      // Check if the shift exists
-      let shift = await ShiftModel.findById(shiftId);
-      if (!shift) {
-        return res.status(404).json({ message: 'Shift not found' });
-      }
-
-      // Update shift data
-      shift.employeeId = employeeId;
-      shift.date = date;
-      shift.startTime = startTime;
-      shift.endTime = endTime;
-      shift.shiftType = shiftType;
-      shift.isOvertime = isOvertime;
-      shift.notes = notes;
-
-      await shift.save();
-      
-      res.status(200).json({ message: 'Shift updated successfully', shift });
-    } catch (error) {
-      res.status(400).json({ message: 'Failed to update shift', error: error.message });
-    }
-  },
-
-  // Delete a specific shift by ID
-  deleteShiftById: async (req, res) => {
-    try {
-      const shiftId = req.params.id;
-
-      // Delete the shift
-      await ShiftModel.findByIdAndDelete(shiftId);
-
-      res.status(200).json({ message: 'Shift deleted successfully' });
-    } catch (error) {
-      res.status(400).json({ message: 'Failed to delete shift', error: error.message });
-    }
-  }
+    createShift,
+    getAllShifts,
+    getShiftById,
+    updateShift,
+    deleteShift
 };

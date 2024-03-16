@@ -29,6 +29,11 @@ const employeeSchema = new mongoose.Schema({
     maxlength: 200,
     minlength: 3,
   },
+  shift: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Shift',
+    required: true
+  },
   numberID: {
     type: String,
     unique: true,
@@ -62,7 +67,7 @@ const employeeSchema = new mongoose.Schema({
   role: {
     type: String,
     trim: true,
-    enum: ['manager', 'casher', 'waiter', 'deliveryman', 'chef'],
+    enum: ['owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef'],
     required: [true, 'Role is required'],
   },
   sectionNumber: {
@@ -73,103 +78,14 @@ const employeeSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  payRoll: [
-    {
-      Year: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      Month: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      salary: {
-        type: Number,
-        // required: true,
-        min: 0,
-        default: 0,
-      },
-      Additional: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Bonus: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      TotalDue: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Absence: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Deduction: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Predecessor: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Insurance: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      Tax: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      TotalDeductible: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      NetSalary: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0,
-      },
-      isPaid: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
-      paidBy:{
-        type: ObjectId,
-        ref: 'Employee',
-      }
-    },
-  ],
   isVerified: {
     type: Boolean,
     default: false,
   },
 },
-{
-  timestamps: true,
-}
+  {
+    timestamps: true,
+  }
 );
 
 const EmployeeModel = mongoose.model('Employee', employeeSchema);

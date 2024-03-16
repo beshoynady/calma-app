@@ -23,12 +23,16 @@ const userschema = new mongoose.Schema({
         maxlength : 200,
         minlength : 3,
     },
+    deliveryArea: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'DeliveryArea',
+        required: true
+    },
     address:{
         type:String,
         trim: true,
         minlength:3,
         maxlength: 150,
-        
     },
     phone:{
         type : String,
