@@ -20,6 +20,7 @@ const routedeliveryarea = require('./router/DeliveryArea.router.js');
 const routereservation = require('./router/Reservation.router.js');
 const routemessage = require('./router/Message.router.js')
 const routeauth = require('./router/Auth.router.js');
+const routecategory = require('./router/Category.router.js');
 const routeproduct = require('./router/Product.router.js');
 const routerecipe = require('./router/Recipe.router.js');
 const routeuser = require('./router/User.router.js');

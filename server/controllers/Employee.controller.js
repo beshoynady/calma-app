@@ -335,4 +335,6 @@ const deleteEmployee = async (req, res) => {
 
 
 
-module.exports = { createEmployee, getoneEmployee, loginEmployee, updateOrAddPayrollForMonth, paidPayrollForMonth, getAllemployees, updateEmployee, deleteEmployee };
+module.exports = { createEmployee, getoneEmployee, loginEmployee, 
+    // updateOrAddPayrollForMonth, paidPayrollForMonth, 
+    getAllemployees, updateEmployee, deleteEmployee };
