@@ -29,13 +29,13 @@ const attendanceSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    lateMinutes: {
-      type: Number,
-      default: 0,
-    },
     isLate: {
       type: Boolean,
       default: false,
+    },
+    lateMinutes: {
+      type: Number,
+      default: 0,
     },
     notes: {
       type: String,

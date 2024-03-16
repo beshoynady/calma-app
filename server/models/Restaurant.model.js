@@ -19,12 +19,14 @@ const restaurantSchema = new mongoose.Schema({
         postal_code: String,
     },
     contact: {
-        phone: [
-            {
-                type: String,
-                match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
-            }
-        ],
+        phone: [{
+            type: String,
+            match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+        }],
+        whatsapp: {
+            type: String,
+            match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+        },
         email: {
             type: String,
             lowercase: true, 
@@ -70,16 +72,12 @@ const restaurantSchema = new mongoose.Schema({
             to: String
         }
     },
-    delivery: {
-        available: Boolean,
-        areas: [{
-            name: String,
-            delivery_fee: Number
-        }]
-    },
-
+    delivery:  {
+        type: Boolean,
+        default: false
+    }
 });
 
-const RestaurantModel= mongoose.model('Restaurant', restaurantSchema);
+const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = RestaurantModel
+module.exports = RestaurantModel;

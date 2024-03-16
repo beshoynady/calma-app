@@ -26,7 +26,10 @@ const AttendanceModel = require('../models/Attendance.model');
   // Retrieve all attendance records
   const getAllAttendances= async (req, res) => {
     try {
-      const attendances = await AttendanceModel.find();
+      const attendances = await AttendanceModel.find().populate({
+        path: 'employee',
+        select: 'fullname role shift'
+      });
       res.status(200).json(attendances);
     } catch (error) {
       console.error('Error getting all attendances:', error);
@@ -38,7 +41,10 @@ const AttendanceModel = require('../models/Attendance.model');
   const getAttendanceById = async (req, res) => {
     try {
       const attendanceId = req.params.id;
-      const attendance = await AttendanceModel.findById(attendanceId);
+      const attendance = await AttendanceModel.findById(attendanceId).populate({
+        path: 'employee',
+        select: 'fullname role shift'
+      });;
       if (!attendance) {
         return res.status(404).json({ message: 'Attendance not found' });
       }

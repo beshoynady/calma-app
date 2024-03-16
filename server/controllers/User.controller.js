@@ -6,7 +6,7 @@ const Joi = require('joi');
 // Function to create a new user
 const createuser = async (req, res) => {
     try {
-        const { username, email, address, phone, password } = req.body;
+        const { username, email, deliveryarea, address, phone, password } = req.body;
 
         // Schema validation using Joi for incoming data
         const schema = Joi.object({
@@ -32,6 +32,7 @@ const createuser = async (req, res) => {
         const newUser = await Usermodel.create({
             username,
             email,
+            deliveryarea,
             address,
             phone,
             password: hashedPassword,
@@ -55,7 +56,7 @@ const createuser = async (req, res) => {
 const getoneuser = async (req, res) => {
     try {
         const { userid } = req.params;
-        const user = await Usermodel.findById(userid);
+        const user = await Usermodel.findById(userid).populate('deliveryarea');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -68,7 +69,7 @@ const getoneuser = async (req, res) => {
 // Function to retrieve all users
 const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await Usermodel.find({});
+        const allUsers = await Usermodel.find({}).populate('deliveryarea');;
         res.status(200).json(allUsers);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -79,7 +80,7 @@ const getAllUsers = async (req, res) => {
 const updateuser = async (req, res) => {
     try {
         const { userid } = req.params;
-        const { username, email, address, phone, password,isActive, isVarified } = req.body;
+        const { username, email, address, deliveryarea, phone, password, isActive, isVarified } = req.body;
 
         // Schema validation using Joi for incoming data
         const schema = Joi.object({
@@ -105,6 +106,7 @@ const updateuser = async (req, res) => {
         const updateFields = {
             username,
             email,
+            deliveryarea,
             address,
             phone,
             isActive,
@@ -129,31 +131,31 @@ const updateuser = async (req, res) => {
 
 const updateUserStatus = async (req, res) => {
     try {
-      const { userid } = req.params;
-      const { isActive, isVarified } = req.body;
-  
-      const updatedFields = {};
-  
-      if (isActive !== undefined) {
-        updatedFields.isActive = isActive;
-      }
-  
-      if (isVarified !== undefined) {
-        updatedFields.isVarified = isVarified;
-      }
-  
-      const updatedUser = await Usermodel.findByIdAndUpdate(userid, updatedFields, { new: true });
-  
-      if (!updatedUser) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-  
-      res.status(200).json(updatedUser);
+        const { userid } = req.params;
+        const { isActive, isVarified } = req.body;
+
+        const updatedFields = {};
+
+        if (isActive !== undefined) {
+            updatedFields.isActive = isActive;
+        }
+
+        if (isVarified !== undefined) {
+            updatedFields.isVarified = isVarified;
+        }
+
+        const updatedUser = await Usermodel.findByIdAndUpdate(userid, updatedFields, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(updatedUser);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
-  };
-  
+};
+
 
 // Function to delete a user by ID
 const deleteuser = async (req, res) => {
@@ -169,4 +171,11 @@ const deleteuser = async (req, res) => {
     }
 };
 
-module.exports = { createuser, getoneuser, getAllUsers, updateuser, updateUserStatus, deleteuser };
+module.exports = {
+    createuser,
+    getoneuser,
+    getAllUsers,
+    updateuser,
+    updateUserStatus,
+    deleteuser
+};

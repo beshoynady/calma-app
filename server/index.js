@@ -16,6 +16,7 @@ const connectdb = require('./database/connectdb.js');
 const routerestaurant = require('./router/Restaurant.router.js');
 const routeattendance = require('./router/Attendance.router.js');
 const routeshift = require('./router/Shift.router.js');
+const routedeliveryarea = require('./router/DeliveryArea.router.js');
 const routereservation = require('./router/Reservation.router.js');
 const routemessage = require('./router/Message.router.js')
 const routeauth = require('./router/Auth.router.js');
@@ -87,6 +88,7 @@ app.use("/api",limiter)
 app.use('/api/restaurant', routerestaurant)
 app.use('/api/attendance', routeattendance)
 app.use('/api/shift', routeshift);
+app.use('/api/deliveryarea', routedeliveryarea);
 app.use('/api/product', routeproduct)
 app.use('/api/recipe', routerecipe)
 app.use('/api/category', routecategory);
