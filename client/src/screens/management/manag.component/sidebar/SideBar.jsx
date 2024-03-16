@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const SideBar = () => {
 
   const arrowRefs = {
+    arrowsetting: useRef(),
     arrowmen: useRef(),
     arrowemp: useRef(),
     arrowsto: useRef(),
@@ -244,7 +245,6 @@ const SideBar = () => {
                     </ul>
                   </li>
 
-
                   <li ref={arrowRefs.arrowsCash} onClick={() => openSubMenu(arrowRefs.arrowsCash)}>
                     <div className="iocn-link">
                       <a href="#">
@@ -260,8 +260,25 @@ const SideBar = () => {
                         <li><Link to="cashmovement">تسجيل حركه</Link></li>
                       )}
                     </ul>
-
                   </li>
+
+                  <li ref={arrowRefs.arrowsetting} onClick={() => openSubMenu(arrowRefs.arrowsetting)}>
+                    <div className="iocn-link">
+                      <a href="#">
+                        <span class="material-symbols-outlined icon">monetization_on</span>
+                        <span className="link_name">الخزينة</span>
+                      </a>
+                      <i className='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul className="sub-menu">
+                      {role === 'manager' && <li><a className="link_name" href="#">الخزينة</a></li>}
+                      <li><Link to="info">البيانات</Link></li>
+                      {(role === 'manager' || role === 'casher') && (
+                        <li><Link to="cashmovement">تسجيل حركه</Link></li>
+                      )}
+                    </ul>
+                  </li>
+
                   <li className="profile-details">
                     <div className="profile-content">
                       <i className='bx bx-log-out' onClick={employeelogout}></i>

@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Userscreen from './screens/user.screen/Userscreen';
 import ManagLayout from './screens/management/ManagLayout';
 import ManagerDash from './screens/management/manag.component/managerdash/ManagerDash';
+import Info from './screens/management/manag.component/setting/info';
 import Orders from './screens/management/manag.component/orders/Orders';
 import Products from './screens/management/manag.component/products/Products';
 
@@ -1795,6 +1796,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
           <Route path='/management/*' element={<ManagLayout />}>
             <Route index element={<ManagerDash />} />
+            <Route path='info' element={<Info />} />
             <Route path='orders' element={<Orders />} />
             <Route path='products' element={<Products />} />
             <Route path='productrecipe' element={<ProductRecipe />} />
