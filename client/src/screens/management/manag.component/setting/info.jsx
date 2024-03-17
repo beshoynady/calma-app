@@ -10,7 +10,9 @@ const Info = () => {
 
   const handleCheckboxChange = (index) => {
     const updatedClosedDays = [...closedDays];
+    console.log({updatedClosedDays})
     updatedClosedDays[index] = !updatedClosedDays[index];
+    console.log({updatedClosedDays})
     setClosedDays(updatedClosedDays);
   };
 
@@ -458,12 +460,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <input type="file" name="img[]" className="file-upload-default" />
-                            <div className="input-group col-xs-12">
-                              <input type="text" className="form-control file-upload-info" disabled placeholder="Upload Image" />
-                              <span className="input-group-append">
-                                <button className="file-upload-browse btn btn-info" type="button">Upload</button>
-                              </span>
-                            </div>
+                            <button className="file-upload-browse btn btn-info" type="button">Upload</button>
                           </div>
                         </div>
                         <div className="col-md-6">
