@@ -6,6 +6,13 @@ import { toast } from 'react-toastify';
 const Info = () => {
 
   const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+  const [closedDays, setClosedDays] = useState([]);
+
+  const handleCheckboxChange = (index) => {
+    const updatedClosedDays = [...closedDays];
+    updatedClosedDays[index] = !updatedClosedDays[index];
+    setClosedDays(updatedClosedDays);
+  };
 
   const [formData, setFormData] = useState({
     name: '',
@@ -543,9 +550,9 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} /></td>
-                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} /></td>
+                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={() => handleCheckboxChange(index)} /></td>
                                 </tr>
                               ))}
                             </tbody>
@@ -609,7 +616,7 @@ const Info = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="col-md-5 d-flex align-items-stretch">
                 <div className="row flex-grow">
                   <div className="col-12 grid-margin">

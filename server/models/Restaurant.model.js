@@ -45,31 +45,38 @@ const restaurantSchema = new mongoose.Schema({
     opening_hours: {
         Saturday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean 
         },
         Sunday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         },
         Monday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         },
         Tuesday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         },
         Wednesday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         },
         Thursday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         },
         Friday: {
             from: String,
-            to: String
+            to: String,
+            closed: Boolean
         }
     },
     delivery:  {
