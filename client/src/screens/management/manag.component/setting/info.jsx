@@ -27,7 +27,7 @@ const Info = () => {
 
   // حذف وردية
   const removeShift = (index) => {
-    const updatedShifts = shifts.filter((shift, i) => i !== index);
+    const updatedShifts = shifts.filter((_, i) => i !== index);
     setShifts(updatedShifts);
   };
 
@@ -51,7 +51,6 @@ const Info = () => {
     updatedShifts[index].to = event.target.value;
     setShifts(updatedShifts);
   };
-
 
   const [formData, setFormData] = useState({
     name: '',
@@ -618,7 +617,9 @@ const Info = () => {
                           </div>
                           <div className="col">
                             <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shifts[index]?.to} onChange={(e) => handleToChange(index, e)} />
-                            <button type="button" className="btn btn-danger mr-2" onClick={() => removeShift(index)}>حذف</button>
+                          </div>
+                          <div className="col-auto">
+                            <button type="button" className="btn btn-danger" onClick={() => removeShift(index)}>حذف</button>
                           </div>
                         </div>
                       ))}
