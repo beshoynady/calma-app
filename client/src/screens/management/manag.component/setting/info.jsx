@@ -525,8 +525,10 @@ const Info = () => {
                         <div className="col-md-6">
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
-                            <input type="file" name="img[]" className="form-control" />
-                            <button className="form-control btn btn-info" type="button">Upload</button>
+                            <div className="col-sm-9">
+                              <input type="file" name="img[]" className="form-control" />
+                            </div>
+                            {/* <button className="form-control btn btn-info" type="button">Upload</button> */}
                           </div>
                         </div>
                         <div className="col-md-6">
