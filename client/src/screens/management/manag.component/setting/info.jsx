@@ -804,7 +804,7 @@ const Info = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-7 grid-margin stretch-card">
+              {/* <div className="col-md-7 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Input size</h4>
@@ -976,7 +976,7 @@ const Info = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
             </div>
           </div>
