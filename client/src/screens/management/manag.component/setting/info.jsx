@@ -631,7 +631,7 @@ const Info = () => {
                 </div>
               </div>
 
-              <div className="col-md-6 grid-margin stretch-card">
+              {/* <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">إضافة بيانات الورديات</h4>
@@ -654,7 +654,7 @@ const Info = () => {
                             <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
                           </div>
                           <div className="col-auto">
-                            <button type="button" className="btn btn-danger" onClick={() => removeShift(index)}>
+                            <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
                               <i className="mdi mdi-delete" />
                             </button>
                           </div>
@@ -669,7 +669,7 @@ const Info = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="col-md-5 d-flex align-items-stretch">
                 <div className="row flex-grow">
@@ -693,7 +693,7 @@ const Info = () => {
                                 <input type="text" className="form-control" placeholder="تكلفة التوصيل" value={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-auto">
-                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)}>
+                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
                                   <i className="mdi mdi-delete" />
                                 </button>
                               </div>
@@ -711,6 +711,43 @@ const Info = () => {
                   </div>
                   <div className="col-12 grid-margin stretch-card">
                     <div className="card">
+                      <div className="card-body">
+                        <h4 className="card-title">إضافة بيانات الورديات</h4>
+                        <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
+                        <div className="form-row mb-3">
+                          <div className="col">
+                            <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
+                          </div>
+                        </div>
+                        <form className="forms-sample">
+                          {shifts.map((shift, index) => (
+                            <div key={index} className="form-row mb-3 align-items-center">
+                              <div className="col">
+                                <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleNameChange(index, e)} />
+                              </div>
+                              <div className="col">
+                                <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.from} onChange={(e) => handleFromChange(index, e)} />
+                              </div>
+                              <div className="col">
+                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
+                              </div>
+                              <div className="col-auto">
+                                <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
+                                  <i className="mdi mdi-delete" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                          <div className="form-row mt-3">
+                            <div className="col">
+                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
+                              <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    {/* <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">Colored input groups</h4>
                         <p className="card-description"> Input groups with colors </p>
@@ -760,7 +797,7 @@ const Info = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
