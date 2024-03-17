@@ -4,6 +4,9 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 
 const Info = () => {
+
+  const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
