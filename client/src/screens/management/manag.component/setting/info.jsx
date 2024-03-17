@@ -597,32 +597,34 @@ const Info = () => {
                   <div className="col-12 stretch-card">
                     <div className="card">
                       <div className="card-body">
-                        <h4 className="card-title">مواعيد العمل </h4>
-                        <p className="card-description">ادخل مواعيد العمل اليومية </p>
+                        <h4 className="card-title">إضافة بيانات مناطق التوصيل</h4>
+                        <p className="card-description">أضف المناطق وتكلفة التوصيل</p>
+                        <div className="form-row mb-3">
+                          <div className="col">
+                            <button type="button" className="btn btn-success btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
+                          </div>
+                        </div>
                         <form className="forms-sample">
-                          <table className="table table-striped">
-                            <thead>
-                              <tr>
-                                <th>اليوم</th>
-                                <th>وقت الافتتاح</th>
-                                <th>وقت الإغلاق</th>
-                                <th>مغلق</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {daysOfWeek.map((day, index) => (
-                                <tr key={index}>
-                                  <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} /></td>
-                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={() => handleCheckboxChange(index)} /></td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                          <div className="mt-3">
-                            <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
-                            <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                          {areas.map((area, index) => (
+                            <div key={index} className="form-row mb-3 align-items-center">
+                              <div className="col">
+                                <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
+                              </div>
+                              <div className="col">
+                                <input type="text" className="form-control" placeholder="تكلفة التوصيل" value={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
+                              </div>
+                              <div className="col-auto">
+                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
+                                  <i className="mdi mdi-delete" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                          <div className="form-row mt-3">
+                            <div className="col">
+                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
+                              <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                            </div>
                           </div>
                         </form>
                       </div>
@@ -676,38 +678,37 @@ const Info = () => {
                   <div className="col-12 grid-margin">
                     <div className="card">
                       <div className="card-body">
-                        <h4 className="card-title">إضافة بيانات مناطق التوصيل</h4>
-                        <p className="card-description">أضف المناطق وتكلفة التوصيل</p>
-                        <div className="form-row mb-3">
-                          <div className="col">
-                            <button type="button" className="btn btn-success btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
-                          </div>
-                        </div>
+                        <h4 className="card-title">مواعيد العمل </h4>
+                        <p className="card-description">ادخل مواعيد العمل اليومية </p>
                         <form className="forms-sample">
-                          {areas.map((area, index) => (
-                            <div key={index} className="form-row mb-3 align-items-center">
-                              <div className="col">
-                                <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
-                              </div>
-                              <div className="col">
-                                <input type="text" className="form-control" placeholder="تكلفة التوصيل" value={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
-                              </div>
-                              <div className="col-auto">
-                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
-                                  <i className="mdi mdi-delete" />
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                          <div className="form-row mt-3">
-                            <div className="col">
-                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
-                              <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
-                            </div>
+                          <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>اليوم</th>
+                                <th>وقت الافتتاح</th>
+                                <th>وقت الإغلاق</th>
+                                <th>مغلق</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {daysOfWeek.map((day, index) => (
+                                <tr key={index}>
+                                  <td>{day}</td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} /></td>
+                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={() => handleCheckboxChange(index)} /></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          <div className="mt-3">
+                            <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
+                            <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
                           </div>
                         </form>
                       </div>
                     </div>
+
                   </div>
                   <div className="col-12 grid-margin stretch-card">
                     <div className="card">
