@@ -17,12 +17,10 @@ const Info = () => {
   };
 
   const [shifts, setShifts] = useState([{ name: '', from: '', to: '' }]);
-  const [nextIndex, setNextIndex] = useState(1);
 
   // إضافة وردية جديدة
   const addShift = () => {
     setShifts([...shifts, { name: '', from: '', to: '' }]);
-    setNextIndex(nextIndex + 1);
   };
 
   // حذف وردية
@@ -607,19 +605,17 @@ const Info = () => {
                     <h4 className="card-title">إضافة بيانات الورديات</h4>
                     <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                     <form className="forms-sample">
-                      {Array.from({ length: nextIndex }, (_, index) => (
+                      {shifts.map((shift, index) => (
                         <div key={index} className="form-row mb-3">
                           <div className="col">
-                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shifts[index]?.name} onChange={(e) => handleNameChange(index, e)} />
+                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleNameChange(index, e)} />
                           </div>
                           <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shifts[index]?.from} onChange={(e) => handleFromChange(index, e)} />
+                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.from} onChange={(e) => handleFromChange(index, e)} />
                           </div>
                           <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shifts[index]?.to} onChange={(e) => handleToChange(index, e)} />
-                          </div>
-                          <div className="col-auto">
-                            <button type="button" className="btn btn-danger" onClick={() => removeShift(index)}>حذف</button>
+                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
+                            <button type="button" className="btn btn-danger ml-2" onClick={() => removeShift(index)}>حذف</button>
                           </div>
                         </div>
                       ))}
