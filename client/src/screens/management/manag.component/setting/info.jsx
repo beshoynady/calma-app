@@ -619,14 +619,14 @@ const Info = () => {
                           <div className="col">
                             <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shifts[index]?.to} onChange={(e) => handleToChange(index, e)} />
                           </div>
+                          <div className="col">
+                            <div className="form-row">
+                              <button type="button" className="btn btn-danger mr-2" onClick={() => removeShift(index)}>حذف</button>
+                              <button type="button" className="btn btn-success" onClick={addShift}>إضافة</button>
+                            </div>
+                          </div>
                         </div>
                       ))}
-                      <div className="col">
-                        <div className="form-row">
-                          <button type="button" className="btn btn-danger mr-2" onClick={() => removeShift(index)}>حذف</button>
-                          <button type="button" className="btn btn-success" onClick={addShift}>إضافة</button>
-                        </div>
-                      </div>
                       <div className="form-row mt-3">
                         <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
                         <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
