@@ -158,7 +158,7 @@ const Info = () => {
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary">إضافة المطعم</button>
+                        <button style={{width:'47%', height:'50px'}} type="submit" className="btn btn-primary">إضافة المطعم</button>
                     </form> */}
           {/* 
                     <div class="container-scroller">
@@ -308,7 +308,7 @@ const Info = () => {
               </div>
             </li>
           </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <button style={{width:'47%', height:'50px'}} class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
@@ -551,8 +551,8 @@ const Info = () => {
                           </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success mr-2">تاكيد</button>
-                        <button class="btn btn-light">إلغاء</button>
+                        <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
@@ -578,8 +578,8 @@ const Info = () => {
                               <label for="exampleInputPassword1">Password</label>
                               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                             </div>
-                            <button type="submit" class="btn btn-success mr-2">تاكيد</button>
-                            <button class="btn btn-light">إلغاء</button>
+                            <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -602,8 +602,8 @@ const Info = () => {
                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" />
                               </div>
                             </div>
-                            <button type="submit" class="btn btn-success mr-2">تاكيد</button>
-                            <button class="btn btn-light">إلغاء</button>
+                            <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -638,7 +638,7 @@ const Info = () => {
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" />
                             <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-info" type="button">Upload</button>
+                              <button style={{width:'47%', height:'50px'}} class="file-upload-browse btn btn-info" type="button">Upload</button>
                             </span>
                           </div>
                         </div>
@@ -652,8 +652,8 @@ const Info = () => {
                           <label for="exampleTextarea1">Textarea</label>
                           <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success mr-2">تاكيد</button>
-                        <button class="btn btn-light">إلغاء</button>
+                        <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
