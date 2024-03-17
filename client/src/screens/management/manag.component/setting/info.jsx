@@ -560,6 +560,7 @@ const Info = () => {
                   </div>
                 </div>
               </div>
+
               <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
@@ -608,6 +609,7 @@ const Info = () => {
                   </div>
                 </div>
               </div>
+              
               <div className="col-md-5 d-flex align-items-stretch">
                 <div className="row flex-grow">
                   <div className="col-12 grid-margin">
