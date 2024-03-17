@@ -602,11 +602,16 @@ const Info = () => {
               <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
+                    <div className="form-row mb-3">
+                      <div className="col">
+                        <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
+                      </div>
+                    </div>
                     <h4 className="card-title">إضافة بيانات الورديات</h4>
                     <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                     <form className="forms-sample">
                       {shifts.map((shift, index) => (
-                        <div key={index} className="form-row mb-3">
+                        <div key={index} className="form-row mb-3 align-items-center">
                           <div className="col">
                             <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleNameChange(index, e)} />
                           </div>
@@ -615,18 +620,19 @@ const Info = () => {
                           </div>
                           <div className="col">
                             <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
-                            <button type="button" className="btn btn-danger ml-2" onClick={() => removeShift(index)}>حذف</button>
+                          </div>
+                          <div className="col-auto">
+                            <button type="button" className="btn btn-danger" onClick={() => removeShift(index)}>
+                              <i className="mdi mdi-delete-empty" />
+                            </button>
                           </div>
                         </div>
                       ))}
-                      <div className="form-row">
-                        <div className="col">
-                          <button type="button" className="btn btn-success" onClick={addShift}>إضافة وردية</button>
-                        </div>
-                      </div>
                       <div className="form-row mt-3">
-                        <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
-                        <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                        <div className="col">
+                          <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
+                          <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                        </div>
                       </div>
                     </form>
                   </div>
