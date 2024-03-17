@@ -16,39 +16,40 @@ const Info = () => {
     setClosedDays(updatedClosedDays);
   };
 
-  const [deliveryAreas, setDeliveryAreas] = useState([{ name: '', from: '', to: '' }]);
+  const [shifts, setShifts] = useState([{ name: '', from: '', to: '' }]);
+  const [nextIndex, setNextIndex] = useState(1);
 
-  // إضافة منطقة توصيل جديدة
-  const addDeliveryArea = () => {
-    setDeliveryAreas([...deliveryAreas, { name: '', from: '', to: '' }]);
+  // إضافة وردية جديدة
+  const addShift = () => {
+    setShifts([...shifts, { name: '', from: '', to: '' }]);
+    setNextIndex(nextIndex + 1);
   };
 
-  // تحديث حقل اسم منطقة التوصيل
+  // حذف وردية
+  const removeShift = (index) => {
+    const updatedShifts = shifts.filter((shift, i) => i !== index);
+    setShifts(updatedShifts);
+  };
+
+  // تحديث حقل اسم الوردية
   const handleNameChange = (index, event) => {
-    const updatedDeliveryAreas = [...deliveryAreas];
-    updatedDeliveryAreas[index].name = event.target.value;
-    setDeliveryAreas(updatedDeliveryAreas);
+    const updatedShifts = [...shifts];
+    updatedShifts[index].name = event.target.value;
+    setShifts(updatedShifts);
   };
 
-  // تحديث حقل ميعاد بداية منطقة التوصيل
+  // تحديث حقل ميعاد بداية الوردية
   const handleFromChange = (index, event) => {
-    const updatedDeliveryAreas = [...deliveryAreas];
-    updatedDeliveryAreas[index].from = event.target.value;
-    setDeliveryAreas(updatedDeliveryAreas);
+    const updatedShifts = [...shifts];
+    updatedShifts[index].from = event.target.value;
+    setShifts(updatedShifts);
   };
 
-  // تحديث حقل ميعاد نهاية منطقة التوصيل
+  // تحديث حقل ميعاد نهاية الوردية
   const handleToChange = (index, event) => {
-    const updatedDeliveryAreas = [...deliveryAreas];
-    updatedDeliveryAreas[index].to = event.target.value;
-    setDeliveryAreas(updatedDeliveryAreas);
-  };
-
-  // حذف منطقة التوصيل
-  const removeDeliveryArea = (index) => {
-    const updatedDeliveryAreas = [...deliveryAreas];
-    updatedDeliveryAreas.splice(index, 1);
-    setDeliveryAreas(updatedDeliveryAreas);
+    const updatedShifts = [...shifts];
+    updatedShifts[index].to = event.target.value;
+    setShifts(updatedShifts);
   };
 
 
@@ -604,35 +605,33 @@ const Info = () => {
               <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">اضافه بيانات الوردية</h4>
-                    <p className="card-description"> اضف الوردية و وقت الحضور و الانصراف </p>
+                    <h4 className="card-title">إضافة بيانات الورديات</h4>
+                    <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                     <form className="forms-sample">
-                        {deliveryAreas.map((area, index) => (
-                          <div key={index} className="form-row mb-3">
-                            <div className="col">
-                              <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleNameChange(index, e)} />
-                            </div>
-                            <div className="col">
-                              <input type="time" className="form-control" placeholder="ميعاد البدء" value={area.from} onChange={(e) => handleFromChange(index, e)} />
-                            </div>
-                            <div className="col">
-                              <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={area.to} onChange={(e) => handleToChange(index, e)} />
-                            </div>
-                            <div className="col">
-                              <button type="button" className="btn btn-danger" onClick={() => removeDeliveryArea(index)}>حذف</button>
-                            </div>
-                          </div>
-                        ))}
-                        <div className="form-row">
+                      {Array.from({ length: nextIndex }, (_, index) => (
+                        <div key={index} className="form-row mb-3">
                           <div className="col">
-                            <button type="button" className="btn btn-success" onClick={addDeliveryArea}>إضافة منطقة توصيل</button>
+                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shifts[index]?.name} onChange={(e) => handleNameChange(index, e)} />
+                          </div>
+                          <div className="col">
+                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shifts[index]?.from} onChange={(e) => handleFromChange(index, e)} />
+                          </div>
+                          <div className="col">
+                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shifts[index]?.to} onChange={(e) => handleToChange(index, e)} />
+                            <button type="button" className="btn btn-danger mr-2" onClick={() => removeShift(index)}>حذف</button>
                           </div>
                         </div>
-                        <div className="form-row mt-3">
-                          <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
-                          <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                      ))}
+                      <div className="form-row">
+                        <div className="col">
+                          <button type="button" className="btn btn-success" onClick={addShift}>إضافة وردية</button>
                         </div>
-                      </form>
+                      </div>
+                      <div className="form-row mt-3">
+                        <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
+                        <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
