@@ -543,8 +543,8 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} /></td>
                                 </tr>
                               ))}
