@@ -536,8 +536,12 @@ const Info = () => {
                           <div class="col-md-6">
                             <div class="form-group row" style={{ width: '100%' }}>
                               <label class="col-sm-3 col-form-label">اللوجو</label>
-                              <div class="col-sm-9">
-                                <input type="file" class="form-control" />
+                              <input type="file" name="img[]" class="file-upload-default" />
+                              <div class="input-group col-xs-12">
+                                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" />
+                                <span class="input-group-append">
+                                  <button style={{ width: '47%', height: '50px' }} class="file-upload-browse btn btn-info" type="button">Upload</button>
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -551,8 +555,8 @@ const Info = () => {
                           </div>
                         </div>
 
-                        <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
-                        <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
+                        <button style={{ width: '47%', height: '50px' }} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button style={{ width: '47%', height: '50px' }} class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
@@ -565,10 +569,10 @@ const Info = () => {
                     <div class="col-12">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="card-title">Default form</h4>
-                          <p class="card-description"> Basic form layout </p>
+                          <h4 class="card-title">بيانات التواصل</h4>
+                          <p class="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
                           <form class="forms-sample">
-                            <div class="form-group" style={{ width: '100%' }}>
+                            {/* <div class="form-group" style={{ width: '100%' }}>
 
                               <label for="exampleInputEmail1">Email address</label>
                               <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
@@ -577,9 +581,42 @@ const Info = () => {
 
                               <label for="exampleInputPassword1">Password</label>
                               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-                            </div>
-                            <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
-                            <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
+                            </div> */}
+
+                            <div className="form-group">
+                            <label htmlFor="phone">رقم الهاتف:</label>
+                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="whatsapp">واتساب:</label>
+                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">البريد الإلكتروني:</label>
+                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="facebook">فيسبوك:</label>
+                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="twitter">تويتر:</label>
+                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="instagram">انستجرام:</label>
+                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="linkedin">لينكدإن:</label>
+                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="youtube">يوتيوب:</label>
+                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" />
+                        </div>
+                            <button style={{ width: '47%', height: '50px' }} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button style={{ width: '47%', height: '50px' }} class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -602,8 +639,8 @@ const Info = () => {
                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" />
                               </div>
                             </div>
-                            <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
-                            <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
+                            <button style={{ width: '47%', height: '50px' }} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button style={{ width: '47%', height: '50px' }} class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -638,7 +675,7 @@ const Info = () => {
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" />
                             <span class="input-group-append">
-                              <button style={{width:'47%', height:'50px'}} class="file-upload-browse btn btn-info" type="button">Upload</button>
+                              <button style={{ width: '47%', height: '50px' }} class="file-upload-browse btn btn-info" type="button">Upload</button>
                             </span>
                           </div>
                         </div>
@@ -652,8 +689,8 @@ const Info = () => {
                           <label for="exampleTextarea1">Textarea</label>
                           <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
                         </div>
-                        <button style={{width:'47%', height:'50px'}} type="submit" class="btn btn-success mr-2">تاكيد</button>
-                        <button style={{width:'47%', height:'50px'}} class="btn btn-light">إلغاء</button>
+                        <button style={{ width: '47%', height: '50px' }} type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button style={{ width: '47%', height: '50px' }} class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
