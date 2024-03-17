@@ -16,6 +16,7 @@ const Info = () => {
     setClosedDays(updatedClosedDays);
   };
 
+
   const [shifts, setShifts] = useState([{ name: '', from: '', to: '' }]);
 
   // إضافة وردية جديدة
@@ -49,6 +50,37 @@ const Info = () => {
     updatedShifts[index].to = event.target.value;
     setShifts(updatedShifts);
   };
+
+
+  const [areas, setAreas] = useState([{ name: '', deliveryCost: '' }]);
+  const [nextIndex, setNextIndex] = useState(1);
+
+  // إضافة منطقة توصيل جديدة
+  const addArea = () => {
+    setAreas([...areas, { name: '', deliveryCost: '' }]);
+    setNextIndex(nextIndex + 1);
+  };
+
+  // حذف منطقة توصيل
+  const removeArea = (index) => {
+    const updatedAreas = areas.filter((area, i) => i !== index);
+    setAreas(updatedAreas);
+  };
+
+  // تحديث حقل اسم المنطقة
+  const handleAreasNameChange = (index, event) => {
+    const updatedAreas = [...areas];
+    updatedAreas[index].name = event.target.value;
+    setAreas(updatedAreas);
+  };
+
+  // تحديث حقل تكلفة التوصيل
+  const handleDeliveryCostChange = (index, event) => {
+    const updatedAreas = [...areas];
+    updatedAreas[index].deliveryCost = event.target.value;
+    setAreas(updatedAreas);
+  };
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -602,13 +634,13 @@ const Info = () => {
               <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
+                    <h4 className="card-title">إضافة بيانات الورديات</h4>
+                    <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                     <div className="form-row mb-3">
                       <div className="col">
                         <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
                       </div>
                     </div>
-                    <h4 className="card-title">إضافة بيانات الورديات</h4>
-                    <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                     <form className="forms-sample">
                       {shifts.map((shift, index) => (
                         <div key={index} className="form-row mb-3 align-items-center">
@@ -623,7 +655,7 @@ const Info = () => {
                           </div>
                           <div className="col-auto">
                             <button type="button" className="btn btn-danger" onClick={() => removeShift(index)}>
-                              <i className="mdi mdi-delete-empty" />
+                              <i className="mdi mdi-delete" />
                             </button>
                           </div>
                         </div>
@@ -644,41 +676,36 @@ const Info = () => {
                   <div className="col-12 grid-margin">
                     <div className="card">
                       <div className="card-body">
-                        <h4 className="card-title">Basic input groups</h4>
-                        <p className="card-description"> Basic bootstrap input groups </p>
-                        <div className="form-group" style={{ width: '100%' }}>
-
-                          <div className="input-group">
-                            <div className="input-group-prepend">
-                              <span className="input-group-text">@</span>
-                            </div>
-                            <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                        <h4 className="card-title">إضافة بيانات مناطق التوصيل</h4>
+                        <p className="card-description">أضف المناطق وتكلفة التوصيل</p>
+                        <div className="form-row mb-3">
+                          <div className="col">
+                            <button type="button" className="btn btn-success btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
                           </div>
                         </div>
-                        <div className="form-group" style={{ width: '100%' }}>
-
-                          <div className="input-group">
-                            <div className="input-group-prepend">
-                              <span className="input-group-text">$</span>
+                        <form className="forms-sample">
+                          {areas.map((area, index) => (
+                            <div key={index} className="form-row mb-3 align-items-center">
+                              <div className="col">
+                                <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
+                              </div>
+                              <div className="col">
+                                <input type="text" className="form-control" placeholder="تكلفة التوصيل" value={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
+                              </div>
+                              <div className="col-auto">
+                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)}>
+                                  <i className="mdi mdi-delete" />
+                                </button>
+                              </div>
                             </div>
-                            <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" />
-                            <div className="input-group-append">
-                              <span className="input-group-text">.00</span>
+                          ))}
+                          <div className="form-row mt-3">
+                            <div className="col">
+                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تأكيد</button>
+                              <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
                             </div>
                           </div>
-                        </div>
-                        <div className="form-group" style={{ width: '100%' }}>
-
-                          <div className="input-group">
-                            <div className="input-group-prepend">
-                              <span className="input-group-text">$</span>
-                            </div>
-                            <div className="input-group-prepend">
-                              <span className="input-group-text">0.00</span>
-                            </div>
-                            <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" />
-                          </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
                   </div>
