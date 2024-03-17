@@ -412,16 +412,16 @@ const Info = () => {
           <div class="main-panel">
             <div class="content-wrapper">
               <div class="row">
-              <div class="col-12 grid-margin">
+                <div class="col-12 grid-margin">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Horizontal Two column</h4>
+                      <h4 class="card-title">بيانات المطعم</h4>
                       <form class="form-sample">
-                        <p class="card-description"> Personal info </p>
+                        {/* <p class="card-description"> Personal info </p> */}
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">First Name</label>
+                              <label class="col-sm-3 col-form-label">الاسم</label>
                               <div class="col-sm-9">
                                 <input type="text" class="form-control" />
                               </div>
@@ -429,14 +429,14 @@ const Info = () => {
                           </div>
                           <div class="col-md-6">
                             <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">Last Name</label>
+                              <label class="col-sm-3 col-form-label">الوصف</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" />
+                                <textarea type="text" class="form-control" />
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="row">
+                        {/* <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row" style={{ width: '100%' }}>
                               <label class="col-sm-3 col-form-label">Gender</label>
@@ -488,71 +488,78 @@ const Info = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <p class="card-description"> Address </p>
+                        </div> */}
+                        <p class="card-description"> العنوان </p>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">Address 1</label>
+                              <label class="col-sm-3 col-form-label">الدولة</label>
                               <div class="col-sm-9">
                                 <input type="text" class="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">State</label>
-                              <div class="col-sm-9">
-                                <input type="text" class="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">Address 2</label>
-                              <div class="col-sm-9">
-                                <input type="text" class="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">Postcode</label>
-                              <div class="col-sm-9">
-                                <input type="text" class="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">City</label>
-                              <div class="col-sm-9">
-                                <input type="text" class="form-control" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group row" style={{ width: '100%' }}>
-                              <label class="col-sm-3 col-form-label">Country</label>
-                              <div class="col-sm-9">
-                                <select class="form-control">
+                                {/* <select class="form-control">
                                   <option>America</option>
                                   <option>Italy</option>
                                   <option>Russia</option>
                                   <option>Britain</option>
-                                </select>
+                                </select> */}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row" style={{ width: '100%' }}>
+                              <label class="col-sm-3 col-form-label">المحافظة</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" />
                               </div>
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group row" style={{ width: '100%' }}>
+                              <label class="col-sm-3 col-form-label">المدينة</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row" style={{ width: '100%' }}>
+                              <label class="col-sm-3 col-form-label">العنوان</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group row" style={{ width: '100%' }}>
+                              <label class="col-sm-3 col-form-label">اللوجو</label>
+                              <div class="col-sm-9">
+                                <input type="file" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row" style={{ width: '100%' }}>
+                              <label class="col-sm-3 col-form-label">كود البريد</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
                 </div>
+
+
+
                 <div class="col-md-6 d-flex align-items-stretch grid-margin">
                   <div class="row flex-grow">
                     <div class="col-12">
@@ -571,8 +578,8 @@ const Info = () => {
                               <label for="exampleInputPassword1">Password</label>
                               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                             </div>
-                            <button type="submit" class="btn btn-success mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -595,8 +602,8 @@ const Info = () => {
                                 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" />
                               </div>
                             </div>
-                            <button type="submit" class="btn btn-success mr-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="submit" class="btn btn-success mr-2">تاكيد</button>
+                            <button class="btn btn-light">إلغاء</button>
                           </form>
                         </div>
                       </div>
@@ -645,8 +652,8 @@ const Info = () => {
                           <label for="exampleTextarea1">Textarea</label>
                           <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success mr-2">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+                        <button type="submit" class="btn btn-success mr-2">تاكيد</button>
+                        <button class="btn btn-light">إلغاء</button>
                       </form>
                     </div>
                   </div>
