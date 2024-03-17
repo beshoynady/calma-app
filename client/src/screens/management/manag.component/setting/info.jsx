@@ -583,35 +583,35 @@ const Info = () => {
                               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                             </div> */}
 
-                            <div className="form-group">
+                            <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
                             <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
                             <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
                             <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" required />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
                             <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="twitter">تويتر:</label>
                             <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="instagram">انستجرام:</label>
                             <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="linkedin">لينكدإن:</label>
                             <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="youtube">يوتيوب:</label>
                             <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" />
                         </div>
