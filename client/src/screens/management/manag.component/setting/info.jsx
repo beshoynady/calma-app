@@ -10,11 +10,47 @@ const Info = () => {
 
   const handleCheckboxChange = (index) => {
     const updatedClosedDays = [...closedDays];
-    console.log({updatedClosedDays})
+    console.log({ updatedClosedDays })
     updatedClosedDays[index] = !updatedClosedDays[index];
-    console.log({updatedClosedDays})
+    console.log({ updatedClosedDays })
     setClosedDays(updatedClosedDays);
   };
+
+  const [deliveryAreas, setDeliveryAreas] = useState([{ name: '', from: '', to: '' }]);
+
+  // إضافة منطقة توصيل جديدة
+  const addDeliveryArea = () => {
+    setDeliveryAreas([...deliveryAreas, { name: '', from: '', to: '' }]);
+  };
+
+  // تحديث حقل اسم منطقة التوصيل
+  const handleNameChange = (index, event) => {
+    const updatedDeliveryAreas = [...deliveryAreas];
+    updatedDeliveryAreas[index].name = event.target.value;
+    setDeliveryAreas(updatedDeliveryAreas);
+  };
+
+  // تحديث حقل ميعاد بداية منطقة التوصيل
+  const handleFromChange = (index, event) => {
+    const updatedDeliveryAreas = [...deliveryAreas];
+    updatedDeliveryAreas[index].from = event.target.value;
+    setDeliveryAreas(updatedDeliveryAreas);
+  };
+
+  // تحديث حقل ميعاد نهاية منطقة التوصيل
+  const handleToChange = (index, event) => {
+    const updatedDeliveryAreas = [...deliveryAreas];
+    updatedDeliveryAreas[index].to = event.target.value;
+    setDeliveryAreas(updatedDeliveryAreas);
+  };
+
+  // حذف منطقة التوصيل
+  const removeDeliveryArea = (index) => {
+    const updatedDeliveryAreas = [...deliveryAreas];
+    updatedDeliveryAreas.splice(index, 1);
+    setDeliveryAreas(updatedDeliveryAreas);
+  };
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -459,8 +495,8 @@ const Info = () => {
                         <div className="col-md-6">
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
-                            <input type="file" name="img[]" className="file-upload-default" />
-                            <button className="file-upload-browse btn btn-info" type="button">Upload</button>
+                            <input type="file" name="img[]" className="form-control" />
+                            <button className="form-control btn btn-info" type="button">Upload</button>
                           </div>
                         </div>
                         <div className="col-md-6">
@@ -571,45 +607,32 @@ const Info = () => {
                     <h4 className="card-title">Basic form</h4>
                     <p className="card-description"> Basic form elements </p>
                     <form className="forms-sample">
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label for="exampleInputName1">Name</label>
-                        <input type="text" className="form-control" id="exampleInputName1" placeholder="Name" />
-                      </div>
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label for="exampleInputEmail3">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail3" placeholder="Email" />
-                      </div>
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label for="exampleInputPassword4">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword4" placeholder="Password" />
-                      </div>
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label>File upload</label>
-                        <input type="file" name="img[]" className="file-upload-default" />
-                        <div className="input-group col-xs-12">
-                          <input type="text" className="form-control file-upload-info" disabled placeholder="Upload Image" />
-                          <span className="input-group-append">
-                            <button style={{ width: '47%', height: '50px' }} className="file-upload-browse btn btn-info" type="button">Upload</button>
-                          </span>
+                        {deliveryAreas.map((area, index) => (
+                          <div key={index} className="form-row mb-3">
+                            <div className="col">
+                              <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleNameChange(index, e)} />
+                            </div>
+                            <div className="col">
+                              <input type="time" className="form-control" placeholder="ميعاد البدء" value={area.from} onChange={(e) => handleFromChange(index, e)} />
+                            </div>
+                            <div className="col">
+                              <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={area.to} onChange={(e) => handleToChange(index, e)} />
+                            </div>
+                            <div className="col">
+                              <button type="button" className="btn btn-danger" onClick={() => removeDeliveryArea(index)}>حذف</button>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="form-row">
+                          <div className="col">
+                            <button type="button" className="btn btn-success" onClick={addDeliveryArea}>إضافة منطقة توصيل</button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label for="exampleInputCity1">City</label>
-                        <input type="text" className="form-control" id="exampleInputCity1" placeholder="Location" />
-                      </div>
-                      <div className="form-group" style={{ width: '100%' }}>
-
-                        <label for="exampleTextarea1">Textarea</label>
-                        <textarea className="form-control" id="exampleTextarea1" rows="2"></textarea>
-                      </div>
-                      <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
-                      <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
-                    </form>
+                        <div className="form-row mt-3">
+                          <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
+                          <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
+                        </div>
+                      </form>
                   </div>
                 </div>
               </div>
