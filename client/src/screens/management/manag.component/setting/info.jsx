@@ -604,8 +604,8 @@ const Info = () => {
               <div className="col-md-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="card-title">Basic form</h4>
-                    <p className="card-description"> Basic form elements </p>
+                    <h4 className="card-title">اضافه بيانات الوردية</h4>
+                    <p className="card-description"> اضف الوردية و وقت الحضور و الانصراف </p>
                     <form className="forms-sample">
                         {deliveryAreas.map((area, index) => (
                           <div key={index} className="form-row mb-3">
