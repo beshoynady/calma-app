@@ -70,7 +70,7 @@ const Info = () => {
     return (
         <detacontext.Consumer>
             {({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => (
-                <div className="container">
+                <div className="container" dir='rtl'>
                     <h1 className="text-center">إضافة مطعم</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
