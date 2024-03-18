@@ -3,23 +3,23 @@ const mongoose = require('mongoose');
 const restaurantSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        // required: true,
         trim: true
     },
     description: {
         type: String,
-        required: true,
+        // required: true,
         maxlength: 500
     },
     address: {
         country: {
             type: String,
-            required: [true, 'state is required'],
+            // required: [true, 'state is required'],
             default: 'Egypt'
         },
         state: {
             type: String,
-            required: [true, 'state is required']
+            // required: [true, 'state is required']
         },
         city: String,
         street: String,
@@ -27,7 +27,7 @@ const restaurantSchema = new mongoose.Schema({
     },
     logo: {
         type: String,
-        required: [true, 'logo is required'],
+        // required: [true, 'logo is required'],
         trim: true,
     },
     contact: {

@@ -7,6 +7,7 @@ const {
   updateRestaurant,
   deleteRestaurant
 } = require('../controllers/Restaurant.controller');
+
 const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
