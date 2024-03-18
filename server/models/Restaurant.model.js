@@ -3,12 +3,10 @@ const mongoose = require('mongoose');
 const restaurantSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
         trim: true
     },
     description: {
         type: String,
-        required: true,
         maxlength: 500,
         trim: true
     },
