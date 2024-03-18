@@ -3,7 +3,7 @@ const RestaurantModel = require('../models/Restaurant.model');
 
 const createRestaurant = async (req, res) => {
     try {
-        const { name, description, address, logo, contact, opening_hours } = req.body;
+        const { name, description, address} = req.body;
 
         if (!name || !description || !address  ) {
             return res.status(400).json({ message: 'all fields is required' });
@@ -13,12 +13,13 @@ const createRestaurant = async (req, res) => {
             name,
             description,
             address, 
-            // logo,
-            // contact,
-            // opening_hours
         });
 
         await restaurant.save();
+
+        if (!restaurant) {
+            return res.status(500).json({ message: 'Failed to create restaurant' });
+        }
 
         return res.status(201).json(restaurant);
     } catch (error) {
