@@ -154,7 +154,8 @@ const Info = () => {
         street: street,
         postalCode: postalCode
       };
-      formdata.append('address', JSON.stringify(addressData));      console.log(formdata);
+      formdata.append('address', JSON.stringify(addressData));      
+      console.log(formdata);
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.post(apiUrl + '/api/restaurant/', formdata, config);
       // عرض رسالة نجاح باستخدام react-toastify
