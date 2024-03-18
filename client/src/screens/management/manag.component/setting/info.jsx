@@ -142,16 +142,17 @@ const Info = () => {
   const handleCreateRestaurant = async (e) => {
     e.preventDefault();
     try {
-      const addressData = {
+      const address= {
         country: country,
         city: city,
         state: state,
         street: street,
         postalCode: postalCode
       };
-      console.log({ name, description, logo, addressData });
+      console.log({ name, description, logo, address });
+      console.log({ apiUrl, config });
       // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.post(apiUrl + '/api/restaurant/', { name, description, logo, "address": addressData }, config);
+      const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address }, config);
       // عرض رسالة نجاح باستخدام react-toastify
       if (response) {
         toast.success('تمت إضافة المطعم بنجاح');

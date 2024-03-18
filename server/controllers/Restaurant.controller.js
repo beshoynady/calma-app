@@ -3,16 +3,16 @@ const RestaurantModel = require('../models/Restaurant.model');
 
 const createRestaurant = async (req, res) => {
     try {
-        const { name, description, address} = req.body;
+        const { name, description, address } = req.body;
 
-        if (!name || !description || !address  ) {
+        if (!name || !description || !address) {
             return res.status(400).json({ message: 'all fields is required' });
         }
 
         const restaurant = await RestaurantModel.create({
             name,
             description,
-            address, 
+            address,
         });
 
         await restaurant.save();
@@ -63,7 +63,7 @@ const updateRestaurant = async (req, res) => {
         const restaurant = await RestaurantModel.findByIdAndUpdate(id, {
             name,
             description,
-            address, 
+            address,
             logo,
             contact,
             opening_hours

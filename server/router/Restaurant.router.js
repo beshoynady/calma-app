@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createRestaurant,
-    getAllRestaurants,
-    getRestaurantById,
-    updateRestaurant,
-    deleteRestaurant
+  createRestaurant,
+  getAllRestaurants,
+  getRestaurantById,
+  updateRestaurant,
+  deleteRestaurant
 } = require('../controllers/Restaurant.controller');
 const authenticateToken = require('../utlits/authenticate')
 
