@@ -13,9 +13,9 @@ const createRestaurant = async (req, res) => {
             name,
             description,
             address, 
-            logo,
-            contact,
-            opening_hours
+            // logo,
+            // contact,
+            // opening_hours
         });
 
         await restaurant.save();
