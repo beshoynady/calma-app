@@ -675,9 +675,9 @@ const Info = () => {
                 </div>
               </div> */}
 
-              <div className="col-md-5 d-flex align-items-stretch">
+              <div className="col-md-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
-                  <div className="col-12 grid-margin">
+                  <div className="col-12 grid-margin stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">مواعيد العمل </h4>
