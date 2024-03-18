@@ -15,13 +15,11 @@ const restaurantSchema = new mongoose.Schema({
     address: {
         country: {
             type: String,
-            required: [true, 'state is required'],
             default: 'Egypt',
             trim: true
         },
         state: {
             type: String,
-            required: [true, 'state is required'],
             trim: true
         },
         city: String,
@@ -30,8 +28,7 @@ const restaurantSchema = new mongoose.Schema({
     },
     logo: {
         type: String,
-        // required: [true, 'logo is required'],
-        trim: true,
+        trim: true
     },
     contact: {
         phone: [{
