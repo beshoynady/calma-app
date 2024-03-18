@@ -98,7 +98,7 @@ const Info = () => {
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
   const [postalCode, setPostalCode] = useState('');
-  
+
   const [contact, setContact] = useState('');
   const [phone, setPhone] = useState([]);
   const [whatsapp, setWhatsapp] = useState('');
@@ -142,11 +142,6 @@ const Info = () => {
   const handleCreateRestaurant = async (e) => {
     e.preventDefault();
     try {
-      const formdata = new FormData();
-      formdata.append('name', name);
-      formdata.append('description', description);
-      formdata.append('logo', logo);
-      
       const addressData = {
         country: country,
         city: city,
@@ -154,14 +149,13 @@ const Info = () => {
         street: street,
         postalCode: postalCode
       };
-      formdata.append('address', JSON.stringify(addressData));      
-      console.log(formdata);
+      console.log({ name, description, logo, addressData });
       // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.post(apiUrl + '/api/restaurant/', formdata, config);
+      const response = await axios.post(apiUrl + '/api/restaurant/', { name, description, logo, "address": addressData }, config);
       // عرض رسالة نجاح باستخدام react-toastify
-      if(response){
+      if (response) {
         toast.success('تمت إضافة المطعم بنجاح');
-        console.log({response});
+        console.log({ response });
       }
       // مسح البيانات المدخلة بعد الإرسال
     } catch (error) {
