@@ -70,10 +70,7 @@ const Products = () => {
         errorMessage = "Maximum file size exceeded (1 MB). Please select a smaller file.";
       }
 
-      toast.error(errorMessage, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
-      });
+      toast.error(errorMessage);
     }
   };
 

@@ -4,7 +4,13 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 
 const Info = () => {
-
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
   const [closedDays, setClosedDays] = useState([]);
 
@@ -17,11 +23,11 @@ const Info = () => {
   };
 
 
-  const [shifts, setShifts] = useState([{ name: '', from: '', to: '' }]);
+  const [shifts, setShifts] = useState([{ shiftType: '', startTime: '', endTime: '' }]);
 
   // إضافة وردية جديدة
   const addShift = () => {
-    setShifts([...shifts, { name: '', from: '', to: '' }]);
+    setShifts([...shifts, { shiftType: '', startTime: '', endTime: '' }]);
   };
 
   // حذف وردية
@@ -31,23 +37,23 @@ const Info = () => {
   };
 
   // تحديث حقل اسم الوردية
-  const handleNameChange = (index, event) => {
+  const handleShiftTypeChange = (index, event) => {
     const updatedShifts = [...shifts];
-    updatedShifts[index].name = event.target.value;
+    updatedShifts[index].shiftType = event.target.value;
     setShifts(updatedShifts);
   };
 
   // تحديث حقل ميعاد بداية الوردية
-  const handleFromChange = (index, event) => {
+  const handleStartTimeChange = (index, event) => {
     const updatedShifts = [...shifts];
-    updatedShifts[index].from = event.target.value;
+    updatedShifts[index].startTime = event.target.value;
     setShifts(updatedShifts);
   };
 
   // تحديث حقل ميعاد نهاية الوردية
-  const handleToChange = (index, event) => {
+  const handleEndTimeChange = (index, event) => {
     const updatedShifts = [...shifts];
-    updatedShifts[index].to = event.target.value;
+    updatedShifts[index].endTime = event.target.value;
     setShifts(updatedShifts);
   };
 
@@ -82,63 +88,74 @@ const Info = () => {
   };
 
 
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    country: '',
-    state: '',
-    city: '',
-    street: '',
-    postal_code: '',
-    phone: '',
-    whatsapp: '',
-    email: '',
-    facebook: '',
-    twitter: '',
-    instagram: '',
-    linkedin: '',
-    youtube: '',
-    opening_hours_from: '',
-    opening_hours_to: '',
-    delivery: false
-  });
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [logo, setLogo] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const [address, setAddress] = useState('');
+  const [country, setCountry] = useState('Egypt');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  
+  const [contact, setContact] = useState('');
+  const [phone, setPhone] = useState([]);
+  const [whatsapp, setWhatsapp] = useState('');
+  const [email, setEmail] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [youtube, setYoutube] = useState('');
+
+  const [openingHours, setOpeningHours] = useState('');
+  const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
+  const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
+  const [monday, setMonday] = useState({ from: '', to: '', closed: false });
+  const [tuesday, setTuesday] = useState({ from: '', to: '', closed: false });
+  const [wednesday, setWednesday] = useState({ from: '', to: '', closed: false });
+  const [thursday, setThursday] = useState({ from: '', to: '', closed: false });
+  const [friday, setFriday] = useState({ from: '', to: '', closed: false });
+
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const maxSize = 1024 * 1024;
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    if (file && file.size <= maxSize && allowedTypes.includes(file.type)) {
+      setLogo(file);
+    } else {
+      let errorMessage = "Invalid file.";
+
+      if (file && !allowedTypes.includes(file.type)) {
+        errorMessage = "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
+      } else if (file && file.size > maxSize) {
+        errorMessage = "Maximum file size exceeded (1 MB). Please select a smaller file.";
+      }
+
+      toast.error(errorMessage);
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleCreateRestaurant = async (e) => {
     e.preventDefault();
     try {
+      const formdata = new FormData();
+      formdata.append(name);
+      formdata.append(description);
+      formdata.append(logo);
+      formdata.append("address",{country, city, state ,street, postalCode});
+      console.log(formdata);
       // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.post('رابط-الخادم', formData);
+      const response = await axios.post(apiUrl + '/api/restaurant/', formdata, config);
       // عرض رسالة نجاح باستخدام react-toastify
-      toast.success('تمت إضافة المطعم بنجاح');
+      if(response){
+        toast.success('تمت إضافة المطعم بنجاح');
+        console.log({response});
+      }
       // مسح البيانات المدخلة بعد الإرسال
-      setFormData({
-        name: '',
-        description: '',
-        country: '',
-        state: '',
-        city: '',
-        street: '',
-        postal_code: '',
-        phone: '',
-        whatsapp: '',
-        email: '',
-        facebook: '',
-        twitter: '',
-        instagram: '',
-        linkedin: '',
-        youtube: '',
-        opening_hours_from: '',
-        opening_hours_to: '',
-        delivery: false
-      });
     } catch (error) {
       toast.error('حدث خطأ أثناء إضافة المطعم');
       console.error('Error:', error);
@@ -149,270 +166,19 @@ const Info = () => {
     <detacontext.Consumer>
       {({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => (
         <div className="container" dir='rtl'>
-          {/* 
-                    <div className="container-scroller">
-      <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-          <a className="navbar-brand brand-logo" href="../../index.html">
-            <img src="../../assets/images/logo.svg" alt="logo" /> </a>
-          <a className="navbar-brand brand-logo-mini" href="../../index.html">
-            <img src="../../assets/images/logo-mini.svg" alt="logo" /> </a>
-        </div>
-        <div className="navbar-menu-wrapper d-flex align-items-center">
-          <ul className="navbar-nav">
-            <li className="nav-item font-weight-semibold d-none d-lg-block">Help : +050 2992 709</li>
-            <li className="nav-item dropdown language-dropdown">
-              <a className="nav-link dropdown-toggle px-2 d-flex align-items-center" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <div className="d-inline-flex mr-0 mr-md-3">
-                  <div className="flag-icon-holder">
-                    <i className="flag-icon flag-icon-us"></i>
-                  </div>
-                </div>
-                <span className="profile-text font-weight-medium d-none d-md-block">English</span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
-                <a className="dropdown-item">
-                  <div className="flag-icon-holder">
-                    <i className="flag-icon flag-icon-us"></i>
-                  </div>English
-                </a>
-                <a className="dropdown-item">
-                  <div className="flag-icon-holder">
-                    <i className="flag-icon flag-icon-fr"></i>
-                  </div>French
-                </a>
-                <a className="dropdown-item">
-                  <div className="flag-icon-holder">
-                    <i className="flag-icon flag-icon-ae"></i>
-                  </div>Arabic
-                </a>
-                <a className="dropdown-item">
-                  <div className="flag-icon-holder">
-                    <i className="flag-icon flag-icon-ru"></i>
-                  </div>Russian
-                </a>
-              </div>
-            </li>
-          </ul>
-          <form className="ml-auto search-form d-none d-md-block" action="#">
-                                        <div className="form-group" style={{ width: '100%' }}>
-
-              <input type="search" className="form-control" placeholder="Search Here"/>
-            </div>
-          </form>
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link count-indicator" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <i className="mdi mdi-bell-outline"></i>
-                <span className="count">7</span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
-                <a className="dropdown-item py-3">
-                  <p className="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
-                  <span className="badge badge-pill badge-primary float-right">View all</span>
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <img src="../../assets/images/faces/face10.jpg" alt="image" className="img-sm profile-pic"/>
-                  </div>
-                  <div className="preview-item-content flex-grow py-2">
-                    <p className="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-                    <p className="font-weight-light small-text"> The meeting is cancelled </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <img src="../../assets/images/faces/face12.jpg" alt="image" className="img-sm profile-pic"/>
-                  </div>
-                  <div className="preview-item-content flex-grow py-2">
-                    <p className="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-                    <p className="font-weight-light small-text"> The meeting is cancelled </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <img src="../../assets/images/faces/face1.jpg" alt="image" className="img-sm profile-pic"/>
-                  </div>
-                  <div className="preview-item-content flex-grow py-2">
-                    <p className="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-                    <p className="font-weight-light small-text"> The meeting is cancelled </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i className="mdi mdi-email-outline"></i>
-                <span className="count bg-success">3</span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
-                <a className="dropdown-item py-3 border-bottom">
-                  <p className="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
-                  <span className="badge badge-pill badge-primary float-right">View all</span>
-                </a>
-                <a className="dropdown-item preview-item py-3">
-                  <div className="preview-thumbnail">
-                    <i className="mdi mdi-alert m-auto text-primary"></i>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-                    <p className="font-weight-light small-text mb-0"> Just now </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item py-3">
-                  <div className="preview-thumbnail">
-                    <i className="mdi mdi-settings m-auto text-primary"></i>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-                    <p className="font-weight-light small-text mb-0"> Private message </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item py-3">
-                  <div className="preview-thumbnail">
-                    <i className="mdi mdi-airballoon m-auto text-primary"></i>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-                    <p className="font-weight-light small-text mb-0"> 2 days ago </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li className="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a className="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img className="img-xs rounded-circle" src="../../assets/images/faces/face8.jpg" alt="Profile image"/> </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                <div className="dropdown-header text-center">
-                  <img className="img-md rounded-circle" src="../../assets/images/faces/face8.jpg" alt="Profile image"/>
-                  <p className="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                  <p className="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
-                </div>
-                <a className="dropdown-item">My Profile <span className="badge badge-pill badge-danger">1</span><i className="dropdown-item-icon ti-dashboard"></i></a>
-                <a className="dropdown-item">Messages<i className="dropdown-item-icon ti-comment-alt"></i></a>
-                <a className="dropdown-item">Activity<i className="dropdown-item-icon ti-location-arrow"></i></a>
-                <a className="dropdown-item">FAQ<i className="dropdown-item-icon ti-help-alt"></i></a>
-                <a className="dropdown-item">Sign Out<i className="dropdown-item-icon ti-power-off"></i></a>
-              </div>
-            </li>
-          </ul>
-          <button style={{width:'47%', height:'50px'}} className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span className="mdi mdi-menu"></span>
-          </button>
-        </div>
-      </nav>
-      <div className="container-fluid page-body-wrapper">
-        <nav className="sidebar sidebar-offcanvas" id="sidebar">
-          <ul className="nav">
-            <li className="nav-item nav-profile">
-              <a href="#" className="nav-link">
-                <div className="profile-image">
-                  <img className="img-xs rounded-circle" src="../../assets/images/faces/face8.jpg" alt="profile image"/>
-                  <div className="dot-indicator bg-success"></div>
-                </div>
-                <div className="text-wrapper">
-                  <p className="profile-name">Allen Moreno</p>
-                  <p className="designation">Premium user</p>
-                </div>
-              </a>
-            </li>
-            <li className="nav-item nav-category">Main Menu</li>
-            <li className="nav-item">
-              <a className="nav-link" href="../../index.html">
-                <i className="menu-icon typcn typcn-document-text"></i>
-                <span className="menu-title">Dashboard</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i className="menu-icon typcn typcn-coffee"></i>
-                <span className="menu-title">Basic UI Elements</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="ui-basic">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/ui-features/buttons.html">Buttons</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/ui-features/dropdowns.html">Dropdowns</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/ui-features/typography.html">Typography</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="../../pages/forms/basic_elements.html">
-                <i className="menu-icon typcn typcn-shopping-bag"></i>
-                <span className="menu-title">Form elements</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="../../pages/charts/chartjs.html">
-                <i className="menu-icon typcn typcn-th-large-outline"></i>
-                <span className="menu-title">Charts</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="../../pages/tables/basic-table.html">
-                <i className="menu-icon typcn typcn-bell"></i>
-                <span className="menu-title">Tables</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="../../pages/icons/font-awesome.html">
-                <i className="menu-icon typcn typcn-user-outline"></i>
-                <span className="menu-title">Icons</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i className="menu-icon typcn typcn-document-add"></i>
-                <span className="menu-title">User Pages</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="auth">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/samples/login.html"> Login </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/samples/register.html"> Register </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/samples/error-404.html"> 404 </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="../../pages/samples/error-500.html"> 500 </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </nav> */}
-
-
-          {/* <div className="main-panel"> */}
           <div className="content-wrapper">
             <div className="row">
               <div className="col-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">بيانات المطعم</h4>
-                    <form className="form-sample">
-                      {/* <p className="card-description"> Personal info </p> */}
+                    <form className="form-sample" onSubmit={handleCreateRestaurant}>
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الاسم</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -420,71 +186,19 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الوصف</label>
                             <div className="col-sm-9">
-                              <textarea type="text" className="form-control" />
+                              <textarea type="text" className="form-control" required onChange={(e) => setDescription(e.target.value)} />
                             </div>
                           </div>
                         </div>
                       </div>
-                      {/* <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group row" style={{ width: '100%' }}>
-                              <label className="col-sm-3 col-form-label">Gender</label>
-                              <div className="col-sm-9">
-                                <select className="form-control">
-                                  <option>Male</option>
-                                  <option>Female</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group row" style={{ width: '100%' }}>
-                              <label className="col-sm-3 col-form-label">Date of Birth</label>
-                              <div className="col-sm-9">
-                                <input className="form-control" placeholder="dd/mm/yyyy" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group row" style={{ width: '100%' }}>
-                              <label className="col-sm-3 col-form-label">Category</label>
-                              <div className="col-sm-9">
-                                <select className="form-control">
-                                  <option>Category1</option>
-                                  <option>Category2</option>
-                                  <option>Category3</option>
-                                  <option>Category4</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group row" style={{ width: '100%' }}>
-                              <label className="col-sm-3 col-form-label">Membership</label>
-                              <div className="col-sm-4">
-                                <div className="form-radio">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked /> Free </label>
-                                </div>
-                              </div>
-                              <div className="col-sm-5">
-                                <div className="form-radio">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2" /> Professional </label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div> */}
+
                       <p className="card-description"> العنوان </p>
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الدولة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" onChange={(e) => setCountry(e.target.value)} />
                               {/* <select className="form-control">
                                   <option>America</option>
                                   <option>Italy</option>
@@ -498,7 +212,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المحافظة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" required onChange={(e) => setState(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -508,7 +222,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المدينة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" required onChange={(e) => setCity(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -516,7 +230,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">العنوان</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" required onChange={(e) => setStreet(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -526,7 +240,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
-                              <input type="file" name="img[]" className="form-control" />
+                              <input type="file" name="img[]" className="form-control" onChange={(e) => handleFileUpload(e)} />
                             </div>
                             {/* <button className="form-control btn btn-info" type="button">Upload</button> */}
                           </div>
@@ -535,12 +249,11 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">كود البريد</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" />
+                              <input type="text" className="form-control" onChange={(e) => setPostalCode(e.target.value)} />
                             </div>
                           </div>
                         </div>
                       </div>
-
                       <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
                       <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
                     </form>
@@ -649,13 +362,13 @@ const Info = () => {
                       {shifts.map((shift, index) => (
                         <div key={index} className="form-row mb-3 align-items-center">
                           <div className="col">
-                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleNameChange(index, e)} />
+                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleShiftTypeChange(index, e)} />
                           </div>
                           <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.from} onChange={(e) => handleFromChange(index, e)} />
+                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.startTime} onChange={(e) => handlestartTimeChange(index, e)} />
                           </div>
                           <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
+                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleEndTimeChange(index, e)} />
                           </div>
                           <div className="col-auto">
                             <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
@@ -726,13 +439,13 @@ const Info = () => {
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
-                                <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleNameChange(index, e)} />
+                                <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleShiftTypeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.from} onChange={(e) => handleFromChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.startTime} onChange={(e) => handleStartTimeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleToChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col-auto">
                                 <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
