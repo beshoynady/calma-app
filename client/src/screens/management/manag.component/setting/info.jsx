@@ -143,11 +143,18 @@ const Info = () => {
     e.preventDefault();
     try {
       const formdata = new FormData();
-      formdata.append(name);
-      formdata.append(description);
-      formdata.append(logo);
-      formdata.append("address",{country, city, state ,street, postalCode});
-      console.log(formdata);
+      formdata.append('name', name);
+      formdata.append('description', description);
+      formdata.append('logo', logo);
+      
+      const addressData = {
+        country: country,
+        city: city,
+        state: state,
+        street: street,
+        postalCode: postalCode
+      };
+      formdata.append('address', JSON.stringify(addressData));      console.log(formdata);
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.post(apiUrl + '/api/restaurant/', formdata, config);
       // عرض رسالة نجاح باستخدام react-toastify
