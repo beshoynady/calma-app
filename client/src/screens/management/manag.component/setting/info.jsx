@@ -210,12 +210,18 @@ const Info = () => {
     }
   };
 
- 
-  useEffect(async() => {
-    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`)
+  const getRestaurant = async() => {
+    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
     console.log({restaurant})
     const id = await restaurant.data[0]._id
     setid(id)
+  }
+ 
+
+
+  useEffect(()=>{
+    getRestaurant()
+
   }, [])
   
 
