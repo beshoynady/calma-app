@@ -188,8 +188,11 @@ const Info = () => {
         }
       };
 
+      console.log({contact})
+      
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact }, config);
+      console.log({response})
 
       if (response.status === 201) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
@@ -202,7 +205,7 @@ const Info = () => {
         setLinkedin('');
         setYoutube('');
       } else {
-        toast.error('حدث خطأ أثناء إضافة بيانات التواصل');
+        toast.error('فشل إضافة بيانات التواصل');
       }
     } catch (error) {
       toast.error('حدث خطأ أثناء إضافة بيانات التواصل');
