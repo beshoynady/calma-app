@@ -445,7 +445,7 @@ const Info = () => {
 
               <div className="col-md-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
-                  <div className="col-6 stretch-card">
+                  <div className="col-12 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">مواعيد العمل </h4>
@@ -480,7 +480,7 @@ const Info = () => {
                     </div>
 
                   </div>
-                  <div className="col-6 stretch-card">
+                  <div className="col-12 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">إضافة بيانات الورديات</h4>
