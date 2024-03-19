@@ -159,13 +159,13 @@ const Info = () => {
         // عرض رسالة نجاح باستخدام react-toastify
         toast.success('تمت إضافة المطعم بنجاح');
         // مسح البيانات المدخلة بعد الإرسال
-        setName('');
-        setDescription('');
-        setCountry('');
-        setCity('');
-        setState('');
-        setStreet('');
-        setPostalCode('');
+        // setName('');
+        // setDescription('');
+        // setCountry('');
+        // setCity('');
+        // setState('');
+        // setStreet('');
+        // setPostalCode('');
       } else {
         // عرض رسالة خطأ في حالة عدم النجاح
         toast.error('حدث خطأ أثناء إضافة المطعم');

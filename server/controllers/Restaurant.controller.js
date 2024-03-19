@@ -15,8 +15,6 @@ const createRestaurant = async (req, res) => {
             address,
         });
 
-        await restaurant.save();
-
         if (!restaurant) {
             return res.status(500).json({ message: 'Failed to create restaurant' , restaurant});
         }
