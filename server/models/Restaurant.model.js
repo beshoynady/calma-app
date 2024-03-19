@@ -3,35 +3,62 @@ const mongoose = require('mongoose');
 const restaurantSchema = new mongoose.Schema({
     name: {
         type: String,
-        // required: true,
-        trim: true 
+        required: true,
+        unique: true,
+        trim: true, 
     },
     description: {
         type: String,
-        // required: true,
+        required: true,
+        trim: true,
         maxlength: 500 
     },
     address: {
-        country: String,
-        state: String,
-        city: String,
-        street: String,
-        postal_code: String,
+        country: {
+            type: String,
+            required: true,
+            trim: true, 
+        },
+        state: {
+            type: String,
+            required: true,
+            trim: true, 
+        },
+        city: {
+            type: String,
+            required: true,
+            trim: true, 
+        },
+        street: {
+            type: String,
+            required: true,
+            trim: true, 
+        },
+        postal_code: {
+            type: String,
+            trim: true, 
+        },
+    },
+    logo: {
+        type: String,
+        required: true,
+        trim: true 
     },
     contact: {
         phone: [{
             type: String,
+            trim: true,
             match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
         }],
         whatsapp: {
             type: String,
+            trim: true,
             match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
         },
         email: {
             type: String,
             lowercase: true, 
             trim: true,
-            // unique: true, 
             match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'], 
         },
         social_media: {

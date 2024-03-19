@@ -3,7 +3,7 @@ const RestaurantModel = require('../models/Restaurant.model');
 
 const createRestaurant = async (req, res) => {
     try {
-        const { name, description, address } = req.body;
+        const { name, description, address , logo} = req.body;
 
         if (!name || !description || !address) {
             return res.status(400).json({ message: 'all fields is required' });
@@ -13,6 +13,7 @@ const createRestaurant = async (req, res) => {
             name,
             description,
             address,
+            logo
         });
 
         if (!restaurant) {

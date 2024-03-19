@@ -87,19 +87,18 @@ const Info = () => {
     setAreas(updatedAreas);
   };
 
+  const [id, setid] = useState('')
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [logo, setLogo] = useState('');
 
-  const [address, setAddress] = useState('');
   const [country, setCountry] = useState('Egypt');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
-  const [contact, setContact] = useState('');
   const [phone, setPhone] = useState([]);
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
@@ -150,32 +149,74 @@ const Info = () => {
         street: street,
         postalCode: postalCode
       };
-      
+
       // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address }, config);
-  
-      // التحقق من استجابة الخادم
+      const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, logo }, config);
+
       if (response.status === 201) {
-        // عرض رسالة نجاح باستخدام react-toastify
         toast.success('تمت إضافة المطعم بنجاح');
-        // مسح البيانات المدخلة بعد الإرسال
-        // setName('');
-        // setDescription('');
-        // setCountry('');
-        // setCity('');
-        // setState('');
-        // setStreet('');
-        // setPostalCode('');
+        setName('');
+        setDescription('');
+        setCountry('');
+        setCity('');
+        setState('');
+        setStreet('');
+        setPostalCode('');
       } else {
-        // عرض رسالة خطأ في حالة عدم النجاح
         toast.error('حدث خطأ أثناء إضافة المطعم');
       }
     } catch (error) {
-      // عرض رسالة خطأ في حالة حدوث أي استثناء
       toast.error('حدث خطأ أثناء إضافة المطعم');
       console.error('Error:', error);
     }
   };
+
+
+  const handleContactData = async (e) => {
+    e.preventDefault();
+    try {
+      const contact = {
+        phone: [...phone],
+        whatsapp: whatsapp,
+        email: email,
+        social_media:{
+          facebook: facebook,
+          instagram: instagram,
+          twitter: twitter,
+          linkedin: linkedin,
+          youtube: youtube
+        }
+      };
+
+      // إرسال البيانات إلى الخادم باستخدام axios
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact }, config);
+
+      if (response.status === 201) {
+        toast.success('تمت إضافة بيانات التواصل بنجاح');
+        setPhone([]);
+        setWhatsapp('');
+        setEmail('');
+        setFacebook('');
+        setTwitter('');
+        setInstagram('');
+        setLinkedin('');
+        setYoutube('');
+      } else {
+        toast.error('حدث خطأ أثناء إضافة بيانات التواصل');
+      }
+    } catch (error) {
+      toast.error('حدث خطأ أثناء إضافة بيانات التواصل');
+      console.error('Error:', error);
+    }
+  };
+
+ 
+  useEffect(async() => {
+    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`).data[0]
+    console.log({restaurant})
+    const id = await restaurant._id
+    setid(id)
+  }, [])
   
 
   return (
@@ -277,47 +318,45 @@ const Info = () => {
                 </div>
               </div>
 
-
-
               <div className="col-md-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
-                  <div className="col-12">
+                  <div className="col-6 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">بيانات التواصل</h4>
                         <p className="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
-                        <form className="forms-sample">
+                        <form className="forms-sample" onSubmit={(e)=>handleContactData(e)}>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
-                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required />
+                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required onChange={(e)=>setPhone([e.target.value])}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
-                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required />
+                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required onChange={(e)=>setWhatsapp(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
-                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" required />
+                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني"  onChange={(e)=>setEmail(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
-                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" />
+                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" required onChange={(e)=>setFacebook(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="twitter">تويتر:</label>
-                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" />
+                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" onChange={(e)=>setTwitter(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="instagram">انستجرام:</label>
-                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" />
+                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" onChange={(e)=>setInstagram(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="linkedin">لينكدإن:</label>
-                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" />
+                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" onChange={(e)=>setLinkedin(e.target.value)}/>
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="youtube">يوتيوب:</label>
-                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" />
+                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" onChange={(e)=>setYoutube(e.target.value)}/>
                           </div>
                           <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
                           <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
@@ -325,7 +364,7 @@ const Info = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-12 stretch-card">
+                  <div className="col-6 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">إضافة بيانات مناطق التوصيل</h4>
@@ -406,7 +445,7 @@ const Info = () => {
 
               <div className="col-md-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
-                  <div className="col-12 grid-margin stretch-card">
+                  <div className="col-6 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">مواعيد العمل </h4>
@@ -441,7 +480,7 @@ const Info = () => {
                     </div>
 
                   </div>
-                  <div className="col-12 grid-margin stretch-card">
+                  <div className="col-6 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">إضافة بيانات الورديات</h4>
