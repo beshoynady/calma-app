@@ -3,30 +3,20 @@ const mongoose = require('mongoose');
 const restaurantSchema = new mongoose.Schema({
     name: {
         type: String,
-        trim: true
+        // required: true,
+        trim: true 
     },
     description: {
         type: String,
-        maxlength: 500,
-        trim: true
+        // required: true,
+        maxlength: 500 
     },
     address: {
-        country: {
-            type: String,
-            default: 'Egypt',
-            trim: true
-        },
-        state: {
-            type: String,
-            trim: true
-        },
+        country: String,
+        state: String,
         city: String,
         street: String,
-        postalCode: String,
-    },
-    logo: {
-        type: String,
-        trim: true
+        postal_code: String,
     },
     contact: {
         phone: [{
@@ -39,10 +29,10 @@ const restaurantSchema = new mongoose.Schema({
         },
         email: {
             type: String,
-            lowercase: true,
+            lowercase: true, 
             trim: true,
-            unique: true,
-            match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
+            unique: true, 
+            match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'], 
         },
         social_media: {
             facebook: String,
@@ -56,7 +46,7 @@ const restaurantSchema = new mongoose.Schema({
         Saturday: {
             from: String,
             to: String,
-            closed: Boolean
+            closed: Boolean 
         },
         Sunday: {
             from: String,
@@ -89,6 +79,10 @@ const restaurantSchema = new mongoose.Schema({
             closed: Boolean
         }
     },
+    delivery:  {
+        type: Boolean,
+        default: false
+    }
 });
 
 const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
