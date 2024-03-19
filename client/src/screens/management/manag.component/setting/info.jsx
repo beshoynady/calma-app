@@ -212,9 +212,9 @@ const Info = () => {
 
  
   useEffect(async() => {
-    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`).data[0]
+    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`)
     console.log({restaurant})
-    const id = await restaurant._id
+    const id = await restaurant.data[0]._id
     setid(id)
   }, [])
   
@@ -320,7 +320,7 @@ const Info = () => {
 
               <div className="col-md-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
-                  <div className="col-6 stretch-card">
+                  <div className="col-12 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">بيانات التواصل</h4>
@@ -364,7 +364,7 @@ const Info = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 stretch-card">
+                  <div className="col-12 stretch-card">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">إضافة بيانات مناطق التوصيل</h4>
