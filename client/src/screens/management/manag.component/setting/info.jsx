@@ -194,7 +194,7 @@ const Info = () => {
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact }, config);
       console.log({response})
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
         setPhone([]);
         setWhatsapp('');
@@ -212,6 +212,19 @@ const Info = () => {
       console.error('Error:', error);
     }
   };
+
+
+  const handleSetFrom= (i,e)=>{
+    const day = daysOfWeek[i];
+    if(day === 'السبت'){
+      console.log({'frooom': e.target.value})
+      setSaturday({from: e.target.value})
+    }
+  }
+  const handleSetTo = (i,e)=>{
+    
+  }
+
 
   const getRestaurant = async() => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
@@ -473,9 +486,9 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} /></td>
-                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={() => handleCheckboxChange(index)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={() => handleSetFrom(index,e)}/></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={() => handleSetTo(index,e)}/></td>
+                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={() => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
                             </tbody>
