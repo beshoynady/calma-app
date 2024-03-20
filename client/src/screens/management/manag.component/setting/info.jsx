@@ -308,14 +308,14 @@ const Info = () => {
     e.preventDefault();
     try {
       const opening_hours={
-        saturday:saturday,
-        sunday:sunday,
-        monday:monday,
-        tuesday:tuesday,
-        wednesday:wednesday,
-        thursday:thursday,
-        friday:friday}
-        
+        Saturday:saturday,
+        Sunday:sunday,
+        Monday:monday,
+        Tuesday:tuesday,
+        Wednesday:wednesday,
+        Thursday:thursday,
+        Friday:friday}
+
       console.log({opening_hours})
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { opening_hours }, config);
       console.log({response})
