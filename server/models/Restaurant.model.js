@@ -5,44 +5,44 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true, 
+        trim: true,
     },
     description: {
         type: String,
         required: true,
         trim: true,
-        maxlength: 500 
+        maxlength: 500
     },
     address: {
         country: {
             type: String,
             required: true,
-            trim: true, 
+            trim: true,
         },
         state: {
             type: String,
             required: true,
-            trim: true, 
+            trim: true,
         },
         city: {
             type: String,
             required: true,
-            trim: true, 
+            trim: true,
         },
         street: {
             type: String,
             required: true,
-            trim: true, 
+            trim: true,
         },
         postal_code: {
             type: String,
-            trim: true, 
+            trim: true,
         },
     },
     logo: {
         type: String,
         required: true,
-        trim: true 
+        trim: true
     },
     contact: {
         phone: [{
@@ -57,9 +57,9 @@ const restaurantSchema = new mongoose.Schema({
         },
         email: {
             type: String,
-            lowercase: true, 
+            lowercase: true,
             trim: true,
-            match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'], 
+            match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
         },
         social_media: {
             facebook: String,
@@ -73,7 +73,7 @@ const restaurantSchema = new mongoose.Schema({
         Saturday: {
             from: String,
             to: String,
-            closed: Boolean 
+            closed: Boolean
         },
         Sunday: {
             from: String,
@@ -106,10 +106,39 @@ const restaurantSchema = new mongoose.Schema({
             closed: Boolean
         }
     },
-    delivery:  {
-        type: Boolean,
-        default: false
-    }
+    shifts: [
+        {
+            shiftType: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            startTime: {
+                type: String,
+                required: true,
+            },
+            endTime: {
+                type: String,
+                required: true,
+            }
+        }
+    ],
+    delivery_area: [
+        {
+            name: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            delivery_fee: {
+                type: Number,
+                required: true,
+                min: 0
+            }
+        }
+
+    ]
+
 });
 
 const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);

@@ -11,6 +11,7 @@ const Info = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+
   const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
 
 
@@ -49,13 +50,42 @@ const Info = () => {
     setShifts(updatedShifts);
   };
 
+  const handleShifts = async(e)=>{
+    e.preventDefault()
+    try {
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { shifts }, config);   
+      if(response.status === 200) {
+        toast.success('تم اضافه الشيفت بنجاح')
+      }else{
+        toast.error('حدث خطأ اثناء اضافه الشيفتات !اعد المحاوله')
 
-  const [areas, setAreas] = useState([{ name: '', deliveryCost: '' }]);
+      }   
+    } catch (error) {
+      toast.error('فشل اضافه الشيفتات !اعد المحاوله')
+    }
+  }
+  const handleDeliveryArea = async(e)=>{
+    e.preventDefault()
+    try {
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { delivery_area: areas }, config);   
+      if(response.status === 200) {
+        toast.success('تم اضافه منطقه التوصيل بنجاح')
+      }else{
+        toast.error('حدث خطأ اثناء اضافه منطقه التوصيل !اعد المحاوله')
+
+      }   
+    } catch (error) {
+      toast.error('فشل اضافه منطقه التوصيل !اعد المحاوله')
+    }
+  }
+
+
+  const [areas, setAreas] = useState([{ name: '', delivery_fee: '' }]);
   const [nextIndex, setNextIndex] = useState(1);
 
   // إضافة منطقة توصيل جديدة
   const addArea = () => {
-    setAreas([...areas, { name: '', deliveryCost: '' }]);
+    setAreas([...areas, { name: '', delivery_fee: '' }]);
     setNextIndex(nextIndex + 1);
   };
 
@@ -75,7 +105,7 @@ const Info = () => {
   // تحديث حقل تكلفة التوصيل
   const handleDeliveryCostChange = (index, event) => {
     const updatedAreas = [...areas];
-    updatedAreas[index].deliveryCost = event.target.value;
+    updatedAreas[index].delivery_fee = event.target.value;
     setAreas(updatedAreas);
   };
 
@@ -100,7 +130,6 @@ const Info = () => {
   const [linkedin, setLinkedin] = useState('');
   const [youtube, setYoutube] = useState('');
 
-  const [openingHours, setOpeningHours] = useState('');
   const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
   const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
   const [monday, setMonday] = useState({ from: '', to: '', closed: false });
@@ -506,7 +535,7 @@ const Info = () => {
                             <button type="button" className="btn btn-success btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
                           </div>
                         </div>
-                        <form className="forms-sample">
+                        <form className="forms-sample" onSubmit={(e)=>handleDeliveryArea(e)}>
                           {areas.map((area, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
@@ -622,7 +651,7 @@ const Info = () => {
                             <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
                           </div>
                         </div>
-                        <form className="forms-sample">
+                        <form className="forms-sample" onSubmit={(e)=>handleShifts(e)}>
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">

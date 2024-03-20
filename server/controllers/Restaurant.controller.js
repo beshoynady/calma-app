@@ -57,7 +57,7 @@ const getRestaurantById = async (req, res) => {
 const updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, description, address, logo, contact, opening_hours } = req.body;
+        const { name, description, address, logo, contact, opening_hours , shifts, delivery_area} = req.body;
 
         const restaurant = await RestaurantModel.findByIdAndUpdate(id, {
             name,
@@ -65,7 +65,9 @@ const updateRestaurant = async (req, res) => {
             address,
             logo,
             contact,
-            opening_hours
+            opening_hours,
+            shifts,
+            delivery_area
         }, { new: true });
 
         if (!restaurant) {
