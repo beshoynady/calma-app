@@ -12,15 +12,7 @@ const Info = () => {
     },
   };
   const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
-  const [closedDays, setClosedDays] = useState([]);
 
-  const handleCheckboxChange = (index) => {
-    const updatedClosedDays = [...closedDays];
-    console.log({ updatedClosedDays })
-    updatedClosedDays[index] = !updatedClosedDays[index];
-    console.log({ updatedClosedDays })
-    setClosedDays(updatedClosedDays);
-  };
 
 
   const [shifts, setShifts] = useState([{ shiftType: '', startTime: '', endTime: '' }]);
@@ -214,17 +206,121 @@ const Info = () => {
   };
 
 
-  const handleSetFrom= (i,e)=>{
+  const handleSetFrom = (i, e) => {
     const day = daysOfWeek[i];
-    if(day === 'السبت'){
-      console.log({'frooom': e.target.value})
-      setSaturday({from: e.target.value})
+    const value = e.target.value;
+    switch (day) {
+      case 'السبت':
+        setSaturday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الأحد':
+        setSunday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الاثنين':
+        setMonday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الثلاثاء':
+        setTuesday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الأربعاء':
+        setWednesday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الخميس':
+        setThursday(prevState => ({ ...prevState, from: value }));
+        break;
+      case 'الجمعة':
+        setFriday(prevState => ({ ...prevState, from: value }));
+        break;
+      default:
+        break;
     }
-  }
-  const handleSetTo = (i,e)=>{
-    
-  }
+  };
+  
+  const handleSetTo = (i, e) => {
+    const day = daysOfWeek[i];
+    const value = e.target.value;
+    switch (day) {
+      case 'السبت':
+        setSaturday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الأحد':
+        setSunday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الاثنين':
+        setMonday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الثلاثاء':
+        setTuesday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الأربعاء':
+        setWednesday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الخميس':
+        setThursday(prevState => ({ ...prevState, to: value }));
+        break;
+      case 'الجمعة':
+        setFriday(prevState => ({ ...prevState, to: value }));
+        break;
+      default:
+        break;
+    }
+  };
+  
+  const [closedDays, setClosedDays] = useState([]);
 
+  const handleCheckboxChange = (index) => {
+    const updatedClosedDays = [...closedDays];
+    console.log({ updatedClosedDays })
+    updatedClosedDays[index] = !updatedClosedDays[index];
+    console.log({ updatedClosedDays })
+    setClosedDays(updatedClosedDays);
+    switch (day) {
+      case 'السبت':
+        setSaturday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الأحد':
+        setSunday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الاثنين':
+        setMonday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الثلاثاء':
+        setTuesday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الأربعاء':
+        setWednesday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الخميس':
+        setThursday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      case 'الجمعة':
+        setFriday(prevState => ({ ...prevState, closed: !prevState.closed }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleOpeningHours = async(e)=>{
+    e.preventDefault();
+    try {
+      const opening_hours={saturday,sunday,monday,tuesday,wednesday,thursday,friday}
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { opening_hours }, config);
+      console.log({response})
+  
+      if (response.status === 200) {
+        toast.success('تمت إضافة موعيد العمل بنجاح');
+      }else{
+        
+        toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
+      }
+      
+    } catch (error) {
+      toast.error('فشل اضافه مواعيد العمل !حاول مره اخري')
+    }
+
+  }
+  
 
   const getRestaurant = async() => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
@@ -232,6 +328,8 @@ const Info = () => {
     const id = await restaurant.data[0]._id
     setid(id)
   }
+
+
  
 
 
@@ -472,7 +570,7 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">مواعيد العمل </h4>
                         <p className="card-description">ادخل مواعيد العمل اليومية </p>
-                        <form className="forms-sample">
+                        <form className="forms-sample" onSubmit={(e)=>handleOpeningHours(e)}>
                           <table className="table table-striped">
                             <thead>
                               <tr>
