@@ -274,6 +274,9 @@ const Info = () => {
     updatedClosedDays[index] = !updatedClosedDays[index];
     console.log({ updatedClosedDays })
     setClosedDays(updatedClosedDays);
+
+    const day = daysOfWeek[index];
+
     switch (day) {
       case 'السبت':
         setSaturday(prevState => ({ ...prevState, closed: !prevState.closed }));
