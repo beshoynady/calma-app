@@ -84,7 +84,7 @@ const Info = () => {
   const [nextIndex, setNextIndex] = useState(1);
 
   const addArea = () => {
-    setAreas([...areas, { name: '', delivery_fee: '' }]);
+    setAreas([...areas, { name: '', delivery_fee: 0 }]);
     setNextIndex(nextIndex + 1);
   };
 
