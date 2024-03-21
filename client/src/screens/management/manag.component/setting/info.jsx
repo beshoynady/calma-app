@@ -558,7 +558,7 @@ const Info = () => {
                                 <input type="text" className="form-control" placeholder="اسم المنطقة" defaultValue={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
+                                <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={Number(area.delivery_fee)} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-auto">
                                 <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
@@ -674,10 +674,10 @@ const Info = () => {
                                 <input type="text" className="form-control" placeholder="اسم الوردية" defaultValue={shift.shiftType} onChange={(e) => handleShiftTypeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={new Date(shift.startTime).toLocaleTimeString('en-US', {hour12: false})}  onChange={(e) => handleStartTimeChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={shift.startTime}  onChange={(e) => handleStartTimeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={new Date(shift.endTime).toLocaleTimeString('en-US', {hour12: false})} onChange={(e) => handleEndTimeChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col-auto">
                                 <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
