@@ -16,11 +16,11 @@ const Info = () => {
 
 
 
-  const [shifts, setShifts] = useState([{ shiftType: '', startTime: '', endTime: '' }]);
+  const [shifts, setShifts] = useState([{ shiftType: ' ', startTime: ' ', endTime: ' ' }]);
 
   // إضافة وردية جديدة
   const addShift = () => {
-    setShifts([...shifts, { shiftType: '', startTime: '', endTime: '' }]);
+    setShifts([...shifts, { shiftType: ' ', startTime: ' ', endTime: ' ' }]);
   };
 
   // حذف وردية
@@ -80,11 +80,11 @@ const Info = () => {
   }
 
 
-  const [areas, setAreas] = useState([{ name: '', delivery_fee: '' }]);
+  const [areas, setAreas] = useState([{ name: ' ', delivery_fee: ' ' }]);
   const [nextIndex, setNextIndex] = useState(1);
 
   const addArea = () => {
-    setAreas([...areas, { name: '', delivery_fee: '' }]);
+    setAreas([...areas, { name: ' ', delivery_fee: ' ' }]);
     setNextIndex(nextIndex + 1);
   };
 
@@ -106,34 +106,34 @@ const Info = () => {
     setAreas(updatedAreas);
   };
 
-  const [id, setid] = useState('')
+  const [id, setid] = useState(' ')
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [logo, setLogo] = useState('');
+  const [name, setName] = useState(' ');
+  const [description, setDescription] = useState(' ');
+  const [logo, setLogo] = useState(' ');
 
-  const [country, setCountry] = useState('');
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
-  const [street, setStreet] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+  const [country, setCountry] = useState(' ');
+  const [state, setState] = useState(' ');
+  const [city, setCity] = useState(' ');
+  const [street, setStreet] = useState(' ');
+  const [postalCode, setPostalCode] = useState(' ');
 
   const [phone, setPhone] = useState([]);
-  const [whatsapp, setWhatsapp] = useState('');
-  const [email, setEmail] = useState('');
-  const [facebook, setFacebook] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [youtube, setYoutube] = useState('');
+  const [whatsapp, setWhatsapp] = useState(' ');
+  const [email, setEmail] = useState(' ');
+  const [facebook, setFacebook] = useState(' ');
+  const [twitter, setTwitter] = useState(' ');
+  const [instagram, setInstagram] = useState(' ');
+  const [linkedin, setLinkedin] = useState(' ');
+  const [youtube, setYoutube] = useState(' ');
 
-  const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
-  const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
-  const [monday, setMonday] = useState({ from: '', to: '', closed: false });
-  const [tuesday, setTuesday] = useState({ from: '', to: '', closed: false });
-  const [wednesday, setWednesday] = useState({ from: '', to: '', closed: false });
-  const [thursday, setThursday] = useState({ from: '', to: '', closed: false });
-  const [friday, setFriday] = useState({ from: '', to: '', closed: false });
+  const [saturday, setSaturday] = useState({ from: ' ', to: ' ', closed: false });
+  const [sunday, setSunday] = useState({ from: ' ', to: ' ', closed: false });
+  const [monday, setMonday] = useState({ from: ' ', to: ' ', closed: false });
+  const [tuesday, setTuesday] = useState({ from: ' ', to: ' ', closed: false });
+  const [wednesday, setWednesday] = useState({ from: ' ', to: ' ', closed: false });
+  const [thursday, setThursday] = useState({ from: ' ', to: ' ', closed: false });
+  const [friday, setFriday] = useState({ from: ' ', to: ' ', closed: false });
 
 
   const handleFileUpload = (e) => {
@@ -173,13 +173,13 @@ const Info = () => {
 
       if (response.status === 201) {
         toast.success('تمت إضافة المطعم بنجاح');
-        setName('');
-        setDescription('');
-        setCountry('');
-        setCity('');
-        setState('');
-        setStreet('');
-        setPostalCode('');
+        setName(' ');
+        setDescription(' ');
+        setCountry(' ');
+        setCity(' ');
+        setState(' ');
+        setStreet(' ');
+        setPostalCode(' ');
       } else {
         toast.error('حدث خطأ أثناء إضافة المطعم');
       }
@@ -393,6 +393,8 @@ const Info = () => {
     setThursday(data.opening_hours.Thursday)
     setFriday(data.opening_hours.Friday)
 
+    setShifts(data.shifts)
+    setAreas(data.delivery_area)
   }
 
 
