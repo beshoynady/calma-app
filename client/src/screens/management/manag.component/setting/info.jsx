@@ -16,7 +16,7 @@ const Info = () => {
 
 
 
-  const [shifts, setShifts] = useState([{ shiftType: '', startTime: '', endTime: '' }]);
+  const [shifts, setShifts] = useState([]);
 
   // إضافة وردية جديدة
   const addShift = () => {
@@ -80,7 +80,7 @@ const Info = () => {
   }
 
 
-  const [areas, setAreas] = useState([{ name: '', delivery_fee: 0 }]);
+  const [areas, setAreas] = useState([]);
   const [nextIndex, setNextIndex] = useState(1);
 
   const addArea = () => {
