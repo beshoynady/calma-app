@@ -50,30 +50,30 @@ const Info = () => {
     setShifts(updatedShifts);
   };
 
-  const handleShifts = async(e)=>{
+  const handleShifts = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { shifts }, config);   
-      if(response.status === 200) {
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { shifts }, config);
+      if (response.status === 200) {
         toast.success('تم اضافه الشيفت بنجاح')
-      }else{
+      } else {
         toast.error('حدث خطأ اثناء اضافه الشيفتات !اعد المحاوله')
 
-      }   
+      }
     } catch (error) {
       toast.error('فشل اضافه الشيفتات !اعد المحاوله')
     }
   }
-  const handleDeliveryArea = async(e)=>{
+  const handleDeliveryArea = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { delivery_area: areas }, config);   
-      if(response.status === 200) {
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { delivery_area: areas }, config);
+      if (response.status === 200) {
         toast.success('تم اضافه منطقه التوصيل بنجاح')
-      }else{
+      } else {
         toast.error('حدث خطأ اثناء اضافه منطقه التوصيل !اعد المحاوله')
 
-      }   
+      }
     } catch (error) {
       toast.error('فشل اضافه منطقه التوصيل !اعد المحاوله')
     }
@@ -83,19 +83,16 @@ const Info = () => {
   const [areas, setAreas] = useState([{ name: '', delivery_fee: '' }]);
   const [nextIndex, setNextIndex] = useState(1);
 
-  // إضافة منطقة توصيل جديدة
   const addArea = () => {
     setAreas([...areas, { name: '', delivery_fee: '' }]);
     setNextIndex(nextIndex + 1);
   };
 
-  // حذف منطقة توصيل
   const removeArea = (index) => {
     const updatedAreas = areas.filter((area, i) => i !== index);
     setAreas(updatedAreas);
   };
 
-  // تحديث حقل اسم المنطقة
   const handleAreasNameChange = (index, event) => {
     const updatedAreas = [...areas];
     updatedAreas[index].name = event.target.value;
@@ -115,7 +112,7 @@ const Info = () => {
   const [description, setDescription] = useState('');
   const [logo, setLogo] = useState('');
 
-  const [country, setCountry] = useState('Egypt');
+  const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
@@ -200,7 +197,7 @@ const Info = () => {
         phone: [...phone],
         whatsapp: whatsapp,
         email: email,
-        social_media:{
+        social_media: {
           facebook: facebook,
           instagram: instagram,
           twitter: twitter,
@@ -209,11 +206,11 @@ const Info = () => {
         }
       };
 
-      console.log({contact})
-      
+      console.log({ contact })
+
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact }, config);
-      console.log({response})
+      console.log({ response })
 
       if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
@@ -264,7 +261,7 @@ const Info = () => {
         break;
     }
   };
-  
+
   const handleSetTo = (i, e) => {
     const day = daysOfWeek[i];
     const value = e.target.value;
@@ -294,7 +291,7 @@ const Info = () => {
         break;
     }
   };
-  
+
   const [closedDays, setClosedDays] = useState([]);
 
   const handleCheckboxChange = (index) => {
@@ -333,52 +330,80 @@ const Info = () => {
     }
   };
 
-  const handleOpeningHours = async(e)=>{
+  const handleOpeningHours = async (e) => {
     e.preventDefault();
     try {
-      const opening_hours={
-        Saturday:saturday,
-        Sunday:sunday,
-        Monday:monday,
-        Tuesday:tuesday,
-        Wednesday:wednesday,
-        Thursday:thursday,
-        Friday:friday}
+      const opening_hours = {
+        Saturday: saturday,
+        Sunday: sunday,
+        Monday: monday,
+        Tuesday: tuesday,
+        Wednesday: wednesday,
+        Thursday: thursday,
+        Friday: friday
+      }
 
-      console.log({opening_hours})
+      console.log({ opening_hours })
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { opening_hours }, config);
-      console.log({response})
-  
+      console.log({ response })
+
       if (response.status === 200) {
         toast.success('تمت إضافة موعيد العمل بنجاح');
-      }else{
-        
+      } else {
+
         toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
       }
-      
+
     } catch (error) {
       toast.error('فشل اضافه مواعيد العمل !حاول مره اخري')
     }
 
   }
-  
 
-  const getRestaurant = async() => {
+
+  const getRestaurant = async () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    console.log({restaurant})
-    const id = await restaurant.data[0]._id
+    console.log({ restaurant })
+    const data = await restaurant.data[0]
+    const id = await data._id
     setid(id)
+    setName(data.name)
+    setLogo(data.logo)
+    setDescription(data.description)
+    setCountry(data.country)
+    setState(data.state)
+    setCity(data.city)
+    setStreet(data.street)
+    setPostalCode(data.postal_code)
+
+    setPhone(data.contact.phone)
+    setWhatsapp(data.contact.whatsapp)
+    setEmail(data.contact.email)
+    setFacebook(data.social_media.facebook)
+    setTwitter(data.social_media.twitter)
+    setInstagram(data.social_media.instagram)
+    setLinkedin(data.social_media.linkedin)
+    setYoutube(data.social_media.youtube)
+
+    setSaturday(data.opening_hours.Saturday)
+    setSunday(data.opening_hours.Sunday)
+    setMonday(data.opening_hours.Monday)
+    setTuesday(data.opening_hours.Tuesday)
+    setWednesday(data.opening_hours.Wednesday)
+    setThursday(data.opening_hours.Thursday)
+    setFriday(data.opening_hours.Friday)
+
   }
 
 
- 
 
 
-  useEffect(()=>{
+
+  useEffect(() => {
     getRestaurant()
 
   }, [])
-  
+
 
   return (
     <detacontext.Consumer>
@@ -396,7 +421,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الاسم</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -404,7 +429,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الوصف</label>
                             <div className="col-sm-9">
-                              <textarea type="text" className="form-control" required onChange={(e) => setDescription(e.target.value)} />
+                              <textarea type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -416,7 +441,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الدولة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" onChange={(e) => setCountry(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
                               {/* <select className="form-control">
                                   <option>America</option>
                                   <option>Italy</option>
@@ -430,7 +455,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المحافظة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" required onChange={(e) => setState(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -440,7 +465,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المدينة</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" required onChange={(e) => setCity(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -448,7 +473,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">العنوان</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" required onChange={(e) => setStreet(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -459,15 +484,15 @@ const Info = () => {
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
                               <input type="file" name="img[]" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100}/>
                             </div>
-                            {/* <button className="form-control btn btn-info" type="button">Upload</button> */}
                           </div>
                         </div>
                         <div className="col-md-6">
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">كود البريد</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" onChange={(e) => setPostalCode(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -486,38 +511,38 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">بيانات التواصل</h4>
                         <p className="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
-                        <form className="forms-sample" onSubmit={(e)=>handleContactData(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleContactData(e)}>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
-                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required onChange={(e)=>setPhone([e.target.value])}/>
+                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
-                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required onChange={(e)=>setWhatsapp(e.target.value)}/>
+                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required defaultValue={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
-                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني"  onChange={(e)=>setEmail(e.target.value)}/>
+                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
-                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" required onChange={(e)=>setFacebook(e.target.value)}/>
+                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" defaultValue={facebook} required onChange={(e) => setFacebook(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="twitter">تويتر:</label>
-                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" onChange={(e)=>setTwitter(e.target.value)}/>
+                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" defaultValue={twitter} onChange={(e) => setTwitter(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="instagram">انستجرام:</label>
-                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" onChange={(e)=>setInstagram(e.target.value)}/>
+                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" defaultValue={instagram} onChange={(e) => setInstagram(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="linkedin">لينكدإن:</label>
-                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" onChange={(e)=>setLinkedin(e.target.value)}/>
+                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" defaultValue={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
                           </div>
                           <div className="form-group" style={{ width: '100%' }}>
                             <label htmlFor="youtube">يوتيوب:</label>
-                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" onChange={(e)=>setYoutube(e.target.value)}/>
+                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
                           <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-success mr-2">تاكيد</button>
                           <button style={{ width: '47%', height: '50px' }} className="btn btn-light">إلغاء</button>
@@ -535,7 +560,7 @@ const Info = () => {
                             <button type="button" className="btn btn-success btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
                           </div>
                         </div>
-                        <form className="forms-sample" onSubmit={(e)=>handleDeliveryArea(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleDeliveryArea(e)}>
                           {areas.map((area, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
@@ -611,7 +636,7 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">مواعيد العمل </h4>
                         <p className="card-description">ادخل مواعيد العمل اليومية </p>
-                        <form className="forms-sample" onSubmit={(e)=>handleOpeningHours(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleOpeningHours(e)}>
                           <table className="table table-striped">
                             <thead>
                               <tr>
@@ -625,8 +650,8 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index,e)}/></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetTo(index,e)}/></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
@@ -651,7 +676,7 @@ const Info = () => {
                             <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
                           </div>
                         </div>
-                        <form className="forms-sample" onSubmit={(e)=>handleShifts(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleShifts(e)}>
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
