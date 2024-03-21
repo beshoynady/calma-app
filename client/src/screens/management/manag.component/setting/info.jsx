@@ -370,20 +370,20 @@ const Info = () => {
     setName(data.name)
     setLogo(data.logo)
     setDescription(data.description)
-    setCountry(data.country)
-    setState(data.state)
-    setCity(data.city)
-    setStreet(data.street)
-    setPostalCode(data.postal_code)
+    setCountry(data.address.country)
+    setState(data.address.state)
+    setCity(data.address.city)
+    setStreet(data.address.street)
+    setPostalCode(data.address.postal_code)
 
     setPhone(data.contact.phone)
     setWhatsapp(data.contact.whatsapp)
     setEmail(data.contact.email)
-    setFacebook(data.social_media.facebook)
-    setTwitter(data.social_media.twitter)
-    setInstagram(data.social_media.instagram)
-    setLinkedin(data.social_media.linkedin)
-    setYoutube(data.social_media.youtube)
+    setFacebook(data.contact.social_media.facebook)
+    setTwitter(data.contact.social_media.twitter)
+    setInstagram(data.contact.social_media.instagram)
+    setLinkedin(data.contact.social_media.linkedin)
+    setYoutube(data.contact.social_media.youtube)
 
     setSaturday(data.opening_hours.Saturday)
     setSunday(data.opening_hours.Sunday)
@@ -650,7 +650,7 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control"  name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
                                   <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
