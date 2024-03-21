@@ -161,11 +161,11 @@ const Info = () => {
     try {
       // تجميع البيانات في كائن العنوان
       const address = {
-        country: country,
-        city: city,
-        state: state,
-        street: street,
-        postalCode: postalCode
+        country: country? country: null,
+        city: city? city: null,
+        state: state? state: null,
+        street: street? street: null,
+        postalCode: postalCode? postalCode: null
       };
 
       // إرسال البيانات إلى الخادم باستخدام axios
@@ -189,14 +189,14 @@ const Info = () => {
     try {
       const contact = {
         phone: [...phone],
-        whatsapp: whatsapp,
-        email: email,
+        whatsapp: whatsapp? whatsapp : null,
+        email: email? email: null,
         social_media: {
-          facebook: facebook,
-          instagram: instagram,
-          twitter: twitter,
-          linkedin: linkedin,
-          youtube: youtube
+          facebook: facebook? facebook: null,
+          instagram: instagram? instagram: null,
+          twitter: twitter? twitter: null,
+          linkedin: linkedin? linkedin: null,
+          youtube: youtube? youtube: null
         }
       };
 
@@ -322,13 +322,13 @@ const Info = () => {
     e.preventDefault();
     try {
       const opening_hours = {
-        Saturday: saturday,
-        Sunday: sunday,
-        Monday: monday,
-        Tuesday: tuesday,
-        Wednesday: wednesday,
-        Thursday: thursday,
-        Friday: friday
+        Saturday: saturday?saturday:{},
+        Sunday: sunday? sunday: {},
+        Monday: monday? monday: {},
+        Tuesday: tuesday? tuesday: {},
+        Wednesday: wednesday? wednesday:{},
+        Thursday: thursday? thursday: {},
+        Friday: friday? friday: {} 
       }
 
       console.log({ opening_hours })
