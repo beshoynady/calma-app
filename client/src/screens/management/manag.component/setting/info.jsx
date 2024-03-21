@@ -16,11 +16,11 @@ const Info = () => {
 
 
 
-  const [shifts, setShifts] = useState([{ shiftType: ' ', startTime: ' ', endTime: ' ' }]);
+  const [shifts, setShifts] = useState([{ shiftType: '', startTime: '', endTime: '' }]);
 
   // إضافة وردية جديدة
   const addShift = () => {
-    setShifts([...shifts, { shiftType: ' ', startTime: ' ', endTime: ' ' }]);
+    setShifts([...shifts, { shiftType: '', startTime: '', endTime: '' }]);
   };
 
   // حذف وردية
@@ -80,11 +80,11 @@ const Info = () => {
   }
 
 
-  const [areas, setAreas] = useState([{ name: ' ', delivery_fee: ' ' }]);
+  const [areas, setAreas] = useState([{ name: '', delivery_fee: 0 }]);
   const [nextIndex, setNextIndex] = useState(1);
 
   const addArea = () => {
-    setAreas([...areas, { name: ' ', delivery_fee: ' ' }]);
+    setAreas([...areas, { name: '', delivery_fee: '' }]);
     setNextIndex(nextIndex + 1);
   };
 
@@ -102,38 +102,38 @@ const Info = () => {
   // تحديث حقل تكلفة التوصيل
   const handleDeliveryCostChange = (index, event) => {
     const updatedAreas = [...areas];
-    updatedAreas[index].delivery_fee = event.target.value;
+    updatedAreas[index].delivery_fee = Number(event.target.value);
     setAreas(updatedAreas);
   };
 
-  const [id, setid] = useState(' ')
+  const [id, setid] = useState('')
 
-  const [name, setName] = useState(' ');
-  const [description, setDescription] = useState(' ');
-  const [logo, setLogo] = useState(' ');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [logo, setLogo] = useState('');
 
-  const [country, setCountry] = useState(' ');
-  const [state, setState] = useState(' ');
-  const [city, setCity] = useState(' ');
-  const [street, setStreet] = useState(' ');
-  const [postalCode, setPostalCode] = useState(' ');
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [postalCode, setPostalCode] = useState('');
 
   const [phone, setPhone] = useState([]);
-  const [whatsapp, setWhatsapp] = useState(' ');
-  const [email, setEmail] = useState(' ');
-  const [facebook, setFacebook] = useState(' ');
-  const [twitter, setTwitter] = useState(' ');
-  const [instagram, setInstagram] = useState(' ');
-  const [linkedin, setLinkedin] = useState(' ');
-  const [youtube, setYoutube] = useState(' ');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [email, setEmail] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [youtube, setYoutube] = useState('');
 
-  const [saturday, setSaturday] = useState({ from: ' ', to: ' ', closed: false });
-  const [sunday, setSunday] = useState({ from: ' ', to: ' ', closed: false });
-  const [monday, setMonday] = useState({ from: ' ', to: ' ', closed: false });
-  const [tuesday, setTuesday] = useState({ from: ' ', to: ' ', closed: false });
-  const [wednesday, setWednesday] = useState({ from: ' ', to: ' ', closed: false });
-  const [thursday, setThursday] = useState({ from: ' ', to: ' ', closed: false });
-  const [friday, setFriday] = useState({ from: ' ', to: ' ', closed: false });
+  const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
+  const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
+  const [monday, setMonday] = useState({ from: '', to: '', closed: false });
+  const [tuesday, setTuesday] = useState({ from: '', to: '', closed: false });
+  const [wednesday, setWednesday] = useState({ from: '', to: '', closed: false });
+  const [thursday, setThursday] = useState({ from: '', to: '', closed: false });
+  const [friday, setFriday] = useState({ from: '', to: '', closed: false });
 
 
   const handleFileUpload = (e) => {
@@ -173,13 +173,7 @@ const Info = () => {
 
       if (response.status === 201) {
         toast.success('تمت إضافة المطعم بنجاح');
-        setName(' ');
-        setDescription(' ');
-        setCountry(' ');
-        setCity(' ');
-        setState(' ');
-        setStreet(' ');
-        setPostalCode(' ');
+        getRestaurant()
       } else {
         toast.error('حدث خطأ أثناء إضافة المطعم');
       }
@@ -214,14 +208,8 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
-        setPhone([]);
-        setWhatsapp('');
-        setEmail('');
-        setFacebook('');
-        setTwitter('');
-        setInstagram('');
-        setLinkedin('');
-        setYoutube('');
+        getRestaurant()
+        
       } else {
         toast.error('فشل إضافة بيانات التواصل');
       }
@@ -349,6 +337,7 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة موعيد العمل بنجاح');
+        getRestaurant()
       } else {
 
         toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
@@ -566,10 +555,10 @@ const Info = () => {
                           {areas.map((area, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
-                                <input type="text" className="form-control" placeholder="اسم المنطقة" value={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
+                                <input type="text" className="form-control" placeholder="اسم المنطقة" defaultValue={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="text" className="form-control" placeholder="تكلفة التوصيل" value={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
+                                <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={area.deliveryCost} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-auto">
                                 <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
@@ -682,13 +671,13 @@ const Info = () => {
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">
-                                <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleShiftTypeChange(index, e)} />
+                                <input type="text" className="form-control" placeholder="اسم الوردية" defaultValue={shift.shiftType} onChange={(e) => handleShiftTypeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.startTime} onChange={(e) => handleStartTimeChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={new Date(shift.startTime).toLocaleTimeString('en-US', {hour12: false})}  onChange={(e) => handleStartTimeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleEndTimeChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={new Date(shift.endTime).toLocaleTimeString('en-US', {hour12: false})} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col-auto">
                                 <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
