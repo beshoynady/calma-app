@@ -495,7 +495,7 @@ const Info = () => {
                 </div>
               </div>
 
-              <div className="col-md-6 d-flex align-items-stretch grid-margin">
+              <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
                   <div className="col-12 stretch-card">
                     <div className="card">
@@ -580,7 +580,7 @@ const Info = () => {
                 </div>
               </div>
 
-              {/* <div className="col-md-6 grid-margin stretch-card">
+              {/* <div className="col-lg-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">إضافة بيانات الورديات</h4>
@@ -620,7 +620,7 @@ const Info = () => {
                 </div>
               </div> */}
 
-              <div className="col-md-6 d-flex align-items-stretch grid-margin">
+              <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
                   <div className="col-12 stretch-card">
                     <div className="card">
@@ -808,14 +808,14 @@ const Info = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 grid-margin stretch-card">
+              <div className="col-lg-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Checkbox Controls</h4>
                     <p className="card-description">Checkbox and radio controls</p>
                     <form className="forms-sample">
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-lg-6">
                           <div className="form-group" style={{ width: '100%' }}>
 
                             <div className="form-check">
@@ -836,7 +836,7 @@ const Info = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-lg-6">
                           <div className="form-group" style={{ width: '100%' }}>
 
                             <div className="form-radio">
@@ -865,14 +865,14 @@ const Info = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 grid-margin stretch-card">
+              <div className="col-lg-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">Checkbox Flat Controls</h4>
                     <p className="card-description">Checkbox and radio controls with flat design</p>
                     <form className="forms-sample">
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-lg-6">
                           <div className="form-group" style={{ width: '100%' }}>
 
                             <div className="form-check form-check-flat">
@@ -893,7 +893,7 @@ const Info = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-lg-6">
                           <div className="form-group" style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat">
