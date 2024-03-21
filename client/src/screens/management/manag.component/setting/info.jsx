@@ -382,8 +382,8 @@ const Info = () => {
     setThursday(data.opening_hours.Thursday)
     setFriday(data.opening_hours.Friday)
 
-    setShifts(data.shifts)
-    setAreas(data.delivery_area)
+    setShifts([...data.shifts])
+    setAreas([...data.delivery_area])
   }
 
 
