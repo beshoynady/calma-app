@@ -139,7 +139,7 @@ const Info = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     const maxSize = 1024 * 1024;
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     if (file && file.size <= maxSize && allowedTypes.includes(file.type)) {
       setLogo(file);
