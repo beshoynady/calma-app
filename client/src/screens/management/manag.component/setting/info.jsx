@@ -142,17 +142,18 @@ const Info = () => {
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     if (file && file.size <= maxSize && allowedTypes.includes(file.type)) {
+      console.log({file})
       setLogo(file);
+      toast.success('تم رفع الصوره بنجاح');
     } else {
       let errorMessage = "Invalid file.";
 
       if (file && !allowedTypes.includes(file.type)) {
         errorMessage = "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
       } else if (file && file.size > maxSize) {
+
         errorMessage = "Maximum file size exceeded (1 MB). Please select a smaller file.";
       }
-
-      toast.error(errorMessage);
     }
   };
 
@@ -168,10 +169,12 @@ const Info = () => {
         postalCode: postalCode? postalCode: null
       };
       if(id){
-        const response = await axios.put(`${apiUrl}/api/restaurant/`, { name, description, address, image:logo }, config);
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, image:logo }, config);
+        console.log({response})
       }else{
         // إرسال البيانات إلى الخادم باستخدام axios
         const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, image:logo }, config);
+        console.log({response})
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
           getRestaurant()
@@ -477,7 +480,7 @@ const Info = () => {
                           <div className="form-group row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
-                              <input type="file" name="img[]" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                              <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                               <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100}/>
                             </div>
                           </div>
