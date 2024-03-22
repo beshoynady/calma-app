@@ -4,11 +4,14 @@ const RestaurantModel = require('../models/Restaurant.model');
 const createRestaurant = async (req, res) => {
     try {
         const { name, description, address } = req.body;
-
         if (!name || !description || !address) {
             return res.status(400).json({ message: 'all fields is required' });
         }
         const image = req.file.filename;
+        if (!image) {
+            return res.status(400).json({ message: 'image is required' });
+        }
+
 
         const restaurant = await RestaurantModel.create({
             name,
