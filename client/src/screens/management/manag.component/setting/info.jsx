@@ -167,15 +167,18 @@ const Info = () => {
         street: street? street: null,
         postalCode: postalCode? postalCode: null
       };
+      if(id){
+        const response = await axios.put(`${apiUrl}/api/restaurant/`, { name, description, address, image:logo }, config);
+      }else{
+        // إرسال البيانات إلى الخادم باستخدام axios
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, image:logo }, config);
+        if (response.status === 201) {
+          toast.success('تمت إضافة المطعم بنجاح');
+          getRestaurant()
+        } else {
+          toast.error('حدث خطأ أثناء إضافة المطعم');
+        }
 
-      // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, logo }, config);
-
-      if (response.status === 201) {
-        toast.success('تمت إضافة المطعم بنجاح');
-        getRestaurant()
-      } else {
-        toast.error('حدث خطأ أثناء إضافة المطعم');
       }
     } catch (error) {
       toast.error('حدث خطأ أثناء إضافة المطعم');
