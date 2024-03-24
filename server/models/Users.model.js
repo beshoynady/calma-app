@@ -51,7 +51,7 @@ const userschema = new mongoose.Schema({
         require : [true , 'isActive required'],
     }
 },
-{timeseries: true}
+{timestamps: true}
 );
 
 const Usermodel = mongoose.model('User', userschema);
