@@ -45,7 +45,8 @@ const upload = multer({
 
 
 router.route('/')
-  .post(authenticateToken, upload.single("image"), createRestaurant)
+  // .post(authenticateToken, upload.single("image"), createRestaurant)
+  .post(authenticateToken,createRestaurant)
   .get(authenticateToken, getAllRestaurants);
 
 router.route('/:id')

@@ -8,9 +8,9 @@ const createRestaurant = async (req, res) => {
             return res.status(400).json({ message: 'all fields is required' });
         }
         const image = req.file.filename;
-        if (!image) {
-            return res.status(400).json({ message: 'image is required' });
-        }
+        // if (!image) {
+        //     return res.status(400).json({ message: 'image is required' });
+        // }
 
 
         const restaurant = await RestaurantModel.create({
