@@ -62,13 +62,13 @@ const updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description, address, contact, opening_hours , shifts, delivery_area} = req.body;
-        const image = req.file.filename;
+        // const image = req.file.filename;
 
         const restaurant = await RestaurantModel.findByIdAndUpdate(id, {
             name,
             description,
             address,
-            logo: image,
+            // logo: image,
             contact,
             opening_hours,
             shifts,

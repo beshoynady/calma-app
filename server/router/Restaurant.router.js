@@ -51,7 +51,8 @@ router.route('/')
 
 router.route('/:id')
   .get(authenticateToken, getRestaurantById)
-  .put(authenticateToken, upload.single("image"), updateRestaurant)
+  // .put(authenticateToken, upload.single("image"), updateRestaurant)
+  .put(authenticateToken, updateRestaurant)
   .delete(authenticateToken, deleteRestaurant);
 
 module.exports = router;
