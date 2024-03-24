@@ -38,7 +38,7 @@ const LoginRegistr = (props) => {
           return (
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">
-                <div className="title-text">
+                {/* <div className="title-text">
                   <Link to={'login'} ref={loginText} className="title login">
                     تسجيل دخول
                   </Link>
@@ -46,7 +46,7 @@ const LoginRegistr = (props) => {
                     تسجيل عضو جديد
                   </Link>
 
-                </div>
+                </div> */}
                 <div className="form-container">
                   <div className="slide-controls">
                     <input type="radio" name="slide" id="signup" />
