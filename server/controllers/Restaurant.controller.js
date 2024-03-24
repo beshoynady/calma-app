@@ -7,7 +7,7 @@ const createRestaurant = async (req, res) => {
         if (!name || !description || !address) {
             return res.status(400).json({ message: 'all fields is required' });
         }
-        const image = req.file.filename;
+        // const image = req.file.filename;
         // if (!image) {
         //     return res.status(400).json({ message: 'image is required' });
         // }
@@ -17,7 +17,7 @@ const createRestaurant = async (req, res) => {
             name,
             description,
             address,
-            logo:image
+            // logo:image
         });
 
         if (!restaurant) {
