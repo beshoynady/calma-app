@@ -29,7 +29,7 @@ const LoginRegistr = (props) => {
   const closeform = () => {
     authform.current.style.display = "none"
   }
- 
+
 
   return (
     <detacontext.Consumer>
@@ -88,12 +88,19 @@ const LoginRegistr = (props) => {
                         <input type="text" placeholder="Phone" required onChange={(e) => setphone(e.target.value)} />
                       </div>
                       <div className="field">
-                        <select onSelect={(e) => setdeliveryarea(e.target.value)}>
-                          <option>اختر المنطقه</option>
-                          {restaurantData.delivery_area.map((area, i) => {
-                            <option value={area._id} key={i}>{area.name}</option>
-                          })}
+                        <select onChange={(e) => setdeliveryarea(e.target.value)}>
+                          <option>اختر المنطقة</option>
+                          {restaurantData && restaurantData.delivery_area ? (
+                            restaurantData.delivery_area.map((area, i) => (
+                              <option value={area._id} key={i}>{area.name}</option>
+                            ))
+                          ) : (
+                            <option>لا توجد مناطق توصيل متاحة</option>
+                          )}
                         </select>
+                      </div>
+
+                      <div className="field">
                         <textarea placeholder="address" cols="42" rows="2" required onChange={(e) => setaddress(e.target.value)} />
                       </div>
                       <div className="field">
