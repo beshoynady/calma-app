@@ -79,13 +79,13 @@ const LoginRegistr = (props) => {
                     </form>
                     <form className="signup" onSubmit={(e) => signup(e, username, password, phone, deliveryarea, address, email)}>
                       <div className="field">
-                        <input type="text" placeholder="User Name" required onChange={(e) => setusername(e.target.value)} />
+                        <input type="text" placeholder="اسمك" required onChange={(e) => setusername(e.target.value)} />
                       </div>
                       <div className="field">
-                        <input type="text" placeholder="E-Mail" required onChange={(e) => setemail(e.target.value)} />
+                        <input type="text" placeholder="الايميل" onChange={(e) => setemail(e.target.value)} />
                       </div>
                       <div className="field">
-                        <input type="text" placeholder="Phone" required onChange={(e) => setphone(e.target.value)} />
+                        <input type="text" placeholder="الموبايل" required onChange={(e) => setphone(e.target.value)} />
                       </div>
                       <div className="field">
                         <select onChange={(e) => setdeliveryarea(e.target.value)}>
@@ -101,13 +101,13 @@ const LoginRegistr = (props) => {
                       </div>
 
                       <div className="field">
-                        <textarea placeholder="address" cols="42" rows="2" required onChange={(e) => setaddress(e.target.value)} />
+                        <textarea  placeholder='العنوان بالتفصيل' cols="42" rows="2" required onChange={(e) => setaddress(e.target.value)} />
                       </div>
                       <div className="field">
-                        <input type="password" placeholder="Password" required onChange={(e) => setpassword(e.target.value)} />
+                        <input type="password" placeholder="الباسورد" required onChange={(e) => setpassword(e.target.value)} />
                       </div>
                       <div className="field">
-                        <input type="password" placeholder="Confirm password" required onChange={(e) => setpassconfirm(e.target.value)} />
+                        <input type="password" placeholder="تاكيد الباسورد" required onChange={(e) => setpassconfirm(e.target.value)} />
                       </div>
                       <div className="field btn">
                         <div className="btn-layer"></div>
