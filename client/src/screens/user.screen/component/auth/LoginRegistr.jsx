@@ -20,7 +20,7 @@ const LoginRegistr = (props) => {
 
   const [username, setusername] = useState("")
   const [email, setemail] = useState("")
-  const [deliveryarea, setdeliveryarea] = useState("")
+  const [deliveryArea, setdeliveryArea] = useState("")
   const [address, setaddress] = useState("")
   const [phone, setphone] = useState("")
   const [password, setpassword] = useState("")
@@ -77,7 +77,7 @@ const LoginRegistr = (props) => {
                         <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
-                    <form className="signup" onSubmit={(e) => signup(e, username, phone, deliveryarea, address, email, password, passconfirm)}>
+                    <form className="signup" onSubmit={(e) => signup(e, username, phone, deliveryArea, address, email, password, passconfirm)}>
                       <div className="field">
                         <input type="text" placeholder="اسمك" required onChange={(e) => setusername(e.target.value)} />
                       </div>
@@ -88,7 +88,7 @@ const LoginRegistr = (props) => {
                         <input type="text" placeholder="الموبايل" required onChange={(e) => setphone(e.target.value)} />
                       </div>
                       <div className="field">
-                        <select onChange={(e) => setdeliveryarea(e.target.value)}>
+                        <select onChange={(e) => setdeliveryArea(e.target.value)}>
                           <option>اختر المنطقة</option>
                           {restaurantData && restaurantData.delivery_area ? (
                             restaurantData.delivery_area.map((area, i) => (

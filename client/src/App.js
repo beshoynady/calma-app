@@ -1199,7 +1199,7 @@ function App() {
   const [isLogin, setisLogin] = useState(false);
 
   // Function to handle user signup
-  const signup = async (e,username, phone, deliveryarea, address, email, password, passconfirm) => {
+  const signup = async (e,username, phone, deliveryArea, address, email, password, passconfirm) => {
     e.preventDefault();
 
     try {
@@ -1220,7 +1220,7 @@ function App() {
         username,
         password,
         phone,
-        deliveryarea,
+        deliveryArea,
         address,
         email,
       });
