@@ -356,41 +356,77 @@ const Info = () => {
   }
 
 
-  const getRestaurant = async () => {
-    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    console.log({ restaurant })
-    const data = await restaurant.data[0]
-    if(data){
-    const id = await data._id
+  // const getRestaurant = async () => {
+  //   const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
+  //   console.log({ restaurant })
+  //   const restaurantData = await restaurant.restaurantData[0]
+  //   if(restaurantData){
+  //   const id = await restaurantData._id
+  //   setid(id)
+  //   setName(restaurantData.name)
+  //   setLogo(restaurantData.logo)
+  //   setDescription(restaurantData.description)
+  //   setCountry(restaurantData.address.country)
+  //   setState(restaurantData.address.state)
+  //   setCity(restaurantData.address.city)
+  //   setStreet(restaurantData.address.street)
+  //   setPostalCode(restaurantData.address.postal_code)
+
+  //   setPhone(restaurantData.contact.phone)
+  //   setWhatsapp(restaurantData.contact.whatsapp)
+  //   setEmail(restaurantData.contact.email)
+  //   setFacebook(restaurantData.contact.social_media.facebook)
+  //   setTwitter(restaurantData.contact.social_media.twitter)
+  //   setInstagram(restaurantData.contact.social_media.instagram)
+  //   setLinkedin(restaurantData.contact.social_media.linkedin)
+  //   setYoutube(restaurantData.contact.social_media.youtube)
+
+  //   setSaturday(restaurantData.opening_hours.Saturday)
+  //   setSunday(restaurantData.opening_hours.Sunday)
+  //   setMonday(restaurantData.opening_hours.Monday)
+  //   setTuesday(restaurantData.opening_hours.Tuesday)
+  //   setWednesday(restaurantData.opening_hours.Wednesday)
+  //   setThursday(restaurantData.opening_hours.Thursday)
+  //   setFriday(restaurantData.opening_hours.Friday)
+
+  //   setShifts([...restaurantData.shifts])
+  //   setAreas([...restaurantData.delivery_area])
+  //   }else{
+  //     toast.warning('لم يتم اضافه بيانات المطعم ')
+  //   }
+  // }
+  const getRestaurantData = async (restaurantData) => {
+    if(restaurantData){
+    const id = await restaurantData._id
     setid(id)
-    setName(data.name)
-    setLogo(data.logo)
-    setDescription(data.description)
-    setCountry(data.address.country)
-    setState(data.address.state)
-    setCity(data.address.city)
-    setStreet(data.address.street)
-    setPostalCode(data.address.postal_code)
+    setName(restaurantData.name)
+    setLogo(restaurantData.logo)
+    setDescription(restaurantData.description)
+    setCountry(restaurantData.address.country)
+    setState(restaurantData.address.state)
+    setCity(restaurantData.address.city)
+    setStreet(restaurantData.address.street)
+    setPostalCode(restaurantData.address.postal_code)
 
-    setPhone(data.contact.phone)
-    setWhatsapp(data.contact.whatsapp)
-    setEmail(data.contact.email)
-    setFacebook(data.contact.social_media.facebook)
-    setTwitter(data.contact.social_media.twitter)
-    setInstagram(data.contact.social_media.instagram)
-    setLinkedin(data.contact.social_media.linkedin)
-    setYoutube(data.contact.social_media.youtube)
+    setPhone(restaurantData.contact.phone)
+    setWhatsapp(restaurantData.contact.whatsapp)
+    setEmail(restaurantData.contact.email)
+    setFacebook(restaurantData.contact.social_media.facebook)
+    setTwitter(restaurantData.contact.social_media.twitter)
+    setInstagram(restaurantData.contact.social_media.instagram)
+    setLinkedin(restaurantData.contact.social_media.linkedin)
+    setYoutube(restaurantData.contact.social_media.youtube)
 
-    setSaturday(data.opening_hours.Saturday)
-    setSunday(data.opening_hours.Sunday)
-    setMonday(data.opening_hours.Monday)
-    setTuesday(data.opening_hours.Tuesday)
-    setWednesday(data.opening_hours.Wednesday)
-    setThursday(data.opening_hours.Thursday)
-    setFriday(data.opening_hours.Friday)
+    setSaturday(restaurantData.opening_hours.Saturday)
+    setSunday(restaurantData.opening_hours.Sunday)
+    setMonday(restaurantData.opening_hours.Monday)
+    setTuesday(restaurantData.opening_hours.Tuesday)
+    setWednesday(restaurantData.opening_hours.Wednesday)
+    setThursday(restaurantData.opening_hours.Thursday)
+    setFriday(restaurantData.opening_hours.Friday)
 
-    setShifts([...data.shifts])
-    setAreas([...data.delivery_area])
+    setShifts([...restaurantData.shifts])
+    setAreas([...restaurantData.delivery_area])
     }else{
       toast.warning('لم يتم اضافه بيانات المطعم ')
     }
@@ -400,15 +436,18 @@ const Info = () => {
 
 
 
+  // useEffect(() => {
+  //   getRestaurant()
+
+  // }, [])
+
   useEffect(() => {
-    getRestaurant()
-
-  }, [])
-
+    console.log({detacontext});
+    }, []);
 
   return (
     <detacontext.Consumer>
-      {({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => (
+      {({ restaurantData }) => (
         <div className="container" dir='rtl'>
           <div className="content-wrapper">
             <div className="row">

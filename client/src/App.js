@@ -55,6 +55,12 @@ function App() {
 
   axios.defaults.withCredentials = true;
 
+  // Reataurant data //
+  const getRestaurant = async () => {
+    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
+    console.log({ restaurant })
+    const restaurantData = await restaurant.restaurantData[0]
+  }
 
   //++++++++++++++++++++ pagination ++++++++++
 
@@ -1723,6 +1729,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
 
   useEffect(() => {
+    getRestaurant()
     getAllProducts()
     getAllCategories()
     getAllOrders()
@@ -1752,6 +1759,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
   return (
     <detacontext.Provider value={{
+      restaurantData,
       // Functions related to authentication
       userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 

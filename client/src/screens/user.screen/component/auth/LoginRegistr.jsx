@@ -6,13 +6,13 @@ import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginRegistr = (props) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // const navigate = useNavigate()
   const openlogin = props.openlogin;
   const [openform, setopenform] = useState(props.openlogin)
   const [closelogin, setcloselogin] = useState(true)
-  
+
   const authform = useRef()
   const loginText = useRef()
   const loginForm = useRef()
@@ -20,58 +20,24 @@ const LoginRegistr = (props) => {
 
   const [username, setusername] = useState("")
   const [email, setemail] = useState("")
+  const [deliveryarea, setdeliveryarea] = useState("")
   const [address, setaddress] = useState("")
   const [phone, setphone] = useState("")
   const [password, setpassword] = useState("")
   const [passconfirm, setpassconfirm] = useState("")
 
-  const closeform=()=>{
-    authform.current.style.display="none"
+  const closeform = () => {
+    authform.current.style.display = "none"
   }
-  // axios.defaults.withCredentials= true ;
-
-  // const signup = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     const newclient = await axios.post(apiUrl+'/api/auth/signup', { username, password, phone, address, email })
-  //     console.log(newclient)
-  //     const token = newclient.accessToken
-  //     localStorage.setItem("token", token)
-  //     navigate('/login')
-  //     } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-
-  // const login = async (e) => {
-  //   e.preventDefault()
-  //   console.log(phone);
-  //   console.log(password);
-  //   try {
-  //     const client = await axios.post(apiUrl+'/api/auth/login', { phone, password })
-  //     // console.log(client.data)
-  //     // window.location.href =`http://localhost:3000/${client?.data._id}`;
-  //     // console.log(client.data)
-  //     if(client){
-  //       const token = client.data.accessToken ;
-  //       if(token){
-  //         localStorage.setItem("token", token)
-  //       }
-  //       navigate('/')
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+ 
 
   return (
     <detacontext.Consumer>
       {
-        ({login, signup }) => {
+        ({ login, signup }) => {
           return (
 
-            <div className='auth-section' ref={authform} style={openlogin? { 'display': 'flex' } : { 'display': 'none' }}>
+            <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">
                 <div className="title-text">
                   <Link to={'login'} ref={loginText} className="title login">
@@ -80,7 +46,7 @@ const LoginRegistr = (props) => {
                   <Link to={'signup'} className="title signup">
                     تسجيل عضو جديد
                   </Link>
-        
+
                 </div>
                 <div className="form-container">
                   <div className="slide-controls">
@@ -97,7 +63,7 @@ const LoginRegistr = (props) => {
                     <div className="slider-tab"></div>
                   </div>
                   <div className="form-inner">
-                    <form ref={loginForm} className="login" onSubmit={(e)=>login(e,phone,password)}>
+                    <form ref={loginForm} className="login" onSubmit={(e) => login(e, phone, password)}>
                       <div className="field">
                         <input type="text" placeholder="Phone" required onChange={(e) => setphone(e.target.value)} />
                       </div>
@@ -109,10 +75,10 @@ const LoginRegistr = (props) => {
                       </div> */}
                       <div className="field btn">
                         <div className="btn-layer"></div>
-                        <input type="submit" value="Login"  onClick={closeform}/>
+                        <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
-                    <form className="signup" onSubmit={(e)=>signup(e,username,password,phone,address,email)}>
+                    <form className="signup" onSubmit={(e) => signup(e, username, password, phone, deliveryarea, address, email)}>
                       <div className="field">
                         <input type="text" placeholder="User Name" required onChange={(e) => setusername(e.target.value)} />
                       </div>
@@ -123,6 +89,12 @@ const LoginRegistr = (props) => {
                         <input type="text" placeholder="Phone" required onChange={(e) => setphone(e.target.value)} />
                       </div>
                       <div className="field">
+                        <select onSelect={(e) => setdeliveryarea(e.target.value)}>
+                          <option>اختر المنطقه</option>
+                          {area.map((area, i) => {
+                            <option value={area._id} key={i}>{area.name}</option>
+                          })}
+                        </select>
                         <textarea placeholder="address" cols="42" rows="2" required onChange={(e) => setaddress(e.target.value)} />
                       </div>
                       <div className="field">
