@@ -166,7 +166,7 @@ const Info = () => {
         city: city? city: null,
         state: state? state: null,
         street: street? street: null,
-        postalCode: postalCode? postalCode: null
+        postal_code: postalCode? postalCode: null
       };
       if(id){
         const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, image:logo }, config);
@@ -360,6 +360,7 @@ const Info = () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
     console.log({ restaurant })
     const data = await restaurant.data[0]
+    if(data){
     const id = await data._id
     setid(id)
     setName(data.name)
@@ -390,6 +391,9 @@ const Info = () => {
 
     setShifts([...data.shifts])
     setAreas([...data.delivery_area])
+    }else{
+      toast.warning('لم يتم اضافه بيانات المطعم ')
+    }
   }
 
 
