@@ -1204,7 +1204,7 @@ function App() {
 
     try {
       // Check if any field is empty
-      if (!username || !password || !phone || !address || !email) {
+      if (!username || !password || !phone || !address ) {
         toast.error('هناك حقول فارغة.');
         return;
       }
