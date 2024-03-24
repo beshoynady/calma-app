@@ -63,7 +63,7 @@ function App() {
   const [restaurantData, setrestaurantData] = useState({})
   const getRestaurant = async () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    const restaurantData = await restaurant.restaurantData[0]
+    const restaurantData = await restaurant.data[0]
     setrestaurantData(restaurantData)
   }
 
