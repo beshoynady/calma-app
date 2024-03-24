@@ -51,15 +51,21 @@ function App() {
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
   axios.defaults.withCredentials = true;
 
   // Reataurant data //
+  const [restaurantData, setrestaurantData] = useState({})
   const getRestaurant = async () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
     console.log({ restaurant })
     const restaurantData = await restaurant.restaurantData[0]
+    setrestaurantData(restaurantData)
   }
 
   //++++++++++++++++++++ pagination ++++++++++

@@ -177,7 +177,7 @@ const Info = () => {
         console.log({response})
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
-          getRestaurant()
+          // getRestaurant()
         } else {
           toast.error('حدث خطأ أثناء إضافة المطعم');
         }
@@ -214,7 +214,7 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
-        getRestaurant()
+        // getRestaurant()
         
       } else {
         toast.error('فشل إضافة بيانات التواصل');
@@ -343,7 +343,7 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة موعيد العمل بنجاح');
-        getRestaurant()
+        // getRestaurant()
       } else {
 
         toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
