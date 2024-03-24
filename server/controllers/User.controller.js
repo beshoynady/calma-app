@@ -56,7 +56,7 @@ const createuser = async (req, res) => {
 const getoneuser = async (req, res) => {
     try {
         const { userid } = req.params;
-        const user = await Usermodel.findById(userid).populate('deliveryarea');
+        const user = await Usermodel.findById(userid).populate('deliveryArea');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -69,7 +69,7 @@ const getoneuser = async (req, res) => {
 // Function to retrieve all users
 const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await Usermodel.find({}).populate('deliveryarea');;
+        const allUsers = await Usermodel.find({}).populate('deliveryArea');;
         res.status(200).json(allUsers);
     } catch (err) {
         res.status(500).json({ message: err.message });
