@@ -63,7 +63,6 @@ function App() {
   const [restaurantData, setrestaurantData] = useState({})
   const getRestaurant = async () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    console.log({ restaurant })
     const restaurantData = await restaurant.restaurantData[0]
     setrestaurantData(restaurantData)
   }
@@ -545,11 +544,7 @@ function App() {
             deliveryCost,
             status,
             orderType
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+          }, config);
 
           setitemsInCart([]);
           setitemId([]);
@@ -569,11 +564,7 @@ function App() {
             deliveryCost,
             status,
             orderType
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+          }, config);
 
           setitemsInCart([]);
           getAllProducts();
@@ -606,11 +597,7 @@ function App() {
           address,
           phone,
           orderType,
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        }, config);
 
         setitemsInCart([]);
         setitemId([]);
@@ -843,7 +830,7 @@ function App() {
           discount: newDiscount,
           status,
           createdBy
-        });
+        }, config);
 
         toast.success('تم تحديث الطلب بنجاح!');
         setitemId([]);
@@ -869,7 +856,7 @@ function App() {
           addition,
           orderType,
           createdBy: waiterId
-        });
+        }, config);
 
         toast.success('تم إنشاء طلب جديد بنجاح!');
         setitemId([]);
@@ -924,7 +911,7 @@ function App() {
         phone,
         address,
         status
-      });
+      }, config);
 
       if (newOrder && newOrder.data._id) {
         setposOrderId(newOrder.data._id);

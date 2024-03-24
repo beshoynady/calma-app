@@ -177,7 +177,7 @@ const Info = () => {
         console.log({response})
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
-          // getRestaurant()
+          getRestaurant()
         } else {
           toast.error('حدث خطأ أثناء إضافة المطعم');
         }
@@ -214,7 +214,7 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
-        // getRestaurant()
+        getRestaurant()
         
       } else {
         toast.error('فشل إضافة بيانات التواصل');
@@ -343,7 +343,7 @@ const Info = () => {
 
       if (response.status === 200) {
         toast.success('تمت إضافة موعيد العمل بنجاح');
-        // getRestaurant()
+        getRestaurant()
       } else {
 
         toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
@@ -356,46 +356,10 @@ const Info = () => {
   }
 
 
-  // const getRestaurant = async () => {
-  //   const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-  //   console.log({ restaurant })
-  //   const restaurantData = await restaurant.restaurantData[0]
-  //   if(restaurantData){
-  //   const id = await restaurantData._id
-  //   setid(id)
-  //   setName(restaurantData.name)
-  //   setLogo(restaurantData.logo)
-  //   setDescription(restaurantData.description)
-  //   setCountry(restaurantData.address.country)
-  //   setState(restaurantData.address.state)
-  //   setCity(restaurantData.address.city)
-  //   setStreet(restaurantData.address.street)
-  //   setPostalCode(restaurantData.address.postal_code)
-
-  //   setPhone(restaurantData.contact.phone)
-  //   setWhatsapp(restaurantData.contact.whatsapp)
-  //   setEmail(restaurantData.contact.email)
-  //   setFacebook(restaurantData.contact.social_media.facebook)
-  //   setTwitter(restaurantData.contact.social_media.twitter)
-  //   setInstagram(restaurantData.contact.social_media.instagram)
-  //   setLinkedin(restaurantData.contact.social_media.linkedin)
-  //   setYoutube(restaurantData.contact.social_media.youtube)
-
-  //   setSaturday(restaurantData.opening_hours.Saturday)
-  //   setSunday(restaurantData.opening_hours.Sunday)
-  //   setMonday(restaurantData.opening_hours.Monday)
-  //   setTuesday(restaurantData.opening_hours.Tuesday)
-  //   setWednesday(restaurantData.opening_hours.Wednesday)
-  //   setThursday(restaurantData.opening_hours.Thursday)
-  //   setFriday(restaurantData.opening_hours.Friday)
-
-  //   setShifts([...restaurantData.shifts])
-  //   setAreas([...restaurantData.delivery_area])
-  //   }else{
-  //     toast.warning('لم يتم اضافه بيانات المطعم ')
-  //   }
-  // }
-  const getRestaurantData = async (restaurantData) => {
+  const getRestaurant = async () => {
+    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
+    console.log({ restaurant })
+    const restaurantData = await restaurant.restaurantData[0]
     if(restaurantData){
     const id = await restaurantData._id
     setid(id)
@@ -433,21 +397,15 @@ const Info = () => {
   }
 
 
-
-
-
-  // useEffect(() => {
-  //   getRestaurant()
-
-  // }, [])
-
   useEffect(() => {
-    console.log({detacontext});
-    }, []);
+    getRestaurant()
+
+  }, [])
+
 
   return (
     <detacontext.Consumer>
-      {({ restaurantData }) => (
+      {({ }) => (
         <div className="container" dir='rtl'>
           <div className="content-wrapper">
             <div className="row">

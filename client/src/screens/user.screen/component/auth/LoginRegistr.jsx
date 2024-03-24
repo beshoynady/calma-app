@@ -36,7 +36,6 @@ const LoginRegistr = (props) => {
       {
         ({ login, signup, restaurantData }) => {
           return (
-
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">
                 <div className="title-text">
