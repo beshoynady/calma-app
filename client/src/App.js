@@ -1199,7 +1199,7 @@ function App() {
   const [isLogin, setisLogin] = useState(false);
 
   // Function to handle user signup
-  const signup = async (e, username, password, phone, address, email, passconfirm) => {
+  const signup = async (e,username, phone, deliveryarea, address, email, password, passconfirm) => {
     e.preventDefault();
 
     try {
@@ -1220,6 +1220,7 @@ function App() {
         username,
         password,
         phone,
+        deliveryarea,
         address,
         email,
       });
@@ -1227,6 +1228,7 @@ function App() {
       // Handle successful signup
       if (response && response.data) {
         const { accessToken, newUser } = response.data;
+        localStorage.setItem('token_u', accessToken);
         toast.success('تم إنشاء الحساب بنجاح!');
         // Perform actions with accessToken or newUser if needed
       }

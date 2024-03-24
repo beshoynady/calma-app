@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const signup = async (req, res) => {
     try {
-        const { username, email, address, phone, password } = req.body;
+        const { username, email, address,deliveryarea, phone, password } = req.body;
 
         // Validate input fields
         const errors = validationResult(req);
@@ -26,6 +26,7 @@ const signup = async (req, res) => {
             username,
             email,
             phone,
+            deliveryarea,
             address,
             password: passwordHash,
         });

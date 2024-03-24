@@ -53,11 +53,11 @@ const LoginRegistr = (props) => {
                     <input type="radio" name="slide" id="login" defaultChecked />
                     <label htmlFor="login" className="slide login" onClick={() => {
                       loginForm.current.style.marginRight = "0%";
-                      loginText.current.style.marginRight = "0%";
+                      // loginText.current.style.marginRight = "0%";
                     }}>دخول</label>
                     <label htmlFor="signup" className="slide signup" onClick={() => {
                       loginForm.current.style.marginRight = "-50%";
-                      loginText.current.style.marginRight = "-50%";
+                      // loginText.current.style.marginRight = "-50%";
                     }}>عضو جديد</label>
                     <div className="slider-tab"></div>
                   </div>
@@ -77,7 +77,7 @@ const LoginRegistr = (props) => {
                         <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
-                    <form className="signup" onSubmit={(e) => signup(e, username, password, phone, deliveryarea, address, email)}>
+                    <form className="signup" onSubmit={(e) => signup(e, username, phone, deliveryarea, address, email, password, passconfirm)}>
                       <div className="field">
                         <input type="text" placeholder="اسمك" required onChange={(e) => setusername(e.target.value)} />
                       </div>
