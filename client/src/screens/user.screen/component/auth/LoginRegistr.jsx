@@ -34,7 +34,7 @@ const LoginRegistr = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ login, signup }) => {
+        ({ login, signup, restaurantData }) => {
           return (
 
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -91,7 +91,7 @@ const LoginRegistr = (props) => {
                       <div className="field">
                         <select onSelect={(e) => setdeliveryarea(e.target.value)}>
                           <option>اختر المنطقه</option>
-                          {area.map((area, i) => {
+                          {restaurantData.delivery_area.map((area, i) => {
                             <option value={area._id} key={i}>{area.name}</option>
                           })}
                         </select>
