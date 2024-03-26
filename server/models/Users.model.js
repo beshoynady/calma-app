@@ -25,7 +25,7 @@ const userschema = new mongoose.Schema({
     },
     deliveryArea: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Restaurants',
+        ref: 'Restaurant',
         required: true
     },
     address:{
