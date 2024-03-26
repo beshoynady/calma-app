@@ -69,7 +69,7 @@ const createEmployee = async (req, res) => {
             role,
             sectionNumber,
             isActive,
-        });
+        }, { new: true });
 
         // Generating JWT token
         const accessToken = jwt.sign({
@@ -85,6 +85,28 @@ const createEmployee = async (req, res) => {
         res.status(201).json({ accessToken, newEmployee });
     } catch (err) {
         res.status(500).json({ message: err.message });
+    }
+};
+
+const updateEmployee = async (req, res) => {
+    try {
+        const { error } = updateEmployeeSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+        const id = req.params.employeeId;
+        const { fullname, numberID, username,shift, email, address, phone, basicSalary, role, sectionNumber, isActive, password } = req.body;
+
+        const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
+
+        const updateData = password ? { fullname, numberID, username,shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
+        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
+
+        const updateEmployee = await Employeemodel.findByIdAndUpdate(id, updateData, { new: true });
+
+        res.status(200).json(updateEmployee);
+    } catch (err) {
+        res.status(400).json(err);
     }
 };
 
@@ -144,9 +166,6 @@ const loginEmployee = async (req, res) => {
 };
 
 
-
-
-
 const getAllemployees = async (req, res) => {
     try {
         const allemployees = await Employeemodel.find({}).populate('shift');
@@ -155,29 +174,6 @@ const getAllemployees = async (req, res) => {
         res.status(400).json(err)
     }
 }
-
-const updateEmployee = async (req, res) => {
-    try {
-        const { error } = updateEmployeeSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
-        const id = req.params.employeeId;
-        const { fullname, numberID, username,shift, email, address, phone, basicSalary, role, sectionNumber, isActive, password } = req.body;
-
-        const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
-
-        const updateData = password ? { fullname, numberID, username,shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
-        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
-
-        const updateEmployee = await Employeemodel.findByIdAndUpdate(id, updateData, { new: true });
-
-        res.status(200).json(updateEmployee);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-};
-
 
 
 const deleteEmployee = async (req, res) => {

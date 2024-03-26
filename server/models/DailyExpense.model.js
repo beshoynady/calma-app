@@ -36,6 +36,9 @@ const dailyExpenseSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+},
+{
+  timestamps: true,
 });
 
 // Create a model based on the schema

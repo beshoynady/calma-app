@@ -21,7 +21,8 @@ const customerMessageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+},
+{timestamps : true});
 
 const CustomerMessageModel = mongoose.model('CustomerMessage', customerMessageSchema);
 
