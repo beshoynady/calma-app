@@ -1,4 +1,4 @@
-const Employeemodel = require('../models/Employee.model.js')
+const EmployeeModel = require('../models/Employee.model.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
@@ -23,10 +23,10 @@ const createEmployeeSchema = Joi.object({
 
 const createEmployee = async (req, res) => {
     try {
-        // const { error } = createEmployeeSchema.validate(req.body);
-        // if (error) {
-        //     return res.status(400).json({ message: error.details[0].message });
-        // }
+        const { error } = createEmployeeSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
         // Destructuring request body for required employee details
         const { fullname, numberID, username, shift, email, address, phone, basicSalary, role, sectionNumber, isActive } = req.body;
 
@@ -38,12 +38,12 @@ const createEmployee = async (req, res) => {
             return res.status(400).json({ message: 'Invalid input: Fullname, Phone, or Password missing' });
         }
 
-        const isEmployeeFound = await Employeemodel.findOne({ phone });
+        const isEmployeeFound = await EmployeeModel.findOne({ phone });
         if (isEmployeeFound) {
             return res.status(409).json({ message: 'This phone is already in use' });
         }
 
-        const newEmployee = await Employeemodel.create({
+        const newEmployee = await EmployeeModel.create({
             fullname,
             username,
             numberID,
@@ -106,7 +106,7 @@ const updateEmployee = async (req, res) => {
         const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
         : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
-        const updateEmployee = await Employeemodel.findByIdAndUpdate(id, updateData, { new: true });
+        const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, updateData, { new: true });
 
         res.status(200).json(updateEmployee);
     } catch (err) {
@@ -116,13 +116,26 @@ const updateEmployee = async (req, res) => {
 
 const getoneEmployee = async (req, res) => {
     try {
-        const employeeId = await req.params.employeeId;
-        const employee = await Employeemodel.findById(employeeId).populate('shift');
+        // Extract employee ID from request parameters
+        const employeeId = req.params.employeeId;
+
+        // Find the employee by ID and populate the 'shift' field
+        const employee = await EmployeeModel.findById(employeeId).populate('shift');
+
+        // If employee not found, return a 404 error
+        if (!employee) {
+            return res.status(404).json({ message: 'Employee not found' });
+        }
+
+        // If employee found, return it in the response
         res.status(200).json(employee);
     } catch (err) {
-        res.status(400).json(err)
+        // Handle errors occurred during the process
+        console.error('Error fetching employee:', err);
+        res.status(500).json({ message: 'An error occurred while fetching the employee' });
     }
 }
+
 
 const loginEmployee = async (req, res) => {
     try {
@@ -132,7 +145,7 @@ const loginEmployee = async (req, res) => {
             return res.status(400).json({ message: 'Phone number and password are required' });
         }
 
-        const findEmployee = await Employeemodel.findOne({ phone });
+        const findEmployee = await EmployeeModel.findOne({ phone });
 
         if (!findEmployee) {
             return res.status(404).json({ message: 'Employee not found' });
@@ -172,18 +185,29 @@ const loginEmployee = async (req, res) => {
 
 const getAllemployees = async (req, res) => {
     try {
-        const allemployees = await Employeemodel.find({}).populate('shift');
+        // Fetch all employees and populate the 'shift' field
+        const allemployees = await EmployeeModel.find({}).populate('shift');
+
+        // If no employees found, return a 404 error
+        if (!allemployees) {
+            return res.status(404).json({ message: 'No employees found' });
+        }
+
+        // If employees found, return them in the response
         res.status(200).json(allemployees);
     } catch (err) {
-        res.status(400).json(err)
+        // Handle errors occurred during the process
+        console.error('Error fetching employees:', err);
+        res.status(500).json({ message: 'An error occurred while fetching employees' });
     }
 }
+
 
 
 const deleteEmployee = async (req, res) => {
     try {
         const id = await req.params.employeeId;
-        const employeedeleted = await Employeemodel.findByIdAndDelete(id).exec();
+        const employeedeleted = await EmployeeModel.findByIdAndDelete(id).exec();
 
     } catch (error) {
         res.status(500).json(error)
@@ -242,7 +266,7 @@ const deleteEmployee = async (req, res) => {
 
 //         // Find the employee by ID
 //         const employeeId = req.params.employeeId;
-//         const employee = await Employeemodel.findById(employeeId);
+//         const employee = await EmployeeModel.findById(employeeId);
 
 //         // Return an error if the employee is not found
 //         if (!employee) {
@@ -310,7 +334,7 @@ const deleteEmployee = async (req, res) => {
 //     const { isPaid, paidBy, month } = req.body;
 
 //     try {
-//         const employee = await Employeemodel.findById(employeeId);
+//         const employee = await EmployeeModel.findById(employeeId);
 
 //         if (!employee) {
 //             return res.status(404).json({ message: 'Employee not found' });
