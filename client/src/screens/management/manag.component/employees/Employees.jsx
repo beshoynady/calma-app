@@ -456,10 +456,10 @@ const Employees = () => {
                           <label>الشيفت</label>
                           <select form="carform" required onChange={(e) => setshift(e.target.value)}>
                             <option >اختر</option>
-                            {restaurantData.shift.map(shift =>
+                            {restaurantData ?restaurantData.shift.map(shift =>
                             
                             <option value={shift._id}>{shift.shiftType}</option>
-                            )}
+                            ):<option>لم يتم انشاء شفتات</option>}
                           </select>
                         </div>
                         <div className="form-group">
