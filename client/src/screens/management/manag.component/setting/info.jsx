@@ -358,8 +358,8 @@ const Info = () => {
 
   const getRestaurant = async () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    console.log({ restaurant })
     const restaurantData = await restaurant.data[0]
+    console.log({ restaurantData })
     if(restaurantData){
     const id = await restaurantData._id
     setid(id)
