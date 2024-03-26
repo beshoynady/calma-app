@@ -20,6 +20,7 @@ const Users = () => {
         },
     });
       setAllUsers(response.data)
+      console.log({AllUsers: response})
     } catch (error) {
       console.log(error)
     }
@@ -155,6 +156,7 @@ const Users = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الموبايل</th>
+                        {/* <th>المنطقه</th> */}
                         <th>العنوان</th>
                         <th>الايميل</th>
                         <th>نشط</th>
@@ -178,6 +180,7 @@ const Users = () => {
                                 <td>{i + 1}</td>
                                 <td>{user.username}</td>
                                 <td>{user.phone}</td>
+                                {/* <td>{user.name}</td> */}
                                 <td>{user.address}</td>
                                 <td>{user.email}</td>
                                 <td>
