@@ -18,20 +18,7 @@ const createEmployeeSchema = Joi.object({
     sectionNumber: Joi.number().min(1),
     role: Joi.string().valid('owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef').required(),
     isActive: Joi.boolean().required(),
-});
-
-const updateEmployeeSchema = Joi.object({
-    fullname: Joi.string().min(3).max(100),
-    numberID: Joi.string().length(14),
-    username: Joi.string().min(3).max(100),
-    email: Joi.string().email(),
-    address: Joi.string().min(3).max(150),
-    phone: Joi.string().length(11),
-    password: Joi.string().min(3),
-    basicSalary: Joi.number().min(0),
-    sectionNumber: Joi.number().min(1),
-    role: Joi.string().valid('owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef'),
-    isActive: Joi.boolean(),
+    shift: Joi.string().required()
 });
 
 const createEmployee = async (req, res) => {
@@ -87,6 +74,23 @@ const createEmployee = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+const updateEmployeeSchema = Joi.object({
+    fullname: Joi.string().min(3).max(100),
+    numberID: Joi.string().length(14),
+    username: Joi.string().min(3).max(100),
+    email: Joi.string().email(),
+    address: Joi.string().min(3).max(150),
+    phone: Joi.string().length(11),
+    password: Joi.string().min(3),
+    basicSalary: Joi.number().min(0),
+    sectionNumber: Joi.number().min(1),
+    role: Joi.string().valid('owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef'),
+    isActive: Joi.boolean(),
+    shift: Joi.string().required()
+});
+
+
 
 const updateEmployee = async (req, res) => {
     try {
