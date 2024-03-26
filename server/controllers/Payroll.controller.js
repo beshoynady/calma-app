@@ -3,7 +3,7 @@ const PayrollModel = require('../models/Payroll.model');
 const createPayroll = async (req, res) => {
   const { employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
   try {
-    const payroll = await PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary });
+    const payroll = await PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary }).populate('employeeId');
     res.status(201).json(payroll);
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
@@ -12,7 +12,7 @@ const createPayroll = async (req, res) => {
 
 const getAllPayroll = async (req, res) => {
   try {
-    const payroll = await PayrollModel.find({});
+    const payroll = await PayrollModel.find({}).populate('employeeId');
     res.status(200).json(payroll);
   } catch (error) {
     console.error('Error fetching payroll:', error);

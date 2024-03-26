@@ -34,7 +34,7 @@ const createReservation = async (req, res) => {
 // Get all reservations
 const getAllReservations = async (_req, res) => {
     try {
-        const reservations = await ReservationModel.find();
+        const reservations = await ReservationModel.find().populate('tableId').populate('userId');
         return res.status(200).json(reservations);
     } catch (error) {
         return res.status(500).json({ message: "Failed to fetch reservations", error: error.message });
@@ -50,7 +50,7 @@ const getReservationById = async (req, res) => {
             return res.status(400).json({ message: "Reservation ID is required" });
         }
 
-        const reservation = await ReservationModel.findById(reservationId);
+        const reservation = await ReservationModel.findById(reservationId).populate('tableId').populate('userId');
         if (!reservation) {
             return res.status(404).json({ message: "Reservation not found" });
         }

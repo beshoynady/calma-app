@@ -283,7 +283,7 @@ const Users = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required pattern="[A-Za-z\s]+" onChange={(e) => setfullname(e.target.value)} />
+                          <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid name.</div>
                         </div>
                         <div className="form-group">
@@ -357,7 +357,7 @@ const Users = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\s]+" onChange={(e) => setfullname(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
                           <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                         </div>
                         <div className="form-group">

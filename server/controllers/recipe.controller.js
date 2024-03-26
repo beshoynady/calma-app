@@ -74,7 +74,7 @@ const updateRecipe = async (req, res) => {
 const getOneRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const recipe = await RecipeModel.findById(id);
+    const recipe = await RecipeModel.findById(id).populate('product.id');
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
@@ -86,7 +86,7 @@ const getOneRecipe = async (req, res) => {
 
 const getAllRecipe = async (req, res) => {
   try {
-    const recipes = await RecipeModel.find();
+    const recipes = await RecipeModel.find().populate('product.id');
     res.status(200).json(recipes);
   } catch (error) {
     res.status(400).json({ message: error.message });
