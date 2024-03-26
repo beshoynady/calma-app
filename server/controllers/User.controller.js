@@ -6,7 +6,7 @@ const Joi = require('joi');
 // Function to create a new user
 const createuser = async (req, res) => {
     try {
-        const { username, email, deliveryarea, address, phone, password } = req.body;
+        const { username, email, deliveryArea, address, phone, password } = req.body;
 
         // Schema validation using Joi for incoming data
         const schema = Joi.object({
@@ -32,7 +32,7 @@ const createuser = async (req, res) => {
         const newUser = await Usermodel.create({
             username,
             email,
-            deliveryarea,
+            deliveryArea,
             address,
             phone,
             password: hashedPassword,
@@ -80,7 +80,7 @@ const getAllUsers = async (req, res) => {
 const updateuser = async (req, res) => {
     try {
         const { userid } = req.params;
-        const { username, email, address, deliveryarea, phone, password, isActive, isVarified } = req.body;
+        const { username, email, address, deliveryArea, phone, password, isActive, isVarified } = req.body;
 
         // Schema validation using Joi for incoming data
         const schema = Joi.object({
@@ -106,7 +106,7 @@ const updateuser = async (req, res) => {
         const updateFields = {
             username,
             email,
-            deliveryarea,
+            deliveryArea,
             address,
             phone,
             isActive,
