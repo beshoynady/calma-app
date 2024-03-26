@@ -31,7 +31,7 @@ const employeeSchema = new mongoose.Schema({
   },
   shift: {
     type: ObjectId, 
-    ref: 'Restaurants',
+    ref: 'restaurants',
     required: true  
   },
   numberID: {
