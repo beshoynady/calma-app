@@ -28,7 +28,7 @@ const createEmployee = async (req, res) => {
         //     return res.status(400).json({ message: error.details[0].message });
         // }
         // Destructuring request body for required employee details
-        const { fullname, numberID, username,shift, email, address, phone, basicSalary, role, sectionNumber, isActive } = req.body;
+        const { fullname, numberID, username, shift, email, address, phone, basicSalary, role, sectionNumber, isActive } = req.body;
 
         // Destructuring request body for optional employee details
         const pass = req.body.password;
