@@ -107,6 +107,7 @@ const Employees = () => {
     console.log(address)
     console.log(phone)
     console.log(email)
+    console.log(shift)
     console.log(isActive)
     console.log(role)
     console.log(basicSalary)
@@ -432,7 +433,7 @@ const Employees = () => {
                         <div className="form-group">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
-                          <div className="invalid-feedback">Please enter a valid name.</div>
+                          <div className="invalid-feedback">ادخل اسما صحيحا.</div>
                         </div>
                         <div className="form-group">
                           <label>اسم المستخدم</label>
