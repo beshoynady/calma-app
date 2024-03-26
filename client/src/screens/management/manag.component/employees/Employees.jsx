@@ -19,6 +19,7 @@ const Employees = () => {
       })
       const data = await response.data
       setlistofemployee(data)
+      console.log({ data })
     } catch (error) {
       console.log(error)
     }
@@ -29,7 +30,7 @@ const Employees = () => {
   const [numberID, setnumberID] = useState("")
   const [username, setusername] = useState("")
   const [basicSalary, setbasicSalary] = useState()
-  const [payRoll, setpayRoll] = useState([])
+  const [shift, setshift] = useState('')
   const [password, setpassword] = useState("")
   const [address, setaddress] = useState("")
   const [phone, setphone] = useState("")
@@ -83,7 +84,7 @@ const Employees = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address, phone, email, isActive, role, sectionNumber }, {
+      const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address,shift, phone, email, isActive, role, sectionNumber }, {
         headers: {
           'authorization': `Bearer ${token}`,
         },
@@ -229,7 +230,7 @@ const Employees = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({restaurantData, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -305,6 +306,7 @@ const Employees = () => {
                         <th>الراتب</th>
                         <th>الحالة</th>
                         <th>السكشن</th>
+                        <th>الشيفت</th>
                         <th>التاريخ</th>
                         <th>اجراءات</th>
                       </tr>
@@ -335,6 +337,7 @@ const Employees = () => {
                               <td>{emp.basicSalary}</td>
                               <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{emp.sectionNumber}</td>
+                              <td>{emp.shiftType}</td>
                               <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
                                 <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
@@ -371,7 +374,8 @@ const Employees = () => {
                                 <td>{emp.role}</td>
                                 <td>{emp.basicSalary}</td>
                                 <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
-                                <td>{emp.sectionNumber}</td>
+                                <td>{emp.sectionNumber}</td> 
+                                <td>{emp.shiftType}</td> 
                                 <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
@@ -446,6 +450,16 @@ const Employees = () => {
                             <option >اختر</option>
                             <option value={true}>متاح</option>
                             <option value={false}>ليس متاح</option>
+                          </select>
+                        </div>
+                        <div className="form-group">
+                          <label>الشيفت</label>
+                          <select form="carform" required onChange={(e) => setshift(e.target.value)}>
+                            <option >اختر</option>
+                            {restaurantData.shift.map(shift =>
+                            
+                            <option value={shift._id}>{shift.shiftType}</option>
+                            )}
                           </select>
                         </div>
                         <div className="form-group">
