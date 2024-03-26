@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema;
 
 // Define the schema for an employee
 const employeeSchema = new mongoose.Schema({
@@ -31,7 +30,7 @@ const employeeSchema = new mongoose.Schema({
     minlength: 3, // Minimum length of the password
   },
   shift: {
-    type: ObjectId, 
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Restaurant', // Reference to the 'Restaurant' model
     required: true  // Field must be provided and cannot be empty
   },
