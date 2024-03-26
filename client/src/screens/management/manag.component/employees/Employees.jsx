@@ -120,8 +120,8 @@ const Employees = () => {
       // }
 
       const updateData = password
-        ? { fullname, numberID, username, email, address, phone, password, basicSalary, isActive, role, sectionNumber }
-        : { fullname, numberID, username, email, address, phone, basicSalary, isActive, role, sectionNumber };
+        ? { fullname, numberID, username, email,shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
+        : { fullname, numberID, username, email,shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
       const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, {
         headers: {
@@ -146,6 +146,12 @@ const Employees = () => {
   const getemployeesByJob = (role) => {
     if (listofemployee.length > 0) {
       const FilterEmployees = listofemployee.filter(employee => employee.role == role)
+      setfilterEmp(FilterEmployees)
+    }
+  }
+  const getemployeesByShift = (shift) => {
+    if (listofemployee.length > 0) {
+      const FilterEmployees = listofemployee.filter(employee => employee.shift == shift)
       setfilterEmp(FilterEmployees)
     }
   }
@@ -276,6 +282,16 @@ const Employees = () => {
                             <option value="casher">كاشير</option>
                             <option value="waiter">ويتر</option>
                             <option value="Chef">شيف</option>
+                          </select>
+                        </div>
+                        <div class="filter-group">
+                          <label>الشيفت</label>
+                          <select class="form-control" onChange={(e) => getemployeesByShift(e.target.value)} >
+                          <option >اختر</option>
+                            {restaurantData.shifts ? restaurantData.shifts.map((shift, i) =>
+                            <option value={shift._id} key={i}>{shift.shiftType}</option>
+                            ):<option>لم يتم انشاء شفتات</option>}
+
                           </select>
                         </div>
                         <div class="filter-group">
