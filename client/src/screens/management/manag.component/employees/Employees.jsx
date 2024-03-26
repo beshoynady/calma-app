@@ -456,7 +456,7 @@ const Employees = () => {
                           <label>الشيفت</label>
                           <select form="carform" required onChange={(e) => setshift(e.target.value)}>
                             <option >اختر</option>
-                            {restaurantData ?restaurantData.shift.map(shift =>
+                            {restaurantData ?restaurantData.shifts.map(shift =>
                             
                             <option value={shift._id}>{shift.shiftType}</option>
                             ):<option>لم يتم انشاء شفتات</option>}
@@ -541,6 +541,16 @@ const Employees = () => {
                             <option>اختر</option>
                             <option value={true}>متاح</option>
                             <option value={false}>ليس متاح</option>
+                          </select>
+                        </div>
+                        <div className="form-group">
+                          <label>الشيفت</label>
+                          <select form="carform" required onChange={(e) => setshift(e.target.value)}>
+                            <option >اختر</option>
+                            {restaurantData ?restaurantData.shifts.map(shift =>
+                            
+                            <option value={shift._id}>{shift.shiftType}</option>
+                            ):<option>لم يتم انشاء شفتات</option>}
                           </select>
                         </div>
                         <div className="form-group">
