@@ -82,6 +82,17 @@ const Employees = () => {
       return;
     }
     try {
+      console.log(fullname)
+      console.log(username)
+      console.log(password)
+      console.log(address)
+      console.log(phone)
+      console.log(email)
+      console.log(shift)
+      console.log(isActive)
+      console.log(role)
+      console.log(basicSalary)
+      
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address,shift, phone, email, isActive, role, sectionNumber }, {

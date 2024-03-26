@@ -30,7 +30,7 @@ const employeeSchema = new mongoose.Schema({
     minlength: 3,
   },
   shift: {
-    type: mongoose.Schema.Types.ObjectId, 
+    type: ObjectId, 
     ref: 'Restaurants',
     required: true  
   },

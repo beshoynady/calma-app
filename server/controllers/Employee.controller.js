@@ -23,10 +23,10 @@ const createEmployeeSchema = Joi.object({
 
 const createEmployee = async (req, res) => {
     try {
-        const { error } = createEmployeeSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
+        // const { error } = createEmployeeSchema.validate(req.body);
+        // if (error) {
+        //     return res.status(400).json({ message: error.details[0].message });
+        // }
         // Destructuring request body for required employee details
         const { fullname, numberID, username,shift, email, address, phone, basicSalary, role, sectionNumber, isActive } = req.body;
 
@@ -103,7 +103,7 @@ const updateEmployee = async (req, res) => {
 
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
-        const updateData = password ? { fullname, numberID, username,shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
+        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
         : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
         const updateEmployee = await Employeemodel.findByIdAndUpdate(id, updateData, { new: true });
