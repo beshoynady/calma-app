@@ -190,8 +190,7 @@ const getAllemployees = async (req, res) => {
             path: 'shift',
             model: 'Restaurant',
             populate: {
-                path: 'shifts',
-                model: 'Shift'
+                path: 'shifts'
             }
         });
 
