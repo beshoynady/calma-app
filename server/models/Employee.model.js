@@ -33,14 +33,17 @@ const employeeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Restaurant',
     required: true,
+    populate: {
+        path: 'shifts'
+    }
 },
   numberID: {
     type: String,
     unique: true,
     required: [true, 'Number ID is required'],
     trim: true,
-    minlength: 14, // Minimum length of the number ID
-    maxlength: 14, // Maximum length of the number ID
+    minlength: 14, 
+    maxlength: 14,
   },
   address: {
     type: String,
