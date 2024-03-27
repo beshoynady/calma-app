@@ -31,11 +31,8 @@ const employeeSchema = new mongoose.Schema({
   },
   shift: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Restaurant',
+    ref: 'Restaurant.shifts',
     required: true,
-    populate: {
-        path: 'shifts'
-    }
 },
   numberID: {
     type: String,
