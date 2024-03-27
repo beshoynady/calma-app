@@ -186,10 +186,11 @@ const loginEmployee = async (req, res) => {
 const getAllemployees = async (req, res) => {
     try {
         // Fetch all employees and populate the 'shift' field
-        const allemployees = await EmployeeModel.find({}).populate({
-            path: 'shift', // اسم الحقل المراد عرضه
-            select: 'shiftType startTime endTime', // حدد الحقول المراد عرضها من بيانات الشيفت
-          });
+        const allemployees = await EmployeeModel.find({}).populate('shift')
+        // .populate({
+        //     path: 'shift', // اسم الحقل المراد عرضه
+        //     select: 'shiftType startTime endTime', // حدد الحقول المراد عرضها من بيانات الشيفت
+        //   });
 
         // If no employees found, return a 404 error
         if (!allemployees) {
