@@ -33,10 +33,6 @@ const employeeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Restaurant',
     required: true,
-    autopopulate: {
-        select: 'shifts',
-        maxDepth: 1
-    }
 },
   numberID: {
     type: String,
