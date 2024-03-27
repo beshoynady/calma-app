@@ -201,7 +201,7 @@ const getAllemployees = async (req, res) => {
     } catch (err) {
         // Handle errors occurred during the process
         console.error('Error fetching employees:', err);
-        res.status(500).json({ message: 'An error occurred while fetching employees' });
+        res.status(500).json({ message: 'An error occurred while fetching employees' , err});
     }
 }
 
