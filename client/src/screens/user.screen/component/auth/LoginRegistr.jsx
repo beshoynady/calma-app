@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
-import './LoginRegistr.css';
-// import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { detacontext } from '../../../../App';
+import { toast } from 'react-toastify';
+
 // import jwt_decode from "jwt-decode";
-import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';
+import './LoginRegistr.css';
 
 const LoginRegistr = (props) => {
   // const apiUrl = process.env.REACT_APP_API_URL;
