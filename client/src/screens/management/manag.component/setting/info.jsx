@@ -491,8 +491,6 @@ const Info = () => {
     setWednesday(restaurantData.opening_hours.Wednesday)
     setThursday(restaurantData.opening_hours.Thursday)
     setFriday(restaurantData.opening_hours.Friday)
-
-    setAreas([...restaurantData.delivery_area])
     }else{
       toast.warning('لم يتم اضافه بيانات المطعم ')
     }
