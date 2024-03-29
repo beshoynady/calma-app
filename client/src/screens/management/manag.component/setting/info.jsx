@@ -139,6 +139,7 @@ const Info = () => {
 
   const addArea = () => {
     setAreas([...areas, { name: '', delivery_fee: 0 }]);
+    console.log({areas})
   };
 
 
@@ -174,9 +175,10 @@ const Info = () => {
   const handleDeliveryArea = async (e) => {
     e.preventDefault();
     try {
-      areas.map(async (area) => {
+      areas.map(async (area , i) => {
+        console.log({area})
         const id = area._id? area._id : null;
-        const name = area._name? area._name : null;
+        const name = area._name
         const delivery_fee = area._delivery_fee
         if(id){
           const response = await axios.put(`${apiUrl}/api/deliveryarea/${id}`, {name, delivery_fee}, config);
