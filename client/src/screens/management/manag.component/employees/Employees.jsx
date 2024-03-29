@@ -179,7 +179,7 @@ const Employees = () => {
   }
   const getEmployeesByShift = (shift) => {
     if (listOfEmployees.length > 0) {
-      const FilterEmployees = listOfEmployees.filter(employee => employee.shift == shift)
+      const FilterEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
       setfilterEmp(FilterEmployees)
     }
   }
