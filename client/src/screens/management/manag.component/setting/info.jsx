@@ -199,7 +199,7 @@ const Info = () => {
           
         }
       })
-      getAllShifts()
+      getAllDeliveryAreas()
     } catch (error) {
       toast.error('حدث خطأ أثناء إضافة منطقه التوصيل');
       console.error('Error:', error);
