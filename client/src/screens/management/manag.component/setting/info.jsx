@@ -18,14 +18,39 @@ const Info = () => {
 
   const [shifts, setShifts] = useState([]);
 
+  const getAllShifts=async()=>{
+    try {
+      const response = await axios.get(`${apiUrl}/shift`, config)
+      const data = await response.data
+      if(data){
+        setShifts(data)
+      }else{
+        toast.error('لا يوجد بيانات للورديات ! اضف بيانات الورديات ')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب بيانات الورديات! اعد تحميل الصفحة')
+    }
+  }
+
   // إضافة وردية جديدة
   const addShift = () => {
     setShifts([...shifts, { shiftType: '', startTime: '', endTime: '' }]);
+    console.log({shifts});
   };
 
   // حذف وردية
-  const removeShift = (index) => {
+  const removeShift = async(index, id) => {
     const updatedShifts = shifts.filter((_, i) => i !== index);
+    if (id){
+      const response = await axios.delete(`${apiUrl}/api/shift/${id}`, config);
+      console.log({response})
+      if (response.status === 200) {
+        toast.success('تمت حذف الوردية بنجاح');
+      } else {
+        toast.error('حدث خطأ أثناء حذف الوردية');
+      }
+      
+    }
     setShifts(updatedShifts);
   };
 
@@ -50,20 +75,46 @@ const Info = () => {
     setShifts(updatedShifts);
   };
 
-  const handleShifts = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { shifts }, config);
-      if (response.status === 200) {
-        toast.success('تم اضافه الشيفت بنجاح')
-      } else {
-        toast.error('حدث خطأ اثناء اضافه الشيفتات !اعد المحاوله')
 
-      }
+
+  const handleCreateShifts = async (e) => {
+    e.preventDefault();
+    try {
+      shifts.map(async (shift) => {
+        const id = shift._id? shift._id : null;
+        const shiftType = shift.shiftType
+        const startTime = shift.startTime
+        const endTime = shift.endTime
+        if(id){
+          const response = await axios.put(`${apiUrl}/api/shift/${id}`, {startTime, endTime, shiftType}, config);
+          console.log({response})
+          if (response.status === 200) {
+            toast.success('تمت تعديل بيانات الوردية بنجاح');
+          } else {
+            toast.error('حدث خطأ أثناء تعديل بيانات الوردية');
+          }
+        }else{
+          const response = await axios.post(`${apiUrl}/api/shift`, { startTime, endTime, shiftType }, config);
+          console.log({response})
+          if (response.status === 201) {
+            toast.success('تمت إضافة الوردية بنجاح');
+          } else {
+            toast.error('حدث خطأ أثناء إضافة الوردية');
+          }
+          
+        }
+      })
+      getRestaurant()
     } catch (error) {
-      toast.error('فشل اضافه الشيفتات !اعد المحاوله')
+      toast.error('حدث خطأ أثناء إضافة المطعم');
+      console.error('Error:', error);
     }
-  }
+  };
+
+
+
+
+
   const handleDeliveryArea = async (e) => {
     e.preventDefault()
     try {
@@ -389,7 +440,6 @@ const Info = () => {
     setThursday(restaurantData.opening_hours.Thursday)
     setFriday(restaurantData.opening_hours.Friday)
 
-    setShifts([...restaurantData.shifts])
     setAreas([...restaurantData.delivery_area])
     }else{
       toast.warning('لم يتم اضافه بيانات المطعم ')
@@ -397,8 +447,10 @@ const Info = () => {
   }
 
 
+
   useEffect(() => {
     getRestaurant()
+    getAllShifts()
 
   }, [])
 
@@ -674,7 +726,7 @@ const Info = () => {
                             <button type="button" className="btn btn-success btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
                           </div>
                         </div>
-                        <form className="forms-sample" onSubmit={(e) => handleShifts(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleCreateShifts(e)}>
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col">

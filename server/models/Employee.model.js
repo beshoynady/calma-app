@@ -31,7 +31,7 @@ const employeeSchema = new mongoose.Schema({
   },
   shift: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Restaurant.shifts', // يشير إلى حقل الشيفتات داخل نموذج المطعم
+    ref: 'Shift',
     required: true,
 },
   numberID: {

@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const shiftSchema = new mongoose.Schema({
-
+    shiftType: {
+        type: String,
+        required: true,
+    },
     startTime: {
         type: String,
         required: true,
@@ -9,16 +12,9 @@ const shiftSchema = new mongoose.Schema({
     endTime: {
         type: String,
         required: true,
-    },
-    shiftType: [
-        {
-            type: String,
-            required: true,
-        }
-    ]
-},
-{
-  timestamps: true,
+    }
+}, {
+    timestamps: true,
 });
 
 module.exports = mongoose.model('Shift', shiftSchema);

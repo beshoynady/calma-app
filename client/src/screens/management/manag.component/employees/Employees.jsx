@@ -5,25 +5,41 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 const Employees = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-
-  const [listofemployee, setlistofemployee] = useState([])
-  const getemployees = async () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e');
+  
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+  
+  const [listOfEmployees, setListOfEmployees] = useState([]);
+  
+  const getEmployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      const response = await axios.get(apiUrl+'/api/employee', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      })
-      const data = await response.data
-      setlistofemployee(data)
-      console.log({ data })
+      const response = await axios.get(`${apiUrl}/api/employee`, config);
+      const data = response.data;
+      setListOfEmployees(data);
+      console.log({ data });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+  const [shifts, setshifts] = useState([]);
+  
+  const getShifts = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/shift`, config);
+      const data = response.data;
+      setshifts(data);
+      console.log({Shifts: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  
 
   const [employeeid, setemployeeid] = useState("")
   const [fullname, setfullname] = useState("")
@@ -102,7 +118,7 @@ const Employees = () => {
       })
       console.log(newemployee)
       notify('تم انشاء حساب الموظف بنجاح', 'success');
-      getemployees();
+      getEmployees();
     } catch (error) {
       console.log(error);
       notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
@@ -141,7 +157,7 @@ const Employees = () => {
         },
       });
       if (update.status === 200) {
-        getemployees()
+        getEmployees()
         notify('تم تحديث بيانات الموظف', 'success');
         // Additional logic if needed after successful update
       }
@@ -155,21 +171,21 @@ const Employees = () => {
 
 
   const [filterEmp, setfilterEmp] = useState([])
-  const getemployeesByJob = (role) => {
-    if (listofemployee.length > 0) {
-      const FilterEmployees = listofemployee.filter(employee => employee.role == role)
+  const getEmployeesByJob = (role) => {
+    if (listOfEmployees.length > 0) {
+      const FilterEmployees = listOfEmployees.filter(employee => employee.role == role)
       setfilterEmp(FilterEmployees)
     }
   }
-  const getemployeesByShift = (shift) => {
-    if (listofemployee.length > 0) {
-      const FilterEmployees = listofemployee.filter(employee => employee.shift == shift)
+  const getEmployeesByShift = (shift) => {
+    if (listOfEmployees.length > 0) {
+      const FilterEmployees = listOfEmployees.filter(employee => employee.shift == shift)
       setfilterEmp(FilterEmployees)
     }
   }
-  const getemployeesByName = (name) => {
-    if (listofemployee.length > 0) {
-      const employee = listofemployee.filter((employee) => employee.fullname.startsWith(name) == true)
+  const getEmployeesByName = (name) => {
+    if (listOfEmployees.length > 0) {
+      const employee = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
       setfilterEmp(employee)
     }
   }
@@ -178,11 +194,11 @@ const Employees = () => {
     let filteredEmployees;
 
     if (status === 'true') {
-      filteredEmployees = listofemployee.length>0?listofemployee.filter((employee) => employee.isActive === true):'';
+      filteredEmployees = listOfEmployees.length>0?listOfEmployees.filter((employee) => employee.isActive === true):'';
     } else if (status === 'false') {
-      filteredEmployees = listofemployee?listofemployee.filter((employee) => employee.isActive === false):"";
+      filteredEmployees = listOfEmployees?listOfEmployees.filter((employee) => employee.isActive === false):"";
     } else {
-      filteredEmployees = listofemployee; // If status is not 'true' or 'false', show all employees
+      filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
     }
 
     console.log(filteredEmployees);
@@ -200,7 +216,7 @@ const Employees = () => {
         },
       });
       notify('تم حذف سجل الموظف بنجاح', 'success');
-      getemployees();
+      getEmployees();
     } catch (error) {
       console.log(error);
       notify('فشل حذف سجل الموظف !حاول مره اخري', 'error');
@@ -233,7 +249,7 @@ const Employees = () => {
           },
         });
       }
-      getemployees()
+      getEmployees()
       toast.success('Selected orders deleted successfully');
       setSelectedIds([]);
     } catch (error) {
@@ -242,8 +258,11 @@ const Employees = () => {
     }
   };
 
+
+
   useEffect(() => {
-    getemployees()
+    getEmployees()
+    getShifts()
   }, [])
   return (
     <detacontext.Consumer>
@@ -283,12 +302,12 @@ const Employees = () => {
                       <div class="col-sm-9">
                         <div class="filter-group">
                           <label>الاسم</label>
-                          <input type="text" class="form-control" onChange={(e)=>getemployeesByName(e.target.value)} />
+                          <input type="text" class="form-control" onChange={(e)=>getEmployeesByName(e.target.value)} />
                           <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="filter-group">
                           <label>الوظيفة</label>
-                          <select class="form-control" onChange={(e) => getemployeesByJob(e.target.value)} >
+                          <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
                             <option value="manager">مدير</option>
                             <option value="casher">كاشير</option>
@@ -298,7 +317,7 @@ const Employees = () => {
                         </div>
                         <div class="filter-group">
                           <label>الشيفت</label>
-                          <select class="form-control" onChange={(e) => getemployeesByShift(e.target.value)} >
+                          <select class="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
                           <option >اختر</option>
                             {restaurantData.shifts ? restaurantData.shifts.map((shift, i) =>
                             <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -377,7 +396,7 @@ const Employees = () => {
                           )
                         }
                       })
-                        : listofemployee.length>0?listofemployee.map((emp, i) => {
+                        : listOfEmployees.length>0?listOfEmployees.map((emp, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
@@ -419,7 +438,7 @@ const Employees = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{listofemployee.length > endpagination ? endpagination : listofemployee.length}</b> من <b>{listofemployee.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
