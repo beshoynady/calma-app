@@ -178,9 +178,9 @@ const Info = () => {
       areas.map(async (area , i) => {
         console.log({area})
         const id = area._id? area._id : null;
-        const name = area._name
-        const delivery_fee = area._delivery_fee
-        if(id){
+        const name = area.name
+        const delivery_fee = area.delivery_fee
+        if(id && name && delivery_fee) {
           const response = await axios.put(`${apiUrl}/api/deliveryarea/${id}`, {name, delivery_fee}, config);
           console.log({response})
           if (response.status === 200) {
@@ -188,7 +188,7 @@ const Info = () => {
           } else {
             toast.error('حدث خطأ أثناء تعديل بيانات منطقه التوصيل');
           }
-        }else{
+        }else if(name && delivery_fee){
           const response = await axios.post(`${apiUrl}/api/deliveryarea`, { name, delivery_fee }, config);
           console.log({response})
           if (response.status === 201) {
