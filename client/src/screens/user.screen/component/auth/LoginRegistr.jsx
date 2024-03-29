@@ -7,7 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const LoginRegistr = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   // const navigate = useNavigate()
   const openlogin = props.openlogin;
   const [openform, setopenform] = useState(props.openlogin)
@@ -26,15 +31,38 @@ const LoginRegistr = (props) => {
   const [password, setpassword] = useState("")
   const [passconfirm, setpassconfirm] = useState("")
 
+
+  const [areas, setAreas] = useState([]);
+
+  
+    const getAllDeliveryAreas= async()=>{
+    try {
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
+      const data = await response.data
+      console.log({ data })
+      if(data){
+        setAreas(data)
+      }else{
+        toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب بيانات منطقه التوصيل! اعد تحميل الصفحة')
+    }
+  }
+
   const closeform = () => {
     authform.current.style.display = "none"
   }
 
+  useEffect(() => {
+    getAllDeliveryAreas()
+  }, [])
+  
 
   return (
     <detacontext.Consumer>
       {
-        ({ login, signup, restaurantData }) => {
+        ({ login, signup }) => {
           return (
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">
@@ -90,8 +118,8 @@ const LoginRegistr = (props) => {
                       <div className="field">
                         <select onChange={(e) => setdeliveryArea(e.target.value)}>
                           <option>اختر المنطقة</option>
-                          {restaurantData && restaurantData.delivery_area ? (
-                            restaurantData.delivery_area.map((area, i) => (
+                          {areas ? (
+                            areas.map((area, i) => (
                               <option value={area._id} key={i}>{area.name}</option>
                             ))
                           ) : (
