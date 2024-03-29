@@ -6,13 +6,13 @@ import { detacontext } from '../../../../App'
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginRegistr = (props) => {
-  const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e');
-  const config = {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  };
+  // const apiUrl = process.env.REACT_APP_API_URL;
+  // const token = localStorage.getItem('token_e');
+  // const config = {
+  //   headers: {
+  //     'Authorization': `Bearer ${token}`,
+  //   },
+  // };
   // const navigate = useNavigate()
   const openlogin = props.openlogin;
   const [openform, setopenform] = useState(props.openlogin)
@@ -37,7 +37,7 @@ const LoginRegistr = (props) => {
   
     const getAllDeliveryAreas= async()=>{
     try {
-      const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`)
       const data = await response.data
       console.log({ data })
       if(data){

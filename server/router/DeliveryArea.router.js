@@ -12,7 +12,7 @@ const authenticateToken = require('../utlits/authenticate')
 
 
 router.route("/").post(authenticateToken, createDeliveryArea)
-    .get(authenticateToken, getAllDeliveryAreas);
+    .get(getAllDeliveryAreas);
 
 router.route("/:id").get(authenticateToken, getDeliveryAreaById)
     .put(authenticateToken, updateDeliveryArea)
