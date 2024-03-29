@@ -86,7 +86,7 @@ const Info = () => {
         const shiftType = shift.shiftType
         const startTime = shift.startTime
         const endTime = shift.endTime
-        if(id){
+        if(id && shiftType && startTime && endTime ){
           const response = await axios.put(`${apiUrl}/api/shift/${id}`, {startTime, endTime, shiftType}, config);
           console.log({response})
           if (response.status === 200) {
@@ -94,7 +94,7 @@ const Info = () => {
           } else {
             toast.error('حدث خطأ أثناء تعديل بيانات الوردية');
           }
-        }else{
+        }else if(shiftType && startTime && endTime){
           const response = await axios.post(`${apiUrl}/api/shift`, { startTime, endTime, shiftType }, config);
           console.log({response})
           if (response.status === 201) {
@@ -672,7 +672,7 @@ const Info = () => {
                                 <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={Number(area.delivery_fee)} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-auto">
-                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index)} style={{ height: '50px' }}>
+                                <button type="button" className="btn btn-danger" onClick={() => removeArea(index, area._id)} style={{ height: '50px' }}>
                                   <i className="mdi mdi-delete" />
                                 </button>
                               </div>
