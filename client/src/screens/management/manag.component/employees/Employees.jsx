@@ -384,7 +384,7 @@ const Employees = () => {
                               <td>{emp.basicSalary}</td>
                               <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{emp.sectionNumber}</td>
-                              <td>{emp.shift}</td>
+                              <td>{emp.shift.shiftType}</td>
                               <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
                                 <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
@@ -422,7 +422,7 @@ const Employees = () => {
                                 <td>{emp.basicSalary}</td>
                                 <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
                                 <td>{emp.sectionNumber}</td> 
-                                <td>{emp.shift}</td>
+                                <td>{emp.shift.shiftType}</td>
                                 <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
