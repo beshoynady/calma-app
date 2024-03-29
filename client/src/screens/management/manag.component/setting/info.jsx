@@ -107,7 +107,7 @@ const Info = () => {
       })
       getAllShifts()
     } catch (error) {
-      toast.error('حدث خطأ أثناء إضافة المطعم');
+      toast.error('حدث خطأ أثناء إضافة الوردية');
       console.error('Error:', error);
     }
   };
@@ -116,32 +116,44 @@ const Info = () => {
 
 
 
-  const handleDeliveryArea = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { delivery_area: areas }, config);
-      if (response.status === 200) {
-        toast.success('تم اضافه منطقه التوصيل بنجاح')
-      } else {
-        toast.error('حدث خطأ اثناء اضافه منطقه التوصيل !اعد المحاوله')
 
-      }
-    } catch (error) {
-      toast.error('فشل اضافه منطقه التوصيل !اعد المحاوله')
-    }
-  }
 
 
   const [areas, setAreas] = useState([]);
-  const [nextIndex, setNextIndex] = useState(1);
+
+  
+    const getAllDeliveryAreas= async()=>{
+    try {
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
+      const data = await response.data
+      console.log({ data })
+      if(data){
+        setAreas(data)
+      }else{
+        toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب بيانات منطقه التوصيل! اعد تحميل الصفحة')
+    }
+  }
 
   const addArea = () => {
     setAreas([...areas, { name: '', delivery_fee: 0 }]);
-    setNextIndex(nextIndex + 1);
   };
 
-  const removeArea = (index) => {
+
+  const removeArea = async(index, id) => {
     const updatedAreas = areas.filter((area, i) => i !== index);
+    if (id){
+      const response = await axios.delete(`${apiUrl}/api/deliveryarea/${id}`, config);
+      console.log({response})
+      if (response.status === 200) {
+        toast.success('تمت حذف منطقه التوصيل بنجاح');
+      } else {
+        toast.error('حدث خطأ أثناء حذف منطقه التوصيل');
+      }
+      
+    }
     setAreas(updatedAreas);
   };
 
@@ -157,6 +169,45 @@ const Info = () => {
     updatedAreas[index].delivery_fee = Number(event.target.value);
     setAreas(updatedAreas);
   };
+
+
+  const handleDeliveryArea = async (e) => {
+    e.preventDefault();
+    try {
+      areas.map(async (area) => {
+        const id = area._id? area._id : null;
+        const name = area._name? area._name : null;
+        const delivery_fee = area._delivery_fee
+        if(id){
+          const response = await axios.put(`${apiUrl}/api/deliveryarea/${id}`, {name, delivery_fee}, config);
+          console.log({response})
+          if (response.status === 200) {
+            toast.success('تمت تعديل بيانات منطقه التوصيل بنجاح');
+          } else {
+            toast.error('حدث خطأ أثناء تعديل بيانات منطقه التوصيل');
+          }
+        }else{
+          const response = await axios.post(`${apiUrl}/api/deliveryarea`, { name, delivery_fee }, config);
+          console.log({response})
+          if (response.status === 201) {
+            toast.success('تمت إضافة منطقه التوصيل بنجاح');
+          } else {
+            toast.error('حدث خطأ أثناء إضافة منطقه التوصيل');
+          }
+          
+        }
+      })
+      getAllShifts()
+    } catch (error) {
+      toast.error('حدث خطأ أثناء إضافة منطقه التوصيل');
+      console.error('Error:', error);
+    }
+  }
+
+
+
+
+
 
   const [id, setid] = useState('')
 
@@ -452,7 +503,7 @@ const Info = () => {
   useEffect(() => {
     getRestaurant()
     getAllShifts()
-
+    getAllDeliveryAreas()
   }, [])
 
 
