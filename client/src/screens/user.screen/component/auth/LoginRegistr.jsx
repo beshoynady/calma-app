@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginRegistr.css';
 
 const LoginRegistr = (props) => {
-  // const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
   // const token = localStorage.getItem('token_e');
   // const config = {
   //   headers: {
