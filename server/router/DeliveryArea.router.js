@@ -14,7 +14,7 @@ const authenticateToken = require('../utlits/authenticate')
 router.route("/").post(authenticateToken, createDeliveryArea)
     .get(authenticateToken, getAllDeliveryAreas);
 
-router.route("/:expenseId").get(authenticateToken, getDeliveryAreaById)
+router.route("/:id").get(authenticateToken, getDeliveryAreaById)
     .put(authenticateToken, updateDeliveryArea)
     .delete(authenticateToken, deleteDeliveryArea);
 
