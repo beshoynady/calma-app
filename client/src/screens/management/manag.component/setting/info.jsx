@@ -18,10 +18,11 @@ const Info = () => {
 
   const [shifts, setShifts] = useState([]);
 
-  const getAllShifts=async()=>{
+  const getAllShifts= async()=>{
     try {
-      const response = await axios.get(`${apiUrl}/shift`, config)
+      const response = await axios.get(`${apiUrl}/api/shift`, config)
       const data = await response.data
+      console.log({ data })
       if(data){
         setShifts(data)
       }else{
