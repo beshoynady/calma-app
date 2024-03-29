@@ -105,7 +105,7 @@ const Info = () => {
           
         }
       })
-      getRestaurant()
+      getAllShifts()
     } catch (error) {
       toast.error('حدث خطأ أثناء إضافة المطعم');
       console.error('Error:', error);
@@ -740,7 +740,7 @@ const Info = () => {
                                 <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col-auto">
-                                <button type="button" className="btn btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
+                                <button type="button" className="btn btn-danger" onClick={() => removeShift(index, shift._id)} style={{ height: '50px' }}>
                                   <i className="mdi mdi-delete" />
                                 </button>
                               </div>
