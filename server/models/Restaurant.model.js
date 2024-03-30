@@ -45,7 +45,8 @@ const restaurantSchema = new mongoose.Schema({
         trim: true
     },
     contact: {
-        phone: [{
+        phone: [
+            {
             type: String,
             trim: true,
             match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
@@ -105,41 +106,7 @@ const restaurantSchema = new mongoose.Schema({
             to: String,
             closed: Boolean
         }
-    },
-    shifts: [
-        {
-            shiftType: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            startTime: {
-                type: String,
-                required: true,
-            },
-            endTime: {
-                type: String,
-                required: true,
-            }
-        }
-    ],
-    delivery_area: [
-        {
-            name: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            delivery_fee: {
-                type: Number,
-                required: true,
-                min: 0,
-                default: 0
-            }
-        }
-
-    ]
-
+    }
 }, { timestamps: true }
 );
 

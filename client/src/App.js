@@ -513,7 +513,7 @@ function App() {
   };
 
 
-  const createDeliveryOrderByClient = async (userId) => {
+  const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
     try {
       const token = localStorage.getItem('token_u');
 
@@ -527,7 +527,7 @@ function App() {
         const oldProducts = lastUserOrder.products;
         const oldSubTotal = lastUserOrder.subTotal;
         const subTotal = costOrder + oldSubTotal;
-        const deliveryCost = 10;
+        const deliveryCost = delivery_fee;
         const total = subTotal + deliveryCost;
 
         // Update order if it's in 'Preparing' status
@@ -579,10 +579,10 @@ function App() {
         const user = findUser ? userId : null;
         const products = [...itemsInCart];
         const subTotal = costOrder;
-        const deliveryCost = 10;
+        const deliveryCost = delivery_fee;
         const name = findUser ? findUser.username : '';
         const phone = findUser ? findUser.phone : '';
-        const address = findUser ? findUser.address : '';
+        const address = currentAddress;
         const orderType = 'Delivery';
         const total = subTotal + deliveryCost;
 
@@ -1244,39 +1244,40 @@ function App() {
   const [userLoginInfo, setUserLoginInfo] = useState(null);
   const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
 
+const [clientInfo, setclientInfo] = useState({})
+
   // Function to retrieve user info from tokens
-  const getUserInfoFromToken = () => {
+  const getUserInfoFromToken = async() => {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
-    console.log("getUserInfoFromToken")
-    console.log({ userToken })
+    console.log("getUserInfoFromToken");
+    console.log({ userToken });
+  
     let decodedToken = null;
-
-    if (employeeToken && userToken) {
+  
+    if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
-      // Set employee login info
-      setEmployeeLoginInfo(decodedToken);
-      console.log({ EmployeeLoginInfo: decodedToken });
-
-      decodedToken = jwt_decode(userToken);
-      // Set user login info
-      setUserLoginInfo(decodedToken);
-      console.log({ userToken: decodedToken });
-    } else if (employeeToken) {
-      decodedToken = jwt_decode(employeeToken);
-      // Set employee login info
       setEmployeeLoginInfo(decodedToken);
       console.log(decodedToken.employeeinfo);
-    } else if (userToken) {
+    }
+  
+    if (userToken) {
       decodedToken = jwt_decode(userToken);
-      // Set user login info
       setUserLoginInfo(decodedToken);
-      console.log({ userToken2: decodedToken });
-    } else {
+      console.log({ UserLoginInfo: decodedToken });
+      const userId = decodedToken.userInfo.id
+      const client = await axios.get(`${apiUrl}/user/${userId}`)
+      console.log({ client });
+      setclientInfo(client.data);
+    }
+  
+    if (!employeeToken && !userToken) {
       setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
     }
   };
+  
+
 
   // Function for user login
   const login = async (e, phone, password) => {

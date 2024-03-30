@@ -89,7 +89,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({restaurantData, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -166,7 +166,7 @@ const Cart = (props) => {
                             {id ? (
                               <button className='total-order-btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id)}>تأكيد الطلب</button>
+                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id , )}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
@@ -180,12 +180,13 @@ const Cart = (props) => {
                       <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height:"80%", textAlign: 'center' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                          <h2>CALMA CAFE</h2>
+                          <h2>{restaurantData.name}</h2>
                           <p>كاشير: {usertitle(myOrder.casher)} |فاتوره #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
-                        {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                        {myOrder.ordertype == 'Delivery' ? 
+                        <div className="customer-info text-dark" style={{ margin: '20px' }}>
                           <h4>بيانات العميل</h4>
                           <p>الاسم: {myOrder.name}</p>
                           <p>الموبايل: {myOrder.phone}</p>
@@ -242,9 +243,9 @@ const Cart = (props) => {
 
                         {/* Restaurant Information */}
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <p>CALMA CAFE</p>
-                          <p>Mobile: 01144001433</p>
-                          <p>Address: بني سويف- الفشن - أخر شارع البحر الأعظم</p>
+                          <p>{restaurantData.name}</p>
+                          <p>موبايل: {restaurantData.contact.phone[0]}</p>
+                          <p>العنوان: {`${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p>
                         </div>
 
                         {/* Footer */}
