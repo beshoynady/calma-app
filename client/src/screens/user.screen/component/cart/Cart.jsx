@@ -39,7 +39,7 @@ const Cart = (props) => {
 
   // const [listProductsOrder, setlistProductsOrder] = useState([])
   // const [serial, setserial] = useState('')
-  // const [ordertype, setordertype] = useState('')
+  // const [orderType, setorderType] = useState('')
   // const [name, setname] = useState('')
   // const [address, setaddress] = useState('')
   // const [phone, setphone] = useState('')
@@ -71,7 +71,7 @@ const Cart = (props) => {
   //     setcasher(order.casher)
   //     settable(order.orderType == 'Internal' ? order.table : '')
   //     setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-  //     setordertype(order.orderType)
+  //     setorderType(order.orderType)
   //     setaddress(order.orderType == 'Delivery' ? order.address : "")
   //     setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
   //     if (order.orderType != 'Internal') {
@@ -181,18 +181,18 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير: {usertitle(myOrder.casher)} |فاتوره #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {usertitle(myOrder.casher)} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
-                        {myOrder.ordertype == 'Delivery' ?
+                        {myOrder.orderType == 'Delivery' ?
                           <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
                             <p>العنوان: {myOrder.address}</p>
                             <p>الديليفري: {usertitle(myOrder.deliveryMan)}</p>
-                          </div> : myOrder.ordertype == 'Takeaway' ?
+                          </div> : myOrder.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
                               <p>الاسم: {myOrder.name}</p>
@@ -226,10 +226,10 @@ const Cart = (props) => {
                               <td colSpan="3">المجموع</td>
                               <td>{orderSubtotal > 0 ? orderSubtotal : 0}</td>
                             </tr>
-                            {orderdeliveryCost > 0 && (
+                            {myOrder.deliveryCost > 0 && (
                               <tr>
                                 <td colSpan="3">خدمة التوصيل</td>
-                                <td>{orderdeliveryCost}</td>
+                                <td>{myOrder.deliveryCost}</td>
                               </tr>
                             )}
                             <tr>
