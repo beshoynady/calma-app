@@ -1758,7 +1758,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
   return (
     <detacontext.Provider value={{
-      restaurantData,
+      restaurantData, clientInfo ,
       // Functions related to authentication
       userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 

@@ -89,7 +89,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({ restaurantData, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -166,7 +166,7 @@ const Cart = (props) => {
                             {id ? (
                               <button className='total-order-btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id,)}>تأكيد الطلب</button>
+                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id, clientInfo.address.street, clientInfo.deliveryArea.delivery_fee)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
@@ -251,6 +251,7 @@ const Cart = (props) => {
                             </>
                           )}
                         </div>
+
 
                         {/* Footer */}
                         <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
