@@ -868,7 +868,7 @@ const ManagerDash = () => {
                             <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                                <h2>CALMA CAFE</h2>
+                                <h2>{restaurantData.name}</h2>
                                 <p>كاشير {usertitle(casher)} | فاتورة #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
@@ -979,7 +979,7 @@ const ManagerDash = () => {
                             <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                                <h2>CALMA CAFE</h2>
+                                <h2>{restaurantData.name}</h2>
                                 <p>كاشير {usertitle(casher)} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
@@ -1054,7 +1054,7 @@ const ManagerDash = () => {
 
                               {/* Restaurant Information */}
                               <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                <p>CALMA CAFE</p>
+                                <p>{restaurantData.name}</p>
                                 <p>موبايل: 01144001433</p>
                                 <p>العنوان: بني سويف - الفشن -أخر شارع البحر الأعظم بجوار ماركت طيبة </p>
                               </div>
