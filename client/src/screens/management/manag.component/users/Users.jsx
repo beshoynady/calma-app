@@ -156,7 +156,7 @@ const Users = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الموبايل</th>
-                        {/* <th>المنطقه</th> */}
+                        <th>المنطقه</th>
                         <th>العنوان</th>
                         <th>الايميل</th>
                         <th>نشط</th>
@@ -180,7 +180,7 @@ const Users = () => {
                                 <td>{i + 1}</td>
                                 <td>{user.username}</td>
                                 <td>{user.phone}</td>
-                                {/* <td>{user.name}</td> */}
+                                <td>{user.deliveryArea?user.deliveryArea.name:'لم يحدد'}</td>
                                 <td>{user.address}</td>
                                 <td>{user.email}</td>
                                 <td>
@@ -227,6 +227,7 @@ const Users = () => {
                                   <td>{i + 1}</td>
                                   <td>{user.username}</td>
                                   <td>{user.phone}</td>
+                                  <td>{user.deliveryArea?user.deliveryArea.name:'لم يحدد'}</td>
                                   <td>{user.address}</td>
                                   <td>{user.email}</td>
                                   <td>
@@ -348,7 +349,6 @@ const Users = () => {
                   </div>
                 </div>
               </div>
-
               <div id="edituserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
