@@ -246,8 +246,9 @@ const Cart = (props) => {
                           {restaurantData && (
                             <>
                               <p>{restaurantData.name}</p>
-                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
-                              <p>العنوان: {restaurantData.contact && restaurantData.contact.address && `${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p>
+                              <p>موبايل: {restaurantData.contact.phone[0]}</p>
+                              <p>العنوان: {`${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`
+                              }</p>
                             </>
                           )}
                         </div>
