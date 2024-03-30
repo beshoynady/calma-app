@@ -1250,15 +1250,15 @@ const [clientInfo, setclientInfo] = useState({})
   const getUserInfoFromToken = async() => {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
-    console.log("getUserInfoFromToken");
-    console.log({ userToken });
+    // console.log("getUserInfoFromToken");
+    // console.log({ userToken });
   
     let decodedToken = null;
   
     if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       setEmployeeLoginInfo(decodedToken);
-      console.log(decodedToken.employeeinfo);
+      // console.log(decodedToken.employeeinfo);
     }
   
     if (userToken) {
@@ -1266,7 +1266,7 @@ const [clientInfo, setclientInfo] = useState({})
       setUserLoginInfo(decodedToken);
       console.log({decodedToken});
       if(decodedToken){
-        const userId = decodedToken.userInfo.id
+        const userId = await decodedToken.userinfo.id
         console.log({ userId });
         const client = await axios.get(`${apiUrl}/api/user/${userId}`)
         console.log({ client });
