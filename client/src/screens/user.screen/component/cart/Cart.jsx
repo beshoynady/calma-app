@@ -245,10 +245,13 @@ const Cart = (props) => {
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
                           {restaurantData && (
                             <>
-                              <p>{restaurantData.name&&restaurantData.name}</p>
-                              <p>موبايل: {restaurantData.contact.phone[0]&&restaurantData.contact.phone[0]}</p>
-                              <p>العنوان: {`${restaurantData.contact.address.state&&restaurantData.contact.address.state} ${restaurantData.contact.address.city&&restaurantData.contact.address.city} ${restaurantData.contact.address.street&&restaurantData.contact.address.street}`
-                              }</p>
+                              <p>{restaurantData.name}</p>
+                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                              <p>العنوان: {restaurantData.contact && restaurantData.contact.address &&
+                              <>
+                              {`${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}
+                              </> }
+                              </p>
                             </>
                           )}
                         </div>
