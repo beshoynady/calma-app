@@ -336,12 +336,12 @@ const ManagerDash = () => {
       setdiscount(order.discount)
       // setivocedate(order.createdAt)
       setcasher(order.casher)
-      settable(order.order_type == 'Internal' ? order.table : '')
-      setordernum(order.order_type == 'Takeaway' ? order.ordernum : '')
-      setordertype(order.order_type)
-      setaddress(order.order_type == 'Delivery' ? order.address : "")
-      setdeliveryMan(order.order_type == 'Delivery' ? order.deliveryMan : "")
-      if (order.order_type != 'Internal') {
+      settable(order.orderType == 'Internal' ? order.table : '')
+      setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
+      setordertype(order.orderType)
+      setaddress(order.orderType == 'Delivery' ? order.address : "")
+      setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
+      if (order.orderType != 'Internal') {
         setname(order.name)
         setphone(order.phone)
       }
@@ -419,7 +419,7 @@ const handlePrintKitchen = (e) => {
 
   // Filter orders by order type
   const getOrdersByType = (type) => {
-    const orders = pending_payment.filter((order) => order.order_type === type);
+    const orders = pending_payment.filter((order) => order.orderType === type);
     setFilteredOrders(orders);
   };
 
@@ -607,7 +607,7 @@ const handlePrintKitchen = (e) => {
                       <i className='bx bx-filter'></i>
                     </div>
                     <ul className="task-list">
-                      {pending_payment.filter((order) => order.payment_status == 'Pending' && order.status !== "Cancelled" && order.order_type == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
+                      {pending_payment.filter((order) => order.payment_status == 'Pending' && order.status !== "Cancelled" && order.orderType == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
@@ -696,7 +696,7 @@ const handlePrintKitchen = (e) => {
                                     {recent.serial}
                                   </a>
                                 </td>
-                                <td>{recent.order_type == 'Internal' ? usertitle(recent.table) : recent.order_type == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
+                                <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                 <td>{recent.total}</td>
                                 <td>{recent.status !== "Cancelled" ?
                                   recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
@@ -723,7 +723,7 @@ const handlePrintKitchen = (e) => {
                                 </td>
                                 {/* <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                 <td>
-                                  {recent.order_type == 'Delivery' ?
+                                  {recent.orderType == 'Delivery' ?
                                     <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
                                       <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
                                       {deliverymen.map((man, i) => {
@@ -735,7 +735,7 @@ const handlePrintKitchen = (e) => {
                                     </select>
                                     : ''}
                                 </td> */}
-                                <td>{recent.order_type}</td>
+                                <td>{recent.orderType}</td>
                                 <td>
                                   <button
                                     className="btn btn-primary"
@@ -766,7 +766,7 @@ const handlePrintKitchen = (e) => {
                                       {recent.serial}
                                     </a>
                                   </td>
-                                  <td>{recent.order_type == 'Internal' ? usertitle(recent.table) : recent.order_type == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
+                                  <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
                                   <td>{recent.status !== "Cancelled" ?
                                     recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
@@ -793,7 +793,7 @@ const handlePrintKitchen = (e) => {
                                   </td>
                                   {/* <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                   <td>
-                                    {recent.order_type == 'Delivery' ?
+                                    {recent.orderType == 'Delivery' ?
                                       <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
                                         <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
                                         {deliverymen.map((man, i) => {
@@ -805,7 +805,7 @@ const handlePrintKitchen = (e) => {
                                       </select>
                                       : ''}
                                   </td> */}
-                                  <td>{recent.order_type}</td>
+                                  <td>{recent.orderType}</td>
                                   <td>
                                     <button
                                       className="btn btn-primary"
@@ -1079,7 +1079,7 @@ const handlePrintKitchen = (e) => {
                                   <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                                     <div style={{ maxWidth: "50%" }}>
                                       <p className="card-text"> {kitchenOrder.table != null ? `طاولة: ${usertitle(kitchenOrder.table)}` : (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
-                                      <p className="card-text">نوع الطلب: {kitchenOrder.order_type}</p>
+                                      <p className="card-text">نوع الطلب: {kitchenOrder.orderType}</p>
                                       {kitchenOrder.ordernum ? `<p className="card-text"> رقم الطلب:  ${kitchenOrder.ordernum} </p>` : ''}
                                     </div>
 

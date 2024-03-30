@@ -459,7 +459,7 @@ const Kitchen = () => {
                               <p className="card-text"> {order.table != null ? `طاولة: ${usertitle(order.table)}` : (order.user ? `العميل: ${usertitle(order.user)}` : '')}</p>
                               <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
                               <p className="card-text">الفاتورة: {order.serial}</p>
-                              <p className="card-text">نوع الطلب: {order.order_type}</p>
+                              <p className="card-text">نوع الطلب: {order.orderType}</p>
                             </div>
 
                             <div style={{ maxWidth: "50%" }}>
@@ -488,7 +488,7 @@ const Kitchen = () => {
                                 updateOrderDone(order._id);
                                 updatecountofsales(order._id)
                               }}>تم التنفيذ</button>
-                              : <button className="btn btn-primary btn-lg" style={{ width: "100%" }} onClick={() => orderInProgress(order._id, order.order_type)}>بدء التنفيذ</button>
+                              : <button className="btn btn-primary btn-lg" style={{ width: "100%" }} onClick={() => orderInProgress(order._id, order.orderType)}>بدء التنفيذ</button>
                             }
                           </div>
                         </div>

@@ -878,7 +878,7 @@ function App() {
     // console.log({ addition });
     try {
       const dayOrders = allOrders.filter(order => new Date(order.createdAt).toDateString() === new Date().toDateString());
-      const takeawayOrders = dayOrders.filter(order => order.order_type === 'Takeaway');
+      const takeawayOrders = dayOrders.filter(order => order.orderType === 'Takeaway');
       const orderNum = orderType === 'Takeaway' ? takeawayOrders.length === 0 ? 1 : takeawayOrders[takeawayOrders.length - 1].orderNum + 1 : null;
 
       const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';

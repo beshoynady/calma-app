@@ -34,7 +34,7 @@ const DeliveryMan = () => {
   const fetchDeliveryOrders = async () => {
     try {
       const orders = await axios.get(apiUrl + '/api/order');
-      const activeOrders = orders.data.filter(order => order.isActive === true && order.order_type === 'Delivery');
+      const activeOrders = orders.data.filter(order => order.isActive === true && order.orderType === 'Delivery');
       console.log({ activeOrders: activeOrders });
       const deliveryOrdersData = activeOrders.filter(order => order.status === 'Prepared' || order.status === 'On the way');
       console.log({ deliveryOrdersData: deliveryOrdersData });

@@ -69,12 +69,12 @@ const Cart = (props) => {
   //     setserial(order.serial)
   //     setivocedate(order.createdAt)
   //     setcasher(order.casher)
-  //     settable(order.order_type == 'Internal' ? order.table : '')
-  //     setordernum(order.order_type == 'Takeaway' ? order.ordernum : '')
-  //     setordertype(order.order_type)
-  //     setaddress(order.order_type == 'Delivery' ? order.address : "")
-  //     setdeliveryMan(order.order_type == 'Delivery' ? order.deliveryMan : "")
-  //     if (order.order_type != 'Internal') {
+  //     settable(order.orderType == 'Internal' ? order.table : '')
+  //     setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
+  //     setordertype(order.orderType)
+  //     setaddress(order.orderType == 'Delivery' ? order.address : "")
+  //     setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
+  //     if (order.orderType != 'Internal') {
   //       setname(order.name)
   //       setphone(order.phone)
   //     }

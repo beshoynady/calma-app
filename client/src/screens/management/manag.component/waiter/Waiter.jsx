@@ -38,7 +38,7 @@ const Waiter = () => {
   try {
     const orders = await axios.get(apiUrl+'/api/order');
     const activeOrders = orders.data.filter((order) => order.isActive === true);
-    const internalOrdersData = activeOrders.filter(order => order.order_type === 'Internal');
+    const internalOrdersData = activeOrders.filter(order => order.orderType === 'Internal');
     
     console.log({ internalOrdersData: internalOrdersData });
     const products = internalOrdersData.length > 0 ? internalOrdersData.flatMap(order => order.products) : [];
@@ -134,7 +134,7 @@ const Waiter = () => {
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">الطاولة: {usertitle(order.table)}</p>
                         <p className="card-text">رقم الفاتورة: {order.serial}</p>
-                        <p className="card-text">نوع الطلب: {order.order_type}</p>
+                        <p className="card-text">نوع الطلب: {order.orderType}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">اسم الويتر: {usertitle(order.waiter)}</p>
@@ -170,7 +170,7 @@ const Waiter = () => {
                         <div style={{ maxWidth: "50%" }}>
                           <p className="card-text">الطاولة: {usertitle(order.table)}</p>
                           <p className="card-text">رقم الفاتورة: {order.serial}</p>
-                          <p className="card-text">نوع الطلب: {order.order_type}</p>
+                          <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
                         <div style={{ maxWidth: "50%" }}>
                           <p className="card-text">اسم الويتر: {usertitle(order.waiter)}</p>

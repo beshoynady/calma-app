@@ -55,12 +55,12 @@ const Orders = () => {
       setserial(order.serial)
       setivocedate(order.createdAt)
       setcasher(order.casher)
-      settable(order.order_type == 'Internal' ? order.table : '')
-      setordernum(order.order_type == 'Takeaway' ? order.ordernum : '')
-      setordertype(order.order_type)
-      setaddress(order.order_type == 'Delivery' ? order.address : "")
-      setdeliveryMan(order.order_type == 'Delivery' ? order.deliveryMan : "")
-      if (order.order_type != 'Internal') {
+      settable(order.orderType == 'Internal' ? order.table : '')
+      setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
+      setordertype(order.orderType)
+      setaddress(order.orderType == 'Delivery' ? order.address : "")
+      setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
+      if (order.orderType != 'Internal') {
         setname(order.name)
         setphone(order.phone)
       }
@@ -143,7 +143,7 @@ const Orders = () => {
 
   // Filter orders by order type
   const getOrdersByType = (type) => {
-    const orders = listOfOrders.filter((order) => order.order_type === type);
+    const orders = listOfOrders.filter((order) => order.orderType === type);
     setFilteredOrders(orders.reverse());
   };
 
@@ -268,7 +268,7 @@ const Orders = () => {
                                   : order.user ? usertitle(order.user)
                                     : order.createBy ? usertitle(order.createBy) : '--'}</td>
 
-                                <td>{order.order_type}</td>
+                                <td>{order.orderType}</td>
                                 <td>{order.total}</td>
                                 <td>{order.status}</td>
                                 <td>{usertitle(order.casher)}</td>
@@ -306,7 +306,7 @@ const Orders = () => {
                                   : order.user ? usertitle(order.user)
                                     : order.createBy ? usertitle(order.createBy) : '--'}</td>
 
-                                <td>{order.order_type}</td>
+                                <td>{order.orderType}</td>
                                 <td>{order.total}</td>
                                 <td>{order.status}</td>
                                 <td>{usertitle(order.casher)}</td>
