@@ -68,8 +68,9 @@ const POS = () => {
       toast.error('حدث خطأ اثناء جلب بيانات منطقه التوصيل! اعد تحميل الصفحة')
     }
   }
+
   useEffect(() => {
-    getAllDeliveryAreas
+    getAllDeliveryAreas()
   }, [])
   
 
