@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { detacontext } from '../../../../App'
 import { useReactToPrint } from 'react-to-print';
+import { toast } from 'bootstrap';
 import './POS.css'
 import { number } from 'joi';
 
