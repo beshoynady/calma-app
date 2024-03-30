@@ -48,8 +48,27 @@ const POS = () => {
     setadddiscount(false)
   }
 
-  // const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0)
+  const [areas, setAreas] = useState([]);
 
+  
+    const getAllDeliveryAreas= async()=>{
+    try {
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`)
+      const data = await response.data
+      console.log({ data })
+      if(data){
+        setAreas(data)
+      }else{
+        toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب بيانات منطقه التوصيل! اعد تحميل الصفحة')
+    }
+  }
+  useEffect(() => {
+    getAllDeliveryAreas
+  }, [])
+  
 
   return (
     <detacontext.Consumer>
