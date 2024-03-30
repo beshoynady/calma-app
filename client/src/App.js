@@ -1262,10 +1262,11 @@ const [clientInfo, setclientInfo] = useState({})
     }
   
     if (userToken) {
-      decodedToken = jwt_decode(userToken);
+      decodedToken = await jwt_decode(userToken);
       setUserLoginInfo(decodedToken);
-      console.log({ UserLoginInfo: decodedToken });
+      console.log({decodedToken});
       const userId = decodedToken.userInfo.id
+      console.log({ userId });
       const client = await axios.get(`${apiUrl}/user/${userId}`)
       console.log({ client });
       setclientInfo(client.data);
