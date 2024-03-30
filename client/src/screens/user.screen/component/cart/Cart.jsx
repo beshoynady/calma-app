@@ -243,10 +243,10 @@ const Cart = (props) => {
 
                         {/* Restaurant Information */}
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <p>{restaurantData&&restaurantData.name}</p>
-                          <p>موبايل: {console.log({"phone": restaurantData&&restaurantData})}</p>
-                          <p>موبايل: {restaurantData&&restaurantData.contact.phone[0]}</p>
-                          <p>العنوان: {restaurantData && `${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p>
+                          {/* <p>{restaurantData&&restaurantData.name}</p> */}
+                          <p>موبايل: {restaurantData&&console.log({"phone": restaurantData})}</p>
+                          {/* <p>موبايل: {restaurantData&&restaurantData.contact.phone[0]}</p>
+                          <p>العنوان: {restaurantData && `${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p> */}
                         </div>
 
                         {/* Footer */}
