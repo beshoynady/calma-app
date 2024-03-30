@@ -246,7 +246,7 @@ const OrderSchema = new mongoose.Schema({
         enum: ['Pending', 'Approved', 'Preparing', 'Prepared', 'On the way', 'Delivered', 'Cancelled'],
     },
     // Type of order (internal, delivery, takeout)
-    order_type: {
+    orderType: {
         type: String,
         enum: ['Internal', 'Delivery', 'Takeaway'],
         default: 'Internal',

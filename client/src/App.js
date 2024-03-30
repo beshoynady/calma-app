@@ -1750,7 +1750,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
     getAllTable();
     getAllUsers();
     getAllOrders()
-    getUserInfoFromToken()
+    // getUserInfoFromToken()
     // calcsubtotalSplitOrder()
     // Payment_pending_orders()
 

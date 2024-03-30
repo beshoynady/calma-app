@@ -33,7 +33,7 @@ const POS = () => {
   const [clientphone, setclientphone] = useState('')
   const [clientaddress, setclientaddress] = useState('')
   const [ordertype, setordertype] = useState('')
-  const [delivercost, setdelivercost] = useState(0)
+  const [deliverycost, setdeliverycost] = useState(0)
 
   const [adddiscount, setadddiscount] = useState(false)
   const [addaddition, setaddaddition] = useState(false)
@@ -55,7 +55,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
-          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder
+          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder , restaurantData
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -228,6 +228,18 @@ const POS = () => {
                                   <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
                                 </div>
                                 <div className="form-group w-100">
+                                  <select required onChange={(e) => setdeliverycost(e.target.value)}>
+                                    <option>اختر المنطقة</option>
+                                    {areas ? (
+                                      areas.map((area, i) => (
+                                        <option value={area.delivery_fee} key={i}>{area.name}</option>
+                                      ))
+                                    ) : (
+                                      <option>لا توجد مناطق توصيل متاحة</option>
+                                    )}
+                                  </select>
+                                </div>
+                                <div className="form-group w-100">
                                   <label htmlFor="address" className='w-40'>العنوان:</label>
                                   <textarea className="w-60 form-control" required onChange={(e) => setclientaddress(e.target.value)} />
                                 </div>
@@ -270,22 +282,22 @@ const POS = () => {
 
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                            <h2>Restaurant Name</h2>
-                            <p>Casher {usertitle(myOrder.casher)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |Date: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <h2>{restaurantData.name}</h2>
+                            <p>الكاشير: {usertitle(myOrder.casher)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
                           {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                            <h4>Customer Details</h4>
-                            <p>Name: {myOrder.name}</p>
-                            <p>Mobile: {myOrder.phone}</p>
-                            <p>Address: {myOrder.address}</p>
-                            <p>Delivery Man: {usertitle(myOrder.deliveryMan)}</p>
+                            <h4>بيانات العميل</h4>
+                            <p>الاسم: {myOrder.name}</p>
+                            <p>الموبايل: {myOrder.phone}</p>
+                            <p>العنوان: {myOrder.address}</p>
+                            <p>الديلفري مان: {usertitle(myOrder.deliveryMan)}</p>
                           </div> : myOrder.ordertype == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                              <h4>Customer Details</h4>
-                              <p>Name: {myOrder.name}</p>
-                              <p>Mobile: {myOrder.phone}</p>
-                              <p>order num: {myOrder.ordernum}</p>
+                              <h4>بيانات العميل</h4>
+                              <p>الاسم: {myOrder.name}</p>
+                              <p>الموبايل: {myOrder.phone}</p>
+                              <p>رقم الاوردر: {myOrder.ordernum}</p>
                             </div>
                             : ''}
 
@@ -340,14 +352,22 @@ const POS = () => {
                           </table>
 
                           <div className="text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                            <h4>Restaurant Details</h4>
-                            <p>Restaurant Name</p>
-                            <p>Mobile: 987-654-3210</p>
-                            <p>Address: 456 Street, City</p>
+                          {restaurantData && (
+                            <>
+                              <p>{restaurantData.name}</p>
+                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                              <p>العنوان: {restaurantData.address &&
+                              <>
+                              {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                              </> }
+                              </p>
+                            </>
+                          )}
                           </div>
 
                           <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                            <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
+                          <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                          <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                           </div>
                         </div>
                       </div>
@@ -458,17 +478,10 @@ const POS = () => {
                           </p>
 
                           {ordertype == 'Delivery' ?
-                            <form className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
-                              <label className="font-weight-bold">خدمة التوصيل:</label>
-                              <select id='table' className="w-40 form-control" required onChange={(e) => { setdelivercost(Number(e.target.value)) }}>
-                                <option>اختر</option>
-                                <option value='0'>0</option>
-                                <option value='5'>5</option>
-                                <option value='10'>10</option>
-                                <option value='15'>15</option>
-                                <option value='20'>20</option>
-                              </select>
-                            </form> : ""}
+                            <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
+                            <span className="font-weight-bold">خدمة التوصيل:</span>
+                            <span>{deliverycost > 0 ? deliverycost : 0}ج</span>
+                          </p> : ""}
                           {addaddition || addition > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">رسوم إضافية:</span>
@@ -483,7 +496,7 @@ const POS = () => {
                           }
                           <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                             <span className="font-weight-bold">الإجمالي:</span>
-                            <span>{costOrder > 0 ? costOrder + delivercost + addition - discount : 0}ج</span>
+                            <span>{costOrder > 0 ? costOrder + deliverycost + addition - discount : 0}ج</span>
                           </p>
                         </div>
                       </div>
@@ -513,7 +526,7 @@ const POS = () => {
                             <button type="button" className="btn btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, delivercost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                              <button type="button" className="btn btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
                                 <button type="button" className="btn btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
