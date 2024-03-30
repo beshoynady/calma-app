@@ -89,7 +89,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({restaurantData, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({ restaurantData, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -120,10 +120,10 @@ const Cart = (props) => {
                         orderside.current.style.marginRight = "-50%";
                         // ordersText.current.style.marginRight = "-50%";
                       }}>الفاتورة</label>
-                        :<label htmlFor="invoice-radio" className="slide invoice" onClick={() => {
+                        : <label htmlFor="invoice-radio" className="slide invoice" onClick={() => {
                           orderside.current.style.marginRight = "-50%";
                           // ordersText.current.style.marginRight = "-50%";
-                        }}>الفاتورة</label> }
+                        }}>الفاتورة</label>}
                     <div className="slider-tab">
 
                     </div>
@@ -131,12 +131,12 @@ const Cart = (props) => {
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
                       <div className='side-content'>
-                        {itemsInCart.length>0?itemsInCart.map((i, index) => {
+                        {itemsInCart.length > 0 ? itemsInCart.map((i, index) => {
                           return (
                             i.quantity > 0 ?
                               <div className="cart-item" key={index}>
                                 <div className="cart-img">
-                                  <img src={i.image?`${apiUrl}/images/${i.image}`:''} />
+                                  <img src={i.image ? `${apiUrl}/images/${i.image}` : ''} />
                                 </div>
                                 <div className='cart-det'>
                                   <div className="item-head">
@@ -157,7 +157,7 @@ const Cart = (props) => {
                               : ''
                           )
                         })
-                        :''}
+                          : ''}
                       </div>
                       <div className="total-order">
 
@@ -166,7 +166,7 @@ const Cart = (props) => {
                             {id ? (
                               <button className='total-order-btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id , )}>تأكيد الطلب</button>
+                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id,)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
@@ -177,7 +177,7 @@ const Cart = (props) => {
                       </div>
                     </div>
                     <div className="invoice side" >
-                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height:"80%", textAlign: 'center' }}>
+                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height: "80%", textAlign: 'center' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
@@ -185,21 +185,21 @@ const Cart = (props) => {
                         </div>
 
                         {/* Customer Information */}
-                        {myOrder.ordertype == 'Delivery' ? 
-                        <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                          <h4>بيانات العميل</h4>
-                          <p>الاسم: {myOrder.name}</p>
-                          <p>الموبايل: {myOrder.phone}</p>
-                          <p>العنوان: {myOrder.address}</p>
-                          <p>الديليفري: {usertitle(myOrder.deliveryMan)}</p>
-                        </div> : myOrder.ordertype == 'Takeaway' ?
-                          <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                        {myOrder.ordertype == 'Delivery' ?
+                          <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
-                            <p>رقم الاوردر: {myOrder.ordernum}</p>
-                          </div>
-                          : ''}
+                            <p>العنوان: {myOrder.address}</p>
+                            <p>الديليفري: {usertitle(myOrder.deliveryMan)}</p>
+                          </div> : myOrder.ordertype == 'Takeaway' ?
+                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                              <h4>بيانات العميل</h4>
+                              <p>الاسم: {myOrder.name}</p>
+                              <p>الموبايل: {myOrder.phone}</p>
+                              <p>رقم الاوردر: {myOrder.ordernum}</p>
+                            </div>
+                            : ''}
                         {/* Order Details Table */}
                         <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
                           <thead className="thead-dark">
@@ -212,7 +212,7 @@ const Cart = (props) => {
                           </thead>
                           <tbody>
                             {/* Replace this with your dynamic data */}
-                            {listProductsOrder&&listProductsOrder.map((item, i) => (
+                            {listProductsOrder && listProductsOrder.map((item, i) => (
                               <tr key={i}>
                                 <td className="col-md-3 text-truncate">{item.name}</td>
                                 <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -243,10 +243,13 @@ const Cart = (props) => {
 
                         {/* Restaurant Information */}
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          {/* <p>{restaurantData&&restaurantData.name}</p> */}
-                          <p>موبايل: {restaurantData&&console.log({"phone": restaurantData})}</p>
-                          {/* <p>موبايل: {restaurantData&&restaurantData.contact.phone[0]}</p>
-                          <p>العنوان: {restaurantData && `${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p> */}
+                          {restaurantData && (
+                            <>
+                              <p>{restaurantData.name}</p>
+                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                              <p>العنوان: {restaurantData.contact && restaurantData.contact.address && `${restaurantData.contact.address.state} ${restaurantData.contact.address.city} ${restaurantData.contact.address.street}`}</p>
+                            </>
+                          )}
                         </div>
 
                         {/* Footer */}
