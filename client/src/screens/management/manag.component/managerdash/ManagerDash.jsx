@@ -51,7 +51,7 @@ const ManagerDash = () => {
       const pendingOrders = orders.filter((order) => order.status === 'Pending');
       setpending_order(pendingOrders);
 
-      const pendingPayments = orders.filter((order) => order.payment_status === 'Pending' && order.status !== "Cancelled" );
+      const pendingPayments = orders.filter((order) => order.payment_status === 'Pending' && order.status !== "Cancelled");
       setpending_payment(pendingPayments.reverse());
 
       const today = new Date().toDateString();
@@ -353,53 +353,53 @@ const ManagerDash = () => {
   };
 
 
-const printContainerInvoice = useRef();
-const printContainerInvoiceSplit = useRef();
-const printContainerKitchen = useRef();
+  const printContainerInvoice = useRef();
+  const printContainerInvoiceSplit = useRef();
+  const printContainerKitchen = useRef();
 
-const PrintInvoice = useReactToPrint({
-  content: () => printContainerInvoice.current,
-  copyStyles: true,
-  removeAfterPrint: true,
-  bodyClass: 'printpage',
-  printerName: 'cashier'
-});
+  const PrintInvoice = useReactToPrint({
+    content: () => printContainerInvoice.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    printerName: 'cashier'
+  });
 
-const PrintInvoiceSplit = useReactToPrint({
-  content: () => printContainerInvoiceSplit.current,
-  copyStyles: true,
-  removeAfterPrint: true,
-  bodyClass: 'printpage',
-  printerName: 'cashier'
-});
+  const PrintInvoiceSplit = useReactToPrint({
+    content: () => printContainerInvoiceSplit.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    printerName: 'cashier'
+  });
 
-const PrintKitchen = useReactToPrint({
-  content: () => printContainerKitchen.current,
-  copyStyles: true,
-  removeAfterPrint: true,
-  bodyClass: 'printpage',
-  printerName: 'Kitchen'
+  const PrintKitchen = useReactToPrint({
+    content: () => printContainerKitchen.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    printerName: 'Kitchen'
 
-});
+  });
 
 
-const handlePrintInvoice = (e) => {
-  e.preventDefault();
-  PrintInvoice();
-  setisPrint(true);
-};
+  const handlePrintInvoice = (e) => {
+    e.preventDefault();
+    PrintInvoice();
+    setisPrint(true);
+  };
 
-const handlePrintInvoiceSplit = (e) => {
-  e.preventDefault();
-  PrintInvoiceSplit();
-  setisPrint(true);
-};
+  const handlePrintInvoiceSplit = (e) => {
+    e.preventDefault();
+    PrintInvoiceSplit();
+    setisPrint(true);
+  };
 
-const handlePrintKitchen = (e) => {
-  e.preventDefault();
-  PrintKitchen();
-  setisPrint(true);
-};
+  const handlePrintKitchen = (e) => {
+    e.preventDefault();
+    PrintKitchen();
+    setisPrint(true);
+  };
 
 
   // Function to format the date
@@ -537,7 +537,7 @@ const handlePrintKitchen = (e) => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({restaurantData, employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <section className='dashboard'>
               <div className='container'>
@@ -942,14 +942,22 @@ const handlePrintKitchen = (e) => {
 
                               {/* Restaurant Information */}
                               <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                <p>CALMA CAFE</p>
-                                <p>موبايل: 01144001433</p>
-                                <p>العنوان: بني سويف - الفشن -أخر شارع البحر الأعظم بجوار ماركت طيبة </p>
+                                {restaurantData && (
+                                  <>
+                                    <p>{restaurantData.name}</p>
+                                    <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                                    <p>العنوان: {restaurantData.address &&
+                                      <>
+                                        {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                                      </>}
+                                    </p>
+                                  </>
+                                )}
                               </div>
                               {/* Footer */}
                               <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                                <p>webapp: <span style={{ color: '#5a6268' }}>Smart Menu</span></p>
-                                <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
+                                <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                                <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                               </div>
                             </div>
                             <div className="modal-footer">
