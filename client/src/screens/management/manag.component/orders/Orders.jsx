@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App'
 import { useReactToPrint } from 'react-to-print';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const Orders = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const formatdate = (d) => {
     let date = new Date(d)
@@ -19,7 +19,7 @@ const Orders = () => {
   // Fetch orders from API
   const getOrders = async () => {
     try {
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ const Orders = () => {
   // Fetch orders from API
   const getProductsOrder = async (serial) => {
     try {
-      const res = await axios.get(apiUrl+'/api/order');
+      const res = await axios.get(apiUrl + '/api/order');
       const order = res.data.find(o => order.serial == serial)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
@@ -147,7 +147,7 @@ const Orders = () => {
     setFilteredOrders(orders.reverse());
   };
 
-  
+
 
   // Fetch orders on component mount
   useEffect(() => {
@@ -157,7 +157,7 @@ const Orders = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -262,7 +262,7 @@ const Orders = () => {
                                   </span>
                                 </td> */}
                                 <td>{i + 1}</td>
-                                <td>{order.serial}</td>
+                                <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getProductsOrder(order.serial)}>{order.serial}</a></td>
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
                                 <td>{order.table != null ? usertitle(order.table)
                                   : order.user ? usertitle(order.user)
@@ -350,23 +350,23 @@ const Orders = () => {
                       <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                          <h2>Restaurant Name</h2>
+                          <h2>{restaurantData.name}</h2>
                           <p>Casher {usertitle(casher)} |Invoice #{serial} |{ordertype == 'Internal' ? `Table ${usertitle(table)}` : ''} |Date: {new Date(ivocedate).toLocaleString('en-GB', { hour12: true })}</p>
                         </div>
 
                         {/* Customer Information */}
                         {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                          <h4>Customer Details</h4>
-                          <p>Name: {name}</p>
-                          <p>Mobile: {phone}</p>
-                          <p>Address: {address}</p>
-                          <p>Delivery Man: {deliveryMan}</p>
+                          <h4>بيانات العميل</h4>
+                          <p>الاسم: {name}</p>
+                          <p>الموبايل: {phone}</p>
+                          <p>العنوان: {address}</p>
+                          {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
                         </div> : ordertype == 'Takeaway' ?
                           <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                            <h4>Customer Details</h4>
-                            <p>Name: {name}</p>
-                            <p>Mobile: {phone}</p>
-                            <p>order num: {ordernum}</p>
+                            <h4>بيانات العميل</h4>
+                            <p>الاسم: {name}</p>
+                            <p>الموبايل: {phone}</p>
+                            <p>رقم الاوردر: {ordernum}</p>
                           </div>
                           : ''}
 
@@ -415,15 +415,23 @@ const Orders = () => {
 
                         {/* Restaurant Information */}
                         <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <h4>Restaurant Details</h4>
-                          <p>Restaurant Name</p>
-                          <p>Mobile: 987-654-3210</p>
-                          <p>Address: 456 Street, City</p>
+                          {restaurantData && (
+                            <>
+                              <p>{restaurantData.name}</p>
+                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                              <p>العنوان: {restaurantData.address &&
+                                <>
+                                  {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                                </>}
+                              </p>
+                            </>
+                          )}
                         </div>
 
                         {/* Footer */}
                         <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                          <p>Developed by: <span style={{ color: '#5a6268' }}>esyservice</span></p>
+                          <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                          <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                         </div>
                       </div>
                       <div className="modal-footer">
