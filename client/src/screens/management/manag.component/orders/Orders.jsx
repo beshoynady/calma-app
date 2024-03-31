@@ -397,15 +397,28 @@ const Orders = () => {
                               <td>{orderSubtotal}</td>
                             </tr>
                             {orderdeliveryCost > 0 && (
-                              <tr style={{ fontSize: '20px' }}>
+                              <tr>
                                 <td colSpan="3">خدمة التوصيل</td>
                                 <td>{orderdeliveryCost}</td>
                               </tr>
                             )}
-                            <tr style={{ fontSize: '20px' }}>
+                            {addition > 0 ?
+                              <tr>
+                                <td colSpan="3">رسوم اضافيه</td>
+                                <td>{addition}</td>
+                              </tr>
+                              : ''
+                            }
+                            {discount > 0 ?
+                              <tr>
+                                <td colSpan="3">خصم</td>
+                                <td>{discount}</td>
+                              </tr> : ''
+                            }
+                            {/* <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">الضريبه</td>
                               <td>{Math.round(ordertax * 100) / 100}</td>
-                            </tr>
+                            </tr> */}
                             <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">الاجمالي</td>
                               <td>{orderTotal}</td>
