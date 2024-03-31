@@ -164,7 +164,7 @@ const Orders = () => {
 
   // Fetch orders on component mount
   useEffect(() => {
-    getOrders();
+    getProductsOrder();
   }, []);
 
   return (
