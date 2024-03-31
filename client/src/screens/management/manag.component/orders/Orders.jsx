@@ -55,7 +55,7 @@ const Orders = () => {
   // Fetch orders from API
   const getProductsOrder = async (serial) => {
     try {
-      const res = await axios.get(apiUrl + '/api/order');
+      const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
