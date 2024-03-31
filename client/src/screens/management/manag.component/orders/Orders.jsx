@@ -53,7 +53,7 @@ const Orders = () => {
   const [ivocedate, setivocedate] = useState(new Date())
 
   // Fetch orders from API
-  const getOrderDetalis = async (serial) => {
+  const getProductsOrder = async (serial) => {
     try {
       const res = await axios.get(apiUrl + '/api/order');
       const order = res.data.find(o => o.serial == serial)
