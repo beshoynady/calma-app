@@ -57,25 +57,28 @@ const Orders = () => {
     try {
       const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
-      setlistProductsOrder(order.products)
-      setorderTotal(order.total)
-      setsubtotalSplitOrder(order.subtotalSplitOrder)
-      setorderSubtotal(order.subTotal)
-      setordertax(order.tax)
-      setorderdeliveryCost(order.deliveryCost)
-      setserial(order.serial)
-      setaddition(order.addition)
-      setdiscount(order.discount)
-      // setivocedate(order.createdAt)
-      setcasher(order.casher)
-      settable(order.orderType == 'Internal' ? order.table : '')
-      setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-      setordertype(order.orderType)
-      setaddress(order.orderType == 'Delivery' ? order.address : "")
-      setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
-      if (order.orderType != 'Internal') {
-        setname(order.name)
-        setphone(order.phone)
+      if (order) {
+
+        setlistProductsOrder(order.products)
+        setorderTotal(order.total)
+        setsubtotalSplitOrder(order.subtotalSplitOrder)
+        setorderSubtotal(order.subTotal)
+        setordertax(order.tax)
+        setorderdeliveryCost(order.deliveryCost)
+        setserial(order.serial)
+        setaddition(order.addition)
+        setdiscount(order.discount)
+        // setivocedate(order.createdAt)
+        setcasher(order.casher)
+        settable(order.orderType == 'Internal' ? order.table : '')
+        setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
+        setordertype(order.orderType)
+        setaddress(order.orderType == 'Delivery' ? order.address : "")
+        setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
+        if (order.orderType != 'Internal') {
+          setname(order.name)
+          setphone(order.phone)
+        }
       }
 
     } catch (error) {
@@ -164,7 +167,7 @@ const Orders = () => {
 
   // Fetch orders on component mount
   useEffect(() => {
-    getProductsOrder();
+    getOrders();
   }, []);
 
   return (
