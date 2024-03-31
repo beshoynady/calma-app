@@ -8,6 +8,12 @@ import { toast } from 'react-toastify';
 
 const Orders = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
   const formatdate = (d) => {
     let date = new Date(d)
@@ -19,7 +25,7 @@ const Orders = () => {
   // Fetch orders from API
   const getOrders = async () => {
     try {
-      const res = await axios.get(apiUrl + '/api/order');
+      const res = await axios.get(apiUrl + '/api/order', config);
       setlistOfOrders(res.data.reverse());
     } catch (error) {
       console.log(error);
@@ -35,25 +41,32 @@ const Orders = () => {
   const [ordertax, setordertax] = useState()
   const [orderTotal, setorderTotal] = useState()
   const [orderSubtotal, setorderSubtotal] = useState()
+  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState()
   const [orderdeliveryCost, setorderdeliveryCost] = useState()
   const [deliveryMan, setdeliveryMan] = useState()
   const [ordernum, setordernum] = useState()
   const [table, settable] = useState()
   const [casher, setcasher] = useState()
-  const [ivocedate, setivocedate] = useState('')
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
+
+  const [ivocedate, setivocedate] = useState(new Date())
 
   // Fetch orders from API
-  const getProductsOrder = async (serial) => {
+  const getOrderDetalis = async (serial) => {
     try {
       const res = await axios.get(apiUrl + '/api/order');
-      const order = res.data.find(o => order.serial == serial)
+      const order = res.data.find(o => o.serial == serial)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
+      setsubtotalSplitOrder(order.subtotalSplitOrder)
       setorderSubtotal(order.subTotal)
       setordertax(order.tax)
       setorderdeliveryCost(order.deliveryCost)
       setserial(order.serial)
-      setivocedate(order.createdAt)
+      setaddition(order.addition)
+      setdiscount(order.discount)
+      // setivocedate(order.createdAt)
       setcasher(order.casher)
       settable(order.orderType == 'Internal' ? order.table : '')
       setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
@@ -121,7 +134,7 @@ const Orders = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`);
+        await axios.delete(`${apiUrl}/api/order/${Id}`, config);
       }
       getOrders();
       toast.success('Selected orders deleted successfully');

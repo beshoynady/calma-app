@@ -11,7 +11,12 @@ import { useReactToPrint } from 'react-to-print';
 
 const ManagerDash = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   // useEffect(() => {
   //   const socket = io(apiUrl+'', { withCredentials: true });
 
@@ -126,16 +131,7 @@ const ManagerDash = () => {
 
   const fetchActiveEmployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('توكن غير متاح');
-      }
-      const response = await axios.get(apiUrl + '/api/employee', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/employee', config);
       const activeEmployees = response.data.filter((employee) => employee.isActive === true);
 
       const waiters = activeEmployees.filter((employee) => employee.role === 'waiter');
@@ -221,16 +217,7 @@ const ManagerDash = () => {
 
   const handleCashRegister = async (id) => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('توكن غير متاح');
-      }
-      const response = await axios.get(apiUrl + '/api/cashregister', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashregister', config);
       setAllCashRegisters(response.data.reverse());
       const data = response.data;
       const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
@@ -249,11 +236,6 @@ const ManagerDash = () => {
   const RevenueRecording = async (id, amount, description) => {
     handleCashRegister(id);
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('توكن غير متاح');
-      }
       if (cashRegister) {
         const updatedBalance = balance + amount;
         const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
@@ -262,18 +244,10 @@ const ManagerDash = () => {
           amount,
           type: 'Revenue',
           description,
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        },config);
         const updatecashRegister = await axios.put(`${apiUrl}/api/cashregister/${cashRegister}`, {
           balance: updatedBalance,
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        }, config);
         if (updatecashRegister) {
           setbalance(updatedBalance);
           fetchOrdersData()
@@ -323,7 +297,7 @@ const ManagerDash = () => {
   // Fetch orders from API
   const getOrderDetalis = async (serial) => {
     try {
-      const res = await axios.get(apiUrl + '/api/order');
+      const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
@@ -443,7 +417,7 @@ const ManagerDash = () => {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch order data by ID
-      const orderData = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`);
+      const orderData = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`, config);
       const products = await orderData.data.products;
       const aproveorder = "Approved"
 
@@ -513,7 +487,7 @@ const ManagerDash = () => {
       // Update order status or perform other tasks
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      const updateorder = await axios.put(`${apiUrl}/api/order/${kitchenOrder._id}`, { products: updateproducts, status: aproveorder, casher });
+      const updateorder = await axios.put(`${apiUrl}/api/order/${kitchenOrder._id}`, { products: updateproducts, status: aproveorder, casher }, config);
       if (updateorder.status === 200) {
         toast.success('تم ارسال الاوردر'); // Notifies success in completing order
         setkitchenOrder("")
