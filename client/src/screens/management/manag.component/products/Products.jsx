@@ -26,6 +26,9 @@ const Products = () => {
   const [hasSizes, setHasSizes] = useState(false);
   const [sizes, setsizes] = useState([]);
 
+  const handleCheckboxChange = (e) => {
+    setHasSizes(e.target.checked); // تحديث المتغير استنادًا إلى حالة الشيك بوكس
+  };
   const addSize = () => {
     setsizes(...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 })
   }
