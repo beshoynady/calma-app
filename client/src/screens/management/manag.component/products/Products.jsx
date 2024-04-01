@@ -129,11 +129,7 @@ const Products = () => {
           productcategoryid,
           productdiscount,
           avaliable,
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        }, config);
 
         console.log(response.data);
         if (response) {
@@ -154,7 +150,7 @@ const Products = () => {
     try {
       const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
-      // console.log(response.data)
+      console.log({products})
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
 
@@ -169,7 +165,7 @@ const Products = () => {
 
   const calcsalseofproducts = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/order');
+      const response = await axios.get(apiUrl + '/api/order', config);
 
       if (response.status === 200) {
         const allOrders = response.data;
@@ -231,7 +227,7 @@ const Products = () => {
   const deleteProduct = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/product/${productid}`);
+      const response = await axios.delete(`${apiUrl}/api/product/${productid}`, config);
       if (response) {
         console.log(response);
         getallproducts();
@@ -244,7 +240,7 @@ const Products = () => {
   const [listofcategories, setlistofcategories] = useState([])
   const getallCategories = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/category/');
+      const response = await axios.get(apiUrl + '/api/category/', config);
       const categories = await response.data;
       // console.log(response.data)
       setlistofcategories(categories)
