@@ -7,14 +7,32 @@ import { detacontext } from '../../../../App';
 
 const Products = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
 
   const [productname, setproductname] = useState("");
   const [productprice, setproductprice] = useState(0);
+  const [productdiscount, setproductdiscount] = useState(null)
   const [productdescription, setproductdescription] = useState("");
   const [productcategoryid, setproductcategoryid] = useState(null);
   const [avaliable, setavaliable] = useState();
   const [productimg, setproductimg] = useState("");
 
+  const [hasSizes, setHasSizes] = useState(false);
+  const [sizes, setsizes] = useState([]);
+
+  const addSize = () => {
+    setsizes(...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 })
+  }
+  const removeSize = (index) => {
+    const newsizes = sizes.filter((size, i) => i == index)
+    setsizes(newsizes)
+  }
 
   const createProduct = async (e) => {
     e.preventDefault();
@@ -26,14 +44,17 @@ const Products = () => {
       formdata.append('productdescription', productdescription);
       formdata.append('productcategoryid', productcategoryid);
       formdata.append('avaliable', avaliable);
-      formdata.append('image', productimg);
+      if (sizes.length > 0) {
+        formdata.append('sizes', sizes);
+      }
+      if (productdiscount > 0) {
+        const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
+        formdata.append('priceAfterDiscount', priceAfterDiscount);
+        formdata.append('productdiscount', productdiscount);
 
-      const token = localStorage.getItem('token_e');
-      const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      };
+      }
+
+      formdata.append('image', productimg);
 
       const response = await axios.post(apiUrl + '/api/product/', formdata, config);
 
@@ -75,13 +96,10 @@ const Products = () => {
   };
 
   const [productid, setproductid] = useState("")
-  const [productdiscount, setproductdiscount] = useState(null)
   const editProduct = async (e) => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-
       if (productimg) {
         console.log({ productimg })
         const formdata = new FormData();
@@ -93,11 +111,7 @@ const Products = () => {
         formdata.append('avaliable', avaliable);
         formdata.append('image', productimg);
 
-        const response = await axios.put(`${apiUrl}/api/product/${productid}`, formdata, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        const response = await axios.put(`${apiUrl}/api/product/${productid}`, formdata, config);
 
         console.log(response.data);
         if (response) {
@@ -311,14 +325,14 @@ const Products = () => {
                       <div className="row text-dark">
                         <div className="col-md-12">
                           {/* <div className="filter-group"> */}
-                            <label>عدد المبيعات في فتره محدده</label>
-                            <label>بداية التاريخ</label>
-                            <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                            <label>نهاية التاريخ</label>
-                            <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                            <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
-                              <i className="fa fa-search"></i> فلتر
-                            </button>
+                          <label>عدد المبيعات في فتره محدده</label>
+                          <label>بداية التاريخ</label>
+                          <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                          <label>نهاية التاريخ</label>
+                          <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                          <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
+                            <i className="fa fa-search"></i> فلتر
+                          </button>
                           {/* </div> */}
                         </div>
                       </div>
@@ -447,10 +461,6 @@ const Products = () => {
                           <textarea className="form-control" onChange={(e) => setproductdescription(e.target.value)}></textarea>
                         </div>
                         <div className="form-group">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
-                        </div>
-                        <div className="form-group">
                           <label>التصنيف</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setproductcategoryid(e.target.value)}>
                             <option defaultValue={productcategoryid}>اختر تصنيف</option>
@@ -460,6 +470,79 @@ const Products = () => {
                             }
                           </select>
                         </div>
+                        <div className="form-group">
+                          <label>أحجام المنتج</label>
+                          <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
+                        </div>
+                        {hasSizes ? (
+                          <div>
+                            {sizes.map((size, index) => (
+                              <div key={index}>
+                                <div className="form-group">
+                                  <label>اسم الحجم</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    value={size.sizeName}
+                                    onChange={(e) =>
+                                      setsizes((prevState) => {
+                                        const newSizes = [...prevState];
+                                        newSizes[index].sizeName = e.target.value;
+                                        return newSizes;
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label>السعر</label>
+                                  <input
+                                    type="number"
+                                    className="form-control"
+                                    value={size.sizePrice}
+                                    onChange={(e) =>
+                                      setsizes((prevState) => {
+                                        const newSizes = [...prevState];
+                                        newSizes[index].sizePrice = parseFloat(e.target.value);
+                                        return newSizes;
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label>التخفيض</label>
+                                  <input
+                                    type="number"
+                                    className="form-control"
+                                    value={size.sizeDiscount}
+                                    onChange={(e) =>
+                                      setsizes((prevState) => {
+                                        const newSizes = [...prevState];
+                                        newSizes[index].sizeDiscount = parseFloat(e.target.value);
+                                        return newSizes;
+                                      })
+                                    }
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <button type="button" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                </div>
+                              </div>
+                            ))}
+                            <button type="button" onClick={addSize}>إضافة حجم جديد</button>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="form-group">
+                              <label>السعر</label>
+                              <input type='Number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                              <label>التخفيض</label>
+                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                            </div>
+                          </>
+                        )
+                        }
                         <div className="form-group">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setavaliable(e.target.value)}>
@@ -500,14 +583,6 @@ const Products = () => {
                           <textarea className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                         </div>
                         <div className="form-group">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].price : ""} required onChange={(e) => setproductprice(e.target.value)} />
-                        </div>
-                        <div className="form-group">
-                          <label>التخفيض</label>
-                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
-                        </div>
-                        <div className="form-group">
                           <label>التصنيف</label>
                           <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
                             {listofcategories.map((category, i) => {
@@ -515,6 +590,14 @@ const Products = () => {
                             })
                             }
                           </select>
+                        </div>
+                        <div className="form-group">
+                          <label>السعر</label>
+                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].price : ""} required onChange={(e) => setproductprice(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                          <label>التخفيض</label>
+                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>متاح</label>

@@ -11,18 +11,58 @@ const productSchema = new mongoose.Schema(
       maxlength: [50, 'Name cannot exceed 50 characters'],
       minlength: [2, 'Name must have at least 2 characters'],
     },
-    totalcost: {
-      type: Number,
-      required: [true, 'Total cost is required'],
-      default: 0,
-    },
+
     description: {
       type: String,
       maxlength: [100, 'Description cannot exceed 100 characters'],
       minlength: [3, 'Description must have at least 3 characters'],
     },
+    sizes: [
+      {
+        sizeName: {
+          type: String,
+          trim: true,
+        },
+        sizeCost: {
+          type: Number,
+          required: [true, 'Total cost is required'],
+          default: 0,
+        },
+        sizePrice: {
+          type: Number,
+          required: [true, 'Price is required'],
+          max: [10000, 'Price cannot exceed 10000'],
+          min: [0, 'Price cannot be negative'],
+        },
+        sizeDiscount: {
+          type: Number,
+          required: [true, 'Discount is required'],
+          min: [0, 'Discount cannot be negative'],
+          default: 0,
+          validate: {
+            validator: function (v) {
+              return v >= 0;
+            },
+            message: props => `${props.value} is not a valid value for discount`,
+          },
+        },
+        sizePriceAfterDiscount: {
+          type: Number,
+          min: [0, 'Price after discount cannot be negative'],
+          default: 0,
+        },
+
+      }
+    ],
+
+    totalcost: {
+      type: Number,
+      required: [true, 'Total cost is required'],
+      default: 0,
+    },
     price: {
       type: Number,
+      default: 0,
       required: [true, 'Price is required'],
       max: [10000, 'Price cannot exceed 10000'],
       min: [0, 'Price cannot be negative'],
@@ -44,16 +84,14 @@ const productSchema = new mongoose.Schema(
       min: [0, 'Price after discount cannot be negative'],
       default: 0,
     },
+
+
     quantity: {
       type: Number,
       default: 0,
       required: [true, 'Quantity is required'],
     },
     numberofcomments: {
-      type: Number,
-      default: 0,
-    },
-    sales: {
       type: Number,
       default: 0,
     },
@@ -71,7 +109,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    avaliable:{
+    avaliable: {
       type: Boolean,
       default: true,
       required: true

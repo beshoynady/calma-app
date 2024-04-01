@@ -843,7 +843,7 @@ const ManagerDash = () => {
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>{restaurantData.name}</h2>
-                                <p>كاشير {usertitle(casher)} | فاتورة #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                                <p>كاشير {usertitle(casher)} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
                               {/* Customer Information */}

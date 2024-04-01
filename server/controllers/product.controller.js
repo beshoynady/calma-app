@@ -6,7 +6,7 @@ const ProductModel = require('../models/Product.model.js');
 // Create a new product
 const createProduct = async (req, res) => {
   try {
-    const { productname, productprice, productdescription, productcategoryid ,avaliable} = req.body;
+    const { productname, productprice, productdescription, productcategoryid ,avaliable ,sizes} = req.body;
     const image = req.file.filename;
 
     const newProduct = await ProductModel.create({
@@ -15,7 +15,8 @@ const createProduct = async (req, res) => {
       price: productprice,
       image: image,
       category: productcategoryid,
-      avaliable
+      avaliable,
+      sizes
     });
 
     res.status(200).json(newProduct);
@@ -24,27 +25,12 @@ const createProduct = async (req, res) => {
   }
 };
 
-// // Add a recipe to a product
-// const addRecipe = async (req, res) => {
-//   try {
-//     const productId = req.params.productid;
-//     const { Recipe, totalcost } = req.body;
 
-//     const productRecipe = await ProductModel.findByIdAndUpdate(
-//       { _id: productId },
-//       { Recipe, totalcost }
-//     );
-
-//     res.status(200).json({ Recipe: productRecipe });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
 
 // Retrieve all products
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await ProductModel.find({});
+    const allProducts = await ProductModel.find({}).populate('category');
     res.status(200).json(allProducts);
   } catch (err) {
     res.status(400).json(err);
@@ -55,7 +41,7 @@ const getAllProducts = async (req, res) => {
 const getProductByCategory = async (req, res) => {
   try {
     const categoryid = req.params.categoryid;
-    const products = await ProductModel.find({ category: categoryid });
+    const products = await ProductModel.find({ category: categoryid }).populate('category');
     res.status(200).json(products);
   } catch (err) {
     res.status(400).json(err);
@@ -66,7 +52,7 @@ const getProductByCategory = async (req, res) => {
 const getOneProduct = async (req, res) => {
   try {
     const productid = req.params.productid;
-    const product = await ProductModel.findById(productid);
+    const product = await ProductModel.findById(productid).populate('category');;
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
@@ -85,12 +71,13 @@ const updateProduct = async (req, res) => {
     const productid = req.params.productid;
     const {
       productname,
-      productprice,
       productdescription,
       productcategoryid,
+      productprice,
       productdiscount,
-      sales,
-      avaliable
+      priceAfterDiscount,
+      avaliable,
+      sizes
     } = req.body;
 
     if (req.file) {
@@ -103,8 +90,6 @@ const updateProduct = async (req, res) => {
         console.log('Old image deleted successfully');
       }
     }
-
-    const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
 
     const existingProduct = await ProductModel.findById(productid);
     if (!existingProduct) {
@@ -120,7 +105,7 @@ const updateProduct = async (req, res) => {
         category: productcategoryid,
         discount: productdiscount,
         priceAfterDiscount: priceAfterDiscount,
-        sales: sales,
+        sizes,
         // استخدم الاسم الجديد للصورة إذا كانت موجودة
         image: req.file ? req.file.filename : existingProduct.image,
         avaliable
@@ -148,8 +133,8 @@ const updateProductWithoutImage = async (req, res) => {
       productdescription,
       productcategoryid,
       productdiscount,
-      sales,
-      avaliable
+      avaliable,
+      sizes
     } = req.body;
 
     const priceAfterDiscount =productdiscount>0? productprice - productdiscount:0;
@@ -163,8 +148,8 @@ const updateProductWithoutImage = async (req, res) => {
         category: productcategoryid,
         discount: productdiscount,
         priceAfterDiscount: priceAfterDiscount,
-        sales: sales,
-        avaliable
+        avaliable,
+        sizes
       },
       { new: true }
     );
@@ -195,7 +180,6 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   createProduct,
-  // addRecipe,
   getAllProducts,
   getProductByCategory,
   getOneProduct,
