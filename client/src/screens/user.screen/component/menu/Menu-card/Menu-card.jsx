@@ -1,72 +1,72 @@
 import React, { useState } from 'react';
-import './Menu-card.css';
 import { detacontext } from '../../../../../App';
+import { Form, Button, Card, Col, Row } from 'react-bootstrap';
 
 const MenuCard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
   return (
     <detacontext.Consumer>
       {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
-
           return (
-            <div className="row row-cols-1 row-cols-md-2 g-4">
+            <Row xs={1} md={2} className="g-4">
               {allProducts.length > 0 && allProducts.filter(pro => pro.category === categoryid).map((product, index) => (
-                <div className="col" key={index}>
-                  <div className="card h-100">
-                    <img src={product.image ? `${apiUrl}/images/${product.image}` : ""} className="card-img-top img-card" alt="" />
-                    {product._id === productId && noteArea &&
-                      <form className="card-body" onSubmit={(e) => { addNoteToProduct(e, product._id); setNoteArea(!noteArea) }}>
-                        <textarea className="form-control" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setProductNote(e.target.value) }}></textarea>
+                <Col key={index}>
+                  <Card className="menu-card">
+                    <Card.Img variant="top" src={product.image ? `${apiUrl}/images/${product.image}` : ""} className='img-card' />
+                    {product._id === productid && noteArea && (
+                      <Form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
+                        <Form.Control as="textarea" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" rows="3" onChange={(e) => { setproductNote(e.target.value) }} />
                         <div className='note-btn'>
-                          <button type="submit" className="btn btn-primary">تاكيد</button>
-                          <button type="button" className="btn btn-secondary" onClick={() => setNoteArea(!noteArea)}>الغاء</button>
+                          <Button type="submit">تاكيد</Button>
+                          <Button onClick={() => setnoteArea(!noteArea)}>الغاء</Button>
                         </div>
-                      </form>
-                    }
+                      </Form>
+                    )}
 
-                    <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text">{product.description}</p>
-                    </div>
-
-                    <div className="card-footer">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="btn-group">
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => decrementProductQuantity(product._id)}>-</button>
-                          <span>{product.quantity}</span>
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => incrementProductQuantity(product._id)}>+</button>
+                    <Card.Body>
+                      <div className="detalis">
+                        <div className='product-det'>
+                          <div className='product-name'>
+                            <h2>{product.name}</h2>
+                            <span className="material-symbols-outlined" onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                          </div>
+                          <p>{product.description}</p>
                         </div>
-                        <div>
+                        <div className="price">
+                          <div className="counter">
+                            <Button className='symb' onClick={() => decrementProductQuantity(product._id)}>-</Button>
+                            <span className='num'>{product.quantity}</span>
+                            <Button className='symb' onClick={() => incrementProductQuantity(product._id)}>+</Button>
+                          </div>
                           {product.discount > 0 ?
-                            <p className="price"><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p> :
-                            <p className="price">{product.price} ج</p>}
+                            <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p> :
+                            <p>{product.price} ج</p>}
                         </div>
+                        {product.avaliable ?
+                          <div className='card-btn'>
+                            {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
+                              <Button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</Button>
+                              : <Button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</Button>
+                            }
+                          </div>
+                          : <div className='card-btn'>
+                            <Button type="button" className='btn btn-warning delfromcart'>غير متاح الآن</Button>
+                          </div>
+                        }
                       </div>
-
-                      {product.avaliable ?
-                        <div className='card-btn'>
-                          {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
-                            <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
-                            : <button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button>
-                          }
-                        </div>
-                        : <div className='card-btn'>
-                          <button type="button" className='btn btn-warning delfromcart'>غير متاح الآن</button>
-                        </div>
-                      }
-                    </div>
-                  </div>
-                </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
               ))}
-            </div>
+            </Row>
           )
-        }}
+        }
+      }
     </detacontext.Consumer>
   )
 }
 
-export default MenuCard;
+export default MenuCard
