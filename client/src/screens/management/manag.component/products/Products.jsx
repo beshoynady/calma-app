@@ -143,7 +143,8 @@ const Products = () => {
         requestBody.image = productimg;
       }
   
-  
+      console.log({requestBody})
+      
       // Perform the API request to update the product
       const response = requestBody.image ?
         await axios.put(`${apiUrl}/api/product/${productid}`, requestBody, config)
@@ -503,8 +504,8 @@ const Products = () => {
                           <div className="container">
                             {sizes.map((size, index) => (
                               <div key={index} className="row mb-3">
-                                <div className="col-md-6">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>اسم الحجم</label>
                                     <input
                                       type="text"
@@ -520,8 +521,8 @@ const Products = () => {
                                     />
                                   </div>
                                 </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>السعر</label>
                                     <div className="input-group">
                                       <input
@@ -542,8 +543,8 @@ const Products = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>التخفيض</label>
                                     <div className="input-group">
                                       <input
@@ -647,8 +648,8 @@ const Products = () => {
                           <div className="container">
                             {sizes.map((size, index) => (
                               <div key={index} className="row mb-3">
-                                <div className="col-md-6">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>اسم الحجم</label>
                                     <input
                                       type="text"
@@ -664,8 +665,8 @@ const Products = () => {
                                     />
                                   </div>
                                 </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>السعر</label>
                                     <div className="input-group">
                                       <input
@@ -686,8 +687,8 @@ const Products = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="col-md-3">
-                                  <div className="form-group">
+                                <div className="col-md-4">
+                                  <div className="form-group" style={{width:'95%'}}>
                                     <label>التخفيض</label>
                                     <div className="input-group">
                                       <input
