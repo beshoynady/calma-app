@@ -138,8 +138,9 @@ const updateProductWithoutImage = async (req, res) => {
       productdiscount,
       priceAfterDiscount,
       avaliable,
-      sizes
-    } = req.body;
+      hasSizes,
+      sizes,
+  } = req.body;
 
 
     const updatedProduct = await ProductModel.findByIdAndUpdate(
