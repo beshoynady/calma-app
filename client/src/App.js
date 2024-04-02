@@ -403,15 +403,19 @@ function App() {
   // add items to cart
   const [itemsInCart, setitemsInCart] = useState([])
 
-  const addItemToCart = (productId) => {
+  const addItemToCart = (productId, sizeId) => {
     try {
       console.log(productId);
 
       // Find the product to add to the cart
-      const cartItem = allProducts.filter(item => item._id === productId);
-
+      const cartItem = allProducts.filter(item => item._id === productId)[0];
+      
+      console.log({ cartItem });
       // Assign the product ID to the cart item
-      cartItem[0].productid = productId;
+      const sizes = cartItem.sizes.find(size => size._id === sizeId);
+      console.log({ sizes });
+
+      cartItem[0].sizes = sizes
 
       console.log({ cartItem });
 
