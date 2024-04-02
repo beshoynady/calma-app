@@ -64,17 +64,17 @@ const Products = () => {
         productcategoryid: productcategoryid,
         avaliable: avaliable
       };
-      
+
       if (sizes.length > 0) {
         requestBody.sizes = sizes;
       }
-      
+
       if (productdiscount > 0) {
         requestBody.productdiscount = productdiscount;
         const priceAfterDiscount = productprice - productdiscount;
         requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
       }
-      console.log({requestBody})
+      console.log({ requestBody })
 
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
 
@@ -491,61 +491,73 @@ const Products = () => {
                           <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                         </div>
                         {hasSizes ? (
-                          <div>
+                          <div className="container">
                             {sizes.map((size, index) => (
-                              <div key={index}>
-                                <div className="form-group">
-                                  <label>اسم الحجم</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    value={size.sizeName}
-                                    onChange={(e) =>
-                                      setsizes((prevState) => {
-                                        const newSizes = [...prevState];
-                                        newSizes[index].sizeName = e.target.value;
-                                        return newSizes;
-                                      })
-                                    }
-                                  />
+                              <div key={index} className="row mb-3">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label>اسم الحجم</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      value={size.sizeName}
+                                      onChange={(e) =>
+                                        setsizes((prevState) => {
+                                          const newSizes = [...prevState];
+                                          newSizes[index].sizeName = e.target.value;
+                                          return newSizes;
+                                        })
+                                      }
+                                    />
+                                  </div>
                                 </div>
-                                <div className="form-group">
-                                  <label>السعر</label>
-                                  <input
-                                    type="number"
-                                    className="form-control"
-                                    value={size.sizePrice}
-                                    onChange={(e) =>
-                                      setsizes((prevState) => {
-                                        const newSizes = [...prevState];
-                                        newSizes[index].sizePrice = parseFloat(e.target.value);
-                                        return newSizes;
-                                      })
-                                    }
-                                  />
+                                <div className="col-md-3">
+                                  <div className="form-group">
+                                    <label>السعر</label>
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      value={size.sizePrice}
+                                      onChange={(e) =>
+                                        setsizes((prevState) => {
+                                          const newSizes = [...prevState];
+                                          newSizes[index].sizePrice = parseFloat(e.target.value);
+                                          return newSizes;
+                                        })
+                                      }
+                                    />
+                                  </div>
                                 </div>
-                                <div className="form-group">
-                                  <label>التخفيض</label>
-                                  <input
-                                    type="number"
-                                    className="form-control"
-                                    value={size.sizeDiscount}
-                                    onChange={(e) =>
-                                      setsizes((prevState) => {
-                                        const newSizes = [...prevState];
-                                        newSizes[index].sizeDiscount = parseFloat(e.target.value);
-                                        return newSizes;
-                                      })
-                                    }
-                                  />
+                                <div className="col-md-3">
+                                  <div className="form-group">
+                                    <label>التخفيض</label>
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      value={size.sizeDiscount}
+                                      onChange={(e) =>
+                                        setsizes((prevState) => {
+                                          const newSizes = [...prevState];
+                                          newSizes[index].sizeDiscount = parseFloat(e.target.value);
+                                          newSizes[index].sizePriceAfterDiscount = newSizes[index].sizePrice - parseFloat(e.target.value);
+                                          return newSizes;
+                                        })
+                                      }
+                                    />
+                                  </div>
                                 </div>
-                                <div className="form-group">
-                                  <button type="button" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                <div className="col-md-12">
+                                  <button type="button" className="btn btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
                                 </div>
                               </div>
                             ))}
-                            <button type="button" onClick={addSize}>إضافة حجم جديد</button>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <button type="button" className="btn btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                              </div>
+                            </div>
                           </div>
+
                         ) : (
                           <>
                             <div className="form-group">
@@ -570,7 +582,7 @@ const Products = () => {
                         </div>
                         <div className="form-group">
                           <label>الصورة</label>
-                          <input type="file" className="form-control" required onChange={(e) => handleFileUpload(e)} />
+                          <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                         </div>
                       </div>
                       <div className="modal-footer">
