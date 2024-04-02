@@ -377,7 +377,7 @@ const Products = () => {
                                 <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
                                 <td>{p.description}</td>
-                                <td>{category.name}</td>
+                                <td>{p.category.name}</td>
                                 <td>{p.totalcost}</td>
                                 <td>{p.price}</td>
                                 <td>{p.discount}</td>
@@ -409,7 +409,7 @@ const Products = () => {
                                 <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
                                 <td>{p.name}</td>
                                 <td>{p.description}</td>
-                                <td>{category.name}</td>
+                                <td>{p.category.name}</td>
                                 <td>{p.totalcost}</td>
                                 <td>{p.price}</td>
                                 <td>{p.discount}</td>
