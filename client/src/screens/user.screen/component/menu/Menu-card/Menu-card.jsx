@@ -13,7 +13,7 @@ const MenuCard = () => {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
             <div className="card-group">
-              {allProducts.length > 0 ? allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
+              {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                 return (
                   <div className="menu-card" key={index}>
                     <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" />
