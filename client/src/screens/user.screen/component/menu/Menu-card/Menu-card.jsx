@@ -34,42 +34,45 @@ const MenuCard = () => {
                         </div>
                       </form> : ''}
 
-                      <div className="detalis">
-                        <div className='product-det'>
-                          <div className='product-name'>
-                            <h2>{product.name}</h2>
-                            <span className="material-symbols-outlined" onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                      <div className="container-fluid" style={{ width: "60%", height: "100%" }}>
+                        <div className="row">
+                          <div className="col">
+                            <div className="card">
+                              <div className="card-body">
+                                <h2 className="card-title">{product.name}</h2>
+                                <span className="material-symbols-outlined" onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                                <p className="card-text">{product.description}</p>
+                              </div>
+                            </div>
                           </div>
-                          <p>{product.description}</p>
                         </div>
-                        <div className='row' style={{height:"10px"}}>
+                        <div className="row">
                           {product.sizes.map(size => (
-                            <button key={size.sizeId} onClick={() => handleSizeClick(size)}>
-                              {size.sizeName}
-                            </button>
+                            <div className="col-auto" key={size.sizeId}>
+                              <button onClick={() => handleSizeClick(size)} className="btn btn-primary">{size.sizeName}</button>
+                            </div>
                           ))}
                         </div>
-                        <div className="price">
-                          <div className="counter">
-                            <button className='symb' onClick={() => decrementProductQuantity(product._id)}>-</button>
-                            <span className='num'>{product.quantity}</span>
-                            <button className='symb' onClick={() => incrementProductQuantity(product._id)}>+</button>
+                        <div className="row">
+                          <div className="col">
+                            <div className="counter">
+                              <button className='btn btn-secondary' onClick={() => decrementProductQuantity(product._id)}>-</button>
+                              <span className='num'>{product.quantity}</span>
+                              <button className='btn btn-secondary' onClick={() => incrementProductQuantity(product._id)}>+</button>
+                            </div>
+                            {product.discount > 0 ?
+                              <p className="price"><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p> :
+                              <p className="price">{product.price} ج</p>}
                           </div>
-                          {product.discount > 0 ?
-                            <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p> :
-                            <p>{product.price} ج</p>}
                         </div>
-                        {product.avaliable ?
-                          <div className='card-btn'>
-                            {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
-                              <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
-                              : <button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button>
+                        <div className="row">
+                          <div className="col">
+                            {product.avaliable ?
+                              <button type="button" className='btn btn-success' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button> :
+                              <button type="button" className='btn btn-warning'>غير متاح الآن</button>
                             }
                           </div>
-                          : <div className='card-btn'>
-                            <button type="button" className='btn btn-warning delfromcart'>غير متاح الآن</button>
-                          </div>
-                        }
+                        </div>
                       </div>
                     </div>
                   )
