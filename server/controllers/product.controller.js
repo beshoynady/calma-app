@@ -106,7 +106,7 @@ const updateProduct = async (req, res) => {
         price: productprice,
         category: productcategoryid,
         discount: productdiscount,
-        priceAfterDiscount: priceAfterDiscount,
+        priceAfterDiscount,
         hasSizes,
         sizes,
         // استخدم الاسم الجديد للصورة إذا كانت موجودة
@@ -136,11 +136,11 @@ const updateProductWithoutImage = async (req, res) => {
       productdescription,
       productcategoryid,
       productdiscount,
+      priceAfterDiscount,
       avaliable,
       sizes
     } = req.body;
 
-    const priceAfterDiscount =productdiscount>0? productprice - productdiscount:0;
 
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       { _id: productid },
@@ -150,9 +150,10 @@ const updateProductWithoutImage = async (req, res) => {
         price: productprice,
         category: productcategoryid,
         discount: productdiscount,
-        priceAfterDiscount: priceAfterDiscount,
+        priceAfterDiscount,
         avaliable,
-        sizes
+        hasSizes,
+        sizes,
       },
       { new: true }
     );
