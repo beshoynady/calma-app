@@ -41,25 +41,42 @@ const Products = () => {
     e.preventDefault();
 
     try {
-      const formdata = new FormData();
-      formdata.append('productname', productname);
-      formdata.append('productprice', productprice);
-      formdata.append('productdescription', productdescription);
-      formdata.append('productcategoryid', productcategoryid);
-      formdata.append('avaliable', avaliable);
+      // const formdata = new FormData();
+      // formdata.append('productname', productname);
+      // formdata.append('productprice', productprice);
+      // formdata.append('productdescription', productdescription);
+      // formdata.append('productcategoryid', productcategoryid);
+      // formdata.append('avaliable', avaliable);
+      // if (sizes.length > 0) {
+      //   formdata.append('sizes', sizes);
+      // }
+      // if (productdiscount > 0) {
+      //   formdata.append('productdiscount', productdiscount);
+      //   const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
+      //   formdata.append('priceAfterDiscount', priceAfterDiscount);
+      // }
+
+      // formdata.append('image', productimg);
+      const requestBody = {
+        productname: productname,
+        productprice: productprice,
+        productdescription: productdescription,
+        productcategoryid: productcategoryid,
+        avaliable: avaliable
+      };
+      
       if (sizes.length > 0) {
-        formdata.append('sizes', sizes);
+        requestBody.sizes = sizes;
       }
+      
       if (productdiscount > 0) {
-        formdata.append('productdiscount', productdiscount);
-        const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
-        formdata.append('priceAfterDiscount', priceAfterDiscount);
+        requestBody.productdiscount = productdiscount;
+        const priceAfterDiscount = productprice - productdiscount;
+        requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
       }
+      console.log({requestBody})
 
-      formdata.append('image', productimg);
-      console.log({formdata})
-
-      const response = await axios.post(apiUrl + '/api/product/', formdata, config);
+      const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
 
       if (response.status === 200) {
         getallproducts()
