@@ -30,11 +30,11 @@ const Products = () => {
     setHasSizes(e.target.checked); // تحديث المتغير استنادًا إلى حالة الشيك بوكس
   };
   const addSize = () => {
-    setsizes(...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 })
+    setsizes([...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 }])
   }
   const removeSize = (index) => {
-    const newsizes = sizes.filter((size, i) => i == index)
-    setsizes(newsizes)
+    const newsizes = sizes.filter((size, i) => i !== index)
+    setsizes([...newsizes])
   }
 
   const createProduct = async (e) => {
