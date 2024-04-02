@@ -6,7 +6,7 @@ const ProductModel = require('../models/Product.model.js');
 // Create a new product
 const createProduct = async (req, res) => {
   try {
-    const { productname, productprice, productdescription, productcategoryid ,avaliable ,sizes} = req.body;
+    const { productname, productprice, productdescription, productcategoryid ,avaliable ,hasSizes,sizes} = req.body;
     const image = req.file?req.file.filename: null;
 
     const newProduct = await ProductModel.create({
@@ -16,6 +16,7 @@ const createProduct = async (req, res) => {
       image: image,
       category: productcategoryid,
       avaliable,
+      hasSizes,
       sizes
     });
 
@@ -77,6 +78,7 @@ const updateProduct = async (req, res) => {
       productdiscount,
       priceAfterDiscount,
       avaliable,
+      hasSizes,
       sizes
     } = req.body;
 
@@ -105,6 +107,7 @@ const updateProduct = async (req, res) => {
         category: productcategoryid,
         discount: productdiscount,
         priceAfterDiscount: priceAfterDiscount,
+        hasSizes,
         sizes,
         // استخدم الاسم الجديد للصورة إذا كانت موجودة
         image: req.file ? req.file.filename : existingProduct.image,

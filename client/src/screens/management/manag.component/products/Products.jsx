@@ -41,38 +41,34 @@ const Products = () => {
     e.preventDefault();
 
     try {
-      // const formdata = new FormData();
-      // formdata.append('productname', productname);
-      // formdata.append('productprice', productprice);
-      // formdata.append('productdescription', productdescription);
-      // formdata.append('productcategoryid', productcategoryid);
-      // formdata.append('avaliable', avaliable);
-      // if (sizes.length > 0) {
-      //   formdata.append('sizes', sizes);
-      // }
-      // if (productdiscount > 0) {
-      //   formdata.append('productdiscount', productdiscount);
-      //   const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
-      //   formdata.append('priceAfterDiscount', priceAfterDiscount);
-      // }
-
-      // formdata.append('image', productimg);
+      // Prepare request body
       const requestBody = {
         productname: productname,
-        productprice: productprice,
         productdescription: productdescription,
         productcategoryid: productcategoryid,
-        avaliable: avaliable
+        avaliable: avaliable,
       };
-
-      if (sizes.length > 0) {
+  
+      // If product has sizes, include sizes in the request body
+      if (hasSizes) {
+        requestBody.hasSizes = hasSizes;
         requestBody.sizes = sizes;
+      }else {
+        requestBody.productprice = productprice
+        // If product has discount, include discount details in the request body
+        if (productdiscount > 0) {
+          requestBody.productdiscount = productdiscount;
+          const priceAfterDiscount = productprice - productdiscount;
+          requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
+        }
       }
 
-      if (productdiscount > 0) {
-        requestBody.productdiscount = productdiscount;
-        const priceAfterDiscount = productprice - productdiscount;
-        requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
+
+      if (productimg) {
+        requestBody.image = productimg;
+      }else{
+        toast.error('يجب اضافه صوره للمنتج')
+        return 
       }
       console.log({ requestBody })
 
@@ -81,12 +77,12 @@ const Products = () => {
       if (response.status === 200) {
         getallproducts()
         console.log(response.data);
-        toast.success("Product created successfully.");
+        toast.success("تم انشاء المنتج بنجاح.");
       } else {
-        throw new Error("Failed to create product.");
+        throw new Error("فشل اضافه المنتج للقائمه !حاول مره اخري.");
       }
     } catch (error) {
-      console.error("Error occurred while creating product:", error);
+      console.error("حدث خطأ اثناء اضافه المنتج !حاول مره اخري:", error);
 
       // Display error toast notification
       toast.error("Failed to create product. Please try again later.", {
@@ -118,44 +114,57 @@ const Products = () => {
   const [productid, setproductid] = useState("")
   const editProduct = async (e) => {
     e.preventDefault();
-
+  
     try {
-      if (productimg) {
-        console.log({ productimg })
-        const formdata = new FormData();
-        formdata.append('productname', productname);
-        formdata.append('productprice', productprice);
-        formdata.append('productdescription', productdescription);
-        formdata.append('productcategoryid', productcategoryid);
-        formdata.append('productdiscount', productdiscount);
-        formdata.append('avaliable', avaliable);
-        formdata.append('image', productimg);
-
-        const response = await axios.put(`${apiUrl}/api/product/${productid}`, formdata, config);
-
-        console.log(response.data);
-        if (response) {
-          getallCategories();
-          getallproducts();
-        }
-      } else {
-        const response = await axios.put(`${apiUrl}/api/product/withoutimage/${productid}`, {
-          productname,
-          productprice,
-          productdescription,
-          productcategoryid,
-          productdiscount,
-          avaliable,
-        }, config);
-
-        console.log(response.data);
-        if (response) {
-          getallCategories();
-          getallproducts();
+      // Prepare request body
+      const requestBody = {
+        productname: productname,
+        productdescription: productdescription,
+        productcategoryid: productcategoryid,
+        avaliable: avaliable,
+      };
+  
+      // If product has sizes, include sizes in the request body
+      if (hasSizes) {
+        requestBody.hasSizes = hasSizes;
+        requestBody.sizes = sizes;
+      }else {
+        requestBody.productprice = productprice
+        // If product has discount, include discount details in the request body
+        if (productdiscount > 0) {
+          requestBody.productdiscount = productdiscount;
+          const priceAfterDiscount = productprice - productdiscount;
+          requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
         }
       }
+
+
+      if (productimg) {
+        requestBody.image = productimg;
+      }
+  
+  
+      // Perform the API request to update the product
+      const response = requestBody.image ?
+        await axios.put(`${apiUrl}/api/product/${productid}`, requestBody, config)
+        : await axios.put(`${apiUrl}/api/product/withoutimage/${productid}`, requestBody, config);
+  
+      // Handle successful response
+      console.log(response.data);
+      if (response) {
+        // Refresh categories and products after successful update
+        getallCategories();
+        getallproducts();
+  
+        // Show success toast
+        toast.success('تم تحديث المنتج بنجاح.');
+      }
     } catch (error) {
+      // Handle errors
       console.log(error);
+  
+      // Show error toast
+      toast.error('حدث خطأ أثناء تحديث المنتج. الرجاء المحاولة مرة أخرى.');
     }
   };
 
@@ -167,10 +176,10 @@ const Products = () => {
     try {
       const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
-      console.log({ products })
-      setlistofProducts(products.reverse())
-      // console.log(listofProducts)
-
+      if (products) {
+        console.log({ products })
+        setlistofProducts(products.reverse())
+      }
     } catch (error) {
       console.log(error)
     }
@@ -402,7 +411,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable); setsizes(p.sizes), setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
 
@@ -434,7 +443,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable); setsizes(p.sizes), setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -514,36 +523,46 @@ const Products = () => {
                                 <div className="col-md-3">
                                   <div className="form-group">
                                     <label>السعر</label>
-                                    <input
-                                      type="number"
-                                      className="form-control"
-                                      value={size.sizePrice}
-                                      onChange={(e) =>
-                                        setsizes((prevState) => {
-                                          const newSizes = [...prevState];
-                                          newSizes[index].sizePrice = parseFloat(e.target.value);
-                                          return newSizes;
-                                        })
-                                      }
-                                    />
+                                    <div className="input-group">
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        value={size.sizePrice}
+                                        onChange={(e) =>
+                                          setsizes((prevState) => {
+                                            const newSizes = [...prevState];
+                                            newSizes[index].sizePrice = parseFloat(e.target.value);
+                                            return newSizes;
+                                          })
+                                        }
+                                      />
+                                      <div className="input-group-prepend">
+                                        <span className="input-group-text">جنية</span>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="col-md-3">
                                   <div className="form-group">
                                     <label>التخفيض</label>
-                                    <input
-                                      type="number"
-                                      className="form-control"
-                                      value={size.sizeDiscount}
-                                      onChange={(e) =>
-                                        setsizes((prevState) => {
-                                          const newSizes = [...prevState];
-                                          newSizes[index].sizeDiscount = parseFloat(e.target.value);
-                                          newSizes[index].sizePriceAfterDiscount = newSizes[index].sizePrice - parseFloat(e.target.value);
-                                          return newSizes;
-                                        })
-                                      }
-                                    />
+                                    <div className="input-group">
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        value={size.sizeDiscount}
+                                        onChange={(e) =>
+                                          setsizes((prevState) => {
+                                            const newSizes = [...prevState];
+                                            newSizes[index].sizeDiscount = parseFloat(e.target.value);
+                                            newSizes[index].sizePriceAfterDiscount = newSizes[index].sizePrice - parseFloat(e.target.value);
+                                            return newSizes;
+                                          })
+                                        }
+                                      />
+                                      <div className="input-group-prepend">
+                                        <span className="input-group-text">جنية</span>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="col-md-12">
@@ -551,6 +570,7 @@ const Products = () => {
                                 </div>
                               </div>
                             ))}
+
                             <div className="row">
                               <div className="col-md-12">
                                 <button type="button" className="btn btn-primary" onClick={addSize}>إضافة حجم جديد</button>
@@ -620,13 +640,101 @@ const Products = () => {
                           </select>
                         </div>
                         <div className="form-group">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].price : ""} required onChange={(e) => setproductprice(e.target.value)} />
+                          <label>أحجام المنتج</label>
+                          <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                         </div>
-                        <div className="form-group">
-                          <label>التخفيض</label>
-                          <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
-                        </div>
+                        {hasSizes ? (
+                          <div className="container">
+                            {sizes.map((size, index) => (
+                              <div key={index} className="row mb-3">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label>اسم الحجم</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      value={size.sizeName}
+                                      onChange={(e) =>
+                                        setsizes((prevState) => {
+                                          const newSizes = [...prevState];
+                                          newSizes[index].sizeName = e.target.value;
+                                          return newSizes;
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <div className="col-md-3">
+                                  <div className="form-group">
+                                    <label>السعر</label>
+                                    <div className="input-group">
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        value={size.sizePrice}
+                                        onChange={(e) =>
+                                          setsizes((prevState) => {
+                                            const newSizes = [...prevState];
+                                            newSizes[index].sizePrice = parseFloat(e.target.value);
+                                            return newSizes;
+                                          })
+                                        }
+                                      />
+                                      <div className="input-group-prepend">
+                                        <span className="input-group-text">جنية</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-md-3">
+                                  <div className="form-group">
+                                    <label>التخفيض</label>
+                                    <div className="input-group">
+                                      <input
+                                        type="number"
+                                        className="form-control"
+                                        value={size.sizeDiscount}
+                                        onChange={(e) =>
+                                          setsizes((prevState) => {
+                                            const newSizes = [...prevState];
+                                            newSizes[index].sizeDiscount = parseFloat(e.target.value);
+                                            newSizes[index].sizePriceAfterDiscount = newSizes[index].sizePrice - parseFloat(e.target.value);
+                                            return newSizes;
+                                          })
+                                        }
+                                      />
+                                      <div className="input-group-prepend">
+                                        <span className="input-group-text">جنية</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-md-12">
+                                  <button type="button" className="btn btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                </div>
+                              </div>
+                            ))}
+
+                            <div className="row">
+                              <div className="col-md-12">
+                                <button type="button" className="btn btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                              </div>
+                            </div>
+                          </div>
+
+                        ) : (
+                          <>
+                            <div className="form-group">
+                              <label>السعر</label>
+                              <input type='Number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                              <label>التخفيض</label>
+                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                            </div>
+                          </>
+                        )
+                        }
                         <div className="form-group">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setavaliable(e.target.value)}>

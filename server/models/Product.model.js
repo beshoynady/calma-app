@@ -17,6 +17,11 @@ const productSchema = new mongoose.Schema(
       maxlength: [100, 'Description cannot exceed 100 characters'],
       minlength: [3, 'Description must have at least 3 characters'],
     },
+    hasSizes:{
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     sizes: [
       {
         sizeName: {
