@@ -13,11 +13,11 @@ const createProduct = async (req, res) => {
       name: productname,
       description: productdescription,
       price: productprice,
-      image: image,
       category: productcategoryid,
       avaliable,
       hasSizes,
-      sizes
+      sizes,
+      image
     });
 
     res.status(200).json(newProduct);

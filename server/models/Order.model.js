@@ -46,6 +46,10 @@ const OrderSchema = new mongoose.Schema({
                 required: true,
                 trim: true,
             },
+            size : {
+                type: String,
+                trim: true,
+            },
             // Quantity of the product
             quantity: {
                 ...defaultOptions,
