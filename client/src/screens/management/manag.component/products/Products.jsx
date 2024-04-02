@@ -27,7 +27,7 @@ const Products = () => {
   const [sizes, setsizes] = useState([]);
 
   const handleCheckboxChange = (e) => {
-    setHasSizes(e.target.checked); // تحديث المتغير استنادًا إلى حالة الشيك بوكس
+    setHasSizes(e.target.checked);
   };
   const addSize = () => {
     setsizes([...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 }])
@@ -51,13 +51,13 @@ const Products = () => {
         formdata.append('sizes', sizes);
       }
       if (productdiscount > 0) {
+        formdata.append('productdiscount', productdiscount);
         const priceAfterDiscount = productdiscount > 0 ? productprice - productdiscount : 0;
         formdata.append('priceAfterDiscount', priceAfterDiscount);
-        formdata.append('productdiscount', productdiscount);
-
       }
 
       formdata.append('image', productimg);
+      console.log({formdata})
 
       const response = await axios.post(apiUrl + '/api/product/', formdata, config);
 
@@ -150,7 +150,7 @@ const Products = () => {
     try {
       const response = await axios.get(apiUrl + '/api/product/');
       const products = await response.data;
-      console.log({products})
+      console.log({ products })
       setlistofProducts(products.reverse())
       // console.log(listofProducts)
 

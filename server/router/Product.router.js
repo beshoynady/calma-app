@@ -97,7 +97,8 @@ const router = express.Router();
 // router.use(verifyJWT)
 
 router.route('/')
-  .post(authenticateToken, upload.single("image"), createProduct)
+  // .post(authenticateToken, upload.single("image"), createProduct)
+  .post(authenticateToken, createProduct)
   .get(getAllProducts);
 
 router.route('/getproductbycategory/:categoryid').get(getProductByCategory)

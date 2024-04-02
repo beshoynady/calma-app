@@ -7,7 +7,7 @@ const ProductModel = require('../models/Product.model.js');
 const createProduct = async (req, res) => {
   try {
     const { productname, productprice, productdescription, productcategoryid ,avaliable ,sizes} = req.body;
-    const image = req.file.filename;
+    const image = req.file?req.file.filename: null;
 
     const newProduct = await ProductModel.create({
       name: productname,
