@@ -11,7 +11,7 @@ const MenuCard = () => {
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
   const handleSizeClick = (size) => {
-    setsize(size.sizeName)
+    setsizeId(size.sizeName)
     setsizePrice(size.sizePrice);
     if (size.sizeDiscount > 0) {
       setsizePriceAfterDescount(size.sizePriceAfterDiscount);
