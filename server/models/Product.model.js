@@ -33,6 +33,11 @@ const productSchema = new mongoose.Schema(
           required: [true, 'Total cost is required'],
           default: 0,
         },
+        sizeQuantity:{
+          type: Number,
+          default: 0,
+          required: true
+        },
         sizePrice: {
           type: Number,
           required: [true, 'Price is required'],
@@ -83,6 +88,11 @@ const productSchema = new mongoose.Schema(
         },
         message: props => `${props.value} is not a valid value for discount`,
       },
+    },
+    quantity:{
+      type: Number,
+      default: 0,
+      required: true
     },
     priceAfterDiscount: {
       type: Number,

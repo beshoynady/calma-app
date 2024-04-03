@@ -323,7 +323,7 @@ function App() {
 
   const [count, setcount] = useState(0)
 
-  const incrementProductQuantity = (productId) => {
+  const incrementProductQuantity = (productId, sizeId) => {
     try {
       // incrementProductQuantity the count state
       setcount(count + 1);
@@ -337,8 +337,18 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      // incrementProductQuantity the quantity of the found product
-      findProduct.quantity += 1;
+      if(sizeId){
+        findProduct.sizes.map(size => {
+          if(size._id === sizeId){
+            // incrementProductQuantity the quantity of the found product
+            size.sizeQuantity += 1;
+          }})
+
+      }else {
+        // incrementProductQuantity the quantity of the found product
+        findProduct.quantity += 1;
+
+      }
 
       console.log(findProduct);
     } catch (error) {
@@ -470,9 +480,9 @@ function App() {
 
       console.log({ newItem });
       // Check if the cart is not empty
-      if (itemsInCart.length > 0) {
+      if  (Array.isArray(itemsInCart) && itemsInCart.length > 0){
         // Check if the item is already in the cart
-        const repeatedItem = itemsInCart.filter(item => item._id === productId);
+        const repeatedItem = itemsInCart.filter(item => item._id === productId );
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
           setitemsInCart([...itemsInCart, ...newItem]);
