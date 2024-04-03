@@ -449,17 +449,17 @@ function App() {
       }
 
       const newItem = {
-        productid: cartItem._id,
+        'productid': cartItem._id,
         // Product name
-        name: cartItem.name,
-        size : size? size.sizeName: '',
+        'name': cartItem.name,
+        'size' : size? size.sizeName: '',
         // Quantity of the product
-        quantity: cartItem.quantity,
+        'quantity': cartItem.quantity,
         // Notes for the product
-        notes: cartItem.notes,
+        'notes': cartItem.notes,
         // Price of the product
-        price: size? size.sizePrice: cartItem.price,
-        priceAfterDiscount: size? size.sizePriceAfterDiscount: cartItem.priceAfterDiscount,
+        'price': size? size.sizePrice: cartItem.price,
+        'priceAfterDiscount': size? size.sizePriceAfterDiscount: cartItem.priceAfterDiscount,
     }
 
     console.log({ newItem });
@@ -1826,7 +1826,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
       getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
 
       // Functions related to creating different types of orders
-      checkout, calcTotalSalesOfCategory, updatecountofsales,
+      checkout, calcTotalSalesOfCategory,
       createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
 
       // Functions related to pagination
