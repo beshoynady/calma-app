@@ -436,7 +436,7 @@ function App() {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
-            if (size.sizeQuantity < 1) {
+            if (size.sizeQuantity < 2) {
               size.sizeQuantity = 0;
               findProduct.notes = '';
               deleteItemFromCart(productId, sizeId);
@@ -449,7 +449,7 @@ function App() {
         itemsInCart.map(item => {
           if (item.productid === productId) {
             // incrementProductQuantity the quantity of the found product
-            if (item.quantity < 1) {
+            if (item.quantity < 2) {
               item.quantity = 0;
               findProduct.notes = '';
               deleteItemFromCart(productId, sizeId);
@@ -460,7 +460,7 @@ function App() {
         })
       } else {
         // incrementProductQuantity the quantity of the found product
-        if (findProduct.quantity < 1) {
+        if (findProduct.quantity < 2) {
           findProduct.quantity = 0;
           findProduct.notes = '';
           deleteItemFromCart(productId);
@@ -592,12 +592,12 @@ function App() {
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
           setitemsInCart([...itemsInCart, newItem]);
-          setitemId([...itemId, sizeId?sizeId:productId]);
+          setitemId([...itemId, sizeId ? sizeId : productId]);
         }
       } else {
         // Add the item to the cart if the cart is empty
         setitemsInCart([newItem]);
-        setitemId([sizeId?sizeId:productId]);
+        setitemId([sizeId ? sizeId : productId]);
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
@@ -609,7 +609,7 @@ function App() {
 
   // delete item from cart by id
 
-  const resetProductQuantityAndNotes = (productId , sizeId) => {
+  const resetProductQuantityAndNotes = (productId, sizeId) => {
     try {
       // Find the product either in the order or in all products
       const productToUpdate = productOrderToUpdate.length > 0 ?
@@ -620,10 +620,10 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      if(sizeId){
-        productToUpdate.sizes.filter(size => size._id === sizeId)[0].sizeQuantity  = 0
+      if (sizeId) {
+        productToUpdate.sizes.filter(size => size._id === sizeId)[0].sizeQuantity = 0
       }
-      console.log({productToUpdate})
+      console.log({ productToUpdate })
       // Reset the quantity and notes of the found product to zero
       productToUpdate.quantity = 0;
       productToUpdate.notes = '';
@@ -641,12 +641,12 @@ function App() {
         console.log({ itemsInCart })
         // Determine which list to operate on based on the presence of items in productOrderToUpdate
         const updatedList = productOrderToUpdate.length > 0 ?
-        productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
-        itemsInCart.filter(item => item.sizeId !== sizeId);
-        
+          productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
+          itemsInCart.filter(item => item.sizeId !== sizeId);
+
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
-        
+
         console.log({ updatedItemId })
         console.log({ itemsInCart })
         // Update the state based on the list being modified
@@ -658,7 +658,7 @@ function App() {
         }
 
         // Reset the quantity and notes of the deleted item
-        resetProductQuantityAndNotes(id ,sizeId);
+        resetProductQuantityAndNotes(id, sizeId);
       } else {
 
         console.log({ itemsInCart })
@@ -679,7 +679,7 @@ function App() {
         }
 
         // Reset the quantity and notes of the deleted item
-        resetProductQuantityAndNotes(id ,sizeId);
+        resetProductQuantityAndNotes(id, sizeId);
       }
     } catch (error) {
       console.error('Error deleting item:', error.message);
