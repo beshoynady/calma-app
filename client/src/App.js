@@ -609,7 +609,7 @@ function App() {
 
   // delete item from cart by id
 
-  const resetProductQuantityAndNotes = (productId) => {
+  const resetProductQuantityAndNotes = (productId , sizeId) => {
     try {
       // Find the product either in the order or in all products
       const productToUpdate = productOrderToUpdate.length > 0 ?
@@ -620,6 +620,9 @@ function App() {
         throw new Error('Product not found.');
       }
 
+      if(sizeId){
+        productToUpdate.sizes.filter(size => size._id === sizeId).sizeQuantity  = 0
+      }
       // Reset the quantity and notes of the found product to zero
       productToUpdate.quantity = 0;
       productToUpdate.notes = '';
@@ -654,7 +657,7 @@ function App() {
         }
 
         // Reset the quantity and notes of the deleted item
-        resetProductQuantityAndNotes(id);
+        resetProductQuantityAndNotes(id ,sizeId);
       } else {
 
         console.log({ itemsInCart })
@@ -675,7 +678,7 @@ function App() {
         }
 
         // Reset the quantity and notes of the deleted item
-        resetProductQuantityAndNotes(id);
+        resetProductQuantityAndNotes(id ,sizeId);
       }
     } catch (error) {
       console.error('Error deleting item:', error.message);
