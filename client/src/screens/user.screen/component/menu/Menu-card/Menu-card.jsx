@@ -55,7 +55,8 @@ const MenuCard = () => {
                         <div className="price">
                           <div className="counter">
                             <button className='symb' onClick={() => {decrementProductQuantity(product._id, sizeId) ; setsizeQuantity(sizeQuantity-1)}}>-</button>
-                            <span className='num'>{sizeQuantity}</span>
+                            
+                            <span className='num'>{product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity}</span>
                             <button className='symb' onClick={() =>{ incrementProductQuantity(product._id , sizeId) ; setsizeQuantity(sizeQuantity+1) }}>+</button>
                           </div>
                           {sizePriceAfterDescount > 0 ?
