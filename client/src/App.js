@@ -461,7 +461,7 @@ function App() {
         name: cartItem.name,
         size: "",
         // Quantity of the product
-        quantity: cartItem.quantity,
+        quantity: 0,
         // Notes for the product
         notes: cartItem.notes,
         // Price of the product
@@ -472,9 +472,15 @@ function App() {
         const size = cartItem.sizes.find(size => size._id === sizeId);
         if (size) {
           newItem.size = size.sizeName;
+          newItem.quantity = size.sizeQuantity;
           newItem.price = size.sizePrice;
           newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
         }
+      }else{
+        newItem.quantity = cartItem.quantity;
+        newItem.price = cartItem.price;
+        newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
+
       }
 
 
