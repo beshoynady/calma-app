@@ -337,19 +337,20 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      if(sizeId){
+      if (sizeId) {
         findProduct.sizes.map(size => {
-          if(size._id === sizeId){
+          if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
             size.sizeQuantity += 1;
-          }})
+          }
+        })
 
-      }else {
+      } else {
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
       }
 
-      console.log(findProduct);
+      // console.log(findProduct);
     } catch (error) {
       console.error('Error incrementing product quantity:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.
@@ -366,36 +367,38 @@ function App() {
         productOrderToUpdate.find(product => product._id === productId) :
         allProducts.find(product => product._id === productId);
 
+      console.log({ findProduct })
       if (!findProduct) {
         throw new Error('Product not found.');
       }
 
-      if(sizeId){
+      if (sizeId) {
         findProduct.sizes.map(size => {
-          if(size._id === sizeId){
+          if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
-            if (findProduct.size.sizeQuantity < 1) {
-              findProduct.size.sizeQuantity = 0;
+            if (size.sizeQuantity < 1) {
+              size.sizeQuantity = 0;
               findProduct.notes = '';
               deleteItemFromCart(productId);
             } else {
-              findProduct.size.sizeQuantity -= 1;
+              size.sizeQuantity -= 1;
             }
-          }})
+          }
+        })
 
-      }else {
-        // incrementProductQuantity the quantity of the found product
-      if (findProduct.quantity < 1) {
-        findProduct.quantity = 0;
-        findProduct.notes = '';
-        deleteItemFromCart(productId);
       } else {
-        findProduct.quantity -= 1;
-      }
+        // incrementProductQuantity the quantity of the found product
+        if (findProduct.quantity < 1) {
+          findProduct.quantity = 0;
+          findProduct.notes = '';
+          deleteItemFromCart(productId);
+        } else {
+          findProduct.quantity -= 1;
+        }
 
       }
 
-      
+
     } catch (error) {
       console.error('Error decrementing product quantity:', error.message);
     }
@@ -494,7 +497,7 @@ function App() {
           newItem.price = size.sizePrice;
           newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
         }
-      }else{
+      } else {
         newItem.quantity = cartItem.quantity;
         newItem.price = cartItem.price;
         newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
@@ -504,7 +507,7 @@ function App() {
 
       console.log({ newItem });
       // Check if the cart is not empty
-      if  (itemsInCart.length > 0){
+      if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
         const repeatedItem = itemsInCart.filter(item => item._id === productId && item.size == newItem.size);
         if (repeatedItem.length === 0) {
@@ -550,6 +553,7 @@ function App() {
 
   const deleteItemFromCart = (id) => {
     try {
+      console.log({ itemsInCart })
       // Determine which list to operate on based on the presence of items in productOrderToUpdate
       const updatedList = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.filter(product => product.productid !== id) :
