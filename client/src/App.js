@@ -322,87 +322,92 @@ function App() {
 
 
   const [count, setcount] = useState(0)
-
-  const incrementProductQuantity = (productId, sizeId) => {
-    try {
-      // incrementProductQuantity the count state
-      setcount(count + 1);
-
-      // Find the product either in the order or in all products
-      const findProduct = productOrderToUpdate.length > 0 ?
-        productOrderToUpdate.find(product => product._id === productId) :
-        allProducts.find(product => product._id === productId);
-
-      if (!findProduct) {
-        throw new Error('Product not found.');
-      }
-
-      if (sizeId) {
-        findProduct.sizes.map(size => {
-          if (size._id === sizeId) {
-            // incrementProductQuantity the quantity of the found product
-            size.sizeQuantity += 1;
-          }
-        })
-
-      } else {
-        // incrementProductQuantity the quantity of the found product
-        findProduct.quantity += 1;
-      }
-
-      // console.log(findProduct);
-    } catch (error) {
-      console.error('Error incrementing product quantity:', error.message);
-      // You can handle the error appropriately, such as displaying an error message to the user.
-    }
+  const incrementProductQuantity = (productId) => {
   };
 
-  const decrementProductQuantity = (productId, sizeId) => {
-    try {
-      // Decrement the count state
-      setcount(count - 1);
-
-      // Find the product either in the order or in all products
-      const findProduct = productOrderToUpdate.length > 0 ?
-        productOrderToUpdate.find(product => product._id === productId) :
-        allProducts.find(product => product._id === productId);
-
-      console.log({ findProduct })
-      if (!findProduct) {
-        throw new Error('Product not found.');
-      }
-
-      if (sizeId) {
-        findProduct.sizes.map(size => {
-          if (size._id === sizeId) {
-            // incrementProductQuantity the quantity of the found product
-            if (size.sizeQuantity < 1) {
-              size.sizeQuantity = 0;
-              findProduct.notes = '';
-              deleteItemFromCart(productId);
-            } else {
-              size.sizeQuantity -= 1;
-            }
-          }
-        })
-
-      } else {
-        // incrementProductQuantity the quantity of the found product
-        if (findProduct.quantity < 1) {
-          findProduct.quantity = 0;
-          findProduct.notes = '';
-          deleteItemFromCart(productId);
-        } else {
-          findProduct.quantity -= 1;
-        }
-
-      }
-
-
-    } catch (error) {
-      console.error('Error decrementing product quantity:', error.message);
-    }
+  const decrementProductQuantity = (productId) => {
   };
+
+  // const incrementProductQuantity = (productId, sizeId) => {
+  //   try {
+  //     // incrementProductQuantity the count state
+  //     setcount(count + 1);
+
+  //     // Find the product either in the order or in all products
+  //     const findProduct = productOrderToUpdate.length > 0 ?
+  //       productOrderToUpdate.find(product => product._id === productId) :
+  //       allProducts.find(product => product._id === productId);
+
+  //     if (!findProduct) {
+  //       throw new Error('Product not found.');
+  //     }
+
+  //     if (sizeId) {
+  //       findProduct.sizes.map(size => {
+  //         if (size._id === sizeId) {
+  //           // incrementProductQuantity the quantity of the found product
+  //           size.sizeQuantity += 1;
+  //         }
+  //       })
+
+  //     } else {
+  //       // incrementProductQuantity the quantity of the found product
+  //       findProduct.quantity += 1;
+  //     }
+
+  //     // console.log(findProduct);
+  //   } catch (error) {
+  //     console.error('Error incrementing product quantity:', error.message);
+  //     // You can handle the error appropriately, such as displaying an error message to the user.
+  //   }
+  // };
+
+  // const decrementProductQuantity = (productId, sizeId) => {
+  //   try {
+  //     // Decrement the count state
+  //     setcount(count - 1);
+
+  //     // Find the product either in the order or in all products
+  //     const findProduct = productOrderToUpdate.length > 0 ?
+  //       productOrderToUpdate.find(product => product._id === productId) :
+  //       allProducts.find(product => product._id === productId);
+
+  //     console.log({ findProduct })
+  //     if (!findProduct) {
+  //       throw new Error('Product not found.');
+  //     }
+
+  //     if (sizeId) {
+  //       findProduct.sizes.map(size => {
+  //         if (size._id === sizeId) {
+  //           // incrementProductQuantity the quantity of the found product
+  //           if (size.sizeQuantity < 1) {
+  //             size.sizeQuantity = 0;
+  //             findProduct.notes = '';
+  //             deleteItemFromCart(productId);
+  //           } else {
+  //             size.sizeQuantity -= 1;
+  //           }
+  //         }
+  //       })
+
+  //     } else {
+  //       // incrementProductQuantity the quantity of the found product
+  //       if (findProduct.quantity < 1) {
+  //         findProduct.quantity = 0;
+  //         findProduct.notes = '';
+  //         deleteItemFromCart(productId);
+  //       } else {
+  //         findProduct.quantity -= 1;
+  //       }
+
+  //     }
+
+
+  //   } catch (error) {
+  //     console.error('Error decrementing product quantity:', error.message);
+  //   }
+  // };
 
 
 
