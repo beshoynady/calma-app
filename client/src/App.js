@@ -447,13 +447,15 @@ function App() {
           }
         })
         itemsInCart.map(item => {
-          // incrementProductQuantity the quantity of the found product
-          if (item.quantity < 1) {
-            item.quantity = 0;
-            findProduct.notes = '';
-            deleteItemFromCart(productId);
-          } else {
-            item.quantity -= 1;
+          if(item.productid === productId){
+            // incrementProductQuantity the quantity of the found product
+            if (item.quantity < 1) {
+              item.quantity = 0;
+              findProduct.notes = '';
+              deleteItemFromCart(productId);
+            } else {
+              item.quantity -= 1;
+            }
           }
       })
       } else {
