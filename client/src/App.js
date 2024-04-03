@@ -416,7 +416,7 @@ function App() {
       const sizes = cartItem.sizes.filter(size => size._id === sizeId)[0];
       console.log({ sizes });
 
-      cartItem[0].sizes = sizes
+      cartItem.sizes = sizes
 
       console.log({ cartItem });
 
