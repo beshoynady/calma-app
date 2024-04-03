@@ -487,17 +487,17 @@ function App() {
 
       console.log({ newItem });
       // Check if the cart is not empty
-      if  (Array.isArray(itemsInCart) && itemsInCart.length > 0){
+      if  (itemsInCart.length > 0){
         // Check if the item is already in the cart
-        const repeatedItem = itemsInCart.filter(item => item._id === productId );
+        const repeatedItem = itemsInCart.filter(item => item._id === productId && item.size == newItem.size);
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
-          setitemsInCart([...itemsInCart, ...newItem]);
+          setitemsInCart([...itemsInCart, newItem]);
           setitemId([...itemId, productId]);
         }
       } else {
         // Add the item to the cart if the cart is empty
-        setitemsInCart([...newItem]);
+        setitemsInCart([newItem]);
         setitemId([productId]);
       }
     } catch (error) {
