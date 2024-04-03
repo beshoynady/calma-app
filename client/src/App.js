@@ -439,7 +439,7 @@ function App() {
             if (size.sizeQuantity < 1) {
               size.sizeQuantity = 0;
               findProduct.notes = '';
-              deleteItemFromCart(productId);
+              deleteItemFromCart(productId, sizeId);
             } else {
               size.sizeQuantity -= 1;
 
@@ -452,7 +452,7 @@ function App() {
             if (item.quantity < 1) {
               item.quantity = 0;
               findProduct.notes = '';
-              deleteItemFromCart(productId);
+              deleteItemFromCart(productId, sizeId);
             } else {
               item.quantity -= 1;
             }
@@ -637,12 +637,14 @@ function App() {
         console.log({ itemsInCart })
         // Determine which list to operate on based on the presence of items in productOrderToUpdate
         const updatedList = productOrderToUpdate.length > 0 ?
-          productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
-          itemsInCart.filter(item => item.sizeId !== sizeId);
-
+        productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
+        itemsInCart.filter(item => item.sizeId !== sizeId);
+        
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
-
+        
+        console.log({ updatedItemId })
+        console.log({ itemsInCart })
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
