@@ -347,7 +347,6 @@ function App() {
       }else {
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
-
       }
 
       console.log(findProduct);
@@ -357,7 +356,7 @@ function App() {
     }
   };
 
-  const decrementProductQuantity = (productId) => {
+  const decrementProductQuantity = (productId, sizeId) => {
     try {
       // Decrement the count state
       setcount(count - 1);
@@ -371,7 +370,21 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      // Decrease the quantity of the found product
+      if(sizeId){
+        findProduct.sizes.map(size => {
+          if(size._id === sizeId){
+            // incrementProductQuantity the quantity of the found product
+            if (findProduct.size.sizeQuantity < 1) {
+              findProduct.size.sizeQuantity = 0;
+              findProduct.notes = '';
+              deleteItemFromCart(productId);
+            } else {
+              findProduct.size.sizeQuantity -= 1;
+            }
+          }})
+
+      }else {
+        // incrementProductQuantity the quantity of the found product
       if (findProduct.quantity < 1) {
         findProduct.quantity = 0;
         findProduct.notes = '';
@@ -379,6 +392,10 @@ function App() {
       } else {
         findProduct.quantity -= 1;
       }
+
+      }
+
+      
     } catch (error) {
       console.error('Error decrementing product quantity:', error.message);
     }
@@ -493,12 +510,12 @@ function App() {
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
           setitemsInCart([...itemsInCart, newItem]);
-          setitemId([...itemId, productId]);
+          setitemId([...itemId, productId, sizeId]);
         }
       } else {
         // Add the item to the cart if the cart is empty
         setitemsInCart([newItem]);
-        setitemId([productId]);
+        setitemId([productId, sizeId]);
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
@@ -536,7 +553,7 @@ function App() {
       // Determine which list to operate on based on the presence of items in productOrderToUpdate
       const updatedList = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.filter(product => product.productid !== id) :
-        itemsInCart.filter(item => item._id !== id);
+        itemsInCart.filter(item => item.productid !== id);
 
       // Update the list of item IDs
       const updatedItemId = itemId.filter(itemId => itemId !== id);
