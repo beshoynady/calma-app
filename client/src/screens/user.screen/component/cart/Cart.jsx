@@ -140,8 +140,8 @@ const Cart = (props) => {
                                 </div>
                                 <div className='cart-det'>
                                   <div className="item-head">
-                                    <p>{i.name}</p>
-                                    <button onClick={() => deleteItemFromCart(i.productid)}>حذف</button>
+                                    <p>{i.name} - {i.size}</p>
+                                    <button onClick={() => deleteItemFromCart(i.productid, i.sizeId)}>حذف</button>
                                   </div>
                                   <div className="del-cost">
                                     <div className='cart-price'>

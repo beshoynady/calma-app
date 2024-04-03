@@ -403,7 +403,7 @@ function App() {
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
         itemsInCart.map(item => {
-          if (item.productid === productId){
+          if (item.productid === productId) {
             item.quantity += 1;
           }
         })
@@ -447,7 +447,7 @@ function App() {
           }
         })
         itemsInCart.map(item => {
-          if(item.productid === productId){
+          if (item.productid === productId) {
             // incrementProductQuantity the quantity of the found product
             if (item.quantity < 1) {
               item.quantity = 0;
@@ -457,7 +457,7 @@ function App() {
               item.quantity -= 1;
             }
           }
-      })
+        })
       } else {
         // incrementProductQuantity the quantity of the found product
         if (findProduct.quantity < 1) {
@@ -468,7 +468,7 @@ function App() {
         } else {
           findProduct.quantity -= 1;
           itemsInCart.map(item => {
-            if (item.productid === productId){
+            if (item.productid === productId) {
               item.quantity -= 1;
             }
           })
@@ -584,21 +584,20 @@ function App() {
 
       }
 
-
       console.log({ newItem });
       // Check if the cart is not empty
       if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
-        const repeatedItem = itemsInCart.filter(item => item._id === productId && item.size == newItem.size);
+        const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
           setitemsInCart([...itemsInCart, newItem]);
-          setitemId([...itemId, productId, sizeId]);
+          setitemId([...itemId, sizeId?sizeId:productId]);
         }
       } else {
         // Add the item to the cart if the cart is empty
         setitemsInCart([newItem]);
-        setitemId([productId, sizeId]);
+        setitemId([sizeId?sizeId:productId]);
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
@@ -631,27 +630,51 @@ function App() {
   };
 
 
-  const deleteItemFromCart = (id) => {
+  const deleteItemFromCart = (id, sizeId) => {
     try {
-      console.log({ itemsInCart })
-      // Determine which list to operate on based on the presence of items in productOrderToUpdate
-      const updatedList = productOrderToUpdate.length > 0 ?
-        productOrderToUpdate.filter(product => product.productid !== id) :
-        itemsInCart.filter(item => item.productid !== id);
+      if (sizeId) {
 
-      // Update the list of item IDs
-      const updatedItemId = itemId.filter(itemId => itemId !== id);
+        console.log({ itemsInCart })
+        // Determine which list to operate on based on the presence of items in productOrderToUpdate
+        const updatedList = productOrderToUpdate.length > 0 ?
+          productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
+          itemsInCart.filter(item => item.sizeId !== sizeId);
 
-      // Update the state based on the list being modified
-      if (productOrderToUpdate.length > 0) {
-        setproductOrderToUpdate(updatedList);
+        // Update the list of item IDs
+        const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
+
+        // Update the state based on the list being modified
+        if (productOrderToUpdate.length > 0) {
+          setproductOrderToUpdate(updatedList);
+        } else {
+          setitemsInCart(updatedList);
+          setitemId(updatedItemId);
+        }
+
+        // Reset the quantity and notes of the deleted item
+        resetProductQuantityAndNotes(id);
       } else {
-        setitemsInCart(updatedList);
-        setitemId(updatedItemId);
-      }
 
-      // Reset the quantity and notes of the deleted item
-      resetProductQuantityAndNotes(id);
+        console.log({ itemsInCart })
+        // Determine which list to operate on based on the presence of items in productOrderToUpdate
+        const updatedList = productOrderToUpdate.length > 0 ?
+          productOrderToUpdate.filter(product => product.productid !== id) :
+          itemsInCart.filter(item => item.productid !== id);
+
+        // Update the list of item IDs
+        const updatedItemId = itemId.filter(itemId => itemId !== id);
+
+        // Update the state based on the list being modified
+        if (productOrderToUpdate.length > 0) {
+          setproductOrderToUpdate(updatedList);
+        } else {
+          setitemsInCart(updatedList);
+          setitemId(updatedItemId);
+        }
+
+        // Reset the quantity and notes of the deleted item
+        resetProductQuantityAndNotes(id);
+      }
     } catch (error) {
       console.error('Error deleting item:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.

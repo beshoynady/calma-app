@@ -66,8 +66,8 @@ const MenuCard = () => {
                         </div>
                         {product.avaliable ?
                           <div className='card-btn'>
-                            {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
-                              <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
+                            {itemId.filter((i) => i === sizeId).length > 0 && sizeQuantity > 0 ?
+                              <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id, sizeId) }}>احذف من الطلبات</button>
                               : <button type="button" className='btn btn-success addtocart' onClick={() =>  addItemToCart(product._id, sizeId)}> اضف الي طلباتي</button>
                               // : <button type="button" className='btn btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, sizeId) } }}> اضف الي طلباتي</button>
                             }
