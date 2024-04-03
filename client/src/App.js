@@ -442,6 +442,16 @@ function App() {
               deleteItemFromCart(productId);
             } else {
               size.sizeQuantity -= 1;
+              itemsInCart.map(item => {
+                  // incrementProductQuantity the quantity of the found product
+                  if (item.quantity < 1) {
+                    item.quantity = 0;
+                    findProduct.notes = '';
+                    deleteItemFromCart(productId);
+                  } else {
+                    item.quantity -= 1;
+                  }
+              })
             }
           }
         })
@@ -452,8 +462,14 @@ function App() {
           findProduct.quantity = 0;
           findProduct.notes = '';
           deleteItemFromCart(productId);
+
         } else {
           findProduct.quantity -= 1;
+          itemsInCart.map(item => {
+            if (item.productid === productId){
+              item.quantity += 1;
+            }
+          })
         }
 
       }
