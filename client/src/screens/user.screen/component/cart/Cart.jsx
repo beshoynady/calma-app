@@ -145,10 +145,10 @@ const Cart = (props) => {
                                   </div>
                                   <div className="del-cost">
                                     <div className='cart-price'>
-                                      <p>{i.discount ? i.priceAfterDiscount : i.price} ج</p>
+                                      <p>{i.priceAfterDiscount ? i.priceAfterDiscount : i.price} ج</p>
                                       <p>×{i.quantity}</p>
                                     </div>
-                                    <p>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity}</p>
+                                    <p>{i.priceAfterDiscount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity}</p>
                                   </div>
                                   {i.notes ? <div className='cart-note'>{i.notes}</div> : ''}
                                 </div>

@@ -375,7 +375,6 @@ function App() {
 
   const incrementProductQuantity = (productId, sizeId) => {
     try {
-      console.log({productOrderToUpdate})
       // incrementProductQuantity the count state
       setcount(count + 1);
 
@@ -395,15 +394,19 @@ function App() {
             size.sizeQuantity += 1;
           }
         })
-      itemsInCart.map(item =>{
-        item.quantity += 1;
-      })  
-    } else {
-      // incrementProductQuantity the quantity of the found product
-      findProduct.quantity += 1;
-      itemsInCart.map(item =>{
-        item.quantity += 1;
-      })  
+        itemsInCart.map(item => {
+          if (item.id === productId && item.sizeId === sizeId) {
+            item.quantity += 1;
+          }
+        })
+      } else {
+        // incrementProductQuantity the quantity of the found product
+        findProduct.quantity += 1;
+        itemsInCart.map(item => {
+          if (item.id === productId){
+            item.quantity += 1;
+          }
+        })
       }
 
       console.log(findProduct);
@@ -537,6 +540,7 @@ function App() {
         productid: cartItem._id,
         // Product name
         name: cartItem.name,
+        sizeId: "",
         size: "",
         // Quantity of the product
         quantity: 0,
@@ -549,6 +553,7 @@ function App() {
       if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
         const size = cartItem.sizes.find(size => size._id === sizeId);
         if (size) {
+          newItem.sizeId = size._id;
           newItem.size = size.sizeName;
           newItem.quantity = size.sizeQuantity;
           newItem.price = size.sizePrice;
