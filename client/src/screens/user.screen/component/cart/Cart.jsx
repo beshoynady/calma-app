@@ -141,7 +141,7 @@ const Cart = (props) => {
                                 <div className='cart-det'>
                                   <div className="item-head">
                                     <p>{i.name}</p>
-                                    <button onClick={() => deleteItemFromCart(i._id)}>حذف</button>
+                                    <button onClick={() => deleteItemFromCart(i.productid)}>حذف</button>
                                   </div>
                                   <div className="del-cost">
                                     <div className='cart-price'>
