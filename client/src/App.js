@@ -323,9 +323,54 @@ function App() {
 
   const [count, setcount] = useState(0)
   const incrementProductQuantity = (productId) => {
+    try {
+      // incrementProductQuantity the count state
+      setcount(count + 1);
+
+      // Find the product either in the order or in all products
+      const findProduct = productOrderToUpdate.length > 0 ?
+        productOrderToUpdate.find(product => product._id === productId) :
+        allProducts.find(product => product._id === productId);
+
+      if (!findProduct) {
+        throw new Error('Product not found.');
+      }
+
+      // incrementProductQuantity the quantity of the found product
+      findProduct.quantity += 1;
+
+      console.log(findProduct);
+    } catch (error) {
+      console.error('Error incrementing product quantity:', error.message);
+      // You can handle the error appropriately, such as displaying an error message to the user.
+    }
   };
 
   const decrementProductQuantity = (productId) => {
+    try {
+      // Decrement the count state
+      setcount(count - 1);
+
+      // Find the product either in the order or in all products
+      const findProduct = productOrderToUpdate.length > 0 ?
+        productOrderToUpdate.find(product => product._id === productId) :
+        allProducts.find(product => product._id === productId);
+
+      if (!findProduct) {
+        throw new Error('Product not found.');
+      }
+
+      // Decrease the quantity of the found product
+      if (findProduct.quantity < 1) {
+        findProduct.quantity = 0;
+        findProduct.notes = '';
+        deleteItemFromCart(productId);
+      } else {
+        findProduct.quantity -= 1;
+      }
+    } catch (error) {
+      console.error('Error decrementing product quantity:', error.message);
+    }
   };
 
   // const incrementProductQuantity = (productId, sizeId) => {
