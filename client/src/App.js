@@ -395,7 +395,7 @@ function App() {
           }
         })
         itemsInCart.map(item => {
-          if (item.id === productId && item.sizeId === sizeId) {
+          if (item.productid === productId && item.sizeId === sizeId) {
             item.quantity += 1;
           }
         })
@@ -403,7 +403,7 @@ function App() {
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
         itemsInCart.map(item => {
-          if (item.id === productId){
+          if (item.productid === productId){
             item.quantity += 1;
           }
         })
