@@ -48,9 +48,9 @@ const MenuCard = () => {
                           </div>
                           <p>{product.description}</p>
                         </div>
-                        <div className='row'>
+                        <div class="btn-group" >
                           {product.sizes.map(size => (
-                            <button key={size.sizeId} onClick={() => handleSizeClick(size)}>
+                            <button  className="btn btn-secondary" key={size.sizeId} onClick={() => handleSizeClick(size)}>
                               {size.sizeName}
                             </button>
                           ))}
