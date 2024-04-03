@@ -621,8 +621,9 @@ function App() {
       }
 
       if(sizeId){
-        productToUpdate.sizes.filter(size => size._id === sizeId).sizeQuantity  = 0
+        productToUpdate.sizes.filter(size => size._id === sizeId)[0].sizeQuantity  = 0
       }
+      console.log({productToUpdate})
       // Reset the quantity and notes of the found product to zero
       productToUpdate.quantity = 0;
       productToUpdate.notes = '';
