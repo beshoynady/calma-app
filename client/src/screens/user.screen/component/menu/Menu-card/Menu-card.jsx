@@ -7,11 +7,13 @@ const MenuCard = () => {
 
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
+  const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
   const handleSizeClick = (size) => {
+    setsize(size)
     setsizeId(size._id)
     setsizeQuantity(size.sizeQuantity)
     setsizePrice(size.sizePrice);
@@ -56,7 +58,8 @@ const MenuCard = () => {
                           <div className="counter">
                             <button className='symb' onClick={() => {decrementProductQuantity(product._id, sizeId) ; setsizeQuantity(sizeQuantity-1)}}>-</button>
                             
-                            <span className='num'>{sizeQuantity>0?product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity:0}</span>
+                            <span className='num'>{
+                            size.sizeQuantity?size.sizeQuantity: 0}</span>
                             <button className='symb' onClick={() =>{ incrementProductQuantity(product._id , sizeId) ; setsizeQuantity(sizeQuantity+1) }}>+</button>
                           </div>
                           {sizePriceAfterDescount > 0 ?
