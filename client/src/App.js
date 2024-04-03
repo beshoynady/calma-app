@@ -171,28 +171,28 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getAllCategories = async () => {
     try {
-        const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-        // Fetch all categories from the API
-        const response = await axios.get(apiUrl + '/api/category', {
-            headers: {
-                'authorization': `Bearer ${token}`, // Send the token in the authorization header
-            },
-        });
+      // Fetch all categories from the API
+      const response = await axios.get(apiUrl + '/api/category', {
+        headers: {
+          'authorization': `Bearer ${token}`, // Send the token in the authorization header
+        },
+      });
 
-        // Check if response is successful
-        if (response.status !== 200) {
-            throw new Error('Failed to fetch categories.');
-        }
+      // Check if response is successful
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch categories.');
+      }
 
-        // Set fetched categories in the state
-        setallcategories(response.data);
+      // Set fetched categories in the state
+      setallcategories(response.data);
     } catch (error) {
-        // Handle errors
-        console.error('Error fetching categories:', error.message);
-        // You can add additional error handling logic here, such as displaying an error message to the user.
+      // Handle errors
+      console.error('Error fetching categories:', error.message);
+      // You can add additional error handling logic here, such as displaying an error message to the user.
     }
-}
+  }
 
 
 
@@ -435,34 +435,40 @@ function App() {
   //     // You can handle the error appropriately, such as displaying an error message to the user.
   //   }
   // };
-  
-  const addItemToCart = (productId , sizeId) => {
+
+  const addItemToCart = (productId, sizeId) => {
     try {
       console.log(productId);
 
       // Find the product to add to the cart
-      const cartItem = allProducts.filter(item => item._id === productId)[0];      
+      const cartItem = allProducts.filter(item => item._id === productId)[0];
+
       console.log({ cartItem });
-      if(sizeId){
-        const size = cartItem.sizes.filter(size => size._id === sizeId)[0]
-        console.log({ size });
+
+      let newItem = {
+        productid: cartItem._id,
+        // Product name
+        name: cartItem.name,
+        size: "",
+        // Quantity of the product
+        quantity: cartItem.quantity,
+        // Notes for the product
+        notes: cartItem.notes,
+        // Price of the product
+        price: 0,
+        priceAfterDiscount: 0,
+      }
+      if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
+        const size = cartItem.sizes.find(size => size._id === sizeId);
+        if (size) {
+          newItem.size = size.sizeName;
+          newItem.price = size.sizePrice;
+          newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
+        }
       }
 
-      const newItem = {
-        'productid': cartItem._id,
-        // Product name
-        'name': cartItem.name,
-        'size' : size? size.sizeName: '',
-        // Quantity of the product
-        'quantity': cartItem.quantity,
-        // Notes for the product
-        'notes': cartItem.notes,
-        // Price of the product
-        'price': size? size.sizePrice: cartItem.price,
-        'priceAfterDiscount': size? size.sizePriceAfterDiscount: cartItem.priceAfterDiscount,
-    }
 
-    console.log({ newItem });
+      console.log({ newItem });
       // Check if the cart is not empty
       if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
@@ -1247,12 +1253,12 @@ function App() {
   const [isLogin, setisLogin] = useState(false);
 
   // Function to handle user signup
-  const signup = async (e,username, phone, deliveryArea, address, email, password, passconfirm) => {
+  const signup = async (e, username, phone, deliveryArea, address, email, password, passconfirm) => {
     e.preventDefault();
 
     try {
       // Check if any field is empty
-      if (!username || !password || !phone || !address ) {
+      if (!username || !password || !phone || !address) {
         toast.error('هناك حقول فارغة.');
         return;
       }
@@ -1292,28 +1298,28 @@ function App() {
   const [userLoginInfo, setUserLoginInfo] = useState(null);
   const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
 
-const [clientInfo, setclientInfo] = useState({})
+  const [clientInfo, setclientInfo] = useState({})
 
   // Function to retrieve user info from tokens
-  const getUserInfoFromToken = async() => {
+  const getUserInfoFromToken = async () => {
     const userToken = localStorage.getItem('token_u');
     const employeeToken = localStorage.getItem('token_e');
     // console.log("getUserInfoFromToken");
     // console.log({ userToken });
-  
+
     let decodedToken = null;
-  
+
     if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       setEmployeeLoginInfo(decodedToken);
       // console.log(decodedToken.employeeinfo);
     }
-  
+
     if (userToken) {
       decodedToken = await jwt_decode(userToken);
       setUserLoginInfo(decodedToken);
-      console.log({decodedToken});
-      if(decodedToken){
+      console.log({ decodedToken });
+      if (decodedToken) {
         const userId = await decodedToken.userinfo.id
         console.log({ userId });
         const client = await axios.get(`${apiUrl}/api/user/${userId}`)
@@ -1321,13 +1327,13 @@ const [clientInfo, setclientInfo] = useState({})
         setclientInfo(client.data);
       }
     }
-  
+
     if (!employeeToken && !userToken) {
       setUserLoginInfo(null);
       setEmployeeLoginInfo(null);
     }
   };
-  
+
 
 
   // Function for user login
@@ -1542,54 +1548,54 @@ const [clientInfo, setclientInfo] = useState({})
 
   const [availableTableIds, setavailableTableIds] = useState([])
 
-const getAvailableTables = (reservationDate, startTime, endTime) => {
-  try {
-    // Filter reservations by selected date and time range
-    const filterReservationsByTime = allReservations.filter(reservation => {
-      const reservationDateObj = new Date(reservation.reservationDate);
-      const selectedDateObj = new Date(reservationDate);
+  const getAvailableTables = (reservationDate, startTime, endTime) => {
+    try {
+      // Filter reservations by selected date and time range
+      const filterReservationsByTime = allReservations.filter(reservation => {
+        const reservationDateObj = new Date(reservation.reservationDate);
+        const selectedDateObj = new Date(reservationDate);
 
-      // Check if the reservation date matches the selected date
-      if (
-        reservationDateObj.getFullYear() !== selectedDateObj.getFullYear() ||
-        reservationDateObj.getMonth() !== selectedDateObj.getMonth() ||
-        reservationDateObj.getDate() !== selectedDateObj.getDate()
-      ) {
-        return false;
-      }
+        // Check if the reservation date matches the selected date
+        if (
+          reservationDateObj.getFullYear() !== selectedDateObj.getFullYear() ||
+          reservationDateObj.getMonth() !== selectedDateObj.getMonth() ||
+          reservationDateObj.getDate() !== selectedDateObj.getDate()
+        ) {
+          return false;
+        }
 
-      const startReservationTime = new Date(reservation.startTime).getTime();
-      const endReservationTime = new Date(reservation.endTime).getTime();
-      const startSelectedTime = new Date(startTime).getTime();
-      const endSelectedTime = new Date(endTime).getTime();
+        const startReservationTime = new Date(reservation.startTime).getTime();
+        const endReservationTime = new Date(reservation.endTime).getTime();
+        const startSelectedTime = new Date(startTime).getTime();
+        const endSelectedTime = new Date(endTime).getTime();
 
-      // Check for overlapping time ranges
-      return (
-        (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
-        (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
-        (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
-      );
-    });
-    console.log({filterReservationsByTime})
-    // Create a list of all tableIds
-    const allTableIds = allTable.map(table => table._id);
-    console.log({allTableIds})
-    
-    // Create a list of reserved tableIds in the selected time range
-    const reservedTableIds = filterReservationsByTime.map(reservation => reservation.tableId);
-    console.log({reservedTableIds})
-    
-    // Find the difference between allTableIds and reservedTableIds to get available tableIds
-    const availableTableIds = allTableIds.filter(tableId => !reservedTableIds.includes(tableId));
-    console.log({availableTableIds})
-    setavailableTableIds(availableTableIds)
-    return availableTableIds;
-  } catch (error) {
-    // Handle errors
-    console.error("Error getting available tables by date and time:", error);
-    return [];
-  }
-};
+        // Check for overlapping time ranges
+        return (
+          (startReservationTime <= startSelectedTime && endReservationTime >= startSelectedTime) ||
+          (startReservationTime <= endSelectedTime && endReservationTime >= endSelectedTime) ||
+          (startSelectedTime <= startReservationTime && endSelectedTime >= endReservationTime)
+        );
+      });
+      console.log({ filterReservationsByTime })
+      // Create a list of all tableIds
+      const allTableIds = allTable.map(table => table._id);
+      console.log({ allTableIds })
+
+      // Create a list of reserved tableIds in the selected time range
+      const reservedTableIds = filterReservationsByTime.map(reservation => reservation.tableId);
+      console.log({ reservedTableIds })
+
+      // Find the difference between allTableIds and reservedTableIds to get available tableIds
+      const availableTableIds = allTableIds.filter(tableId => !reservedTableIds.includes(tableId));
+      console.log({ availableTableIds })
+      setavailableTableIds(availableTableIds)
+      return availableTableIds;
+    } catch (error) {
+      // Handle errors
+      console.error("Error getting available tables by date and time:", error);
+      return [];
+    }
+  };
 
 
   const createReservations = async (e, tableId, tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy) => {
@@ -1806,7 +1812,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
   return (
     <detacontext.Provider value={{
-      restaurantData, clientInfo ,
+      restaurantData, clientInfo,
       // Functions related to authentication
       userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 
@@ -1839,7 +1845,7 @@ const getAvailableTables = (reservationDate, startTime, endTime) => {
 
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations,getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+      createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
 
     }}>
       <BrowserRouter>
