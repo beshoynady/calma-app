@@ -313,6 +313,7 @@ function App() {
 
   // ++++++++ client screen +++++++++++++ 
   const [categoryid, setcategoryid] = useState('65edccaa7b4fc2266c6dfa01')
+
   const filterByCategoryId = (e) => {
     // console.log(e.target.value)
     setcategoryid(e.target.value)
@@ -403,30 +404,77 @@ function App() {
   // add items to cart
   const [itemsInCart, setitemsInCart] = useState([])
 
-  const addItemToCart = (productId) => {
+  // const addItemToCart = (productId) => {
+  //   try {
+  //     console.log(productId);
+
+  //     // Find the product to add to the cart
+  //     const cartItem = allProducts.filter(item => item._id === productId);
+
+  //     // Assign the product ID to the cart item
+  //     cartItem[0].productid = productId;
+
+  //     console.log({ cartItem });
+
+  //     // Check if the cart is not empty
+  //     if (itemsInCart.length > 0) {
+  //       // Check if the item is already in the cart
+  //       const repeatedItem = itemsInCart.filter(item => item._id === productId);
+  //       if (repeatedItem.length === 0) {
+  //         // Add the item to the cart if it's not already in it
+  //         setitemsInCart([...itemsInCart, ...cartItem]);
+  //         setitemId([...itemId, productId]);
+  //       }
+  //     } else {
+  //       // Add the item to the cart if the cart is empty
+  //       setitemsInCart([...cartItem]);
+  //       setitemId([productId]);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding item to cart:', error.message);
+  //     // You can handle the error appropriately, such as displaying an error message to the user.
+  //   }
+  // };
+  
+  const addItemToCart = (productId , sizeId) => {
     try {
       console.log(productId);
 
       // Find the product to add to the cart
-      const cartItem = allProducts.filter(item => item._id === productId);
-
-      // Assign the product ID to the cart item
-      cartItem[0].productid = productId;
-
+      const cartItem = allProducts.filter(item => item._id === productId)[0];      
       console.log({ cartItem });
+      if(sizeId){
+        const size = cartItem.sizes.filter(size => size._id === sizeId)[0]
+        console.log({ size });
+      }
 
+      const newItem = {
+        productid: cartItem._id,
+        // Product name
+        name: cartItem.name,
+        size : size? size.sizeName: '',
+        // Quantity of the product
+        quantity: cartItem.quantity,
+        // Notes for the product
+        notes: cartItem.notes,
+        // Price of the product
+        price: size? size.sizePrice: cartItem.price,
+        priceAfterDiscount: size? size.sizePriceAfterDiscount: cartItem.priceAfterDiscount,
+    }
+
+    console.log({ newItem });
       // Check if the cart is not empty
       if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
         const repeatedItem = itemsInCart.filter(item => item._id === productId);
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
-          setitemsInCart([...itemsInCart, ...cartItem]);
+          setitemsInCart([...itemsInCart, ...newItem]);
           setitemId([...itemId, productId]);
         }
       } else {
         // Add the item to the cart if the cart is empty
-        setitemsInCart([...cartItem]);
+        setitemsInCart([...newItem]);
         setitemId([productId]);
       }
     } catch (error) {
@@ -1103,26 +1151,26 @@ function App() {
 
 
 
-  const updatecountofsales = async (id) => {
-    const myOrder = await axios.get(apiUrl + '/api/order/' + id,)
-    const data = myOrder.data
-    for (var i = 0; i < data.products.length; i++) {
-      const productid = await data.products[i]._id
-      const productquantity = await data.products[i].quantity
-      const findprduct = await axios.get(apiUrl + '/api/product/' + productid)
-      const sales = await findprduct.data.sales + productquantity
+  // const updatecountofsales = async (id) => {
+  //   const myOrder = await axios.get(apiUrl + '/api/order/' + id,)
+  //   const data = myOrder.data
+  //   for (var i = 0; i < data.products.length; i++) {
+  //     const productid = await data.products[i]._id
+  //     const productquantity = await data.products[i].quantity
+  //     const findprduct = await axios.get(apiUrl + '/api/product/' + productid)
+  //     const sales = await findprduct.data.sales + productquantity
 
-      // console.log(productid)
-      // console.log(findprduct)
-      // console.log(sales)
-      // console.log(productquantity)
-      const updatprduct = await axios.put(apiUrl + '/api/product/withoutimage/' + productid, {
-        sales
-      })
-      // console.log(updatprduct)
+  //     // console.log(productid)
+  //     // console.log(findprduct)
+  //     // console.log(sales)
+  //     // console.log(productquantity)
+  //     const updatprduct = await axios.put(apiUrl + '/api/product/withoutimage/' + productid, {
+  //       sales
+  //     })
+  //     // console.log(updatprduct)
 
-    }
-  }
+  //   }
+  // }
 
 
 
