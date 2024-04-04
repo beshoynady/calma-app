@@ -41,6 +41,7 @@ const Category = () => {
 
 
   const handleCategoryData = (category)=>{
+    setcategoryId(category._id)
     setcategoryName(category.name)
     setstatus(category.status)
     setisMain(category.isMain)
