@@ -20,7 +20,7 @@ const createCategory = async (req, res, next) => {
 // Get all categories
 const getAllCategories = async (req, res, next) => {
     try {
-        const allCategories = await CategoryModel.find({});
+        const allCategories = await CategoryModel.find({}).populate(createdBy);
         res.status(200).json(allCategories);
     } catch (error) {
         // Handle errors
@@ -33,7 +33,7 @@ const getAllCategories = async (req, res, next) => {
 const getOneCategory = async (req, res, next) => {
     const { categoryId } = req.params;
     try {
-        const category = await CategoryModel.findById(categoryId);
+        const category = await CategoryModel.findById(categoryId).populate(createdBy);
         if (!category) {
             return res.status(404).json({ message: 'Category not found' });
         }
