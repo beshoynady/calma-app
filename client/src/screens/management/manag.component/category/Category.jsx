@@ -40,6 +40,12 @@ const Category = () => {
   }
 
 
+  const handleCategoryData = (category)=>{
+    setcategoryName(category.name)
+    setstatus(category.status)
+    setisMain(category.isMain)
+  }
+
 
   const createCategory = async (e) => {
     e.preventDefault();
@@ -243,13 +249,13 @@ const Category = () => {
                                 </td>
                                 <td>{i + 1}</td>
                                 <td>{category.name}</td>
-                                <td>{category.isMain? "رئيسيه": "ليست"}</td>
-                                <td>{category.status? "متاحة" : "ليست متاحة"}</td>
+                                <td>{category.isMain ? "رئيسيه" : "ليست"}</td>
+                                <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
                                 <td>{category.createdBy}</td>
                                 <td>
-                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -269,13 +275,13 @@ const Category = () => {
                                 </td>
                                 <td>{i + 1}</td>
                                 <td>{category.name}</td>
-                                <td>{category.isMain? "رئيسيه": "ليست"}</td>
-                                <td>{category.status? "متاحة" : "ليست متاحة"}</td>
+                                <td>{category.isMain ? "رئيسيه" : "ليست"}</td>
+                                <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
                                 <td>{category.createdBy}</td>
                                 <td>
-                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -327,18 +333,16 @@ const Category = () => {
                             <label>
                               <input
                                 type="radio"
-                                value="true"
                                 checked={status === true}
-                                onChange={(e) => setstatus(e.target.checked)}
+                                onChange={() => setstatus(true)}
                               />
                               متاح
                             </label>
                             <label style={{ marginLeft: "10px" }}>
                               <input
                                 type="radio"
-                                value="false"
                                 checked={status === false}
-                                onChange={(e) => setstatus(e.target.value)}
+                                onChange={() => setstatus(false)}
                               />
                               غير متاح
                             </label>
@@ -389,18 +393,16 @@ const Category = () => {
                             <label>
                               <input
                                 type="radio"
-                                value="true"
                                 checked={status === true}
-                                onChange={(e) => setstatus(e.target.checked)}
+                                onChange={() => setstatus(true)}
                               />
                               متاح
                             </label>
                             <label style={{ marginLeft: "10px" }}>
                               <input
                                 type="radio"
-                                value="false"
                                 checked={status === false}
-                                onChange={(e) => setstatus(e.target.value)}
+                                onChange={() => setstatus(false)}
                               />
                               غير متاح
                             </label>
@@ -417,6 +419,7 @@ const Category = () => {
                           </label>
                         </div>
                       </div>
+
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-info" value="حفظ" />

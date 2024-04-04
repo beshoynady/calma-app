@@ -4,7 +4,7 @@ const CategoryModel = require('../models/Category.model');
 const createCategory = async (req, res, next) => {
     try {
         const { name, isMain, status } = req.body;
-        const{createdBy} = req.employee;
+        const{createdBy} = req.employee.id;
         const newCategory = await CategoryModel.create({ name, isMain, status, createdBy });
         res.status(201).json(newCategory);
     } catch (error) {
@@ -49,7 +49,7 @@ const getOneCategory = async (req, res, next) => {
 const updateCategory = async (req, res, next) => {
     const { categoryId } = req.params;
     const { name, isMain, status } = req.body;
-    const{createdBy} = req.employee;
+    const{createdBy} = req.employee.id;
 try {
         const updatedCategory = await CategoryModel.findByIdAndUpdate(
             categoryId,
