@@ -40,7 +40,7 @@ const Category = () => {
   }
 
 
-  const handleCategoryData = (category)=>{
+  const handleCategoryData = (category) => {
     setcategoryId(category._id)
     setcategoryName(category.name)
     setstatus(category.status)
@@ -330,25 +330,17 @@ const Category = () => {
                         </div>
                         <div className="form-group">
                           <label>الحالة</label>
-                          <div>
-                            <label>
-                              <input
-                                type="radio"
-                                checked={status === true}
-                                onChange={() => setstatus(true)}
-                              />
-                              متاح
-                            </label>
-                            <label style={{ marginLeft: "10px" }}>
-                              <input
-                                type="radio"
-                                checked={status === false}
-                                onChange={() => setstatus(false)}
-                              />
-                              غير متاح
-                            </label>
-                          </div>
+                          <select
+                            className="form-control"
+                            value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
+                            onChange={(e) => setstatus(e.target.value === "true")} // تحويل القيمة المحددة إلى قيمة بوليانية
+                            style={{ width: "100%" }}
+                          >
+                            <option value="true">متاح</option>
+                            <option value="false">غير متاح</option>
+                          </select>
                         </div>
+
                         <div className="form-group">
                           <label>
                             <input
@@ -390,25 +382,17 @@ const Category = () => {
                         </div>
                         <div className="form-group">
                           <label>الحالة</label>
-                          <div>
-                            <label>
-                              <input
-                                type="radio"
-                                checked={status === true}
-                                onChange={() => setstatus(true)}
-                              />
-                              متاح
-                            </label>
-                            <label style={{ marginLeft: "10px" }}>
-                              <input
-                                type="radio"
-                                checked={status === false}
-                                onChange={() => setstatus(false)}
-                              />
-                              غير متاح
-                            </label>
-                          </div>
+                          <select
+                            className="form-control"
+                            value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
+                            onChange={(e) => setstatus(e.target.value === "true")} // تحويل القيمة المحددة إلى قيمة بوليانية
+                            style={{ width: "100%" }}
+                          >
+                            <option value="true">متاح</option>
+                            <option value="false">غير متاح</option>
+                          </select>
                         </div>
+
                         <div className="form-group">
                           <label>
                             <input
