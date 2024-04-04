@@ -1,65 +1,95 @@
-const Categorymodel = require('../models/Category.model');
+const CategoryModel = require('../models/Category.model');
 
-    
-    const CreateCategory = async (req, res ) => {
-        try{
-            const categoryname = await req.body.name;
-            const CreateCategory= await Categorymodel.create({name: categoryname});
-            CreateCategory.save();
-            res.status(200).json(CreateCategory)
+// Create a new category
+const createCategory = async (req, res, next) => {
+    try {
+        const { name, isMain, status } = req.body;
+        const{createdBy} = req.employee;
+        const newCategory = await CategoryModel.create({ name, isMain, status, createdBy });
+        res.status(201).json(newCategory);
+    } catch (error) {
+        if (error.code === 11000) { // Duplicate key error
+            return res.status(400).json({ message: 'Category name already exists' });
         }
-        catch (error) {
-            res.status(400).json(error);
-            next(error);
-        }
-    };
-    
-    const getallcategory = async (req, res) => {
-        try{
-            const allcategory = await Categorymodel.find({})
-            res.status(200).json(allcategory)
-        }
-        catch(error) {
-            res.status(400).json(error);
-        }
+        // Handle other errors
+        res.status(500).json({ message: 'Failed to create category' });
+        next(error);
     }
+};
 
-    const getonecategory = async (req, res) => {
-        const categoryId = req.query.categoryId
-        try{
-            const category = await Categorymodel.findById(categoryId)
-            res.status(200).json(category)
-        }catch(error){
-            res.status(404).json(error);
-        }
+// Get all categories
+const getAllCategories = async (req, res, next) => {
+    try {
+        const allCategories = await CategoryModel.find({});
+        res.status(200).json(allCategories);
+    } catch (error) {
+        // Handle errors
+        res.status(500).json({ message: 'Failed to fetch categories' });
+        next(error);
     }
+};
 
-    const updatecategory = async (req, res)=>{
-        try {
-            const {categoryId} =await req.params;
-            const newcategoryname =await req.body.name;
-            const category = await Categorymodel.findByIdAndUpdate({_id:categoryId},{name:newcategoryname},{new : true})
-            res.status(200).json(category);
-        }catch(error){
-            res.status(404).json(error);
+// Get a single category by ID
+const getOneCategory = async (req, res, next) => {
+    const { categoryId } = req.params;
+    try {
+        const category = await CategoryModel.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
         }
+        res.status(200).json(category);
+    } catch (error) {
+        // Handle errors
+        res.status(500).json({ message: 'Failed to fetch category' });
+        next(error);
     }
+};
 
-    const deleteCategory =async (req, res)=>{
-        try{
-            const {categoryId} = await req.params;
-            const categorydeleted = await Categorymodel.findByIdAndDelete(categoryId);
-            res.status(200).json(categorydeleted);
-        }catch(error){
-            res.status(404).json(error);
+// Update a category
+const updateCategory = async (req, res, next) => {
+    const { categoryId } = req.params;
+    const { name, isMain, status } = req.body;
+    const{createdBy} = req.employee;
+try {
+        const updatedCategory = await CategoryModel.findByIdAndUpdate(
+            categoryId,
+            { name, isMain, status, createdBy },
+            { new: true }
+        );
+        if (!updatedCategory) {
+            return res.status(404).json({ message: 'Category not found' });
         }
+        res.status(200).json(updatedCategory);
+    } catch (error) {
+        if (error.code === 11000) { // Duplicate key error
+            return res.status(400).json({ message: 'Category name already exists' });
+        }
+        // Handle other errors
+        res.status(500).json({ message: 'Failed to update category' });
+        next(error);
     }
+};
 
+// Delete a category
+const deleteCategory = async (req, res, next) => {
+    const { categoryId } = req.params;
+    try {
+        const deletedCategory = await CategoryModel.findByIdAndDelete(categoryId);
+        if (!deletedCategory) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+        res.status(200).json(deletedCategory);
+    } catch (error) {
+        // Handle errors
+        res.status(500).json({ message: 'Failed to delete category' });
+        next(error);
+    }
+};
 
 module.exports = {
-    CreateCategory,
-    getallcategory,
-    getonecategory,
-    updatecategory,
+    createCategory,
+    getAllCategories,
+    getOneCategory,
+    updateCategory,
     deleteCategory
-}
+};

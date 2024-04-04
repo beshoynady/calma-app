@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 const cashMovementController = require('../controllers/CashMovement.controller');
 
+const authenticateToken = require('../utlits/authenticate')
+
 // Routes related to Cash Movements
 router.route('/')
-  .get(cashMovementController.getAllCashMovements)
-  .post(cashMovementController.createCashMovement);
+  .get(authenticateToken, cashMovementController.getAllCashMovements)
+  .post(authenticateToken, cashMovementController.createCashMovement);
 
 router.route('/:id')
-  .get(cashMovementController.getCashMovementById)
-  .put(cashMovementController.updateCashMovement)
-  .delete(cashMovementController.deleteCashMovement);
+  .get(authenticateToken, cashMovementController.getCashMovementById)
+  .put(authenticateToken, cashMovementController.updateCashMovement)
+  .delete(authenticateToken, cashMovementController.deleteCashMovement);
 
 router.route('/transfer')
-  .post(cashMovementController.transferCashBetweenRegisters);
+  .post(authenticateToken, cashMovementController.transferCashBetweenRegisters);
 
 module.exports = router;
 

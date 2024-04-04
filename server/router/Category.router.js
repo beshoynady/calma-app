@@ -1,14 +1,20 @@
 const express = require("express");
 const {
-  CreateCategory,
-  getallcategory,
-  getonecategory,
-  updatecategory,
-  deleteCategory,
+  createCategory,
+  getAllCategories,
+  getOneCategory,
+  updateCategory,
+  deleteCategory
 } = require("../controllers/Category.controller");
+const authenticateToken = require('../utlits/authenticate')
+
 const router = express.Router();
 
-router.route('/').post(CreateCategory).get(getallcategory);
-router.route('/:categoryId').get(getonecategory).put(updatecategory).delete(deleteCategory);
+router.route('/').post(authenticateToken, createCategory)
+  .get(authenticateToken, getAllCategories);
+router.route('/:categoryId')
+  .get(authenticateToken, getOneCategory)
+  .put(authenticateToken, updateCategory)
+  .delete(authenticateToken, deleteCategory);
 
 module.exports = router;

@@ -7,8 +7,18 @@ import { detacontext } from '../../../../App';
 const Category = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
-  const [categoryname, setcategoryname] = useState('')
+  const [categoryName, setcategoryName] = useState('')
+  const [status, setstatus] = useState('')
+  const [isMain, setisMain] = useState(false)
+  const [createdBy, setcreatedBy] = useState('')
+
   const [categoryId, setcategoryId] = useState('')
 
   const [allCategory, setallCategory] = useState([])
@@ -33,10 +43,15 @@ const Category = () => {
 
   const createCategory = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post(apiUrl + "/api/category/", { name: categoryname });
-  
+      const bodydata = {
+        name: categoryName,
+        isMain,
+        status,
+      }
+      const response = await axios.post(apiUrl + "/api/category/", bodydata, config);
+
       if (response.status === 200) {
         getallCategory();
         toast.success("تم إنشاء الفئة بنجاح.");
@@ -45,7 +60,7 @@ const Category = () => {
       }
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
-  
+
       // عرض رسالة الخطأ باستخدام toast
       toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
         position: toast.POSITION.TOP_RIGHT
@@ -54,66 +69,71 @@ const Category = () => {
   };
 
 
- // Function to edit a category
- const editCategory = async (e) => {
-  e.preventDefault();
-  
-  try {
-    // Send a PUT request to edit the category
-    const edit = await axios.put(apiUrl + "/api/category/" + categoryId, { name: categoryname });
+  // Function to edit a category
+  const editCategory = async (e) => {
+    e.preventDefault();
 
-    // Check if the request was successful
-    if (edit.status === 200) {
-      // Call the function to get all categories
-      getallCategory();
+    try {
+      const bodydata = {
+        name: categoryName,
+        isMain,
+        status,
+      }
+      // Send a PUT request to edit the category
+      const edit = await axios.put(apiUrl + "/api/category/" + categoryId, bodydata, config);
 
-      // Log the response from the edit operation
-      console.log(edit);
+      // Check if the request was successful
+      if (edit.status === 200) {
+        // Call the function to get all categories
+        getallCategory();
 
-      // Display a success toast
-      toast.success("تم تعديل التصنيف", {
+        // Log the response from the edit operation
+        console.log(edit);
+
+        // Display a success toast
+        toast.success("تم تعديل التصنيف", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      } else {
+        throw new Error("Failed to edit category");
+      }
+    } catch (error) {
+      // Handle errors if any exception occurs
+      console.error("Error occurred while editing category:", error);
+
+      // Display an error toast
+      toast.error("Failed to edit category. Please try again later.", {
         position: toast.POSITION.TOP_RIGHT
       });
-    } else {
-      throw new Error("Failed to edit category");
     }
-  } catch (error) {
-    // Handle errors if any exception occurs
-    console.error("Error occurred while editing category:", error);
-
-    // Display an error toast
-    toast.error("Failed to edit category. Please try again later.", {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  }
-};
+  };
 
 
-const deleteCategory = async (e) => {
-  e.preventDefault()
-  try {
-    const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId);
+  const deleteCategory = async (e) => {
+    e.preventDefault()
+    try {
+      const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId);
 
-    if (deleted.status === 200) {
-      getallCategory()
-      console.log("Category deleted successfully.");
-      toast.success("Category deleted successfully.");
-    } else {
-      throw new Error("Failed to delete category.");
+      if (deleted.status === 200) {
+        getallCategory()
+        console.log("Category deleted successfully.");
+        toast.success("Category deleted successfully.");
+      } else {
+        throw new Error("Failed to delete category.");
+      }
+    } catch (error) {
+      console.error("Error occurred while deleting category:", error);
+
+      // Display error toast notification
+      toast.error("Failed to delete category. Please try again later.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
-  } catch (error) {
-    console.error("Error occurred while deleting category:", error);
-
-    // Display error toast notification
-    toast.error("Failed to delete category. Please try again later.", {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  }
-};
+  };
 
   const [CategoryFilterd, setCategoryFilterd] = useState([])
   const searchByCategory = (category) => {
-    const categories = allCategory?allCategory.filter((Category) => Category.name.startsWith(category) == true):[]
+    const categories = allCategory ? allCategory.filter((Category) => Category.name.startsWith(category) == true) : []
     setCategoryFilterd(categories)
   }
 
@@ -283,7 +303,47 @@ const deleteCategory = async (e) => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} style={{ width: "100%" }} />
+                          <input
+                            type="text"
+                            className="form-control"
+                            required
+                            value={categoryName}
+                            onChange={(e) => setcategoryName(e.target.value)}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>الحالة</label>
+                          <div>
+                            <label>
+                              <input
+                                type="radio"
+                                value="active"
+                                checked={status === 'active'}
+                                onChange={(e) => setstatus(e.target.checked)}
+                              />
+                              متاح
+                            </label>
+                            <label style={{ marginLeft: "10px" }}>
+                              <input
+                                type="radio"
+                                value="inactive"
+                                checked={status === 'inactive'}
+                                onChange={(e) => setstatus(e.target.value)}
+                              />
+                              غير متاح
+                            </label>
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={isMain}
+                              onChange={(e) => setisMain(e.target.checked)}
+                            />
+                            هل هذا التصنيف الرئيس؟
+                          </label>
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -305,7 +365,47 @@ const deleteCategory = async (e) => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} style={{ width: "100%" }} />
+                          <input
+                            type="text"
+                            className="form-control"
+                            required
+                            value={categoryName}
+                            onChange={(e) => setcategoryName(e.target.value)}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>الحالة</label>
+                          <div>
+                            <label>
+                              <input
+                                type="radio"
+                                value="active"
+                                checked={status === 'active'}
+                                onChange={(e) => setstatus(e.target.checked)}
+                              />
+                              متاح
+                            </label>
+                            <label style={{ marginLeft: "10px" }}>
+                              <input
+                                type="radio"
+                                value="inactive"
+                                checked={status === 'inactive'}
+                                onChange={(e) => setstatus(e.target.value)}
+                              />
+                              غير متاح
+                            </label>
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={isMain}
+                              onChange={(e) => setisMain(e.target.checked)}
+                            />
+                            هل هذا التصنيف الرئيس؟
+                          </label>
                         </div>
                       </div>
                       <div className="modal-footer">

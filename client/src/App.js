@@ -1459,7 +1459,7 @@ function App() {
     if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
       setEmployeeLoginInfo(decodedToken);
-      // console.log(decodedToken.employeeinfo);
+      console.log(decodedToken.employeeinfo);
     }
 
     if (userToken) {

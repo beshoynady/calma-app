@@ -7,6 +7,7 @@ const {
     updateAttendanceById,
     deleteAttendanceById
   } = require('../controllers/Attendance.controller');
+  
 const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')

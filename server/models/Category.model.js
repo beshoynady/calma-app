@@ -1,27 +1,29 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    name :{
-        type : String,
-        required : [true, 'required'],
-        unique : [true, 'unique'],
-        trim : true,
-        maxlength : 30,
-        minlength : 3,
+    name: {
+        type: String,
+        required: [true, 'يجب إدخال اسم التصنيف'],
+        unique: [true, 'الاسم موجود بالفعل'],
+        trim: true,
+        maxlength: [30, 'يجب أن يكون الاسم أقل من 30 حرفًا'],
+        minlength: [3, 'يجب أن يكون الاسم أكثر من 3 أحرف']
     },
-    createdAt:{
-        type : Date,
-        default : Date.now(),
-        required : [true,'required']
+    isMain: {
+        type: Boolean,
+        default: false
     },
-    updatedAt:{
-        type : Date,
-        default : Date.now(),
-        required : [true,'required']
+    status: {
+        type: String,
+        enum: ['active', 'inactive'],
+        default: 'active'
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee'
     }
-},
-{timestamps : true}
-)
+}, { timestamps: true }
+);
 
 
 const Categorymodel = mongoose.model('Category', categorySchema)
