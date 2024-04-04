@@ -14,9 +14,8 @@ const categorySchema = new mongoose.Schema({
         default: false
     },
     status: {
-        type: String,
-        enum: ['active', 'inactive'],
-        default: 'active'
+        type: Boolean,
+        default: true
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
