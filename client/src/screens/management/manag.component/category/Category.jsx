@@ -254,7 +254,7 @@ const Category = () => {
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
-                                <td>{category.createdBy.username}</td>
+                                <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
                                   <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
@@ -280,7 +280,7 @@ const Category = () => {
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
-                                <td>{category.createdBy.username}</td>
+                                <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
                                   <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
