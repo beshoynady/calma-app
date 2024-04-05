@@ -87,6 +87,7 @@ const Category = () => {
       // Send a PUT request to edit the category
       const edit = await axios.put(apiUrl + "/api/category/" + categoryId, bodydata, config);
       const data = await edit.data
+      console.log({edit, data});
       // Check if the request was successful
       if (data.status === 200) {
         // Call the function to get all categories
