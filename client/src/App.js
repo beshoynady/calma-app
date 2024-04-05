@@ -174,7 +174,8 @@ function App() {
 
       // Fetch all categories from the API
       const response = await axios.get(apiUrl + '/api/category', config);
-
+      
+      const activeCategories = await response.data.filter(category => category.status === true);
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch categories.');
@@ -182,11 +183,10 @@ function App() {
 
       const mainCategory= response.data.filter(category=>category.isMain === true)[0]
       if(mainCategory){
-        console.log({mainCategory})
         setcategoryid(mainCategory._id)
       }
       // Set fetched categories in the state
-      setallcategories(response.data.reverse());
+      setallcategories(activeCategories.reverse());
     } catch (error) {
       // Handle errors
       console.error('Error fetching categories:', error.message);
