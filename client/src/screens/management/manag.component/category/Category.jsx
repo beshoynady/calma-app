@@ -15,6 +15,7 @@ const Category = () => {
   };
 
   const [categoryName, setcategoryName] = useState('')
+  const [mainCategory, setmainCategory] = useState({})
   const [status, setstatus] = useState('')
   const [isMain, setisMain] = useState(false)
 
@@ -25,7 +26,14 @@ const Category = () => {
   const getallCategory = async () => {
     try {
       const res = await axios.get(apiUrl + "/api/category/");
-      setallCategory(res.data);
+      if(res){
+        const categories = res.data
+        setallCategory(categories);
+        const filterMain = categories.filter(category => category.isMain === true)[0];
+        if(filterMain){
+          setmainCategory(filterMain)
+        }
+      }
     } catch (error) {
       if (error.response) {
         console.error("حدث خطأ أثناء استلام البيانات:", error.response.data);
@@ -256,9 +264,9 @@ const Category = () => {
                         <div>
                           <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
                           <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
-                              <option value="">{allCategory.map(category=>category.isMain ? category.name: "اختر تصنيف")}</option>
+                            <option value="">{mainCategory? mainCategory.name : "اختر تص"}</option>
                             {allCategory.map((category, index) => (
-                                <option key={index} value={category._id}>{category.name}</option>
+                              <option key={index} value={category._id}>{category.name}</option>
                             ))}
                           </select>
                         </div>
