@@ -200,6 +200,36 @@ const Category = () => {
     }
   };
 
+  const handleCategoryChange = async (e) => {
+    e.preventDefault()
+    const id = e.target.value
+    try {
+      // Iterate over all categories
+      for (let index = 0; index < allCategory.length; index++) {
+        const category = allCategory[index];
+        if (category.isMain === true) {
+          // Send a PUT request to edit the category order
+          const edit = await axios.put(`${apiUrl}/api/category/${category._id}`, { order: false }, config);
+        }
+      }
+
+      const mainCategory = await axios.put(`${apiUrl}/api/category/${id}`, { order: true }, config);
+      // Check if all requests were successful
+      if (mainCategory) {
+        // Call the function to get all categories
+        getallCategory();
+        // Display a success toast
+        toast.success("تم اختيار التصنيف", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      } else {
+        throw new Error("حدث خطا اثناء الاختيار ! حاول مره اخري");
+      }
+
+    } catch (error) {
+      toast.error("فشل في اختيار التصنيف الرئيسي ! حاول مره اخري")
+    }
+  }
 
 
   useEffect(() => {
@@ -223,6 +253,15 @@ const Category = () => {
                         <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
                         <a href="#orderCategoryModal" className="btn btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
                         <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <div>
+                          <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
+                          <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
+                            <option value="">اختر التصنيف الرئيسي</option>
+                            {allCategory.map((category, index) => (
+                              <option key={index} value={category._id}>{category.name}</option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -398,7 +437,7 @@ const Category = () => {
                           </select>
                         </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                           <label>
                             <input
                               type="checkbox"
@@ -407,7 +446,7 @@ const Category = () => {
                             />
                             هل هذا التصنيف الرئيس؟
                           </label>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
@@ -450,7 +489,7 @@ const Category = () => {
                           </select>
                         </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                           <label>
                             <input
                               type="checkbox"
@@ -459,7 +498,7 @@ const Category = () => {
                             />
                             هل هذا التصنيف الرئيس؟
                           </label>
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className="modal-footer">
