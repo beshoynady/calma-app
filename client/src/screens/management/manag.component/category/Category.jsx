@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
 
@@ -17,7 +17,6 @@ const Category = () => {
   const [categoryName, setcategoryName] = useState('')
   const [status, setstatus] = useState('')
   const [isMain, setisMain] = useState(false)
-  const [createdBy, setcreatedBy] = useState('')
 
   const [categoryId, setcategoryId] = useState('')
 
@@ -74,7 +73,6 @@ const Category = () => {
       });
     }
   };
-
 
   // Function to edit a category
   const editCategory = async (e) => {
