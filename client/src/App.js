@@ -183,7 +183,7 @@ function App() {
       // Set fetched categories in the state
       console.log({activeCategories})
       
-      setallcategories(activeCategories.reverse());
+      setallcategories(activeCategories);
       
       const mainCategory= activeCategories.filter(category=>category.isMain === true)[0]
       if(mainCategory){
