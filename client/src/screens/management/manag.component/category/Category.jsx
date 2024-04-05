@@ -264,7 +264,7 @@ const Category = () => {
                         <div>
                           <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
                           <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
-                            <option value="">{mainCategory? mainCategory.name : "اختر تص"}</option>
+                            <option value="">{mainCategory? mainCategory.name : "اختر نص"}</option>
                             {allCategory.map((category, index) => (
                               <option key={index} value={category._id}>{category.name}</option>
                             ))}
