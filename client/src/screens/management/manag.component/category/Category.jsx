@@ -209,11 +209,11 @@ const Category = () => {
         const category = allCategory[index];
         if (category.isMain === true) {
           // Send a PUT request to edit the category order
-          const edit = await axios.put(`${apiUrl}/api/category/${category._id}`, { order: false }, config);
+          const edit = await axios.put(`${apiUrl}/api/category/${category._id}`, { isMain: false }, config);
         }
       }
 
-      const mainCategory = await axios.put(`${apiUrl}/api/category/${id}`, { order: true }, config);
+      const mainCategory = await axios.put(`${apiUrl}/api/category/${id}`, { isMain: true }, config);
       // Check if all requests were successful
       if (mainCategory) {
         // Call the function to get all categories
@@ -324,7 +324,7 @@ const Category = () => {
                         </th>
                         <th>م</th>
                         <th>الاسم</th>
-                        <th>الرئيسة</th>
+                        <th>الترتيب</th>
                         <th>الحالة</th>
                         <th>عدد المنتجات</th>
                         <th>عدد المنتجات المباعه</th>
@@ -346,7 +346,7 @@ const Category = () => {
                                 </td>
                                 <td>{i + 1}</td>
                                 <td>{category.name}</td>
-                                <td>{category.isMain ? "رئيسيه" : "ليست"}</td>
+                                <td>{category.order}</td>
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
@@ -372,7 +372,7 @@ const Category = () => {
                                 </td>
                                 <td>{i + 1}</td>
                                 <td>{category.name}</td>
-                                <td>{category.isMain ? "رئيسيه" : "ليست"}</td>
+                                <td>{category.order}</td>
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{calcTotalSalesOfCategory(category._id)}</td>
