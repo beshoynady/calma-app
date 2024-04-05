@@ -246,19 +246,19 @@ const Category = () => {
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
-                      <div className="col-sm-6 text-right">
+                      <div className="col-sm-4 text-right">
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
+                      <div className="col-sm-8 d-flex justify-content-end">
                         <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
                         <a href="#orderCategoryModal" className="btn btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
                         <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                         <div>
                           <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
                           <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
-                            <option value="">اختر التصنيف الرئيسي</option>
+                              <option value="">{allCategory.map(category=>category.isMain ? category.name: "اختر تصنيف")}</option>
                             {allCategory.map((category, index) => (
-                              <option key={index} value={category._id}>{category.name}</option>
+                                <option key={index} value={category._id}>{category.name}</option>
                             ))}
                           </select>
                         </div>
