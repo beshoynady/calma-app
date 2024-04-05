@@ -19,9 +19,10 @@ const Menu = () => {
                 <div className='section-content'>
                   <nav className="menu-nav">
                     <ul className='menu-ul'>
-                      {allcategories.length > 0 ? allcategories.map((c, i) => <li key={i} className='menu-nav-li'>
-                        <a href='#menu' className={`category-btn ${activeItem === i ? 'active' : ''}`} onClick={() => { setcategoryid(c._id); setActiveItem(i) }}>{c.name}</a>
-                      </li>)
+                      {allcategories.length > 0 ? allcategories.map((c, i) =>
+                        <li key={i} className='menu-nav-li'>
+                          <a href='#menu' className={`category-btn ${activeItem === i ? 'active' : ''}`} onClick={() => { setcategoryid(c._id); setActiveItem(i) }}>{c.name}</a>
+                        </li>)
                         : ""}
                     </ul>
                   </nav>
