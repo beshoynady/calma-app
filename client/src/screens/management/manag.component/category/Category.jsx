@@ -476,14 +476,14 @@ const Category = () => {
                         <h4 className="modal-title">تعديل التصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
-                      <div className="modal-body">
+                      <div className="modal-body d-flex flex-column flex-md-row">
                         {allCategory.map((category, index) => (
                           <div key={index}
                             draggable
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
                             onDrop={(e) => handleDrop(e, index)}
-                            className='btn btn-primary'>
+                            className='btn btn-primary btn-sm mr-md-2 mb-2'>
                             {category.name}
                           </div>
                         ))}
