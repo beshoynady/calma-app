@@ -474,7 +474,7 @@ const Category = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        {categories.map((category, index) => (
+                        {allCategory.map((category, index) => (
                           <div key={index}
                             draggable
                             onDragStart={(e) => handleDragStart(e, index)}
