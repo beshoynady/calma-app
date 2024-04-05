@@ -160,15 +160,18 @@ const Category = () => {
     // Update the state with the new order
     setallCategory(updatedCategories);
   };
+
+
   const handleOrderCategory = async (e) => {
     e.preventDefault();
     try {
       const done = false;
+      
       allCategory.map(async (category, index) => {
         const id = category._id;
         const order = index + 1;
         // Send a PUT request to edit the category order
-        const edit = await axios.put(`${apiUrl}/api/category/${id}`, order, config);
+        const edit = await axios.put(`${apiUrl}/api/category/${id}`, {order}, config);
         if (allCategory.length === index + 1) {
           done = true;
         }
