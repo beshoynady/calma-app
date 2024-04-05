@@ -83,7 +83,7 @@ const Category = () => {
         isMain,
         status,
       }
-      
+
       // Send a PUT request to edit the category
       const edit = await axios.put(apiUrl + "/api/category/" + categoryId, bodydata, config);
       // Check if the request was successful
@@ -139,6 +139,64 @@ const Category = () => {
 
 
 
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData('index', index);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, newIndex) => {
+    const oldIndex = e.dataTransfer.getData('index');
+    const draggedCategory = allCategory[oldIndex];
+
+    // Remove the dragged category from its old position
+    const updatedCategories = allCategory.filter((_, index) => index != oldIndex);
+
+    // Insert the dragged category at the new position
+    updatedCategories.splice(newIndex, 0, draggedCategory);
+
+    // Update the state with the new order
+    setallCategory(updatedCategories);
+  };
+  const handleOrderCategory = async (e) => {
+    e.preventDefault();
+    try {
+      const done = false;
+      allCategory.map(async (category, index) => {
+        const id = category._id;
+        const order = index + 1;
+        // Send a PUT request to edit the category order
+        const edit = await axios.put(`${apiUrl}/api/category/${id}`, order, config);
+        if (allCategory.length === index + 1) {
+          done = true;
+        }
+      })
+      // Check if the request was successful
+      if (done === true) {
+        // Call the function to get all categories
+        getallCategory();
+        // Display a success toast
+        toast.success("تم تعديل التصنيف", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      } else {
+        throw new Error("Failed to edit category");
+      }
+    } catch (error) {
+      // Handle errors if any exception occurs
+      console.error("Error occurred while editing category:", error);
+
+      // Display an error toast
+      toast.error("Failed to edit category. Please try again later.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    }
+  };
+
+
+
   useEffect(() => {
     getallCategory()
   }, [])
@@ -158,6 +216,7 @@ const Category = () => {
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        <a href="#orderCategoryModal" className="btn btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
                         <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
@@ -398,6 +457,33 @@ const Category = () => {
                         </div>
                       </div>
 
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-info" value="حفظ" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="orderCategoryModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={handleOrderCategory}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">تعديل التصنيف</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div className="modal-body">
+                        {categories.map((category, index) => (
+                          <div key={index}
+                            draggable
+                            onDragStart={(e) => handleDragStart(e, index)}
+                            onDragOver={handleDragOver}
+                            onDrop={(e) => handleDrop(e, index)}>
+                            {category.name}
+                          </div>
+                        ))}
+                      </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-info" value="حفظ" />
