@@ -485,12 +485,12 @@ const Category = () => {
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
                             onDrop={(e) => handleDrop(e, index)}
-                            className='btn btn-primary btn-sm mb-2 mr-md-2'>
+                            className='btn btn-primary btn-sm mb-2 mr-md-2 w-md-100' style={{width:"23%"}}>
                             {category.name}
                           </div>
                         ))}
                       </div>
-                      <div className="modal-footer">
+                      <div className="modal-footer flex-row">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-info" value="حفظ" />
                       </div>
