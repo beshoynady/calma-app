@@ -165,19 +165,22 @@ const Category = () => {
   const handleOrderCategory = async (e) => {
     e.preventDefault();
     try {
-      const done = false;
-      
-      allCategory.map(async (category, index) => {
+      // Initialize a variable to track if all requests are done
+      let done = true;
+      // Iterate over all categories
+      for (let index = 0; index < allCategory.length; index++) {
+        const category = allCategory[index];
         const id = category._id;
         const order = index + 1;
         // Send a PUT request to edit the category order
-        const edit = await axios.put(`${apiUrl}/api/category/${id}`, {order}, config);
-        if (allCategory.length === index + 1) {
-          done = true;
+        const edit = await axios.put(`${apiUrl}/api/category/${id}`, { order }, config);
+        // If any request fails, set done to false
+        if (!edit) {
+          done = false;
         }
-      })
-      // Check if the request was successful
-      if (done === true) {
+      }
+      // Check if all requests were successful
+      if (done) {
         // Call the function to get all categories
         getallCategory();
         // Display a success toast
@@ -190,7 +193,6 @@ const Category = () => {
     } catch (error) {
       // Handle errors if any exception occurs
       console.error("Error occurred while editing category:", error);
-
       // Display an error toast
       toast.error("Failed to edit category. Please try again later.", {
         position: toast.POSITION.TOP_RIGHT
