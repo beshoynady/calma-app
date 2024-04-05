@@ -182,6 +182,7 @@ function App() {
       const activeCategories = await response.data.filter(category => category.status === true);
       // Set fetched categories in the state
       console.log({activeCategories})
+      
       setallcategories(activeCategories.reverse());
       
       const mainCategory= activeCategories.filter(category=>category.isMain === true)[0]
