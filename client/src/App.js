@@ -171,7 +171,6 @@ function App() {
   const [allcategories, setallcategories] = useState([])
   const getAllCategories = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch all categories from the API
       const response = await axios.get(apiUrl + '/api/category', config);
@@ -184,7 +183,7 @@ function App() {
       const mainCategory= response.data.filter(category=>category.isMain === true)[0]
       setcategoryid(mainCategory._id)
       // Set fetched categories in the state
-      setallcategories(response.data);
+      setallcategories(response.data.reverse());
     } catch (error) {
       // Handle errors
       console.error('Error fetching categories:', error.message);
@@ -281,16 +280,11 @@ function App() {
   const [allemployees, setallemployees] = useState([])
   const getAllemployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       if (!token) {
         // Handle case where token is not available
         throw new Error('توكن غير متاح');
       }
-      const response = await axios.get(`${apiUrl}/api/employee`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`${apiUrl}/api/employee`, config);
 
       if (response.status === 200) {
         setallemployees(response.data);
@@ -310,7 +304,7 @@ function App() {
 
 
   // ++++++++ client screen +++++++++++++ 
-  const [categoryid, setcategoryid] = useState('65edccaa7b4fc2266c6dfa01')
+  const [categoryid, setcategoryid] = useState('')
 
   const filterByCategoryId = (e) => {
     // console.log(e.target.value)
