@@ -19,7 +19,8 @@ const categorySchema = new mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employee'
+        ref: 'Employee',
+        required: true
     }
 }, { timestamps: true }
 );

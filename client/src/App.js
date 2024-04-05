@@ -174,17 +174,15 @@ function App() {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch all categories from the API
-      const response = await axios.get(apiUrl + '/api/category', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/category', config);
 
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch categories.');
       }
 
+      const mainCategory= response.data.filter(category=>category.isMain === true)[0]
+      setcategoryid(mainCategory._id)
       // Set fetched categories in the state
       setallcategories(response.data);
     } catch (error) {
