@@ -482,7 +482,8 @@ const Category = () => {
                             draggable
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
-                            onDrop={(e) => handleDrop(e, index)}>
+                            onDrop={(e) => handleDrop(e, index)}
+                            className='btn btn-primary'>
                             {category.name}
                           </div>
                         ))}
