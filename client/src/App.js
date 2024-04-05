@@ -181,7 +181,10 @@ function App() {
       }
 
       const mainCategory= response.data.filter(category=>category.isMain === true)[0]
-      setcategoryid(mainCategory._id)
+      if(mainCategory){
+        console.log({mainCategory})
+        setcategoryid(mainCategory._id)
+      }
       // Set fetched categories in the state
       setallcategories(response.data.reverse());
     } catch (error) {

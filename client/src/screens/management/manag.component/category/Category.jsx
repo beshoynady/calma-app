@@ -88,15 +88,11 @@ const Category = () => {
       }
       // Send a PUT request to edit the category
       const edit = await axios.put(apiUrl + "/api/category/" + categoryId, bodydata, config);
-
+      const data = await edit.data
       // Check if the request was successful
-      if (edit.status === 200) {
+      if (data.status === 200) {
         // Call the function to get all categories
         getallCategory();
-
-        // Log the response from the edit operation
-        console.log(edit);
-
         // Display a success toast
         toast.success("تم تعديل التصنيف", {
           position: toast.POSITION.TOP_RIGHT
