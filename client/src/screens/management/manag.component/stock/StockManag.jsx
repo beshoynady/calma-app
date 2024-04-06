@@ -96,12 +96,9 @@ const StockManag = () => {
       quantity,
       cost,
       oldCost,
-      unit,
       balance: newBalance,
       oldBalance,
       price,
-      actionBy,
-      actionAt,
     })
     e.preventDefault();
     console.log({ newBalance: newBalance })
