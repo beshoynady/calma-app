@@ -1466,9 +1466,11 @@ function App() {
       if (decodedToken) {
         const userId = await decodedToken.userinfo.id
         console.log({ userId });
-        const client = await axios.get(`${apiUrl}/api/user/${userId}`)
-        console.log({ client });
-        setclientInfo(client.data);
+        if(userId){
+          const client = await axios.get(`${apiUrl}/api/user/${userId}`)
+          console.log({ client });
+          setclientInfo(client.data);
+        }
       }
     }
 
