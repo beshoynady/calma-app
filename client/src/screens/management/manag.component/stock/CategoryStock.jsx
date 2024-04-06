@@ -6,7 +6,12 @@ import { toast } from 'react-toastify';
 
 const CategoryStock = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const [categoryStockname, setcategoryStockname] = useState('')
   const [categoryStockId, setcategoryStockId] = useState('')
 
@@ -15,7 +20,7 @@ const CategoryStock = () => {
   const getallCategoryStock = async () => {
 
     try {
-      const response = await axios.get(apiUrl + "/api/categoryStock/");
+      const response = await axios.get(apiUrl + "/api/categoryStock/", config);
       setallCategoryStock(response.data.reverse());
     } catch (error) {
       console.error('Error fetching category stock:', error);
@@ -27,7 +32,7 @@ const CategoryStock = () => {
 
   const getallStockItem = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/stockitem/');
+      const response = await axios.get(apiUrl + '/api/stockitem/', config);
       const StockItems = await response.data.reverse();
       console.log(response.data)
       setAllStockItems(StockItems)
