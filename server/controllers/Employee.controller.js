@@ -164,6 +164,7 @@ const loginEmployee = async (req, res) => {
                     username: findEmployee.username,
                     isAdmin: findEmployee.isAdmin,
                     isActive: findEmployee.isActive,
+                    isVerified: findEmployee.isVerified,
                     role: findEmployee.role
                 }
             },
