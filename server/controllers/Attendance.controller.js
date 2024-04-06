@@ -4,9 +4,10 @@ const AttendanceModel = require('../models/Attendance.model');
   // Create a new attendance record
   const createAttendance= async (req, res) => {
     try {
-      const { employee, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
+      const { employee, shift, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
       const attendance = await AttendanceModel.create({
         employee,
+        shift,
         date,
         startTime,
         endTime,
@@ -59,9 +60,10 @@ const AttendanceModel = require('../models/Attendance.model');
   const updateAttendanceById= async (req, res) => {
     try {
       const attendanceId = req.params.id;
-      const { employee, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
+      const { employee, shift, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
       const updatedAttendance = await AttendanceModel.findByIdAndUpdate(attendanceId, {
         employee,
+        shift,
         date,
         startTime,
         endTime,

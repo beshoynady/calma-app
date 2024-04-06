@@ -54,7 +54,7 @@ const StockManag = () => {
   const [itemName, seitemName] = useState("");
   const [largeUnit, setlargeUnit] = useState('')
   const [smallUnit, setsmallUnit] = useState('')
-  const [Quantity, setQuantity] = useState(0);
+  const [quantity, setquantity] = useState(0);
   const [price, setprice] = useState(0);
   const [cost, setcost] = useState(0)
   const [oldCost, setoldCost] = useState(0)
@@ -90,6 +90,19 @@ const StockManag = () => {
   const [AllStockactions, setAllStockactions] = useState([]);
 
   const createStockAction = async (e, employeeId) => {
+    console.log({
+      itemId,
+      movement,
+      quantity,
+      cost,
+      oldCost,
+      unit,
+      balance: newBalance,
+      oldBalance,
+      price,
+      actionBy,
+      actionAt,
+    })
     e.preventDefault();
     console.log({ newBalance: newBalance })
     console.log({ newcost: newcost })
@@ -118,7 +131,7 @@ const StockManag = () => {
         const response = await axios.post(apiUrl + '/api/stockmanag/', {
           itemId,
           movement,
-          Quantity,
+          quantity,
           cost,
           oldCost,
           unit,
@@ -207,7 +220,7 @@ const StockManag = () => {
       if (changeItem.status === 200) {
         // Update the existing stock action
         const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
-          itemId, movement, Quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
+          itemId, movement, quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
           actionBy
         }, {
           headers: {
@@ -342,21 +355,21 @@ const StockManag = () => {
 
   useEffect(() => {
     if (movement == "Expense" || movement == "Wastage") {
-      setnewBalance(Number(oldBalance) - Number(Quantity / parts))
+      setnewBalance(Number(oldBalance) - Number(quantity / parts))
       setnewcost(Number(oldCost) - Number(cost))
       setcostOfPart(Number(price) / Number(parts))
     } else if (movement == 'Purchase') {
-      setnewBalance(Number(oldBalance) + Number(Quantity))
+      setnewBalance(Number(oldBalance) + Number(quantity))
       setnewcost(Number(oldCost) + Number(cost))
       setcostOfPart(Number(price) / Number(parts))
 
     } else if (movement == "Return") {
-      setnewBalance(Number(oldBalance) + Number(Quantity / parts))
+      setnewBalance(Number(oldBalance) + Number(quantity / parts))
       setnewcost(Number(oldCost) + Number(cost))
       setcostOfPart(Number(price) / Number(parts))
 
     }
-  }, [Quantity, price])
+  }, [quantity, price])
 
 
 
@@ -478,7 +491,7 @@ const StockManag = () => {
                               <td>{i + 1}</td>
                               <td>{itemname(action.itemId)}</td>
                               <td>{action.movement}</td>
-                              <td>{action.Quantity}</td>
+                              <td>{action.quantity}</td>
                               <td>{action.unit}</td>
                               <td>{action.price}</td>
                               <td>{action.cost}</td>
@@ -507,7 +520,7 @@ const StockManag = () => {
                                 <td>{i + 1}</td>
                                 <td>{itemname(action.itemId)}</td>
                                 <td>{action.movement}</td>
-                                <td>{action.Quantity}</td>
+                                <td>{action.quantity}</td>
                                 <td>{action.unit}</td>
                                 <td>{action.price}</td>
                                 <td>{action.cost}</td>
@@ -581,11 +594,11 @@ const StockManag = () => {
                           <label>الكمية</label>
                           {movement == "Expense" || movement == "Wastage" || movement == "Return" ?
                             <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setQuantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
                               <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
                             </>
                             : movement == "Purchase" ? <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setQuantity(e.target.value); }} />
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
                               <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
                             </> : ''}
                         </div>
@@ -604,7 +617,7 @@ const StockManag = () => {
                           <label>السعر</label>
                           {movement == "Expense" || movement == "Wastage" || movement == "Return" ?
                             <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
-                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * Quantity) }} />
+                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
                           }
                         </div>
                         <div className="form-group">
@@ -667,11 +680,11 @@ const StockManag = () => {
                           <label>الكمية</label>
                           {movement == "Expense" || movement == "Wastage" || movement == "Return" ?
                             <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setQuantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
                               <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
                             </>
                             : movement == "Purchase" ? <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setQuantity(e.target.value); }} />
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
                               <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
                             </> : ''}
                         </div>
@@ -680,7 +693,7 @@ const StockManag = () => {
                           <label>السعر</label>
                           {movement == "Expense" || movement == "Wastage" ?
                             <input type='Number' className="form-control" readOnly required defaultValue={price} />
-                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * Quantity) }} />
+                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
                           }
                         </div>
                         <div className="form-group">

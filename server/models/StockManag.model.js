@@ -9,6 +9,15 @@ const StockManagSchema = new mongoose.Schema(
       ref: 'StockItems',
       required: true,
     },
+    supplier: {
+      type: ObjectId,
+      ref: 'Supplier',
+    },
+    // Payment type for the transaction
+    paymentType: {
+      type: String,
+      enum: ['Cash', 'Credit'], // Add more options if needed
+    },
     // Unit of measurement
     unit: {
       type: String,
@@ -58,7 +67,7 @@ const StockManagSchema = new mongoose.Schema(
     // Action performed by the user
     actionBy: {
       type: ObjectId,
-      ref: 'User',
+      ref: 'Employee',
       required: true,
     },
     // Timestamp of the action

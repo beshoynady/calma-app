@@ -8,6 +8,11 @@ const attendanceSchema = new mongoose.Schema(
       required: true,
       index: true
     },
+    shift: {
+      type : mongoose.Schema.Types.ObjectId,
+      ref: 'Shift',
+      required: true,
+    },
     date: {
       type: Date,
       required: true,
@@ -20,6 +25,7 @@ const attendanceSchema = new mongoose.Schema(
     endTime: {
       type: Date,
       required: true,
+      default: Date.now
     },
     isOvertime: {
       type: Boolean,

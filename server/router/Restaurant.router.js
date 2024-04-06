@@ -47,10 +47,10 @@ const upload = multer({
 router.route('/')
   // .post(authenticateToken, upload.single("image"), createRestaurant)
   .post(authenticateToken,createRestaurant)
-  .get(authenticateToken, getAllRestaurants);
+  .get(getAllRestaurants);
 
 router.route('/:id')
-  .get(authenticateToken, getRestaurantById)
+  .get(getRestaurantById)
   // .put(authenticateToken, upload.single("image"), updateRestaurant)
   .put(authenticateToken, updateRestaurant)
   .delete(authenticateToken, deleteRestaurant);
