@@ -493,7 +493,7 @@ const StockManag = () => {
                               <td>{action.price}</td>
                               <td>{action.cost}</td>
                               <td>{action.oldBalance}</td>
-                              <td>{action.Balance}</td>
+                              <td>{action.balance}</td>
                               <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>{usertitle(action.actionBy)}</td>
                               <td>
@@ -522,7 +522,7 @@ const StockManag = () => {
                                 <td>{action.price}</td>
                                 <td>{action.cost}</td>
                                 <td>{action.oldBalance}</td>
-                                <td>{action.Balance}</td>
+                                <td>{action.balance}</td>
                                 <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>{usertitle(action.actionBy)}</td>
                                 <td>
