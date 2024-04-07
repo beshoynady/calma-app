@@ -7,7 +7,7 @@ const {
     deleteStockAction,
 } = require('../controllers/StockMang.controller');
 
-const authenticateToken = require('../utlits/authenticate');
+const authenticateToken = require('../utlits/authenticate')
 
 const router = express.Router();
 
