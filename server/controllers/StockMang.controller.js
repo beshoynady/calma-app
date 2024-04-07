@@ -87,8 +87,7 @@ const updateStockAction = async (req, res, next) => {
 
 const getAllStockActions = async (req, res, next) => {
     try {
-        const allActions = await StockManagementModel.find({})
-            .populate('itemId supplier actionBy');
+        const allActions = await StockManagementModel.find({}).populate('itemId supplier actionBy');
         res.status(200).json(allActions);
     } catch (error) {
         next(error);

@@ -16,8 +16,6 @@ const StockManag = () => {
 
   const getallrecipes = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log(response)
       const allRecipe = await response.data;
@@ -237,7 +235,6 @@ const StockManag = () => {
 
   const getallStockaction = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       const response = await axios.get(apiUrl + '/api/stockmanag/', config);
       console.log(response.data)
       const Stockactions = await response.data;
