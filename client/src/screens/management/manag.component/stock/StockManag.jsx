@@ -320,7 +320,7 @@ const StockManag = () => {
     if (movement === "Issuance" || movement === "Wastage" || movement === "Damaged") {
       const calcNewBalance = Number(oldBalance) - (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * parts 
+      const countparts = calcNewBalance * Number(parts) 
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -328,7 +328,7 @@ const StockManag = () => {
     } else if (movement === "ReturnIssuance") {
       const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance * parts 
+      const countparts = calcNewBalance * Number(parts) 
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -336,15 +336,16 @@ const StockManag = () => {
     } else if (movement === 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
       const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance * parts 
+      const countparts = calcNewBalance *  Number(parts) 
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
+      console.log({calcNewBalance, calcNewCost , parts, countparts})
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnPurchase") {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
       const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * parts 
+      const countparts = calcNewBalance * Number(parts) 
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
