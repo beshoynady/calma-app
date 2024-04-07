@@ -26,7 +26,7 @@ const StockManagSchema = new mongoose.Schema(
     // Type of movement: Purchase, Expense, Return, Wastage
     movement: {
       type: String,
-      enum: ['Purchase', 'Expense', 'Return', 'Wastage'],
+      enum: ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged'],
       required: true,
     },
     // Quantity of stock

@@ -1,4 +1,4 @@
-const StockManagModel = require('../models/StockManag.model');
+const StockManagementModel = require('../models/StockManagement.model');
 
 const createStockAction = async (req, res, next) => {
     try {
@@ -18,7 +18,7 @@ const createStockAction = async (req, res, next) => {
         } = req.body;
 
         // Create a new stock action using the provided data
-        const itemAdded = await StockManagModel.create({
+        const itemAdded = await StockManagementModel.create({
             itemId,
             unit,
             movement,
@@ -30,15 +30,14 @@ const createStockAction = async (req, res, next) => {
             cost,
             actionBy,
             actionAt,
-            ...(movement === 'Purchase' && { expirationDate}),
- 
+            ...(movement === 'Purchase' && { expirationDate }),
         });
 
         // Respond with the created item
         res.status(201).json(itemAdded);
     } catch (error) {
         // Handle any errors that occur during the process
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
@@ -60,7 +59,7 @@ const updateStockAction = async (req, res, next) => {
         const actionId = req.params.actionid;
 
         // Find and update the existing stock action by ID
-        const updatedAction = await StockManagModel.findByIdAndUpdate(actionId, {
+        const updatedAction = await StockManagementModel.findByIdAndUpdate(actionId, {
             itemId,
             unit,
             movement,
@@ -82,23 +81,25 @@ const updateStockAction = async (req, res, next) => {
         res.status(200).json(updatedAction);
     } catch (error) {
         // Handle any errors that occur during the process
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 const getAllStockActions = async (req, res, next) => {
     try {
-        const allActions = await StockManagModel.find({});
+        const allActions = await StockManagementModel.find({})
+            .populate('itemId supplier actionBy');
         res.status(200).json(allActions);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 const getOneStockAction = async (req, res, next) => {
     try {
         const actionId = req.params.actionid;
-        const action = await StockManagModel.findById(actionId);
+        const action = await StockManagementModel.findById(actionId)
+            .populate('itemId supplier actionBy');
 
         if (!action) {
             return res.status(404).json({ message: 'Action not found' });
@@ -106,14 +107,14 @@ const getOneStockAction = async (req, res, next) => {
 
         res.status(200).json(action);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
 const deleteStockAction = async (req, res, next) => {
     try {
         const actionId = req.params.actionid;
-        const deletedAction = await StockManagModel.findByIdAndDelete(actionId);
+        const deletedAction = await StockManagementModel.findByIdAndDelete(actionId);
 
         if (!deletedAction) {
             return res.status(404).json({ message: 'Action not found' });
@@ -121,7 +122,7 @@ const deleteStockAction = async (req, res, next) => {
 
         res.status(200).json(deletedAction);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
