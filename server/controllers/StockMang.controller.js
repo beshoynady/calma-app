@@ -12,11 +12,10 @@ const createStockAction = async (req, res, next) => {
             price,
             oldCost,
             cost,
-            actionBy,
             actionAt,
             expirationDate,
         } = req.body;
-
+        const actionBy = req.employee.id
         // Create a new stock action using the provided data
         const itemAdded = await StockManagementModel.create({
             itemId,
@@ -52,9 +51,9 @@ const updateStockAction = async (req, res, next) => {
             balance,
             price,
             cost,
-            actionBy,
             expirationDate,
         } = req.body;
+        const actionBy = req.employee.id
 
         const actionId = req.params.actionid;
 
