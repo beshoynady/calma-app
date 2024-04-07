@@ -247,7 +247,6 @@ const StockManag = () => {
   const deleteStockaction = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       // Delete the selected stock action
       const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, config);
       console.log(response);
