@@ -3,14 +3,14 @@ const SupplierModel = require('../models/Supplier.model');
 // Create a new supplier
 const createSupplier = async (req, res) => {
     try {
-        const { name, contact, address, paymentType, itemsSupplied, previousBalance, currentBalance, financialInfo } = req.body;
+        const { name, contact, address, paymentType, itemsSupplied, openingBalance, currentBalance, financialInfo } = req.body;
         const supplier = await SupplierModel.create({
             name,
             contact,
             address,
             paymentType,
             itemsSupplied,
-            previousBalance,
+            openingBalance,
             currentBalance,
             financialInfo
         });
@@ -51,17 +51,17 @@ const getSupplierById = async (req, res) => {
 const updateSupplierById = async (req, res) => {
     try {
         const supplierId = req.params.id;
-        const { name, contact, address, paymentType, itemsSupplied, previousBalance, currentBalance, financialInfo } = req.body;
+        const { name, contact, address, paymentType, itemsSupplied, openingBalance, currentBalance, financialInfo } = req.body;
         const updatedSupplier = await SupplierModel.findByIdAndUpdate(supplierId, {
             name,
             contact,
             address,
             paymentType,
             itemsSupplied,
-            previousBalance,
+            openingBalance,
             currentBalance,
             financialInfo
-        }, { new: true });
+        }, { new: true })
         if (!updatedSupplier) {
             return res.status(404).json({ message: 'Supplier not found' });
         }

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 
 
-const StockItem = () => {
+const Suppliers = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
   const config = {
@@ -13,183 +13,167 @@ const StockItem = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
-  const [itemName, setitemName] = useState('');
-  const [stockItemId, setStockItemid] = useState('');
-  const [categoryId, setcategoryId] = useState('');
-  const [largeUnit, setlargeUnit] = useState('');
-  const [smallUnit, setsmallUnit] = useState('');
-  const [Balance, setBalance] = useState('');
-  const [price, setprice] = useState('');
-  const [totalCost, settotalCost] = useState('');
-  const [parts, setparts] = useState('');
-  const [costOfPart, setcostOfPart] = useState('');
-  const [minThreshold, setminThreshold] = useState();
+
+  const [supplierId, setsupplierId] = useState('');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [address, setAddress] = useState('');
+  const [paymentType, setPaymentType] = useState('');
+  const [itemsSupplied, setItemsSupplied] = useState('');
+  const [openingBalance, setopeningBalance] = useState(0);
+  const [currentBalance, setCurrentBalance] = useState(0);
+  const [financialInfo, setFinancialInfo] = useState('');
 
 
-  // Function to create a stock item
-  const createItem = async (e, userId) => {
+  // Function to create a Supplier
+  const createSupplier = async (e) => {
     e.preventDefault();
-    const createBy = userId;
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const response = await axios.post(apiUrl + '/api/stockitem/', {
-        itemName,
-        categoryId,
-        smallUnit,
-        parts,
-        totalCost,
-        costOfPart,
-        largeUnit,
-        Balance,
-        minThreshold,
-        price,
-        createBy,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const supplierData = {
+        name,
+        contact,
+        address,
+        paymentType,
+        itemsSupplied,
+        openingBalance,
+        currentBalance,
+        financialInfo
+      };
+
+      const response = await axios.post(apiUrl + '/api/supplier/', supplierData, config);
       console.log(response.data);
-      getStockItems(); // Update the list of stock items after creating a new one
-  
+
       // Notify on success
-      toast.success('تم إنشاء عنصر المخزون بنجاح');
+      toast.success('تم إنشاء المورد بنجاح');
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
-      toast.error('فشل في إنشاء عنصر المخزون');
+      toast.error('فشل في إنشاء المورد');
     }
-  };
-  
+  }
+
   // Function to edit a stock item
-  const editStockItem = async (e, userId) => {
+  const updateSupplier = async (e) => {
     e.preventDefault();
-    const createBy = userId;
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
-        itemName,
-        categoryId,
-        smallUnit,
-        parts,
-        totalCost,
-        costOfPart,
-        largeUnit,
-        Balance,
-        minThreshold,
-        price,
-        createBy,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const updatedSupplierData = {
+        name,
+        contact,
+        address,
+        paymentType,
+        itemsSupplied,
+        openingBalance,
+        currentBalance,
+        financialInfo
+      };
+      const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
       console.log(response.data);
-      if (response) {
-        getStockItems(); // Update the list of stock items after editing
-      }
-  
+
       // Notify on success
-      toast.success('تم تحديث عنصر المخزون بنجاح');
+      toast.success('تم تحديث المورد بنجاح');
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
-      toast.error('فشل في تحديث عنصر المخزون');
+      toast.error('فشل في تحديث المورد');
     }
   };
-  
-  // Function to delete a stock item
-  const deleteStockItem = async (e) => {
+
+
+  // Function to delete a supplier
+  const deleteSupplier = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+
+      const response = await axios.delete(`${apiUrl}/api/supplier/${supplierId}`, config);
       if (response.status === 200) {
         console.log(response);
-        getStockItems(); // Update the list of stock items after deletion
-  
+        // Optionally, you may want to update the list of suppliers after deletion
+        // getSuppliers(); // Update the list of suppliers after deletion
+
         // Notify on success
-        toast.success('تم حذف عنصر المخزون بنجاح');
+        toast.success('تم حذف المورد بنجاح');
       }
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
-      toast.error('فشل في حذف عنصر المخزون');
+      toast.error('فشل في حذف المورد');
     }
   };
-  
-  
-  const [AllStockItems, setAllStockItems] = useState([]);
-  
-  // Function to retrieve all stock items
-  const getStockItems = async () => {
+
+  const [AllSuppliers, setAllSuppliers] = useState([]);
+  // Function to retrieve all suppliers
+  const getAllSuppliers = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('رجاء تسجيل الدخول مره اخري');
-      }
-  
-      const response = await axios.get(apiUrl + '/api/stockitem/', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
-  
+      const response = await axios.get(apiUrl + '/api/supplier/', config);
+
       if (!response || !response.data) {
         // Handle unexpected response or empty data
         throw new Error('استجابة غير متوقعة أو بيانات فارغة');
       }
-  
+
+      const suppliers = response.data.reverse();
+      setAllSuppliers(suppliers);
+
+      // Notify on success
+      toast.success('تم استرداد جميع الموردين بنجاح');
+    } catch (error) {
+      console.error(error);
+
+      // Notify on error
+      toast.error('فشل في استرداد الموردين');
+    }
+  };
+
+
+  const [AllStockItems, setAllStockItems] = useState([]);
+
+  // Function to retrieve all stock items
+  const getStockItems = async () => {
+    try {
+
+      const response = await axios.get(apiUrl + '/api/stockitem/', config);
+
+      if (!response || !response.data) {
+        // Handle unexpected response or empty data
+        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
+      }
+
       const stockItems = response.data.reverse();
       setAllStockItems(stockItems);
-  
+
       // Notify on success
       toast.success('تم استرداد عناصر المخزون بنجاح');
     } catch (error) {
       console.error(error);
-  
+
       // Notify on error
       toast.error('فشل في استرداد عناصر المخزون');
     }
   };
-  
-  
+
+
   const [AllCategoryStock, setAllCategoryStock] = useState([]);
-  
+
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const res = await axios.get(apiUrl + '/api/categoryStock/', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const res = await axios.get(apiUrl + '/api/categoryStock/', config);
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
       toast.error('فشل في استرداد فئة المخزون');
     }
   };
-  
+
 
 
   useEffect(() => {
+    getAllSuppliers()
     getStockItems()
     getAllCategoryStock()
   }, [])
@@ -204,10 +188,10 @@ const StockItem = () => {
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6 text-right">
-                        <h2>ادارة <b>المنتجات</b></h2>
+                        <h2>ادارة <b>الموردين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addStockItemModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addSupplierModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
                         {/* <a href="#deleteStockItemModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
@@ -275,8 +259,9 @@ const StockItem = () => {
                       <tr>
 
                         <th>م</th>
-                        <th>اسم الصنف</th>
-                        <th>المخزن</th>
+                        <th>الاسم</th>
+                        <th>الاصناف</th>
+                        <th>الرصيد الافتتاحي</th>
                         <th>الرصيد الحالي</th>
                         <th>الحد الادني</th>
                         <th>الوحدة كبيرة</th>
@@ -291,7 +276,7 @@ const StockItem = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {AllStockItems && AllStockItems.map((item, i) => {
+                      {/* {AllStockItems && AllStockItems.map((item, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
@@ -315,11 +300,11 @@ const StockItem = () => {
                             </tr>
                           )
                         }
-                      })}
+                      })} */}
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{AllStockItems.length > endpagination ? endpagination : AllStockItems.length}</b> من <b>{AllStockItems.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{AllSuppliers.length > endpagination ? endpagination : AllSuppliers.length}</b> من <b>{AllSuppliers.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
@@ -334,69 +319,51 @@ const StockItem = () => {
               </div>
 
 
-              <div id="addStockItemModal" className="modal fade">
+              <div id="addSupplierModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createItem(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={createSupplier}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <h4 className="modal-title">إضافة مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <div className="form-group">
-                          <label>اسم الصنف</label>
-                          <input type="text" className="form-control" required onChange={(e) => setitemName(e.target.value)} />
+                          <label>اسم المورد</label>
+                          <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>نوع المخزن</label>
-                          <select name="category" id="category" form="carform" onChange={(e) => setcategoryId(e.target.value)}>
-                            <option>اختر نوع المخزن</option>
-                            {AllCategoryStock.map((category, i) => {
-                              return <option value={category._id} key={i} >{category.name}</option>
-                            })
-                            }
-                          </select>
+                          <label>معلومات الاتصال</label>
+                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>الوحدة الكبيرة</label>
-                          <input type='text' className="form-control" required onChange={(e) => setlargeUnit(e.target.value)}></input>
+                          <label>العنوان</label>
+                          <input type="text" className="form-control" required onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>الوحدة الصغيره</label>
-                          <input type='text' className="form-control" required onChange={(e) => setsmallUnit(e.target.value)}></input>
+                          <label>نوع الدفع</label>
+                          <input type="text" className="form-control" required onChange={(e) => setPaymentType(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setBalance(e.target.value)} />
+                          <label>العناصر الموردة</label>
+                          <input type="text" className="form-control" required onChange={(e) => setItemsSupplied(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>الحد الادني</label>
-                          <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
+                          <label>الرصيد الافتتاحي</label>
+                          <input type="number" className="form-control" required onChange={(e) => setOpeningBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
+                          <label>الرصيد الحالي</label>
+                          <input type="number" className="form-control" required onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>التكلفة</label>
-                          <input type='Number' className="form-control" required defaultValue={totalCost} readOnly />
-                        </div>
-                        <div className="form-group">
-                          <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
-                        </div>
-                        <div className="form-group">
-                          <label>تكلفة الوحده</label>
-                          <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
-                        </div>
-                        <div className="form-group">
-                          <label>التاريخ</label>
-                          <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
+                          <label>المعلومات المالية</label>
+                          <input type="text" className="form-control" required onChange={(e) => setFinancialInfo(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="اضافه" />
+                        <input type="submit" className="btn btn-success" value="إضافة" />
                       </div>
                     </form>
                   </div>
@@ -404,67 +371,47 @@ const StockItem = () => {
               </div>
 
 
+
               <div id="editStockItemModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => editStockItem(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={(e) => updateSupplier(e)}>
                       <div className="modal-header">
                         <h4 className="modal-title">تعديل صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <div className="form-group">
-                          <label>اسم الصنف</label>
-                          <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
+                          <label>اسم المورد</label>
+                          <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>نوع المخزن</label>
-                          <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
-                            {/* <option>{AllCategoryStock.length>0?AllCategoryStock.filter(c=>c._id == categoryId)[0].name:''}</option> */}
-                            <option value={categoryId}>{categoryId !=="" ? AllCategoryStock.filter(c => c._id == categoryId)[0].name : ''}</option>
-                            {AllCategoryStock.map((category, i) => {
-                              return <option value={category._id} key={i} >{category.name}</option>
-                            })
-                            }
-                          </select>
-                        </div>
-
-                        <div className="form-group">
-                          <label>الوحدة الكبيرة</label>
-                          <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
+                          <label>معلومات الاتصال</label>
+                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>الوحدة الصغيره</label>
-                          <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
+                          <label>العنوان</label>
+                          <input type="text" className="form-control" required onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
+                          <label>نوع الدفع</label>
+                          <input type="text" className="form-control" required onChange={(e) => setPaymentType(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>الحد الادني</label>
-                          <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
-                        </div>
-
-                        <div className="form-group">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
+                          <label>العناصر الموردة</label>
+                          <input type="text" className="form-control" required onChange={(e) => setItemsSupplied(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>التكلفة</label>
-                          <input type='text' className="form-control" required defaultValue={totalCost} readOnly />
+                          <label>الرصيد الافتتاحي</label>
+                          <input type="number" className="form-control" required onChange={(e) => setOpeningBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
+                          <label>الرصيد الحالي</label>
+                          <input type="number" className="form-control" required onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <label>تكلفة الوحده</label>
-                          <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
-                        </div>
-                        <div className="form-group">
-                          <label>التاريخ</label>
-                          <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
+                          <label>المعلومات المالية</label>
+                          <input type="text" className="form-control" required onChange={(e) => setFinancialInfo(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -479,7 +426,7 @@ const StockItem = () => {
               <div id="deleteStockItemModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={deleteStockItem}>
+                    <form onSubmit={deleteSupplier}>
                       <div className="modal-header">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -505,4 +452,4 @@ const StockItem = () => {
   )
 }
 
-export default StockItem
+export default Suppliers

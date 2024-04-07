@@ -6,18 +6,19 @@ import { toast } from 'react-toastify';
 
 const StockManag = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const [allrecipes, setallrecipes] = useState([]);
 
   const getallrecipes = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(`${apiUrl}/api/recipe`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log(response)
       const allRecipe = await response.data;
       setallrecipes(allRecipe)
@@ -34,11 +35,7 @@ const StockManag = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/stockitem/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/stockitem/', config);
       console.log(response.data)
       setStockItems(response.data.reverse())
 
@@ -74,11 +71,7 @@ const StockManag = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/cashregister', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashregister', config);
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -115,11 +108,7 @@ const StockManag = () => {
         newcost,
         price,
         costOfPart,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       console.log(changeItem);
 
@@ -170,12 +159,7 @@ const StockManag = () => {
             // Update the product with the modified recipe and total cost
             const updateRecipe = await axios.put(
               `${apiUrl}/api/recipe/${recipeid}`,
-              { ingredients: newIngredients, totalcost },
-              {
-                headers: {
-                  'authorization': `Bearer ${token}`,
-                },
-              }
+              { ingredients: newIngredients, totalcost }, config
             );
 
             console.log({ updateRecipe });
@@ -208,11 +192,7 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price }, config);
 
       if (changeItem.status === 200) {
         // Update the existing stock action
@@ -250,12 +230,7 @@ const StockManag = () => {
             // Update the product with the modified recipe and total cost
             const updateRecipe = await axios.put(
               `${apiUrl}/api/recipe/${recipeid}`,
-              { ingredients: newIngredients, totalcost },
-              {
-                headers: {
-                  'authorization': `Bearer ${token}`,
-                },
-              }
+              { ingredients: newIngredients, totalcost }, config
             );
 
             console.log({ updateRecipe });
@@ -282,11 +257,7 @@ const StockManag = () => {
   const getallStockaction = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      const response = await axios.get(apiUrl + '/api/stockmanag/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/stockmanag/', config);
       console.log(response.data)
       const Stockactions = await response.data;
       setAllStockactions(Stockactions.reverse())
@@ -300,11 +271,7 @@ const StockManag = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       // Delete the selected stock action
-      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, config);
       console.log(response);
 
       if (response) {
@@ -356,9 +323,12 @@ const StockManag = () => {
       setnewcost(Number(oldCost) - Number(cost))
       setcostOfPart(Number(price) / Number(parts))
     } else if (movement == 'Purchase') {
-      setnewBalance(Number(oldBalance) + Number(quantity))
-      setnewcost(Number(oldCost) + Number(cost))
-      setcostOfPart(Number(price) / Number(parts))
+      const calcNewBalance = Number(oldBalance) + Number(quantity)
+      const calcNewCost = Number(oldCost) + Number(cost)
+      const calcCostOfPart = calcNewCost+ calcNewBalance
+      setnewBalance(calcNewBalance)
+      setnewcost(calcNewCost)
+      setcostOfPart(calcCostOfPart)
 
     } else if (movement == "Return") {
       setnewBalance(Number(oldBalance) + Number(quantity / parts))

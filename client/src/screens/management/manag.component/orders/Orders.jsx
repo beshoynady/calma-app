@@ -109,7 +109,7 @@ const Orders = () => {
     e.preventDefault();
     try {
       const id = orderId;
-      await axios.delete(`${apiUrl}/api/order/${id}`);
+      await axios.delete(`${apiUrl}/api/order/${id}`,config);
       getOrders();
       toast.success('Order deleted successfully');
     } catch (error) {

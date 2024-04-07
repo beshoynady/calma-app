@@ -1,6 +1,3 @@
-const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema;
-
 // Supplier Schema
 const SupplierSchema = new mongoose.Schema(
     {
@@ -29,13 +26,6 @@ const SupplierSchema = new mongoose.Schema(
                 trim: true,
                 match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
             },
-            social_media: {
-                facebook: String,
-                twitter: String,
-                instagram: String,
-                linkedin: String,
-                youtube: String,
-            }
         },
         // Supplier address
         address: {
@@ -54,8 +44,8 @@ const SupplierSchema = new mongoose.Schema(
                 ref: 'StockItems',
             }
         ],
-        // Previous balance of the supplier
-        previousBalance: {
+        // Opening balance of the supplier
+        openingBalance: {
             type: Number,
             default: 0,
             required: true,
@@ -86,7 +76,3 @@ const SupplierSchema = new mongoose.Schema(
         },
     }, { timestamps: true }
 );
-
-const SupplierModel = mongoose.model('Supplier', SupplierSchema);
-
-module.exports = SupplierModel;

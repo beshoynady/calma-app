@@ -6,7 +6,12 @@ import { toast } from 'react-toastify';
 const CashRegister = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const [cashRegisters, setCashRegisters] = useState([]);
   const [allEmployee, setallEmployee] = useState([]);
   const [name, setname] = useState('');
@@ -17,13 +22,8 @@ const CashRegister = () => {
   // Fetch employees
   const getEmployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(`${apiUrl}/api/employee`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(`${apiUrl}/api/employee`, config);
       const data = response.data;
       setallEmployee(data);
     } catch (error) {
@@ -50,11 +50,7 @@ const CashRegister = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/cashregister', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashregister', config);
       setCashRegisters(response.data.reverse());
     } catch (err) {
       console.error('Error fetching cash registers:', err);
@@ -67,11 +63,7 @@ const CashRegister = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`, config);
       // Handle response (e.g., display details, update state)
     } catch (err) {
       toast.error('Cash register not found');
@@ -85,11 +77,7 @@ const CashRegister = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister, config);
       console.log(response);
       toast.success('Cash register created successfully');
       getAllCashRegisters()
@@ -106,11 +94,7 @@ const CashRegister = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister, config);
       toast.success('Cash register updated successfully');
       getAllCashRegisters()
     } catch (err) {
@@ -124,11 +108,7 @@ const CashRegister = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`, config);
       toast.success('Cash register deleted successfully');
     } catch (err) {
       toast.error('Failed to delete cash register');
@@ -166,7 +146,7 @@ const CashRegister = () => {
     console.log(selectedIds)
     try {
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`);
+        await axios.delete(`${apiUrl}/api/order/${Id}`, config);
       }
       getAllCashRegisters()
       getEmployees()
