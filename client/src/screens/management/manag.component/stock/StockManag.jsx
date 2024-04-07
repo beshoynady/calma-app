@@ -33,8 +33,6 @@ const StockManag = () => {
   const [StockItems, setStockItems] = useState([]);
   const getaStockItems = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.get(apiUrl + '/api/stockitem/', config);
       console.log(response.data)
       setStockItems(response.data.reverse())

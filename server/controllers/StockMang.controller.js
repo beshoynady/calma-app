@@ -1,4 +1,4 @@
-const StockManagementModel = require('../models/StockManagement.model');
+const StockManagementModel = require('../models/StockManag.model');
 
 const createStockAction = async (req, res, next) => {
     try {
