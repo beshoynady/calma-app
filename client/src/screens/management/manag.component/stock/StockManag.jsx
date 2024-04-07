@@ -325,7 +325,7 @@ const StockManag = () => {
     } else if (movement == 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity)
       const calcNewCost = Number(oldCost) + Number(cost)
-      const calcCostOfPart = calcNewCost+ calcNewBalance
+      const calcCostOfPart = calcNewCost / calcNewBalance
       setnewBalance(calcNewBalance)
       setnewcost(calcNewCost)
       setcostOfPart(calcCostOfPart)
