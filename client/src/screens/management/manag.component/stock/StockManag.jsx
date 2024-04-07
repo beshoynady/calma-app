@@ -591,7 +591,7 @@ const StockManag = () => {
 
                         <div className="form-group">
                           <label>السعر</label>
-                          {movement == "Issuance" || movement == "Issuance"|| movement == "Wastage" || movement == "Damaged" ?
+                          {movement == "Issuance" || movement == "ReturnIssuance"|| movement == "Wastage" || movement == "Damaged" ?
                             <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
                             : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
                           }
