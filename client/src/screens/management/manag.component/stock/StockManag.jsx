@@ -103,12 +103,7 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, {
-        newBalance,
-        newcost,
-        price,
-        costOfPart,
-      }, config);
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost ,costOfPart }, config);
 
       console.log(changeItem);
 
@@ -192,7 +187,7 @@ const StockManag = () => {
       const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, newcost, price }, config);
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`,{ newBalance, price, newcost ,costOfPart }, config);
 
       if (changeItem.status === 200) {
         // Update the existing stock action
@@ -326,6 +321,7 @@ const StockManag = () => {
       const calcNewBalance = Number(oldBalance) + Number(quantity)
       const calcNewCost = Number(oldCost) + Number(cost)
       const calcCostOfPart = calcNewCost / calcNewBalance
+      console.log({calcCostOfPart})
       setnewBalance(calcNewBalance)
       setnewcost(calcNewCost)
       setcostOfPart(calcCostOfPart)
