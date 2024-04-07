@@ -116,13 +116,8 @@ const StockManag = () => {
           oldBalance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
-          actionBy,
           actionAt,
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        },config);
 
         console.log(response.data);
 
@@ -411,10 +406,9 @@ const StockManag = () => {
                           <label>نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
-                            <option value="Purchase">Purchase</option>
-                            <option value="Return" >Return</option>
-                            <option value="Issuance">Issuance</option>
-                            <option value="Wastage">Wastage</option>
+                            {Stockmovement.map(movement=>{
+                              <option value={movement}>{movement}</option>
+                            })}
                           </select>
                         </div>
                         {/* <div class="filter-group">
