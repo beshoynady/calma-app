@@ -1,5 +1,9 @@
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
 // Supplier Schema
-const SupplierSchema = new mongoose.Schema(
+const SupplierSchema = new Schema(
     {
         // Supplier name
         name: {
@@ -40,7 +44,7 @@ const SupplierSchema = new mongoose.Schema(
         // Items supplied by the supplier
         itemsSupplied: [
             {
-                type: ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'StockItems',
             }
         ],
@@ -67,12 +71,20 @@ const SupplierSchema = new mongoose.Schema(
                     type: String,
                     trim: true,
                     maxlength: 500,
-                }],
+                }
+            ],
             // Additional notes about the supplier
             notes: {
                 type: String,
                 maxlength: 500,
             },
         },
-    }, { timestamps: true }
+    },
+    { timestamps: true }
 );
+
+// Define the Supplier model
+const SupplierModel = mongoose.model('Supplier', SupplierSchema);
+
+// Export the Supplier model
+module.exports = SupplierModel;
