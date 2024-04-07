@@ -321,7 +321,7 @@ const StockManag = () => {
       const calcNewBalance = Number(oldBalance) - (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) - Number(cost);
       const countparts = calcNewBalance * Number(parts) 
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
+      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
@@ -329,7 +329,7 @@ const StockManag = () => {
       const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) + Number(cost);
       const countparts = calcNewBalance * Number(parts) 
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
+      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
@@ -337,8 +337,8 @@ const StockManag = () => {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
       const calcNewCost = Number(oldCost) + Number(cost);
       const countparts = calcNewBalance *  Number(parts) 
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
-      console.log({calcNewBalance, calcNewCost , parts, countparts})
+      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      console.log({calcNewBalance, calcNewCost , calcCostOfPart, countparts})
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
@@ -346,7 +346,7 @@ const StockManag = () => {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
       const calcNewCost = Number(oldCost) - Number(cost);
       const countparts = calcNewBalance * Number(parts) 
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 10) / 10;
+      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
