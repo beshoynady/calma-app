@@ -29,7 +29,7 @@ const Suppliers = () => {
 
 
   const handleDeletePhone = (index) => {
-    const phoneList = [...contact];
+    const phoneList = [...phone];
     phoneList.splice(index, 1);
     setphone(phoneList);
   };
@@ -62,6 +62,7 @@ const Suppliers = () => {
 
   const [openingBalance, setopeningBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
+  const [notes, setnotes] = useState('');
 
   const [paymentType, setPaymentType] = useState('');
   const [financialInfo, setFinancialInfo] = useState([{ paymentMethodName: '', accountNumber: '' }]);
@@ -92,14 +93,17 @@ const Suppliers = () => {
         itemsSupplied,
         openingBalance,
         currentBalance,
-        financialInfo
+        financialInfo,
+        notes
       };
 
       const response = await axios.post(apiUrl + '/api/supplier/', supplierData, config);
       console.log(response.data);
-
-      // Notify on success
-      toast.success('تم إنشاء المورد بنجاح');
+      if(response){
+        // Notify on success
+        toast.success('تم إنشاء المورد بنجاح');
+        getAllSuppliers()
+      }
     } catch (error) {
       console.log(error);
 
@@ -109,31 +113,31 @@ const Suppliers = () => {
   }
 
   // Function to edit a stock item
-  const updateSupplier = async (e) => {
-    e.preventDefault();
-    try {
-      const updatedSupplierData = {
-        name,
-        contact,
-        address,
-        paymentType,
-        itemsSupplied,
-        openingBalance,
-        currentBalance,
-        financialInfo
-      };
-      const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
-      console.log(response.data);
+  // const updateSupplier = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const updatedSupplierData = {
+  //       name,
+  //       contact,
+  //       address,
+  //       paymentType,
+  //       itemsSupplied,
+  //       openingBalance,
+  //       currentBalance,
+  //       financialInfo
+  //     };
+  //     const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
+  //     console.log(response.data);
 
-      // Notify on success
-      toast.success('تم تحديث المورد بنجاح');
-    } catch (error) {
-      console.log(error);
+  //     // Notify on success
+  //     toast.success('تم تحديث المورد بنجاح');
+  //   } catch (error) {
+  //     console.log(error);
 
-      // Notify on error
-      toast.error('فشل في تحديث المورد');
-    }
-  };
+  //     // Notify on error
+  //     toast.error('فشل في تحديث المورد');
+  //   }
+  // };
 
 
   // Function to delete a supplier
@@ -333,23 +337,23 @@ const Suppliers = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* {AllStockItems && AllStockItems.map((item, i) => {
+                      {AllSuppliers && AllStockItems.map((supplier, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
                               <td>{i + 1}</td>
-                              <td>{item.itemName}</td>
-                              <td>{AllCategoryStock.length > 0 ? AllCategoryStock.filter(c => c._id == item.categoryId)[0].name : ''}</td>
-                              <td>{item.Balance}</td>
-                              <td>{item.minThreshold}</td>
-                              <td>{item.largeUnit}</td>
-                              <td>{item.price}</td>
-                              <td>{item.totalCost}</td>
-                              <td>{item.parts}</td>
-                              <td>{item.smallUnit}</td>
-                              <td>{item.costOfPart}</td>
-                              <td>{item.createBy ? usertitle(item.createBy) : '--'}</td>
-                              <td>{item.createdAt}</td>
+                              <td>{supplier.name}</td>
+                              <td>{supplier.itemsSupplied.length > 0 ? supplier.itemsSupplied.map(item =>`${item.itemName} - ` ): 'لا يوجد'}</td>
+                              <td>{supplier.openingBalance}</td>
+                              <td>{supplier.currentBalance}</td>
+                              <td>{supplier.address}</td>
+                              <td>{supplier.phone.length>0?supplier.phone.map(phone =>`${phone} - `):'لا يوجد'}</td>
+                              <td>{supplier.whatsapp}</td>
+                              <td>{supplier.email}</td>
+                              <td>{supplier.financialInfo?supplier.financialInfo.map(financialInfo=>`[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`):'لا يوجد'}</td>
+                              <td>{supplier.notes}</td>
+                              <td>{supplier.createBy.fullname}</td>
+                              <td>{supplier.createdAt}</td>
                               <td>
                                 <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -357,7 +361,7 @@ const Suppliers = () => {
                             </tr>
                           )
                         }
-                      })} */}
+                      })}
                     </tbody>
                   </table>
                   <div className="clearfix">
@@ -399,11 +403,11 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group">
                           <label>الواتس اب</label>
-                          <input type="text" className="form-control" required onChange={(e) => setwhatsapp(e.target.value)} />
+                          <input type="text" className="form-control"  onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الايميل</label>
-                          <input type="text" className="form-control" required onChange={(e) => setemail(e.target.value)} />
+                          <input type="text" className="form-control"  onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
@@ -420,7 +424,7 @@ const Suppliers = () => {
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group" key={index}>
                             <label>العنصر المورد {index + 1}</label>
-                            <select className="form-control" required onChange={(e) => handleNewItemsSupplied(index, e)}>
+                            <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">اختر...</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.name}</option>;
@@ -432,11 +436,11 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group">
                           <label>الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control" required onChange={(e) => setopeningBalance(e.target.value)} />
+                          <input type="number" className="form-control"  onChange={(e) => setopeningBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الرصيد الحالي</label>
-                          <input type="number" className="form-control" required onChange={(e) => setCurrentBalance(e.target.value)} />
+                          <input type="number" className="form-control"  onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         {financialInfo.map((info, index) => (
                           <div className="form-group" key={index}>
@@ -447,6 +451,10 @@ const Suppliers = () => {
                           </div>
                         ))}
                         <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
+                        <div className="form-group">
+                          <label>ملاحظات</label>
+                          <textarea className="form-control"  onChange={(e) => setnotes(e.target.value)} />
+                        </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
