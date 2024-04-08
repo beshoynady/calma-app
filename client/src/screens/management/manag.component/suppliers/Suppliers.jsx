@@ -359,7 +359,6 @@ const Suppliers = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الاصناف</th>
@@ -392,6 +391,7 @@ const Suppliers = () => {
                               <td>{supplier.contact.whatsapp}</td>
                               <td>{supplier.contact.email}</td>
                               <td>{supplier.financialInfo ? supplier.financialInfo.map(financialInfo => `[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`) : 'لا يوجد'}</td>
+                              <td>{supplier.paymentType}</td>
                               <td>{supplier.notes}</td>
                               <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
