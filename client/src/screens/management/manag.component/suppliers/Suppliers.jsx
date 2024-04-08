@@ -16,22 +16,77 @@ const Suppliers = () => {
 
   const [supplierId, setsupplierId] = useState('');
   const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
+
+  const [phone, setphone] = useState([]);
+  const handleAddPhone = () => {
+    setphone(...phone, " ");
+  }
+  const handleNewPhone = (index, e) => {
+    const phoneList = [...phone];
+    phoneList[index] = e.target.value
+    setphone(phoneList)
+  }
+
+
+  const handleDeletePhone = (index) => {
+    const phoneList = [...contact];
+    phoneList.splice(index, 1);
+    setContact(phoneList);
+  };
+
+  const [whatsapp, setwhatsapp] = useState('');
+  const [email, setemail] = useState('');
+
   const [address, setAddress] = useState('');
-  const [paymentType, setPaymentType] = useState('');
-  const [itemsSupplied, setItemsSupplied] = useState('');
+
+
+  const [itemsSupplied, setItemsSupplied] = useState([]);
+  const handleAddItemsSupplied = () => {
+    setItemsSupplied(...itemsSupplied, " ");
+  }
+  const handleNewItemsSupplied = (index, e) => {
+    const itemsSuppliedList = [...itemsSupplied];
+    itemsSuppliedList[index] = e.target.value
+    setItemsSupplied(itemsSuppliedList)
+  }
+
+  const handleDeleteItemsSupplied = (index) => {
+    const itemsSuppliedList = [...itemsSupplied];
+    itemsSuppliedList.splice(index, 1);
+    setItemsSupplied(itemsSuppliedList);
+  };
+
+
+
+
+
   const [openingBalance, setopeningBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [financialInfo, setFinancialInfo] = useState('');
 
+  const [paymentType, setPaymentType] = useState('');
+  const [financialInfo, setFinancialInfo] = useState([{ paymentMethodName: '', accountNumber: '' }]);
+  const handleAddfinancialInfo = () => {
+    setFinancialInfo(...financialInfo, " ");
+  }
+  const handleNewFinancialInfo = (index, key, value) => {
+    const financialInfoList = [...financialInfo];
+    financialInfoList[index][key] = value;
+    setFinancialInfo(financialInfoList);
+  };
+  const handleDeleteFinancialInfo = (index) => {
+    const financialInfoList = [...financialInfo];
+    financialInfoList.splice(index, 1);
+    setFinancialInfo(financialInfoList);
+  };
 
   // Function to create a Supplier
   const createSupplier = async (e) => {
     e.preventDefault();
     try {
+
       const supplierData = {
         name,
-        contact,
+        contact: { phone, whatsapp, email },
         address,
         paymentType,
         itemsSupplied,
@@ -115,10 +170,12 @@ const Suppliers = () => {
       }
 
       const suppliers = response.data.reverse();
-      setAllSuppliers(suppliers);
+      if (suppliers.length > 0) {
+        setAllSuppliers(suppliers);
+        toast.success('تم استرداد جميع الموردين بنجاح');
+      }
 
       // Notify on success
-      toast.success('تم استرداد جميع الموردين بنجاح');
     } catch (error) {
       console.error(error);
 
@@ -263,13 +320,13 @@ const Suppliers = () => {
                         <th>الاصناف</th>
                         <th>الرصيد الافتتاحي</th>
                         <th>الرصيد الحالي</th>
-                        <th>الحد الادني</th>
-                        <th>الوحدة كبيرة</th>
-                        <th>السعر</th>
-                        <th>اجمالي التكلفة</th>
-                        <th>عدد الوحدات</th>
-                        <th>الوحدة صغيرة</th>
-                        <th>تكلفة الوحده</th>
+                        <th>العنوان</th>
+                        <th>الموبايل</th>
+                        <th>الواتس اب</th>
+                        <th>الايميل</th>
+                        <th>البيانات المالية</th>
+                        <th>طريقه الدفع</th>
+                        <th>الملاحظات</th>
                         <th>اضيف بواسطه</th>
                         <th>تاريخ الاضافه</th>
                         <th>اجراءات</th>
@@ -332,8 +389,20 @@ const Suppliers = () => {
                           <label>اسم المورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                         </div>
+                        {phone.map((phone, index) => (
+                          <div className="form-group" key={index}>
+                            <label>الموبايل {index + 1}</label>
+                            <input type="text" className="form-control" value={phone} required onChange={(e) => handleNewPhone(index, e)} />
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group">
-                          <label>معلومات الاتصال</label>
+                          <label>الواتس اب</label>
+                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                          <label>الايميل</label>
                           <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
                         </div>
                         <div className="form-group">
@@ -342,24 +411,42 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group">
                           <label>نوع الدفع</label>
-                          <input type="text" className="form-control" required onChange={(e) => setPaymentType(e.target.value)} />
+                          <select className="form-control" required onChange={(e) => setPaymentType(e.target.value)}>
+                            <option value="">اختر...</option>
+                            <option value="Cash">كاش</option>
+                            <option value="Installments">تقسيط</option>
+                          </select>
                         </div>
-                        <div className="form-group">
-                          <label>العناصر الموردة</label>
-                          <input type="text" className="form-control" required onChange={(e) => setItemsSupplied(e.target.value)} />
-                        </div>
+                        {itemsSupplied.map((item, index) => (
+                          <div className="form-group" key={index}>
+                            <label>العنصر المورد {index + 1}</label>
+                            <select className="form-control" required onChange={(e) => handleNewItemsSupplied(index, e)}>
+                              <option value="">اختر...</option>
+                              {AllStockItems.map(stockItem => {
+                                return <option key={stockItem._id} value={stockItem._id}>{stockItem.name}</option>;
+                              })}
+                            </select>
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group">
                           <label>الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control" required onChange={(e) => setOpeningBalance(e.target.value)} />
+                          <input type="number" className="form-control" required onChange={(e) => setopeningBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الرصيد الحالي</label>
                           <input type="number" className="form-control" required onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
-                        <div className="form-group">
-                          <label>المعلومات المالية</label>
-                          <input type="text" className="form-control" required onChange={(e) => setFinancialInfo(e.target.value)} />
-                        </div>
+                        {financialInfo.map((info, index) => (
+                          <div className="form-group" key={index}>
+                            <label>المعلومات المالية {index + 1}</label>
+                            <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddFinancialInfo}>إضافة معلومات مالية</button>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />

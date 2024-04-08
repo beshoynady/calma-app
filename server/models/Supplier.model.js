@@ -35,12 +35,6 @@ const SupplierSchema = new Schema(
         address: {
             type: String,
         },
-        // Supplier payment type
-        paymentType: {
-            type: String,
-            enum: ['Cash', 'Credit', 'Cash&Credit'], // Add more options if needed
-            required: true,
-        },
         // Items supplied by the supplier
         itemsSupplied: [
             {
@@ -60,27 +54,33 @@ const SupplierSchema = new Schema(
             default: 0,
             required: true,
         },
+        // Supplier payment type
+        paymentType: {
+            type: String,
+            enum: ['Cash', 'Installments'],
+            required: true,
+        },
         // Financial information
-        financialInfo: {
-            bankAccountNumber: {
+        financialInfo: [{
+            paymentMethodName: {
+                type: String,
+                required: true,
+            },
+            accountNumber: {
                 type: String,
                 trim: true,
-            },
-            eWalletNumbers: [
-                {
-                    type: String,
-                    trim: true,
-                    maxlength: 500,
-                }
-            ],
-            // Additional notes about the supplier
-            notes: {
-                type: String,
                 maxlength: 500,
+                required: true,
             },
+        }],
+
+        // Additional notes about the supplier
+        notes: {
+            type: String,
+            maxlength: 500,
         },
     },
-    { timestamps: true }
+{ timestamps: true }
 );
 
 // Define the Supplier model
