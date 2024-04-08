@@ -347,9 +347,9 @@ const Suppliers = () => {
                               <td>{supplier.openingBalance}</td>
                               <td>{supplier.currentBalance}</td>
                               <td>{supplier.address}</td>
-                              <td>{supplier.phone.length>0?supplier.phone.map(phone =>`${phone} - `):'لا يوجد'}</td>
-                              <td>{supplier.whatsapp}</td>
-                              <td>{supplier.email}</td>
+                              <td>{supplier.contact.phone.length > 0?supplier.contact.phone.map(phone =>`${phone} - `):'لا يوجد'}</td>
+                              <td>{supplier.contact.whatsapp}</td>
+                              <td>{supplier.contact.email}</td>
                               <td>{supplier.financialInfo?supplier.financialInfo.map(financialInfo=>`[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`):'لا يوجد'}</td>
                               <td>{supplier.notes}</td>
                               <td>{supplier.createBy.fullname}</td>
