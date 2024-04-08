@@ -155,7 +155,7 @@ const Suppliers = () => {
       if (response.status === 200) {
         console.log(response);
         // Optionally, you may want to update the list of suppliers after deletion
-        // getSuppliers(); // Update the list of suppliers after deletion
+        getAllSuppliers(); // Update the list of suppliers after deletion
 
         // Notify on success
         toast.success('تم حذف المورد بنجاح');
@@ -585,7 +585,7 @@ const Suppliers = () => {
               </div>
 
 
-              <div id="deleteStockItemModal" className="modal fade">
+              <div id="deleteSupplierModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSupplier}>
