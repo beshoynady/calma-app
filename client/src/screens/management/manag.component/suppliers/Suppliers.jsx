@@ -119,23 +119,23 @@ const Suppliers = () => {
     e.preventDefault();
     try {
       const updatedSupplierData = {
-          name,
-          contact: { phone, whatsapp, email },
-          address,
-          paymentType,
-          itemsSupplied,
-          openingBalance,
-          currentBalance,
-          financialInfo,
-          notes
-        };
+        name,
+        contact: { phone, whatsapp, email },
+        address,
+        paymentType,
+        itemsSupplied,
+        openingBalance,
+        currentBalance,
+        financialInfo,
+        notes
+      };
       const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
       console.log(response.data);
-        if(response){
-          // Notify on success
-          toast.success('تم تحديث المورد بنجاح');
-          getAllSuppliers()
-        }
+      if (response) {
+        // Notify on success
+        toast.success('تم تحديث المورد بنجاح');
+        getAllSuppliers()
+      }
     } catch (error) {
       console.log(error);
 
@@ -192,7 +192,7 @@ const Suppliers = () => {
       toast.error('فشل في استرداد الموردين');
     }
   };
-  
+
   const getOneSuppliers = async (id) => {
     try {
       const response = await axios.get(`${apiUrl}/api/supplier/${id}`, config);
@@ -204,9 +204,10 @@ const Suppliers = () => {
 
       const supplier = response.data;
       if (supplier) {
+        setsupplierId(supplier._id)
         setName(supplier.name)
         setAddress(supplier.address)
-        setphone(supplier.contact.phone)
+        setphone([...supplier.contact.phone])
         setwhatsapp(supplier.contact.whatsapp)
         setemail(supplier.contact.email)
         setopeningBalance(supplier.openingBalance);
@@ -394,7 +395,7 @@ const Suppliers = () => {
                               <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
                               <td>
-                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -435,7 +436,7 @@ const Suppliers = () => {
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group" key={index}>
                             <label>الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" value={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
@@ -519,10 +520,11 @@ const Suppliers = () => {
                           <label>اسم المورد</label>
                           <input type="text" className="form-control" defaultValue={name} required value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
+
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group" key={index}>
                             <label>الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e.target.value)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
@@ -542,7 +544,7 @@ const Suppliers = () => {
                         <div className="form-group">
                           <label>نوع الدفع</label>
                           <select className="form-control" required defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
-                            <option value="">{paymentType?paymentType:"اختر"}</option>
+                            <option value="">{paymentType = 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
                           </select>
@@ -551,7 +553,7 @@ const Suppliers = () => {
                           <div className="form-group" key={index}>
                             <label>العنصر المورد {index + 1}</label>
                             <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
-                              <option value="">{item?item.itemName: ""}</option>
+                              <option value="">{item ? item.itemName : ""}</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
