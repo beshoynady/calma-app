@@ -42,7 +42,7 @@ const Suppliers = () => {
 
 
   const [itemsSupplied, setItemsSupplied] = useState([]);
-  
+
   const handleAddItemsSupplied = () => {
     setItemsSupplied([...itemsSupplied, "اضف خامة"]);
   }
@@ -523,7 +523,7 @@ const Suppliers = () => {
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group" key={index}>
                             <label>الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e.target.value)} />
+                            <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
