@@ -337,7 +337,7 @@ const Suppliers = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {AllSuppliers && AllStockItems.map((supplier, i) => {
+                      {AllSuppliers && AllSuppliers.map((supplier, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
