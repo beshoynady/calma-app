@@ -16,19 +16,19 @@ const SupplierSchema = new Schema(
                 {
                     type: String,
                     trim: true,
-                    match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+                    // match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
                 }
             ],
             whatsapp: {
                 type: String,
                 trim: true,
-                match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+                // match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
             },
             email: {
                 type: String,
                 lowercase: true,
                 trim: true,
-                match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
+                // match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
             },
         },
         // Supplier address
@@ -79,6 +79,11 @@ const SupplierSchema = new Schema(
             type: String,
             maxlength: 500,
         },
+        createdBy: {
+            type: ObjectId,
+            ref: 'Employee',
+            required: true,
+        }
     },
 { timestamps: true }
 );

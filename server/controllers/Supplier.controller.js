@@ -4,6 +4,7 @@ const SupplierModel = require('../models/Supplier.model');
 const createSupplier = async (req, res) => {
     try {
         const { name, contact, address, paymentType, itemsSupplied, openingBalance, currentBalance, financialInfo } = req.body;
+        const createdBy = req.employee.id;
         const supplier = await SupplierModel.create({
             name,
             contact,
@@ -12,7 +13,8 @@ const createSupplier = async (req, res) => {
             itemsSupplied,
             openingBalance,
             currentBalance,
-            financialInfo
+            financialInfo,
+            createdBy
         });
         res.status(201).json(supplier);
     } catch (error) {

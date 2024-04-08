@@ -85,7 +85,7 @@ const Suppliers = () => {
   const createSupplier = async (e) => {
     e.preventDefault();
     try {
-
+      console.log({phone, whatsapp, email})
       const supplierData = {
         name,
         contact: { phone, whatsapp, email },
@@ -353,7 +353,7 @@ const Suppliers = () => {
                               <td>{supplier.contact.email}</td>
                               <td>{supplier.financialInfo ? supplier.financialInfo.map(financialInfo => `[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`) : 'لا يوجد'}</td>
                               <td>{supplier.notes}</td>
-                              <td>{supplier.createBy.fullname}</td>
+                              <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
                               <td>
                                 {/* <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
