@@ -17,7 +17,7 @@ const Suppliers = () => {
   const [supplierId, setsupplierId] = useState('');
   const [name, setName] = useState('');
 
-  const [phone, setphone] = useState(["رقم الموبايل"]);
+  const [phone, setphone] = useState([]);
 
   const handleAddPhone = () => {
     setphone([...phone, "رقم الموبايل"]);
@@ -41,7 +41,8 @@ const Suppliers = () => {
   const [address, setAddress] = useState('');
 
 
-  const [itemsSupplied, setItemsSupplied] = useState(["اضف خامة"]);
+  const [itemsSupplied, setItemsSupplied] = useState([]);
+  
   const handleAddItemsSupplied = () => {
     setItemsSupplied([...itemsSupplied, "اضف خامة"]);
   }
@@ -207,12 +208,12 @@ const Suppliers = () => {
         setsupplierId(supplier._id)
         setName(supplier.name)
         setAddress(supplier.address)
-        setphone([...supplier.contact.phone])
+        setphone(supplier.contact.phone)
         setwhatsapp(supplier.contact.whatsapp)
         setemail(supplier.contact.email)
         setopeningBalance(supplier.openingBalance);
         setCurrentBalance(supplier.currentBalance)
-        setItemsSupplied([...supplier.itemsSupplied])
+        setItemsSupplied(supplier.itemsSupplied)
         setPaymentType(supplier.paymentType)
         setFinancialInfo(supplier.financialInfo)
         setnotes(supplier.notes)
