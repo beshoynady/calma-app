@@ -31,7 +31,7 @@ const Suppliers = () => {
   const handleDeletePhone = (index) => {
     const phoneList = [...contact];
     phoneList.splice(index, 1);
-    setContact(phoneList);
+    setphone(phoneList);
   };
 
   const [whatsapp, setwhatsapp] = useState('');
@@ -399,11 +399,11 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group">
                           <label>الواتس اب</label>
-                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
+                          <input type="text" className="form-control" required onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الايميل</label>
-                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
+                          <input type="text" className="form-control" required onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
@@ -446,7 +446,7 @@ const Suppliers = () => {
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddFinancialInfo}>إضافة معلومات مالية</button>
+                        <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
@@ -459,7 +459,7 @@ const Suppliers = () => {
 
 
 
-              <div id="editStockItemModal" className="modal fade">
+              {/* <div id="editStockItemModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateSupplier(e)}>
@@ -471,10 +471,6 @@ const Suppliers = () => {
                         <div className="form-group">
                           <label>اسم المورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
-                        </div>
-                        <div className="form-group">
-                          <label>معلومات الاتصال</label>
-                          <input type="text" className="form-control" required onChange={(e) => setContact(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
@@ -508,7 +504,7 @@ const Suppliers = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div id="deleteStockItemModal" className="modal fade">
                 <div className="modal-dialog">
