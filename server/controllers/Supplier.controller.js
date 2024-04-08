@@ -26,7 +26,7 @@ const createSupplier = async (req, res) => {
 // Retrieve all suppliers
 const getAllSuppliers = async (req, res) => {
     try {
-        const suppliers = await SupplierModel.find().populate('itemsSupplied');
+        const suppliers = await SupplierModel.find().populate('itemsSupplied createdBy');
         res.status(200).json(suppliers);
     } catch (error) {
         console.error('Error getting all suppliers:', error);
@@ -38,7 +38,7 @@ const getAllSuppliers = async (req, res) => {
 const getSupplierById = async (req, res) => {
     try {
         const supplierId = req.params.id;
-        const supplier = await SupplierModel.findById(supplierId).populate('itemsSupplied');
+        const supplier = await SupplierModel.findById(supplierId).populate('itemsSupplied createdBy');
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier not found' });
         }

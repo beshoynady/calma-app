@@ -80,7 +80,7 @@ const SupplierSchema = new Schema(
             maxlength: 500,
         },
         createdBy: {
-            type: ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Employee',
             required: true,
         }
