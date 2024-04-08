@@ -38,7 +38,7 @@ const SupplierSchema = new Schema(
         // Supplier payment type
         paymentType: {
             type: String,
-            enum: ['Cash', 'Credit'], // Add more options if needed
+            enum: ['Cash', 'Credit', 'Cash&Credit'], // Add more options if needed
             required: true,
         },
         // Items supplied by the supplier

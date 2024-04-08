@@ -12,6 +12,7 @@ const SideBar = () => {
     arrowsto: useRef(),
     arrowmessage: useRef(),
     arrowsexp: useRef(),
+    arrowssupplier: useRef(),
     arrowsCash: useRef(),
     arrowtable: useRef(),
   };
@@ -222,6 +223,29 @@ const SideBar = () => {
                       </ul>
                     </li>
                   )}
+
+                  {/* Suppliers */}
+                  <li ref={arrowRefs.arrowssupplier} onClick={() => openSubMenu(arrowRefs.arrowssupplier)}>
+                    <div className="iocn-link">
+                      <a href="#">
+                        <span className="material-symbols-outlined icon">request_page</span>
+                        <span className="link_name">الموردين</span>
+                      </a>
+                      <i className='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul className="sub-menu">
+                      {role === 'manager' && (
+                        <>
+                          <li><a className="link_name" href="#">الموردين</a></li>
+                          <li><Link to="supplier">الموردين</Link></li>
+                        </>
+                      )}
+                      {(role === 'manager' || role === 'casher') &&
+                        <li><Link to="dailyexpense">تعاملات الموردين</Link></li>
+                      }
+                    </ul>
+                  </li>
+
 
                   {/* Expenses */}
                   <li ref={arrowRefs.arrowsexp} onClick={() => openSubMenu(arrowRefs.arrowsexp)}>
