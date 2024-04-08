@@ -17,10 +17,11 @@ const Suppliers = () => {
   const [supplierId, setsupplierId] = useState('');
   const [name, setName] = useState('');
 
-  const [phone, setphone] = useState([]);
+  const [phone, setphone] = useState(["رقم الموبايل"]);
+
   const handleAddPhone = () => {
-    setphone(...phone, " ");
-  }
+    setphone([...phone, "رقم الموبايل"]);
+  };
   const handleNewPhone = (index, e) => {
     const phoneList = [...phone];
     phoneList[index] = e.target.value
@@ -99,7 +100,7 @@ const Suppliers = () => {
 
       const response = await axios.post(apiUrl + '/api/supplier/', supplierData, config);
       console.log(response.data);
-      if(response){
+      if (response) {
         // Notify on success
         toast.success('تم إنشاء المورد بنجاح');
         getAllSuppliers()
@@ -343,14 +344,14 @@ const Suppliers = () => {
                             <tr key={i}>
                               <td>{i + 1}</td>
                               <td>{supplier.name}</td>
-                              <td>{supplier.itemsSupplied.length > 0 ? supplier.itemsSupplied.map(item =>`${item.itemName} - ` ): 'لا يوجد'}</td>
+                              <td>{supplier.itemsSupplied.length > 0 ? supplier.itemsSupplied.map(item => `${item.itemName} - `) : 'لا يوجد'}</td>
                               <td>{supplier.openingBalance}</td>
                               <td>{supplier.currentBalance}</td>
                               <td>{supplier.address}</td>
-                              <td>{supplier.contact.phone.length > 0?supplier.contact.phone.map(phone =>`${phone} - `):'لا يوجد'}</td>
+                              <td>{supplier.contact.phone.length > 0 ? supplier.contact.phone.map(phone => `${phone} - `) : 'لا يوجد'}</td>
                               <td>{supplier.contact.whatsapp}</td>
                               <td>{supplier.contact.email}</td>
-                              <td>{supplier.financialInfo?supplier.financialInfo.map(financialInfo=>`[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`):'لا يوجد'}</td>
+                              <td>{supplier.financialInfo ? supplier.financialInfo.map(financialInfo => `[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`) : 'لا يوجد'}</td>
                               <td>{supplier.notes}</td>
                               <td>{supplier.createBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
@@ -393,21 +394,21 @@ const Suppliers = () => {
                           <label>اسم المورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                         </div>
-                        {phone.map((phone, index) => (
+                        {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group" key={index}>
                             <label>الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" value={phone} required onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control" value={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group">
                           <label>الواتس اب</label>
-                          <input type="text" className="form-control"  onChange={(e) => setwhatsapp(e.target.value)} />
+                          <input type="text" className="form-control" onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الايميل</label>
-                          <input type="text" className="form-control"  onChange={(e) => setemail(e.target.value)} />
+                          <input type="text" className="form-control" onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
@@ -436,11 +437,11 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group">
                           <label>الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control"  onChange={(e) => setopeningBalance(e.target.value)} />
+                          <input type="number" className="form-control" onChange={(e) => setopeningBalance(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الرصيد الحالي</label>
-                          <input type="number" className="form-control"  onChange={(e) => setCurrentBalance(e.target.value)} />
+                          <input type="number" className="form-control" onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         {financialInfo.map((info, index) => (
                           <div className="form-group" key={index}>
@@ -453,7 +454,7 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group">
                           <label>ملاحظات</label>
-                          <textarea className="form-control"  onChange={(e) => setnotes(e.target.value)} />
+                          <textarea className="form-control" onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
