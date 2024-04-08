@@ -28,7 +28,7 @@ import Waiter from './screens/management/manag.component/waiter/Waiter';
 import DeliveryMan from './screens/management/manag.component/deliveryman/DeliveryMan';
 import Login from './screens/management/manag.component/login/Login';
 import POS from './screens/management/manag.component/pos/POS';
-import suppliers from './screens/management/manag.component/suppliers/Suppliers';
+import Suppliers from './screens/management/manag.component/suppliers/Suppliers';
 import StockItem from './screens/management/manag.component/stock/StockItem';
 import StockManag from './screens/management/manag.component/stock/StockManag';
 import ProductRecipe from './screens/management/manag.component/products/ProductRecipe';
@@ -2021,7 +2021,7 @@ function App() {
             <Route path='message' element={<CustomerMessage />} />
             <Route path='deliveryman' element={<DeliveryMan />} />
             <Route path='pos' element={<POS />} />
-            <Route path='supplier' element={<suppliers/>} />
+            <Route path='supplier' element={<Suppliers/>} />
             <Route path='categoryStock' element={<CategoryStock />} />
             <Route path='stockitem' element={<StockItem />} />
             <Route path='stockmang' element={<StockManag />} />
