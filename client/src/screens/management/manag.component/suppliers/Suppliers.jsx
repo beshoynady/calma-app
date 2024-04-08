@@ -518,7 +518,7 @@ const Suppliers = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>اسم المورد</label>
-                          <input type="text" className="form-control" defaultValue={name} required value={name} onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={name}  value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
 
                         {phone && phone.map((phoneNumber, index) => (
@@ -539,11 +539,11 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
-                          <input type="text" className="form-control" required defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
+                          <input type="text" className="form-control"  defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>نوع الدفع</label>
-                          <select className="form-control" required defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                          <select className="form-control" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">{paymentType = 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
@@ -565,8 +565,8 @@ const Suppliers = () => {
                         {financialInfo.map((info, index) => (
                           <div className="form-group" key={index}>
                             <label>المعلومات المالية {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
-                            <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
