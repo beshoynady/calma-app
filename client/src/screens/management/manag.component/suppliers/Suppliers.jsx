@@ -206,16 +206,16 @@ const Suppliers = () => {
       if (supplier) {
         setName(supplier.name)
         setAddress(supplier.address)
-        setphone([...supplier.contact.phone])
+        setphone(supplier.contact.phone)
         setwhatsapp(supplier.contact.whatsapp)
         setemail(supplier.contact.email)
         setopeningBalance(supplier.openingBalance);
         setCurrentBalance(supplier.currentBalance)
         setItemsSupplied([...supplier.itemsSupplied])
         setPaymentType(supplier.paymentType)
-        setFinancialInfo([...supplier.financialInfo])
+        setFinancialInfo(supplier.financialInfo)
         setnotes(supplier.notes)
-        toast.success('تم استرداد جميع الموردين بنجاح');
+        toast.success('تم استرداد بيانات المورد بنجاح');
       }
 
       // Notify on success
@@ -223,7 +223,7 @@ const Suppliers = () => {
       console.error(error);
 
       // Notify on error
-      toast.error('فشل في استرداد الموردين');
+      toast.error('فشل في استرداد بيانات المورد');
     }
   };
 
@@ -551,7 +551,7 @@ const Suppliers = () => {
                           <div className="form-group" key={index}>
                             <label>العنصر المورد {index + 1}</label>
                             <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
-                              <option value="">اختر...</option>
+                              <option value="">{item?item.itemName: ""}</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
