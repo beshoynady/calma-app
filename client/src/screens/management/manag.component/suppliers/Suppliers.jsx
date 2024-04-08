@@ -192,6 +192,40 @@ const Suppliers = () => {
       toast.error('فشل في استرداد الموردين');
     }
   };
+  
+  const getOneSuppliers = async (id) => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/supplier/${id}`, config);
+
+      if (!response || !response.data) {
+        // Handle unexpected response or empty data
+        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
+      }
+
+      const supplier = response.data();
+      if (supplier) {
+        setName(supplier.name)
+        setAddress(supplier.address)
+        setphone([...supplier.contact.phone])
+        setwhatsapp(supplier.contact.whatsapp)
+        setemail(supplier.contact.email)
+        setopeningBalance(supplier.openingBalance);
+        setCurrentBalance(supplier.currentBalance)
+        setItemsSupplied([...supplier.itemsSupplied])
+        setPaymentType(supplier.paymentType)
+        setFinancialInfo([...supplier.financialInfo])
+        setnotes(supplier.notes)
+        toast.success('تم استرداد جميع الموردين بنجاح');
+      }
+
+      // Notify on success
+    } catch (error) {
+      console.error(error);
+
+      // Notify on error
+      toast.error('فشل في استرداد الموردين');
+    }
+  };
 
 
   const [AllStockItems, setAllStockItems] = useState([]);
@@ -360,7 +394,7 @@ const Suppliers = () => {
                               <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
                               <td>
-                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { setsupplierId(supplier._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -483,32 +517,32 @@ const Suppliers = () => {
                       <div className="modal-body">
                         <div className="form-group">
                           <label>اسم المورد</label>
-                          <input type="text" className="form-control" required value={name} onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={name} required value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group" key={index}>
                             <label>الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" value={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group">
                           <label>الواتس اب</label>
-                          <input type="text" className="form-control" value={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>الايميل</label>
-                          <input type="text" className="form-control" value={email} onChange={(e) => setemail(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={email} onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
-                          <input type="text" className="form-control" required value={address} onChange={(e) => setAddress(e.target.value)} />
+                          <input type="text" className="form-control" required defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>نوع الدفع</label>
-                          <select className="form-control" required value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
-                            <option value="">اختر...</option>
+                          <select className="form-control" required defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                            <option value="">{paymentType?paymentType:"اختر"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
                           </select>
@@ -529,15 +563,15 @@ const Suppliers = () => {
                         {financialInfo.map((info, index) => (
                           <div className="form-group" key={index}>
                             <label>المعلومات المالية {index + 1}</label>
-                            <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
-                            <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group">
                           <label>ملاحظات</label>
-                          <textarea className="form-control" value={notes} onChange={(e) => setnotes(e.target.value)} />
+                          <textarea className="form-control" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
