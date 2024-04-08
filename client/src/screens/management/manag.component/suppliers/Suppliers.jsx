@@ -202,7 +202,7 @@ const Suppliers = () => {
         throw new Error('استجابة غير متوقعة أو بيانات فارغة');
       }
 
-      const supplier = response.data();
+      const supplier = response.data;
       if (supplier) {
         setName(supplier.name)
         setAddress(supplier.address)
