@@ -544,7 +544,7 @@ const Suppliers = () => {
                         <div className="form-group">
                           <label>نوع الدفع</label>
                           <select className="form-control" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
-                            <option value="">{paymentType = 'Cash' ? 'كاش' : "تقسيط"}</option>
+                            <option value="">{paymentType === 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
                           </select>
