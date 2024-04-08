@@ -43,7 +43,7 @@ const Suppliers = () => {
 
   const [itemsSupplied, setItemsSupplied] = useState(["اضف خامة"]);
   const handleAddItemsSupplied = () => {
-    setItemsSupplied(...itemsSupplied, "اضف خامة");
+    setItemsSupplied([...itemsSupplied, "اضف خامة"]);
   }
   const handleNewItemsSupplied = (index, e) => {
     const itemsSuppliedList = [...itemsSupplied];
@@ -68,7 +68,7 @@ const Suppliers = () => {
   const [paymentType, setPaymentType] = useState('');
   const [financialInfo, setFinancialInfo] = useState([{ paymentMethodName: '', accountNumber: '' }]);
   const handleAddfinancialInfo = () => {
-    setFinancialInfo(...financialInfo, { paymentMethodName: '', accountNumber: '' });
+    setFinancialInfo([...financialInfo, { paymentMethodName: '', accountNumber: '' }]);
   }
   const handleNewFinancialInfo = (index, key, value) => {
     const financialInfoList = [...financialInfo];
