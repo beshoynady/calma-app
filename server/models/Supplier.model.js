@@ -39,7 +39,7 @@ const SupplierSchema = new Schema(
         itemsSupplied: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'StockItems',
+                ref: 'StockItem',
             }
         ],
         // Opening balance of the supplier

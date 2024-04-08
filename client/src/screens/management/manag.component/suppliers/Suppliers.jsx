@@ -85,7 +85,7 @@ const Suppliers = () => {
   const createSupplier = async (e) => {
     e.preventDefault();
     try {
-      console.log({phone, whatsapp, email})
+      console.log({ phone, whatsapp, email })
       const supplierData = {
         name,
         contact: { phone, whatsapp, email },
@@ -113,32 +113,36 @@ const Suppliers = () => {
     }
   }
 
-  // Function to edit a stock item
-  // const updateSupplier = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const updatedSupplierData = {
-  //       name,
-  //       contact,
-  //       address,
-  //       paymentType,
-  //       itemsSupplied,
-  //       openingBalance,
-  //       currentBalance,
-  //       financialInfo
-  //     };
-  //     const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
-  //     console.log(response.data);
+  //Function to edit a Supplier item
 
-  //     // Notify on success
-  //     toast.success('تم تحديث المورد بنجاح');
-  //   } catch (error) {
-  //     console.log(error);
+  const updateSupplier = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedSupplierData = {
+          name,
+          contact: { phone, whatsapp, email },
+          address,
+          paymentType,
+          itemsSupplied,
+          openingBalance,
+          currentBalance,
+          financialInfo,
+          notes
+        };
+      const response = await axios.put(apiUrl + '/api/supplier/' + supplierId, updatedSupplierData, config);
+      console.log(response.data);
+        if(response){
+          // Notify on success
+          toast.success('تم تحديث المورد بنجاح');
+          getAllSuppliers()
+        }
+    } catch (error) {
+      console.log(error);
 
-  //     // Notify on error
-  //     toast.error('فشل في تحديث المورد');
-  //   }
-  // };
+      // Notify on error
+      toast.error('فشل في تحديث المورد');
+    }
+  };
 
 
   // Function to delete a supplier
@@ -356,8 +360,8 @@ const Suppliers = () => {
                               <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
                               <td>
-                                {/* <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { setsupplierId(supplier._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )
@@ -428,7 +432,7 @@ const Suppliers = () => {
                             <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">اختر...</option>
                               {AllStockItems.map(stockItem => {
-                                return <option key={stockItem._id} value={stockItem._id}>{stockItem.name}</option>;
+                                return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
                             </select>
                             <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
@@ -468,52 +472,83 @@ const Suppliers = () => {
 
 
 
-              {/* <div id="editStockItemModal" className="modal fade">
+              <div id="editSupplierModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateSupplier(e)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل صنف بالمخزن</h4>
+                        <h4 className="modal-title">تعديل مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <div className="form-group">
                           <label>اسم المورد</label>
-                          <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control" required value={name} onChange={(e) => setName(e.target.value)} />
+                        </div>
+                        {phone && phone.map((phoneNumber, index) => (
+                          <div className="form-group" key={index}>
+                            <label>الموبايل {index + 1}</label>
+                            <input type="text" className="form-control" value={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
+                        <div className="form-group">
+                          <label>الواتس اب</label>
+                          <input type="text" className="form-control" value={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                          <label>الايميل</label>
+                          <input type="text" className="form-control" value={email} onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>العنوان</label>
-                          <input type="text" className="form-control" required onChange={(e) => setAddress(e.target.value)} />
+                          <input type="text" className="form-control" required value={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>نوع الدفع</label>
-                          <input type="text" className="form-control" required onChange={(e) => setPaymentType(e.target.value)} />
+                          <select className="form-control" required value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                            <option value="">اختر...</option>
+                            <option value="Cash">كاش</option>
+                            <option value="Installments">تقسيط</option>
+                          </select>
                         </div>
+                        {itemsSupplied.map((item, index) => (
+                          <div className="form-group" key={index}>
+                            <label>العنصر المورد {index + 1}</label>
+                            <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
+                              <option value="">اختر...</option>
+                              {AllStockItems.map(stockItem => {
+                                return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
+                              })}
+                            </select>
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
+                        {financialInfo.map((info, index) => (
+                          <div className="form-group" key={index}>
+                            <label>المعلومات المالية {index + 1}</label>
+                            <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                          </div>
+                        ))}
+                        <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group">
-                          <label>العناصر الموردة</label>
-                          <input type="text" className="form-control" required onChange={(e) => setItemsSupplied(e.target.value)} />
-                        </div>
-                        <div className="form-group">
-                          <label>الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control" required onChange={(e) => setOpeningBalance(e.target.value)} />
-                        </div>
-                        <div className="form-group">
-                          <label>الرصيد الحالي</label>
-                          <input type="number" className="form-control" required onChange={(e) => setCurrentBalance(e.target.value)} />
-                        </div>
-                        <div className="form-group">
-                          <label>المعلومات المالية</label>
-                          <input type="text" className="form-control" required onChange={(e) => setFinancialInfo(e.target.value)} />
+                          <label>ملاحظات</label>
+                          <textarea className="form-control" value={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="Save" />
+                        <input type="submit" className="btn btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
                 </div>
-              </div> */}
+              </div>
+
 
               <div id="deleteStockItemModal" className="modal fade">
                 <div className="modal-dialog">
