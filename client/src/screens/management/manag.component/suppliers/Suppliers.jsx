@@ -505,8 +505,6 @@ const Suppliers = () => {
                 </div>
               </div>
 
-
-
               <div id="editSupplierModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
