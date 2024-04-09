@@ -21,7 +21,7 @@ const AttendanceManagement = () => {
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
-  const [currentDate, setcurrentDate] = useState(new Date().getFullYear()-new Date().getMonth()-new Date().getDay());
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0,10));
   const [status, setStatus] = useState('Attendance');
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtimeMinutes, setOvertimeMinutes] = useState(0);
@@ -40,7 +40,7 @@ const AttendanceManagement = () => {
           shift : shift._id,
           arrivalDate,
           departureDate,
-          cerruntDate,
+          currentDate,
           status,
           isOvertime,
           overtimeMinutes,
