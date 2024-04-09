@@ -181,7 +181,10 @@ const SideBar = () => {
                         </>
                       )}
                       {(role === 'manager' || role === 'casher') && (
+                        <>
                         <li><Link to="employeessalary">تعاملات</Link></li>
+                        <li><Link to="attendancerecord">الحضور و الانصراف</Link></li>
+                        </>
                       )}
                     </ul>
                   </li>
