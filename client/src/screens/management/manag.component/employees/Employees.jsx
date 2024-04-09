@@ -109,13 +109,8 @@ const Employees = () => {
       console.log(role)
       console.log(basicSalary)
 
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address,shift, phone, email, isActive, role, sectionNumber }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      })
+      const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address,shift, phone, email, isActive, role, sectionNumber }, config)
       console.log(newemployee)
       notify('تم انشاء حساب الموظف بنجاح', 'success');
       getEmployees();
@@ -139,7 +134,6 @@ const Employees = () => {
     console.log(role)
     console.log(basicSalary)
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
       // if (error) {
@@ -151,11 +145,7 @@ const Employees = () => {
         ? { fullname, numberID, username, email,shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
         : { fullname, numberID, username, email,shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
-      const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
       if (update.status === 200) {
         getEmployees()
         notify('تم تحديث بيانات الموظف', 'success');
@@ -210,11 +200,7 @@ const Employees = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, config);
       notify('تم حذف سجل الموظف بنجاح', 'success');
       getEmployees();
     } catch (error) {

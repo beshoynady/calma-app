@@ -1,107 +1,136 @@
-const AttendanceModel = require('../models/Attendance.model');
+const AttendanceRecordModel = require('../models/AttendanceRecord.model');
 
+// Create a new attendance record
+const createAttendanceRecord = async (req, res) => {
+  try {
+    const {
+      employee,
+      shift,
+      currentDate,
+      arrivalDate,
+      departureDate,
+      status,
+      isOvertime,
+      overtimeMinutes,
+      isLate,
+      lateMinutes,
+      notes,
+    } = req.body;
+    const createdBy = req.employee.id
+    const attendanceRecord = await AttendanceRecordModel.create({
+      employee,
+      shift,
+      currentDate,
+      arrivalDate,
+      departureDate,
+      status,
+      isOvertime,
+      overtimeMinutes,
+      isLate,
+      lateMinutes,
+      notes,
+      createdBy
+    });
 
-  // Create a new attendance record
-  const createAttendance= async (req, res) => {
-    try {
-      const { employee, shift, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
-      const attendance = await AttendanceModel.create({
+    res.status(201).json(attendanceRecord);
+  } catch (error) {
+    console.error('Error creating attendance record:', error);
+    res.status(400).json({ message: 'Failed to create attendance record', error: error.message });
+  }
+};
+
+// Retrieve all attendance records
+const getAllAttendanceRecords = async (req, res) => {
+  try {
+    const attendanceRecords = await AttendanceRecordModel.find().populate('employee shift createdBy updatedBy');
+    res.status(200).json(attendanceRecords);
+  } catch (error) {
+    console.error('Error getting all attendance records:', error);
+    res.status(500).json({ message: 'Failed to get attendance records', error: error.message });
+  }
+};
+
+// Retrieve a specific attendance record by its ID
+const getAttendanceRecordById = async (req, res) => {
+  try {
+    const attendanceRecordId = req.params.id;
+    const attendanceRecord = await AttendanceRecordModel.findById(attendanceRecordId).populate('employee shift createdBy updatedBy');
+    if (!attendanceRecord) {
+      return res.status(404).json({ message: 'Attendance record not found' });
+    }
+    res.status(200).json(attendanceRecord);
+  } catch (error) {
+    console.error('Error getting attendance record by ID:', error);
+    res.status(500).json({ message: 'Failed to get attendance record', error: error.message });
+  }
+};
+
+// Update a specific attendance record by its ID
+const updateAttendanceRecordById = async (req, res) => {
+  try {
+    const attendanceRecordId = req.params.id;
+    const {
+      employee,
+      shift,
+      currentDate,
+      arrivalDate,
+      departureDate,
+      status,
+      isOvertime,
+      overtimeMinutes,
+      isLate,
+      lateMinutes,
+      notes
+    } = req.body;
+    const updatedBy = req.employee.id
+    const updatedAttendanceRecord = await AttendanceRecordModel.findByIdAndUpdate(
+      attendanceRecordId,
+      {
         employee,
         shift,
-        date,
-        startTime,
-        endTime,
+        currentDate,
+        arrivalDate,
+        departureDate,
+        status,
         isOvertime,
         overtimeMinutes,
-        lateMinutes,
         isLate,
-        notes
-      });
-      res.status(201).json(attendance);
-    } catch (error) {
-      console.error('Error creating attendance:', error);
-      res.status(400).json({ message: 'Failed to create attendance', error: error.message });
-    }
-  }
-
-  // Retrieve all attendance records
-  const getAllAttendances= async (req, res) => {
-    try {
-      const attendances = await AttendanceModel.find().populate({
-        path: 'employee',
-        select: 'fullname role shift'
-      });
-      res.status(200).json(attendances);
-    } catch (error) {
-      console.error('Error getting all attendances:', error);
-      res.status(500).json({ message: 'Failed to get attendances', error: error.message });
-    }
-  }
-
-  // Retrieve a specific attendance record by its ID
-  const getAttendanceById = async (req, res) => {
-    try {
-      const attendanceId = req.params.id;
-      const attendance = await AttendanceModel.findById(attendanceId).populate({
-        path: 'employee',
-        select: 'fullname role shift'
-      });;
-      if (!attendance) {
-        return res.status(404).json({ message: 'Attendance not found' });
-      }
-      res.status(200).json(attendance);
-    } catch (error) {
-      console.error('Error getting attendance by ID:', error);
-      res.status(500).json({ message: 'Failed to get attendance', error: error.message });
-    }
-  }
-
-  // Update a specific attendance record by its ID
-  const updateAttendanceById= async (req, res) => {
-    try {
-      const attendanceId = req.params.id;
-      const { employee, shift, date, startTime, endTime, isOvertime, overtimeMinutes, lateMinutes, isLate, notes } = req.body;
-      const updatedAttendance = await AttendanceModel.findByIdAndUpdate(attendanceId, {
-        employee,
-        shift,
-        date,
-        startTime,
-        endTime,
-        isOvertime,
-        overtimeMinutes,
         lateMinutes,
-        isLate,
-        notes
-      }, { new: true });
-      if (!updatedAttendance) {
-        return res.status(404).json({ message: 'Attendance not found' });
-      }
-      res.status(200).json({ message: 'Attendance updated successfully', updatedAttendance });
-    } catch (error) {
-      console.error('Error updating attendance:', error);
-      res.status(400).json({ message: 'Failed to update attendance', error: error.message });
-    }
-  }
+        notes,
+        updatedBy
+      },
+      { new: true }
+    );
 
-  // Delete a specific attendance record by its ID
-  const deleteAttendanceById = async (req, res) => {
-    try {
-      const attendanceId = req.params.id;
-      const deletedAttendance = await AttendanceModel.findByIdAndDelete(attendanceId);
-      if (!deletedAttendance) {
-        return res.status(404).json({ message: 'Attendance not found' });
-      }
-      res.status(200).json({ message: 'Attendance deleted successfully' });
-    } catch (error) {
-      console.error('Error deleting attendance:', error);
-      res.status(400).json({ message: 'Failed to delete attendance', error: error.message });
+    if (!updatedAttendanceRecord) {
+      return res.status(404).json({ message: 'Attendance record not found' });
     }
+    res.status(200).json({ message: 'Attendance record updated successfully', updatedAttendanceRecord });
+  } catch (error) {
+    console.error('Error updating attendance record:', error);
+    res.status(400).json({ message: 'Failed to update attendance record', error: error.message });
   }
+};
+
+// Delete a specific attendance record by its ID
+const deleteAttendanceRecordById = async (req, res) => {
+  try {
+    const attendanceRecordId = req.params.id;
+    const deletedAttendanceRecord = await AttendanceRecordModel.findByIdAndDelete(attendanceRecordId);
+    if (!deletedAttendanceRecord) {
+      return res.status(404).json({ message: 'Attendance record not found' });
+    }
+    res.status(200).json({ message: 'Attendance record deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting attendance record:', error);
+    res.status(400).json({ message: 'Failed to delete attendance record', error: error.message });
+  }
+};
 
 module.exports = {
-  createAttendance,
-  getAllAttendances,
-  getAttendanceById,
-  updateAttendanceById,
-  deleteAttendanceById
+  createAttendanceRecord,
+  getAllAttendanceRecords,
+  getAttendanceRecordById,
+  updateAttendanceRecordById,
+  deleteAttendanceRecordById
 };

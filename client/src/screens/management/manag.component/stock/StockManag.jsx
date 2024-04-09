@@ -32,11 +32,12 @@ const StockManag = () => {
   const getaStockItems = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/stockitem/', config);
-      console.log(response.data)
-      setStockItems(response.data.reverse())
-
+      if(response){
+        console.log(response.data)
+        setStockItems(response.data.reverse())
+      }
     } catch (error) {
-      console.log(error)
+      toast.error('فشل استيراد الاصناف بشكل صحيح !اعد تحميل الصفحة ')
     }
 
   }
@@ -113,7 +114,7 @@ const StockManag = () => {
           price,
           ...(movement === 'Purchase' && { expirationDate }),
           actionAt,
-        },config);
+        }, config);
 
         console.log(response.data);
 
@@ -139,7 +140,7 @@ const StockManag = () => {
               return acc + (curr.totalcostofitem || 0);
             }, 0);
             // Update the product with the modified recipe and total cost
-            const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`,{ ingredients: newIngredients, totalcost }, config);
+            const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`, { ingredients: newIngredients, totalcost }, config);
 
             console.log({ updateRecipe });
 
@@ -320,7 +321,7 @@ const StockManag = () => {
     if (movement === "Issuance" || movement === "Wastage" || movement === "Damaged") {
       const calcNewBalance = Number(oldBalance) - (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * Number(parts) 
+      const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -328,7 +329,7 @@ const StockManag = () => {
     } else if (movement === "ReturnIssuance") {
       const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
       const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance * Number(parts) 
+      const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -336,16 +337,16 @@ const StockManag = () => {
     } else if (movement === 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
       const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance *  Number(parts) 
+      const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
-      console.log({calcNewBalance, calcNewCost , calcCostOfPart, countparts})
+      console.log({ calcNewBalance, calcNewCost, calcCostOfPart, countparts })
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnPurchase") {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
       const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * Number(parts) 
+      const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -405,11 +406,12 @@ const StockManag = () => {
                           <label>نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
-                            {Stockmovement.map(movement=>{
-                              <option value={movement}>{movement}</option>
+                            {Stockmovement.map(movement => {
+                              return <option value={movement}>{movement}</option>;
                             })}
                           </select>
                         </div>
+
                         {/* <div class="filter-group">
                           <label>Location</label>
                           <select class="form-control">
@@ -543,7 +545,7 @@ const StockManag = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="filter-group">
                           <label>نوع الحركه</label>
                           <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
                             <option >اختر الاجراء</option>
@@ -578,7 +580,7 @@ const StockManag = () => {
                               <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
                               <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
                             </>
-                            : movement == "Purchase" || movement == "ReturnPurchase"? <>
+                            : movement == "Purchase" || movement == "ReturnPurchase" ? <>
                               <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
                               <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
                             </> : ''}
@@ -596,7 +598,7 @@ const StockManag = () => {
 
                         <div className="form-group">
                           <label>السعر</label>
-                          {movement == "Issuance" || movement == "ReturnIssuance"|| movement == "Wastage" || movement == "Damaged" ?
+                          {movement == "Issuance" || movement == "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
                             : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
                           }
@@ -664,7 +666,7 @@ const StockManag = () => {
                               <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
                               <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
                             </>
-                            : movement == "Purchase" || movement == "ReturnPurchase"?  <>
+                            : movement == "Purchase" || movement == "ReturnPurchase" ? <>
                               <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
                               <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
                             </> : ''}

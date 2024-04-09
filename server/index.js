@@ -14,7 +14,7 @@ const connectdb = require('./database/connectdb.js');
 
 // Import all route files
 const routerestaurant = require('./router/Restaurant.router.js');
-const routeattendance = require('./router/Attendance.router.js');
+const routeattendance = require('./router/AttendanceRecord.router.js');
 const routeshift = require('./router/Shift.router.js');
 const routedeliveryarea = require('./router/DeliveryArea.router.js');
 const routereservation = require('./router/Reservation.router.js');

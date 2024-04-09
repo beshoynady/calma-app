@@ -13,6 +13,16 @@ const StockManagSchema = new mongoose.Schema(
       type: ObjectId,
       ref: 'Supplier',
     },
+    receiver: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Employee'
+    },
+    // Type of movement: Purchase, Expense, Return, Wastage
+    movement: {
+      type: String,
+      enum: ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged', 'InventoryAdjustment'],
+      required: true,
+    },
     // Payment type for the transaction
     paymentType: {
       type: String,
@@ -21,12 +31,6 @@ const StockManagSchema = new mongoose.Schema(
     // Unit of measurement
     unit: {
       type: String,
-      required: true,
-    },
-    // Type of movement: Purchase, Expense, Return, Wastage
-    movement: {
-      type: String,
-      enum: ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged'],
       required: true,
     },
     // Quantity of stock
@@ -69,15 +73,6 @@ const StockManagSchema = new mongoose.Schema(
       type: ObjectId,
       ref: 'Employee',
       required: true,
-    },
-    // Timestamp of the action
-    actionAt: {
-      type: Date,
-    },
-    // Timestamp of the last update
-    updatedAt: {
-      type: Date,
-      default: Date.now,
     },
   },
   {
