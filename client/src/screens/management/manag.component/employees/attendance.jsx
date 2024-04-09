@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
 
-const attendanceManagement = () => {
+const AttendanceManagement = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e');
@@ -30,7 +30,8 @@ const attendanceManagement = () => {
   const [notes, setNotes] = useState('');
 
 
-  const createAttendanceRecord = async () => {
+  const createAttendanceRecord = async (e) => {
+    e.preventDefault()
     try {
       const newattendanceData = {}
       if (status === 'Attendance') {
@@ -39,8 +40,7 @@ const attendanceManagement = () => {
           shift : shift._id,
           arrivalDate,
           departureDate,
-          absenceDate,
-          vacationDate,
+          cerruntDate,
           status,
           isOvertime,
           overtimeMinutes,
@@ -243,7 +243,7 @@ const attendanceManagement = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{allCategory.length > endpagination ? endpagination : allCategory.length}</b> من <b>{allCategory.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{allAttendanceRecords.length > endpagination ? endpagination : allAttendanceRecords.length}</b> من <b>{allAttendanceRecords.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
@@ -299,7 +299,7 @@ const attendanceManagement = () => {
                             required
                             name="arrivalDate"
                             value={new Date()}
-                            onChange={setArrivalDate(e.target.value)}
+                            onChange={(e)=>setArrivalDate(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -311,7 +311,7 @@ const attendanceManagement = () => {
                             required
                             name="departureDate"
                             value={new Date()}
-                            onChange={setDepartureDate(e.target.value)}
+                            onChange={(e)=>setDepartureDate(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -333,7 +333,7 @@ const attendanceManagement = () => {
                             required
                             name="status"
                             value={status}
-                            onChange={setStatus(e.target.value)}
+                            onChange={(e)=>setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
                             {listOfStatus.map((statusOption, index) => (
@@ -348,7 +348,7 @@ const attendanceManagement = () => {
                             className="form-control"
                             name="overtimeMinutes"
                             value={overtimeMinutes}
-                            onChange={setOvertimeMinutes(e.target.value)}
+                            onChange={(e)=>setOvertimeMinutes(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -359,7 +359,7 @@ const attendanceManagement = () => {
                             className="form-control"
                             name="lateMinutes"
                             value={lateMinutes}
-                            onChange={setLateMinutes(e.target.value)}
+                            onChange={(e)=>setLateMinutes(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -369,7 +369,7 @@ const attendanceManagement = () => {
                             className="form-control"
                             name="notes"
                             value={notes}
-                            onChange={setNotes(e.target.value)}
+                            onChange={(e)=>setNotes(e.target.value)}
                             style={{ width: "100%" }}
                           ></textarea>
                         </div>
@@ -435,4 +435,4 @@ const attendanceManagement = () => {
 
 }
 
-export default attendanceManagement
+export default AttendanceManagement

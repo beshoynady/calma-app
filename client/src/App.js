@@ -20,7 +20,7 @@ import ReservationTables from './screens/management/manag.component/tables/Reser
 import Employees from './screens/management/manag.component/employees/Employees';
 import EmployeesSalary from './screens/management/manag.component/employees/EmployeesSalary';
 import PayRoll from './screens/management/manag.component/employees/PayRoll';
-import AttendanceRecord from './screens/management/manag.component/employees/attendance';
+import AttendanceManagement from './screens/management/manag.component/employees/attendance';
 
 import Category from './screens/management/manag.component/category/Category';
 import CategoryStock from './screens/management/manag.component/stock/CategoryStock';
@@ -2015,7 +2015,7 @@ function App() {
             <Route path='employees' element={<Employees />} />
             <Route path='Employeessalary' element={<EmployeesSalary/>} />
             <Route path='payroll' element={<PayRoll/>} />
-            <Route path='attendancerecord' element={<AttendanceRecord/>} />
+            <Route path='attendancerecord' element={<AttendanceManagement/>} />
             <Route path='category' element={<Category />} />
             <Route path='kitchen' element={<Kitchen />} />
             <Route path='waiter' element={<Waiter />} />
