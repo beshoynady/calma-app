@@ -58,11 +58,9 @@ const AttendanceManagement = () => {
         }
       }
 
-      const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData
-        // Make a POST request to create a new attendance
-        , config);
-
-      if (response.status === 201) {
+      const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData , config);
+      console.log({response})
+      if (response.status === 200) {
         getallAttendanceRecords()
         // attendance created successfully
         toast.success('تم انشاء السجل بنجاح:');
@@ -274,7 +272,6 @@ const AttendanceManagement = () => {
                             className="form-control"
                             required
                             name="status"
-                            value={status}
                             onChange={handleSelectEmployee}
                             style={{ width: "100%" }}
                           >
@@ -290,7 +287,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             readOnly={true}
                             name="shift"
-                            // defaultValue={shift.shiftType}
+                            defaultValue={shift.shiftType}
                             style={{ width: "100%" }}
                           />
                         </div>
