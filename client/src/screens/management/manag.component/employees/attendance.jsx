@@ -163,11 +163,18 @@ const AttendanceManagement = () => {
 
   const handleArrivealDate = (e)=>{
     const arrivalDateTime = new Date(e.target.value);
+    console.log({arrivalDateTime})
     setArrivalDate(arrivalDateTime);
     const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
+    console.log({arrivalTime})
     const shiftStartTimeInMinutes = new Date(shift.startTime).getHours() * 60 + new Date(shift.startTime).getMinutes();
+    console.log({shiftStartTimeInMinutes})
     const calculateLateMinutes = arrivalTime - shiftStartTimeInMinutes;
-    setLateMinutes(calculateLateMinutes);
+    console.log({calculateLateMinutes})
+    if(calculateLateMinutes !== 0){
+      setLateMinutes(calculateLateMinutes);
+      setIsLate(true)
+    }
   }
 
   const handleDepartureDate = (e)=>{
