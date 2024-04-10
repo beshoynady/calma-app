@@ -232,7 +232,7 @@ const AttendanceManagement = () => {
                               <td>{i + 1}</td>
                               <td>{Record.cerruntDate}</td>
                               <td>{Record.employee && Record.employee.fullname}</td>
-                              <td>{Record.shift&&Record.shift.name}</td>
+                              <td>{Record.shift&&Record.shift.shiftType}</td>
                               <td>{Record.status}</td>
                               <td>{Record.arrivalDate}</td>
                               <td>{Record.arrivalDate}</td>
@@ -241,7 +241,7 @@ const AttendanceManagement = () => {
                               <td>{Record.lateMinutes}</td>
                               <td>{Record.overtimeMinutes}</td>
                               <td>{Record.createdBy &&Record.createdBy.fullname}</td>
-                              <td>{Record.createdBy &&Record.updatedBy.fullname}</td>
+                              <td>{Record.updatedBy &&Record.updatedBy.fullname}</td>
                               <td>{Record.notes}</td>
                               <td>
                                 {/* <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
