@@ -129,7 +129,7 @@ const AttendanceManagement = () => {
   const deleteRecord = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.delete(`${apiUrl}/api/attendance/${recordId}`)
+      const response = await axios.delete(`${apiUrl}/api/attendance/${recordId}`, config)
       if (response.status === 200) {
         toast.success('تم حذف السجل بنجاح')
       } else {
