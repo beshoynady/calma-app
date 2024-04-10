@@ -204,6 +204,7 @@ const AttendanceManagement = () => {
                         </th>
                         <th>م</th>
                         <th>الاسم</th>
+                        <th>اليوم</th>
                         <th>الشيفت</th>
                         <th>الحالة</th>
                         <th>اليوم</th>
@@ -230,7 +231,7 @@ const AttendanceManagement = () => {
                                 </span>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{Record.cerruntDate}</td>
+                              <td>{Record.currentDate}</td>
                               <td>{Record.employee && Record.employee.fullname}</td>
                               <td>{Record.shift&&Record.shift.shiftType}</td>
                               <td>{Record.status}</td>
