@@ -14,6 +14,10 @@ const AttendanceManagement = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+  const formattedDate = (date)=>{
+    new Date(date).toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  } 
+    
 
 
   const [listOfStatus, setlistOfStatus] = useState(['Attendance', 'Absence', 'Vacation']);
@@ -294,7 +298,7 @@ const AttendanceManagement = () => {
                               <td className="text-nowrap overflow-hidden text-truncate">{Record.arrivalDate.split('T')[0]}</td>
                               <td className="text-nowrap overflow-hidden text-truncate">{new Date(Record.arrivalDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
                               <td className="text-nowrap overflow-hidden text-truncate">{Record.departureDate.split('T')[0]}</td>
-                              <td>{new Date(Record.departureDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{new Date(Record.departureDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
                               <td className="text-nowrap overflow-hidden text-truncate">{Record.lateMinutes}</td>
                               <td className="text-nowrap overflow-hidden text-truncate">{Record.overtimeMinutes}</td>
                               <td>{Record.createdBy &&Record.createdBy.fullname}</td>
@@ -378,7 +382,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="arrivalDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                             onChange={handleArrivealDate}
                             style={{ width: "100%" }}
                           />
@@ -389,7 +393,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="departureDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                             onChange={handleDepartureDate}
                             style={{ width: "100%" }}
                           />
@@ -503,7 +507,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="arrivalDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                             onChange={handleArrivealDate}
                             style={{ width: "100%" }}
                           />
@@ -514,7 +518,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="departureDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
                             onChange={handleDepartureDate}
                             style={{ width: "100%" }}
                           />
