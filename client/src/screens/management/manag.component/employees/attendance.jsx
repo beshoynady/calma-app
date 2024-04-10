@@ -165,8 +165,8 @@ const AttendanceManagement = () => {
     const arrivalDateTime = new Date(e.target.value);
     console.log({ arrivalDateTime })
     setArrivalDate(arrivalDateTime);
-    const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
-    console.log({ arrivalTime })
+    const arrivalTimeInMinutes = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
+    console.log({ arrivalTimeInMinutes })
 
     const shiftStartTime = new Date();
 
