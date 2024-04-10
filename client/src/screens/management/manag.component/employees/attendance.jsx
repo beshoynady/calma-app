@@ -76,7 +76,7 @@ const AttendanceManagement = () => {
   const [allAttendanceRecords, setallAttendanceRecords] = useState([])
   const getallAttendanceRecords = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/attendance`, config);
+      const response = await axios.get(`${apiUrl}/api/attendance`, config);
       if (response.status === 200) {
         setallAttendanceRecords(response.data)
       }
