@@ -31,34 +31,33 @@ const AttendanceManagement = () => {
 
 
   const createAttendanceRecord = async (e) => {
-    e.preventDefault()
-    try {
-      const newattendanceData = {}
-      if (status === 'Attendance') {
-        newattendanceData = {
-          employee,
-          shift: shift._id,
-          arrivalDate,
-          departureDate,
-          currentDate,
-          status,
-          isOvertime,
-          overtimeMinutes,
-          isLate,
-          lateMinutes,
-          notes
-        }
-      } else {
-        newattendanceData = {
-          employee,
-          shift: shift._id,
-          currentDate,
-          status,
-          notes
-        }
+    e.preventDefault();  
+    const newattendanceData = {}
+    if (status === 'Attendance') {
+      newattendanceData = {
+        employee,
+        shift: shift._id,
+        arrivalDate,
+        departureDate,
+        currentDate,
+        status,
+        isOvertime,
+        overtimeMinutes,
+        isLate,
+        lateMinutes,
+        notes
       }
-
-      console.log({newattendanceData})
+    } else {
+      newattendanceData = {
+        employee,
+        shift: shift._id,
+        currentDate,
+        status,
+        notes
+      }
+    }
+    console.log({newattendanceData})
+    try {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData , config);
       console.log({response})
       if (response.status === 201) {
