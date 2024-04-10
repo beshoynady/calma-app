@@ -31,8 +31,9 @@ const AttendanceManagement = () => {
 
 
   const createAttendanceRecord = async (e) => {
-    e.preventDefault();  
-    let newattendanceData = {employee,
+    e.preventDefault();
+    let newattendanceData = {
+      employee,
       shift: shift._id,
       arrivalDate,
       departureDate,
@@ -42,7 +43,8 @@ const AttendanceManagement = () => {
       overtimeMinutes,
       isLate,
       lateMinutes,
-      notes}
+      notes
+    }
     // if (status === 'Attendance') {
     //   newattendanceData = {
     //     employee,
@@ -66,10 +68,10 @@ const AttendanceManagement = () => {
     //     notes
     //   }
     // }
-    console.log({newattendanceData})
+    console.log({ newattendanceData })
     try {
-      const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData , config);
-      console.log({response})
+      const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
+      console.log({ response })
       if (response.status === 201) {
         getallAttendanceRecords()
         // attendance created successfully
@@ -87,7 +89,7 @@ const AttendanceManagement = () => {
   const getallAttendanceRecords = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/attendance`, config);
-      console.log({response})
+      console.log({ response })
       if (response.status === 200) {
         setallAttendanceRecords(response.data)
       }
@@ -229,8 +231,8 @@ const AttendanceManagement = () => {
                               </td>
                               <td>{i + 1}</td>
                               <td>{Record.cerruntDate}</td>
-                              <td>{Record.employee.fullname}</td>
-                              <td>{Record.shift.name}</td>
+                              <td>{Record.employee && Record.employee.fullname}</td>
+                              <td>{Record.shift&&Record.shift.name}</td>
                               <td>{Record.status}</td>
                               <td>{Record.arrivalDate}</td>
                               <td>{Record.arrivalDate}</td>
@@ -238,8 +240,8 @@ const AttendanceManagement = () => {
                               <td>{Record.departureDate}</td>
                               <td>{Record.lateMinutes}</td>
                               <td>{Record.overtimeMinutes}</td>
-                              <td>{Record.createdBy.fullname}</td>
-                              <td>{Record.updatedBy.fullname}</td>
+                              <td>{Record.createdBy &&Record.createdBy.fullname}</td>
+                              <td>{Record.createdBy &&Record.updatedBy.fullname}</td>
                               <td>{Record.notes}</td>
                               <td>
                                 {/* <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
