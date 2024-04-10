@@ -87,6 +87,7 @@ const AttendanceManagement = () => {
   const getallAttendanceRecords = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/attendance`, config);
+      console.log({response})
       if (response.status === 200) {
         setallAttendanceRecords(response.data)
       }
@@ -103,7 +104,7 @@ const AttendanceManagement = () => {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
       const data = response.data;
       setListOfEmployees(data);
-      console.log({ data });
+      // console.log({ data });
     } catch (error) {
       console.log(error);
     }
@@ -111,9 +112,9 @@ const AttendanceManagement = () => {
 
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
-    console.log({ employeeid })
+    // console.log({ employeeid })
     const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
-    console.log({ employee: employee.shift })
+    // console.log({ employee: employee.shift })
     setEmployee(employeeid)
     setShift(employee.shift)
   }
