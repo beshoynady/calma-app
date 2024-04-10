@@ -102,9 +102,11 @@ const AttendanceManagement = () => {
   };
 
   const handleSelectEmployee = (e)=>{
-    const employee = e.target.value
-    console.log({employee})
-    setEmployee(employee._id)
+    const employeeid = e.target.value
+    console.log({employeeid})
+    const employee = listOfEmployees.filter(employee=> employee._id === employeeid)[0]
+    console.log({employee: employee.shift})
+    setEmployee(employeeid)
     setShift(employee.shift)
   }
 
@@ -277,7 +279,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           >
                             {listOfEmployees.map((employee, index) => (
-                              <option key={index} value={employee}>{employee.fullname}</option>
+                              <option key={index} value={employee._id}>{employee.fullname}</option>
                             ))}
                           </select>
                         </div>
