@@ -199,7 +199,7 @@ const AttendanceManagement = () => {
     const shiftEndTime = new Date();
 
 
-    const shiftEndTimeArray = shift.shiftEndTime.split(":");
+    const shiftEndTimeArray = shift.EndTime.split(":");
     shiftEndTime.setHours(shiftEndTimeArray[0]);
     shiftEndTime.setMinutes(shiftEndTimeArray[1]);
 
@@ -451,7 +451,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="overtimeMinutes"
                             readOnly
-                            defaultValue={overtimeMinutes}
+                            Value={overtimeMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -462,7 +462,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="lateMinutes"
                             readOnly
-                            defaultValue={lateMinutes}
+                            Value={lateMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
