@@ -447,7 +447,7 @@ const AttendanceManagement = () => {
                         <div className="form-group">
                           <label>دقائق التجاوز</label>
                           <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             name="overtimeMinutes"
                             readOnly
@@ -458,7 +458,7 @@ const AttendanceManagement = () => {
                         <div className="form-group">
                           <label>دقائق التأخر</label>
                           <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             name="lateMinutes"
                             readOnly
@@ -576,7 +576,7 @@ const AttendanceManagement = () => {
                         <div className="form-group">
                           <label>دقائق التجاوز</label>
                           <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             name="overtimeMinutes"
                             readOnly
@@ -587,7 +587,7 @@ const AttendanceManagement = () => {
                         <div className="form-group">
                           <label>دقائق التأخر</label>
                           <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             name="lateMinutes"
                             readOnly
