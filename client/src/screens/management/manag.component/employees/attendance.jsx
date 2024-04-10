@@ -167,9 +167,17 @@ const AttendanceManagement = () => {
     setArrivalDate(arrivalDateTime);
     const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
     console.log({arrivalTime})
-    const shiftStartTimeInMinutes = new Date(shift.startTime).getHours() * 60 + new Date(shift.startTime).getMinutes();
+
+    const shiftStartTimeArray = shift.startTime.split(":");
+    shiftStartTime.setHours(shiftStartTimeArray[0]);
+    shiftStartTime.setMinutes(shiftStartTimeArray[1]);
     console.log({shiftStartTimeInMinutes})
-    const calculateLateMinutes = arrivalTime - shiftStartTimeInMinutes;
+  
+    const shiftStartTimeInMinutes = shiftStartTime.getHours() * 60 + shiftStartTime.getMinutes();
+    
+    // تحويل فرق الساعات إلى دقائق وجمعها مع فرق الدقائق
+    const calculateLateMinutes = (arrivalTimeInMinutes - shiftStartTimeInMinutes);
+    
     console.log({calculateLateMinutes})
     if(calculateLateMinutes !== 0){
       setLateMinutes(calculateLateMinutes);
@@ -182,7 +190,14 @@ const AttendanceManagement = () => {
     setDepartureDate(departureDateTime);
   
     const departureTime = departureDateTime.getHours() * 60 + departureDateTime.getMinutes();
-    const shiftEndTimeInMinutes = new Date(shift.endTime).getHours() * 60 + new Date(shift.endTime).getMinutes();
+
+    const shiftEndTimeArray = shift.shiftEndTime.split(":");
+    shiftEndTime.setHours(shiftEndTimeArray[0]);
+    shiftEndTime.setMinutes(shiftEndTimeArray[1]);
+
+    console.log({shiftEndTimeArray})
+  
+    const shiftEndTimeInMinutes = new Date(shiftEndTimeArray).getHours() * 60 + new Date(shiftEndTimeArray).getMinutes();
     
     const calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
     setOvertimeMinutes(calculateExtraMinutes);
