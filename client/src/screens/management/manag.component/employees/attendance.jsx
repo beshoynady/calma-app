@@ -21,7 +21,7 @@ const AttendanceManagement = () => {
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0,10));
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
   const [status, setStatus] = useState('Attendance');
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtimeMinutes, setOvertimeMinutes] = useState(0);
@@ -37,7 +37,7 @@ const AttendanceManagement = () => {
       if (status === 'Attendance') {
         newattendanceData = {
           employee,
-          shift : shift._id,
+          shift: shift._id,
           arrivalDate,
           departureDate,
           currentDate,
@@ -51,7 +51,7 @@ const AttendanceManagement = () => {
       } else {
         newattendanceData = {
           employee,
-          shift : shift._id,
+          shift: shift._id,
           currentDate,
           status,
           notes
@@ -89,7 +89,7 @@ const AttendanceManagement = () => {
 
 
   const [listOfEmployees, setListOfEmployees] = useState([]);
-  
+
   const getEmployees = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
@@ -101,11 +101,11 @@ const AttendanceManagement = () => {
     }
   };
 
-  const handleSelectEmployee = (e)=>{
+  const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
-    console.log({employeeid})
-    const employee = listOfEmployees.filter(employee=> employee._id === employeeid)[0]
-    console.log({employee: employee.shift})
+    console.log({ employeeid })
+    const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
+    console.log({ employee: employee.shift })
     setEmployee(employeeid)
     setShift(employee.shift)
   }
@@ -297,24 +297,25 @@ const AttendanceManagement = () => {
                         <div className="form-group">
                           <label>تاريخ الوصول</label>
                           <input
-                            type="date"
+                            type="datetime-local"
                             className="form-control"
                             required
                             name="arrivalDate"
-                            value={new Date()}
-                            onChange={(e)=>setArrivalDate(e.target.value)}
+                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            onChange={(e) => setArrivalDate(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
                         <div className="form-group">
                           <label>تاريخ الانصراف</label>
                           <input
-                            type="date"
+                            type="datetime-local"
+
                             className="form-control"
                             required
                             name="departureDate"
-                            value={new Date()}
-                            onChange={(e)=>setDepartureDate(e.target.value)}
+                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            onChange={(e) => setDepartureDate(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -336,7 +337,7 @@ const AttendanceManagement = () => {
                             required
                             name="status"
                             value={status}
-                            onChange={(e)=>setStatus(e.target.value)}
+                            onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
                             {listOfStatus.map((statusOption, index) => (
@@ -351,7 +352,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="overtimeMinutes"
                             value={overtimeMinutes}
-                            onChange={(e)=>setOvertimeMinutes(e.target.value)}
+                            onChange={(e) => setOvertimeMinutes(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -362,7 +363,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="lateMinutes"
                             value={lateMinutes}
-                            onChange={(e)=>setLateMinutes(e.target.value)}
+                            onChange={(e) => setLateMinutes(e.target.value)}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -372,7 +373,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="notes"
                             value={notes}
-                            onChange={(e)=>setNotes(e.target.value)}
+                            onChange={(e) => setNotes(e.target.value)}
                             style={{ width: "100%" }}
                           ></textarea>
                         </div>
