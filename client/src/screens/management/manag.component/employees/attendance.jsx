@@ -582,7 +582,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="overtimeMinutes"
                             readOnly
-                            defaultValue={overtimeMinutes}
+                            value={overtimeMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -593,7 +593,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             name="lateMinutes"
                             readOnly
-                            defaultValue={lateMinutes}
+                            value={lateMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
