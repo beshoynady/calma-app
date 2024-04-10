@@ -125,7 +125,7 @@ const AttendanceManagement = () => {
     const arrivalDateTime = new Date(e.target.value);
     setArrivalDate(arrivalDateTime);
     const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
-    const shiftStartTimeInMinutes = new Date(shift.startTime).getHours() * 60 + shiftStartTime.getMinutes();
+    const shiftStartTimeInMinutes = new Date(shift.startTime).getHours() * 60 + new Date(shift.startTime).getMinutes();
     const calculateLateMinutes = arrivalTime - shiftStartTimeInMinutes;
     setLateMinutes(calculateLateMinutes);
   }
