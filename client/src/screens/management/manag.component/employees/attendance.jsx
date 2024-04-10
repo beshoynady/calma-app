@@ -137,7 +137,7 @@ const AttendanceManagement = () => {
     const departureTime = departureDateTime.getHours() * 60 + departureDateTime.getMinutes();
     const shiftEndTimeInMinutes = new Date(shift.endTime).getHours() * 60 + new Date(shift.endTime).getMinutes();
     
-    calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
+    const calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
     setOvertimeMinutes(calculateExtraMinutes);
   }
 
@@ -256,9 +256,9 @@ const AttendanceManagement = () => {
                               <td>{Record.shift&&Record.shift.shiftType}</td>
                               <td>{Record.status}</td>
                               <td>{Record.arrivalDate.split('T')[0]}</td>
-                              <td>{Record.arrivalDate.split('T')[1]}</td>
+                              <td>{new Date(Record.arrivalDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
                               <td>{Record.departureDate.split('T')[0]}</td>
-                              <td>{Record.departureDate.split('T')[1]}</td>
+                              <td>{new Date(Record.departureDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
                               <td>{Record.lateMinutes}</td>
                               <td>{Record.overtimeMinutes}</td>
                               <td>{Record.createdBy &&Record.createdBy.fullname}</td>
@@ -296,7 +296,7 @@ const AttendanceManagement = () => {
                   <div className="modal-content">
                     <form onSubmit={createAttendanceRecord}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه تصنيف</h4>
+                        <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
