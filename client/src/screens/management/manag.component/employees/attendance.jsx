@@ -172,11 +172,13 @@ const AttendanceManagement = () => {
 
 
     const shiftStartTimeArray = shift.startTime.split(":");
+    console.log({ shiftStartTimeArray })
     shiftStartTime.setHours(shiftStartTimeArray[0]);
     shiftStartTime.setMinutes(shiftStartTimeArray[1]);
+    console.log({ shiftStartTime })
+    
+    const shiftStartTimeInMinutes = new Date(shiftStartTime).getHours() * 60 + new Date(shiftStartTime).getMinutes();
     console.log({ shiftStartTimeInMinutes })
-
-    const shiftStartTimeInMinutes = shiftStartTime.getHours() * 60 + shiftStartTime.getMinutes();
 
     // تحويل فرق الساعات إلى دقائق وجمعها مع فرق الدقائق
     const calculateLateMinutes = (arrivalTimeInMinutes - shiftStartTimeInMinutes);
