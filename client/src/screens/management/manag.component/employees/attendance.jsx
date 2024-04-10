@@ -58,9 +58,10 @@ const AttendanceManagement = () => {
         }
       }
 
+      console.log({newattendanceData})
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData , config);
       console.log({response})
-      if (response.status === 200) {
+      if (response.status === 201) {
         getallAttendanceRecords()
         // attendance created successfully
         toast.success('تم انشاء السجل بنجاح:');
