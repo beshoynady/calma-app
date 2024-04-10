@@ -126,7 +126,8 @@ const AttendanceManagement = () => {
     }
   };
 
-  const deleteRecord = async () => {
+  const deleteRecord = async (e) => {
+    e.preventDefault()
     try {
       const response = await axios.delete(`${apiUrl}/attendance/${recordId}`)
       if (response.status === 200) {
@@ -199,7 +200,8 @@ const AttendanceManagement = () => {
     const shiftEndTime = new Date();
 
 
-    const shiftEndTimeArray = shift.EndTime.split(":");
+    const shiftEndTimeArray = shift.endTime.split(":");
+
     shiftEndTime.setHours(shiftEndTimeArray[0]);
     shiftEndTime.setMinutes(shiftEndTimeArray[1]);
 
