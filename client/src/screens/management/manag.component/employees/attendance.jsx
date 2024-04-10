@@ -104,7 +104,7 @@ const AttendanceManagement = () => {
       lateMinutes,
       notes
     }
-    console.log({ newattendanceData })
+    console.log({ editattendanceData })
     try {
       const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, editattendanceData, config);
       console.log({ response })
