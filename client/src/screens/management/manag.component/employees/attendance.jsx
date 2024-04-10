@@ -538,7 +538,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="arrivalDate"
-                            defaultValue={new Date(arrivalDate).toISOString().slice(0, 16)}
+                            defaultValue={arrivalDate ? new Date(arrivalDate).toISOString().slice(0, 16) : ''}
                             onChange={handleArrivealDate}
                             style={{ width: "100%" }}
                           />
@@ -549,7 +549,7 @@ const AttendanceManagement = () => {
                             type="datetime-local"
                             className="form-control"
                             name="departureDate"
-                            defaultValue={new Date(departureDate).toISOString().slice(0, 16)}
+                            defaultValue={departureDate ? new Date(departureDate).toISOString().slice(0, 16) : ''}
                             onChange={handleDepartureDate}
                             style={{ width: "100%" }}
                           />
