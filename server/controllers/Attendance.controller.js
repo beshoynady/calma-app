@@ -42,7 +42,7 @@ const createAttendanceRecord = async (req, res) => {
 // Retrieve all attendance records
 const getAllAttendanceRecords = async (req, res) => {
   try {
-    const attendanceRecords = await AttendanceRecordModel.find().populate('employee shift createdBy updatedBy');
+    const attendanceRecords = await AttendanceRecordModel.find().populate('employee').populate('shift').populate('createdBy').populate('updatedBy');
     res.status(200).json(attendanceRecords);
   } catch (error) {
     console.error('Error getting all attendance records:', error);
@@ -54,7 +54,7 @@ const getAllAttendanceRecords = async (req, res) => {
 const getAttendanceRecordById = async (req, res) => {
   try {
     const attendanceRecordId = req.params.id;
-    const attendanceRecord = await AttendanceRecordModel.findById(attendanceRecordId).populate('employee shift createdBy updatedBy');
+    const attendanceRecord = await AttendanceRecordModel.findById(attendanceRecordId).populate('employee').populate('shift').populate('createdBy').populate('updatedBy');
     if (!attendanceRecord) {
       return res.status(404).json({ message: 'Attendance record not found' });
     }
