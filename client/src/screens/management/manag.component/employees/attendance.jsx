@@ -103,6 +103,7 @@ const AttendanceManagement = () => {
 
   const handleSelectEmployee = (e)=>{
     const employee = e.target.value
+    console.log({employee})
     setEmployee(employee._id)
     setShift(employee.shift)
   }
@@ -287,7 +288,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             readOnly={true}
                             name="shift"
-                            defaultValue={shift.shiftType}
+                            // defaultValue={shift.shiftType}
                             style={{ width: "100%" }}
                           />
                         </div>
