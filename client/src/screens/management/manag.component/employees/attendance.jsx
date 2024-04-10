@@ -203,8 +203,8 @@ const AttendanceManagement = () => {
                           </span>
                         </th>
                         <th>م</th>
-                        <th>الاسم</th>
                         <th>اليوم</th>
+                        <th>الاسم</th>
                         <th>الشيفت</th>
                         <th>الحالة</th>
                         <th>اليوم</th>
