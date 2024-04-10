@@ -131,6 +131,7 @@ const AttendanceManagement = () => {
     try {
       const response = await axios.delete(`${apiUrl}/api/attendance/${recordId}`, config)
       if (response.status === 200) {
+        getallAttendanceRecords()
         toast.success('تم حذف السجل بنجاح')
       } else {
         toast.error('فشل حذف السجل ! حاول مره اخري')
@@ -185,8 +186,8 @@ const AttendanceManagement = () => {
     const calculateLateMinutes = (arrivalTimeInMinutes - shiftStartTimeInMinutes);
 
     console.log({ calculateLateMinutes })
-    if (calculateLateMinutes !== 0) {
       setLateMinutes(calculateLateMinutes);
+    if (calculateLateMinutes !== 0) {
       setIsLate(true)
     }
   }
@@ -211,6 +212,9 @@ const AttendanceManagement = () => {
 
     const calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
     setOvertimeMinutes(calculateExtraMinutes);
+    if(calculateExtraMinutes !== 0){
+      setIsOvertime(true)
+    }
   }
 
   useEffect(() => {
