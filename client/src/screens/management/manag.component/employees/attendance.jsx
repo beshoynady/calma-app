@@ -168,6 +168,9 @@ const AttendanceManagement = () => {
     const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
     console.log({ arrivalTime })
 
+    const shiftStartTime = new Date();
+
+
     const shiftStartTimeArray = shift.startTime.split(":");
     shiftStartTime.setHours(shiftStartTimeArray[0]);
     shiftStartTime.setMinutes(shiftStartTimeArray[1]);
@@ -191,13 +194,16 @@ const AttendanceManagement = () => {
 
     const departureTime = departureDateTime.getHours() * 60 + departureDateTime.getMinutes();
 
+    const shiftEndTime = new Date();
+
+
     const shiftEndTimeArray = shift.shiftEndTime.split(":");
     shiftEndTime.setHours(shiftEndTimeArray[0]);
     shiftEndTime.setMinutes(shiftEndTimeArray[1]);
 
     console.log({ shiftEndTimeArray })
 
-    const shiftEndTimeInMinutes = new Date(shiftEndTimeArray).getHours() * 60 + new Date(shiftEndTimeArray).getMinutes();
+    const shiftEndTimeInMinutes = new Date(shiftEndTime).getHours() * 60 + new Date(shiftEndTime).getMinutes();
 
     const calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
     setOvertimeMinutes(calculateExtraMinutes);
