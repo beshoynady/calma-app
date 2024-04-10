@@ -6,9 +6,10 @@ const {
   getAttendanceRecordById,
   updateAttendanceRecordById,
   deleteAttendanceRecordById
-} = require('../controllers/AttendanceRecord.controller');
+} = require('../controllers/Attendance.controller');
 
-const authenticateToken = require('../utils/authenticate');
+const authenticateToken = require('../utlits/authenticate')
+
 
 router.route('/')
   .post(authenticateToken, createAttendanceRecord)
