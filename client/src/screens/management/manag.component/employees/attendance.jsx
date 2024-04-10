@@ -121,6 +121,26 @@ const AttendanceManagement = () => {
     setShift(employee.shift)
   }
 
+  const handleArrivealDate = (e)=>{
+    const arrivalDateTime = new Date(e.target.value);
+    setArrivalDate(arrivalDateTime);
+    const arrivalTime = arrivalDateTime.getHours() * 60 + arrivalDateTime.getMinutes();
+    const shiftStartTimeInMinutes = new Date(shift.startTime).getHours() * 60 + shiftStartTime.getMinutes();
+    const calculateLateMinutes = arrivalTime - shiftStartTimeInMinutes;
+    setLateMinutes(calculateLateMinutes);
+  }
+
+  const handleDepartureDate = (e)=>{
+    const departureDateTime = new Date(e.target.value);
+    setDepartureDate(departureDateTime);
+  
+    const departureTime = departureDateTime.getHours() * 60 + departureDateTime.getMinutes();
+    const shiftEndTimeInMinutes = new Date(shift.endTime).getHours() * 60 + new Date(shift.endTime).getMinutes();
+    
+    calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
+    setOvertimeMinutes(calculateExtraMinutes);
+  }
+
   useEffect(() => {
     getEmployees()
     getallAttendanceRecords()
@@ -231,14 +251,14 @@ const AttendanceManagement = () => {
                                 </span>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{Record.currentDate}</td>
+                              <td>{Record.currentDate.split('T')[0]}</td>
                               <td>{Record.employee && Record.employee.fullname}</td>
                               <td>{Record.shift&&Record.shift.shiftType}</td>
                               <td>{Record.status}</td>
-                              <td>{Record.arrivalDate}</td>
-                              <td>{Record.arrivalDate}</td>
-                              <td>{Record.departureDate}</td>
-                              <td>{Record.departureDate}</td>
+                              <td>{Record.arrivalDate.split('T')[0]}</td>
+                              <td>{Record.arrivalDate.split('T')[1]}</td>
+                              <td>{Record.departureDate.split('T')[0]}</td>
+                              <td>{Record.departureDate.split('T')[1]}</td>
                               <td>{Record.lateMinutes}</td>
                               <td>{Record.overtimeMinutes}</td>
                               <td>{Record.createdBy &&Record.createdBy.fullname}</td>
@@ -280,6 +300,17 @@ const AttendanceManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
+                      <div className="form-group">
+                          <label>تاريخ الحالي</label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            readOnly={true}
+                            name="currentDate"
+                            value={currentDate}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
                         <div className="form-group">
                           <label>الاسم</label>
                           <select
@@ -310,10 +341,9 @@ const AttendanceManagement = () => {
                           <input
                             type="datetime-local"
                             className="form-control"
-                            required
                             name="arrivalDate"
                             defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
-                            onChange={(e) => setArrivalDate(e.target.value)}
+                            onChange={handleArrivealDate}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -321,33 +351,21 @@ const AttendanceManagement = () => {
                           <label>تاريخ الانصراف</label>
                           <input
                             type="datetime-local"
-
                             className="form-control"
-                            required
                             name="departureDate"
                             defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
-                            onChange={(e) => setDepartureDate(e.target.value)}
+                            onChange={handleDepartureDate}
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
-                          <label>تاريخ الحالي</label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            readOnly={true}
-                            name="currentDate"
-                            value={currentDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
+                       
                         <div className="form-group">
                           <label>الحالة</label>
                           <select
                             className="form-control"
                             required
                             name="status"
-                            value={status}
+                            defaultValue={status}
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
@@ -362,8 +380,8 @@ const AttendanceManagement = () => {
                             type="number"
                             className="form-control"
                             name="overtimeMinutes"
-                            value={overtimeMinutes}
-                            onChange={(e) => setOvertimeMinutes(e.target.value)}
+                            readOnly
+                            defaultValue={overtimeMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -373,8 +391,8 @@ const AttendanceManagement = () => {
                             type="number"
                             className="form-control"
                             name="lateMinutes"
-                            value={lateMinutes}
-                            onChange={(e) => setLateMinutes(e.target.value)}
+                            readOnly
+                            defaultValue={lateMinutes}
                             style={{ width: "100%" }}
                           />
                         </div>
