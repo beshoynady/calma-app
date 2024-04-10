@@ -17,6 +17,8 @@ const AttendanceManagement = () => {
 
 
   const [listOfStatus, setlistOfStatus] = useState(['Attendance', 'Absence', 'Vacation']);
+
+  const [recordId, setRecordId] = useState('');
   const [employee, setEmployee] = useState('');
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
@@ -45,29 +47,6 @@ const AttendanceManagement = () => {
       lateMinutes,
       notes
     }
-    // if (status === 'Attendance') {
-    //   newattendanceData = {
-    //     employee,
-    //     shift: shift._id,
-    //     arrivalDate,
-    //     departureDate,
-    //     currentDate,
-    //     status,
-    //     isOvertime,
-    //     overtimeMinutes,
-    //     isLate,
-    //     lateMinutes,
-    //     notes
-    //   }
-    // } else {
-    //   newattendanceData = {
-    //     employee,
-    //     shift: shift._id,
-    //     currentDate,
-    //     status,
-    //     notes
-    //   }
-    // }
     console.log({ newattendanceData })
     try {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
@@ -97,7 +76,64 @@ const AttendanceManagement = () => {
       toast.error('حدث خطاء اثناء جلب سجل الحضور و الانصراف ! اعد تحميل الصفحة')
     }
   }
+  const handleEditRecord=(id)=>{
+    setRecordId(id);
+    const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
+    setEmployee(getRecord.employee);
+    setCurrentDate(getRecord.currentDate);
+    setArrivalDate(getRecord.arrivalDate);
+    setDepartureDate(getRecord.departureDate);
+    setShift(getRecord.shift);
+    setNotes(getRecord.notes);
+    setOvertimeMinutes(getRecord.overtimeMinutes);
+    setLateMinutes(getRecord.lateMinutes);
+  }
 
+  const editAttendanceRecord = async (e) => {
+    e.preventDefault();
+    let editattendanceData = {
+      employee,
+      shift: shift._id,
+      arrivalDate,
+      departureDate,
+      currentDate,
+      status,
+      isOvertime,
+      overtimeMinutes,
+      isLate,
+      lateMinutes,
+      notes
+    }
+    console.log({ newattendanceData })
+    try {
+      const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, editattendanceData, config);
+      console.log({ response })
+      if (response.status === 200) {
+        getallAttendanceRecords()
+        // attendance created successfully
+        toast.success('تم تعديل السجل بنجاح:');
+        // Add any further logic here, such as updating UI or state
+      } else {
+        toast.error('فشل عمليه تعديل السجل!حاول مره اخري');
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء تعديل السجل !حاول مره اخري:');
+      // Handle error, display message, etc.
+    }
+  };
+
+  const deleteRecord = async()=>{
+    try {
+      const response = await axios.delete(`${apiUrl}/attendance/${recordId}`)
+      if (response.status === 200) {
+        toast.success('تم حذف السجل بنجاح')
+      }else{
+        toast.error('فشل حذف السجل ! حاول مره اخري')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء حذف السجل')
+    }
+  }
 
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
@@ -161,7 +197,7 @@ const AttendanceManagement = () => {
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addRecordModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteRecordModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -251,23 +287,23 @@ const AttendanceManagement = () => {
                                 </span>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{Record.currentDate.split('T')[0]}</td>
-                              <td>{Record.employee && Record.employee.fullname}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.currentDate.split('T')[0]}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.employee && Record.employee.fullname}</td>
                               <td>{Record.shift&&Record.shift.shiftType}</td>
                               <td>{Record.status}</td>
-                              <td>{Record.arrivalDate.split('T')[0]}</td>
-                              <td>{new Date(Record.arrivalDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
-                              <td>{Record.departureDate.split('T')[0]}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.arrivalDate.split('T')[0]}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{new Date(Record.arrivalDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.departureDate.split('T')[0]}</td>
                               <td>{new Date(Record.departureDate).toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</td>
-                              <td>{Record.lateMinutes}</td>
-                              <td>{Record.overtimeMinutes}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.lateMinutes}</td>
+                              <td className="text-nowrap overflow-hidden text-truncate">{Record.overtimeMinutes}</td>
                               <td>{Record.createdBy &&Record.createdBy.fullname}</td>
                               <td>{Record.updatedBy &&Record.updatedBy.fullname}</td>
                               <td>{Record.notes}</td>
                               <td>
-                                {/* <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={()=>handleEditRecord(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )
@@ -416,19 +452,122 @@ const AttendanceManagement = () => {
                   </div>
                 </div>
               </div>
-              {/* <div id="editCategoryModal" className="modal fade">
+              <div id="editRecordModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={editCategory}>
+                    <form onSubmit={editAttendanceRecord}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل التصنيف</h4>
+                        <h4 className="modal-title">تعديل سجل</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
+                      <div className="form-group">
+                          <label>تاريخ الحالي</label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            readOnly={true}
+                            name="currentDate"
+                            value={currentDate}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
                         <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setcategoryname(e.target.value)} style={{ width: "100%" }} />
+                          <select
+                            className="form-control"
+                            readOnly
+                            name="status"
+                            defaultValue={employee&&employee.fullname}
+                            style={{ width: "100%" }}
+                          >
+                            {listOfEmployees.map((employee, index) => (
+                              <option key={index} value={employee._id}>{employee.fullname}</option>
+                            ))}
+                          </select>
                         </div>
+                        <div className="form-group">
+                          <label>الشيفت</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            readOnly={true}
+                            name="shift"
+                            defaultValue={shift.shiftType}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>تاريخ الوصول</label>
+                          <input
+                            type="datetime-local"
+                            className="form-control"
+                            name="arrivalDate"
+                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            onChange={handleArrivealDate}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>تاريخ الانصراف</label>
+                          <input
+                            type="datetime-local"
+                            className="form-control"
+                            name="departureDate"
+                            defaultValue={new Date().toLocaleString('en-CA', { timeZone: 'UTC' })}
+                            onChange={handleDepartureDate}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                       
+                        <div className="form-group">
+                          <label>الحالة</label>
+                          <select
+                            className="form-control"
+                            required
+                            name="status"
+                            defaultValue={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            style={{ width: "100%" }}
+                          >
+                            {listOfStatus.map((statusOption, index) => (
+                              <option key={index} value={statusOption}>{statusOption}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="form-group">
+                          <label>دقائق التجاوز</label>
+                          <input
+                            type="number"
+                            className="form-control"
+                            name="overtimeMinutes"
+                            readOnly
+                            defaultValue={overtimeMinutes}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>دقائق التأخر</label>
+                          <input
+                            type="number"
+                            className="form-control"
+                            name="lateMinutes"
+                            readOnly
+                            defaultValue={lateMinutes}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>ملاحظات</label>
+                          <textarea
+                            className="form-control"
+                            name="notes"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            style={{ width: "100%" }}
+                          ></textarea>
+                        </div>
+                        {/* Add more input fields for other form elements as needed */}
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
@@ -438,10 +577,10 @@ const AttendanceManagement = () => {
                   </div>
                 </div>
               </div>
-              <div id="deleteCategoryModal" className="modal fade">
+              <div id="deleteRecordModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={deleteCategory}>
+                    <form onSubmit={deleteRecord}>
                       <div className="modal-header">
                         <h4 className="modal-title">حذف تصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -457,7 +596,7 @@ const AttendanceManagement = () => {
                     </form>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           )
         }
