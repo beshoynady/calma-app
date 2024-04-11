@@ -64,14 +64,14 @@ body {
     right: 15px;
 }
 
-.login-form .btn {
+.login-form .btn btn-47 {
     border-radius: 0;
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
 }
 
-.login-form .btn.btn-primary {
+.login-form .btn btn-47.btn btn-47-primary {
     background: #3BC3FF;
     border-color: #31c0ff;
 }

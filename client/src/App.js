@@ -506,7 +506,7 @@ function App() {
     }
   };
 
-  //list of items id to add & delete btn
+  //list of items id to add & delete btn btn-47
   const [itemId, setitemId] = useState([])
   // add items to cart
   const [itemsInCart, setitemsInCart] = useState([])

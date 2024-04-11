@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: center;
 }
-#menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn {
+#menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn btn-47 {
   cursor: pointer;
   background-color: var(--u-main-color);
   color: var(--u-light);
@@ -54,7 +54,7 @@
   cursor: pointer;
   padding: 10px 20px;
 }
-#menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn.active {
+#menu .container-lg .section-content .menu-nav > .menu-ul .menu-nav-li .category-btn btn-47.active {
   background-color: var(--u-light);
   color: var(--u-dark);
   border: 2px solid var(--u-main-color);
@@ -108,7 +108,7 @@
     align-items: center;
     justify-content: center;
   }
-  #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn {
+  #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn btn-47 {
     cursor: pointer;
     height: 55px;
     min-width: -moz-max-content;
@@ -119,7 +119,7 @@
     cursor: pointer;
     padding: 5px 10px;
   }
-  #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn.active {
+  #menu .container-lg .section-content .menu-nav .menu-ul .menu-nav-li .category-btn btn-47.active {
     background-color: var(--u-light);
     color: var(r--u-dark);
     border: 2px solid var(--u-main-color);

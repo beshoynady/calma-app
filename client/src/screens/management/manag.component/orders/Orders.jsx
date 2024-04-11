@@ -184,8 +184,8 @@ const Orders = () => {
                         <h2>ادارة <b>الاوردرات</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addOrderModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
-                        <a href="#deleteListOrderModal" className="btn btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addOrderModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
+                        <a href="#deleteListOrderModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -209,7 +209,7 @@ const Orders = () => {
                         <div class="filter-group">
                           <label>رقم الفاتورة</label>
                           <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                          {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button> */}
+                          {/* <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button> */}
                         </div>
                       </div>
                       <div class="col">
@@ -464,8 +464,8 @@ const Orders = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success" value="Print" onClick={handlePrint} />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="Print" onClick={handlePrint} />
                       </div>
                     </form>
                   </div>
@@ -499,8 +499,8 @@ const Orders = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-success" value="Add" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="Add" />
                       </div>
                     </form>
                   </div>
@@ -533,8 +533,8 @@ const Orders = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-info" value="Save" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -553,8 +553,8 @@ const Orders = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-danger" value="Delete" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="Delete" />
                       </div>
                     </form>
                   </div>
@@ -573,8 +573,8 @@ const Orders = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-danger" value="Delete" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="Delete" />
                       </div>
                     </form>
                   </div>

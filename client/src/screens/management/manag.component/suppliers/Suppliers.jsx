@@ -293,9 +293,9 @@ const Suppliers = () => {
                         <h2>ادارة <b>الموردين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSupplierModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addSupplierModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#deleteStockItemModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+                        {/* <a href="#deleteStockItemModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -316,7 +316,7 @@ const Suppliers = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        {/* <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        {/* <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
@@ -438,10 +438,10 @@ const Suppliers = () => {
                           <div className="form-group form-group-47" key={index}>
                             <label>الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group form-group-47">
                           <label>الواتس اب</label>
                           <input type="text" className="form-control" onChange={(e) => setwhatsapp(e.target.value)} />
@@ -471,10 +471,10 @@ const Suppliers = () => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
                             </select>
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group form-group-47">
                           <label>الرصيد الافتتاحي</label>
                           <input type="number" className="form-control" onChange={(e) => setopeningBalance(e.target.value)} />
@@ -488,18 +488,18 @@ const Suppliers = () => {
                             <label>المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group form-group-47">
                           <label>ملاحظات</label>
                           <textarea className="form-control" onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="إضافة" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="إضافة" />
                       </div>
                     </form>
                   </div>
@@ -524,10 +524,10 @@ const Suppliers = () => {
                           <div className="form-group form-group-47" key={index}>
                             <label>الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group form-group-47">
                           <label>الواتس اب</label>
                           <input type="text" className="form-control" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
@@ -557,27 +557,27 @@ const Suppliers = () => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
                             </select>
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         {financialInfo.map((info, index) => (
                           <div className="form-group form-group-47" key={index}>
                             <label>المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                            <button type="button" className="btn btn-47 btn btn-47-danger btn btn-47-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
+                        <button type="button" className="btn btn-47 btn btn-47-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group form-group-47">
                           <label>ملاحظات</label>
                           <textarea className="form-control" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="حفظ" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -598,8 +598,8 @@ const Suppliers = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

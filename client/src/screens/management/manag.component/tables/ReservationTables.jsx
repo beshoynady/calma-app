@@ -107,8 +107,8 @@ const ReservationTables = () => {
                         <h2>ادارة <b>حجز الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#createreservationModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>انشاء حجز جديد</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#createreservationModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>انشاء حجز جديد</span></a>
+                        <a href="#deleteListTableModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -371,8 +371,8 @@ const ReservationTables = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="submit" className="btn btn-success" value="ضافه" />
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="ضافه" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
@@ -506,8 +506,8 @@ const ReservationTables = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="submit" className="btn btn-success" value="ضافه" />
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="ضافه" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>

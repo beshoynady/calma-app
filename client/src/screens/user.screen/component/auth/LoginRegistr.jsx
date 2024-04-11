@@ -102,8 +102,8 @@ const LoginRegistr = (props) => {
                       {/* <div className="pass-link">
                         <a href="#">نسيت الباسورد?</a>
                       </div> */}
-                      <div className="field btn">
-                        <div className="btn-layer"></div>
+                      <div className="field btn btn-47">
+                        <div className="btn btn-47-layer"></div>
                         <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
@@ -139,8 +139,8 @@ const LoginRegistr = (props) => {
                       <div className="field">
                         <input type="password" placeholder="تاكيد الباسورد" required onChange={(e) => setpassconfirm(e.target.value)} />
                       </div>
-                      <div className="field btn">
-                        <div className="btn-layer"></div>
+                      <div className="field btn btn-47">
+                        <div className="btn btn-47-layer"></div>
                         <input type="submit" value="Signup" />
                       </div>
                     </form>

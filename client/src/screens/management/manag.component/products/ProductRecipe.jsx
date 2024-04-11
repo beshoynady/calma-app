@@ -360,9 +360,9 @@ const editRecipe = async (e) => {
                         <h2>ادارة <b>تكاليف الانتاج</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecipeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addRecipeModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteAllProductModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#deleteAllProductModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -404,7 +404,7 @@ const editRecipe = async (e) => {
                         {/* <div class="filter-group">
                           <label>Name</label>
                           <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
-                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
                         </div> */}
                         <div class="filter-group">
                           <label>اجمالي التكاليف</label>
@@ -534,8 +534,8 @@ const editRecipe = async (e) => {
 
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="اضافه" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -570,8 +570,8 @@ const editRecipe = async (e) => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="Save" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -590,8 +590,8 @@ const editRecipe = async (e) => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
@@ -610,8 +610,8 @@ const editRecipe = async (e) => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

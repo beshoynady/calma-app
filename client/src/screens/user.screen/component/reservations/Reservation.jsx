@@ -135,7 +135,7 @@ const Reservation = () => {
                   <label htmlFor="notes" className="form-label">ملاحظات</label>
                   <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', height: '50px' }}>تأكيد الحجز</button>
+                <button type="submit" className="btn btn-47 btn btn-47-primary" style={{ width: '100%', height: '50px' }}>تأكيد الحجز</button>
               </form>
             </div>
           </div>

@@ -35,11 +35,11 @@
 	float: right;
 }
 
-.table-title .btn-group {
+.table-title .btn btn-47-group {
 	float: left;
 }
 
-.table-title .btn {
+.table-title .btn btn-47 {
 	color: #fff;
 	float: right;
 	font-size: 13px;
@@ -51,13 +51,13 @@
 	margin-left: 10px;
 }
 
-.table-title .btn i {
+.table-title .btn btn-47 i {
 	float: left;
 	font-size: 21px;
 	margin-right: 5px;
 }
 
-.table-title .btn span {
+.table-title .btn btn-47 span {
 	float: left;
 	margin-top: 2px;
 }
@@ -98,7 +98,7 @@
 	margin-bottom: 5px;
 }
 
-.table-filter .btn {
+.table-filter .btn btn-47 {
 	height: 34px;
 }
 
@@ -355,7 +355,7 @@ table.table .avatar {
 	resize: vertical;
 }
 
-.modal .btn {
+.modal .btn .btn-47 {
 	border-radius: 5px;
 	height: 45px;
 	width: 47%;

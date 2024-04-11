@@ -108,9 +108,9 @@ const ExpenseItem = () => {
                       <h2>ادارة <b>المصروفات</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addExpensesModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
+                      <a href="#addExpensesModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
 
-                      <a href="#deleteExpensesModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#deleteExpensesModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div class="col-sm-9">
-                      <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                      <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
                       <div class="filter-group">
                         <label>اسم المصروف</label>
                         <input type="text" class="form-control" onChange={(e) => searchByExpense(e.target.value)} />
@@ -234,8 +234,8 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-success" value="اضافه" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
                     </div>
                   </form>
                 </div>
@@ -256,8 +256,8 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-info" value="Save" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-info" value="Save" />
                     </div>
                   </form>
                 </div>
@@ -277,8 +277,8 @@ const ExpenseItem = () => {
                       <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-danger" value="حذف" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                     </div>
                   </form>
                 </div>

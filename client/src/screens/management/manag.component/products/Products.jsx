@@ -302,9 +302,9 @@ const Products = () => {
                         <h2>ادارة <b>المنتجات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addProductModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addProductModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteProductModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteProductModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -356,7 +356,7 @@ const Products = () => {
                           <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
                           <label>نهاية التاريخ</label>
                           <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                          <button type="button" className="btn btn-primary" onClick={calcsalseofproducts}>
+                          <button type="button" className="btn btn-47 btn btn-47-primary" onClick={calcsalseofproducts}>
                             <i className="fa fa-search"></i> فلتر
                           </button>
                           {/* </div> */}
@@ -567,14 +567,14 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-12">
-                                  <button type="button" className="btn btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                  <button type="button" className="btn btn-47 btn btn-47-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
                                 </div>
                               </div>
                             ))}
 
                             <div className="row">
                               <div className="col-md-12">
-                                <button type="button" className="btn btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                                <button type="button" className="btn btn-47 btn btn-47-primary" onClick={addSize}>إضافة حجم جديد</button>
                               </div>
                             </div>
                           </div>
@@ -607,8 +607,8 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="اضافه" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -711,14 +711,14 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-12">
-                                  <button type="button" className="btn btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                  <button type="button" className="btn btn-47 btn btn-47-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
                                 </div>
                               </div>
                             ))}
 
                             <div className="row">
                               <div className="col-md-12">
-                                <button type="button" className="btn btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                                <button type="button" className="btn btn-47 btn btn-47-primary" onClick={addSize}>إضافة حجم جديد</button>
                               </div>
                             </div>
                           </div>
@@ -749,8 +749,8 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="Save" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -770,8 +770,8 @@ const Products = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

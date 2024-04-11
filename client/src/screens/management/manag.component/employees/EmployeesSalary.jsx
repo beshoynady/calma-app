@@ -214,8 +214,8 @@ const EmployeesSalary = () => {
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSalaryMovementModal" onClick={() => { setactionBy(employeeLoginInfo ? employeeLoginInfo.employeeinfo.id : '') }} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
-                        <a href="#deleteSalaryMovementModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addSalaryMovementModal" onClick={() => { setactionBy(employeeLoginInfo ? employeeLoginInfo.employeeinfo.id : '') }} className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
+                        <a href="#deleteSalaryMovementModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -239,7 +239,7 @@ const EmployeesSalary = () => {
                         <div class="filter-group">
                           <label>الاسم</label>
                           <input type="text" class="form-control" />
-                          <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="filter-group">
                           <label>الموظف</label>
@@ -429,8 +429,8 @@ const EmployeesSalary = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="Close" />
-                        <input type="submit" className="btn btn-success" value="Add" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Close" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="Add" />
                       </div>
                     </form>
                   </div>
@@ -489,8 +489,8 @@ const EmployeesSalary = () => {
                           <p className="form-control" readOnly>{new Date(actionAt).toLocaleString()}</p>                        </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-info" value="حفظ" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -509,8 +509,8 @@ const EmployeesSalary = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

@@ -19,7 +19,7 @@ const Home = () => {
                   :<p className='main-title'>مرحبا بكم  <br/> في</p>
                   }
                   <p className='main-text'> Calma Cafe <br /> ابدأ رحلة استكشاف الحلو من كالما كافيه بمنتجات جديدة</p>
-                  <ul className="main-btn">
+                  <ul className="main-btn btn-47">
 
                     {id?<>
                     <li className='main-li' onClick={()=>askingForHelp(id)}>طلب الويتر</li>

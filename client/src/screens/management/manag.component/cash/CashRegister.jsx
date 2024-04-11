@@ -177,8 +177,8 @@ const CashRegister = () => {
                       <h2>ادارة <b>الخزينه</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addCashRegisterModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
-                      <a href="#deleteListCashRegisterModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#addCashRegisterModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
+                      <a href="#deleteListCashRegisterModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -202,7 +202,7 @@ const CashRegister = () => {
                       <div class="filter-group">
                         <label>اسم الخزينه</label>
                         <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
-                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
                       </div>
                       <div class="filter-group">
                         <label>المسؤل</label>
@@ -320,8 +320,8 @@ const CashRegister = () => {
                     </div>
 
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-success" value="اضافه" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
                     </div>
                   </form>
                 </div>
@@ -352,8 +352,8 @@ const CashRegister = () => {
                       </select>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-info" value="حفظ" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
                     </div>
                   </form>
                 </div>
@@ -372,8 +372,8 @@ const CashRegister = () => {
                       <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-danger" value="حذف" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                     </div>
                   </form>
                 </div>
@@ -392,8 +392,8 @@ const CashRegister = () => {
                       <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                     </div>
                     <div className="modal-footer">
-                      <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-danger" value="حذف" />
+                      <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                     </div>
                   </form>
                 </div>

@@ -164,9 +164,9 @@ const Cart = (props) => {
                         {itemsInCart.length > 0 && (
                           <div className="total-order">
                             {id ? (
-                              <button className='total-order-btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
+                              <button className='total-order-btn btn-47' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id, clientInfo.address, clientInfo.deliveryArea.delivery_fee)}>تأكيد الطلب</button>
+                              <button className='total-order-btn btn-47' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id, clientInfo.address, clientInfo.deliveryArea.delivery_fee)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
@@ -264,9 +264,9 @@ const Cart = (props) => {
                         </div>
                       </div>
                       <div className="total-order">
-                        {id ? <button className='total-order-btn' onClick={() => checkout()}>طلب الحساب</button> : ""}
+                        {id ? <button className='total-order-btn btn-47' onClick={() => checkout()}>طلب الحساب</button> : ""}
 
-                        <button className='total-order-btn' onClick={handlePrint}>طباعه</button>
+                        <button className='total-order-btn btn-47' onClick={handlePrint}>طباعه</button>
                         {/* <div className='total-order-details'>
                           <h2>الاجمالي</h2>
                           <p>{orderTotal}</p>

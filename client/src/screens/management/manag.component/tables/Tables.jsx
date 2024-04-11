@@ -241,10 +241,10 @@ const deleteTable = async (e) => {
                         <h2>ادارة <b>الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#qrwebModal" className="btn btn-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
+                        <a href="#qrwebModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                           <span>انشاء qr للسايت</span></a>
-                        <a href="#addTableModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addTableModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
+                        <a href="#deleteListTableModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -422,8 +422,8 @@ const deleteTable = async (e) => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-success" value="ضافه" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-success" value="ضافه" />
                       </div>
                     </form>
                   </div>
@@ -464,8 +464,8 @@ const deleteTable = async (e) => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-info" value="حفظ" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -493,9 +493,9 @@ const deleteTable = async (e) => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        {qrimage ? <button type="button" className="btn btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-success" value="استخراج" />}
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
+                        {qrimage ? <button type="button" className="btn btn-47 btn btn-47-info" onClick={handlePrint}>طباعه</button>
+                          : <input type="submit" className="btn btn-47 btn btn-47-success" value="استخراج" />}
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>
                   </div>
@@ -522,9 +522,9 @@ const deleteTable = async (e) => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        {qrimage ? <button type="button" className="btn btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-success" value="استخراج" />}
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
+                        {qrimage ? <button type="button" className="btn btn-47 btn btn-47-info" onClick={handlePrint}>طباعه</button>
+                          : <input type="submit" className="btn btn-47 btn btn-47-success" value="استخراج" />}
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>
                   </div>
@@ -543,8 +543,8 @@ const deleteTable = async (e) => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
@@ -563,8 +563,8 @@ const deleteTable = async (e) => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
