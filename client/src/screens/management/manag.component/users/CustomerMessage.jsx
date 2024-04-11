@@ -74,8 +74,8 @@ const CustomerMessage = () => {
                         <h2>ادارة <b>رسائل العملاء</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addmessageModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deletemessageModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addmessageModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deletemessageModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -99,7 +99,7 @@ const CustomerMessage = () => {
                         <div class="filter-group">
                           <label>الموبايل</label>
                           <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
-                          <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                         {/*
                         <div class="filter-group">
@@ -238,8 +238,8 @@ const CustomerMessage = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-info" value="تم" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-47 btn-info" value="تم" />
                       </div>
                     </form>
                   </div>
@@ -259,8 +259,8 @@ const CustomerMessage = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

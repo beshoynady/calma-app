@@ -48,9 +48,9 @@ const MenuCard = () => {
                           </div>
                           <p>{product.description}</p>
                         </div>
-                        <div class="btn btn-47-group" >
+                        <div class="btn btn-group" >
                           {product.sizes.map(size => (
-                            <button  className="btn btn-47 btn btn-47-secondary" key={size.sizeId} onClick={() => handleSizeClick(size)}>
+                            <button  className="btn btn-47 btn-secondary" key={size.sizeId} onClick={() => handleSizeClick(size)}>
                               {size.sizeName}
                             </button>
                           ))}
@@ -69,13 +69,13 @@ const MenuCard = () => {
                         {product.avaliable ?
                           <div className='card-btn btn-47'>
                             {itemId.filter((i) => i === sizeId).length > 0 && sizeId&&product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
-                              <button type="button" className='btn btn-47 btn btn-47-danger delfromcart' onClick={() => { deleteItemFromCart(product._id, sizeId) }}>احذف من الطلبات</button>
-                              : <button type="button" className='btn btn-47 btn btn-47-success addtocart' onClick={() =>  addItemToCart(product._id, sizeId)}> اضف الي طلباتي</button>
-                              // : <button type="button" className='btn btn-47 btn btn-47-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, sizeId) } }}> اضف الي طلباتي</button>
+                              <button type="button" className='btn btn-47 btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id, sizeId) }}>احذف من الطلبات</button>
+                              : <button type="button" className='btn btn-47 btn-success addtocart' onClick={() =>  addItemToCart(product._id, sizeId)}> اضف الي طلباتي</button>
+                              // : <button type="button" className='btn btn-47 btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, sizeId) } }}> اضف الي طلباتي</button>
                             }
                           </div>
                           : <div className='card-btn btn-47'>
-                            <button type="button" className='btn btn-47 btn btn-47-warning delfromcart'>غير متاح الآن</button>
+                            <button type="button" className='btn btn-47 btn-warning delfromcart'>غير متاح الآن</button>
                           </div>
                         }
                       </div>
@@ -114,12 +114,12 @@ const MenuCard = () => {
                         {product.avaliable ?
                           <div className='card-btn btn-47'>
                             {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
-                              <button type="button" className='btn btn-47 btn btn-47-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
-                              : <button type="button" className='btn btn-47 btn btn-47-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button>
+                              <button type="button" className='btn btn-47 btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
+                              : <button type="button" className='btn btn-47 btn-success addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}> اضف الي طلباتي</button>
                             }
                           </div>
                           : <div className='card-btn btn-47'>
-                            <button type="button" className='btn btn-47 btn btn-47-warning delfromcart'>غير متاح الآن</button>
+                            <button type="button" className='btn btn-47 btn-warning delfromcart'>غير متاح الآن</button>
                           </div>
                         }
                       </div>

@@ -88,7 +88,7 @@
   align-items: center;
   justify-content: center;
 }
-.Waiter .wai-card .card-btn btn-47 .btn btn-47-start {
+.Waiter .wai-card .card-btn btn-47 .btn btn-start {
   width: 90%;
   height: 100%;
   font-size: 30px;
@@ -97,7 +97,7 @@
   background-color: green;
   vertical-align: middle;
 }
-.Waiter .wai-card .card-btn btn-47 .btn btn-47-ready {
+.Waiter .wai-card .card-btn btn-47 .btn btn-ready {
   width: 90%;
   height: 100%;
   font-size: 30px;

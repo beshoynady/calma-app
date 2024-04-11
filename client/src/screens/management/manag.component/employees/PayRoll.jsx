@@ -539,7 +539,7 @@ const PayRoll = () => {
                         <h2>ادارة <b>الرواتب</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a className="btn btn-47 btn btn-47-success" onClick={addPayRoll}><i className="material-icons">&#xE147;</i> <span>تحديث كشف المرتبات</span></a>
+                        <a className="btn btn-47 btn-success" onClick={addPayRoll}><i className="material-icons">&#xE147;</i> <span>تحديث كشف المرتبات</span></a>
                       </div>
                     </div>
                   </div>
@@ -563,7 +563,7 @@ const PayRoll = () => {
                         <div class="filter-group">
                           <label>الاسم</label>
                           <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
-                          <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="filter-group">
                           <label>الوظيفه</label>
@@ -664,7 +664,7 @@ const PayRoll = () => {
                                             href="#paidModal"
                                             type='button'
                                             data-toggle="modal"
-                                            className="btn btn-47 btn btn-47-success"
+                                            className="btn btn-47 btn-success"
                                             onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
                                           >
                                             دفع
@@ -719,7 +719,7 @@ const PayRoll = () => {
                                               href="#paidModal"
                                               type='button'
                                               data-toggle="modal"
-                                              className="btn btn-47 btn btn-47-success"
+                                              className="btn btn-47 btn-success"
                                               onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
                                             >
                                               دفع
@@ -766,8 +766,8 @@ const PayRoll = () => {
                         <p className="text-center text-warning" style={{ fontSize: '16px', marginBottom: '0' }}>لا يمكن الرجوع في هذا الإجراء.</p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="الغاء" />
-                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="تاكيد الدفع" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="الغاء" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="تاكيد الدفع" />
                       </div>
                     </form>
                   </div>

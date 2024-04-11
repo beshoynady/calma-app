@@ -587,7 +587,7 @@ const ManagerDash = () => {
                             <div className="task-title">
                               <p>طاوله :  {usertitle(order.table)}</p>
                               <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
-                              {order.helpStatus == 'Not send' ? <button type="button" className="btn btn-47 btn btn-47-primary" onClick={() => sendWaiter(order._id)}>ارسال ويتر</button> :
+                              {order.helpStatus == 'Not send' ? <button type="button" className="btn btn-47 btn-primary" onClick={() => sendWaiter(order._id)}>ارسال ويتر</button> :
                                 <p>تم ارسال {usertitle(order.waiter)}</p>}
                             </div>
                           </li>
@@ -623,7 +623,7 @@ const ManagerDash = () => {
                           <div className="filter-group" style={{ width: '100%' }}>
                             <label>رقم الفاتورة</label>
                             <input type="text" className="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                            {/* <button type="button" className="btn btn-47 btn btn-47-primary"><i className="fa fa-search"></i></button> */}
+                            {/* <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button> */}
                           </div>
                         </div>
                         <div className="col">
@@ -673,7 +673,7 @@ const ManagerDash = () => {
                                 <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                 <td>{recent.total}</td>
                                 <td>{recent.status !== "Cancelled" ?
-                                  recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn btn-47-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                  recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
                                     "باقي الفاتوره"
                                   </a> : "كاملة"
                                   : "ملغاه"}</td>
@@ -712,7 +712,7 @@ const ManagerDash = () => {
                                 <td>{recent.orderType}</td>
                                 <td>
                                   <button
-                                    className="btn btn-47 btn btn-47-primary"
+                                    className="btn btn-47 btn-primary"
                                     onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                   >
                                     دفع
@@ -743,7 +743,7 @@ const ManagerDash = () => {
                                   <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
                                   <td>{recent.status !== "Cancelled" ?
-                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn btn-47-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
                                       "باقي الفاتوره"
                                     </a> : "كاملة"
                                     : "ملغاه"}</td>
@@ -782,7 +782,7 @@ const ManagerDash = () => {
                                   <td>{recent.orderType}</td>
                                   <td>
                                     <button
-                                      className="btn btn-47 btn btn-47-primary"
+                                      className="btn btn-47 btn-primary"
                                       onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                     >
                                       دفع
@@ -935,8 +935,8 @@ const ManagerDash = () => {
                               </div>
                             </div>
                             <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-47 btn btn-47-success" value="Print" onClick={handlePrintInvoice} />
+                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
+                              <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoice} />
                             </div>
                           </form>
                         </div>
@@ -1039,8 +1039,8 @@ const ManagerDash = () => {
                               </div>
                             </div>
                             <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-47 btn btn-47-success" value="Print" onClick={handlePrintInvoiceSplit} />
+                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
+                              <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
                             </div>
                           </form>
                         </div>
@@ -1053,7 +1053,7 @@ const ManagerDash = () => {
                             <div className="modal-header">
                               <h4 className="modal-title"></h4>
                               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <button type="button" className="btn btn-47 btn btn-47-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
+                              <button type="button" className="btn btn-47 btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
                             </div>
                             <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
                               <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
@@ -1090,8 +1090,8 @@ const ManagerDash = () => {
                               </div>
                             </div>
                             <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
-                              <input type="button" className="btn btn-47 btn btn-47-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
+                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                              <input type="button" className="btn btn-47 btn-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
                             </div>
                           </form>
                         </div>

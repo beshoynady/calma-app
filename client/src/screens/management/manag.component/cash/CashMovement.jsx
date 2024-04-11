@@ -364,9 +364,9 @@ const CashMovement = () => {
                         <h2>ادارة <b>حركه النقدية</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#DepositModal" className="btn btn-47 btn btn-47-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
-                        <a href="#WithdrawModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
-                        <a href="#Transferodal" className="btn btn-47 btn btn-47-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
+                        <a href="#DepositModal" className="btn btn-47 btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
+                        <a href="#WithdrawModal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
+                        <a href="#Transferodal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
                       </div>
                     </div>
                   </div>
@@ -387,7 +387,7 @@ const CashMovement = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         {/* <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
@@ -507,9 +507,9 @@ const CashMovement = () => {
                                 <td>{movement.description}</td>
                                 <td>{movement.status == 'Pending' && movement.transferFrom ?
                                   <>
-                                    <button className="btn btn-47 btn btn-47-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
+                                    <button className="btn btn-47 btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
                                     >قبول</button>
-                                    <button className="btn btn-47 btn btn-47-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
+                                    <button className="btn btn-47 btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
                                     >رفض</button>
                                   </>
                                   : movement.status}</td>
@@ -567,8 +567,8 @@ const CashMovement = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-success" value="ايداع" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="ايداع" />
                       </div>
                     </form>
                   </div>
@@ -601,8 +601,8 @@ const CashMovement = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-success" value="سحب" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="سحب" />
                       </div>
                     </form>
                   </div>
@@ -644,8 +644,8 @@ const CashMovement = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-success" value="تحويل " />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="تحويل " />
                       </div>
                     </form>
                   </div>
@@ -664,8 +664,8 @@ const CashMovement = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

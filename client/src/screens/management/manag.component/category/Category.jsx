@@ -258,9 +258,9 @@ const Category = () => {
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-8 d-flex justify-content-end">
-                        <a href="#addCategoryModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#orderCategoryModal" className="btn btn-47 btn btn-47-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
-                        <a href="#deleteCategoryModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addCategoryModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        <a href="#orderCategoryModal" className="btn btn-47 btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
+                        <a href="#deleteCategoryModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                         <div>
                           <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
                           <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
@@ -290,7 +290,7 @@ const Category = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
                           <label>اسم التصنيف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
@@ -457,8 +457,8 @@ const Category = () => {
                         </div> */}
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -510,8 +510,8 @@ const Category = () => {
                       </div>
 
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -532,17 +532,17 @@ const Category = () => {
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
                             onDrop={(e) => handleDrop(e, index)}
-                            className='btn btn-47 btn btn-47-primary btn btn-47-sm mb-2 mr-md-2 w-23 w-md-100'>
+                            className='btn btn-47 btn-primary btn btn-sm mb-2 mr-md-2 w-23 w-md-100'>
                             {category.name}
                           </div>
                         ))}
                       </div>
                       <div className="d-flex flex-row">
                         <div className="col-6">
-                          <input type="button" className="btn btn-47 btn btn-47-danger btn btn-47-block" data-dismiss="modal" value="إغلاق" />
+                          <input type="button" className="btn btn-47 btn-danger btn btn-block" data-dismiss="modal" value="إغلاق" />
                         </div>
                         <div className="col-6">
-                          <input type="submit" className="btn btn-47 btn btn-47-success btn btn-47-block" value="حفظ" />
+                          <input type="submit" className="btn btn-47 btn-success btn btn-block" value="حفظ" />
                         </div>
                       </div>
                     </form>
@@ -562,8 +562,8 @@ const Category = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

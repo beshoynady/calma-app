@@ -109,7 +109,7 @@
   align-items: center;
   justify-content: center;
 }
-.Kitchen .kit-card .card-btn btn-47 .btn btn-47-start {
+.Kitchen .kit-card .card-btn btn-47 .btn btn-start {
   width: 90%;
   height: 100%;
   font-size: 30px;
@@ -118,7 +118,7 @@
   background-color: green;
   vertical-align: middle;
 }
-.Kitchen .kit-card .card-btn btn-47 .btn btn-47-ready {
+.Kitchen .kit-card .card-btn btn-47 .btn btn-ready {
   width: 90%;
   height: 100%;
   font-size: 30px;

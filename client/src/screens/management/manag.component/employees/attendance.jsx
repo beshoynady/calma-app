@@ -237,8 +237,8 @@ const AttendanceManagement = () => {
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecordModal" className="btn btn-47 btn btn-47-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteRecordModal" className="btn btn-47 btn btn-47-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addRecordModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -259,7 +259,7 @@ const AttendanceManagement = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn btn-47-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
                           <label>اسم التصنيف</label>
                           {/* <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} /> */}
@@ -486,8 +486,8 @@ const AttendanceManagement = () => {
                         {/* Add more input fields for other form elements as needed */}
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-success" value="اضافه" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -615,8 +615,8 @@ const AttendanceManagement = () => {
                         {/* Add more input fields for other form elements as needed */}
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-info" value="حفظ" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -635,8 +635,8 @@ const AttendanceManagement = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn btn-47-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

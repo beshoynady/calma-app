@@ -103,7 +103,7 @@ const LoginRegistr = (props) => {
                         <a href="#">نسيت الباسورد?</a>
                       </div> */}
                       <div className="field btn btn-47">
-                        <div className="btn btn-47-layer"></div>
+                        <div className="btn btn-layer"></div>
                         <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
@@ -140,7 +140,7 @@ const LoginRegistr = (props) => {
                         <input type="password" placeholder="تاكيد الباسورد" required onChange={(e) => setpassconfirm(e.target.value)} />
                       </div>
                       <div className="field btn btn-47">
-                        <div className="btn btn-47-layer"></div>
+                        <div className="btn btn-layer"></div>
                         <input type="submit" value="Signup" />
                       </div>
                     </form>

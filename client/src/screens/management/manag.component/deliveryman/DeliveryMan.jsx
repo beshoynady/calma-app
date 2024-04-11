@@ -122,8 +122,8 @@ const DeliveryMan = () => {
                     <p>الاجمالي : {total}</p>
                     <div className="card-footer text-center">
                       {status === 'Prepared' ?
-                        <button className="btn btn-47 btn btn-47-primary btn btn-47-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
-                        <button className="btn btn-47 btn btn-47-warning btn btn-47-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
+                        <button className="btn btn-47 btn-primary btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
+                        <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
                       }
                     </div>
                   </div>

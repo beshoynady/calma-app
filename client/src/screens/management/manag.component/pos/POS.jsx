@@ -139,8 +139,8 @@ const POS = () => {
                         </div>
                         <div className="modal-footer">
                           <div className="modal-footer">
-                            <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
-                            <input type="submit" className="btn btn-47 btn btn-47-success" value="تم" />
+                            <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                            <input type="submit" className="btn btn-47 btn-success" value="تم" />
                           </div>
                         </div>
                       </form>
@@ -207,8 +207,8 @@ const POS = () => {
                           </div>
                         </div>
                         <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-47 btn btn-47-success" value="تم" />
+                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <input type="submit" className="btn btn-47 btn-success" value="تم" />
                         </div>
                       </form>
                     </div>
@@ -283,8 +283,8 @@ const POS = () => {
                             </div>
                           ) : null : ''}
                         <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn btn-47-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                          <input type="save" className="btn btn-47 btn btn-47-success" value="تم" data-dismiss="modal" />
+                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
+                          <input type="save" className="btn btn-47 btn-success" value="تم" data-dismiss="modal" />
                         </div>
                       </form>
                     </div>
@@ -296,7 +296,7 @@ const POS = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <button className='btn btn-47 btn btn-47-success m-0' onClick={handlePrint}>طباعه</button>
+                        <button className='btn btn-47 btn-success m-0' onClick={handlePrint}>طباعه</button>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
 
@@ -402,10 +402,10 @@ const POS = () => {
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
                   <div className="row" style={{ padding: '0', margin: '0' }}>
                     <div className="col-12">
-                      <div className="btn btn-47-group btn btn-47-block">
-                        <a href="#typeOrderModal" type="button" className="btn btn-47 btn btn-47-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal') }}>الصالة</a>
-                        <a type="button" className="btn btn-47 btn btn-47-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway') }}>التيك أوي</a>
-                        <a type="button" className="btn btn-47 btn btn-47-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery') }}>التوصيل</a>
+                      <div className="btn btn-group btn btn-block">
+                        <a href="#typeOrderModal" type="button" className="btn btn-47 btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal') }}>الصالة</a>
+                        <a type="button" className="btn btn-47 btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway') }}>التيك أوي</a>
+                        <a type="button" className="btn btn-47 btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery') }}>التوصيل</a>
                       </div>
                     </div>
                   </div>
@@ -419,8 +419,8 @@ const POS = () => {
                               <form className="card-body" style={{ padding: '5px', margin: '0' }}>
                                 <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-47 btn btn-47-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn btn-47-secondary" style={{ height: '35px' }}>اغلاق</button>
+                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                 </div>
                               </form>
                             ) : (
@@ -428,14 +428,14 @@ const POS = () => {
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
                                   <span onClick={() => { setnoteArea(!noteArea); setproductid(i._id); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteItemFromCart(i._id)} className="btn btn-47 btn btn-47-danger">حذف</button>
+                                  <button onClick={() => deleteItemFromCart(i._id)} className="btn btn-47 btn-danger">حذف</button>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => decrementProductQuantity(i._id)} className="btn btn-47 btn btn-47-light">-</button>
+                                    <button onClick={() => decrementProductQuantity(i._id)} className="btn btn-47 btn-light">-</button>
                                     <span>{i.quantity ? i.quantity : 0}</span>
-                                    <button onClick={() => incrementProductQuantity(i._id)} className="btn btn-47 btn btn-47-light">+</button>
+                                    <button onClick={() => incrementProductQuantity(i._id)} className="btn btn-47 btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
                                 </div>
@@ -455,8 +455,8 @@ const POS = () => {
                                 <form className="card-body" style={{ padding: '5px', margin: '0' }}>
                                   <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                   <div className="d-flex justify-content-center">
-                                    <button type="submit" className="btn btn-47 btn btn-47-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                    <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn btn-47-secondary" style={{ height: '35px' }}>اغلاق</button>
+                                    <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                    <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                   </div>
                                 </form>
                               ) : (
@@ -466,15 +466,15 @@ const POS = () => {
 
                                     <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
-                                    <button onClick={() => deleteItemFromCart(i.productid)} className="btn btn-47 btn btn-47-danger">حذف</button>
+                                    <button onClick={() => deleteItemFromCart(i.productid)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
 
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.priceAfterDiscount > 0 ? i.priceAfterDiscount : i.price} ج</div>
                                     <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                      <button onClick={() => decrementProductQuantity(i.productid)} className="btn btn-47 btn btn-47-light">-</button>
+                                      <button onClick={() => decrementProductQuantity(i.productid)} className="btn btn-47 btn-light">-</button>
                                       <span>{i.quantity > 0 ? i.quantity : 0}</span>
-                                      <button onClick={() => incrementProductQuantity(i.productid)} className="btn btn-47 btn btn-47-light">+</button>
+                                      <button onClick={() => incrementProductQuantity(i.productid)} className="btn btn-47 btn-light">+</button>
                                     </div>
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.priceAfterDiscount > 0 ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
                                   </div>
@@ -528,35 +528,35 @@ const POS = () => {
 
                     <div className="row w-100 mt-auto" style={{ padding: '0', margin: '0' }}>
                       <div className="col-12">
-                        <div className="btn btn-47-group btn btn-47-block">
-                          <button type="button" className="btn btn-47 btn btn-47-secondary" onClick={() => setaddaddition(!addaddition)}>رسوم</button>
-                          <button type="button" className="btn btn-47 btn btn-47-secondary" onClick={() => setadddiscount(!adddiscount)}>خصم</button>
-                          <button type="button" className="btn btn-47 btn btn-47-danger" onClick={() => { setitemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
+                        <div className="btn btn-group btn btn-block">
+                          <button type="button" className="btn btn-47 btn-secondary" onClick={() => setaddaddition(!addaddition)}>رسوم</button>
+                          <button type="button" className="btn btn-47 btn-secondary" onClick={() => setadddiscount(!adddiscount)}>خصم</button>
+                          <button type="button" className="btn btn-47 btn-danger" onClick={() => { setitemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
                         </div>
                       </div>
                       <div className="col-12">
-                        <div className="btn btn-47-group btn btn-47-block">
+                        <div className="btn btn-group btn btn-block">
                           {productOrderToUpdate.length > 0 ?
-                            <button type="button" className="btn btn-47 btn btn-47-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
-                            : <a type="button" className="btn btn-47 btn btn-47-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
+                            <button type="button" className="btn btn-47 btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
+                            : <a type="button" className="btn btn-47 btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
                           }
-                          <a type="button" className="btn btn-47 btn btn-47-warning" href="#getOrderTableModal" data-toggle="modal">دفع جزء</a>
+                          <a type="button" className="btn btn-47 btn-warning" href="#getOrderTableModal" data-toggle="modal">دفع جزء</a>
                         </div>
                       </div>
                       <div className="col-12">
-                        <div className="btn btn-47-group btn btn-47-block">
+                        <div className="btn btn-group btn btn-block">
                           {ordertype === 'Internal' ?
-                            <button type="button" className="btn btn-47 btn btn-47-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                            <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-47 btn btn-47-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                              <button type="button" className="btn btn-47 btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
-                                <button type="button" className="btn btn-47 btn btn-47-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                                <button type="button" className="btn btn-47 btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
-                                : <button type="button" className="btn btn-47 btn btn-47-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
+                                : <button type="button" className="btn btn-47 btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          <a type="button" className="btn btn-47 btn btn-47-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceByCasher(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                          <a type="button" className="btn btn-47 btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceByCasher(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
 
                         </div>
                       </div>

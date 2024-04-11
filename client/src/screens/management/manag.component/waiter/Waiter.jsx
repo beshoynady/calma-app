@@ -152,9 +152,9 @@ const Waiter = () => {
                     </ul>
                     <div className="card-footer text-center">
                       {order.helpStatus === 'On the way' ?
-                        <button className="btn btn-47 btn btn-47-success btn btn-47-lg" style={{ width: "100%" }} onClick={() => helpDone(order._id)}>تم</button>
+                        <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() => helpDone(order._id)}>تم</button>
                         : 
-                        <button className="btn btn-47 btn btn-47-warning btn btn-47-lg" style={{ width: "100%" }} onClick={() => { helpOnWay(order._id) }}>متجة للعميل</button>
+                        <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { helpOnWay(order._id) }}>متجة للعميل</button>
                       }
                     </div>
                   </div>
@@ -190,8 +190,8 @@ const Waiter = () => {
                       </ul>
                       <div className="card-footer text-center">
                         {order.status === 'Prepared' ?
-                          <button className="btn btn-47 btn btn-47-warning btn btn-47-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(order._id) }}>استلام الطلب</button>
-                          : <button className="btn btn-47 btn btn-47-success btn btn-47-lg" style={{ width: "100%" }} onClick={() =>{ updateOrderDelivered(order._id)}}>تم التسليم</button>
+                          <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(order._id) }}>استلام الطلب</button>
+                          : <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() =>{ updateOrderDelivered(order._id)}}>تم التسليم</button>
                         }
                       </div>
                     </div>
