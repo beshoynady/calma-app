@@ -51,6 +51,7 @@ const AttendanceManagement = () => {
       lateMinutes,
       notes
     }
+
     console.log({ newattendanceData })
     try {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
