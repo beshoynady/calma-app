@@ -355,10 +355,10 @@ table.table .avatar {
 	resize: vertical;
 }
 
-.modal .btn .btn-47 {
+.modal .btn.btn-47 {
 	border-radius: 5px;
-	height: 45px;
-	width: 47%;
+	height: 45px !important;
+	width: 47% !;
 	margin: auto;
 }
 
