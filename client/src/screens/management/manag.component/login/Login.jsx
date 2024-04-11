@@ -36,7 +36,7 @@ const Login = () => {
                                                         <a href="#!" className="forgot-password">Forgot Password?</a>
                                                     </div>
                                                     <div className="form-group">
-                                                        <button className="btn btn-47 btn btn-47-primary btn btn-47-block">تسجيل دخول</button>
+                                                        <button className="btn btn-47 btn btn-47-primary btn btn-block">تسجيل دخول</button>
                                                     </div>
                                                     <div className="form-group">
                                                         <div className="text-center">New Member? <a href="#!">Sign up Now</a></div>
