@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import './Login.css'
 import { detacontext } from '../../../../App'
 
-const Login = () => {
 
+
+const Login = () => {
+    
     const [phone, setphone] = useState('')
     const [password, setpassword] = useState('')
     return (
@@ -11,66 +13,66 @@ const Login = () => {
             {
                 ({ adminLogin }) => {
                     return (
-                        <section class="body">
-                            <div class="container">
-                                <div class="login-box">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="logo">
-                                                <span class="logo-font">Go</span>Snippets
+                        <section className="body">
+                            <div className="container">
+                                <div className="login-box">
+                                    <div className="row">
+                                        <div className="col-sm-6">
+                                            <div className="logo">
+                                                <span className="logo-font">Go</span>Snippets
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
+                                    <div className="row">
+                                        <div className="col-sm-6">
                                             <br/>
-                                                <h3 class="header-title">سجل دخول</h3>
-                                                <form class="login-form" onSubmit={(e) => adminLogin(e, phone, password)}>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="phone" onChange={(e) => setphone(e.target.value)} />
+                                                <h3 className="header-title">سجل دخول</h3>
+                                                <form className="login-form" onSubmit={(e) => adminLogin(e, phone, password)}>
+                                                    <div className="form-group">
+                                                        <input type="text" className="form-control" placeholder="phone" onChange={(e) => setphone(e.target.value)} />
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="Password" class="form-control" placeholder="Password" onChange={(e) => setpassword(e.target.value)} />
-                                                        <a href="#!" class="forgot-password">Forgot Password?</a>
+                                                    <div className="form-group">
+                                                        <input type="Password" className="form-control" placeholder="Password" onChange={(e) => setpassword(e.target.value)} />
+                                                        <a href="#!" className="forgot-password">Forgot Password?</a>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <button class="btn btn-primary btn-block">تسجيل دخول</button>
+                                                    <div className="form-group">
+                                                        <button className="btn btn-primary btn-block">تسجيل دخول</button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="text-center">New Member? <a href="#!">Sign up Now</a></div>
+                                                    <div className="form-group">
+                                                        <div className="text-center">New Member? <a href="#!">Sign up Now</a></div>
                                                     </div>
                                                 </form>
                                         </div>
-                                        <div class="col-sm-6 hide-on-mobile">
-                                            <div id="demo" class="carousel slide" data-ride="carousel">
+                                        <div className="col-sm-6 hide-on-mobile">
+                                            <div id="demo" className="carousel slide" data-ride="carousel">
                                                 {/* <!-- Indicators --> */}
-                                                <ul class="carousel-indicators">
-                                                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                                <ul className="carousel-indicators">
+                                                    <li data-target="#demo" data-slide-to="0" className="active"></li>
                                                     <li data-target="#demo" data-slide-to="1"></li>
                                                 </ul>
                                                 {/* <!-- The slideshow --> */}
-                                                <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <div class="slider-feature-card">
+                                                <div className="carousel-inner">
+                                                    <div className="carousel-item active">
+                                                        <div className="slider-feature-card">
                                                             <img src="https://i.imgur.com/YMn8Xo1.png" alt="" />
-                                                            <h3 class="slider-title">Title Here</h3>
-                                                            <p class="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, odio!</p>
+                                                            <h3 className="slider-title">Title Here</h3>
+                                                            <p className="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, odio!</p>
                                                         </div>   
                                                     </div>
-                                                    <div class="carousel-item">
-                                                        <div class="slider-feature-card">
+                                                    <div className="carousel-item">
+                                                        <div className="slider-feature-card">
                                                             <img src="https://i.imgur.com/Yi5KXKM.png" alt=""/>
-                                                                <h3 class="slider-title">Title Here</h3>
-                                                                <p class="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, debitis?</p>
+                                                                <h3 className="slider-title">Title Here</h3>
+                                                                <p className="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, debitis?</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {/* <!-- Left and right controls --> */}
-                                                <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                                    <span class="carousel-control-prev-icon"></span>
+                                                <a className="carousel-control-prev" href="#demo" data-slide="prev">
+                                                    <span className="carousel-control-prev-icon"></span>
                                                 </a>
-                                                <a class="carousel-control-next" href="#demo" data-slide="next">
-                                                    <span class="carousel-control-next-icon"></span>
+                                                <a className="carousel-control-next" href="#demo" data-slide="next">
+                                                    <span className="carousel-control-next-icon"></span>
                                                 </a>
                                             </div>
                                         </div>
