@@ -421,7 +421,7 @@ const Category = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input
                             type="text"
@@ -432,7 +432,7 @@ const Category = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -445,7 +445,7 @@ const Category = () => {
                           </select>
                         </div>
 
-                        {/* <div className="form-group">
+                        {/* <div className="form-group form-group-47">
                           <label>
                             <input
                               type="checkbox"
@@ -473,7 +473,7 @@ const Category = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input
                             type="text"
@@ -484,7 +484,7 @@ const Category = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -497,7 +497,7 @@ const Category = () => {
                           </select>
                         </div>
 
-                        {/* <div className="form-group">
+                        {/* <div className="form-group form-group-47">
                           <label>
                             <input
                               type="checkbox"

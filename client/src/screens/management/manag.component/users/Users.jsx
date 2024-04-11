@@ -285,38 +285,38 @@ const Users = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid name.</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>اسم المستخدم</label>
                           <input type="text" className="form-control" required onChange={(e) => setusername(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الموبايل</label>
                           <input type="text" className="form-control" required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid phone number (11 digits).</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الباسورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الرقم القومي</label>
                           <input type="text" className="form-control" required onChange={(e) => setnumberID(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الايميل</label>
                           <input type="email" className="form-control" required onChange={(e) => setemail(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid email address.</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>العنوان</label>
                           <textarea className="form-control" required onChange={(e) => setaddress(e.target.value)}></textarea>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select form="carform" required onChange={(e) => setisActive(e.target.value)}>
                             <option >اختر</option>
@@ -324,7 +324,7 @@ const Users = () => {
                             <option value={false}>ليس متاح</option>
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوظيفه</label>
                           <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
@@ -335,7 +335,7 @@ const Users = () => {
                             <option value="chef">شيف</option>
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>المرتب الاساسي</label>
                           <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid salary.</div>
@@ -358,38 +358,38 @@ const Users = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
                           <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>اسم المستخدم</label>
                           <input type="text" className="form-control" defaultValue={username} required onChange={(e) => setusername(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الموبايل</label>
                           <input type="text" className="form-control" defaultValue={phone} required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
                           <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الباسورد</label>
                           <input type="password" className="form-control" onChange={(e) => setpassword(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الرقم القومي</label>
                           <input type="text" className="form-control" defaultValue={numberID} required onChange={(e) => setnumberID(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الايميل</label>
                           <input type="email" className="form-control" defaultValue={email} required onChange={(e) => setemail(e.target.value)} />
                           <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>العنوان</label>
                           <textarea className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select form="carform" required defaultValue={isActive} onChange={(e) => setisActive(e.target.value)}>
                             <option>اختر</option>
@@ -397,7 +397,7 @@ const Users = () => {
                             <option value={false}>ليس متاح</option>
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوظيفة</label>
                           <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
@@ -408,7 +408,7 @@ const Users = () => {
                             <option value="chef">شيف</option>
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>المرتب الاساسي</label>
                           <input type="Number" min={0} className="form-control" defaultValue={basicSalary} required onChange={(e) => setbasicSalary(e.target.value)} />
                         </div>

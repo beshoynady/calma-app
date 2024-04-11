@@ -520,7 +520,7 @@ const Info = () => {
                     <form className="form-sample" onSubmit={handleCreateRestaurant}>
                       <div className="row">
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الاسم</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
@@ -528,7 +528,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الوصف</label>
                             <div className="col-sm-9">
                               <textarea type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
@@ -540,7 +540,7 @@ const Info = () => {
                       <p className="card-description"> العنوان </p>
                       <div className="row">
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">الدولة</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
@@ -554,7 +554,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المحافظة</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
@@ -564,7 +564,7 @@ const Info = () => {
                       </div>
                       <div className="row">
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">المدينة</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
@@ -572,7 +572,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">العنوان</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
@@ -582,7 +582,7 @@ const Info = () => {
                       </div>
                       <div className="row">
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
                               <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
@@ -591,7 +591,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          <div className="form-group row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">كود البريد</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
@@ -614,35 +614,35 @@ const Info = () => {
                         <h4 className="card-title">بيانات التواصل</h4>
                         <p className="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
                         <form className="forms-sample" onSubmit={(e) => handleContactData(e)}>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
                             <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
                             <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required defaultValue={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
                             <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
                             <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" defaultValue={facebook} required onChange={(e) => setFacebook(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="twitter">تويتر:</label>
                             <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" defaultValue={twitter} onChange={(e) => setTwitter(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="instagram">انستجرام:</label>
                             <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" defaultValue={instagram} onChange={(e) => setInstagram(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="linkedin">لينكدإن:</label>
                             <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" defaultValue={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="youtube">يوتيوب:</label>
                             <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
@@ -810,7 +810,7 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">Colored input groups</h4>
                         <p className="card-description"> Input groups with colors </p>
-                        <div className="form-group" style={{ width: '100%' }}>
+                        <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-info">
@@ -821,7 +821,7 @@ const Info = () => {
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon1" />
                           </div>
                         </div>
-                        <div className="form-group" style={{ width: '100%' }}>
+                        <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-primary border-primary">
@@ -832,7 +832,7 @@ const Info = () => {
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon2" />
                           </div>
                         </div>
-                        <div className="form-group" style={{ width: '100%' }}>
+                        <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon3" />
@@ -843,7 +843,7 @@ const Info = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="form-group" style={{ width: '100%' }}>
+                        <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-primary border-primary">
@@ -865,17 +865,17 @@ const Info = () => {
                   <div className="card-body">
                     <h4 className="card-title">Input size</h4>
                     <p className="card-description"> This is the default bootstrap form layout </p>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label>Large input</label>
                       <input type="text" className="form-control form-control-lg" placeholder="Username" aria-label="Username" />
                     </div>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label>Default input</label>
                       <input type="text" className="form-control" placeholder="Username" aria-label="Username" />
                     </div>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label>Small input</label>
                       <input type="text" className="form-control form-control-sm" placeholder="Username" aria-label="Username" />
@@ -883,7 +883,7 @@ const Info = () => {
                   </div>
                   <div className="card-body">
                     <h4 className="card-title">Selectize</h4>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect1">Large select</label>
                       <select className="form-control form-control-lg" id="exampleFormControlSelect1">
@@ -894,7 +894,7 @@ const Info = () => {
                         <option>5</option>
                       </select>
                     </div>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect2">Default select</label>
                       <select className="form-control" id="exampleFormControlSelect2">
@@ -905,7 +905,7 @@ const Info = () => {
                         <option>5</option>
                       </select>
                     </div>
-                    <div className="form-group" style={{ width: '100%' }}>
+                    <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect3">Small select</label>
                       <select className="form-control form-control-sm" id="exampleFormControlSelect3">
@@ -927,7 +927,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-check">
                               <label className="form-check-label">
@@ -948,7 +948,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio">
                               <label className="form-check-label">
@@ -959,7 +959,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
@@ -984,7 +984,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
@@ -1005,7 +1005,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
@@ -1016,7 +1016,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">

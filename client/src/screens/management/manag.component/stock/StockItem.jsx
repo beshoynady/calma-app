@@ -343,11 +343,11 @@ const StockItem = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>اسم الصنف</label>
                           <input type="text" className="form-control" required onChange={(e) => setitemName(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>نوع المخزن</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setcategoryId(e.target.value)}>
                             <option>اختر نوع المخزن</option>
@@ -357,39 +357,39 @@ const StockItem = () => {
                             }
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة الكبيرة</label>
                           <input type='text' className="form-control" required onChange={(e) => setlargeUnit(e.target.value)}></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة الصغيره</label>
                           <input type='text' className="form-control" required onChange={(e) => setsmallUnit(e.target.value)}></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
                           <input type='Number' className="form-control" required onChange={(e) => setBalance(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحد الادني</label>
                           <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>السعر</label>
                           <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التكلفة</label>
                           <input type='Number' className="form-control" required defaultValue={totalCost} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
                           <input type='Number' className="form-control" required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تكلفة الوحده</label>
                           <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التاريخ</label>
                           <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
                         </div>
@@ -413,11 +413,11 @@ const StockItem = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>اسم الصنف</label>
                           <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>نوع المخزن</label>
                           <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
                             {/* <option>{AllCategoryStock.length>0?AllCategoryStock.filter(c=>c._id == categoryId)[0].name:''}</option> */}
@@ -429,40 +429,40 @@ const StockItem = () => {
                           </select>
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة الكبيرة</label>
                           <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة الصغيره</label>
                           <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
                           <input type='Number' className="form-control" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحد الادني</label>
                           <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>السعر</label>
                           <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التكلفة</label>
                           <input type='text' className="form-control" required defaultValue={totalCost} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
                           <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تكلفة الوحده</label>
                           <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التاريخ</label>
                           <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
                         </div>

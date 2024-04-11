@@ -283,7 +283,7 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
@@ -305,7 +305,7 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>

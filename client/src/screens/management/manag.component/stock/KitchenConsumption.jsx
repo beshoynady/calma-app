@@ -498,7 +498,7 @@ const KitchenConsumption = () => {
                       </div>
                       <div className="modal-body">
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الصنف</label>
                           <select name="category" id="category" form="carform" onChange={(e) => { setstockItemId(e.target.value); setunit(AllStockItems.filter(stock => stock._id == e.target.value)[0].smallUnit); setcreatedBy(employeeLoginInfo.employeeinfo.id); setstockItemName(AllStockItems.filter(it => it._id == e.target.value)[0].itemName) }}>
                             <option>اختر الصنف</option>
@@ -508,15 +508,15 @@ const KitchenConsumption = () => {
                             }
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>رصيد محول</label>
                           <input type='Number' className="form-control" required onChange={(e) => setquantityTransferredToKitchen(Number(e.target.value))} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة </label>
                           <input type='text' className="form-control" required defaultValue={unit}></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التاريخ</label>
                           <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
                         </div>
@@ -538,37 +538,37 @@ const KitchenConsumption = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>اسم الصنف</label>
                           <input type="text" className="form-control" defaultValue={stockItemName} required />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الكمية المستلمة</label>
                           <input type="text" className="form-control" defaultValue={quantityTransferredToKitchen} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الكمية المستهلكه</label>
                           <input type="text" className="form-control" defaultValue={consumptionQuantity} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الرصيد الدفتري</label>
                           <input type="text" className="form-control" defaultValue={bookBalance} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الرصيد الفعلي</label>
                           <input type="Number" className="form-control" required onChange={(e) => {
                             setadjustment(Number(e.target.value) - bookBalance); setactualBalance(e.target.value)
                           }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التسويه</label>
                           <input type="text" className="form-control" defaultValue={adjustment} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الوحدة </label>
                           <input type='text' className="form-control" defaultValue={unit} required></input>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>التاريخ</label>
                           <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
                         </div>

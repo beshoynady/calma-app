@@ -138,7 +138,7 @@ const ReservationTables = () => {
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select name="category" id="category" form="carform" onChange={(e) => filterByStatus(e.target.value)}>
                             <option >اختر</option>

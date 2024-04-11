@@ -130,7 +130,7 @@ const POS = () => {
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
-                            <div className="form-group w-100">
+                            <div className="form-group form-group-47 w-100">
                               <label htmlFor='table' className='w-40'>رقم الفاتورة:</label>
                               <input type="text" min={0} className="font-weight-bold w-25 " onChange={(e) => setserial(e.target.value)} />
 
@@ -159,7 +159,7 @@ const POS = () => {
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
-                            <div className="form-group w-100">
+                            <div className="form-group form-group-47 w-100">
                               <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
                               <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProductForTable(e, e.target.value)}>
                                 <option>اختر رقم الطاولة</option>
@@ -228,7 +228,7 @@ const POS = () => {
                           ordertype === 'Internal' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className="w-100">
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
                                   <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
                                     <option>اختر رقم الطاولة</option>
@@ -242,15 +242,15 @@ const POS = () => {
                           ) : ordertype === 'Delivery' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className='w-100'>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor="name" className='w-40'>اسم العميل:</label>
                                   <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
                                 </div>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
                                   <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
                                 </div>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <select required onChange={(e) => setdeliverycost(e.target.value)}>
                                     <option>اختر المنطقة</option>
                                     {areas ? (
@@ -262,7 +262,7 @@ const POS = () => {
                                     )}
                                   </select>
                                 </div>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor="address" className='w-40'>العنوان:</label>
                                   <textarea className="w-60 form-control" required onChange={(e) => setclientaddress(e.target.value)} />
                                 </div>
@@ -271,11 +271,11 @@ const POS = () => {
                           ) : ordertype === 'Takeaway' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className='w-100'>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor="name" className='w-40'>اسم العميل:</label>
                                   <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
                                 </div>
-                                <div className="form-group w-100">
+                                <div className="form-group form-group-47 w-100">
                                   <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
                                   <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
                                 </div>

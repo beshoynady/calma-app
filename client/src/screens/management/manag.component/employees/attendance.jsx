@@ -377,7 +377,7 @@ const AttendanceManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الحالي</label>
                           <input
                             type="date"
@@ -388,7 +388,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <select
                             className="form-control"
@@ -402,7 +402,7 @@ const AttendanceManagement = () => {
                             ))}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الشيفت</label>
                           <input
                             type="text"
@@ -413,7 +413,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الوصول</label>
                           <input
                             type="datetime-local"
@@ -424,7 +424,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الانصراف</label>
                           <input
                             type="datetime-local"
@@ -436,7 +436,7 @@ const AttendanceManagement = () => {
                           />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -451,7 +451,7 @@ const AttendanceManagement = () => {
                             ))}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>دقائق التجاوز</label>
                           <input
                             type="text"
@@ -462,7 +462,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>دقائق التأخر</label>
                           <input
                             type="text"
@@ -473,7 +473,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>ملاحظات</label>
                           <textarea
                             className="form-control"
@@ -505,7 +505,7 @@ const AttendanceManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الحالي</label>
                           <input
                             type="date"
@@ -516,7 +516,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الاسم</label>
                           <select
                             className="form-control"
@@ -530,7 +530,7 @@ const AttendanceManagement = () => {
                             ))}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الشيفت</label>
                           <input
                             type="text"
@@ -541,7 +541,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الوصول</label>
                           <input
                             type="datetime-local"
@@ -552,7 +552,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>تاريخ الانصراف</label>
                           <input
                             type="datetime-local"
@@ -565,7 +565,7 @@ const AttendanceManagement = () => {
                         </div>
 
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -580,7 +580,7 @@ const AttendanceManagement = () => {
                             ))}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>دقائق التجاوز</label>
                           <input
                             type="text"
@@ -591,7 +591,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>دقائق التأخر</label>
                           <input
                             type="text"
@@ -602,7 +602,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47">
                           <label>ملاحظات</label>
                           <textarea
                             className="form-control"

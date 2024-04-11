@@ -375,7 +375,7 @@ const EmployeesSalary = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
                             setEmployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setEmployeeId(e.target.value);
@@ -390,7 +390,7 @@ const EmployeesSalary = () => {
                               : ""}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>التعامل</label>
                           <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
@@ -402,28 +402,28 @@ const EmployeesSalary = () => {
                           </select>
                         </div>
                         {['غياب', 'اضافي'].includes(movement) && (
-                          <div className="form-group">
+                          <div className="form-group form-group-47"> 
                             <label>الايام</label>
                             <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(Number(e.target.value)) }} />
                           </div>
                         )}
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الرصيد</label>
                           <input type="number" className="form-control" value={oldAmount > 0 ? oldAmount : 0} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الاجمالي</label>
                           <input type="number" className="form-control" readOnly defaultValue={newAmount} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>بواسطه</label>
                           <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>التاريخ</label>
                           <p className="form-control" readOnly>{new Date().toLocaleString()}</p>
                         </div>
@@ -446,7 +446,7 @@ const EmployeesSalary = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الاسم</label>
                           <select form="carform" defaultValue={EmployeeName} required onChange={(e) => { setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
                             <option>اختر</option>
@@ -457,7 +457,7 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الحركه</label>
                           <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
@@ -468,23 +468,23 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>المبلغ</label>
                           <input type="Number" className="form-control" defaultValue={Amount} required onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>المبلغ السابق</label>
                           <input type="Number" className="form-control" Value={oldAmount > 0 ? oldAmount : 0} readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>الاجمالي</label>
                           <input type="Number" className="form-control" readOnly defaultValue={newAmount} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>بواسطة</label>
                           <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47"> 
                           <label>التاريخ</label>
                           <p className="form-control" readOnly>{new Date(actionAt).toLocaleString()}</p>                        </div>
                       </div>

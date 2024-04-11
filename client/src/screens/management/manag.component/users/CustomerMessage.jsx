@@ -219,20 +219,20 @@ const CustomerMessage = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group">
+                        <div className="form-group form-group-47" >
                           <label>الاسم</label>
                           <input type="text" className="form-control" defaultValue={name} required readOnly />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group form-group-47" >
                           <label>الموبايل</label>
                           <input type="text" className="form-control" defaultValue={phone} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47" >
                           <label>الايميل</label>
                           <input type="email" className="form-control" defaultValue={email} required readOnly />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group form-group-47" >
                           <label>الرسالة</label>
                           <textarea className="form-control" defaultValue={message} required readOnly></textarea>
                         </div>
