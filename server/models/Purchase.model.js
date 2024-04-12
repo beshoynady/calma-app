@@ -24,9 +24,9 @@ const purchaseInvoiceSchema = new mongoose.Schema({
 
     totalAmount: { type: Number, required: true }, // Total amount of the invoice
     discount: { type: Number, default: 0 }, // Discount applied to the invoice
-    netAmount: { type: Number, required: true }, // Net amount after discount
     salesTax: { type: Number }, // Sales tax applied to the invoice
     additionalCost: { type: Number }, // Additional costs (if any)
+    netAmount: { type: Number, required: true }, // Net amount after discount
     paidAmount: { type: Number, default: 0 }, // Amount already paid
     balanceDue: { type: Number, required: true }, // Remaining balance to be paid
     paymentDueDate: { type: Date }, // Due date for payment (in case of credit)

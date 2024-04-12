@@ -287,10 +287,23 @@ const Purchase = () => {
   }
 
 
-
+  const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
+  const getAallPurchases = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
+      if (response.status === 201) {
+        setallPurchaseInvoice(response.data)
+      } else {
+        toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب فواتير المشتريات ! اعد تحميل الصفحة')
+    }
+  }
 
 
   useEffect(() => {
+    getAallPurchases()
     getallStockaction()
     getaStockItems()
     getAllCashRegisters()
@@ -341,470 +354,379 @@ const Purchase = () => {
       {
         ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            // <div className="container-xl mlr-auto">
-            //   <div className="table-responsive">
-            //     <div className="table-wrapper">
-            //       <div className="table-title">
-            //         <div className="row">
-            //           <div className="col-sm-6">
-            //             <h2>ادارة <b>المخزون</b></h2>
-            //           </div>
-            //           <div className="col-sm-6 d-flex justify-content-end">
-            //             <a href="#addStockactionModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
-
-            //             <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
-            //           </div>
-            //         </div>
-            //       </div>
-            //       <div class="table-filter">
-            //         <div class="row text-dark">
-            //           <div class="col-sm-3">
-            //             <div class="show-entries">
-            //               <span>عرض</span>
-            //               <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-            //                 {
-            //                   (() => {
-            //                     const options = [];
-            //                     for (let i = 5; i < 100; i += 5) {
-            //                       options.push(<option key={i} value={i}>{i}</option>);
-            //                     }
-            //                     return options;
-            //                   })()
-            //                 }
-            //               </select>
-            //               <span>صفوف</span>
-            //             </div>
-            //           </div>
-            //           <div class="col-sm-9">
-            //             <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
-            //             <div class="filter-group">
-            //               <label>اسم الصنف</label>
-            //               <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
-            //             </div>
-            //             <div class="filter-group">
-            //               <label>نوع الاوردر</label>
-            //               <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
-            //                 <option value={""}>الكل</option>
-            //                 {Stockmovement.map(movement => {
-            //                   return <option value={movement}>{movement}</option>;
-            //                 })}
-            //               </select>
-            //             </div>
-
-            //             {/* <div class="filter-group">
-            //               <label>Location</label>
-            //               <select class="form-control">
-            //                 <option>All</option>
-            //                 <option>Berlin</option>
-            //                 <option>London</option>
-            //                 <option>Madrid</option>
-            //                 <option>New York</option>
-            //                 <option>Paris</option>
-            //               </select>
-            //             </div>
-            //             <div class="filter-group">
-            //               <label>Status</label>
-            //               <select class="form-control">
-            //                 <option>Any</option>
-            //                 <option>Delivered</option>
-            //                 <option>Shipped</option>
-            //                 <option>Pending</option>
-            //                 <option>Cancelled</option>
-            //               </select>
-            //             </div>
-            //             <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
-            //           </div>
-            //         </div>
-            //       </div>
-            //       <table className="table table-striped table-hover">
-            //         <thead>
-            //           <tr>
-            //             <th>
-            //               <span className="custom-checkbox">
-            //                 <input type="checkbox" id="selectAll" />
-            //                 <label htmlFor="selectAll"></label>
-            //               </span>
-            //             </th>
-            //             <th>م</th>
-            //             <th>اسم الصنف</th>
-            //             <th>الحركة</th>
-            //             <th>الكمية</th>
-            //             <th>الوحدة</th>
-            //             <th>السعر</th>
-            //             <th>الثمن</th>
-            //             <th>الرصيدالقديم</th>
-            //             <th>الرصيد الجديد</th>
-            //             <th>تاريخ الحركه</th>
-            //             <th>تم بواسطه</th>
-            //             <th>اجراءات</th>
-            //           </tr>
-            //         </thead>
-            //         <tbody>
-            //           {StockitemFilterd.length > 0 ? StockitemFilterd.map((action, i) => {
-            //             if (i >= startpagination & i < endpagination) {
-            //               return (
-            //                 <tr key={i}>
-            //                   <td>
-            //                     <span className="custom-checkbox">
-            //                       <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-            //                       <label htmlFor="checkbox1"></label>
-            //                     </span>
-            //                   </td>
-            //                   <td>{i + 1}</td>
-            //                   <td>{itemname(action.itemId)}</td>
-            //                   <td>{action.movement}</td>
-            //                   <td>{action.quantity}</td>
-            //                   <td>{action.unit}</td>
-            //                   <td>{action.price}</td>
-            //                   <td>{action.cost}</td>
-            //                   <td>{action.oldBalance}</td>
-            //                   <td>{action.balance}</td>
-            //                   <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
-            //                   <td>{usertitle(action.actionBy)}</td>
-            //                   <td>
-            //                     <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            //                     <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-            //                   </td>
-            //                 </tr>
-            //               )
-            //             }
-            //           })
-            //             : AllStockactions.map((action, i) => {
-            //               if (i >= startpagination & i < endpagination) {
-            //                 return (
-            //                   <tr key={i}>
-            //                     <td>
-            //                       <span className="custom-checkbox">
-            //                         <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-            //                         <label htmlFor="checkbox1"></label>
-            //                       </span>
-            //                     </td>
-            //                     <td>{i + 1}</td>
-            //                     <td>{itemname(action.itemId)}</td>
-            //                     <td>{action.movement}</td>
-            //                     <td>{action.quantity}</td>
-            //                     <td>{action.unit}</td>
-            //                     <td>{action.price}</td>
-            //                     <td>{action.cost}</td>
-            //                     <td>{action.oldBalance}</td>
-            //                     <td>{action.balance}</td>
-            //                     <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
-            //                     <td>{usertitle(action.actionBy)}</td>
-            //                     <td>
-            //                       <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            //                       <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-            //                     </td>
-            //                   </tr>
-            //                 )
-            //               }
-            //             })
-            //           }
-            //         </tbody>
-            //       </table>
-            //       <div className="clearfix">
-            //         <div className="hint-text text-dark">عرض <b>{AllStockactions.length > endpagination ? endpagination : AllStockactions.length}</b> من <b>{AllStockactions.length}</b> عنصر</div>
-            //         <ul className="pagination">
-            //           <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-            //           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-            //         </ul>
-            //       </div>
-            //     </div>
-            //   </div>
-            //   <div id="addStockactionModal" className="modal fade">
-            //     <div className="modal-dialog">
-            //       <div className="modal-content">
-            //         <form onSubmit={(e) => createStockAction(e, employeeLoginInfo.employeeinfo.id)}>
-            //           <div className="modal-header">
-            //             <h4 className="modal-title">اضافه صنف بالمخزن</h4>
-            //             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            //           </div>
-            //           <div className="modal-body">
-            //             <div className="filter-group">
-            //               <label>نوع الحركه</label>
-            //               <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
-            //                 <option >اختر الاجراء</option>
-            //                 {Stockmovement.map((status, i) => {
-            //                   return <option key={i} defaultValue={status}>{status}</option>
-            //                 })}
-            //               </select>
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الصنف</label>
-            //               <select name="" id="" onChange={(e) => {
-            //                 setitemId(e.target.value);
-            //                 setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
-            //                 seitemName(StockItems.filter(i => i._id == e.target.value)[0].itemName);
-            //                 setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
-            //                 setcostOfPart(StockItems.filter(i => i._id == e.target.value)[0].costOfPart);
-            //                 setprice(StockItems.filter(i => i._id == e.target.value)[0].price)
-            //                 setoldBalance(StockItems.filter(i => i._id == e.target.value)[0].Balance);
-            //                 setoldCost(StockItems.filter(i => i._id == e.target.value)[0].totalCost);
-            //                 setparts(StockItems.filter(i => i._id == e.target.value)[0].parts)
-            //               }}>
-            //                 <option >اختر الصنف</option>
-            //                 {StockItems.map((item, i) => {
-            //                   return <option key={i} value={item._id}>{item.itemName}</option>
-            //                 })}
-            //               </select>
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الكمية</label>
-            //               {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-            //                 <>
-            //                   <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
-            //                   <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
-            //                 </>
-            //                 : movement == "Purchase" || movement == "ReturnPurchase" ? <>
-            //                   <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
-            //                   <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
-            //                 </> : ''}
-            //             </div>
-            //             {/* {movement === "Purchase" &&
-            //               <>
-            //                 <div className="form-group form-group-47">
-            //                   <label>تاريخ الانتهاء</label>
-            //                   <input type="checkbox" checked={expirationDateEnabled} onChange={() => setExpirationDateEnabled(!expirationDateEnabled)} />
-            //                   {expirationDateEnabled &&
-            //                     <input type='date' className="form-control" required onChange={(e) => { setexpirationDate(e.target.value); }} />}
-            //                 </div>
-            //               </>
-            //             } */}
-
-            //             <div className="form-group form-group-47">
-            //               <label>السعر</label>
-            //               {movement == "Issuance" || movement == "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-            //                 <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
-            //                 : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
-            //               }
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>التكلفة</label>
-            //               <input type='Number' className="form-control" Value={cost} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الرصيد</label>
-            //               <input type='text' className="form-control" Value={oldBalance} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الرصيد الجديد</label>
-            //               <input type='text' className="form-control" Value={newBalance} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>التاريخ</label>
-            //               <input type="text" className="form-control" Value={actionAt} readOnly />
-            //             </div>
-            //           </div>
-            //           <div className="modal-footer">
-            //             <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-            //             <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
-            //           </div>
-            //         </form>
-            //       </div>
-            //     </div>
-            //   </div>
-            //   <div id="editStockactionModal" className="modal fade">
-            //     <div className="modal-dialog">
-            //       <div className="modal-content">
-            //         <form onSubmit={(e) => updateStockaction(e, employeeLoginInfo.employeeinfo.id)}>
-            //           <div className="modal-header">
-            //             <h4 className="modal-title">اضافه صنف بالمخزن</h4>
-            //             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            //           </div>
-            //           <div className="modal-body">
-            //             <div className="form-group form-group-47">
-            //               <label>نوع الحركه</label>
-            //               <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
-            //                 <option >اختر الاجراء</option>
-            //                 {Stockmovement.map((statu, i) => {
-            //                   return <option key={i} defaultValue={statu}>{statu}</option>
-            //                 })}
-            //               </select>
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الصنف</label>
-            //               <select name="" id="" onChange={(e) => {
-            //                 setitemId(e.target.value);
-            //                 setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
-            //                 setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
-            //               }}>
-            //                 <option >اختر الصنف</option>
-            //                 {StockItems.map((item, i) => {
-            //                   return <option key={i} value={item._id}>{item.itemName}</option>
-            //                 })}
-            //               </select>
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الكمية</label>
-            //               {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-            //                 <>
-            //                   <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
-            //                   <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
-            //                 </>
-            //                 : movement == "Purchase" || movement == "ReturnPurchase" ? <>
-            //                   <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
-            //                   <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
-            //                 </> : ''}
-            //             </div>
-
-            //             <div className="form-group form-group-47">
-            //               <label>السعر</label>
-            //               {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-            //                 <input type='Number' className="form-control" readOnly required defaultValue={price} />
-            //                 : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
-            //               }
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>التكلفة</label>
-            //               <input type='Number' className="form-control" Value={cost} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الرصيد</label>
-            //               <input type='text' className="form-control" Value={oldBalance} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>الرصيد الجديد</label>
-            //               <input type='text' className="form-control" Value={newBalance} readOnly />
-            //             </div>
-            //             <div className="form-group form-group-47">
-            //               <label>التاريخ</label>
-            //               <input type="text" className="form-control" Value={actionAt} readOnly />
-            //             </div>
-            //           </div>
-            //           <div className="modal-footer">
-            //             <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-            //             <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
-            //           </div>
-            //         </form>
-            //       </div>
-            //     </div>
-            //   </div>
-            //   <div id="deleteStockactionModal" className="modal fade">
-            //     <div className="modal-dialog">
-            //       <div className="modal-content">
-            //         <form onSubmit={deleteStockaction}>
-            //           <div className="modal-header">
-            //             <h4 className="modal-title">حذف منتج</h4>
-            //             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            //           </div>
-            //           <div className="modal-body">
-            //             <p>هل انت متاكد من حذف هذا السجل؟</p>
-            //             <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
-            //           </div>
-            //           <div className="modal-footer">
-            //             <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-            //             <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
-            //           </div>
-            //         </form>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
-
-            <div class="container ">
-
-              <div class="card">
-                <div class="card-header text-center">
-                  <h4>INVOICE</h4>
-                </div>
-                <div class="card-body">
-
-                  <div class="row">
-                    <div class="col-8">
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" >Customer</span>
-                        <input type="text" class="form-control" placeholder="Customer" />
+            <div className="container-xl mlr-auto">
+              <div className="table-responsive">
+                <div className="table-wrapper">
+                  <div className="table-title">
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <h2>ادارة <b>المخزون</b></h2>
                       </div>
+                      <div className="col-sm-6 d-flex justify-content-end">
+                        <a href="#addStockactionModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" >Address</span>
-                        <input type="text" class="form-control" placeholder="Address" />
+                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" >City</span>
-                        <input type="text" class="form-control" placeholder="City" />
-                      </div>
-                    </div>
-                    <div class="col-4">
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" >Inv. No</span>
-                        <input type="text" class="form-control" placeholder="Inv. No" />
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" >Inv. Date</span>
-                        <input type="date" class="form-control" placeholder="Inv. Date" />
-                      </div>
-
-
-
                     </div>
                   </div>
+                  <div class="table-filter">
+                    <div class="row text-dark">
+                      <div class="col-sm-3">
+                        <div class="show-entries">
+                          <span>عرض</span>
+                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                            {
+                              (() => {
+                                const options = [];
+                                for (let i = 5; i < 100; i += 5) {
+                                  options.push(<option key={i} value={i}>{i}</option>);
+                                }
+                                return options;
+                              })()
+                            }
+                          </select>
+                          <span>صفوف</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-9">
+                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        <div class="filter-group">
+                          <label>اسم الصنف</label>
+                          <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
+                        </div>
+                        <div class="filter-group">
+                          <label>نوع الاوردر</label>
+                          <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
+                            <option value={""}>الكل</option>
+                            {Stockmovement.map(movement => {
+                              return <option value={movement}>{movement}</option>;
+                            })}
+                          </select>
+                        </div>
 
-
-                  <table class="table table-bordered">
-                    <thead class="table-success">
+                        {/* <div class="filter-group">
+                          <label>Location</label>
+                          <select class="form-control">
+                            <option>All</option>
+                            <option>Berlin</option>
+                            <option>London</option>
+                            <option>Madrid</option>
+                            <option>New York</option>
+                            <option>Paris</option>
+                          </select>
+                        </div>
+                        <div class="filter-group">
+                          <label>Status</label>
+                          <select class="form-control">
+                            <option>Any</option>
+                            <option>Delivered</option>
+                            <option>Shipped</option>
+                            <option>Pending</option>
+                            <option>Cancelled</option>
+                          </select>
+                        </div>
+                        <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                      </div>
+                    </div>
+                  </div>
+                  <table className="table table-striped table-hover">
+                    <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Particular</th>
-                        <th scope="col" class="text-end">Qty</th>
-                        <th scope="col" class="text-end">Rate</th>
-                        <th scope="col" class="text-end">Amount</th>
-                        <th scope="col" class="NoPrint">
-                          <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()">+</button>
-
+                        <th>
+                          <span className="custom-checkbox">
+                            <input type="checkbox" id="selectAll" />
+                            <label htmlFor="selectAll"></label>
+                          </span>
                         </th>
-
+                        <th>م</th>
+                        <th>التاريخ</th>
+                        <th>الفاتوره</th>
+                        <th>المورد</th>
+                        <th>الاجمالي</th>
+                        <th>الخصم</th>
+                        <th>الضريبه</th>
+                        <th>اضافية</th>
+                        <th>الاجمالي</th>
+                        <th>نوع الفاتورة</th>
+                        <th>دفع</th>
+                        <th>باقي</th>
+                        <th>تاريخ الاستحقاق</th>
+                        <th>طريقه الدفع</th>
+                        <th>الحالة</th>
+                        <th>الخزينه</th>
+                        <th>تم بواسطه</th>
+                        <th>ملاحظات</th>
+                        <th>اجراءات</th>
                       </tr>
                     </thead>
-                    <tbody id="TBody">
-                      <tr id="TRow" class="d-none">
-                        <th scope="row">1</th>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);" /></td>
-                        <td><input type="number" class="form-control text-end" name="rate" onchange="Calc(this);" /></td>
-                        <td><input type="number" class="form-control text-end" name="amt" value="0" disabled=""/></td>
-                        <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-
-                <div class="row">
-                  <div class="col-8">
-
-                    <button type="button" class="btn btn-primary" onclick="GetPrint()">Print</button>
-
-                  </div>
-                  <div class="col-4">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" >Total</span>
-                      <input type="number" class="form-control text-end" id="FTotal" name="FTotal" disabled="" />
-                    </div>
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" >GST</span>
-                      <input type="number" class="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
-                    </div>
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" >Net Amt</span>
-                      <input type="number" class="form-control text-end" id="FNet" name="FNet" disabled="" />
-                    </div>
-
-
+                    <tbody>
+                      {allPurchaseInvoice.length > 0 && allPurchaseInvoice.map((invoice, i) => {
+                        if (i >= startpagination & i < endpagination) {
+                          return (
+                            <tr key={i}>
+                              <td>
+                                <span className="custom-checkbox">
+                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                  <label htmlFor="checkbox1"></label>
+                                </span>
+                              </td>
+                              <td>{i + 1}</td>
+                              <td>{invoice.date}</td>
+                              <td>{invoice.invoiceNumber}</td>
+                              <td>{invoice.supplier.name}</td>
+                              <td>{invoice.totalAmount}</td>
+                              <td>{invoice.discount}</td>
+                              <td>{invoice.salesTax}</td>
+                              <td>{invoice.additionalCost}</td>
+                              <td>{invoice.netAmount}</td>
+                              <td>{invoice.invoiceType}</td>
+                              <td>{invoice.paidAmount}</td>
+                              <td>{invoice.balanceDue}</td>
+                              <td>{invoice.paymentStatus}</td>
+                              <td>{invoice.paymentStatus}</td>
+                              <td>{invoice.paymentMethod}</td>
+                              <td>{invoice.CashRegister}</td>
+                              <td>{usertitle(invoice.createdBy)}</td>
+                              <td>{usertitle(invoice.notes)}</td>
+                              <td>
+                                {/* <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                              </td>
+                            </tr>
+                          )
+                        }
+                      })
+                      }
+                    </tbody>
+                  </table>
+                  <div className="clearfix">
+                    <div className="hint-text text-dark">عرض <b>{allPurchaseInvoice.length > endpagination ? endpagination : allPurchaseInvoice.length}</b> من <b>{allPurchaseInvoice.length}</b> عنصر</div>
+                    <ul className="pagination">
+                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                    </ul>
                   </div>
                 </div>
               </div>
+              <div id="addStockactionModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={(e) => createStockAction(e, employeeLoginInfo.employeeinfo.id)}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div class="modal-body container ">
+
+                        <div class="card">
+                          <div class="card-header text-center">
+                            <h4>INVOICE</h4>
+                          </div>
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="col-8">
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Customer</span>
+                                  <input type="text" class="form-control" placeholder="Customer" />
+                                </div>
+
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Address</span>
+                                  <input type="text" class="form-control" placeholder="Address" />
+                                </div>
+
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >City</span>
+                                  <input type="text" class="form-control" placeholder="City" />
+                                </div>
+                              </div>
+                              <div class="col-4">
+
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Inv. No</span>
+                                  <input type="text" class="form-control" placeholder="Inv. No" />
+                                </div>
+
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Inv. Date</span>
+                                  <input type="date" class="form-control" placeholder="Inv. Date" />
+                                </div>
+
+
+
+                              </div>
+                            </div>
+
+
+                            <table class="table table-bordered">
+                              <thead class="table-success">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Particular</th>
+                                  <th scope="col" class="text-end">Qty</th>
+                                  <th scope="col" class="text-end">Rate</th>
+                                  <th scope="col" class="text-end">Amount</th>
+                                  <th scope="col" class="NoPrint">
+                                    <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()">+</button>
+
+                                  </th>
+
+                                </tr>
+                              </thead>
+                              <tbody id="TBody">
+                                <tr id="TRow" class="d-none">
+                                  <th scope="row">1</th>
+                                  <td><input type="text" class="form-control" /></td>
+                                  <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);" /></td>
+                                  <td><input type="number" class="form-control text-end" name="rate" onchange="Calc(this);" /></td>
+                                  <td><input type="number" class="form-control text-end" name="amt" value="0" disabled="" /></td>
+                                  <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+
+                            <div class="row">
+                              <div class="col-8">
+
+                                <button type="button" class="btn btn-primary" onclick="GetPrint()">Print</button>
+
+                              </div>
+                              <div class="col-4">
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Total</span>
+                                  <input type="number" class="form-control text-end" id="FTotal" name="FTotal" disabled="" />
+                                </div>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >GST</span>
+                                  <input type="number" class="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
+                                </div>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" >Net Amt</span>
+                                  <input type="number" class="form-control text-end" id="FNet" name="FNet" disabled="" />
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {/* <div id="editStockactionModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={(e) => updateStockaction(e, employeeLoginInfo.employeeinfo.id)}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="form-group form-group-47">
+                          <label>نوع الحركه</label>
+                          <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
+                            <option >اختر الاجراء</option>
+                            {Stockmovement.map((statu, i) => {
+                              return <option key={i} defaultValue={statu}>{statu}</option>
+                            })}
+                          </select>
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>الصنف</label>
+                          <select name="" id="" onChange={(e) => {
+                            setitemId(e.target.value);
+                            setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
+                            setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
+                          }}>
+                            <option >اختر الصنف</option>
+                            {StockItems.map((item, i) => {
+                              return <option key={i} value={item._id}>{item.itemName}</option>
+                            })}
+                          </select>
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>الكمية</label>
+                          {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
+                            <>
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
+                              <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
+                            </>
+                            : movement == "Purchase" || movement == "ReturnPurchase" ? <>
+                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
+                              <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
+                            </> : ''}
+                        </div>
+
+                        <div className="form-group form-group-47">
+                          <label>السعر</label>
+                          {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
+                            <input type='Number' className="form-control" readOnly required defaultValue={price} />
+                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
+                          }
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>التكلفة</label>
+                          <input type='Number' className="form-control" Value={cost} readOnly />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>الرصيد</label>
+                          <input type='text' className="form-control" Value={oldBalance} readOnly />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>الرصيد الجديد</label>
+                          <input type='text' className="form-control" Value={newBalance} readOnly />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>التاريخ</label>
+                          <input type="text" className="form-control" Value={actionAt} readOnly />
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div> */}
+              {/* <div id="deleteStockactionModal" className="modal fade">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={deleteStockaction}>
+                      <div className="modal-header">
+                        <h4 className="modal-title">حذف منتج</h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <div className="modal-body">
+                        <p>هل انت متاكد من حذف هذا السجل؟</p>
+                        <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
+                      </div>
+                      <div className="modal-footer">
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div> */}
             </div>
-    
-        </div>
-  )
-}
+
+
+          )
+        }
       }
     </detacontext.Consumer >
 

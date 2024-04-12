@@ -106,7 +106,7 @@ app.use('/api/auth', routeauth);
 app.use('/api/categoryStock', routecategoryStock);
 app.use('/api/stockitem', routestockitems);
 app.use('/api/supplier', routesupplier);
-app.use('/api/purchase', routepurchase);
+app.use('/api/purchaseinvoice', routepurchase);
 app.use('/api/stockmanag', routestockmanag);
 app.use('/api/kitchenconsumption', routekitchenconsumption);
 app.use('/api/expenses', routeexpense);
