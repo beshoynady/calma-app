@@ -336,7 +336,26 @@ const Purchase = () => {
   }, [quantity, price]);
 
 
+  $(document).ready(function () {
+    // Add item
+    $("#addItem").click(function () {
+      var newRow = $("<tr>");
+      var cols = "";
 
+      cols += '<td><input type="text" class="form-control" name="itemName[]" required></td>';
+      cols += '<td><input type="number" class="form-control" name="itemQty[]" min="1" value="1" required></td>';
+      cols += '<td><input type="number" class="form-control" name="itemPrice[]" min="0.01" step="0.01" value="1.00" required></td>';
+      cols += '<td><button type="button" class="btn btn-danger btn-sm deleteItem">Delete</button></td>';
+
+      newRow.append(cols);
+      $("#invoiceItems").append(newRow);
+    });
+
+    // Delete item
+    $("table").on("click", ".deleteItem", function () {
+      $(this).closest("tr").remove();
+    });
+  });
 
   return (
     <detacontext.Consumer>
@@ -707,69 +726,52 @@ const Purchase = () => {
             //   </div>
             // </div>
 
-            <div class="container py-4">
-            <form>
-              <div class="mb-3">
-                <label for="cashier" class="form-label">Cashier Name:</label>
-                <input type="text" class="form-control" id="cashier" required/>
-              </div>
-              <div class="mb-3">
-                <label for="customer" class="form-label">Customer Name:</label>
-                <input type="text" class="form-control" id="customer" required/>
-              </div>
-              <div class="mb-3">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">ITEM</th>
-                      <th scope="col" class="text-center">QTY</th>
-                      <th scope="col" class="text-end">PRICE</th>
-                    </tr>
-                  </thead>
-                  <tbody id="invoiceItems">
-                    {/* <!-- Invoice items will be dynamically added here --> */}
-                  </tbody>
-                </table>
-              </div>
-              <div class="mb-3">
-                <button type="button" class="btn btn-primary" id="addItem">Add Item</button>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="discount" class="form-label">Discount:</label>
-                  <input type="number" class="form-control" id="discount"/>
-                </div>
-                <div class="col">
-                  <label for="tax" class="form-label">Tax:</label>
-                  <input type="number" class="form-control" id="tax"/>
-                </div>
-              </div>
-              <div class="mb-3 mt-4 text-end">
-                <button type="submit" class="btn btn-primary">Review Invoice</button>
-              </div>
-            </form>
-            {/* <!-- Invoice Modal --> */}
-            <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="invoiceModalLabel">Invoice</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    {/* <!-- Invoice content will be dynamically added here --> */}
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="downloadInvoice">Download</button>
-                    <button type="button" class="btn btn-primary" id="addNextInvoice">Next</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        
-
+<div class="container mt-5">
+    <form>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="cashierName" class="form-label">Cashier Name</label>
+          <input type="text" class="form-control" id="cashierName" required/>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="customerName" class="form-label">Customer Name</label>
+          <input type="text" class="form-control" id="customerName" required/>
+        </div>
+      </div>
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceItems">
+            <tr>
+              <td><input type="text" class="form-control" name="itemName[]" required /></td>
+              <td><input type="number" class="form-control" name="itemQty[]" min="1" value="1" required /></td>
+              <td><input type="number" class="form-control" name="itemPrice[]" min="0.01" step="0.01" value="1.00" required /></td>
+              <td><button type="button" class="btn btn-danger btn-sm deleteItem">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="btn btn-primary mb-3" id="addItem">Add Item</button>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="discount" class="form-label">Discount (%)</label>
+          <input type="number" class="form-control" id="discount" min="0" step="0.01"/>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="tax" class="form-label">Tax (%)</label>
+          <input type="number" class="form-control" id="tax" min="0" step="0.01"/>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Review Invoice</button>
+    </form>
+  </div>
           )
         }
       }
