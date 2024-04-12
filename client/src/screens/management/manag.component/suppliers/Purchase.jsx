@@ -32,7 +32,7 @@ const Purchase = () => {
   const getaStockItems = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/stockitem/', config);
-      if(response){
+      if (response) {
         console.log(response.data)
         setStockItems(response.data.reverse())
       }
@@ -726,56 +726,108 @@ const Purchase = () => {
             //   </div>
             // </div>
 
-<div class="container mt-5">
-    <form>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="cashierName" class="form-label">Cashier Name</label>
-          <input type="text" class="form-control" id="cashierName" required/>
+            <div class="container ">
+
+              <div class="card">
+                <div class="card-header text-center">
+                  <h4>INVOICE</h4>
+                </div>
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" >Customer</span>
+                        <input type="text" class="form-control" placeholder="Customer" />
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" >Address</span>
+                        <input type="text" class="form-control" placeholder="Address" />
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" >City</span>
+                        <input type="text" class="form-control" placeholder="City" />
+                      </div>
+                    </div>
+                    <div class="col-4">
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" >Inv. No</span>
+                        <input type="text" class="form-control" placeholder="Inv. No" />
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" >Inv. Date</span>
+                        <input type="date" class="form-control" placeholder="Inv. Date" />
+                      </div>
+
+
+
+                    </div>
+                  </div>
+
+
+                  <table class="table table-bordered">
+                    <thead class="table-success">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Particular</th>
+                        <th scope="col" class="text-end">Qty</th>
+                        <th scope="col" class="text-end">Rate</th>
+                        <th scope="col" class="text-end">Amount</th>
+                        <th scope="col" class="NoPrint">
+                          <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()">+</button>
+
+                        </th>
+
+                      </tr>
+                    </thead>
+                    <tbody id="TBody">
+                      <tr id="TRow" class="d-none">
+                        <th scope="row">1</th>
+                        <td><input type="text" class="form-control" /></td>
+                        <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);" /></td>
+                        <td><input type="number" class="form-control text-end" name="rate" onchange="Calc(this);" /></td>
+                        <td><input type="number" class="form-control text-end" name="amt" value="0" disabled=""/></td>
+                        <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                <div class="row">
+                  <div class="col-8">
+
+                    <button type="button" class="btn btn-primary" onclick="GetPrint()">Print</button>
+
+                  </div>
+                  <div class="col-4">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" >Total</span>
+                      <input type="number" class="form-control text-end" id="FTotal" name="FTotal" disabled="" />
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" >GST</span>
+                      <input type="number" class="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" >Net Amt</span>
+                      <input type="number" class="form-control text-end" id="FNet" name="FNet" disabled="" />
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+    
         </div>
-        <div class="col-md-6 mb-3">
-          <label for="customerName" class="form-label">Customer Name</label>
-          <input type="text" class="form-control" id="customerName" required/>
-        </div>
-      </div>
-      <div class="table-responsive mb-3">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="invoiceItems">
-            <tr>
-              <td><input type="text" class="form-control" name="itemName[]" required /></td>
-              <td><input type="number" class="form-control" name="itemQty[]" min="1" value="1" required /></td>
-              <td><input type="number" class="form-control" name="itemPrice[]" min="0.01" step="0.01" value="1.00" required /></td>
-              <td><button type="button" class="btn btn-danger btn-sm deleteItem">Delete</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <button type="button" class="btn btn-primary mb-3" id="addItem">Add Item</button>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="discount" class="form-label">Discount (%)</label>
-          <input type="number" class="form-control" id="discount" min="0" step="0.01"/>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="tax" class="form-label">Tax (%)</label>
-          <input type="number" class="form-control" id="tax" min="0" step="0.01"/>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Review Invoice</button>
-    </form>
-  </div>
-          )
-        }
+  )
+}
       }
-    </detacontext.Consumer>
+    </detacontext.Consumer >
 
   )
 }
