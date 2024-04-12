@@ -336,27 +336,6 @@ const Purchase = () => {
   }, [quantity, price]);
 
 
-  $(document).ready(function () {
-    // Add item
-    $("#addItem").click(function () {
-      var newRow = $("<tr>");
-      var cols = "";
-
-      cols += '<td><input type="text" class="form-control" name="itemName[]" required></td>';
-      cols += '<td><input type="number" class="form-control" name="itemQty[]" min="1" value="1" required></td>';
-      cols += '<td><input type="number" class="form-control" name="itemPrice[]" min="0.01" step="0.01" value="1.00" required></td>';
-      cols += '<td><button type="button" class="btn btn-danger btn-sm deleteItem">Delete</button></td>';
-
-      newRow.append(cols);
-      $("#invoiceItems").append(newRow);
-    });
-
-    // Delete item
-    $("table").on("click", ".deleteItem", function () {
-      $(this).closest("tr").remove();
-    });
-  });
-
   return (
     <detacontext.Consumer>
       {
