@@ -481,12 +481,12 @@ const Purchase = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
+                  <div className="table-filter">
+                    <div className="row text-dark">
+                      <div className="col-sm-3">
+                        <div className="show-entries">
                           <label>عرض</label>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             {
                               (() => {
                                 const options = [];
@@ -500,15 +500,15 @@ const Purchase = () => {
                           <label>صفوف</label>
                         </div>
                       </div>
-                      <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
-                        <div class="filter-group">
+                      <div className="col-sm-9">
+                        <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
+                        <div className="filter-group">
                           <label>اسم الصنف</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
+                          <input type="text" className="form-control" onChange={(e) => searchByitem(e.target.value)} />
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>نوع الاوردر</label>
-                          <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
+                          <select className="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
                             {Stockmovement.map(movement => {
                               return <option value={movement}>{movement}</option>;
@@ -516,9 +516,9 @@ const Purchase = () => {
                           </select>
                         </div>
 
-                        {/* <div class="filter-group">
+                        {/* <div className="filter-group">
                           <label>Location</label>
-                          <select class="form-control">
+                          <select className="form-control">
                             <option>All</option>
                             <option>Berlin</option>
                             <option>London</option>
@@ -527,9 +527,9 @@ const Purchase = () => {
                             <option>Paris</option>
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>Status</label>
-                          <select class="form-control">
+                          <select className="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>
@@ -537,7 +537,7 @@ const Purchase = () => {
                             <option>Cancelled</option>
                           </select>
                         </div>
-                        <label class="filter-icon"><i class="fa fa-filter"></i></label> */}
+                        <label className="filter-icon"><i className="fa fa-filter"></i></label> */}
                       </div>
                     </div>
                   </div>
@@ -628,64 +628,64 @@ const Purchase = () => {
               <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createPurchaseInvoice(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={(e) => createPurchaseInvoice(e)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
-                      <div class="modal-body container ">
+                      <div className="modal-body container ">
 
-                        <div class="card">
-                          <div class="card-header text-center">
+                        <div className="card">
+                          <div className="card-header text-center">
                             <h4>INVOICE</h4>
                           </div>
 
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-8">
-                                <div class="input-group mb-3">
-                                  <select class="input-group-text" onChange={(e) => setAllSuppliers(e.target.value)}>المورد</select>
+                          <div className="card-body">
+                            <div className="row">
+                              <div className="col-8">
+                                <div className="input-group mb-3">
+                                  <select className="input-group-text" onChange={(e) => setAllSuppliers(e.target.value)}>المورد</select>
                                   {AllSuppliers.map((supplier, i) => {
                                     return <option value={supplier._id} key={i}>{supplier.name}</option>
                                   })}
                                 </div>
 
-                                {/* <div class="input-group mb-3">
-                                  <label class="input-group-text" >رقم الفاتورة</label>
-                                  <input type="text" class="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                {/* <div className="input-group mb-3">
+                                  <label className="input-group-text" >رقم الفاتورة</label>
+                                  <input type="text" className="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div> */}
 
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >الملاحظات</label>
-                                  <input type="text" class="form-control" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >الملاحظات</label>
+                                  <input type="text" className="form-control" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
                                 </div>
                               </div>
-                              <div class="col-4">
+                              <div className="col-4">
 
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >رقم الفاتورة</label>
-                                  <input type="text" class="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >رقم الفاتورة</label>
+                                  <input type="text" className="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
 
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >تاريخ الفاتورة</label>
-                                  <input type="date" class="form-control" placeholder="تاريخ الفاتور" />
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >تاريخ الفاتورة</label>
+                                  <input type="date" className="form-control" placeholder="تاريخ الفاتور" />
                                 </div>
                               </div>
                             </div>
 
 
-                            <table class="table table-bordered">
-                              <thead class="table-success">
+                            <table className="table table-bordered">
+                              <thead className="table-success">
                                 <tr>
                                   <th scope="col">#</th>
                                   <th scope="col">الصنف</th>
-                                  <th scope="col" class="text-end">الكمية</th>
-                                  <th scope="col" class="text-end">السعر</th>
-                                  <th scope="col" class="text-end">الثمن</th>
-                                  <th scope="col" class="text-end">انتهاء</th>
-                                  <th scope="col" class="NoPrint">
-                                    <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()" onClick={handleNewItem}>+</button>
+                                  <th scope="col" className="text-end">الكمية</th>
+                                  <th scope="col" className="text-end">السعر</th>
+                                  <th scope="col" className="text-end">الثمن</th>
+                                  <th scope="col" className="text-end">انتهاء</th>
+                                  <th scope="col" className="NoPrint">
+                                    <button type="button" className="btn btn-sm btn-success" onclick="BtnAdd()" onClick={handleNewItem}>+</button>
                                   </th>
                                 </tr>
                               </thead>
@@ -702,12 +702,12 @@ const Purchase = () => {
                                         return <option value={stock._id} key={i}>{stock.name}</option>
                                       })}
                                     </select>
-                                    <input type="text" class="form-control" />{}</td>
-                                  <td><input type="number" class="form-control text-end" name="qty" onchange={(e)=>handleQuantity(e.target.value, i)} /></td>
-                                  <td><input type="number" class="form-control text-end" name="price" onchange={(e)=>handlePrice(e.target.value, i)} /></td>
-                                  <td><input type="number" class="form-control text-end" name="amt" value="0" disabled="" readOnly /></td>
-                                  <td><input type="date" class="form-control text-end" name="Exp" value="0" disabled="" onchange={(e)=>handleExpirationDate(e.target.value, i)}  /></td>
-                                  <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick={()=>handleDeleteItem(i)}>X</button></td>
+                                    <input type="text" className="form-control" />{}</td>
+                                  <td><input type="number" className="form-control text-end" name="qty" onchange={(e)=>handleQuantity(e.target.value, i)} /></td>
+                                  <td><input type="number" className="form-control text-end" name="price" onchange={(e)=>handlePrice(e.target.value, i)} /></td>
+                                  <td><input type="number" className="form-control text-end" name="amt" value="0" disabled="" readOnly /></td>
+                                  <td><input type="date" className="form-control text-end" name="Exp" value="0" disabled="" onchange={(e)=>handleExpirationDate(e.target.value, i)}  /></td>
+                                  <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onclick={()=>handleDeleteItem(i)}>X</button></td>
                                 </tr>
                                   )
                                 })}
@@ -715,24 +715,24 @@ const Purchase = () => {
                             </table>
 
 
-                            <div class="row">
-                              <div class="col-8">
+                            <div className="row">
+                              <div className="col-8">
 
-                                <button type="button" class="btn btn-primary" onclick="GetPrint()">Print</button>
+                                <button type="button" className="btn btn-primary" onclick="GetPrint()">Print</button>
 
                               </div>
-                              <div class="col-4">
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >Total</label>
-                                  <input type="number" class="form-control text-end" id="FTotal" name="FTotal" disabled="" />
+                              <div className="col-4">
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >Total</label>
+                                  <input type="number" className="form-control text-end" id="FTotal" name="FTotal" disabled="" />
                                 </div>
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >GST</label>
-                                  <input type="number" class="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >GST</label>
+                                  <input type="number" className="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
                                 </div>
-                                <div class="input-group mb-3">
-                                  <label class="input-group-text" >Net Amt</label>
-                                  <input type="number" class="form-control text-end" id="FNet" name="FNet" disabled="" />
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" >Net Amt</label>
+                                  <input type="number" className="form-control text-end" id="FNet" name="FNet" disabled="" />
                                 </div>
 
                               </div>
