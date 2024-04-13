@@ -668,15 +668,15 @@ const Purchase = () => {
                               </div>
                             </div>
 
-                            <table className="table table-bordered">
+                            <table className="table table-bordered table-striped table-hover">
                               <thead className="table-success">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col" className="col-auto">الصنف</th>
-                                  <th scope="col" className="col-auto text-center">الكمية</th>
-                                  <th scope="col" className="col-auto text-center">السعر</th>
-                                  <th scope="col" className="col-auto text-center">الثمن</th>
-                                  <th scope="col" className="col-auto text-center">انتهاء</th>
+                                  <th scope="col" className="col-2">الصنف</th>
+                                  <th scope="col" className="col-auto">الكمية</th>
+                                  <th scope="col" className="col-auto">السعر</th>
+                                  <th scope="col" className="col-auto">الثمن</th>
+                                  <th scope="col" className="col-auto">انتهاء</th>
                                   <th scope="col" className="col-auto NoPrint">
                                     <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
                                   </th>
@@ -687,7 +687,7 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" onChange={(e) => handleItemId(e.target.value, i)}>
+                                      <select className="form-select">
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
@@ -696,40 +696,40 @@ const Purchase = () => {
                                         ))}
                                       </select>
                                     </td>
-                                    <td><input type="number" className="form-control text-center" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-
-                                    <td><input type="number" className="form-control text-center" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
-                                    <td><input type="number" className="form-control text-center" name="amt"  readOnly /></td>
-                                    <td><input type="date" className="form-control text-center" name="Exp"  onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="text" className="form-control" name="amt" readOnly /></td>
+                                    <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
                                 ))}
                               </tbody>
                             </table>
 
+
                             <div className="row">
-                              <div className="col-8">
+                              <div className="col-6">
                                 <button type="button" className="btn btn-primary" >Print</button>
                               </div>
-                              <div className="col-4">
+                              <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="totalInput">الإجمالي</label>
-                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal"  />
+                                  <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
+                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal" />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</label>
+                                  <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
                                   <input type="number" className="form-control text-end" id="gstInput" name="FGST" />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="gstInput">خصم</label>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST"  set />
+                                  <span className="input-group-text" htmlFor="gstInput">خصم</span>
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" set />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="gstInput">تكلفه اضافية</label>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST"  />
+                                  <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</label>
+                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
                                   <input type="number" className="form-control text-end" id="netAmountInput" name="FNet" disabled />
                                 </div>
                               </div>
@@ -757,7 +757,7 @@ const Purchase = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group form-group-47">
-                          <label>نوع الحركه</label>
+                          <span>نوع الحركه</span>
                           <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
                             <option >اختر الاجراء</option>
                             {Stockmovement.map((statu, i) => {
