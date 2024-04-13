@@ -642,7 +642,7 @@ const Purchase = () => {
 
                           <div className="card-body">
                             <div className="row">
-                              <div className="col-8">
+                              <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
                                   <select className="form-select" id="supplierSelect" onChange={(e) => setAllSuppliers(e.target.value)}>
@@ -656,7 +656,7 @@ const Purchase = () => {
                                   <input type="text" className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
                                 </div>
                               </div>
-                              <div className="col-4">
+                              <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
                                   <input type="text" className="form-control" id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
@@ -718,6 +718,14 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <label className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</label>
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" htmlFor="gstInput">خصم</label>
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST"  set />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <label className="input-group-text" htmlFor="gstInput">تكلفه اضافية</label>
                                   <input type="number" className="form-control text-end" id="gstInput" name="FGST"  />
                                 </div>
                                 <div className="input-group mb-3">
