@@ -330,14 +330,14 @@ const Purchase = () => {
   const handleQuantity = (quantity, index) => {
     const updatedItems = [...items]
     updatedItems[index].quantity = quantity
-    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(updatedItems[index].price);
+    updatedItems[index].total = Number(quantity) * Number(updatedItems[index].price);
     setItems(updatedItems)
 
   }
   const handlePrice = (price, index) => {
     const updatedItems = [...items]
     updatedItems[index].price = price
-    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(updatedItems[index].price);
+    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(price);
     setItems(updatedItems)
   }
   const handleExpirationDate = (date, index) => {
@@ -672,12 +672,12 @@ const Purchase = () => {
                               <thead className="table-success">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col">الصنف</th>
-                                  <th scope="col" className="text-end">الكمية</th>
-                                  <th scope="col" className="text-end">السعر</th>
-                                  <th scope="col" className="text-end">الثمن</th>
-                                  <th scope="col" className="text-end">انتهاء</th>
-                                  <th scope="col" className="NoPrint">
+                                  <th scope="col" className="col-auto">الصنف</th>
+                                  <th scope="col" className="col-auto text-center">الكمية</th>
+                                  <th scope="col" className="col-auto text-center">السعر</th>
+                                  <th scope="col" className="col-auto text-center">الثمن</th>
+                                  <th scope="col" className="col-auto text-center">انتهاء</th>
+                                  <th scope="col" className="col-auto NoPrint">
                                     <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
                                   </th>
                                 </tr>
@@ -696,11 +696,11 @@ const Purchase = () => {
                                         ))}
                                       </select>
                                     </td>
-                                    <td><input type="number" className="form-control text-end" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control text-center" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
 
-                                    <td><input type="number" className="form-control text-end" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
-                                    <td><input type="number" className="form-control text-end" name="amt" value="0" disabled readOnly /></td>
-                                    <td><input type="date" className="form-control text-end" name="Exp" value="0" disabled onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control text-center" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control text-center" name="amt"  readOnly /></td>
+                                    <td><input type="date" className="form-control text-center" name="Exp"  onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
                                 ))}
@@ -714,7 +714,7 @@ const Purchase = () => {
                               <div className="col-4">
                                 <div className="input-group mb-3">
                                   <label className="input-group-text" htmlFor="totalInput">الإجمالي</label>
-                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal" disabled />
+                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal"  />
                                 </div>
                                 <div className="input-group mb-3">
                                   <label className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</label>
