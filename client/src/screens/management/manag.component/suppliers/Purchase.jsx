@@ -718,7 +718,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <label className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</label>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" onChange={GetTotal} />
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST"  />
                                 </div>
                                 <div className="input-group mb-3">
                                   <label className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</label>
