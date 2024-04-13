@@ -676,12 +676,12 @@ const Purchase = () => {
                               <thead className="table-success">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col" className="col-2">الصنف</th>
-                                  <th scope="col" className="col-auto">الكمية</th>
-                                  <th scope="col" className="col-auto">السعر</th>
-                                  <th scope="col" className="col-auto">الثمن</th>
-                                  <th scope="col" className="col-auto">انتهاء</th>
-                                  <th scope="col" className="col-auto NoPrint">
+                                  <th scope="col" className="col-4">الصنف</th>
+                                  <th scope="col" className="col-2">الكمية</th>
+                                  <th scope="col" className="col-2">السعر</th>
+                                  <th scope="col" className="col-2">الثمن</th>
+                                  <th scope="col" className="col-2">انتهاء</th>
+                                  <th scope="col" className="col-4 NoPrint">
                                     <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
                                   </th>
                                 </tr>
