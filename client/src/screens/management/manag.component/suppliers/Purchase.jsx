@@ -641,10 +641,10 @@ const Purchase = () => {
 
                         <div className="card">
                           <div className="card-header text-center">
-                            <h4>INVOICE</h4>
+                            <h4>ادخل بيانات فاتورة الشراء</h4>
                           </div>
 
-                          <div className="card-body">
+                          <div className="card-body min-content">
                             <div className="row">
                               <div className="col-6">
                                 <div className="input-group mb-3">
@@ -691,7 +691,7 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" onChange={(e)=>handleItemId(e.target.value)}>
+                                      <select className="form-select" onChange={(e)=>handleItemId(e.target.value, i)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
@@ -702,7 +702,7 @@ const Purchase = () => {
                                     </td>
                                     <td><input type="number" className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
                                     <td><input type="number" className="form-control" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
-                                    <td><input type="text" className="form-control" name="amt" readOnly /></td>
+                                    <td><input type="text" className="form-control" defaultValue={item.total} name="amt" readOnly /></td>
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
