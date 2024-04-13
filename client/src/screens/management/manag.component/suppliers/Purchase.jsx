@@ -709,7 +709,7 @@ const Purchase = () => {
 
                             <div className="row">
                               <div className="col-8">
-                                <button type="button" className="btn btn-primary" onClick={GetPrint}>Print</button>
+                                <button type="button" className="btn btn-primary" >Print</button>
                               </div>
                               <div className="col-4">
                                 <div className="input-group mb-3">
