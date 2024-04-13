@@ -325,24 +325,28 @@ const Purchase = () => {
   const handleItemId = (id, index) => {
     const updatedItems = [...items]
     updatedItems[index].item = id
+    console.log({updatedItems})
     setItems(updatedItems)
   }
   const handleQuantity = (quantity, index) => {
     const updatedItems = [...items]
-    updatedItems[index].quantity = quantity
+    updatedItems[index].quantity = Number(quantity)
     updatedItems[index].total = Number(quantity) * Number(updatedItems[index].price);
+    console.log({updatedItems})
     setItems(updatedItems)
 
   }
   const handlePrice = (price, index) => {
     const updatedItems = [...items]
-    updatedItems[index].price = price
+    updatedItems[index].price = Number(price)
     updatedItems[index].total = Number(updatedItems[index].quantity) * Number(price);
+    console.log({updatedItems})
     setItems(updatedItems)
   }
   const handleExpirationDate = (date, index) => {
     const updatedItems = [...items]
     updatedItems[index].expirationDate = new Date(date);
+    console.log({updatedItems})
     setItems(updatedItems)
   }
 
@@ -687,12 +691,12 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select">
+                                      <select className="form-select" onChange={(e)=>handleItemId(e.target.value)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
                                         {StockItems.map((stock, j) => (
-                                          <option value={stock._id} key={j}>{stock.name}</option>
+                                          <option value={stock._id} key={j}>{stock.itemName}</option>
                                         ))}
                                       </select>
                                     </td>
