@@ -318,32 +318,32 @@ const Purchase = () => {
     setItems([...items, { item: '', quantity: 0, price: 0, total: 0, expirationDate: '' }])
   }
   const handleDeleteItem = (index) => {
-    const colonItems = [...items]
-    colonItems.splice(index, 1)
-    setItems(colonItems)
+    const updatedItems = [...items]
+    updatedItems.splice(index, 1)
+    setItems(updatedItems)
   }
   const handleItemId = (id, index) => {
-    const colonItems = [...items]
-    colonItems[index].item = id
-    setItems(colonItems)
+    const updatedItems = [...items]
+    updatedItems[index].item = id
+    setItems(updatedItems)
   }
   const handleQuantity = (quantity, index) => {
-    const colonItems = [...items]
-    colonItems[index].quantity = quantity
-    colonItems[index].total = colonItems[index].quantity * colonItems[index].price;
-    setItems(colonItems)
+    const updatedItems = [...items]
+    updatedItems[index].quantity = quantity
+    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(updatedItems[index].price);
+    setItems(updatedItems)
 
   }
   const handlePrice = (price, index) => {
-    const colonItems = [...items]
-    colonItems[index].price = price
-    colonItems[index].total = colonItems[index].quantity * colonItems[index].price;
-    setItems(colonItems)
+    const updatedItems = [...items]
+    updatedItems[index].price = price
+    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(updatedItems[index].price);
+    setItems(updatedItems)
   }
   const handleExpirationDate = (date, index) => {
-    const colonItems = [...items]
-    colonItems[index].expirationDate = new Date(date);
-    setItems(colonItems)
+    const updatedItems = [...items]
+    updatedItems[index].expirationDate = new Date(date);
+    setItems(updatedItems)
   }
 
   const [invoiceNumber, setInvoiceNumber] = useState('');
@@ -644,36 +644,29 @@ const Purchase = () => {
                             <div className="row">
                               <div className="col-8">
                                 <div className="input-group mb-3">
-                                  <select className="input-group-text" onChange={(e) => setAllSuppliers(e.target.value)}>المورد</select>
-                                  {AllSuppliers.map((supplier, i) => {
-                                    return <option value={supplier._id} key={i}>{supplier.name}</option>
-                                  })}
+                                  <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
+                                  <select className="form-select" id="supplierSelect" onChange={(e) => setAllSuppliers(e.target.value)}>
+                                    {AllSuppliers.map((supplier, i) => (
+                                      <option value={supplier._id} key={i}>{supplier.name}</option>
+                                    ))}
+                                  </select>
                                 </div>
-
-                                {/* <div className="input-group mb-3">
-                                  <label className="input-group-text" >رقم الفاتورة</label>
-                                  <input type="text" className="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
-                                </div> */}
-
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >الملاحظات</label>
-                                  <input type="text" className="form-control" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
+                                  <input type="text" className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
                                 </div>
                               </div>
                               <div className="col-4">
-
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >رقم الفاتورة</label>
-                                  <input type="text" className="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
+                                  <input type="text" className="form-control" id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
-
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >تاريخ الفاتورة</label>
-                                  <input type="date" className="form-control" placeholder="تاريخ الفاتور" />
+                                  <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
+                                  <input type="date" className="form-control" id="invoiceDateInput" placeholder="تاريخ الفاتور" />
                                 </div>
                               </div>
                             </div>
-
 
                             <table className="table table-bordered">
                               <thead className="table-success">
@@ -685,59 +678,56 @@ const Purchase = () => {
                                   <th scope="col" className="text-end">الثمن</th>
                                   <th scope="col" className="text-end">انتهاء</th>
                                   <th scope="col" className="NoPrint">
-                                    <button type="button" className="btn btn-sm btn-success" onclick="BtnAdd()" onClick={handleNewItem}>+</button>
+                                    <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
                                   </th>
                                 </tr>
                               </thead>
                               <tbody id="TBody">
-                                {items.map((item, i)=>{
-                                  return(
-                                <tr id="TRow" >
-                                  <th scope="row">{i+1}</th>
-                                  <td>
-                                    <select name="" id="" onChange={(e)=>handleItemId(e.target.value, i)}>
-                                      <option value="">{StockItems&&StockItems.filter(stock=>stock._id === item.item)[0]?.name}</option>
-                                      
-                                      {StockItems.map((stock, i)=>{
-                                        return <option value={stock._id} key={i}>{stock.name}</option>
-                                      })}
-                                    </select>
-                                    <input type="text" className="form-control" />{}</td>
-                                  <td><input type="number" className="form-control text-end" name="qty" onchange={(e)=>handleQuantity(e.target.value, i)} /></td>
-                                  <td><input type="number" className="form-control text-end" name="price" onchange={(e)=>handlePrice(e.target.value, i)} /></td>
-                                  <td><input type="number" className="form-control text-end" name="amt" value="0" disabled="" readOnly /></td>
-                                  <td><input type="date" className="form-control text-end" name="Exp" value="0" disabled="" onchange={(e)=>handleExpirationDate(e.target.value, i)}  /></td>
-                                  <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onclick={()=>handleDeleteItem(i)}>X</button></td>
-                                </tr>
-                                  )
-                                })}
+                                {items.map((item, i) => (
+                                  <tr id="TRow" key={i}>
+                                    <th scope="row">{i + 1}</th>
+                                    <td>
+                                      <select className="form-select" onChange={(e) => handleItemId(e.target.value, i)}>
+                                        <option value="">
+                                          {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
+                                        </option>
+                                        {StockItems.map((stock, j) => (
+                                          <option value={stock._id} key={j}>{stock.name}</option>
+                                        ))}
+                                      </select>
+                                    </td>
+                                    <td><input type="number" className="form-control text-end" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+
+                                    <td><input type="number" className="form-control text-end" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control text-end" name="amt" value="0" disabled readOnly /></td>
+                                    <td><input type="date" className="form-control text-end" name="Exp" value="0" disabled onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
 
-
                             <div className="row">
                               <div className="col-8">
-
-                                <button type="button" className="btn btn-primary" onclick="GetPrint()">Print</button>
-
+                                <button type="button" className="btn btn-primary" onClick={GetPrint}>Print</button>
                               </div>
                               <div className="col-4">
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >Total</label>
-                                  <input type="number" className="form-control text-end" id="FTotal" name="FTotal" disabled="" />
+                                  <label className="input-group-text" htmlFor="totalInput">الإجمالي</label>
+                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal" disabled />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >GST</label>
-                                  <input type="number" className="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
+                                  <label className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</label>
+                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" onChange={GetTotal} />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" >Net Amt</label>
-                                  <input type="number" className="form-control text-end" id="FNet" name="FNet" disabled="" />
+                                  <label className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</label>
+                                  <input type="number" className="form-control text-end" id="netAmountInput" name="FNet" disabled />
                                 </div>
-
                               </div>
                             </div>
                           </div>
+
                         </div>
 
                       </div>
