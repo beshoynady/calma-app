@@ -286,12 +286,122 @@ const Purchase = () => {
     setStockitemFilterd(items)
   }
 
+  const [AllSuppliers, setAllSuppliers] = useState([]);
+  // Function to retrieve all suppliers
+  const getAllSuppliers = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/supplier/', config);
+
+      if (!response || !response.data) {
+        // Handle unexpected response or empty data
+        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
+      }
+
+      const suppliers = response.data.reverse();
+      if (suppliers.length > 0) {
+        setAllSuppliers(suppliers);
+        toast.success('تم استرداد جميع الموردين بنجاح');
+      }
+
+      // Notify on success
+    } catch (error) {
+      console.error(error);
+
+      // Notify on error
+      toast.error('فشل في استرداد الموردين');
+    }
+  };
+
+
+  const [items, setItems] = useState([{ item: '', quantity: 0, price: 0, total: 0, expirationDate: '' }]);
+  const handleNewItem = () => {
+    setItems([...items, { item: '', quantity: 0, price: 0, total: 0, expirationDate: '' }])
+  }
+  const handleDeleteItem = (index) => {
+    const colonItems = [...items]
+    colonItems.splice(index, 1)
+    setItems(colonItems)
+  }
+  const handleItemId = (id, index) => {
+    const colonItems = [...items]
+    colonItems[index].item = id
+    setItems(colonItems)
+  }
+  const handleQuantity = (quantity, index) => {
+    const colonItems = [...items]
+    colonItems[index].quantity = quantity
+    colonItems[index].total = colonItems[index].quantity * colonItems[index].price;
+    setItems(colonItems)
+
+  }
+  const handlePrice = (price, index) => {
+    const colonItems = [...items]
+    colonItems[index].price = price
+    colonItems[index].total = colonItems[index].quantity * colonItems[index].price;
+    setItems(colonItems)
+  }
+  const handleExpirationDate = (date, index) => {
+    const colonItems = [...items]
+    colonItems[index].expirationDate = new Date(date);
+    setItems(colonItems)
+  }
+
+  const [invoiceNumber, setInvoiceNumber] = useState('');
+  const [date, setDate] = useState('');
+  const [supplier, setSupplier] = useState('');
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [netAmount, setNetAmount] = useState(0);
+  const [salesTax, setSalesTax] = useState(0);
+  const [additionalCost, setAdditionalCost] = useState(0);
+  const [paidAmount, setPaidAmount] = useState(0);
+  const [balanceDue, setBalanceDue] = useState(0);
+  const [paymentDueDate, setPaymentDueDate] = useState('');
+  const [CashRegister, setCashRegister] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState('');
+  const [invoiceType, setInvoiceType] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const createPurchaseInvoice = async (e) => {
+    e.preventDefault()
+    try {
+      const newInvoice = {
+        invoiceNumber,
+        date,
+        supplier,
+        items,
+        totalAmount,
+        discount,
+        netAmount,
+        salesTax,
+        additionalCost,
+        paidAmount,
+        balanceDue,
+        paymentDueDate,
+        CashRegister,
+        paymentStatus,
+        invoiceType,
+        paymentMethod,
+        notes,
+      }
+      const response = await axios.post(`${apiUrl}/api/invoice`, newInvoice, config);
+      if (response.status === 200) {
+        getAallPurchases();
+        toast.success('تم اضافه المشتريات بنجاح')
+      } else {
+        toast.error('فشل اضافه المشتريات ! حاول مره اخري')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
+    }
+  }
 
   const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
   const getAallPurchases = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
-      if (response.status === 201) {
+      if (response.status === 200) {
         setallPurchaseInvoice(response.data)
       } else {
         toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
@@ -302,12 +412,14 @@ const Purchase = () => {
   }
 
 
+
   useEffect(() => {
     getAallPurchases()
     getallStockaction()
     getaStockItems()
     getAllCashRegisters()
     getallrecipes()
+    getAllSuppliers()
   }, [])
 
 
@@ -363,9 +475,9 @@ const Purchase = () => {
                         <h2>ادارة <b>المخزون</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addStockactionModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه منتج جديد</label></a>
 
-                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
                       </div>
                     </div>
                   </div>
@@ -373,7 +485,7 @@ const Purchase = () => {
                     <div class="row text-dark">
                       <div class="col-sm-3">
                         <div class="show-entries">
-                          <span>عرض</span>
+                          <label>عرض</label>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             {
                               (() => {
@@ -385,7 +497,7 @@ const Purchase = () => {
                               })()
                             }
                           </select>
-                          <span>صفوف</span>
+                          <label>صفوف</label>
                         </div>
                       </div>
                       <div class="col-sm-9">
@@ -425,7 +537,7 @@ const Purchase = () => {
                             <option>Cancelled</option>
                           </select>
                         </div>
-                        <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                        <label class="filter-icon"><i class="fa fa-filter"></i></label> */}
                       </div>
                     </div>
                   </div>
@@ -433,10 +545,10 @@ const Purchase = () => {
                     <thead>
                       <tr>
                         <th>
-                          <span className="custom-checkbox">
+                          <label className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
-                          </span>
+                          </label>
                         </th>
                         <th>م</th>
                         <th>التاريخ</th>
@@ -465,10 +577,10 @@ const Purchase = () => {
                           return (
                             <tr key={i}>
                               <td>
-                                <span className="custom-checkbox">
+                                <label className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
-                                </span>
+                                </label>
                               </td>
                               <td>{i + 1}</td>
                               <td>{invoice.date}</td>
@@ -513,10 +625,10 @@ const Purchase = () => {
                   </div>
                 </div>
               </div>
-              <div id="addStockactionModal" className="modal fade">
+              <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createStockAction(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={(e) => createPurchaseInvoice(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -527,39 +639,38 @@ const Purchase = () => {
                           <div class="card-header text-center">
                             <h4>INVOICE</h4>
                           </div>
-                          <div class="card-body">
 
+                          <div class="card-body">
                             <div class="row">
                               <div class="col-8">
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >Customer</span>
-                                  <input type="text" class="form-control" placeholder="Customer" />
+                                  <select class="input-group-text" onChange={(e) => setAllSuppliers(e.target.value)}>المورد</select>
+                                  {AllSuppliers.map((supplier, i) => {
+                                    return <option value={supplier._id} key={i}>{supplier.name}</option>
+                                  })}
                                 </div>
 
-                                <div class="input-group mb-3">
-                                  <span class="input-group-text" >Address</span>
-                                  <input type="text" class="form-control" placeholder="Address" />
-                                </div>
+                                {/* <div class="input-group mb-3">
+                                  <label class="input-group-text" >رقم الفاتورة</label>
+                                  <input type="text" class="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                </div> */}
 
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >City</span>
-                                  <input type="text" class="form-control" placeholder="City" />
+                                  <label class="input-group-text" >الملاحظات</label>
+                                  <input type="text" class="form-control" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
                                 </div>
                               </div>
                               <div class="col-4">
 
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >Inv. No</span>
-                                  <input type="text" class="form-control" placeholder="Inv. No" />
+                                  <label class="input-group-text" >رقم الفاتورة</label>
+                                  <input type="text" class="form-control" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
 
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >Inv. Date</span>
-                                  <input type="date" class="form-control" placeholder="Inv. Date" />
+                                  <label class="input-group-text" >تاريخ الفاتورة</label>
+                                  <input type="date" class="form-control" placeholder="تاريخ الفاتور" />
                                 </div>
-
-
-
                               </div>
                             </div>
 
@@ -568,26 +679,38 @@ const Purchase = () => {
                               <thead class="table-success">
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col">Particular</th>
-                                  <th scope="col" class="text-end">Qty</th>
-                                  <th scope="col" class="text-end">Rate</th>
-                                  <th scope="col" class="text-end">Amount</th>
+                                  <th scope="col">الصنف</th>
+                                  <th scope="col" class="text-end">الكمية</th>
+                                  <th scope="col" class="text-end">السعر</th>
+                                  <th scope="col" class="text-end">الثمن</th>
+                                  <th scope="col" class="text-end">انتهاء</th>
                                   <th scope="col" class="NoPrint">
-                                    <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()">+</button>
-
+                                    <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()" onClick={handleNewItem}>+</button>
                                   </th>
-
                                 </tr>
                               </thead>
                               <tbody id="TBody">
-                                <tr id="TRow" class="d-none">
-                                  <th scope="row">1</th>
-                                  <td><input type="text" class="form-control" /></td>
-                                  <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);" /></td>
-                                  <td><input type="number" class="form-control text-end" name="rate" onchange="Calc(this);" /></td>
-                                  <td><input type="number" class="form-control text-end" name="amt" value="0" disabled="" /></td>
-                                  <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
+                                {items.map((item, i)=>{
+                                  return(
+                                <tr id="TRow" >
+                                  <th scope="row">{i+1}</th>
+                                  <td>
+                                    <select name="" id="" onChange={(e)=>handleItemId(e.target.value, i)}>
+                                      <option value="">{StockItems&&StockItems.filter(stock=>stock._id === item.item)[0]?.name}</option>
+                                      
+                                      {StockItems.map((stock, i)=>{
+                                        return <option value={stock._id} key={i}>{stock.name}</option>
+                                      })}
+                                    </select>
+                                    <input type="text" class="form-control" />{}</td>
+                                  <td><input type="number" class="form-control text-end" name="qty" onchange={(e)=>handleQuantity(e.target.value, i)} /></td>
+                                  <td><input type="number" class="form-control text-end" name="price" onchange={(e)=>handlePrice(e.target.value, i)} /></td>
+                                  <td><input type="number" class="form-control text-end" name="amt" value="0" disabled="" readOnly /></td>
+                                  <td><input type="date" class="form-control text-end" name="Exp" value="0" disabled="" onchange={(e)=>handleExpirationDate(e.target.value, i)}  /></td>
+                                  <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick={()=>handleDeleteItem(i)}>X</button></td>
                                 </tr>
+                                  )
+                                })}
                               </tbody>
                             </table>
 
@@ -600,15 +723,15 @@ const Purchase = () => {
                               </div>
                               <div class="col-4">
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >Total</span>
+                                  <label class="input-group-text" >Total</label>
                                   <input type="number" class="form-control text-end" id="FTotal" name="FTotal" disabled="" />
                                 </div>
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >GST</span>
+                                  <label class="input-group-text" >GST</label>
                                   <input type="number" class="form-control text-end" id="FGST" name="FGST" onchange="GetTotal()" />
                                 </div>
                                 <div class="input-group mb-3">
-                                  <span class="input-group-text" >Net Amt</span>
+                                  <label class="input-group-text" >Net Amt</label>
                                   <input type="number" class="form-control text-end" id="FNet" name="FNet" disabled="" />
                                 </div>
 
