@@ -322,7 +322,6 @@ const Purchase = () => {
     updatedItems.splice(index, 1)
     setItems(updatedItems)
     clacTotalAmount()
-    calcNetAmount()
   }
   const handleItemId = (id, index) => {
     const updatedItems = [...items]
@@ -337,7 +336,6 @@ const Purchase = () => {
     console.log({updatedItems})
     setItems(updatedItems)
     clacTotalAmount()
-    calcNetAmount()
   }
   const handlePrice = (price, index) => {
     const updatedItems = [...items]
@@ -346,7 +344,6 @@ const Purchase = () => {
     console.log({updatedItems})
     setItems(updatedItems)
     clacTotalAmount()
-    calcNetAmount()
   }
   const handleExpirationDate = (date, index) => {
     const updatedItems = [...items]
@@ -373,7 +370,7 @@ const Purchase = () => {
   }
   useEffect(()=>{
     calcNetAmount()
-  },[additionalCost,discount,salesTax])
+  },[items,additionalCost,discount,salesTax])
 
   const [invoiceNumber, setInvoiceNumber] = useState('');
   const [date, setDate] = useState('');
