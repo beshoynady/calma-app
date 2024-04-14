@@ -774,7 +774,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select name="paymentMethod" id="paymentMethod" onChange={setPaymentMethod(e.target.value)}>
+                                  <select name="paymentMethod" id="paymentMethod" onChange={(e)=>setPaymentMethod(e.target.value)}>
                                     <option value="كاش">كاش</option>
                                     {financialInfo.map((financialInfo, i)=>{
                                       return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
