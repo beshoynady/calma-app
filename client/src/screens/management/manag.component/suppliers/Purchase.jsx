@@ -364,7 +364,7 @@ const Purchase = () => {
   const [salesTax, setSalesTax] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
   const calcNetAmount=()=>{
-    let total = totalAmount + additionalCost + salesTax - discount
+    let total = Number(totalAmount) + Number(additionalCost) + Number(salesTax) - Number(discount)
     setNetAmount(total)
   }
   useEffect(()=>{
@@ -374,9 +374,11 @@ const Purchase = () => {
   const [invoiceNumber, setInvoiceNumber] = useState('');
   const [date, setDate] = useState('');
   const [supplier, setSupplier] = useState('');
+
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentDueDate, setPaymentDueDate] = useState('');
+  
   const [CashRegister, setCashRegister] = useState('');
   const [paymentStatus, setPaymentStatus] = useState('');
   const [invoiceType, setInvoiceType] = useState('');
