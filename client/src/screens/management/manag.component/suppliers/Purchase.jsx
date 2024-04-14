@@ -719,7 +719,7 @@ const Purchase = () => {
                                     </td>
                                     <td><input type="number" className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
                                     <td><input type="number" className="form-control" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
-                                    <td><input type="text" className="form-control" defaultValue={item.total} name="amt" readOnly /></td>
+                                    <td><input type="text" className="form-control" value={item.total} name="amt" readOnly /></td>
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
@@ -735,7 +735,7 @@ const Purchase = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="text" className="form-control text-end" defaultValue={totalAmount} id="totalInput" readOnly />
+                                  <input type="text" className="form-control text-end" value={totalAmount} id="totalInput" readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
@@ -751,7 +751,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" defaultValue={netAmount} readOnly/>
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly/>
                                 </div>
                               </div>
                             </div>
