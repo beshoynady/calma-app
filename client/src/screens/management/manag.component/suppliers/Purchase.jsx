@@ -369,7 +369,8 @@ const Purchase = () => {
   const [salesTax, setSalesTax] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
   const calcNetAmount = () => {
-    let total = Number(totalAmount) + Number(additionalCost) + Number(salesTax) - Number(discount)
+    // let total = Number(totalAmount) + Number(additionalCost) + Number(salesTax) - Number(discount)
+    let total = Number(totalAmount) + Number(salesTax) - Number(discount)
     setNetAmount(total)
   }
   useEffect(() => {
@@ -378,9 +379,11 @@ const Purchase = () => {
 
   const [supplier, setSupplier] = useState('');
   const [financialInfo, setFinancialInfo] = useState('');
+  const [supplierInfo, setsupplierInfo] = useState('');
   const handleSupplier = (id) => {
     setSupplier(id)
     const findSupplier = AllSuppliers.filter(supplier => supplier._id === id)[0]
+    setsupplierInfo(findSupplier)
     setFinancialInfo(findSupplier.financialInfo)
   }
 
@@ -471,7 +474,7 @@ const Purchase = () => {
   const getAallPurchases = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
-      console.log({response})
+      console.log({ response })
       if (response.status === 200) {
         setallPurchaseInvoice(response.data.reverse())
       } else {
@@ -735,9 +738,10 @@ const Purchase = () => {
                                   </select>
                                 </div>
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <input type="text" className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
+                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.balance} />
                                 </div>
+                                
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
@@ -804,9 +808,13 @@ const Purchase = () => {
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
+                                  <textarea  className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ width: '100%', height: 'auto' }}/>
+                                </div>
+                                {/* <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
-                                </div>
+                                </div> */}
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
                                   <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
