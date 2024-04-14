@@ -57,7 +57,7 @@ const createPurchaseInvoice = async (req, res) => {
 const getAllPurchaseInvoices = async (req, res) => {
     try {
         // Populate the supplier, items, and createdBy fields
-        const purchaseInvoices = await purchaseInvoiceModel.find().populate('supplier').populate('createdBy');
+        const purchaseInvoices = await purchaseInvoiceModel.find().populate('supplier').populate('createdBy').populate('CashRegister');
         res.status(200).json(purchaseInvoices);
     } catch (error) {
         res.status(500).json({ message: error.message });

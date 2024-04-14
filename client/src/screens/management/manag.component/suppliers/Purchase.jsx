@@ -61,7 +61,6 @@ const Purchase = () => {
   const [costOfPart, setcostOfPart] = useState();
   const [parts, setparts] = useState();
   const [expirationDate, setexpirationDate] = useState();
-  const [cashRegister, setcashRegister] = useState('');
   const [expirationDateEnabled, setExpirationDateEnabled] = useState(false);
 
 
@@ -412,10 +411,10 @@ const Purchase = () => {
 
 
 
-  const [CashRegister, setCashRegister] = useState('');
+  const [cashRegister, setCashRegister] = useState('');
   const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
   const handleCashRegister = (id) => {
-    const filterCashRegister = AllCashRegisters.filter(CashRegister=>CashRegister.id === id)[0]
+    const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.id === id)[0]
     setCashRegister(filterCashRegister._id)
     setCashRegisterBalance(filterCashRegister.balance)
   };
@@ -448,7 +447,7 @@ const Purchase = () => {
         paidAmount,
         balanceDue,
         paymentDueDate,
-        CashRegister,
+        cashRegister,
         paymentStatus,
         invoiceType,
         paymentMethod,
@@ -654,7 +653,12 @@ const Purchase = () => {
                                 </label>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{invoice.date}</td>
+                              <td>{new Date(invoice.date).toLocaleDateString('ar-EG', {
+                                  day: 'numeric',
+                                  month: 'long',
+                                  year: 'numeric'
+                                })
+                              }</td>
                               <td>{invoice.invoiceNumber}</td>
                               <td>{invoice.supplier.name}</td>
                               <td>{invoice.totalAmount}</td>
@@ -665,12 +669,15 @@ const Purchase = () => {
                               <td>{invoice.invoiceType}</td>
                               <td>{invoice.paidAmount}</td>
                               <td>{invoice.balanceDue}</td>
-                              <td>{invoice.paymentStatus}</td>
-                              <td>{invoice.paymentStatus}</td>
+                              <td>{new Date(invoice.paymentDueDate).toLocaleDateString('ar-EG', {
+                                  day: 'numeric',
+                                  month: 'long',
+                                  year: 'numeric' })}</td>
                               <td>{invoice.paymentMethod}</td>
-                              <td>{invoice.CashRegister}</td>
-                              <td>{usertitle(invoice.createdBy)}</td>
-                              <td>{usertitle(invoice.notes)}</td>
+                              <td>{invoice.paymentStatus}</td>
+                              <td>{invoice.cashRegister.name}</td>
+                              <td>{invoice.createdBy.fullname}</td>
+                              <td>{invoice.notes}</td>
                               <td>
                                 {/* <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
