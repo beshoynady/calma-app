@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 
 const Purchase = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+  const token = localStorage.getItem('token_e');
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -455,6 +456,7 @@ const Purchase = () => {
       }
       console.log({ newInvoice })
       const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
+      console.log({ response })
       if (response.status === 200) {
         getAallPurchases();
         toast.success('تم اضافه المشتريات بنجاح')

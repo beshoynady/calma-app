@@ -47,10 +47,7 @@ const createPurchaseInvoice = async (req, res) => {
             createdBy
         });
 
-        // Populate the supplier, items, and createdBy fields
-        const savedPurchaseInvoice = await newPurchaseInvoice.populate('supplier').populate('items.item').populate('createdBy').execPopulate();
-
-        res.status(201).json(savedPurchaseInvoice);
+        res.status(201).json(newPurchaseInvoice);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
