@@ -16,7 +16,7 @@ const createPurchaseInvoice = async (req, res) => {
             paidAmount,
             balanceDue,
             paymentDueDate,
-            CashRegister,
+            cashRegister,
             paymentStatus,
             invoiceType,
             paymentMethod,
@@ -25,6 +25,11 @@ const createPurchaseInvoice = async (req, res) => {
 
         // Assume that req.employee contains the authenticated employee information
         const createdBy = req.employee.id;
+
+        // Check if required fields are missing
+        if (!invoiceNumber || !date || !supplier || !items || !totalAmount || !netAmount || !paymentStatus || !invoiceType) {
+            return res.status(400).json({ message: 'Missing required fields.' });
+        }
 
         const newPurchaseInvoice = await purchaseInvoiceModel.create({
             invoiceNumber,
@@ -39,13 +44,18 @@ const createPurchaseInvoice = async (req, res) => {
             paidAmount,
             balanceDue,
             paymentDueDate,
-            CashRegister,
+            cashRegister,
             paymentStatus,
             invoiceType,
             paymentMethod,
             notes,
             createdBy
         });
+        // Check if the creation was successful
+        if (!newPurchaseInvoice) {
+            return res.status(500).json({ message: 'Failed to create purchase invoice.' });
+        }
+
 
         res.status(201).json(newPurchaseInvoice);
     } catch (error) {
@@ -56,13 +66,27 @@ const createPurchaseInvoice = async (req, res) => {
 // Retrieve all purchase invoices
 const getAllPurchaseInvoices = async (req, res) => {
     try {
-        // Populate the supplier, items, and createdBy fields
-        const purchaseInvoices = await purchaseInvoiceModel.find().populate('supplier').populate('createdBy').populate('CashRegister');
+        // Retrieve all purchase invoices and populate related fields
+        const purchaseInvoices = await purchaseInvoiceModel
+            .find()
+            .populate('supplier') // Populate supplier field
+            .populate('createdBy') // Populate createdBy field
+            .populate('cashRegister'); // Populate cashRegister field
+
+        // Check if there are no purchase invoices found
+        if (!purchaseInvoices || purchaseInvoices.length === 0) {
+            return res.status(404).json({ message: 'No purchase invoices found.' });
+        }
+
+        // If purchase invoices are found, send them as response
         res.status(200).json(purchaseInvoices);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        // Handle any errors that occur during the process
+        console.error('Error in getAllPurchaseInvoices:', error);
+        res.status(500).json({ message: 'Internal server error.' });
     }
 };
+
 
 // Retrieve a single purchase invoice by ID
 const getPurchaseInvoiceById = async (req, res) => {

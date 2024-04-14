@@ -472,7 +472,7 @@ const Purchase = () => {
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
       if (response.status === 200) {
-        setallPurchaseInvoice(response.data)
+        setallPurchaseInvoice(response.data.reverse())
       } else {
         toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
       }
@@ -654,10 +654,10 @@ const Purchase = () => {
                               </td>
                               <td>{i + 1}</td>
                               <td>{new Date(invoice.date).toLocaleDateString('ar-EG', {
-                                  day: 'numeric',
-                                  month: 'long',
-                                  year: 'numeric'
-                                })
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                              })
                               }</td>
                               <td>{invoice.invoiceNumber}</td>
                               <td>{invoice.supplier.name}</td>
@@ -670,9 +670,10 @@ const Purchase = () => {
                               <td>{invoice.paidAmount}</td>
                               <td>{invoice.balanceDue}</td>
                               <td>{new Date(invoice.paymentDueDate).toLocaleDateString('ar-EG', {
-                                  day: 'numeric',
-                                  month: 'long',
-                                  year: 'numeric' })}</td>
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                              })}</td>
                               <td>{invoice.paymentMethod}</td>
                               <td>{invoice.paymentStatus}</td>
                               <td>{invoice.cashRegister.name}</td>
@@ -703,6 +704,8 @@ const Purchase = () => {
                   </div>
                 </div>
               </div>
+
+              
               <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
