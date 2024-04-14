@@ -471,6 +471,7 @@ const Purchase = () => {
   const getAallPurchases = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
+      console.log({response})
       if (response.status === 200) {
         setallPurchaseInvoice(response.data.reverse())
       } else {
@@ -705,7 +706,7 @@ const Purchase = () => {
                 </div>
               </div>
 
-              
+
               <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">

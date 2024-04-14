@@ -67,8 +67,7 @@ const createPurchaseInvoice = async (req, res) => {
 const getAllPurchaseInvoices = async (req, res) => {
     try {
         // Retrieve all purchase invoices and populate related fields
-        const purchaseInvoices = await purchaseInvoiceModel
-            .find()
+        const purchaseInvoices = await purchaseInvoiceModel.find()
             .populate('supplier') // Populate supplier field
             .populate('createdBy') // Populate createdBy field
             .populate('cashRegister'); // Populate cashRegister field
