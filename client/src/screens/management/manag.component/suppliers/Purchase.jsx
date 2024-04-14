@@ -945,8 +945,6 @@ const Purchase = () => {
                 </div>
               </div> */}
             </div>
-
-
           )
         }
       }
