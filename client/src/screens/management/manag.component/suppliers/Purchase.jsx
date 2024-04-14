@@ -739,7 +739,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.balance} />
+                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                                 </div>
                                 
                               </div>
@@ -808,6 +808,10 @@ const Purchase = () => {
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
+                                </div>
+                                <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
                                   <textarea  className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ width: '100%', height: 'auto' }}/>
                                 </div>
@@ -815,10 +819,6 @@ const Purchase = () => {
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
                                 </div> */}
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
-                                </div>
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
@@ -857,7 +857,6 @@ const Purchase = () => {
                               </div>
                             </div>
                           </div>
-
                         </div>
 
                       </div>
