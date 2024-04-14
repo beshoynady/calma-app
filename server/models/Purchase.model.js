@@ -28,8 +28,8 @@ const purchaseInvoiceSchema = new mongoose.Schema({
     additionalCost: { type: Number }, // Additional costs (if any)
     netAmount: { type: Number, required: true }, // Net amount after discount
     paidAmount: { type: Number, default: 0 }, // Amount already paid
-    balanceDue: { type: Number, required: true }, // Remaining balance to be paid
-    paymentDueDate: { type: Date }, // Due date for payment (in case of credit)
+    balanceDue: { type: Number, required: true, default: 0 }, // Remaining balance to be paid
+    paymentDueDate: { type: Date, default: null }, // Due date for payment (in case of credit)
     CashRegister: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CashRegister',

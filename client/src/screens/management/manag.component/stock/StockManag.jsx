@@ -541,7 +541,7 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => createStockAction(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <h4 className="modal-title">تسجيل حركه بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -633,7 +633,7 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => updateStockaction(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <h4 className="modal-title">تعديل حركه بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -709,7 +709,7 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title">حذف حركه مخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

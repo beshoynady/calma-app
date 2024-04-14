@@ -7,7 +7,12 @@ import { toast } from 'react-toastify';
 
 const CashMovement = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
   const [EmployeeLoginInfo, setEmployeeLoginInfo] = useState({})
   // Function to retrieve user info from tokens
@@ -29,7 +34,7 @@ const CashMovement = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/cashregister');
+      const response = await axios.get(apiUrl + '/api/cashregister',config);
       setAllCashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -40,17 +45,11 @@ const CashMovement = () => {
   const [AllCashMovement, setAllCashMovement] = useState([]);
   const getCashMovement = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       const EmployeeLoginInfo = getEmployeeInfoFromToken()
       console.log({ EmployeeLoginInfo })
       const id = EmployeeLoginInfo.id
       console.log({ id })
-      const getCashRegisters = await axios.get(apiUrl + '/api/cashregister'
-      , {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const getCashRegisters = await axios.get(apiUrl + '/api/cashregister', config);
       const CashRegisters = getCashRegisters.data
       console.log({ CashRegisters })
 
@@ -58,12 +57,7 @@ const CashMovement = () => {
       console.log({ myregister })
       const myregisterid = myregister._id
       console.log({ myregisterid })
-      const response = await axios.get(apiUrl + '/api/cashmovement/'
-      , {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashmovement/', config);
       const AllCashMovement = response.data
       console.log({ AllCashMovement })
       const mydata = AllCashMovement.filter(movement => movement.registerId == myregisterid)
@@ -88,8 +82,6 @@ const CashMovement = () => {
   // Function to add cash movement and update balance
   const addCashMovementAndUpdateBalance = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId,
@@ -97,11 +89,7 @@ const CashMovement = () => {
         amount,
         type,
         description,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      }, config);
 
       // If the cash movement is recorded successfully
       if (cashMovementResponse.data) {
@@ -187,11 +175,7 @@ const CashMovement = () => {
         description,
         transferTo: receivRegister,
         status: 'Pending',
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      }, config);
 
       const sendCashMovementData = sendCashMovementResponse.data;
       const movementId = sendCashMovementData.cashMovement._id;
@@ -206,11 +190,7 @@ const CashMovement = () => {
         transferFrom: sendRegister,
         status: 'Pending',
         movementId
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      }, config);
 
       const receivCashMovementData = receivCashMovementResponse.data;
       console.log({ receivCashMovementData })
@@ -235,11 +215,7 @@ const CashMovement = () => {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch details of the cash movement
-      const receivcashMovement = await axios.get(`${apiUrl}/api/cashmovement/${id}`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const receivcashMovement = await axios.get(`${apiUrl}/api/cashmovement/${id}`, config);
       const movementId = receivcashMovement.data.movementId;
       const sendregister = receivcashMovement.data.transferFrom;
       const receivregister = receivcashMovement.data.registerId;
