@@ -388,20 +388,33 @@ const Purchase = () => {
 
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
-  const [paymentDueDate, setPaymentDueDate] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState('unpaid');
+  const [invoiceType, setInvoiceType] = useState('');
   const handlePaidAmount = (amount) =>{
     setPaidAmount(amount)
     setBalanceDue(Number(netAmount) - Number(amount))
+    if(amount === 0){
+      setPaymentStatus('unpaid')
+      setInvoiceType('credit')
+    }else if(amount === netAmount){
+      setPaymentStatus('paid')
+      setInvoiceType('cash')
+    }else {
+      setPaymentStatus('partially_paid')
+      setInvoiceType('credit')
+    }
   }
-
+  
   const [CashRegister, setCashRegister] = useState('');
-  const [paymentStatus, setPaymentStatus] = useState('');
-  const [invoiceType, setInvoiceType] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
+  
+  
+  const [paymentDueDate, setPaymentDueDate] = useState('');
   const [notes, setNotes] = useState('');
 
 
   const createPurchaseInvoice = async (e) => {
+
     e.preventDefault()
     try {
       const newInvoice = {
@@ -423,6 +436,7 @@ const Purchase = () => {
         paymentMethod,
         notes,
       }
+      console.log({newInvoice})
       const response = await axios.post(`${apiUrl}/api/invoice`, newInvoice, config);
       if (response.status === 200) {
         getAallPurchases();
@@ -683,7 +697,7 @@ const Purchase = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <select className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
                                     ))}
@@ -697,11 +711,11 @@ const Purchase = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
-                                  <input type="text" className="form-control" id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                  <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" id="invoiceDateInput" placeholder="تاريخ الفاتور" />
+                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e)=>setDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -725,7 +739,7 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" onChange={(e) => handleItemId(e.target.value, i)}>
+                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
@@ -734,8 +748,8 @@ const Purchase = () => {
                                         ))}
                                       </select>
                                     </td>
-                                    <td><input type="number" className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-                                    <td><input type="number" className="form-control" name="price" onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
                                     <td><input type="text" className="form-control" value={item.total} name="amt" readOnly /></td>
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
@@ -774,30 +788,32 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select name="paymentMethod" id="paymentMethod" onChange={(e)=>setPaymentMethod(e.target.value)}>
-                                    <option value="كاش">كاش</option>
+                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e)=>setPaymentMethod(e.target.value)}>
+                                    <option>اختر طريقه الدفع</option>
+                                    <option value="نقدي">نقدي</option>
                                     {financialInfo&&financialInfo.map((financialInfo, i)=>{
                                       return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
                                     })}
                                   </select>
                                 </div>
-                                {paymentMethod ==='Cash'?<div className="input-group mb-3">
+                                {paymentMethod ==='نقدي'?<div className="input-group mb-3">
                                 <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
                                 <input type="button" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
-                                <input type="button" className="form-control text-end" id="netAmountInput"  />
+                                <button type="button" className="form-control text-end" id="netAmountInput" >تاكيد الدفع</button>
 
-                              </div>:'ليس لك خزينة للدفع كاش'}
+                              </div>: <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>}
+
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
-                                  <input type="number" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
+                                  <input type="text" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
                                   <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
+                                  <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={paymentStatus} readOnly />
                                 </div>
                               </div>
                             </div>
