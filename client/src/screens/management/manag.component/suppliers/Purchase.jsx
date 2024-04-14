@@ -349,15 +349,33 @@ const Purchase = () => {
     console.log({updatedItems})
     setItems(updatedItems)
   }
+  const [totalAmount, setTotalAmount] = useState(0);
+  const clacTotalAmount =()=>{
+    let total = 0 
+    items.forEach(item=>{
+      total += item.total
+    })
+    setTotalAmount(total)
+  }
+  useEffect(()=>{
+    clacTotalAmount()
+  },[price, quantity])
 
+  const [additionalCost, setAdditionalCost] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [salesTax, setSalesTax] = useState(0);
+  const [netAmount, setNetAmount] = useState(0);
+  const calcNetAmount=()=>{
+    let total = totalAmount + additionalCost + salesTax - discount
+    setNetAmount(total)
+  }
+  useEffect(()=>{
+    calcNetAmount()
+  },[additionalCost,discount,salesTax])
+  
   const [invoiceNumber, setInvoiceNumber] = useState('');
   const [date, setDate] = useState('');
   const [supplier, setSupplier] = useState('');
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [netAmount, setNetAmount] = useState(0);
-  const [salesTax, setSalesTax] = useState(0);
-  const [additionalCost, setAdditionalCost] = useState(0);
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentDueDate, setPaymentDueDate] = useState('');
@@ -366,6 +384,7 @@ const Purchase = () => {
   const [invoiceType, setInvoiceType] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [notes, setNotes] = useState('');
+
 
   const createPurchaseInvoice = async (e) => {
     e.preventDefault()
@@ -718,23 +737,23 @@ const Purchase = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="number" className="form-control text-end" id="totalInput" name="FTotal" />
+                                  <input type="text" className="form-control text-end" defaultValue={totalAmount} id="totalInput" readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" />
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e)=>setSalesTax(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">خصم</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" set />
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e)=>setDiscount(e.target.value)}/>
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" name="FGST" />
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e)=>setAdditionalCost(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="number" className="form-control text-end" id="netAmountInput" name="FNet" disabled />
+                                  <input type="text" className="form-control text-end" id="netAmountInput" defaultValue={netAmount} readOnly/>
                                 </div>
                               </div>
                             </div>
