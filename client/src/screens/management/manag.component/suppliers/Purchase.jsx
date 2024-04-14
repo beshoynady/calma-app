@@ -378,9 +378,9 @@ const Purchase = () => {
 
   const [supplier, setSupplier] = useState('');
   const [financialInfo, setFinancialInfo] = useState('');
-  const handleSupplier = (e) => {
-    setSupplier(e.target.value)
-    const findSupplier = AllSuppliers.filter(supplier => supplier._id === e.target.value)[0]
+  const handleSupplier = (id) => {
+    setSupplier(id)
+    const findSupplier = AllSuppliers.filter(supplier => supplier._id === id)[0]
     setFinancialInfo(findSupplier.financialInfo)
   }
 
