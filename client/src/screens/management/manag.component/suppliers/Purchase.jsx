@@ -12,6 +12,8 @@ const Purchase = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+
+
   const [allrecipes, setallrecipes] = useState([]);
 
   const getallrecipes = async () => {
@@ -390,25 +392,40 @@ const Purchase = () => {
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState('unpaid');
   const [invoiceType, setInvoiceType] = useState('');
-  const handlePaidAmount = (amount) =>{
-    setPaidAmount(amount)
-    setBalanceDue(Number(netAmount) - Number(amount))
-    if(amount === 0){
-      setPaymentStatus('unpaid')
-      setInvoiceType('credit')
-    }else if(amount === netAmount){
-      setPaymentStatus('paid')
-      setInvoiceType('cash')
-    }else {
-      setPaymentStatus('partially_paid')
-      setInvoiceType('credit')
+
+  const handlePaidAmount = (amount) => {
+    setPaidAmount(amount);
+    setBalanceDue(Number(netAmount) - Number(amount));
+
+    if (amount == 0) {
+      setPaymentStatus('unpaid');
+      setInvoiceType('credit');
+    } else if (amount == netAmount) {
+      setPaymentStatus('paid');
+      setInvoiceType('cash');
+    } else if (amount < netAmount) {
+      setPaymentStatus('partially_paid');
+      setInvoiceType('credit');
     }
-  }
-  
+  };
+
+
+
   const [CashRegister, setCashRegister] = useState('');
+  const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
+  const handleCashRegister = (id) => {
+    const filterCashRegister = AllCashRegisters.filter(CashRegister=>CashRegister.id === id)[0]
+    setCashRegister(filterCashRegister._id)
+    setCashRegisterBalance(filterCashRegister.balance)
+  };
+
+
   const [paymentMethod, setPaymentMethod] = useState('');
-  
-  
+  const handlePaymentMethod = (Method, employeeId) => {
+    setPaymentMethod(Method)
+    handleCashRegister(employeeId)
+  }
+
   const [paymentDueDate, setPaymentDueDate] = useState('');
   const [notes, setNotes] = useState('');
 
@@ -436,7 +453,7 @@ const Purchase = () => {
         paymentMethod,
         notes,
       }
-      console.log({newInvoice})
+      console.log({ newInvoice })
       const response = await axios.post(`${apiUrl}/api/invoice`, newInvoice, config);
       if (response.status === 200) {
         getAallPurchases();
@@ -698,6 +715,7 @@ const Purchase = () => {
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
                                   <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                    <option>اختر المورد</option>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
                                     ))}
@@ -715,7 +733,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e)=>setDate(e.target.value)} />
+                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -784,24 +802,24 @@ const Purchase = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="paidAmount">مدفوع</span>
-                                  <input type="text" className="form-control text-end" defaultValue={paidAmount} id="paidAmount"  onChange={(e)=>handlePaidAmount(e.target.value)}/>
+                                  <input type="number" className="form-control text-end" defaultValue={paidAmount} id="paidAmount" onChange={(e) => handlePaidAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e)=>setPaymentMethod(e.target.value)}>
+                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.id)}>
                                     <option>اختر طريقه الدفع</option>
                                     <option value="نقدي">نقدي</option>
-                                    {financialInfo&&financialInfo.map((financialInfo, i)=>{
+                                    {financialInfo && financialInfo.map((financialInfo, i) => {
                                       return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
                                     })}
                                   </select>
                                 </div>
-                                {paymentMethod ==='نقدي'?<div className="input-group mb-3">
-                                <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
-                                <input type="button" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
-                                <button type="button" className="form-control text-end" id="netAmountInput" >تاكيد الدفع</button>
+                                {paymentMethod === 'نقدي' ? <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
+                                  <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
+                                  <button type="button" className="btn btn-success" id="netAmountInput"  >تاكيد الدفع</button>
 
-                              </div>: <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>}
+                                </div> : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>}
 
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>

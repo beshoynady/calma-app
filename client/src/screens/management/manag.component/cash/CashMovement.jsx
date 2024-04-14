@@ -100,11 +100,7 @@ const CashMovement = () => {
         // Update the cash register balance on the server
         const updateRegisterBalance = await axios.put(`${apiUrl}/api/cashregister/${registerId}`, {
           balance: newBalance,
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`, // Send the token in the authorization header
-          },
-        });
+        }, config);
 
         // If the cash register balance is updated successfully
         if (updateRegisterBalance.data) {
