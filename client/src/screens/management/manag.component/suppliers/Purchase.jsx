@@ -454,7 +454,7 @@ const Purchase = () => {
         notes,
       }
       console.log({ newInvoice })
-      const response = await axios.post(`${apiUrl}/api/invoice`, newInvoice, config);
+      const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
       if (response.status === 200) {
         getAallPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
