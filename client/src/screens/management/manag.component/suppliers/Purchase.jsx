@@ -321,6 +321,8 @@ const Purchase = () => {
     const updatedItems = [...items]
     updatedItems.splice(index, 1)
     setItems(updatedItems)
+    clacTotalAmount()
+    calcNetAmount()
   }
   const handleItemId = (id, index) => {
     const updatedItems = [...items]
@@ -335,6 +337,7 @@ const Purchase = () => {
     console.log({updatedItems})
     setItems(updatedItems)
     clacTotalAmount()
+    calcNetAmount()
   }
   const handlePrice = (price, index) => {
     const updatedItems = [...items]
@@ -343,6 +346,7 @@ const Purchase = () => {
     console.log({updatedItems})
     setItems(updatedItems)
     clacTotalAmount()
+    calcNetAmount()
   }
   const handleExpirationDate = (date, index) => {
     const updatedItems = [...items]
@@ -378,7 +382,7 @@ const Purchase = () => {
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentDueDate, setPaymentDueDate] = useState('');
-  
+
   const [CashRegister, setCashRegister] = useState('');
   const [paymentStatus, setPaymentStatus] = useState('');
   const [invoiceType, setInvoiceType] = useState('');
