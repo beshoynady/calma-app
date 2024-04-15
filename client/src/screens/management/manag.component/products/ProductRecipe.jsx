@@ -7,6 +7,12 @@ import { toast } from 'react-toastify';
 const ProductRecipe = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const [listofProducts, setlistofProducts] = useState([]);
 
   const getallproducts = async () => {
@@ -54,16 +60,7 @@ const ProductRecipe = () => {
 
   const getallStockItem = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('توكن غير متاح');
-      }
-      const response = await axios.get(apiUrl + '/api/stockitem/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/stockitem/', config);
       const StockItems = await response.data;
       console.log(response.data)
       setAllStockItems(StockItems)
@@ -85,17 +82,9 @@ const ProductRecipe = () => {
 
   const getProductRecipe = async (id) => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('توكن غير متاح');
-      }
+     
       console.log(id);
-      const allRecipe = await axios.get(`${apiUrl}/api/recipe`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
       const recipeOfProduct = allRecipe.data && allRecipe.data.find(recipe => recipe.product.id === id);
       if(recipeOfProduct){
@@ -128,11 +117,7 @@ const ProductRecipe = () => {
 
 const createRecipe = async (e) => {
   e.preventDefault();
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  if (!token) {
-    // Handle case where token is not available
-    throw new Error('توكن غير متاح');
-  }
+
   try {
     if (ingredients.length > 0) {
       // If there are existing ingredients, create a new array with the added ingredient
@@ -141,11 +126,7 @@ const createRecipe = async (e) => {
       const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
       // Update the recipe by sending a PUT request
-      const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, config);
 
       console.log({ addRecipeToProduct }); // Log the response from the server
 
@@ -159,11 +140,7 @@ const createRecipe = async (e) => {
 
       // Add the new recipe to the product by sending a POST request
       const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients: newIngredients, totalcost: totalCost }
-      , {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      , config);
 
       if (addRecipeToProduct.status === 201) {
         console.log({ addRecipeToProduct }); // Log the response from the server
@@ -229,11 +206,7 @@ const editRecipe = async (e) => {
   try {
     e.preventDefault();
     console.log({ingredients});
-    const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-    if (!token) {
-      // Handle case where token is not available
-      throw new Error('توكن غير متاح');
-    }
+    
     const newIngredients = ingredients.map((ingredient) => { 
       if (ingredient.itemId === itemId) {
         return { itemId, name, amount, costofitem, unit, totalcostofitem };
@@ -252,14 +225,7 @@ const editRecipe = async (e) => {
 
     console.log({ totalcost });
 
-    const editRecipeToProduct = await axios.put(
-      `${apiUrl}/api/recipe/${recipeOfProduct._id}`,
-      { ingredients: newIngredients, totalcost },
-      {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      }
+    const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`,{ ingredients: newIngredients, totalcost }, config
     );
 
     console.log({ editRecipeToProduct });
@@ -290,19 +256,9 @@ const editRecipe = async (e) => {
     }
     console.log({ totalcost: total })
     // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost: total },
-    {
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    })
+    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost: total },config)
   }else{
-    const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`
-    ,{
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    })
+    const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}` , config)
     console.log(deleteRecipetoProduct)
   }
     getProductRecipe(productid)
@@ -312,14 +268,9 @@ const editRecipe = async (e) => {
   const deleteAllRecipe = async (e) => {
     try {
       e.preventDefault();
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
   
       if (recipeOfProduct) {
-        const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config);
   
         console.log(deleteRecipeToProduct);
         getProductRecipe(productid);

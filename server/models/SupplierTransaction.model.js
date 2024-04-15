@@ -1,4 +1,3 @@
-const { DESTRUCTION } = require('dns');
 const mongoose = require('mongoose');
 
 const supplierTransactionSchema = new mongoose.Schema({
@@ -17,23 +16,23 @@ const supplierTransactionSchema = new mongoose.Schema({
         required: true
     },
     describtion: {
-    type: String,
-    required: true
+        type: String,
+        required: true
     },
     transactionType: {
         type: String,
-        enum: ['Purchase', 'Payment', 'PurchaseReturn'],
+        enum: ['OpeningBalance', 'Purchase', 'Payment', 'PurchaseReturn', 'Refund'],
+        required: true
+    },
+    previousBalance: {
+        type: Number,
         required: true
     },
     amount: {
         type: Number,
         required: true
     },
-    openingBalance: {
-        type: Number,
-        required: true
-    },
-    endingBalance: {
+    currentBalance: {
         type: Number,
         required: true
     },
@@ -41,8 +40,13 @@ const supplierTransactionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    recordedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee',
+        required: true
+    },
     notes: String
-},{timestamps: true , timeseries: true});
+}, { timestamps: true });
 
 const SupplierTransaction = mongoose.model('SupplierTransaction', supplierTransactionSchema);
 
