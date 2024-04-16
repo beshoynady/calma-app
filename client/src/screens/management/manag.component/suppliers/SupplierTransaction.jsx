@@ -94,9 +94,9 @@ const SupplierTransaction = () => {
     setPreviousBalance(findSupplier.currentBalance)
   }
 
-  const handlecurrentBalance= (amount)=>{
-    setAmount(amount)
-    const totalBalance= Number(amount) + Number(previousBalance)
+  const handlecurrentBalance= (m)=>{
+    setAmount(Number(m))
+    const totalBalance= Number(m) + Number(previousBalance)
     setCurrentBalance(totalBalance)
   }
 
