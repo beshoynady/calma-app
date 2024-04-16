@@ -19,4 +19,5 @@ router.route('/:id')
     .put(authenticateToken, updateSupplierTransaction)
     .delete(authenticateToken, deleteSupplierTransaction);
 
+    
 module.exports = router;

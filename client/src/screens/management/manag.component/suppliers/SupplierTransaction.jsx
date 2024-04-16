@@ -58,9 +58,9 @@ const SupplierTransaction = () => {
   const [supplier, setSupplier] = useState('');
   const [transactionDate, setTransactionDate] = useState('');
   const [transactionType, setTransactionType] = useState('');
-  const [amount, setAmount] = useState('');
-  const [previousBalance, setPreviousBalance] = useState('');
-  const [currentBalance, setCurrentBalance] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [previousBalance, setPreviousBalance] = useState(0);
+  const [currentBalance, setCurrentBalance] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [notes, setNotes] = useState('');
   const [recordedBy, setRecordedBy] = useState('');
@@ -102,6 +102,7 @@ const SupplierTransaction = () => {
   }
 
   const handlecurrentBalance= (amount)=>{
+    setAmount(amount)
     const totalBalance= Number(amount) + Number(previousBalance)
     setCurrentBalance(totalBalance)
   }
