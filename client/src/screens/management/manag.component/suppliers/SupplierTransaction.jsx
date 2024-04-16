@@ -206,7 +206,7 @@ const SupplierTransaction = () => {
                               <td>{i + 1}</td>
                               <td>{Transaction.transactionDate}</td>
                               <td>{Transaction.supplier.name}</td>
-                              <td>{Transaction.invoiceNumber}</td>
+                              <td>{Transaction.invoiceNumber.invoiceNumber}</td>
                               <td>{Transaction.transactionType}</td>
                               <td>{Transaction.amount}</td>
                               <td>{Transaction.previousBalance}</td>
