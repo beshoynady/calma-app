@@ -17,7 +17,7 @@ const SupplierTransaction = () => {
   const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/suppliertransaction`, config)
+      const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
       if (response.status === 200) {
         setAllSupplierTransaction(response.data)
       }
@@ -79,6 +79,7 @@ const SupplierTransaction = () => {
         paymentMethod,
         notes,
       };
+      console.log({requestData})
 
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
       console.log({response})
