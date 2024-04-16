@@ -29,7 +29,7 @@ const createSupplierTransaction = async (req, res) => {
 // Get all supplier transactions
 const getAllSupplierTransactions = async (req, res) => {
     try {
-        const transactions = await SupplierTransactionModel.find().populate('supplier').populate('recordedBy').populate('PurchaseInvoice');
+        const transactions = await SupplierTransactionModel.find().populate('supplier').populate('recordedBy').populate('invoiceNumber');
         res.status(200).json(transactions);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -39,7 +39,7 @@ const getAllSupplierTransactions = async (req, res) => {
 // Get a single supplier transaction by ID
 const getSupplierTransactionById = async (req, res) => {
     try {
-        const transaction = await SupplierTransactionModel.findById(req.params.id).populate('supplier').populate('recordedBy').populate('PurchaseInvoice');
+        const transaction = await SupplierTransactionModel.findById(req.params.id).populate('supplier').populate('recordedBy').populate('invoiceNumber');
         if (!transaction) {
             return res.status(404).json({ message: 'Supplier transaction not found.' });
         }
