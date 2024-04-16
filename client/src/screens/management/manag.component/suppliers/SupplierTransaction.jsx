@@ -14,12 +14,12 @@ const SupplierTransaction = () => {
     },
   };
 
-  const [SupplierTransaction, setSupplierTransaction] = useState([])
+  const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
     try {
       const response = await axios.get(`${apiUrl}/suppliertransaction`, config)
       if (response.status === 200) {
-        setSupplierTransaction(response.data)
+        setAllSupplierTransaction(response.data)
       }
     } catch (error) {
       toast.error('حدث خطأ اثناء جلب بيانات تعاملات الموردين ! اعد تحميل الصفحة')
@@ -203,7 +203,7 @@ const SupplierTransaction = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {SupplierTransaction && SupplierTransaction.map((Transaction, i) => {
+                      {AllSupplierTransaction && AllSupplierTransaction.map((Transaction, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
@@ -219,8 +219,8 @@ const SupplierTransaction = () => {
                               <td>{Transaction.createdBy.fullname}</td>
                               <td>{Transaction.createdAt}</td>
                               <td>
-                                <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
                               </td>
                             </tr>
                           )
@@ -229,7 +229,7 @@ const SupplierTransaction = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{AllStockItems.length > endpagination ? endpagination : AllStockItems.length}</b> من <b>{AllStockItems.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{AllSupplierTransaction.length > endpagination ? endpagination : AllSupplierTransaction.length}</b> من <b>{AllSupplierTransaction.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
