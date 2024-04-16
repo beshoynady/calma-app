@@ -19,6 +19,7 @@ const SupplierTransaction = () => {
   const getAllSupplierTransaction = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
+      console.log({response})
       if (response.status === 200) {
         setAllSupplierTransaction(response.data)
       }
