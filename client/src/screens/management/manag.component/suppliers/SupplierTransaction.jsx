@@ -81,6 +81,7 @@ const SupplierTransaction = () => {
       };
 
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({response})
       if (response.status === 201) {
         toast.success('تم انشاء العملية بنجاح');
       } else {
@@ -101,7 +102,7 @@ const SupplierTransaction = () => {
   }
 
   const handlecurrentBalance= (amount)=>{
-    const totalBalance= amount + previousBalance
+    const totalBalance= Number(amount) + Number(previousBalance)
     setCurrentBalance(totalBalance)
   }
 
