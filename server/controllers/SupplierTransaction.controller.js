@@ -4,21 +4,9 @@ const SupplierTransaction = require('../models/SupplierTransaction.model');
 // Create a new supplier transaction
 const createSupplierTransaction = async (req, res) => {
     try {
-        const { invoiceNumber, description, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes } = req.body;
+        const { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes } = req.body;
         const recordedBy = req.employee.id 
-        const newTransaction = await SupplierTransaction.create({
-            invoiceNumber,
-            description,
-            supplier,
-            transactionDate,
-            transactionType,
-            amount,
-            previousBalance,
-            currentBalance,
-            paymentMethod,
-            recordedBy,
-            notes
-        });
+        const newTransaction = await SupplierTransaction.create({invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes, recordedBy});
 
         res.status(201).json(newTransaction);
     } catch (error) {
@@ -53,10 +41,10 @@ const getSupplierTransactionById = async (req, res) => {
 // Update a supplier transaction by ID
 const updateSupplierTransaction = async (req, res) => {
     try {
-        const { invoiceNumber, description, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes } = req.body;
+        const { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes } = req.body;
         const recordedBy = req.employee.id 
 
-        const updatedTransaction = await SupplierTransaction.findByIdAndUpdate(req.params.id, {invoiceNumber, description, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes, recordedBy}, { new: true });
+        const updatedTransaction = await SupplierTransaction.findByIdAndUpdate(req.params.id, {invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes, recordedBy}, { new: true });
         if (!updatedTransaction) {
             return res.status(404).json({ message: 'Supplier transaction not found.' });
         }
@@ -78,6 +66,8 @@ const deleteSupplierTransaction = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
 
 module.exports = {
     createSupplierTransaction,

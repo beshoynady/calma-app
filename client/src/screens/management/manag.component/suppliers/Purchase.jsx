@@ -28,7 +28,6 @@ const Purchase = () => {
     } catch (error) {
       console.log(error)
     }
-
   }
 
   const [StockItems, setStockItems] = useState([]);

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const supplierTransactionSchema = new mongoose.Schema({
+    transactionDate: {
+        type: Date,
+        required: true
+    },
     invoiceNumber: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'PurchaseInvoice',
@@ -9,10 +13,6 @@ const supplierTransactionSchema = new mongoose.Schema({
     supplier: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Supplier',
-        required: true
-    },
-    transactionDate: {
-        type: Date,
         required: true
     },
     describtion: {
