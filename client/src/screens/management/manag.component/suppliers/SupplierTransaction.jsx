@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 
 const SupplierTransaction = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+
+  const token = localStorage.getItem('token_e');
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -69,7 +70,7 @@ const SupplierTransaction = () => {
     e.preventDefault();
     try {
       const requestData = {invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes};
-      
+
       console.log({requestData})
 
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);

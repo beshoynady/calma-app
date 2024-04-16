@@ -1,6 +1,8 @@
 const SupplierTransactionModel = require('../models/SupplierTransaction.model');
 
 
+
+
 // Create a new supplier transaction
 const createSupplierTransaction = async (req, res) => {
     try {
