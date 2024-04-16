@@ -68,17 +68,8 @@ const SupplierTransaction = () => {
   const handleAddSupplierTransaction = async (e) => {
     e.preventDefault();
     try {
-      const requestData = {
-        invoiceNumber,
-        supplier,
-        transactionDate,
-        transactionType,
-        amount,
-        previousBalance,
-        currentBalance,
-        paymentMethod,
-        notes,
-      };
+      const requestData = {invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes};
+      
       console.log({requestData})
 
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);

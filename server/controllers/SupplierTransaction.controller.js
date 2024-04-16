@@ -5,14 +5,23 @@ const SupplierTransactionModel = require('../models/SupplierTransaction.model');
 const createSupplierTransaction = async (req, res) => {
     try {
         const { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes } = req.body;
-        const recordedBy = req.employee.id 
-        const newTransaction = await SupplierTransactionModel.create({invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes, recordedBy});
+
+        const recordedBy = req.employee.id;
+
+        // Check the validity of the sent data
+        if (!invoiceNumber || !supplier || !transactionDate || !transactionType || !amount || !previousBalance || !currentBalance || !paymentMethod) {
+            return res.status(400).json({ message: 'Please provide all required data.' });
+        }
+
+        const newTransaction = await SupplierTransactionModel.create({ invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes, recordedBy });
 
         res.status(201).json(newTransaction);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        // Provide a more specific error message
+        res.status(500).json({ message: 'An error occurred while creating the transaction.', error: error.message });
     }
 };
+
 
 
 // Get all supplier transactions
