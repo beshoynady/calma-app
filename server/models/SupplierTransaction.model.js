@@ -15,10 +15,6 @@ const supplierTransactionSchema = new mongoose.Schema({
         ref: 'Supplier',
         required: true
     },
-    describtion: {
-        type: String,
-        required: true
-    },
     transactionType: {
         type: String,
         enum: ['OpeningBalance', 'Purchase', 'Payment', 'PurchaseReturn', 'Refund'],
@@ -48,6 +44,6 @@ const supplierTransactionSchema = new mongoose.Schema({
     notes: String
 }, { timestamps: true });
 
-const SupplierTransaction = mongoose.model('SupplierTransaction', supplierTransactionSchema);
+const SupplierTransactionModel = mongoose.model('SupplierTransaction', supplierTransactionSchema);
 
-module.exports = SupplierTransaction;
+module.exports = SupplierTransactionModel;

@@ -282,7 +282,7 @@ const SupplierTransaction = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>المبلغ</label>
-                          <input type="text" className="form-control" value={amount} onChange={(e) => handlecurrentBalance(e.target.value)} />
+                          <input type="number" className="form-control" defaultValue={amount} onChange={(e) => handlecurrentBalance(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الرصيد السابق</label>
@@ -294,7 +294,7 @@ const SupplierTransaction = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>طريقة الدفع</label>
-                          <input type="text" className="form-control" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>ملاحظات</label>
