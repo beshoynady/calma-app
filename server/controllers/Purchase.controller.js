@@ -71,7 +71,7 @@ const getAllPurchaseInvoices = async (req, res) => {
             .populate('supplier') // Populate supplier field
             .populate('createdBy') // Populate createdBy field
             .populate('cashRegister'); // Populate cashRegister field
-
+            
         // Check if there are no purchase invoices found
         if (!purchaseInvoices || purchaseInvoices.length === 0) {
             return res.status(404).json({ message: 'No purchase invoices found.' });

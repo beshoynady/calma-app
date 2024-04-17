@@ -167,7 +167,7 @@ const SupplierTransaction = () => {
 
   const [allPurchaseInvoiceFilterd, setallPurchaseInvoiceFilterd] = useState([])
   const filterPurchaseInvoiceBySupplier = (supplier) => {
-    const filterPurchaseInvoice = allPurchaseInvoice.filter(invoice => invoice.supplier === supplier)
+    const filterPurchaseInvoice = allPurchaseInvoice.filter(invoice => invoice.supplier._id === supplier)
     console.log({ filterPurchaseInvoice })
     setallPurchaseInvoiceFilterd(filterPurchaseInvoice)
   }
