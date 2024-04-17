@@ -145,20 +145,8 @@ function App() {
 
   const getAllProducts = async () => {
     try {
-      // Retrieve user token from local storage
-      const token = localStorage.getItem('token_u');
-
-      // Check if token exists
-      if (!token) {
-        throw new Error('User token not found.');
-      }
-
       // Fetch products from the API
-      const response = await axios.get(apiUrl + '/api/product', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await axios.get(apiUrl + '/api/product');
 
       // Check if response is successful
       if (response.status !== 200) {

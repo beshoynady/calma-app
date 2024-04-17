@@ -124,6 +124,7 @@ const SupplierTransaction = () => {
     const findSupplier = AllSuppliers.filter(supplier => supplier._id === id)[0]
     setsupplierInfo(findSupplier)
     setPreviousBalance(findSupplier.currentBalance)
+    filterSupplierTransactionBySupplier(id)
   }
 
   const handlecurrentBalance = (m) => {
@@ -140,10 +141,12 @@ const SupplierTransaction = () => {
     calcTotalpurchPayment(filteredTransactions);
     filterPurchaseInvoiceBySupplier(supplierId)
   }
+
   const filterSupplierTransactionByTransactionType = (transactionType) => {
     const filter = AllSupplierTransaction.filter(transaction => transaction.transactionType === transactionType)
     setSupplierTransactionBySupplier(filter)
   }
+
   const filterSupplierTransactionByInvoiceNumber = (invoiceNumber) => {
     const filter = AllSupplierTransaction.filter(transaction => transaction.invoiceNumber === invoiceNumber)
     setSupplierTransactionBySupplier(filter)
@@ -228,7 +231,7 @@ const SupplierTransaction = () => {
                           <select
                             className="form-select"
                             id="supplierSelect"
-                            onChange={(e) => filterSupplierTransactionBySupplier(e.target.value)}
+                            onChange={(e) => handleSupplier(e.target.value)}
                           >
                             <option>كل الموردين</option>
                             {AllSuppliers.map((supplier, i) => (
@@ -261,9 +264,14 @@ const SupplierTransaction = () => {
                             onChange={(e) => filterSupplierTransactionByInvoiceNumber(e.target.value)}
                           >
                             <option>اختر رقم الفاتورة</option>
-                            {allPurchaseInvoiceFilterd.map((Invoice, i) => (
+                            {
+                            allPurchaseInvoiceFilterd.length>0? allPurchaseInvoiceFilterd.map((Invoice, i) => (
                               <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
-                            ))}
+                            ))
+                            :allPurchaseInvoice.map((Invoice, i) => (
+                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                            ))
+                            }
                           </select>
                         </div>
                       </div>
@@ -302,6 +310,18 @@ const SupplierTransaction = () => {
                             id="totalBalanceDueInput"
                             readOnly
                             value={totalBalanceDue}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="totalBalanceDueInput">الرصيد الكلي</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="totalBalanceDueInput"
+                            readOnly
+                            value={previousBalance}
                           />
                         </div>
                       </div>
