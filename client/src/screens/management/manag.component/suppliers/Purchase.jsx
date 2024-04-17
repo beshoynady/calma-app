@@ -459,7 +459,7 @@ const Purchase = () => {
       const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
       console.log({ response })
       if (response.status === 201) {
-        getAallPurchases();
+        getAllPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
       } else {
         toast.error('فشل اضافه المشتريات ! حاول مره اخري')
@@ -470,7 +470,7 @@ const Purchase = () => {
   }
 
   const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
-  const getAallPurchases = async () => {
+  const getAllPurchases = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
       console.log({ response })
@@ -487,7 +487,7 @@ const Purchase = () => {
 
 
   useEffect(() => {
-    getAallPurchases()
+    getAllPurchases()
     getallStockaction()
     getaStockItems()
     getAllCashRegisters()

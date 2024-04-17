@@ -15,6 +15,7 @@ const SupplierTransaction = () => {
     },
   };
 
+
   const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
     try {
@@ -29,7 +30,7 @@ const SupplierTransaction = () => {
       toast.error('حدث خطأ أثناء جلب بيانات تعاملات الموردين! يرجى إعادة تحميل الصفحة');
     }
   };
-  
+
 
 
   const [totalPurchases, settotalPurchases] = useState(0)
@@ -39,7 +40,7 @@ const SupplierTransaction = () => {
     let totalPurchases = 0;
     let totalPayment = 0;
     let totalBalanceDue = 0;
-  
+
     if (array.length > 0) {
       array.forEach((item) => {
         if (item.transactionType === 'Purchase') {
@@ -51,12 +52,12 @@ const SupplierTransaction = () => {
         }
       });
     }
-  
+
     settotalPurchases(totalPurchases);
     settotalPayment(totalPayment);
     settotalBalanceDue(totalBalanceDue);
   };
-  
+
 
   const [AllSuppliers, setAllSuppliers] = useState([]);
   // Function to retrieve all suppliers
@@ -135,16 +136,45 @@ const SupplierTransaction = () => {
 
   const filterSupplierTransactionBySupplier = (supplierId) => {
     const filteredTransactions = AllSupplierTransaction.filter(transaction => transaction.supplier === supplierId);
-    setSupplierTransactionBySupplier(filteredTransactions); 
+    setSupplierTransactionBySupplier(filteredTransactions);
     calcTotalpurchPayment(filteredTransactions);
+    filterPurchaseInvoiceBySupplier(supplierId)
   }
   const filterSupplierTransactionByTransactionType = (transactionType) => {
     const filter = AllSupplierTransaction.filter(transaction => transaction.transactionType === transactionType)
     setSupplierTransactionBySupplier(filter)
   }
+  const filterSupplierTransactionByInvoiceNumber = (invoiceNumber) => {
+    const filter = AllSupplierTransaction.filter(transaction => transaction.invoiceNumber === invoiceNumber)
+    setSupplierTransactionBySupplier(filter)
+  }
+
+
+  const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
+  const getAllPurchases = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
+      console.log({ response })
+      if (response.status === 200) {
+        setallPurchaseInvoice(response.data.reverse())
+      } else {
+        toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب فواتير المشتريات ! اعد تحميل الصفحة')
+    }
+  }
+
+  const [allPurchaseInvoiceFilterd, setallPurchaseInvoiceFilterd] = useState([])
+  const filterPurchaseInvoiceBySupplier = (supplier) => {
+    const filterPurchaseInvoice = allPurchaseInvoice.filter(invoice => invoice.supplier === supplier)
+    console.log({ filterPurchaseInvoice })
+    setallPurchaseInvoiceFilterd(filterPurchaseInvoice)
+  }
 
   useEffect(() => {
     getAllSuppliers()
+    getAllPurchases()
     getAllSupplierTransaction()
   }, [])
 
@@ -168,12 +198,20 @@ const SupplierTransaction = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
-                          <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+
+                  <div className="table-filter">
+                    <div className="row text-dark">
+                      <div className="col-sm-3">
+                        <div className="show-entries">
+                          <label htmlFor="showEntries">عرض</label>
+                          <select
+                            className="form-select"
+                            id="showEntries"
+                            onChange={(e) => {
+                              setstartpagination(0);
+                              setendpagination(e.target.value);
+                            }}
+                          >
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -184,72 +222,92 @@ const SupplierTransaction = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div class="col-sm-3">
-                        <div class="filter-group">
-                          <label>المورد</label>
-                          <select required className="form-select" id="supplierSelect" onChange={(e) => filterSupplierTransactionBySupplier(e.target.value)}>
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="supplierSelect">المورد</label>
+                          <select
+                            className="form-select"
+                            id="supplierSelect"
+                            onChange={(e) => filterSupplierTransactionBySupplier(e.target.value)}
+                          >
                             <option>كل الموردين</option>
                             {AllSuppliers.map((supplier, i) => (
                               <option value={supplier._id} key={i}>{supplier.name}</option>
                             ))}
                           </select>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="filter-group">
-                            <label>نوع العملية</label>
-                            <select required className="form-select" id="supplierSelect" onChange={(e) => filterSupplierTransactionByTransactionType(e.target.value)}>
-                              <option>جميع العمليات</option>
-                              {listtransactionType.map((type, i) => (
-                                <option value={type} key={i}>{type}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                        {/* <div class="filter-group">
-                          <label>Location</label>
-                          <select class="form-control">
-                            <option>All</option>
-                            <option>Berlin</option>
-                            <option>London</option>
-                            <option>Madrid</option>
-                            <option>New York</option>
-                            <option>Paris</option>
+                      </div>
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="transactionTypeSelect">نوع العملية</label>
+                          <select
+                            className="form-select"
+                            id="transactionTypeSelect"
+                            onChange={(e) => filterSupplierTransactionByTransactionType(e.target.value)}
+                          >
+                            <option>جميع العمليات</option>
+                            {listtransactionType.map((type, i) => (
+                              <option value={type} key={i}>{type}</option>
+                            ))}
                           </select>
                         </div>
-                        <div class="filter-group">
-                          <label>Status</label>
-                          <select class="form-control">
-                            <option>Any</option>
-                            <option>Delivered</option>
-                            <option>Shipped</option>
-                            <option>Pending</option>
-                            <option>Cancelled</option>
+                      </div>
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="invoiceNumberSelect">رقم الفاتورة</label>
+                          <select
+                            className="form-select"
+                            id="invoiceNumberSelect"
+                            onChange={(e) => filterSupplierTransactionByInvoiceNumber(e.target.value)}
+                          >
+                            <option>اختر رقم الفاتورة</option>
+                            {allPurchaseInvoiceFilterd.map((Invoice, i) => (
+                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                            ))}
                           </select>
                         </div>
-                        <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                       </div>
                     </div>
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
-                          <span className="input-group-text" htmlFor="notesInput">اجمالي المشتريات</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={totalPurchases} />
+                    <div className="row text-dark">
+                      <div className="col-sm-3">
+                        <div className="show-entries">
+                          <label htmlFor="totalPurchasesInput">اجمالي المشتريات</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="totalPurchasesInput"
+                            readOnly
+                            value={totalPurchases}
+                          />
                         </div>
                       </div>
-                      <div class="col-sm-3">
-                        <div class="filter-group">
-                          <span className="input-group-text" htmlFor="notesInput">اجمالي المدفوع</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={totalPayment} />
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="totalPaymentInput">اجمالي المدفوع</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="totalPaymentInput"
+                            readOnly
+                            value={totalPayment}
+                          />
                         </div>
-                        <div class="col-sm-3">
-                          <div class="filter-group">
-                            <span className="input-group-text" htmlFor="notesInput">اجمالي المستحق</span>
-                            <input type="text" className="form-control" id="notesInput" readOnly value={totalBalanceDue} />
-                          </div>
+                      </div>
+                      <div className="col-sm-3">
+                        <div className="filter-group">
+                          <label htmlFor="totalBalanceDueInput">اجمالي المستحق</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="totalBalanceDueInput"
+                            readOnly
+                            value={totalBalanceDue}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -355,7 +413,12 @@ const SupplierTransaction = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>رقم الفاتورة</label>
-                          <input type="text" className="form-control" value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+                          <select required className="form-select" id="supplierSelect" onChange={(e) => setInvoiceNumber(e.target.value)} >
+                            <option>اختر رقم الفاتورة</option>
+                            {allPurchaseInvoiceFilterd.map((Invoice, i) => (
+                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                            ))}
+                          </select>
                         </div>
                         <div className="form-group form-group-47">
                           <label>نوع العملية</label>
@@ -492,7 +555,7 @@ const SupplierTransaction = () => {
           )
         }
       }
-    </detacontext.Consumer>
+    </detacontext.Consumer >
 
   )
 }
