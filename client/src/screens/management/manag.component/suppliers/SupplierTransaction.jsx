@@ -21,10 +21,31 @@ const SupplierTransaction = () => {
       const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
       console.log({ response })
       if (response.status === 200) {
-        setAllSupplierTransaction(response.data)
+        const data = response.data
+        setAllSupplierTransaction(data)
+        calcTotalpurchPayment(data)
       }
     } catch (error) {
       toast.error('حدث خطأ اثناء جلب بيانات تعاملات الموردين ! اعد تحميل الصفحة')
+    }
+  }
+  const [totalPurchases, settotalPurchases] = useState(0)
+  const [totalPayment, settotalPayment] = useState(0)
+  const [totalBalanceDue, settotalBalanceDue] = useState(0)
+
+  const calcTotalpurchPayment = (array) => {
+    const totalPurchases = 0
+    const totalPayment = 0
+    const totalBalanceDue = 0
+    if (array.length > 0) {
+      array.map((item, i) => {
+        totalPurchases += item.netAmount;
+        totalPayment += item.paidAmount;
+        totalBalanceDue += item.balanceDue
+      })
+      settotalPurchases(totalPurchases);
+      settotalPayment(totalPayment);
+      settotalBalanceDue(totalBalanceDue)
     }
   }
 
@@ -101,6 +122,18 @@ const SupplierTransaction = () => {
     setCurrentBalance(totalBalance)
   }
 
+  const [SupplierTransactionBySupplier, setSupplierTransactionBySupplier] = useState([]);
+
+  const filterSupplierTransactionBySupplier = (supplierId) => {
+    const filter = AllSupplierTransaction.filter(transaction => transaction.supplier === supplierId)
+    setSupplierTransactionBySupplier(filter)
+    calcTotalpurchPayment(filter)
+  }
+  const filterSupplierTransactionByTransactionType = (transactionType) => {
+    const filter = AllSupplierTransaction.filter(transaction => transaction.transactionType === transactionType)
+    setSupplierTransactionBySupplier(filter)
+  }
+
   useEffect(() => {
     getAllSupplierTransaction()
     getAllSuppliers()
@@ -141,22 +174,27 @@ const SupplierTransaction = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div class="col-sm-9">
-                        {/* <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                      <div class="col-sm-3">
                         <div class="filter-group">
-                          <label>اسم الصنف</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
-                        </div> */}
-                        {/* <div class="filter-group">
-                          <label>نوع الاوردر</label>
-                          <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
-                            <option value={""}>الكل</option>
-                            <option value="Purchase" >Purchase</option>
-                            <option value="Return" >Return</option>
-                            <option value="Expense" >Expense</option>
-                            <option value="Wastage" >Wastage</option>
+                          <label>المورد</label>
+                          <select required className="form-select" id="supplierSelect" onChange={(e) => filterSupplierTransactionBySupplier(e.target.value)}>
+                            <option>كل الموردين</option>
+                            {AllSuppliers.map((supplier, i) => (
+                              <option value={supplier._id} key={i}>{supplier.name}</option>
+                            ))}
                           </select>
-                        </div> */}
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="filter-group">
+                            <label>نوع العملية</label>
+                            <select required className="form-select" id="supplierSelect" onChange={(e) => filterSupplierTransactionByTransactionType(e.target.value)}>
+                              <option>جميع العمليات</option>
+                              {listtransactionType.map((type, i) => (
+                                <option value={type} key={i}>{type}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
                         {/* <div class="filter-group">
                           <label>Location</label>
                           <select class="form-control">
@@ -181,6 +219,26 @@ const SupplierTransaction = () => {
                         <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                       </div>
                     </div>
+                    <div class="row text-dark">
+                      <div class="col-sm-3">
+                        <div class="show-entries">
+                          <span className="input-group-text" htmlFor="notesInput">اجمالي المشتريات</span>
+                          <input type="text" className="form-control" id="notesInput" readOnly value={totalPurchases} />
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="filter-group">
+                        <span className="input-group-text" htmlFor="notesInput">اجمالي المدفوع</span>
+                          <input type="text" className="form-control" id="notesInput" readOnly value={totalPayment} />
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="filter-group">
+                          <span className="input-group-text" htmlFor="notesInput">اجمالي المستحق</span>
+                          <input type="text" className="form-control" id="notesInput" readOnly value={totalBalanceDue} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <table className="table table-striped table-hover">
                     <thead>
@@ -199,29 +257,54 @@ const SupplierTransaction = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {AllSupplierTransaction && AllSupplierTransaction.map((Transaction, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              <td>{i + 1}</td>
-                              <td>{Transaction.transactionDate}</td>
-                              <td>{Transaction.supplier.name}</td>
-                              <td>{Transaction.invoiceNumber.invoiceNumber}</td>
-                              <td>{Transaction.transactionType}</td>
-                              <td>{Transaction.amount}</td>
-                              <td>{Transaction.previousBalance}</td>
-                              <td>{Transaction.currentBalance}</td>
-                              <td>{Transaction.paymentMethod}</td>
-                              <td>{Transaction.recordedBy.fullname}</td>
-                              <td>{Transaction.createdAt}</td>
-                              <td>
-                                {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                      {
+                        SupplierTransactionBySupplier.length > 0 ? SupplierTransactionBySupplier.map((Transaction, i) => {
+                          if (i >= startpagination & i < endpagination) {
+                            return (
+                              <tr key={i}>
+                                <td>{i + 1}</td>
+                                <td>{Transaction.transactionDate}</td>
+                                <td>{Transaction.supplier.name}</td>
+                                <td>{Transaction.invoiceNumber.invoiceNumber}</td>
+                                <td>{Transaction.transactionType}</td>
+                                <td>{Transaction.amount}</td>
+                                <td>{Transaction.previousBalance}</td>
+                                <td>{Transaction.currentBalance}</td>
+                                <td>{Transaction.paymentMethod}</td>
+                                <td>{Transaction.recordedBy.fullname}</td>
+                                <td>{Transaction.createdAt}</td>
+                                <td>
+                                  {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })}
+                                </td>
+                              </tr>
+                            )
+                          }
+                        })
+                          : AllSupplierTransaction && AllSupplierTransaction.map((Transaction, i) => {
+                            if (i >= startpagination & i < endpagination) {
+                              return (
+                                <tr key={i}>
+                                  <td>{i + 1}</td>
+                                  <td>{Transaction.transactionDate}</td>
+                                  <td>{Transaction.supplier.name}</td>
+                                  <td>{Transaction.invoiceNumber.invoiceNumber}</td>
+                                  <td>{Transaction.transactionType}</td>
+                                  <td>{Transaction.amount}</td>
+                                  <td>{Transaction.previousBalance}</td>
+                                  <td>{Transaction.currentBalance}</td>
+                                  <td>{Transaction.paymentMethod}</td>
+                                  <td>{Transaction.recordedBy.fullname}</td>
+                                  <td>{Transaction.createdAt}</td>
+                                  <td>
+                                    {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                  </td>
+                                </tr>
+                              )
+                            }
+                          })
+                      }
                     </tbody>
                   </table>
                   <div className="clearfix">
@@ -238,8 +321,6 @@ const SupplierTransaction = () => {
                   </div>
                 </div>
               </div>
-
-
               <div id="addSupplierTransactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -304,7 +385,6 @@ const SupplierTransaction = () => {
                   </div>
                 </div>
               </div>
-
 
               {/* <div id="editSupplierTransactionModal" className="modal fade">
                 <div className="modal-dialog">
