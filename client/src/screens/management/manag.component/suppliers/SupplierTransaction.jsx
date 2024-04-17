@@ -19,7 +19,7 @@ const SupplierTransaction = () => {
   const getAllSupplierTransaction = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
-      console.log({response})
+      console.log({ response })
       if (response.status === 200) {
         setAllSupplierTransaction(response.data)
       }
@@ -70,12 +70,12 @@ const SupplierTransaction = () => {
   const handleAddSupplierTransaction = async (e) => {
     e.preventDefault();
     try {
-      const requestData = {invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes};
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
-      console.log({requestData})
+      console.log({ requestData })
 
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      console.log({response})
+      console.log({ response })
       if (response.status === 201) {
         toast.success('تم انشاء العملية بنجاح');
       } else {
@@ -95,9 +95,9 @@ const SupplierTransaction = () => {
     setPreviousBalance(findSupplier.currentBalance)
   }
 
-  const handlecurrentBalance= (m)=>{
+  const handlecurrentBalance = (m) => {
     setAmount(Number(m))
-    const totalBalance= Number(m) + Number(previousBalance)
+    const totalBalance = Number(m) + Number(previousBalance)
     setCurrentBalance(totalBalance)
   }
 
@@ -285,7 +285,7 @@ const SupplierTransaction = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الرصيد الحالي</label>
-                          <input type="text" className="form-control" value={currentBalance} readOnly/>
+                          <input type="text" className="form-control" value={currentBalance} readOnly />
                         </div>
                         <div className="form-group form-group-47">
                           <label>طريقة الدفع</label>
