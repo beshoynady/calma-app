@@ -17,18 +17,20 @@ const SupplierTransaction = () => {
 
   const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
-    try {
+  try {
       const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
       console.log({ response })
       if (response.status === 200) {
         const data = response.data
         setAllSupplierTransaction(data)
-        calcTotalpurchPayment(data)
+        // calcTotalpurchPayment(data)
       }
     } catch (error) {
       toast.error('حدث خطأ اثناء جلب بيانات تعاملات الموردين ! اعد تحميل الصفحة')
     }
   }
+
+
   const [totalPurchases, settotalPurchases] = useState(0)
   const [totalPayment, settotalPayment] = useState(0)
   const [totalBalanceDue, settotalBalanceDue] = useState(0)
@@ -39,9 +41,14 @@ const SupplierTransaction = () => {
     const totalBalanceDue = 0
     if (array.length > 0) {
       array.map((item, i) => {
-        totalPurchases += item.netAmount;
-        totalPayment += item.paidAmount;
-        totalBalanceDue += item.balanceDue
+        if (transactionType == 'Purchase') {
+          totalPurchases += item.amount;
+        } else if (transactionType == 'Payment') {
+          totalPayment += item.amount;
+        } else if (transactionType == 'Payment') {
+
+          totalBalanceDue += item.balanceDue
+        }
       })
       settotalPurchases(totalPurchases);
       settotalPayment(totalPayment);
@@ -135,8 +142,8 @@ const SupplierTransaction = () => {
   }
 
   useEffect(() => {
-    getAllSupplierTransaction()
     getAllSuppliers()
+    getAllSupplierTransaction()
   }, [])
   return (
     <detacontext.Consumer>
@@ -228,13 +235,13 @@ const SupplierTransaction = () => {
                       </div>
                       <div class="col-sm-3">
                         <div class="filter-group">
-                        <span className="input-group-text" htmlFor="notesInput">اجمالي المدفوع</span>
+                          <span className="input-group-text" htmlFor="notesInput">اجمالي المدفوع</span>
                           <input type="text" className="form-control" id="notesInput" readOnly value={totalPayment} />
                         </div>
                         <div class="col-sm-3">
                           <div class="filter-group">
-                          <span className="input-group-text" htmlFor="notesInput">اجمالي المستحق</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={totalBalanceDue} />
+                            <span className="input-group-text" htmlFor="notesInput">اجمالي المستحق</span>
+                            <input type="text" className="form-control" id="notesInput" readOnly value={totalBalanceDue} />
                           </div>
                         </div>
                       </div>
