@@ -134,9 +134,9 @@ const SupplierTransaction = () => {
   const [SupplierTransactionBySupplier, setSupplierTransactionBySupplier] = useState([]);
 
   const filterSupplierTransactionBySupplier = (supplierId) => {
-    const filter = AllSupplierTransaction.filter(transaction => transaction.supplier === supplierId)
-    setSupplierTransactionBySupplier(filter)
-    calcTotalpurchPayment(filter)
+    const filteredTransactions = AllSupplierTransaction.filter(transaction => transaction.supplier === supplierId);
+    setSupplierTransactionBySupplier(filteredTransactions); 
+    calcTotalpurchPayment(filteredTransactions);
   }
   const filterSupplierTransactionByTransactionType = (transactionType) => {
     const filter = AllSupplierTransaction.filter(transaction => transaction.transactionType === transactionType)
@@ -147,7 +147,7 @@ const SupplierTransaction = () => {
     getAllSuppliers()
     getAllSupplierTransaction()
   }, [])
-  
+
   return (
     <detacontext.Consumer>
       {
