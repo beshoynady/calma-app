@@ -17,44 +17,46 @@ const SupplierTransaction = () => {
 
   const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
-  try {
-      const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config)
-      console.log({ response })
+    try {
+      const response = await axios.get(`${apiUrl}/api/suppliertransaction`, config);
+      console.log({ response });
       if (response.status === 200) {
-        const data = response.data
-        setAllSupplierTransaction(data)
-        // calcTotalpurchPayment(data)
+        const data = response.data;
+        setAllSupplierTransaction(data);
+        calcTotalpurchPayment(data);
       }
     } catch (error) {
-      toast.error('حدث خطأ اثناء جلب بيانات تعاملات الموردين ! اعد تحميل الصفحة')
+      toast.error('حدث خطأ أثناء جلب بيانات تعاملات الموردين! يرجى إعادة تحميل الصفحة');
     }
-  }
+  };
+  
 
 
   const [totalPurchases, settotalPurchases] = useState(0)
   const [totalPayment, settotalPayment] = useState(0)
   const [totalBalanceDue, settotalBalanceDue] = useState(0)
-
   const calcTotalpurchPayment = (array) => {
-    const totalPurchases = 0
-    const totalPayment = 0
-    const totalBalanceDue = 0
+    let totalPurchases = 0;
+    let totalPayment = 0;
+    let totalBalanceDue = 0;
+  
     if (array.length > 0) {
-      array.map((item, i) => {
-        if (transactionType == 'Purchase') {
+      array.forEach((item) => {
+        if (item.transactionType === 'Purchase') {
           totalPurchases += item.amount;
-        } else if (transactionType == 'Payment') {
+        } else if (item.transactionType === 'Payment') {
           totalPayment += item.amount;
-        } else if (transactionType == 'Payment') {
-
-          totalBalanceDue += item.balanceDue
+        } else if (item.transactionType === 'Balance Due') {
+          totalBalanceDue += item.balanceDue;
         }
-      })
-      settotalPurchases(totalPurchases);
-      settotalPayment(totalPayment);
-      settotalBalanceDue(totalBalanceDue)
+      });
     }
-  }
+  
+    settotalPurchases(totalPurchases);
+    settotalPayment(totalPayment);
+    settotalBalanceDue(totalBalanceDue);
+  };
+  
 
   const [AllSuppliers, setAllSuppliers] = useState([]);
   // Function to retrieve all suppliers
@@ -145,6 +147,7 @@ const SupplierTransaction = () => {
     getAllSuppliers()
     getAllSupplierTransaction()
   }, [])
+  
   return (
     <detacontext.Consumer>
       {
