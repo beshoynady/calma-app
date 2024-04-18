@@ -47,7 +47,7 @@ const SupplierTransaction = () => {
           totalPurchases += item.amount;
         } else if (item.transactionType === 'Payment') {
           totalPayment += item.amount;
-        } else if (item.transactionType === 'Balance Due') {
+        } else if (item.transactionType === 'BalanceDue') {
           totalBalanceDue += item.balanceDue;
         }
       });
@@ -265,12 +265,12 @@ const SupplierTransaction = () => {
                           >
                             <option>اختر رقم الفاتورة</option>
                             {
-                            allPurchaseInvoiceFilterd.length>0? allPurchaseInvoiceFilterd.map((Invoice, i) => (
-                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
-                            ))
-                            :allPurchaseInvoice.map((Invoice, i) => (
-                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
-                            ))
+                              allPurchaseInvoiceFilterd.length > 0 ? allPurchaseInvoiceFilterd.map((Invoice, i) => (
+                                <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                              ))
+                                : allPurchaseInvoice.map((Invoice, i) => (
+                                  <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                                ))
                             }
                           </select>
                         </div>
@@ -290,7 +290,7 @@ const SupplierTransaction = () => {
                         </div>
                       </div>
                       <div className="col-sm-3">
-                        <div className="input-group mb-3">
+                        <div className="show-entries">
                           <label htmlFor="totalPaymentInput">اجمالي المدفوع</label>
                           <input
                             type="text"
@@ -302,7 +302,7 @@ const SupplierTransaction = () => {
                         </div>
                       </div>
                       <div className="col-sm-3">
-                        <div className="input-group mb-3">
+                        <div className="show-entries">
                           <label htmlFor="totalBalanceDueInput">اجمالي المستحق</label>
                           <input
                             type="text"
@@ -314,7 +314,7 @@ const SupplierTransaction = () => {
                         </div>
                       </div>
                       <div className="col-sm-3">
-                        <div className="input-group mb-3">
+                        <div className="show-entries">
                           <label htmlFor="totalBalanceDueInput">الرصيد الكلي</label>
                           <input
                             type="text"

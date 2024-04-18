@@ -61,7 +61,31 @@ const StockManag = () => {
   const [cashRegister, setcashRegister] = useState('');
   const [expirationDateEnabled, setExpirationDateEnabled] = useState(false);
 
-
+  const handleSelectedItem = (e) => {
+    const selectedItem = StockItems.find(item => item._id === e.target.value);
+    if (selectedItem) {
+      const {
+        _id,
+        largeUnit,
+        itemName,
+        smallUnit,
+        costOfPart,
+        price,
+        Balance: oldBalance,
+        totalCost: oldCost,
+        parts
+      } = selectedItem;
+      setitemId(_id);
+      setlargeUnit(largeUnit);
+      seitemName(itemName);
+      setsmallUnit(smallUnit);
+      setcostOfPart(costOfPart);
+      setprice(price);
+      setoldBalance(oldBalance);
+      setoldCost(oldCost);
+      setparts(parts);
+    }
+  };
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
@@ -355,8 +379,6 @@ const StockManag = () => {
   }, [quantity, price]);
 
 
-
-
   return (
     <detacontext.Consumer>
       {
@@ -556,17 +578,7 @@ const StockManag = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الصنف</label>
-                          <select name="" id="" onChange={(e) => {
-                            setitemId(e.target.value);
-                            setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
-                            seitemName(StockItems.filter(i => i._id == e.target.value)[0].itemName);
-                            setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
-                            setcostOfPart(StockItems.filter(i => i._id == e.target.value)[0].costOfPart);
-                            setprice(StockItems.filter(i => i._id == e.target.value)[0].price)
-                            setoldBalance(StockItems.filter(i => i._id == e.target.value)[0].Balance);
-                            setoldCost(StockItems.filter(i => i._id == e.target.value)[0].totalCost);
-                            setparts(StockItems.filter(i => i._id == e.target.value)[0].parts)
-                          }}>
+                          <select name="" id="" onChange={(e) => {handleSelectedItem(e)}}>
                             <option >اختر الصنف</option>
                             {StockItems.map((item, i) => {
                               return <option key={i} value={item._id}>{item.itemName}</option>
