@@ -18,7 +18,7 @@ const StockItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    balance: {
+    currentBalance: {
       type: Number,
       required: true,
       default: 0,

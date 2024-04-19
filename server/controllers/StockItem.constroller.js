@@ -8,7 +8,7 @@ const createStockItem = async (req, res) => {
       categoryId,
       largeUnit,
       smallUnit,
-      balance,
+      currentBalance,
       price,
       totalCost,
       parts,
@@ -23,7 +23,7 @@ const createStockItem = async (req, res) => {
       categoryId,
       largeUnit,
       smallUnit,
-      balance,
+      currentBalance,
       price,
       totalCost,
       parts,
@@ -89,11 +89,11 @@ const updateStockItem = async (req, res) => {
 const movements = async (req, res) => {
   try {
     const itemId = req.params.itemId;
-    const { balance, price ,costOfPart } = req.body;
+    const { currentBalance, price ,costOfPart } = req.body;
 
     const movedStockItem = await StockItemsModel.findByIdAndUpdate(
       { _id: itemId },
-      { balance, price ,costOfPart },
+      { currentBalance, price ,costOfPart },
       { new: true }
     );
     if (!movedStockItem) {

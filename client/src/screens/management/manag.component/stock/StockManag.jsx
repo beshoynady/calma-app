@@ -333,14 +333,12 @@ const StockManag = () => {
       const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnIssuance") {
       const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
       const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
@@ -348,14 +346,12 @@ const StockManag = () => {
       const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       console.log({ calcNewBalance, calcCostOfPart, countparts })
       setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnPurchase") {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
       const countparts = calcNewBalance * Number(parts)
       const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     }
   }, [quantity, price]);

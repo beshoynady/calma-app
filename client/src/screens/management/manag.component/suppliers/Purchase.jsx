@@ -84,24 +84,23 @@ const Purchase = () => {
 
   const createStockAction = async (item) => {
     const itemId = item.itemId;
-    const newQuantity = item.quantity;
+    const quantity = item.quantity;
     const largeUnit = item.largeUnit
-    const newprice = item.price;
-    const newcost = item.cost;
+    const price = item.price;
+    const cost = item.cost;
     const expirationDate = item.expirationDate
 
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
-    
-    const oldBalance = stockItem.Balance
-    const oldCost = stockItem.totalCost
-    const parts = stockItem.parts
-    const crruntbalance = Number(newQuantity) +  Number(oldBalance);
-    const unit = stockItem.largeUnit
 
+    const oldBalance = stockItem.Balance
+    const parts = stockItem.parts
+    const currentBalance = Number(quantity) + Number(oldBalance);
+    const unit = stockItem.largeUnit
+    const costOfPart = Math.round((price / Number(parts)) * 100) / 100;
     try {
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { currentBalance, price, costOfPart }, config);
       console.log(changeItem);
 
       if (changeItem.status === 200) {
@@ -113,8 +112,8 @@ const Purchase = () => {
           cost,
           oldCost,
           unit,
-          balance: newBalance,
-          oldBalance: Balance,
+          balance: currentBalance,
+          oldBalance,
           price,
           expirationDate,
           actionAt,
@@ -426,19 +425,7 @@ const Purchase = () => {
       console.log({ response })
       if (response.status === 201) {
         items.forEach(item => {
-          if (item) {
-            const {
-              _id,
-              largeUnit,
-              itemName,
-              smallUnit,
-              costOfPart,
-              price,
-              Balance: oldBalance,
-              totalCost: oldCost,
-              parts
-            } = item;
-          }
+         
           createStockAction(item)
         })
         getAllPurchases();
@@ -467,6 +454,16 @@ const Purchase = () => {
   }
 
 
+  const [StockitemFilterd, setStockitemFilterd] = useState([])
+  const searchByitem = (item) => {
+    const items = AllStockactions.filter((action) => action.itemId.itemName.startsWith(item) == true)
+    setStockitemFilterd(items)
+  }
+  const searchByaction = (action) => {
+    const items = AllStockactions.filter((Stockactions) => Stockactions.movement == action)
+    setStockitemFilterd(items)
+  }
+
 
   useEffect(() => {
     getAllPurchases()
@@ -476,29 +473,6 @@ const Purchase = () => {
     getallrecipes()
     getAllSuppliers()
   }, [])
-
-
-  useEffect(() => {
-    if (movement === 'Purchase') {
-      const calcNewBalance = Number(oldBalance) + Number(quantity);
-      const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
-      console.log({ calcNewBalance, calcNewCost, calcCostOfPart, countparts })
-      setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
-      setcostOfPart(calcCostOfPart);
-    } else if (movement === "ReturnPurchase") {
-      const calcNewBalance = Number(oldBalance) - Number(quantity);
-      const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
-      setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
-      setcostOfPart(calcCostOfPart);
-    }
-  }, [quantity, price]);
-
 
   return (
     <detacontext.Consumer>
