@@ -14,7 +14,6 @@ const createStockAction = async (req, res, next) => {
             price,
             oldCost,
             cost,
-            actionAt,
             expirationDate,
         } = req.body;
         const actionBy = req.employee.id
@@ -32,7 +31,6 @@ const createStockAction = async (req, res, next) => {
             oldCost,
             cost,
             actionBy,
-            actionAt,
             ...(movement === 'Purchase' && { expirationDate }),
         });
 
