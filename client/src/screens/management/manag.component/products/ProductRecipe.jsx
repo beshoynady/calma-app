@@ -86,7 +86,7 @@ const ProductRecipe = () => {
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
-      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.product.id === id);
+      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === id);
       if(recipeOfProduct.length > 0) {
         const recipeSize = recipeOfProduct.filter(recipe=>recipe.size === size)
         console.log({recipeSize})
@@ -95,7 +95,7 @@ const ProductRecipe = () => {
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
-        const totalrecipeOfProduct = await recipeOfProduct.totalcost;
+        const totalrecipeOfProduct = await recipeSize.totalcost;
         console.log({ totalrecipeOfProduct });
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
@@ -133,9 +133,8 @@ const ProductRecipe = () => {
     }
   }
   const handleSelectedProductSize =(size)=>{
-    const findProduct = listofProducts.find(product => product.size === size);
     setsize(size)
-    getProductRecipe(id,size);
+    getProductRecipe(findProduct._id , size);
 
   }
   const [size, setsize] = useState("");
