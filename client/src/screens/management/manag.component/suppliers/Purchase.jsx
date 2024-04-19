@@ -45,22 +45,22 @@ const Purchase = () => {
   }
 
   const Stockmovement = ['Purchase', 'ReturnPurchase'];
-  const [movement, setmovement] = useState('Purchase');
-  const [itemId, setitemId] = useState("");
-  const [itemName, seitemName] = useState("");
-  const [largeUnit, setlargeUnit] = useState('')
-  const [smallUnit, setsmallUnit] = useState('')
-  const [quantity, setquantity] = useState(0);
-  const [price, setprice] = useState(0);
-  const [cost, setcost] = useState(0)
-  const [oldCost, setoldCost] = useState(0)
-  const [newcost, setnewcost] = useState(0)
-  const [oldBalance, setoldBalance] = useState(0)
-  const [newBalance, setnewBalance] = useState(0)
-  const [costOfPart, setcostOfPart] = useState();
-  const [parts, setparts] = useState();
-  const [expirationDate, setexpirationDate] = useState();
-  const [expirationDateEnabled, setExpirationDateEnabled] = useState(false);
+  // const [movement, setmovement] = useState('Purchase');
+  // const [itemId, setitemId] = useState("");
+  // const [itemName, seitemName] = useState("");
+  // const [largeUnit, setlargeUnit] = useState('')
+  // const [smallUnit, setsmallUnit] = useState('')
+  // const [quantity, setquantity] = useState(0);
+  // const [price, setprice] = useState(0);
+  // const [cost, setcost] = useState(0)
+  // const [oldCost, setoldCost] = useState(0)
+  // const [newcost, setnewcost] = useState(0)
+  // const [oldBalance, setoldBalance] = useState(0)
+  // const [newBalance, setnewBalance] = useState(0)
+  // const [costOfPart, setcostOfPart] = useState();
+  // const [parts, setparts] = useState();
+  // const [expirationDate, setexpirationDate] = useState();
+  // const [expirationDateEnabled, setExpirationDateEnabled] = useState(false);
 
 
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
@@ -78,23 +78,39 @@ const Purchase = () => {
   const actionAt = new Date().toLocaleString()
   const [AllStockactions, setAllStockactions] = useState([]);
 
-  const createStockAction = async (e) => {
+  const createStockAction = async (item) => {
+    const itemId=item.itemId
+const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
+    const {
+      itemName,
+      largeUnit,
+      smallUnit,
+      Balance,
+      price,
+      totalCost,
+      parts,
+    } = stockItem;
     console.log({
       itemId,
-      movement,
-      quantity,
-      cost,
-      oldCost,
-      balance: newBalance,
-      oldBalance,
+      itemName,
+      largeUnit,
+      smallUnit,
+      Balance,
       price,
+      totalCost,
+      parts,
     })
-    e.preventDefault();
+    const newBalance = Number(Balance) + Number(item.quantity);
+    const newcost = Number(totalCost) + Number(item.cost);
+    const countparts = newBalance * Number(parts)
+    const costOfPart = Math.round((item.price / countparts) * 100) / 100;
+    console.log({ newBalance, newcost, costOfPart, countparts })
     console.log({ newBalance: newBalance })
     console.log({ newcost: newcost })
-    console.log({ price: price })
+    console.log({ price: item.price })
+    
     try {
-      const unit = movement == 'Purchase' ? largeUnit : smallUnit
+      const unit = largeUnit
 
       // Update the stock item's movement
       const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
@@ -111,7 +127,7 @@ const Purchase = () => {
           oldCost,
           unit,
           balance: newBalance,
-          oldBalance,
+          oldBalance:Balance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
           actionAt,
@@ -279,7 +295,7 @@ const Purchase = () => {
 
   const [StockitemFilterd, setStockitemFilterd] = useState([])
   const searchByitem = (item) => {
-    const items = AllStockactions.filter((action) => itemname(action.itemId).startsWith(item) == true)
+    const items = AllStockactions.filter((action) => action.itemId.itemName.startsWith(item) == true)
     setStockitemFilterd(items)
   }
   const searchByaction = (action) => {
@@ -333,28 +349,7 @@ const Purchase = () => {
     updatedItems[index].itemId = item._id
     console.log({ updatedItems })
     setItems(updatedItems)
-    if (item) {
-      const {
-        _id,
-        largeUnit,
-        itemName,
-        smallUnit,
-        costOfPart,
-        price,
-        Balance: oldBalance,
-        totalCost: oldCost,
-        parts
-      } = item;
-      setitemId(_id);
-      setlargeUnit(largeUnit);
-      seitemName(itemName);
-      setsmallUnit(smallUnit);
-      setcostOfPart(costOfPart);
-      setprice(price);
-      setoldBalance(oldBalance);
-      setoldCost(oldCost);
-      setparts(parts);
-    }
+
   }
   const handleQuantity = (quantity, index) => {
     const updatedItems = [...items]
@@ -483,6 +478,22 @@ const Purchase = () => {
       const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
       console.log({ response })
       if (response.status === 201) {
+        items.forEach(item => {
+          if (item) {
+            const {
+              _id,
+              largeUnit,
+              itemName,
+              smallUnit,
+              costOfPart,
+              price,
+              Balance: oldBalance,
+              totalCost: oldCost,
+              parts
+            } = item;
+          }
+          createStockAction(item)
+        })
         getAllPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
       } else {
@@ -748,7 +759,7 @@ const Purchase = () => {
                                   <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
                                   <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                                 </div>
-                                
+
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
@@ -820,7 +831,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea  className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ width: '100%', height: 'auto' }}/>
+                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ width: '100%', height: 'auto' }} />
                                 </div>
                                 {/* <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
