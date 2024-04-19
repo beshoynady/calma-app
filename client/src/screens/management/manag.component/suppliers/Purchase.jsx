@@ -85,7 +85,7 @@ const Purchase = () => {
   const createStockAction = async (item, receiverid) => {
     const itemId = item.itemId;
     const quantity = item.quantity;
-    const price = item.price;
+    const price = Number(item.price);
     const cost = item.cost;
     const expirationDate = item.expirationDate
     const movement = 'Purchase'
@@ -98,7 +98,8 @@ const Purchase = () => {
     const parts = stockItem.parts
     const currentBalance = Number(quantity) + Number(oldBalance);
     const unit = stockItem.largeUnit
-    const costOfPart = Math.round((price / Number(parts)) * 100) / 100;
+    const costOfPart = Math.round((Number(price) / Number(parts)) * 100) / 100;
+    console.log({parts, price, costOfPart})
     try {
 
       // Update the stock item's movement
