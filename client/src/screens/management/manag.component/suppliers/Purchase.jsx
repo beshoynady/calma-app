@@ -323,7 +323,7 @@ const Purchase = () => {
   const clacTotalAmount = () => {
     let total = 0
     items.forEach(item => {
-      total += item.total
+      total += item.cost
     })
     setTotalAmount(total)
   }
@@ -723,9 +723,12 @@ const Purchase = () => {
                                       </select>
                                     </td>
                                     <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-                                    <td><input type="number" required value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+                                    <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+
                                     <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
-                                    <td><input type="text" className="form-control" value={item.total} name="amt" readOnly /></td>
+
+                                    <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
