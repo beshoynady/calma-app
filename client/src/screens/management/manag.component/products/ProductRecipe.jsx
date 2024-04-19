@@ -389,7 +389,7 @@ const editRecipe = async (e) => {
                           <select class="form-control" onChange={(e) =>handleSelectedProductSize(e.target.value)} >
                             <option value={""}>اختر حجم</option>
                             {sizes.map((size, i) => {
-                              return <option value={size} key={i} >{size}</option>
+                              return <option value={size.sizeName} key={i} >{size.sizeName}</option>
                             })
                             }
                           </select>
