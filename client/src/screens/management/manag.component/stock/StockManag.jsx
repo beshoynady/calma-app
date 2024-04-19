@@ -53,7 +53,7 @@ const StockManag = () => {
   const [quantity, setquantity] = useState(0);
   const [price, setprice] = useState(0);
   const [cost, setcost] = useState(0)
-  const [oldCost, setoldCost] = useState(0)
+  const [ setoldCost] = useState(0)
   const [newcost, setnewcost] = useState(0)
   const [oldBalance, setoldBalance] = useState(0)
   const [newBalance, setnewBalance] = useState(0)
@@ -74,7 +74,6 @@ const StockManag = () => {
         costOfPart,
         price,
         Balance: oldBalance,
-        totalCost: oldCost,
         parts
       } = selectedItem;
       setitemId(_id);
@@ -84,7 +83,6 @@ const StockManag = () => {
       setcostOfPart(costOfPart);
       setprice(price);
       setoldBalance(oldBalance);
-      setoldCost(oldCost);
       setparts(parts);
     }
   };
@@ -109,7 +107,6 @@ const StockManag = () => {
       movement,
       quantity,
       cost,
-      oldCost,
       balance: newBalance,
       oldBalance,
       price,
@@ -133,7 +130,6 @@ const StockManag = () => {
           movement,
           quantity,
           cost,
-          oldCost,
           unit,
           balance: newBalance,
           oldBalance,
@@ -205,11 +201,7 @@ const StockManag = () => {
         const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
           itemId, movement, quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
           actionBy
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        }, config);
         console.log(response.data);
 
         if (movement === 'Purchase') {
@@ -293,14 +285,6 @@ const StockManag = () => {
   }
 
 
-  const itemname = (id) => {
-    const item = StockItems.filter(item => item._id == id)[0]
-    if (item) {
-      return item.itemName
-    } else {
-      return 'غير متوفر'
-    }
-  }
 
   const [StockitemFilterd, setStockitemFilterd] = useState([])
   const searchByitem = (item) => {
@@ -329,7 +313,7 @@ const StockManag = () => {
   //   } else if (movement == 'Purchase') {
   //     const calcNewBalance = Number(oldBalance) + Number(quantity)
   //     const calcNewCost = Number(oldCost) + Number(cost)
-  //     const calcCostOfPart = Math.round((calcNewCost / calcNewBalance) * 10) / 10;
+  //     const calcCostOfPart = Math.round((price / calcNewBalance) * 10) / 10;
   //     console.log({calcCostOfPart})
   //     setnewBalance(calcNewBalance)
   //     setnewcost(calcNewCost)
@@ -346,34 +330,30 @@ const StockManag = () => {
   useEffect(() => {
     if (movement === "Issuance" || movement === "Wastage" || movement === "Damaged") {
       const calcNewBalance = Number(oldBalance) - (Number(quantity) / Number(parts));
-      const calcNewCost = Number(oldCost) - Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnIssuance") {
       const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
-      const calcNewCost = Number(oldCost) + Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
-      const calcNewCost = Number(oldCost) + Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
-      console.log({ calcNewBalance, calcNewCost, calcCostOfPart, countparts })
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
+      console.log({ calcNewBalance, calcCostOfPart, countparts })
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
     } else if (movement === "ReturnPurchase") {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
-      const calcNewCost = Number(oldCost) - Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
@@ -507,7 +487,7 @@ const StockManag = () => {
                               <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>{action.actionBy.fullname}</td>
                               <td>
-                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance);  setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -536,7 +516,7 @@ const StockManag = () => {
                                 <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>{action.actionBy.fullname}</td>
                                 <td>
-                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>

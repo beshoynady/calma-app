@@ -14,6 +14,42 @@ const Purchase = () => {
     },
   };
 
+  const [AllSuppliers, setAllSuppliers] = useState([]);
+  // Function to retrieve all suppliers
+  const getAllSuppliers = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/supplier/', config);
+
+      if (!response || !response.data) {
+        // Handle unexpected response or empty data
+        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
+      }
+
+      const suppliers = response.data.reverse();
+      if (suppliers.length > 0) {
+        setAllSuppliers(suppliers);
+        toast.success('تم استرداد جميع الموردين بنجاح');
+      }
+
+      // Notify on success
+    } catch (error) {
+      console.error(error);
+
+      // Notify on error
+      toast.error('فشل في استرداد الموردين');
+    }
+  };
+
+  const [AllCashRegisters, setAllCashRegisters] = useState([]);
+  // Fetch all cash registers
+  const getAllCashRegisters = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/cashregister', config);
+      setAllCashRegisters(response.data.reverse());
+    } catch (err) {
+      toast.error('Error fetching cash registers');
+    }
+  };
 
   const [allrecipes, setallrecipes] = useState([]);
 
@@ -45,78 +81,27 @@ const Purchase = () => {
   }
 
   const Stockmovement = ['Purchase', 'ReturnPurchase'];
-  // const [movement, setmovement] = useState('Purchase');
-  // const [itemId, setitemId] = useState("");
-  // const [itemName, seitemName] = useState("");
-  // const [largeUnit, setlargeUnit] = useState('')
-  // const [smallUnit, setsmallUnit] = useState('')
-  // const [quantity, setquantity] = useState(0);
-  // const [price, setprice] = useState(0);
-  // const [cost, setcost] = useState(0)
-  // const [oldCost, setoldCost] = useState(0)
-  // const [newcost, setnewcost] = useState(0)
-  // const [oldBalance, setoldBalance] = useState(0)
-  // const [newBalance, setnewBalance] = useState(0)
-  // const [costOfPart, setcostOfPart] = useState();
-  // const [parts, setparts] = useState();
-  // const [expirationDate, setexpirationDate] = useState();
-  // const [expirationDateEnabled, setExpirationDateEnabled] = useState(false);
-
-
-  const [AllCashRegisters, setAllCashRegisters] = useState([]);
-  // Fetch all cash registers
-  const getAllCashRegisters = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/cashregister', config);
-      setAllCashRegisters(response.data.reverse());
-    } catch (err) {
-      toast.error('Error fetching cash registers');
-    }
-  };
-
-  const [actionId, setactionId] = useState("")
-  const actionAt = new Date().toLocaleString()
-  const [AllStockactions, setAllStockactions] = useState([]);
 
   const createStockAction = async (item) => {
-    const itemId = item.itemId
-    const movement = 'Purchase'
-    const quantity = item.quantity;
-    const cost = item.cost
-    const price = item.price
+    const itemId = item.itemId;
+    const newQuantity = item.quantity;
+    const largeUnit = item.largeUnit
+    const newprice = item.price;
+    const newcost = item.cost;
+    const expirationDate = item.expirationDate
 
-    const stockItem = StockItems.filter(item => item._id === item.itemId)[0]
-    const {
-      largeUnit,
-      smallUnit,
-      Balance,
-      totalCost,
-      parts,
-    } = stockItem;
-    console.log({
-      itemId,
-      largeUnit,
-      smallUnit,
-      Balance,
-      price,
-      totalCost,
-      parts,
-    })
-    const newBalance = Number(Balance) + Number(quantity);
-    const newcost = Number(totalCost) + Number(cost);
-    const countparts = newBalance * Number(parts)
-    const costOfPart = Math.round((price / countparts) * 100) / 100;
-    console.log({ newBalance, newcost, costOfPart, countparts })
-    console.log({ newBalance: newBalance })
-    console.log({ newcost: newcost })
-    console.log({ price })
+    const stockItem = StockItems.filter(item => item._id === itemId)[0]
+    
+    const oldBalance = stockItem.Balance
+    const oldCost = stockItem.totalCost
+    const parts = stockItem.parts
+    const crruntbalance = Number(newQuantity) +  Number(oldBalance);
+    const unit = stockItem.largeUnit
 
     try {
-      const unit = largeUnit
 
       // Update the stock item's movement
       const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
-
       console.log(changeItem);
 
       if (changeItem.status === 200) {
@@ -131,47 +116,45 @@ const Purchase = () => {
           balance: newBalance,
           oldBalance: Balance,
           price,
-          ...(movement === 'Purchase' && { expirationDate }),
+          expirationDate,
           actionAt,
         }, config);
 
         console.log(response.data);
 
-        if (movement === 'Purchase') {
-          for (const recipe of allrecipes) {
-            const recipeid = recipe._id;
-            const productname = recipe.product.name;
-            const arrayingredients = recipe.ingredients;
+        for (const recipe of allrecipes) {
+          const recipeid = recipe._id;
+          const productname = recipe.product.name;
+          const arrayingredients = recipe.ingredients;
 
-            const newIngredients = arrayingredients.map((ingredient) => {
-              if (ingredient.itemId === itemId) {
-                const costofitem = costOfPart;
-                const unit = ingredient.unit
-                const amount = ingredient.amount
-                const totalcostofitem = amount * costOfPart
-                return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
-              } else {
-                return ingredient;
-              }
-            });
-            console.log({ newIngredients })
-            const totalcost = newIngredients.reduce((acc, curr) => {
-              return acc + (curr.totalcostofitem || 0);
-            }, 0);
-            // Update the product with the modified recipe and total cost
-            const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`, { ingredients: newIngredients, totalcost }, config);
+          const newIngredients = arrayingredients.map((ingredient) => {
+            if (ingredient.itemId === itemId) {
+              const costofitem = costOfPart;
+              const unit = ingredient.unit
+              const amount = ingredient.amount
+              const totalcostofitem = amount * costOfPart
+              return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+            } else {
+              return ingredient;
+            }
+          });
+          console.log({ newIngredients })
+          const totalcost = newIngredients.reduce((acc, curr) => {
+            return acc + (curr.totalcostofitem || 0);
+          }, 0);
+          // Update the product with the modified recipe and total cost
+          const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`, { ingredients: newIngredients, totalcost }, config);
 
-            console.log({ updateRecipe });
+          console.log({ updateRecipe });
 
-            // Toast for successful update based on recipe change
-            toast.success(`تم تحديث وصفة  ${productname}`);
-          }
+          // Toast for successful update based on recipe change
+          toast.success(`تم تحديث وصفة  ${productname}`);
         }
       }
 
       // Update the stock actions list and stock items
-      getallStockaction();
-      getaStockItems();
+      // getallStockaction();
+      // getaStockItems();
 
       // Toast notification for successful creation
       toast.success('تم تسجيل حركه المخزن بنجاح');
@@ -253,6 +236,9 @@ const Purchase = () => {
   // }
 
 
+
+  const [AllStockactions, setAllStockactions] = useState([]);
+
   const getallStockaction = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/stockmanag/', config);
@@ -286,58 +272,16 @@ const Purchase = () => {
   // }
 
 
-  const itemname = (id) => {
-    const item = StockItems.filter(item => item._id == id)[0]
-    if (item) {
-      return item.itemName
-    } else {
-      return 'غير متوفر'
-    }
-  }
-
-  const [StockitemFilterd, setStockitemFilterd] = useState([])
-  const searchByitem = (item) => {
-    const items = AllStockactions.filter((action) => action.itemId.itemName.startsWith(item) == true)
-    setStockitemFilterd(items)
-  }
-  const searchByaction = (action) => {
-    const items = AllStockactions.filter((Stockactions) => Stockactions.movement == action)
-    setStockitemFilterd(items)
-  }
 
 
   //********************************** PURCHASE ******************//
-  const [AllSuppliers, setAllSuppliers] = useState([]);
-  // Function to retrieve all suppliers
-  const getAllSuppliers = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/supplier/', config);
-
-      if (!response || !response.data) {
-        // Handle unexpected response or empty data
-        throw new Error('استجابة غير متوقعة أو بيانات فارغة');
-      }
-
-      const suppliers = response.data.reverse();
-      if (suppliers.length > 0) {
-        setAllSuppliers(suppliers);
-        toast.success('تم استرداد جميع الموردين بنجاح');
-      }
-
-      // Notify on success
-    } catch (error) {
-      console.error(error);
-
-      // Notify on error
-      toast.error('فشل في استرداد الموردين');
-    }
-  };
 
 
-  const [items, setItems] = useState([{ itemId: '', quantity: 0, price: 0, cost: 0, expirationDate: '' }]);
+
+  const [items, setItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
 
   const handleNewItem = () => {
-    setItems([...items, { itemId: '', quantity: 0, price: 0, cost: 0, expirationDate: '' }])
+    setItems([...items, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
   }
 
   const handleDeleteItem = (index) => {
@@ -349,6 +293,7 @@ const Purchase = () => {
   const handleItemId = (item, index) => {
     const updatedItems = [...items]
     updatedItems[index].itemId = item._id
+    updatedItems[index].largeUnit = item.largeUnit
     console.log({ updatedItems })
     setItems(updatedItems)
 
@@ -781,6 +726,7 @@ const Purchase = () => {
                                   <th scope="col">#</th>
                                   <th scope="col" className="col-4">الصنف</th>
                                   <th scope="col" className="col-2">الكمية</th>
+                                  <th scope="col" className="col-2">الوحده</th>
                                   <th scope="col" className="col-2">السعر</th>
                                   <th scope="col" className="col-2">الثمن</th>
                                   <th scope="col" className="col-2">انتهاء</th>
@@ -804,6 +750,7 @@ const Purchase = () => {
                                       </select>
                                     </td>
                                     <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="number" required value={item.largeUnit} className="form-control" name="largeUnit" /></td>
                                     <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
                                     <td><input type="text" className="form-control" value={item.total} name="amt" readOnly /></td>
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>

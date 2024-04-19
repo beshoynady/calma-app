@@ -8,7 +8,7 @@ const createStockItem = async (req, res) => {
       categoryId,
       largeUnit,
       smallUnit,
-      Balance,
+      balance,
       price,
       totalCost,
       parts,
@@ -23,7 +23,7 @@ const createStockItem = async (req, res) => {
       categoryId,
       largeUnit,
       smallUnit,
-      Balance,
+      balance,
       price,
       totalCost,
       parts,
@@ -89,18 +89,16 @@ const updateStockItem = async (req, res) => {
 const movements = async (req, res) => {
   try {
     const itemId = req.params.itemId;
-    const { newBalance, price, newcost ,costOfPart } = req.body;
+    const { balance, price ,costOfPart } = req.body;
 
     const movedStockItem = await StockItemsModel.findByIdAndUpdate(
       { _id: itemId },
-      { Balance: newBalance, price, totalCost: newcost ,costOfPart },
+      { balance, price ,costOfPart },
       { new: true }
     );
-
     if (!movedStockItem) {
       return res.status(404).json({ error: 'Item not found' });
     }
-
     res.status(200).json(movedStockItem);
   } catch (error) {
     res.status(400).json({ error: error.message });

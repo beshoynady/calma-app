@@ -18,9 +18,9 @@ const StockItem = () => {
   const [categoryId, setcategoryId] = useState('');
   const [largeUnit, setlargeUnit] = useState('');
   const [smallUnit, setsmallUnit] = useState('');
-  const [Balance, setBalance] = useState('');
+  const [balance, setbalance] = useState('');
   const [price, setprice] = useState('');
-  const [totalCost, settotalCost] = useState('');
+  const [ settotalCost] = useState('');
   const [parts, setparts] = useState('');
   const [costOfPart, setcostOfPart] = useState('');
   const [minThreshold, setminThreshold] = useState();
@@ -31,25 +31,18 @@ const StockItem = () => {
     e.preventDefault();
     const createBy = userId;
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
       const response = await axios.post(apiUrl + '/api/stockitem/', {
         itemName,
         categoryId,
         smallUnit,
         parts,
-        totalCost,
         costOfPart,
         largeUnit,
-        Balance,
+        balance,
         minThreshold,
         price,
         createBy,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      }, config);
       console.log(response.data);
       getStockItems(); // Update the list of stock items after creating a new one
   
@@ -67,26 +60,19 @@ const StockItem = () => {
   const editStockItem = async (e, userId) => {
     e.preventDefault();
     const createBy = userId;
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
+    try {  
       const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
         smallUnit,
         parts,
-        totalCost,
         costOfPart,
         largeUnit,
-        Balance,
+        balance,
         minThreshold,
         price,
         createBy,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      }, config);
       console.log(response.data);
       if (response) {
         getStockItems(); // Update the list of stock items after editing
@@ -106,13 +92,7 @@ const StockItem = () => {
   const deleteStockItem = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`, config);
       if (response.status === 200) {
         console.log(response);
         getStockItems(); // Update the list of stock items after deletion
@@ -134,18 +114,12 @@ const StockItem = () => {
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
       if (!token) {
         // Handle case where token is not available
         throw new Error('رجاء تسجيل الدخول مره اخري');
       }
   
-      const response = await axios.get(apiUrl + '/api/stockitem/', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/stockitem/', config);
   
       if (!response || !response.data) {
         // Handle unexpected response or empty data
@@ -171,13 +145,7 @@ const StockItem = () => {
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  
-      const res = await axios.get(apiUrl + '/api/categoryStock/', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const res = await axios.get(apiUrl + '/api/categoryStock/', config);
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);
@@ -281,7 +249,6 @@ const StockItem = () => {
                         <th>الحد الادني</th>
                         <th>الوحدة كبيرة</th>
                         <th>السعر</th>
-                        <th>اجمالي التكلفة</th>
                         <th>عدد الوحدات</th>
                         <th>الوحدة صغيرة</th>
                         <th>تكلفة الوحده</th>
@@ -297,19 +264,18 @@ const StockItem = () => {
                             <tr key={i}>
                               <td>{i + 1}</td>
                               <td>{item.itemName}</td>
-                              <td>{AllCategoryStock.length > 0 ? AllCategoryStock.filter(c => c._id == item.categoryId)[0].name : ''}</td>
-                              <td>{item.Balance}</td>
+                              <td>{item.categoryId.name}</td>
+                              <td>{item.balance}</td>
                               <td>{item.minThreshold}</td>
                               <td>{item.largeUnit}</td>
                               <td>{item.price}</td>
-                              <td>{item.totalCost}</td>
                               <td>{item.parts}</td>
                               <td>{item.smallUnit}</td>
                               <td>{item.costOfPart}</td>
-                              <td>{item.createBy ? usertitle(item.createBy) : '--'}</td>
+                              <td>{item.createBy.fullname}</td>
                               <td>{item.createdAt}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setbalance(item.balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -367,7 +333,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setBalance(e.target.value)} />
+                          <input type='Number' className="form-control" required onChange={(e) => setbalance(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الحد الادني</label>
@@ -375,11 +341,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>السعر</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>التكلفة</label>
-                          <input type='Number' className="form-control" required defaultValue={totalCost} readOnly />
+                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * balance) }} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
@@ -439,7 +401,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
+                          <input type='Number' className="form-control" defaultValue={balance} required onChange={(e) => setbalance(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الحد الادني</label>
@@ -448,11 +410,7 @@ const StockItem = () => {
 
                         <div className="form-group form-group-47">
                           <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>التكلفة</label>
-                          <input type='text' className="form-control" required defaultValue={totalCost} readOnly />
+                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * balance) }} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>

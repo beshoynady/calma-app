@@ -17,6 +17,7 @@ const purchaseInvoiceSchema = new mongoose.Schema({
       required: true,
     },
     quantity: { type: Number, required: true }, // Quantity of the item
+    largeUnit: { type: String, required: true }, // Quantity of the item
     price: { type: Number, required: true }, // Price per unit of the item
     cost: { type: Number, required: true }, // Total price for the item (quantity * price)
     expirationDate: { type: Date } // Expiration date of the item (if applicable)
