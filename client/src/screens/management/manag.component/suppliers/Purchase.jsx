@@ -82,14 +82,14 @@ const Purchase = () => {
 
   const Stockmovement = ['Purchase', 'ReturnPurchase'];
 
-  const createStockAction = async (item) => {
+  const createStockAction = async (item, receiverid) => {
     const itemId = item.itemId;
     const quantity = item.quantity;
-    const largeUnit = item.largeUnit
     const price = item.price;
     const cost = item.cost;
     const expirationDate = item.expirationDate
     const movement = 'Purchase'
+    const receiver = receiverid
 
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
 
@@ -116,6 +116,8 @@ const Purchase = () => {
           balance: currentBalance,
           oldBalance,
           price,
+          supplier,
+          receiver,
           expirationDate,
         }, config);
 
@@ -152,8 +154,8 @@ const Purchase = () => {
       }
 
       // Update the stock actions list and stock items
-      // getallStockaction();
-      // getaStockItems();
+      getallStockaction();
+      getaStockItems();
 
       // Toast notification for successful creation
       toast.success('تم تسجيل حركه المخزن بنجاح');
@@ -344,6 +346,7 @@ const Purchase = () => {
   const [supplier, setSupplier] = useState('');
   const [financialInfo, setFinancialInfo] = useState('');
   const [supplierInfo, setsupplierInfo] = useState('');
+
   const handleSupplier = (id) => {
     setSupplier(id)
     const findSupplier = AllSuppliers.filter(supplier => supplier._id === id)[0]
@@ -397,7 +400,7 @@ const Purchase = () => {
   const [notes, setNotes] = useState('');
 
 
-  const createPurchaseInvoice = async (e) => {
+  const createPurchaseInvoice = async (e, receiverId) => {
 
     e.preventDefault()
     try {
@@ -425,7 +428,7 @@ const Purchase = () => {
       console.log({ response })
       if (response.status === 201) {
         items.forEach(item => {
-          createStockAction(item)
+          createStockAction(item, receiverId)
         })
         getAllPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
@@ -651,7 +654,7 @@ const Purchase = () => {
               <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createPurchaseInvoice(e)}>
+                    <form onSubmit={(e) => createPurchaseInvoice(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
