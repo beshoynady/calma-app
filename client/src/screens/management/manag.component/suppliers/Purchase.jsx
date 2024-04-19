@@ -292,10 +292,11 @@ const Purchase = () => {
     setItems(updatedItems)
     clacTotalAmount()
   }
-  const handleItemId = (item, index) => {
+  const handleItemId = (id, index) => {
+    const stockitem = StockItems.filter(item=>item._id === id)[0]
     const updatedItems = [...items]
-    updatedItems[index].itemId = item._id
-    updatedItems[index].largeUnit = item.largeUnit
+    updatedItems[index].itemId = id
+    updatedItems[index].largeUnit = stockitem.largeUnit
     console.log({ updatedItems })
     setItems(updatedItems)
 
@@ -717,12 +718,12 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" required onChange={(e) => handleItemId(StockItems[e.target.selectedIndex], i)}>
+                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
                                         {StockItems.map((stock, j) => (
-                                          <option value={stock} key={j}>{stock.itemName}</option>
+                                          <option value={stock._id} key={j}>{stock.itemName}</option>
                                         ))}
                                       </select>
                                     </td>
