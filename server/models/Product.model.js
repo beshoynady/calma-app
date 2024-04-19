@@ -99,8 +99,6 @@ const productSchema = new mongoose.Schema(
       min: [0, 'Price after discount cannot be negative'],
       default: 0,
     },
-
-
     quantity: {
       type: Number,
       default: 0,

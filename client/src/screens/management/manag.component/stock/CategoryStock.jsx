@@ -225,7 +225,7 @@ const CategoryStock = () => {
                               </td> */}
                               <td>{i + 1}</td>
                               <td>{categoryStock.name}</td>
-                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
+                              <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId._id === categoryStock._id).length : 0}</td>
                               <td>
                                 <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
@@ -247,7 +247,7 @@ const CategoryStock = () => {
                               </td> */}
                                 <td>{i + 1}</td>
                                 <td>{categoryStock.name}</td>
-                                <td>{AllStockItems ? AllStockItems.filter((Items) => Items.categoryId === categoryStock._id).length : 0}</td>
+                                <td>{AllStockItems ? AllStockItems.filter((Items) => IteItems.categoryId._id === categoryStock._id).length : 0}</td>
                                 <td>
                                   <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 

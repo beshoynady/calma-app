@@ -242,7 +242,7 @@ const Products = () => {
 
   const [productFilterd, setproductFilterd] = useState([])
   const getemployeesByCategory = (category) => {
-    const products = listofProducts.filter(product => product.category == category)
+    const products = listofProducts.filter(product => product.category._id == category)
     setproductFilterd(products)
   }
 
