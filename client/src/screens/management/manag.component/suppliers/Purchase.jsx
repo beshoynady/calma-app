@@ -713,7 +713,7 @@ const Purchase = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
+                                      <select className="form-select" required onChange={(e) => handleItemId(StockItems[e.target.selectedIndex], i)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
