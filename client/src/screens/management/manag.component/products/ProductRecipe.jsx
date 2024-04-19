@@ -55,7 +55,7 @@ const ProductRecipe = () => {
     }
   }
 
-
+  
   const [AllStockItems, setAllStockItems] = useState([]);
 
   const getallStockItem = async () => {
@@ -71,26 +71,39 @@ const ProductRecipe = () => {
 
   }
 
-
-
-  const [productid, setproductid] = useState("");
-  const [productname, setproductname] = useState("");
+  
+  
+  const [productId, setproductId] = useState("");
+  const [productName, setproductName] = useState("");
 
   const [recipeOfProduct, setrecipeOfProduct] = useState();
   const [ingredients, setingredients] = useState([]);
   const [producttotalcost, setproducttotalcost] = useState();
 
-  const getProductRecipe = async (id) => {
+  const getProductRecipe = async (id,size) => {
     try {
      
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
-      const recipeOfProduct = allRecipe.data && allRecipe.data.find(recipe => recipe.product.id === id);
-      if(recipeOfProduct){
+      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.product.id === id);
+      if(recipeOfProduct.length > 0) {
+        const recipeSize = recipeOfProduct.filter(recipe=>recipe.size === size)
+        console.log({recipeSize})
+        setrecipeOfProduct(recipeSize[0]);
+        const ingredients = await recipeSize[0].ingredients;
+        if (ingredients) {
+          setingredients(ingredients.reverse());
+        }
+        const totalrecipeOfProduct = await recipeOfProduct.totalcost;
+        console.log({ totalrecipeOfProduct });
+        if (totalrecipeOfProduct) {
+          setproducttotalcost(totalrecipeOfProduct);
+        }
+      }else if(recipeOfProduct.length == 0){
         console.log({ recipeOfProduct });
-        setrecipeOfProduct(recipeOfProduct);
-        const ingredients = await recipeOfProduct.ingredients;
+        setrecipeOfProduct(recipeOfProduct[0]);
+        const ingredients = await recipeOfProduct[0].ingredients;
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
@@ -108,6 +121,24 @@ const ProductRecipe = () => {
     }
   };
 
+  const [sizes, setsizes] = useState("");
+  
+  const handleSelectedProduct =(id)=>{
+    setproductId(id);
+    const findProduct = listofProducts.find(product => product._id === id);
+    setproductName(findProduct.name);
+    setsizes(findProduct.sizes)
+    if(findProduct.sizes.length == 0){
+      getProductRecipe(id,'oneSize');
+    }
+  }
+  const handleSelectedProductSize =(size)=>{
+    const findProduct = listofProducts.find(product => product.size === size);
+    setsize(size)
+    getProductRecipe(id,size);
+
+  }
+  const [size, setsize] = useState("");
   const [itemId, setitemId] = useState("");
   const [name, setname] = useState("");
   const [amount, setamount] = useState();
@@ -130,21 +161,22 @@ const createRecipe = async (e) => {
 
       console.log({ addRecipeToProduct }); // Log the response from the server
 
-      getProductRecipe(productid); // Refresh the product recipe
+      getProductRecipe(productId); // Refresh the product recipe
     } else {
       // If there are no existing ingredients, create a new array with the single ingredient
       const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
       const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
 
-      console.log({ productid, productname, newIngredients }); // Log the product ID, name, and ingredients
+      console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
 
       // Add the new recipe to the product by sending a POST request
-      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, { productid, productname, ingredients: newIngredients, totalcost: totalCost }
+      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, 
+      { productId, productName,size, ingredients: newIngredients, totalcost: totalCost }
       , config);
 
       if (addRecipeToProduct.status === 201) {
         console.log({ addRecipeToProduct }); // Log the response from the server
-        getProductRecipe(productid); // Refresh the product recipe
+        getProductRecipe(productId); // Refresh the product recipe
         setitemId(''); // Clear the input fields
         setname('');
         setamount('');
@@ -194,7 +226,7 @@ const createRecipe = async (e) => {
   //     },
   //   }
   //   )
-  //   getProductRecipe(productid)
+  //   getProductRecipe(productId)
   //   setitemId('')
   //   setname('')
   //   setamount()
@@ -225,11 +257,11 @@ const editRecipe = async (e) => {
 
     console.log({ totalcost });
 
-    const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`,{ ingredients: newIngredients, totalcost }, config
+    const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`,{ ingredients: newIngredients, totalcost, size }, config
     );
 
     console.log({ editRecipeToProduct });
-    getProductRecipe(productid);
+    getProductRecipe(productId);
     setitemId('');
     setname('');
     setamount('');
@@ -261,7 +293,7 @@ const editRecipe = async (e) => {
     const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}` , config)
     console.log(deleteRecipetoProduct)
   }
-    getProductRecipe(productid)
+    getProductRecipe(productId)
   }
 
 
@@ -273,10 +305,10 @@ const editRecipe = async (e) => {
         const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config);
   
         console.log(deleteRecipeToProduct);
-        getProductRecipe(productid);
+        getProductRecipe(productId);
   
         deleteRecipeToProduct.status === 200 ? toast.success('تم حذف الوصفة بنجاح') : toast.error('حدث خطأ أثناء الحذف');
-        getProductRecipe(productid)
+        getProductRecipe(productId)
 
       } else {
         toast.error('يرجى اختيار الصفنف والمنتج أولاً');
@@ -284,7 +316,7 @@ const editRecipe = async (e) => {
     } catch (error) {
       console.error("Error deleting recipe:", error.message);
       toast.error('فشل عملية الحذف! يرجى المحاولة مرة أخرى');
-      getProductRecipe(productid)
+      getProductRecipe(productId)
     }
   };
   
@@ -344,7 +376,7 @@ const editRecipe = async (e) => {
                         </div>
                         <div class="filter-group">
                           <label>المنتج</label>
-                          <select class="form-control" onChange={(e) => { setproductid(e.target.value); setproductname(e.target.selectedOptions[0].innerText); getProductRecipe(e.target.value) }} >
+                          <select class="form-control" onChange={(e) =>handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
                             {productFilterd.map((product, i) => {
                               return <option value={product._id} key={i} >{product.name}</option>
@@ -352,11 +384,18 @@ const editRecipe = async (e) => {
                             }
                           </select>
                         </div>
-                        {/* <div class="filter-group">
-                          <label>Name</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
-                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
-                        </div> */}
+                        {sizes.length>0?
+                        <div class="filter-group">
+                          <label>الحجم</label>
+                          <select class="form-control" onChange={(e) =>setsize(e.target.value)} >
+                            <option value={""}>اختر حجم</option>
+                            {sizes.map((size, i) => {
+                              return <option value={size} key={i} >{size}</option>
+                            })
+                            }
+                          </select>
+                        </div>
+                        :""}
                         <div class="filter-group">
                           <label>اجمالي التكاليف</label>
                           <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />

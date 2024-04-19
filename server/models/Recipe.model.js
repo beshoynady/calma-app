@@ -1,22 +1,21 @@
 const mongoose = require('mongoose');
 
-const {ObjectId} = mongoose.Schema
+const { ObjectId } = mongoose.Schema
 
 const recipeSchema = new mongoose.Schema({
-  product: {
-    id: {
-      type: ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    size:{
-      type: String,
-      // required: true,
-    }
+  productId: {
+    type: ObjectId,
+    ref: 'Product',
+    required: true,
+  },
+  productName: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: String,
+    required: true,
+    default: 'oneSize'
   },
   ingredients: [
     {
@@ -55,9 +54,9 @@ const recipeSchema = new mongoose.Schema({
     default: 0,
   },
 },
-{
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  });
 
 const RecipeModel = mongoose.model('Recipe', recipeSchema);
 

@@ -2,10 +2,10 @@ const RecipeModel = require('../models/Recipe.model');
 
 const createRecipe = async (req, res) => {
   try {
-    const { productid, productname, ingredients, totalcost } = req.body;
+    const { productId, productName,size, ingredients, totalcost } = req.body;
     
     // Check if all required fields are present in the request body
-    if (!productid || !productname || !ingredients || !totalcost) {
+    if (!productId || !productName || !ingredients || !totalcost) {
       return res.status(400).json({ message: 'All fields are required' });
     }
     
@@ -23,7 +23,9 @@ const createRecipe = async (req, res) => {
     
     // Create and save the recipe
     const newRecipe = await RecipeModel.create({
-      product: { id: productid, name: productname },
+      productId,
+      productName,
+      size,
       ingredients,
       totalcost
     });
@@ -38,7 +40,7 @@ const createRecipe = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { ingredients, totalcost } = req.body;
+    const { ingredients, totalcost, size } = req.body;
     
     // Check if recipe ID is provided
     if (!id) {
@@ -53,7 +55,7 @@ const updateRecipe = async (req, res) => {
     // Update the recipe by ID
     const updatedRecipe = await RecipeModel.findByIdAndUpdate(
       id,
-      { ingredients, totalcost },
+      { ingredients, totalcost, size },
       { new: true }
     );
     
@@ -74,7 +76,7 @@ const updateRecipe = async (req, res) => {
 const getOneRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const recipe = await RecipeModel.findById(id).populate('product.id');
+    const recipe = await RecipeModel.findById(id).populate('productId');
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
@@ -86,7 +88,7 @@ const getOneRecipe = async (req, res) => {
 
 const getAllRecipe = async (req, res) => {
   try {
-    const recipes = await RecipeModel.find().populate('product.id');
+    const recipes = await RecipeModel.find().populate('productId');
     res.status(200).json(recipes);
   } catch (error) {
     res.status(400).json({ message: error.message });
