@@ -32,7 +32,7 @@ const StockManag = () => {
   const getaStockItems = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/stockitem/', config);
-      if(response){
+      if (response) {
         console.log(response.data)
         setStockItems(response.data.reverse())
       }
@@ -44,6 +44,8 @@ const StockManag = () => {
 
   const Stockmovement = ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged'];
   const [movement, setmovement] = useState('');
+  const [receiver, setreceiver] = useState('');
+  const [supplier, setsupplier] = useState('');
   const [itemId, setitemId] = useState("");
   const [itemName, seitemName] = useState("");
   const [largeUnit, setlargeUnit] = useState('')
@@ -302,7 +304,7 @@ const StockManag = () => {
 
   const [StockitemFilterd, setStockitemFilterd] = useState([])
   const searchByitem = (item) => {
-    const items = AllStockactions.filter((action) => itemname(action.itemId).startsWith(item) == true)
+    const items = AllStockactions.filter((action) => action.itemId.itemName.startsWith(item) == true)
     setStockitemFilterd(items)
   }
   const searchByaction = (action) => {
@@ -494,7 +496,7 @@ const StockManag = () => {
                                 </span>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{itemname(action.itemId)}</td>
+                              <td>{action.itemId.itemName}</td>
                               <td>{action.movement}</td>
                               <td>{action.quantity}</td>
                               <td>{action.unit}</td>
@@ -503,7 +505,7 @@ const StockManag = () => {
                               <td>{action.oldBalance}</td>
                               <td>{action.balance}</td>
                               <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
-                              <td>{usertitle(action.actionBy)}</td>
+                              <td>{action.actionBy.fullname}</td>
                               <td>
                                 <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -523,7 +525,7 @@ const StockManag = () => {
                                   </span>
                                 </td>
                                 <td>{i + 1}</td>
-                                <td>{itemname(action.itemId)}</td>
+                                <td>{action.itemId.itemName}</td>
                                 <td>{action.movement}</td>
                                 <td>{action.quantity}</td>
                                 <td>{action.unit}</td>
@@ -532,7 +534,7 @@ const StockManag = () => {
                                 <td>{action.oldBalance}</td>
                                 <td>{action.balance}</td>
                                 <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
-                                <td>{usertitle(action.actionBy)}</td>
+                                <td>{action.actionBy.fullname}</td>
                                 <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -578,7 +580,7 @@ const StockManag = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الصنف</label>
-                          <select name="" id="" onChange={(e) => {handleSelectedItem(e)}}>
+                          <select name="" id="" onChange={(e) => { handleSelectedItem(e) }}>
                             <option >اختر الصنف</option>
                             {StockItems.map((item, i) => {
                               return <option key={i} value={item._id}>{item.itemName}</option>

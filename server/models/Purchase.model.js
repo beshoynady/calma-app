@@ -11,14 +11,14 @@ const purchaseInvoiceSchema = new mongoose.Schema({
     required: true,
   }, // Reference to the supplier
   items: [{
-    item: {
+    itemId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'StockItems',
       required: true,
     },
     quantity: { type: Number, required: true }, // Quantity of the item
     price: { type: Number, required: true }, // Price per unit of the item
-    total: { type: Number, required: true }, // Total price for the item (quantity * price)
+    cost: { type: Number, required: true }, // Total price for the item (quantity * price)
     expirationDate: { type: Date } // Expiration date of the item (if applicable)
   }], // Define for each item in the purchase invoice
 

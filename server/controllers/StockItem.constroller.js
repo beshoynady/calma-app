@@ -42,7 +42,7 @@ const createStockItem = async (req, res) => {
 // Get all stock items
 const getAllStockItems = async (req, res) => {
   try {
-    const allItems = await StockItemsModel.find({});
+    const allItems = await StockItemsModel.find({}).populate('createBy').populate('categoryId');
     res.status(200).json(allItems);
   } catch (err) {
     res.status(400).json({ error: err.message });

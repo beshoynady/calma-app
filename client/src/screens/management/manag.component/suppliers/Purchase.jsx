@@ -287,6 +287,8 @@ const Purchase = () => {
     setStockitemFilterd(items)
   }
 
+
+  //********************************** PURCHASE ******************//
   const [AllSuppliers, setAllSuppliers] = useState([]);
   // Function to retrieve all suppliers
   const getAllSuppliers = async () => {
@@ -314,10 +316,10 @@ const Purchase = () => {
   };
 
 
-  const [items, setItems] = useState([{ item: '', quantity: 0, price: 0, total: 0, expirationDate: '' }]);
+  const [items, setItems] = useState([{ itemId: '', quantity: 0, price: 0, cost: 0, expirationDate: '' }]);
 
   const handleNewItem = () => {
-    setItems([...items, { item: '', quantity: 0, price: 0, total: 0, expirationDate: '' }])
+    setItems([...items, { itemId: '', quantity: 0, price: 0, cost: 0, expirationDate: '' }])
   }
 
   const handleDeleteItem = (index) => {
@@ -326,16 +328,38 @@ const Purchase = () => {
     setItems(updatedItems)
     clacTotalAmount()
   }
-  const handleItemId = (id, index) => {
+  const handleItemId = (item, index) => {
     const updatedItems = [...items]
-    updatedItems[index].item = id
+    updatedItems[index].itemId = item._id
     console.log({ updatedItems })
     setItems(updatedItems)
+    if (item) {
+      const {
+        _id,
+        largeUnit,
+        itemName,
+        smallUnit,
+        costOfPart,
+        price,
+        Balance: oldBalance,
+        totalCost: oldCost,
+        parts
+      } = item;
+      setitemId(_id);
+      setlargeUnit(largeUnit);
+      seitemName(itemName);
+      setsmallUnit(smallUnit);
+      setcostOfPart(costOfPart);
+      setprice(price);
+      setoldBalance(oldBalance);
+      setoldCost(oldCost);
+      setparts(parts);
+    }
   }
   const handleQuantity = (quantity, index) => {
     const updatedItems = [...items]
     updatedItems[index].quantity = Number(quantity)
-    updatedItems[index].total = Number(quantity) * Number(updatedItems[index].price);
+    updatedItems[index].cost = Number(quantity) * Number(updatedItems[index].price);
     console.log({ updatedItems })
     setItems(updatedItems)
     clacTotalAmount()
@@ -343,7 +367,7 @@ const Purchase = () => {
   const handlePrice = (price, index) => {
     const updatedItems = [...items]
     updatedItems[index].price = Number(price)
-    updatedItems[index].total = Number(updatedItems[index].quantity) * Number(price);
+    updatedItems[index].cost = Number(updatedItems[index].quantity) * Number(price);
     console.log({ updatedItems })
     setItems(updatedItems)
     clacTotalAmount()
@@ -497,27 +521,11 @@ const Purchase = () => {
 
 
   useEffect(() => {
-    if (movement === "Issuance" || movement === "Wastage" || movement === "Damaged") {
-      const calcNewBalance = Number(oldBalance) - (Number(quantity) / Number(parts));
-      const calcNewCost = Number(oldCost) - Number(cost);
-      const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
-      setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
-      setcostOfPart(calcCostOfPart);
-    } else if (movement === "ReturnIssuance") {
-      const calcNewBalance = Number(oldBalance) + (Number(quantity) / Number(parts));
-      const calcNewCost = Number(oldCost) + Number(cost);
-      const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
-      setnewBalance(calcNewBalance);
-      setnewcost(calcNewCost);
-      setcostOfPart(calcCostOfPart);
-    } else if (movement === 'Purchase') {
+    if (movement === 'Purchase') {
       const calcNewBalance = Number(oldBalance) + Number(quantity);
       const calcNewCost = Number(oldCost) + Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       console.log({ calcNewBalance, calcNewCost, calcCostOfPart, countparts })
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
@@ -526,7 +534,7 @@ const Purchase = () => {
       const calcNewBalance = Number(oldBalance) - Number(quantity);
       const calcNewCost = Number(oldCost) - Number(cost);
       const countparts = calcNewBalance * Number(parts)
-      const calcCostOfPart = Math.round((calcNewCost / countparts) * 100) / 100;
+      const calcCostOfPart = Math.round((price / countparts) * 100) / 100;
       setnewBalance(calcNewBalance);
       setnewcost(calcNewCost);
       setcostOfPart(calcCostOfPart);
@@ -778,7 +786,7 @@ const Purchase = () => {
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>
                                         {StockItems.map((stock, j) => (
-                                          <option value={stock._id} key={j}>{stock.itemName}</option>
+                                          <option value={stock} key={j}>{stock.itemName}</option>
                                         ))}
                                       </select>
                                     </td>

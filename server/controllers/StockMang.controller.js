@@ -6,6 +6,8 @@ const createStockAction = async (req, res, next) => {
             itemId,
             unit,
             movement,
+            supplier,
+            receiver,
             quantity,
             oldBalance,
             balance,
@@ -21,6 +23,8 @@ const createStockAction = async (req, res, next) => {
             itemId,
             unit,
             movement,
+            supplier,
+            receiver,
             quantity,
             oldBalance,
             balance,
@@ -46,6 +50,8 @@ const updateStockAction = async (req, res, next) => {
             itemId,
             unit,
             movement,
+            supplier,
+            receiver,
             quantity,
             oldBalance,
             balance,
@@ -62,6 +68,8 @@ const updateStockAction = async (req, res, next) => {
             itemId,
             unit,
             movement,
+            supplier,
+            receiver,
             quantity,
             oldBalance,
             balance,
@@ -86,7 +94,7 @@ const updateStockAction = async (req, res, next) => {
 
 const getAllStockActions = async (req, res, next) => {
     try {
-        const allActions = await StockManagementModel.find({})
+        const allActions = await StockManagementModel.find({}).populate('itemId').populate('actionBy').populate('supplier').populate('receiver')
         res.status(200).json(allActions);
     } catch (error) {
         next(error);
@@ -96,7 +104,7 @@ const getAllStockActions = async (req, res, next) => {
 const getOneStockAction = async (req, res, next) => {
     try {
         const actionId = req.params.actionid;
-        const action = await StockManagementModel.findById(actionId)
+        const action = await StockManagementModel.findById(actionId).populate('itemId').populate('actionBy').populate('supplier').populate('receiver')
             .populate('itemId supplier actionBy');
 
         if (!action) {
