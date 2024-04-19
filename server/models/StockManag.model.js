@@ -54,11 +54,6 @@ const StockManagSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    // Old cost of the stock
-    oldCost: {
-      type: Number,
-      required: true,
-    },
     // Current cost of the stock
     cost: {
       type: Number,

@@ -89,9 +89,11 @@ const Purchase = () => {
     const price = item.price;
     const cost = item.cost;
     const expirationDate = item.expirationDate
+    const movement = 'Purchase'
 
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
 
+    const itemName = stockItem.itemName
     const oldBalance = stockItem.Balance
     const parts = stockItem.parts
     const currentBalance = Number(quantity) + Number(oldBalance);
@@ -110,13 +112,11 @@ const Purchase = () => {
           movement,
           quantity,
           cost,
-          oldCost,
           unit,
           balance: currentBalance,
           oldBalance,
           price,
           expirationDate,
-          actionAt,
         }, config);
 
         console.log(response.data);
@@ -425,7 +425,6 @@ const Purchase = () => {
       console.log({ response })
       if (response.status === 201) {
         items.forEach(item => {
-         
           createStockAction(item)
         })
         getAllPurchases();
