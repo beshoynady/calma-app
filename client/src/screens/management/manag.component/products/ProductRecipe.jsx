@@ -121,7 +121,7 @@ const ProductRecipe = () => {
     }
   };
 
-  const [sizes, setsizes] = useState("");
+  const [sizes, setsizes] = useState([]);
   
   const handleSelectedProduct =(id)=>{
     setproductId(id);
