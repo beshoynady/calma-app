@@ -79,20 +79,22 @@ const Purchase = () => {
   const [AllStockactions, setAllStockactions] = useState([]);
 
   const createStockAction = async (item) => {
-    const itemId=item.itemId
-const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
+    const itemId = item.itemId
+    const movement = 'Purchase'
+    const quantity = item.quantity;
+    const cost = item.cost
+    const price = item.price
+
+    const stockItem = StockItems.filter(item => item._id === item.itemId)[0]
     const {
-      itemName,
       largeUnit,
       smallUnit,
       Balance,
-      price,
       totalCost,
       parts,
     } = stockItem;
     console.log({
       itemId,
-      itemName,
       largeUnit,
       smallUnit,
       Balance,
@@ -100,15 +102,15 @@ const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
       totalCost,
       parts,
     })
-    const newBalance = Number(Balance) + Number(item.quantity);
-    const newcost = Number(totalCost) + Number(item.cost);
+    const newBalance = Number(Balance) + Number(quantity);
+    const newcost = Number(totalCost) + Number(cost);
     const countparts = newBalance * Number(parts)
-    const costOfPart = Math.round((item.price / countparts) * 100) / 100;
+    const costOfPart = Math.round((price / countparts) * 100) / 100;
     console.log({ newBalance, newcost, costOfPart, countparts })
     console.log({ newBalance: newBalance })
     console.log({ newcost: newcost })
-    console.log({ price: item.price })
-    
+    console.log({ price })
+
     try {
       const unit = largeUnit
 
@@ -127,7 +129,7 @@ const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
           oldCost,
           unit,
           balance: newBalance,
-          oldBalance:Balance,
+          oldBalance: Balance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
           actionAt,
@@ -181,74 +183,74 @@ const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
   };
 
 
-  const updateStockaction = async (e, employeeId) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      const actionBy = employeeId;
-      const unit = movement == 'Purchase' ? largeUnit : smallUnit
+  // const updateStockaction = async (e, employeeId) => {
+  //   e.preventDefault();
+  //   try {
+  //     const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  //     const actionBy = employeeId;
+  //     const unit = movement == 'Purchase' ? largeUnit : smallUnit
 
-      // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
+  //     // Update the stock item's movement
+  //     const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
 
-      if (changeItem.status === 200) {
-        // Update the existing stock action
-        const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
-          itemId, movement, quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
-          actionBy
-        }, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
-        console.log(response.data);
+  //     if (changeItem.status === 200) {
+  //       // Update the existing stock action
+  //       const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
+  //         itemId, movement, quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
+  //         actionBy
+  //       }, {
+  //         headers: {
+  //           'authorization': `Bearer ${token}`,
+  //         },
+  //       });
+  //       console.log(response.data);
 
-        if (movement === 'Purchase') {
-          for (const recipe of allrecipes) {
-            const recipeid = recipe._id;
-            const productname = recipe.product.name;
-            const arrayingredients = recipe.ingredients;
+  //       if (movement === 'Purchase') {
+  //         for (const recipe of allrecipes) {
+  //           const recipeid = recipe._id;
+  //           const productname = recipe.product.name;
+  //           const arrayingredients = recipe.ingredients;
 
-            const newIngredients = arrayingredients.map((ingredient) => {
-              if (ingredient.itemId === itemId) {
-                const costofitem = costOfPart;
-                const unit = ingredient.unit
-                const amount = ingredient.amount
-                const totalcostofitem = amount * costOfPart
-                return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
-              } else {
-                return ingredient;
-              }
-            });
-            console.log({ newIngredients })
-            const totalcost = newIngredients.reduce((acc, curr) => {
-              return acc + (curr.totalcostofitem || 0);
-            }, 0);
-            // Update the product with the modified recipe and total cost
-            const updateRecipe = await axios.put(
-              `${apiUrl}/api/recipe/${recipeid}`,
-              { ingredients: newIngredients, totalcost }, config
-            );
+  //           const newIngredients = arrayingredients.map((ingredient) => {
+  //             if (ingredient.itemId === itemId) {
+  //               const costofitem = costOfPart;
+  //               const unit = ingredient.unit
+  //               const amount = ingredient.amount
+  //               const totalcostofitem = amount * costOfPart
+  //               return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+  //             } else {
+  //               return ingredient;
+  //             }
+  //           });
+  //           console.log({ newIngredients })
+  //           const totalcost = newIngredients.reduce((acc, curr) => {
+  //             return acc + (curr.totalcostofitem || 0);
+  //           }, 0);
+  //           // Update the product with the modified recipe and total cost
+  //           const updateRecipe = await axios.put(
+  //             `${apiUrl}/api/recipe/${recipeid}`,
+  //             { ingredients: newIngredients, totalcost }, config
+  //           );
 
-            console.log({ updateRecipe });
+  //           console.log({ updateRecipe });
 
-            // Toast for successful update based on recipe change
-            toast.success(`تم تحديث وصفه ${productname}`);
-          }
-        }
-        // Update the stock actions list and stock items
-        getallStockaction();
-        getaStockItems();
+  //           // Toast for successful update based on recipe change
+  //           toast.success(`تم تحديث وصفه ${productname}`);
+  //         }
+  //       }
+  //       // Update the stock actions list and stock items
+  //       getallStockaction();
+  //       getaStockItems();
 
-        // Toast notification for successful update
-        toast.success('تم تحديث العنصر بنجاح');
-      }
-    } catch (error) {
-      console.log(error);
-      // Toast notification for error
-      toast.error('فشل في تحديث العنصر ! حاول مره اخري');
-    }
-  }
+  //       // Toast notification for successful update
+  //       toast.success('تم تحديث العنصر بنجاح');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     // Toast notification for error
+  //     toast.error('فشل في تحديث العنصر ! حاول مره اخري');
+  //   }
+  // }
 
 
   const getallStockaction = async () => {
@@ -262,26 +264,26 @@ const stockItem = StockItems.filter(item => item._id ===item.itemId)[0]
     }
   }
 
-  const deleteStockaction = async (e) => {
-    e.preventDefault();
-    try {
-      // Delete the selected stock action
-      const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, config);
-      console.log(response);
+  // const deleteStockaction = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     // Delete the selected stock action
+  //     const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, config);
+  //     console.log(response);
 
-      if (response) {
-        // Update the stock actions list after successful deletion
-        getallStockaction();
+  //     if (response) {
+  //       // Update the stock actions list after successful deletion
+  //       getallStockaction();
 
-        // Toast notification for successful deletion
-        toast.success('تم حذف حركه المخزن بنجاح');
-      }
-    } catch (error) {
-      console.log(error);
-      // Toast notification for error
-      toast.error('فشل حذف حركه المخزن ! حاول مره اخري ');
-    }
-  }
+  //       // Toast notification for successful deletion
+  //       toast.success('تم حذف حركه المخزن بنجاح');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     // Toast notification for error
+  //     toast.error('فشل حذف حركه المخزن ! حاول مره اخري ');
+  //   }
+  // }
 
 
   const itemname = (id) => {
