@@ -295,7 +295,7 @@ const Purchase = () => {
   const handleItemId = (id, index) => {
     const stockitem = StockItems.filter(item=>item._id === id)[0]
     const updatedItems = [...items]
-    updatedItems[index].itemId = id
+    updatedItems[index].itemId = stockitem._id
     updatedItems[index].largeUnit = stockitem.largeUnit
     console.log({ updatedItems })
     setItems(updatedItems)
