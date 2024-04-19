@@ -18,9 +18,8 @@ const StockItem = () => {
   const [categoryId, setcategoryId] = useState('');
   const [largeUnit, setlargeUnit] = useState('');
   const [smallUnit, setsmallUnit] = useState('');
-  const [balance, setbalance] = useState('');
+  const [currentBalance, setcurrentBalance] = useState('');
   const [price, setprice] = useState('');
-  const [ settotalCost] = useState('');
   const [parts, setparts] = useState('');
   const [costOfPart, setcostOfPart] = useState('');
   const [minThreshold, setminThreshold] = useState();
@@ -38,7 +37,7 @@ const StockItem = () => {
         parts,
         costOfPart,
         largeUnit,
-        balance,
+        currentBalance,
         minThreshold,
         price,
         createBy,
@@ -68,7 +67,7 @@ const StockItem = () => {
         parts,
         costOfPart,
         largeUnit,
-        balance,
+        currentBalance,
         minThreshold,
         price,
         createBy,
@@ -265,7 +264,7 @@ const StockItem = () => {
                               <td>{i + 1}</td>
                               <td>{item.itemName}</td>
                               <td>{item.categoryId.name}</td>
-                              <td>{item.balance}</td>
+                              <td>{item.currentBalance}</td>
                               <td>{item.minThreshold}</td>
                               <td>{item.largeUnit}</td>
                               <td>{item.price}</td>
@@ -275,7 +274,7 @@ const StockItem = () => {
                               <td>{item.createBy.fullname}</td>
                               <td>{item.createdAt}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setbalance(item.balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -333,7 +332,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setbalance(e.target.value)} />
+                          <input type='Number' className="form-control" required onChange={(e) => setcurrentBalance(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الحد الادني</label>
@@ -401,7 +400,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" defaultValue={balance} required onChange={(e) => setbalance(e.target.value)} />
+                          <input type='Number' className="form-control" defaultValue={currentBalance} required onChange={(e) => setcurrentBalance(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الحد الادني</label>
