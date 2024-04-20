@@ -195,6 +195,7 @@ const Purchase = () => {
     e.preventDefault();
     try {
       const transactionType = 'Purchase'
+      const amount = netAmount
       const currentBalance = previousBalance + amount
       const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
