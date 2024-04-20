@@ -90,7 +90,7 @@ const ProductRecipe = () => {
       const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === id);
       console.log({ recipeOfProduct });
 
-      if (recipeOfProduct.length > 0) {
+      if (recipeOfProduct.length > 1) {
         const recipeSize = recipeOfProduct.filter(recipe => recipe.size === size)
         console.log({ recipeSize })
 
