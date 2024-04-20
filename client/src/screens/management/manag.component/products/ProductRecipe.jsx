@@ -179,7 +179,7 @@ const ProductRecipe = () => {
         const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`,
           { productId, productName, size, ingredients: newIngredients, totalcost: totalCost }
           , config);
-
+        console.log({addRecipeToProduct})
         if (addRecipeToProduct.status === 201) {
           console.log({ addRecipeToProduct }); // Log the response from the server
           getProductRecipe(productId); // Refresh the product recipe
