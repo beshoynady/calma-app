@@ -140,7 +140,8 @@ function App() {
     const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
     return formattedTime;
   };
-  const formatDateTime = (date) => {
+  const formatDateTime = (dateString) => {
+    const date = new Date(dateString);
     // Get the hour and minutes
     let hours = date.getHours();
     let minutes = date.getMinutes();
