@@ -55,7 +55,7 @@ const ProductRecipe = () => {
     }
   }
 
-  
+
   const [AllStockItems, setAllStockItems] = useState([]);
 
   const getallStockItem = async () => {
@@ -71,8 +71,8 @@ const ProductRecipe = () => {
 
   }
 
-  
-  
+
+
   const [productId, setproductId] = useState("");
   const [productName, setproductName] = useState("");
 
@@ -80,27 +80,34 @@ const ProductRecipe = () => {
   const [ingredients, setingredients] = useState([]);
   const [producttotalcost, setproducttotalcost] = useState();
 
-  const getProductRecipe = async (id,size) => {
+  const getProductRecipe = async (id, size) => {
     try {
-     
+
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
+
       const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === id);
-      if(recipeOfProduct.length > 0) {
-        const recipeSize = recipeOfProduct.filter(recipe=>recipe.size === size)
-        console.log({recipeSize})
+
+      if (recipeOfProduct.length > 0) {
+        const recipeSize = recipeOfProduct.filter(recipe => recipe.size === size)
+        console.log({ recipeSize })
+
         setrecipeOfProduct(recipeSize[0]);
+
         const ingredients = await recipeSize[0].ingredients;
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
         const totalrecipeOfProduct = await recipeSize.totalcost;
+
         console.log({ totalrecipeOfProduct });
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
         }
-      }else if(recipeOfProduct.length == 0){
+
+
+      } else if (recipeOfProduct.length == 1) {
         console.log({ recipeOfProduct });
         setrecipeOfProduct(recipeOfProduct[0]);
         const ingredients = await recipeOfProduct[0].ingredients;
@@ -112,29 +119,29 @@ const ProductRecipe = () => {
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
         }
-    }else{
-          setrecipeOfProduct({});
-          setingredients([]);
-        }
+      } else {
+        setrecipeOfProduct({});
+        setingredients([]);
+      }
     } catch (error) {
       console.error("Error fetching product recipe:", error.message);
     }
   };
 
   const [sizes, setsizes] = useState([]);
-  
-  const handleSelectedProduct =(id)=>{
+
+  const handleSelectedProduct = (id) => {
     setproductId(id);
     const findProduct = listofProducts.find(product => product._id === id);
     setproductName(findProduct.name);
     setsizes(findProduct.sizes)
-    if(findProduct.sizes.length == 0){
-      getProductRecipe(id,'oneSize');
+    if (findProduct.sizes.length == 0) {
+      getProductRecipe(id, 'oneSize');
     }
   }
-  const handleSelectedProductSize =(size)=>{
+  const handleSelectedProductSize = (size) => {
     setsize(size)
-    getProductRecipe(productId , size);
+    getProductRecipe(productId, size);
 
   }
   const [size, setsize] = useState("");
@@ -145,51 +152,51 @@ const ProductRecipe = () => {
   const [unit, setunit] = useState("");
   const [totalcostofitem, settotalcostofitem] = useState();
 
-const createRecipe = async (e) => {
-  e.preventDefault();
+  const createRecipe = async (e) => {
+    e.preventDefault();
 
-  try {
-    if (ingredients.length > 0) {
-      // If there are existing ingredients, create a new array with the added ingredient
-      const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
-      // Calculate the total cost by adding the cost of the new ingredient
-      const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
+    try {
+      if (ingredients.length > 0) {
+        // If there are existing ingredients, create a new array with the added ingredient
+        const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
+        // Calculate the total cost by adding the cost of the new ingredient
+        const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
-      // Update the recipe by sending a PUT request
-      const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, config);
+        // Update the recipe by sending a PUT request
+        const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, config);
 
-      console.log({ addRecipeToProduct }); // Log the response from the server
-
-      getProductRecipe(productId); // Refresh the product recipe
-    } else {
-      // If there are no existing ingredients, create a new array with the single ingredient
-      const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
-      const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
-
-      console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
-
-      // Add the new recipe to the product by sending a POST request
-      const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`, 
-      { productId, productName,size, ingredients: newIngredients, totalcost: totalCost }
-      , config);
-
-      if (addRecipeToProduct.status === 201) {
         console.log({ addRecipeToProduct }); // Log the response from the server
+
         getProductRecipe(productId); // Refresh the product recipe
-        setitemId(''); // Clear the input fields
-        setname('');
-        setamount('');
-        setunit('');
-        setcostofitem('');
-        settotalcostofitem('');
-        toast.success("تم إضافة المكون بنجاح"); // Notify success in adding ingredient
+      } else {
+        // If there are no existing ingredients, create a new array with the single ingredient
+        const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
+        const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
+
+        console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
+
+        // Add the new recipe to the product by sending a POST request
+        const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`,
+          { productId, productName, size, ingredients: newIngredients, totalcost: totalCost }
+          , config);
+
+        if (addRecipeToProduct.status === 201) {
+          console.log({ addRecipeToProduct }); // Log the response from the server
+          getProductRecipe(productId); // Refresh the product recipe
+          setitemId(''); // Clear the input fields
+          setname('');
+          setamount('');
+          setunit('');
+          setcostofitem('');
+          settotalcostofitem('');
+          toast.success("تم إضافة المكون بنجاح"); // Notify success in adding ingredient
+        }
       }
+    } catch (error) {
+      console.error("Error creating/updating recipe:", error.message); // Log any errors that occur during the process
+      toast.error("حدث خطأ أثناء إنشاء/تحديث الوصفة"); // Notify error in creating/updating recipe
     }
-  } catch (error) {
-    console.error("Error creating/updating recipe:", error.message); // Log any errors that occur during the process
-    toast.error("حدث خطأ أثناء إنشاء/تحديث الوصفة"); // Notify error in creating/updating recipe
-  }
-};
+  };
 
 
 
@@ -233,44 +240,44 @@ const createRecipe = async (e) => {
   //   setcostofitem()
   // }
 
-const editRecipe = async (e) => {
-  try {
-    e.preventDefault();
-    console.log({ingredients});
-    
-    const newIngredients = ingredients.map((ingredient) => { 
-      if (ingredient.itemId === itemId) {
-        return { itemId, name, amount, costofitem, unit, totalcostofitem };
-      } else {
-        return ingredient;
+  const editRecipe = async (e) => {
+    try {
+      e.preventDefault();
+      console.log({ ingredients });
+
+      const newIngredients = ingredients.map((ingredient) => {
+        if (ingredient.itemId === itemId) {
+          return { itemId, name, amount, costofitem, unit, totalcostofitem };
+        } else {
+          return ingredient;
+        }
+      });
+
+      console.log({ newIngredients });
+
+      let total = 0;
+      for (let i = 0; i < newIngredients.length; i++) {
+        total += newIngredients[i].totalcostofitem;
       }
-    });
+      const totalcost = Math.round(total * 100) / 100;
 
-    console.log({newIngredients});
+      console.log({ totalcost });
 
-    let total = 0;
-    for (let i = 0; i < newIngredients.length; i++) {
-      total += newIngredients[i].totalcostofitem;
+      const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost, size }, config
+      );
+
+      console.log({ editRecipeToProduct });
+      getProductRecipe(productId);
+      setitemId('');
+      setname('');
+      setamount('');
+      setunit('');
+      setcostofitem('');
+    } catch (error) {
+      console.error("Error editing recipe:", error.message);
+      toast.error("حدث خطأ أثناء تعديل الوصفة");
     }
-    const totalcost = Math.round(total * 100) / 100;
-
-    console.log({ totalcost });
-
-    const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`,{ ingredients: newIngredients, totalcost, size }, config
-    );
-
-    console.log({ editRecipeToProduct });
-    getProductRecipe(productId);
-    setitemId('');
-    setname('');
-    setamount('');
-    setunit('');
-    setcostofitem('');
-  } catch (error) {
-    console.error("Error editing recipe:", error.message);
-    toast.error("حدث خطأ أثناء تعديل الوصفة");
-  }
-};
+  };
 
 
 
@@ -278,20 +285,20 @@ const editRecipe = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
 
-    if(ingredients.length>2){
-    const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
-    console.log({newingredients})
-    let total = 0
-    for (let i = 0; i < newingredients.length; i++) {
-      total += newingredients[i].totalcostofitem
+    if (ingredients.length > 2) {
+      const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
+      console.log({ newingredients })
+      let total = 0
+      for (let i = 0; i < newingredients.length; i++) {
+        total += newingredients[i].totalcostofitem
+      }
+      console.log({ totalcost: total })
+      // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
+      const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newingredients, totalcost: total }, config)
+    } else {
+      const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config)
+      console.log(deleteRecipetoProduct)
     }
-    console.log({ totalcost: total })
-    // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-    const deleteRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost: total },config)
-  }else{
-    const deleteRecipetoProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}` , config)
-    console.log(deleteRecipetoProduct)
-  }
     getProductRecipe(productId)
   }
 
@@ -299,13 +306,13 @@ const editRecipe = async (e) => {
   const deleteAllRecipe = async (e) => {
     try {
       e.preventDefault();
-  
+
       if (recipeOfProduct) {
         const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config);
-  
+
         console.log(deleteRecipeToProduct);
         getProductRecipe(productId);
-  
+
         deleteRecipeToProduct.status === 200 ? toast.success('تم حذف الوصفة بنجاح') : toast.error('حدث خطأ أثناء الحذف');
         getProductRecipe(productId)
 
@@ -318,7 +325,7 @@ const editRecipe = async (e) => {
       getProductRecipe(productId)
     }
   };
-  
+
 
 
   useEffect(() => {
@@ -375,7 +382,7 @@ const editRecipe = async (e) => {
                         </div>
                         <div class="filter-group">
                           <label>المنتج</label>
-                          <select class="form-control" onChange={(e) =>handleSelectedProduct(e.target.value)} >
+                          <select class="form-control" onChange={(e) => handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
                             {productFilterd.map((product, i) => {
                               return <option value={product._id} key={i} >{product.name}</option>
@@ -383,18 +390,18 @@ const editRecipe = async (e) => {
                             }
                           </select>
                         </div>
-                        {sizes.length>0?
-                        <div class="filter-group">
-                          <label>الحجم</label>
-                          <select class="form-control" onChange={(e) =>handleSelectedProductSize(e.target.value)} >
-                            <option value={""}>اختر حجم</option>
-                            {sizes.map((size, i) => {
-                              return <option value={size.sizeName} key={i} >{size.sizeName}</option>
-                            })
-                            }
-                          </select>
-                        </div>
-                        :""}
+                        {sizes.length > 0 ?
+                          <div class="filter-group">
+                            <label>الحجم</label>
+                            <select class="form-control" onChange={(e) => handleSelectedProductSize(e.target.value)} >
+                              <option value={""}>اختر حجم</option>
+                              {sizes.map((size, i) => {
+                                return <option value={size.sizeName} key={i} >{size.sizeName}</option>
+                              })
+                              }
+                            </select>
+                          </div>
+                          : ""}
                         <div class="filter-group">
                           <label>اجمالي التكاليف</label>
                           <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />
