@@ -127,7 +127,7 @@ const Purchase = () => {
 
         for (const recipe of allrecipes) {
           const recipeid = recipe._id;
-          const productname = recipe.product.name;
+          const productname = recipe.productId.name;
           const arrayingredients = recipe.ingredients;
 
           const newIngredients = arrayingredients.map((ingredient) => {
