@@ -74,5 +74,5 @@ const StockManagSchema = new mongoose.Schema(
   }
 );
 
-const StockManagModel = mongoose.model('stockmanag', StockManagSchema);
-module.exports = StockManagModel;
+const StockManagementModel = mongoose.model('stockmanag', StockManagSchema);
+module.exports = StockManagementModel;
