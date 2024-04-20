@@ -90,14 +90,24 @@ const updateStockAction = async (req, res, next) => {
     }
 };
 
-const getAllStockActions = async (req, res, next) => {
+const getAllStockActions = async (req, res) => {
     try {
-        const allActions = await StockManagementModel.find({}).populate('itemId').populate('actionBy').populate('supplier').populate('receiver')
+      const allActions = await StockManagementModel.find({})
+        .populate('itemId')
+        .populate('actionBy')
+        .populate('supplier')
+        .populate('receiver');
+  
+      if (allActions.length > 0) {
         res.status(200).json(allActions);
+      } else {
+        res.status(404).json({ message: 'No stock actions found' });
+      }
     } catch (error) {
-        next(error);
+      res.status(500).json({ message: error.message });
     }
-};
+  };
+  
 
 const getOneStockAction = async (req, res, next) => {
     try {
