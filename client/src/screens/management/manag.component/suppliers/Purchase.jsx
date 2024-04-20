@@ -201,8 +201,8 @@ const Purchase = () => {
 
       console.log({ requestData })
       
-      const suppliertransactionresponse = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      console.log({ suppliertransactionresponse })
+      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ response })
       if (response.status === 201) {
         const supplierresponse = await axios.get(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
         console.log({ supplierresponse })
