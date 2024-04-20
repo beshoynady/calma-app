@@ -127,7 +127,7 @@ const ProductRecipe = () => {
         setingredients([]);
       }
     } catch (error) {
-      console.error("Error fetching product recipe:", error.message);
+      console.error("Error fetching product recipe:", error);
     }
   };
 
@@ -147,7 +147,7 @@ const ProductRecipe = () => {
     getProductRecipe(productId, size);
 
   }
-  const [size, setsize] = useState("");
+  const [size, setsize] = useState("oneSize");
   const [itemId, setitemId] = useState("");
   const [name, setname] = useState("");
   const [amount, setamount] = useState();
