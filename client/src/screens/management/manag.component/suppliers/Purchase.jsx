@@ -191,8 +191,7 @@ const Purchase = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-  const handleAddSupplierTransactionPurchase = async (e) => {
-    e.preventDefault();
+  const handleAddSupplierTransactionPurchase = async () => {
     try {
       const transactionType = 'Purchase'
       const amount = netAmount
