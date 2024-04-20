@@ -86,8 +86,9 @@ const ProductRecipe = () => {
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
-
+      
       const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === id);
+      console.log({ recipeOfProduct });
 
       if (recipeOfProduct.length > 0) {
         const recipeSize = recipeOfProduct.filter(recipe => recipe.size === size)
@@ -96,6 +97,7 @@ const ProductRecipe = () => {
         setrecipeOfProduct(recipeSize[0]);
 
         const ingredients = await recipeSize[0].ingredients;
+        console.log({ ingredients });
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
@@ -111,6 +113,7 @@ const ProductRecipe = () => {
         console.log({ recipeOfProduct });
         setrecipeOfProduct(recipeOfProduct[0]);
         const ingredients = await recipeOfProduct[0].ingredients;
+        console.log({ ingredients });
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
@@ -154,7 +157,7 @@ const ProductRecipe = () => {
 
   const createRecipe = async (e) => {
     e.preventDefault();
-
+    console.log({ingredients})
     try {
       if (ingredients.length > 0) {
         // If there are existing ingredients, create a new array with the added ingredient
@@ -193,7 +196,7 @@ const ProductRecipe = () => {
         }
       }
     } catch (error) {
-      console.error("Error creating/updating recipe:", error.message); // Log any errors that occur during the process
+      console.error("Error creating/updating recipe:", error); // Log any errors that occur during the process
       toast.error("حدث خطأ أثناء إنشاء/تحديث الوصفة"); // Notify error in creating/updating recipe
     }
   };
