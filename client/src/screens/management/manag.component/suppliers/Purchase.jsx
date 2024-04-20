@@ -14,6 +14,19 @@ const Purchase = () => {
     },
   };
 
+  const [AllStockactions, setAllStockactions] = useState([]);
+
+  const getallStockaction = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/stockmanag/', config);
+      console.log(response.data)
+      const Stockactions = await response.data;
+      setAllStockactions(Stockactions.reverse())
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const [AllSuppliers, setAllSuppliers] = useState([]);
   // Function to retrieve all suppliers
   const getAllSuppliers = async () => {
@@ -92,7 +105,7 @@ const Purchase = () => {
     const receiver = receiverid
 
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
-    console.log({stockItem})
+    console.log({ stockItem })
 
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
@@ -100,11 +113,12 @@ const Purchase = () => {
     const currentBalance = Number(quantity) + Number(oldBalance);
     const unit = stockItem.largeUnit
     const costOfPart = Math.round((Number(price) / Number(parts)) * 100) / 100;
-    console.log({parts, price, costOfPart})
+    console.log({ parts, price, costOfPart })
     try {
 
       // Update the stock item's movement
-      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { currentBalance, price, costOfPart }, config);
+      const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`,
+        { currentBalance, price, costOfPart }, config);
       console.log(changeItem);
 
       if (changeItem.status === 200) {
@@ -146,7 +160,8 @@ const Purchase = () => {
             return acc + (curr.totalcostofitem || 0);
           }, 0);
           // Update the product with the modified recipe and total cost
-          const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`, { ingredients: newIngredients, totalcost }, config);
+          const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`,
+            { ingredients: newIngredients, totalcost }, config);
 
           console.log({ updateRecipe });
 
@@ -168,6 +183,35 @@ const Purchase = () => {
     }
   };
 
+
+  const [listtransactionType, setlistTransactionType] = useState(['OpeningBalance', 'Purchase', 'Payment', 'PurchaseReturn', 'Refund']);
+  const [transactionDate, setTransactionDate] = useState('');
+  const [transactionType, setTransactionType] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [previousBalance, setPreviousBalance] = useState(0);
+  const [currentBalance, setCurrentBalance] = useState(0);
+
+  const handleAddSupplierTransactionPurchase = async (e) => {
+    e.preventDefault();
+    try {
+      const transactionType = 'Purchase'
+      const currentBalance = previousBalance + amount
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+      console.log({ requestData })
+
+      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ response })
+      if (response.status === 201) {
+        const response = await axios.get(`${apiUrl}/api/supplier/${id}`, { balance: currentBalance }, config);
+        toast.success('تم انشاء العملية بنجاح');
+      } else {
+        toast.error('حدث خطأ أثناء انشاء العملية');
+      }
+    } catch (error) {
+      toast.error('حدث خطأ أثناء انشاء العملية');
+    }
+  };
 
   // const updateStockaction = async (e, employeeId) => {
   //   e.preventDefault();
@@ -240,18 +284,7 @@ const Purchase = () => {
 
 
 
-  const [AllStockactions, setAllStockactions] = useState([]);
 
-  const getallStockaction = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/stockmanag/', config);
-      console.log(response.data)
-      const Stockactions = await response.data;
-      setAllStockactions(Stockactions.reverse())
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   // const deleteStockaction = async (e) => {
   //   e.preventDefault();
@@ -294,7 +327,7 @@ const Purchase = () => {
     clacTotalAmount()
   }
   const handleItemId = (id, index) => {
-    const stockitem = StockItems.filter(item=>item._id === id)[0]
+    const stockitem = StockItems.filter(item => item._id === id)[0]
     const updatedItems = [...items]
     updatedItems[index].itemId = stockitem._id
     updatedItems[index].largeUnit = stockitem.largeUnit
@@ -341,7 +374,11 @@ const Purchase = () => {
     // let total = Number(totalAmount) + Number(additionalCost) + Number(salesTax) - Number(discount)
     let total = Number(totalAmount) + Number(salesTax) - Number(discount)
     setNetAmount(total)
+    setBalanceDue(total)
+
   }
+
+
   useEffect(() => {
     calcNetAmount()
   }, [items, additionalCost, discount, salesTax])
@@ -355,6 +392,7 @@ const Purchase = () => {
     const findSupplier = AllSuppliers.filter(supplier => supplier._id === id)[0]
     setsupplierInfo(findSupplier)
     setFinancialInfo(findSupplier.financialInfo)
+    setPreviousBalance(findSupplier.currentBalance)
   }
 
 
@@ -369,7 +407,6 @@ const Purchase = () => {
   const handlePaidAmount = (amount) => {
     setPaidAmount(amount);
     setBalanceDue(Number(netAmount) - Number(amount));
-
     if (amount == 0) {
       setPaymentStatus('unpaid');
       setInvoiceType('credit');
@@ -482,7 +519,7 @@ const Purchase = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle,formatDate, formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle, formatDate, formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
