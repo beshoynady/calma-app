@@ -164,7 +164,7 @@ const StockItem = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,formatDate,formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive mt-1">
@@ -273,7 +273,7 @@ const StockItem = () => {
                               <td>{item.smallUnit}</td>
                               <td>{item.costOfPart}</td>
                               <td>{item.createBy.fullname}</td>
-                              <td>{item.createdAt}</td>
+                              <td>{formatDateTime(new Date(item.createdAt))}</td>
                               <td>
                                 <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId._id);setcategoryName(item.categoryId.name); setitemName(item.itemName); setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

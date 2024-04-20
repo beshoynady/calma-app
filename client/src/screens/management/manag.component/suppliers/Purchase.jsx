@@ -482,7 +482,7 @@ const Purchase = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,formatDate, formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -585,6 +585,7 @@ const Purchase = () => {
                         <th>الحالة</th>
                         <th>الخزينه</th>
                         <th>تم بواسطه</th>
+                        <th>تسجيل في</th>
                         <th>ملاحظات</th>
                         <th>اجراءات</th>
                       </tr>
@@ -601,12 +602,7 @@ const Purchase = () => {
                                 </label>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{new Date(invoice.date).toLocaleDateString('ar-EG', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric'
-                              })
-                              }</td>
+                              <td>{formatDate(invoice.date)}</td>
                               <td>{invoice.invoiceNumber}</td>
                               <td>{invoice.supplier.name}</td>
                               <td>{invoice.totalAmount}</td>
@@ -617,15 +613,12 @@ const Purchase = () => {
                               <td>{invoice.invoiceType}</td>
                               <td>{invoice.paidAmount}</td>
                               <td>{invoice.balanceDue}</td>
-                              <td>{new Date(invoice.paymentDueDate).toLocaleDateString('ar-EG', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric'
-                              })}</td>
+                              <td>{formatDate(invoice.paymentDueDate)}</td>
                               <td>{invoice.paymentMethod}</td>
                               <td>{invoice.paymentStatus}</td>
                               <td>{invoice.cashRegister.name}</td>
                               <td>{invoice.createdBy.fullname}</td>
+                              <td>{formatDateTime(invoice.createdAt)}</td>
                               <td>{invoice.notes}</td>
                               <td>
                                 {/* <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

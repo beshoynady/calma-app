@@ -140,6 +140,29 @@ function App() {
     const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
     return formattedTime;
   };
+  const formatDateTime = (date) => {
+    // Get the hour and minutes
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+  
+    // Convert the hour to 12-hour format
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 12-hour format 12 denotes noon
+  
+    // Add leading zero to hours and minutes if less than 10
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+  
+    // Format the time
+    const formattedTime = hours + ':' + minutes + ' ' + ampm;
+  
+    // Format the date
+    const formattedDate = date.toLocaleDateString();
+  
+    return formattedDate + ' ' + formattedTime;
+  };
+  
   //+++++++++++++++++ product ++++++++++++++++++++
   const [allProducts, setallProducts] = useState([])
 
@@ -1979,7 +2002,9 @@ function App() {
       EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
 
       // Other utility functions or state variables
-      itemId, setitemId, formatDate, formatTime,
+      itemId, setitemId,
+      
+      formatDateTime, formatDate, formatTime,
       orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
 
