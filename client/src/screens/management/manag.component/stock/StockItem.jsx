@@ -16,6 +16,7 @@ const StockItem = () => {
   const [itemName, setitemName] = useState('');
   const [stockItemId, setStockItemid] = useState('');
   const [categoryId, setcategoryId] = useState('');
+  const [categoryName, setcategoryName] = useState('');
   const [largeUnit, setlargeUnit] = useState('');
   const [smallUnit, setsmallUnit] = useState('');
   const [currentBalance, setcurrentBalance] = useState('');
@@ -274,7 +275,7 @@ const StockItem = () => {
                               <td>{item.createBy.fullname}</td>
                               <td>{item.createdAt}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId._id);setcategoryName(item.categoryId.name); setitemName(item.itemName); setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -381,8 +382,7 @@ const StockItem = () => {
                         <div className="form-group form-group-47">
                           <label>نوع المخزن</label>
                           <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
-                            {/* <option>{AllCategoryStock.length>0?AllCategoryStock.filter(c=>c._id == categoryId)[0].name:''}</option> */}
-                            <option value={categoryId}>{categoryId !=="" ? AllCategoryStock.filter(c => c._id == categoryId)[0].name : ''}</option>
+                            <option value={categoryId}>{categoryName}</option>
                             {AllCategoryStock.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
                             })
