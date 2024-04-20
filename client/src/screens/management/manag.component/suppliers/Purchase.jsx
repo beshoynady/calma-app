@@ -92,6 +92,7 @@ const Purchase = () => {
     const receiver = receiverid
 
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
+    console.log({stockItem})
 
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
@@ -122,7 +123,7 @@ const Purchase = () => {
           expirationDate,
         }, config);
 
-        console.log(response.data);
+        console.log(response);
 
         for (const recipe of allrecipes) {
           const recipeid = recipe._id;

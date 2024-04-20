@@ -36,7 +36,6 @@ const StockManagSchema = new mongoose.Schema(
     // Quantity of stock
     quantity: {
       type: Number,
-      default: 0,
       required: true,
     },
     // Old balance of stock
