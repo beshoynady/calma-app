@@ -191,7 +191,7 @@ const Purchase = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-  const handleAddSupplierTransactionPurchase = async () => {
+  const handleAddSupplierTransactionPurchase = async (invoiceNumber) => {
     try {
       const transactionType = 'Purchase'
       const amount = netAmount
@@ -473,7 +473,7 @@ const Purchase = () => {
           createStockAction(item, receiverId)
         })
 
-        handleAddSupplierTransactionPurchase()
+        handleAddSupplierTransactionPurchase(response.data._id)
         getAllPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
       } else {
