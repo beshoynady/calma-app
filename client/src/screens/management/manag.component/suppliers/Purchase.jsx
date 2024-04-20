@@ -203,7 +203,7 @@ const Purchase = () => {
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
       console.log({ response })
       if (response.status === 201) {
-        const response = await axios.get(`${apiUrl}/api/supplier/${id}`, { balance: currentBalance }, config);
+        const response = await axios.get(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
         toast.success('تم انشاء العملية بنجاح');
       } else {
         toast.error('حدث خطأ أثناء انشاء العملية');
@@ -469,6 +469,7 @@ const Purchase = () => {
       if (response.status === 201) {
         items.forEach(item => {
           createStockAction(item, receiverId)
+          handleAddSupplierTransactionPurchase()
         })
         getAllPurchases();
         toast.success('تم اضافه المشتريات بنجاح')
