@@ -195,15 +195,17 @@ const Purchase = () => {
     try {
       const transactionType = 'Purchase'
       const amount = netAmount
+      const transactionDate = date
       const currentBalance = previousBalance + amount
       const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
       console.log({ requestData })
-
-      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      console.log({ response })
+      
+      const suppliertransactionresponse = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ suppliertransactionresponse })
       if (response.status === 201) {
-        const response = await axios.get(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
+        const supplierresponse = await axios.get(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
+        console.log({ supplierresponse })
         toast.success('تم انشاء العملية بنجاح');
       } else {
         toast.error('حدث خطأ أثناء انشاء العملية');
