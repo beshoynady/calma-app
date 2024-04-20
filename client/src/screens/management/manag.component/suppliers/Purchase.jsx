@@ -94,7 +94,7 @@ const Purchase = () => {
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
 
     const itemName = stockItem.itemName
-    const oldBalance = stockItem.Balance
+    const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
     const currentBalance = Number(quantity) + Number(oldBalance);
     const unit = stockItem.largeUnit
