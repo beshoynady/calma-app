@@ -6,7 +6,7 @@ const StockManagSchema = new mongoose.Schema(
     // Item reference ID
     itemId: {
       type: ObjectId,
-      ref: 'StockItems',
+      ref: 'StockItem',
       required: true,
     },
     supplier: {
