@@ -101,7 +101,7 @@ const ProductRecipe = () => {
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
-        const totalrecipeOfProduct = await recipeSize.totalcost;
+        const totalrecipeOfProduct = await recipeSize[0].totalcost;
 
         console.log({ totalrecipeOfProduct });
         if (totalrecipeOfProduct) {
@@ -117,7 +117,7 @@ const ProductRecipe = () => {
         if (ingredients) {
           setingredients(ingredients.reverse());
         }
-        const totalrecipeOfProduct = await recipeOfProduct.totalcost;
+        const totalrecipeOfProduct = await recipeOfProduct[0].totalcost;
         console.log({ totalrecipeOfProduct });
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
