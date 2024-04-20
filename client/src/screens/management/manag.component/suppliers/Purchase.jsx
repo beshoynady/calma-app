@@ -204,8 +204,8 @@ const Purchase = () => {
       const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
       console.log({ response })
       if (response.status === 201) {
-        // const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
-        // console.log({ supplierresponse })
+        const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { balance: currentBalance }, config);
+        console.log({ supplierresponse })
         toast.success('تم انشاء العملية بنجاح');
       } else {
         toast.error('حدث خطأ أثناء انشاء العملية');
