@@ -42,12 +42,6 @@ const SupplierSchema = new Schema(
                 ref: 'StockItem',
             }
         ],
-        // Opening balance of the supplier
-        openingBalance: {
-            type: Number,
-            default: 0,
-            required: true,
-        },
         // Current balance of the supplier
         currentBalance: {
             type: Number,

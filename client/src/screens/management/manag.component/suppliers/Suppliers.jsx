@@ -62,7 +62,6 @@ const Suppliers = () => {
 
 
 
-  const [openingBalance, setopeningBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
   const [notes, setnotes] = useState('');
 
@@ -93,7 +92,6 @@ const Suppliers = () => {
         address,
         paymentType,
         itemsSupplied,
-        openingBalance,
         currentBalance,
         financialInfo,
         notes
@@ -125,7 +123,6 @@ const Suppliers = () => {
         address,
         paymentType,
         itemsSupplied,
-        openingBalance,
         currentBalance,
         financialInfo,
         notes
@@ -211,7 +208,6 @@ const Suppliers = () => {
         setphone(supplier.contact.phone)
         setwhatsapp(supplier.contact.whatsapp)
         setemail(supplier.contact.email)
-        setopeningBalance(supplier.openingBalance);
         setCurrentBalance(supplier.currentBalance)
         setItemsSupplied(supplier.itemsSupplied)
         setPaymentType(supplier.paymentType)
@@ -362,7 +358,6 @@ const Suppliers = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الاصناف</th>
-                        <th>الرصيد الافتتاحي</th>
                         <th>الرصيد الحالي</th>
                         <th>العنوان</th>
                         <th>الموبايل</th>
@@ -384,7 +379,6 @@ const Suppliers = () => {
                               <td>{i + 1}</td>
                               <td>{supplier.name}</td>
                               <td>{supplier.itemsSupplied.length > 0 ? supplier.itemsSupplied.map(item => `${item.itemName} - `) : 'لا يوجد'}</td>
-                              <td>{supplier.openingBalance}</td>
                               <td>{supplier.currentBalance}</td>
                               <td>{supplier.address}</td>
                               <td>{supplier.contact.phone.length > 0 ? supplier.contact.phone.map(phone => `${phone} - `) : 'لا يوجد'}</td>
@@ -477,10 +471,6 @@ const Suppliers = () => {
                         <button type="button" className="btn btn-47 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group form-group-47">
                           <label>الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control" onChange={(e) => setopeningBalance(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الرصيد الحالي</label>
                           <input type="number" className="form-control" onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         {financialInfo.map((info, index) => (

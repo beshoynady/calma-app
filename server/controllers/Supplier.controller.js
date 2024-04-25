@@ -3,7 +3,7 @@ const SupplierModel = require('../models/Supplier.model');
 // Create a new supplier
 const createSupplier = async (req, res) => {
     try {
-        const { name, contact, address, paymentType, itemsSupplied, openingBalance, currentBalance, financialInfo,notes } = req.body;
+        const { name, contact, address, paymentType, itemsSupplied, currentBalance, financialInfo,notes } = req.body;
         const createdBy = req.employee.id;
         const supplier = await SupplierModel.create({
             name,
@@ -11,7 +11,6 @@ const createSupplier = async (req, res) => {
             address,
             paymentType,
             itemsSupplied,
-            openingBalance,
             currentBalance,
             financialInfo,
             notes,
@@ -27,7 +26,7 @@ const createSupplier = async (req, res) => {
 // Retrieve all suppliers
 const getAllSuppliers = async (req, res) => {
     try {
-        const suppliers = await SupplierModel.find().populate('itemsSupplied createdBy');
+        const suppliers = await SupplierModel.find().populate('itemsSupplied').populate('createdBy');
         res.status(200).json(suppliers);
     } catch (error) {
         console.error('Error getting all suppliers:', error);
@@ -39,7 +38,7 @@ const getAllSuppliers = async (req, res) => {
 const getSupplierById = async (req, res) => {
     try {
         const supplierId = req.params.id;
-        const supplier = await SupplierModel.findById(supplierId).populate('itemsSupplied createdBy');
+        const supplier = await SupplierModel.findById(supplierId);
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier not found' });
         }
@@ -54,14 +53,13 @@ const getSupplierById = async (req, res) => {
 const updateSupplierById = async (req, res) => {
     try {
         const supplierId = req.params.id;
-        const { name, contact, address, paymentType, itemsSupplied, openingBalance, currentBalance, financialInfo, notes } = req.body;
+        const { name, contact, address, paymentType, itemsSupplied, currentBalance, financialInfo, notes } = req.body;
         const updatedSupplier = await SupplierModel.findByIdAndUpdate(supplierId, {
             name,
             contact,
             address,
             paymentType,
             itemsSupplied,
-            openingBalance,
             currentBalance,
             financialInfo,
             notes

@@ -184,7 +184,7 @@ const SupplierTransaction = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle,formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle, formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive mt-1">
@@ -279,10 +279,10 @@ const SupplierTransaction = () => {
                     <div className="row text-dark">
                       <div className="col-sm-3">
                         <div className="show-entries">
-                          <label htmlFor="totalPurchasesInput">اجمالي المشتريات</label>
+                          <label htmlFor="totalPurchasesInput" className="col-12">اجمالي المشتريات</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control col-12"
                             id="totalPurchasesInput"
                             readOnly
                             value={totalPurchases}
@@ -291,10 +291,10 @@ const SupplierTransaction = () => {
                       </div>
                       <div className="col-sm-3">
                         <div className="show-entries">
-                          <label htmlFor="totalPaymentInput">اجمالي المدفوع</label>
+                          <label htmlFor="totalPaymentInput" className="col-12">اجمالي المدفوع</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control col-12"
                             id="totalPaymentInput"
                             readOnly
                             value={totalPayment}
@@ -303,10 +303,10 @@ const SupplierTransaction = () => {
                       </div>
                       <div className="col-sm-3">
                         <div className="show-entries">
-                          <label htmlFor="totalBalanceDueInput">اجمالي المستحق</label>
+                          <label htmlFor="totalBalanceDueInput" className="col-12">اجمالي المستحق</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control col-12"
                             id="totalBalanceDueInput"
                             readOnly
                             value={totalBalanceDue}
@@ -315,17 +315,18 @@ const SupplierTransaction = () => {
                       </div>
                       <div className="col-sm-3">
                         <div className="show-entries">
-                          <label htmlFor="totalBalanceDueInput">الرصيد الكلي</label>
+                          <label htmlFor="previousBalanceInput" className="col-12">الرصيد الكلي</label>
                           <input
                             type="text"
-                            className="form-control"
-                            id="totalBalanceDueInput"
+                            className="form-control col-12"
+                            id="previousBalanceInput"
                             readOnly
                             value={previousBalance}
                           />
                         </div>
                       </div>
                     </div>
+
                   </div>
 
                   <table className="table table-striped table-hover">
@@ -432,20 +433,20 @@ const SupplierTransaction = () => {
                           </select>
                         </div>
                         <div className="form-group form-group-47">
-                          <label>رقم الفاتورة</label>
-                          <select required className="form-select" id="supplierSelect" onChange={(e) => setInvoiceNumber(e.target.value)} >
-                            <option>اختر رقم الفاتورة</option>
-                            {allPurchaseInvoiceFilterd.map((Invoice, i) => (
-                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
                           <label>نوع العملية</label>
                           <select required className="form-select" id="supplierSelect" onChange={(e) => setTransactionType(e.target.value)}>
                             <option>اختر نوع العملية</option>
                             {listtransactionType.map((type, i) => (
                               <option value={type} key={i}>{type}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>رقم الفاتورة</label>
+                          <select required className="form-select" id="supplierSelect" onChange={(e) => setInvoiceNumber(e.target.value)} >
+                            <option>اختر رقم الفاتورة</option>
+                            {allPurchaseInvoiceFilterd.map((Invoice, i) => (
+                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
                             ))}
                           </select>
                         </div>

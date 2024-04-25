@@ -8,7 +8,7 @@ const supplierTransactionSchema = new mongoose.Schema({
     invoiceNumber: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'PurchaseInvoice',
-        required: true
+        // required: true
     },
     supplier: {
         type: mongoose.Schema.Types.ObjectId,
