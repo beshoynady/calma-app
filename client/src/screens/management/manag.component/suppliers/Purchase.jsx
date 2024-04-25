@@ -214,6 +214,29 @@ const Purchase = () => {
       toast.error('حدث خطأ أثناء انشاء العملية');
     }
   };
+  const handleAddSupplierTransactionPaymentPurchase = async (invoiceNumber) => {
+    try {
+      const transactionType = 'Payment'
+      const amount = paidAmount
+      const transactionDate = date
+      const currentBalance = previousBalance - paidAmount
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+      console.log({ requestData })
+      
+      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ response })
+      if (response.status === 201) {
+        const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, {currentBalance}, config);
+        console.log({ supplierresponse })
+        toast.success('تم انشاء العملية بنجاح');
+      } else {
+        toast.error('حدث خطأ أثناء انشاء العملية');
+      }
+    } catch (error) {
+      toast.error('حدث خطأ أثناء انشاء العملية');
+    }
+  };
 
   // const updateStockaction = async (e, employeeId) => {
   //   e.preventDefault();
@@ -509,6 +532,58 @@ const Purchase = () => {
     const items = AllStockactions.filter((Stockactions) => Stockactions.movement == action)
     setStockitemFilterd(items)
   }
+
+
+  const confirmPayment = async (e) => {
+    e.preventDefault();
+    const updatedbalance = CashRegisterBalance - paidAmount; // Calculate the updated balance
+
+    try {
+
+      await handleAddSupplierTransactionPaymentPurchase()
+
+      const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
+        registerId: cashRegister,
+        createBy: paidBy,
+        amount: paidAmount,
+        type: 'Payment',
+        description: `دفع فاتورة ${invoiceNumber}`,
+      }, config);
+      console.log(cashMovement)
+      console.log(cashMovement.data.cashMovement._id)
+
+      // const cashMovementId = await cashMovement.data.cashMovement._id; // Retrieve the cashMovementId from the response data
+
+      // const dailyexpense = await axios.post(apiUrl + '/api/dailyexpense/', {
+      //   expenseID,
+      //   expenseDescription,
+      //   cashRegister,
+      //   cashMovementId,
+      //   paidBy,
+      //   amount,
+      //   notes,
+      // }, config);
+
+      const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
+        balance: updatedbalance, // Use the updated balance
+      }, config);
+
+      // Update the state after successful updates
+      if (updatecashRegister) {
+        // Toast notification for successful creation
+        toast.success('تم تسجيل تم خصم المدفوع من الخزينة');
+
+        getallExpenses();
+        getAllcashRegisters()
+        getallDailyExpenses()
+      }
+    } catch (error) {
+      console.log(error);
+      // Toast notification for error
+      toast.error('فشل في تسجيل المصروف !حاول مره اخري');
+
+    }
+  };
 
 
   useEffect(() => {
@@ -821,7 +896,7 @@ const Purchase = () => {
                                 {paymentMethod === 'نقدي' ? <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
                                   <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
-                                  <button type="button" className="btn btn-success" id="netAmountInput"  >تاكيد الدفع</button>
+                                  <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
 
                                 </div> : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>}
 

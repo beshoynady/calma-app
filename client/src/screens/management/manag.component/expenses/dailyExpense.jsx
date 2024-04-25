@@ -6,6 +6,13 @@ import { toast } from 'react-toastify';
 const DailyExpense = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
   const [expenseID, setexpenseID] = useState('');
   const [cashMovementId, setcashMovementId] = useState('');
   const [dailyexpenseID, setdailyexpenseID] = useState('');
@@ -23,11 +30,7 @@ const DailyExpense = () => {
   const getAllcashRegisters = async () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-      const response = await axios.get(apiUrl + '/api/cashRegister', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashRegister', config);
       setAllcashRegisters(response.data.reverse());
     } catch (err) {
       toast.error('Error fetching cash registers');
@@ -44,13 +47,8 @@ const DailyExpense = () => {
 
   const getallExpenses = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/expenses/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/expenses/', config);
       setallExpenses(response.data.reverse());
     } catch (error) {
       console.log(error);
@@ -62,7 +60,6 @@ const DailyExpense = () => {
     const updatedbalance = balance - amount; // Calculate the updated balance
 
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
@@ -70,11 +67,7 @@ const DailyExpense = () => {
         amount,
         type: 'Withdraw',
         description: expenseDescription,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
 
@@ -88,19 +81,11 @@ const DailyExpense = () => {
         paidBy,
         amount,
         notes,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedbalance, // Use the updated balance
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       // Update the state after successful updates
       if (updatecashRegister) {
@@ -126,11 +111,7 @@ const DailyExpense = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, config);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new amount and the previous amount
@@ -204,11 +185,7 @@ const DailyExpense = () => {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch the previous expense data to calculate the balance update
-      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const prevExpense = await axios.get(`${apiUrl}/api/dailyexpense/${dailyexpenseID}`, config);
       const prevExpenseData = prevExpense.data;
 
       // Calculate the difference between the new balance and the previous amount
@@ -261,11 +238,7 @@ const DailyExpense = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/dailyexpense/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/dailyexpense/', config);
       const dailyExpenses = await response.data.reverse();
       console.log(response.data);
       setallDailyExpenses(dailyExpenses);
