@@ -567,7 +567,7 @@ const Purchase = () => {
         registerId: cashRegister,
         amount: paidAmount,
         type: 'Payment',
-        description: `دفع فاتورة ${invoiceNumber}`,
+        description: `دفع فاتورة مشتريات رقم${invoiceNumber}`,
       }, config);
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
@@ -583,16 +583,23 @@ const Purchase = () => {
       //   amount,
       //   notes,
       // }, config);
+      if(cashMovement){
+        toast.success('تم تسجيل حركه الخزينه بنجاح');
 
-      const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
-        balance: updatedbalance, // Use the updated balance
-      }, config);
+        const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
+          balance: updatedbalance, // Use the updated balance
+        }, config);
+  
+        // Update the state after successful updates
+        if (updatecashRegister) {
+          // Toast notification for successful creation
+          toast.success(' تم خصم المدفوع من الخزينة');
+        }
+      }else {
+        toast.success('حدث خطا اثنا تسجيل حركه الخزينه ! حاول مره اخري');
 
-      // Update the state after successful updates
-      if (updatecashRegister) {
-        // Toast notification for successful creation
-        toast.success('تم تسجيل تم خصم المدفوع من الخزينة');
       }
+
     } catch (error) {
       console.log(error);
       // Toast notification for error
