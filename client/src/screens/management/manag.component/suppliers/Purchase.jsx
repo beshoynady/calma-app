@@ -194,7 +194,6 @@ const Purchase = () => {
   const handleAddSupplierTransactionPurchase = async (invoiceNumber) => {
     try {
       let newCurrentBalance = 0
-      let newPreviousBalance = 0
       const transactionType = 'Purchase'
       const amount = netAmount
       const transactionDate = date
@@ -207,7 +206,9 @@ const Purchase = () => {
       console.log({ response })
       if (response.status === 201) {
         const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+
         newCurrentBalance = Number(supplierresponse.data.updatedSupplier.currentBalance)
+        
         console.log({ supplierresponse })
         toast.success('تم انشاء العملية بنجاح');
       } else {
