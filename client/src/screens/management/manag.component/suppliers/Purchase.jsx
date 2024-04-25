@@ -422,7 +422,7 @@ const Purchase = () => {
 
 
   const [invoiceNumber, setInvoiceNumber] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
 
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
