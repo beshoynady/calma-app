@@ -23,7 +23,7 @@ const SupplierTransaction = () => {
       console.log({ response });
       if (response.status === 200) {
         const data = response.data;
-        setAllSupplierTransaction(data);
+        setAllSupplierTransaction(data.reverse());
         calcTotalpurchPayment(data);
       }
     } catch (error) {

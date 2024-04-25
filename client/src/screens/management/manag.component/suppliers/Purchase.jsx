@@ -211,25 +211,25 @@ const Purchase = () => {
         toast.error('حدث خطأ أثناء انشاء العملية');
       }
 
-      // if (paidAmount > 0) {
-      //   const transactionType = 'Payment'
-      //   const amount = paidAmount
-      //   const transactionDate = date
-      //   const currentBalance = supplierresponse.data.currentBalance - paidAmount
-      //   const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+      if (paidAmount > 0) {
+        const transactionType = 'Payment'
+        const amount = paidAmount
+        const transactionDate = date
+        const currentBalance = supplierresponse.data.currentBalance - paidAmount
+        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
-      //   console.log({ requestData })
+        console.log({ requestData })
 
-      //   const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      //   console.log({ response })
-      //   if (response.status === 201) {
-      //     const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
-      //     console.log({ supplierresponse })
-      //     toast.success('تم انشاء العملية بنجاح');
-      //   } else {
-      //     toast.error('حدث خطأ أثناء انشاء العملية');
-      //   }
-      // }
+        const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+        console.log({ response })
+        if (response.status === 201) {
+          const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+          console.log({ supplierresponse })
+          toast.success('تم انشاء العملية بنجاح');
+        } else {
+          toast.error('حدث خطأ أثناء انشاء العملية');
+        }
+      }
     } catch (error) {
       toast.error('حدث خطأ أثناء انشاء العملية');
     }
