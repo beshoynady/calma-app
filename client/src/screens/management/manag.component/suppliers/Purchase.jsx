@@ -206,7 +206,7 @@ const Purchase = () => {
       console.log({ response })
       if (response.status === 201) {
         const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
-        newCurrentBalance = supplierresponse.data.currentBalance
+        newCurrentBalance = Numper(supplierresponse.data.updatedSupplier.currentBalance)
         console.log({ supplierresponse })
         toast.success('تم انشاء العملية بنجاح');
       } else {
