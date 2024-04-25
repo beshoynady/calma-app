@@ -194,6 +194,7 @@ const Purchase = () => {
   const handleAddSupplierTransactionPurchase = async (invoiceNumber) => {
     try {
       let newCurrentBalance = 0
+      let newPreviousBalance = 0
       const transactionType = 'Purchase'
       const amount = netAmount
       const transactionDate = date
@@ -217,8 +218,9 @@ const Purchase = () => {
         const transactionType = 'Payment'
         const amount = paidAmount
         const transactionDate = date
-        const currentBalance = newCurrentBalance - paidAmount
-        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+        const previousBalance = newCurrentBalance
+        const currentBalance = previousBalance - paidAmount
+        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance , currentBalance, paymentMethod, notes };
 
         console.log({ requestData })
 
