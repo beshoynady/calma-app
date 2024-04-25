@@ -191,60 +191,49 @@ const Purchase = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-
   const handleSupplierTransaction = async (invoiceNumber) => {
     try {
-      const purchaseTransaction = {
-        transactionType: 'Purchase',
-        amount: netAmount,
-        transactionDate: date,
-        currentBalance: previousBalance + netAmount
-      };
-  
-      const purchaseRequestData = { invoiceNumber, supplier, ...purchaseTransaction, paymentMethod, notes };
-  
-      console.log({ purchaseRequestData });
-  
-      const purchaseResponse = await axios.post(`${apiUrl}/api/suppliertransaction`, purchaseRequestData, config);
-      console.log({ purchaseResponse });
-  
-      if (purchaseResponse.status === 201) {
-        const supplierResponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance: purchaseTransaction.currentBalance }, config);
-        console.log({ supplierResponse });
-        toast.success('تم إنشاء عملية الشراء بنجاح');
-  
-        if (paidAmount > 0) {
-          const paymentTransaction = {
-            transactionType: 'Payment',
-            amount: paidAmount,
-            transactionDate: date,
-            currentBalance: supplierResponse.data.currentBalance - paidAmount
-          };
-  
-          const paymentRequestData = { invoiceNumber, supplier, ...paymentTransaction, paymentMethod, notes };
-  
-          console.log({ paymentRequestData });
-  
-          const paymentResponse = await axios.post(`${apiUrl}/api/suppliertransaction`, paymentRequestData, config);
-          console.log({ paymentResponse });
-  
-          if (paymentResponse.status === 201) {
-            const updatedSupplierResponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance: paymentTransaction.currentBalance }, config);
-            console.log({ updatedSupplierResponse });
-            toast.success('تم إنشاء عملية الدفع بنجاح');
-          } else {
-            toast.error('حدث خطأ أثناء إنشاء عملية الدفع');
-          }
-        }
+      const transactionType = 'Purchase'
+      const amount = netAmount
+      const transactionDate = date
+      const currentBalance = previousBalance + amount
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+      console.log({ requestData })
+
+      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ response })
+      if (response.status === 201) {
+        const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+        console.log({ supplierresponse })
+        toast.success('تم انشاء العملية بنجاح');
       } else {
-        toast.error('حدث خطأ أثناء إنشاء عملية الشراء');
+        toast.error('حدث خطأ أثناء انشاء العملية');
+      }
+
+      if (paidAmount > 0) {
+        const transactionType = 'Payment'
+        const amount = paidAmount
+        const transactionDate = date
+        const currentBalance = supplierresponse.data.currentBalance - paidAmount
+        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+        console.log({ requestData })
+
+        const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+        console.log({ response })
+        if (response.status === 201) {
+          const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+          console.log({ supplierresponse })
+          toast.success('تم انشاء العملية بنجاح');
+        } else {
+          toast.error('حدث خطأ أثناء انشاء العملية');
+        }
       }
     } catch (error) {
-      console.error(error);
-      toast.error('حدث خطأ أثناء معالجة العملية');
+      toast.error('حدث خطأ أثناء انشاء العملية');
     }
   };
-  
 
   // const handleAddSupplierTransactionPaymentPurchase = async (invoiceNumber) => {
   //   try {
