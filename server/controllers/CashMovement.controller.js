@@ -5,7 +5,6 @@ exports.createCashMovement = async (req, res) => {
   try {
     const { 
       registerId,
-      createBy,
       amount,
       type,
       description,
@@ -14,6 +13,7 @@ exports.createCashMovement = async (req, res) => {
       movementId,
       status 
     } = req.body;
+    const createBy = req.employee.id
 
     // Create a new cash movement
     const newCashMovement = await CashMovement.create({

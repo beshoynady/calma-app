@@ -544,7 +544,6 @@ const Purchase = () => {
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
-        createBy: paidBy,
         amount: paidAmount,
         type: 'Payment',
         description: `دفع فاتورة ${invoiceNumber}`,
@@ -572,10 +571,6 @@ const Purchase = () => {
       if (updatecashRegister) {
         // Toast notification for successful creation
         toast.success('تم تسجيل تم خصم المدفوع من الخزينة');
-
-        getallExpenses();
-        getAllcashRegisters()
-        getallDailyExpenses()
       }
     } catch (error) {
       console.log(error);
