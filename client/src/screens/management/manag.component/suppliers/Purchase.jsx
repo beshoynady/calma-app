@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 
 
-
 const Purchase = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -29,6 +28,7 @@ const Purchase = () => {
       console.log(error)
     }
   }
+
 
   const [AllSuppliers, setAllSuppliers] = useState([]);
   // Function to retrieve all suppliers
@@ -243,128 +243,6 @@ const Purchase = () => {
     }
   };
 
-  // const handleAddSupplierTransactionPaymentPurchase = async (invoiceNumber) => {
-  //   try {
-  //     const transactionType = 'Payment'
-  //     const amount = paidAmount
-  //     const transactionDate = date
-  //     const currentBalance = previousBalance - paidAmount
-  //     const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
-
-  //     console.log({ requestData })
-
-  //     const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-  //     console.log({ response })
-  //     if (response.status === 201) {
-  //       const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
-  //       console.log({ supplierresponse })
-  //       toast.success('تم انشاء العملية بنجاح');
-  //     } else {
-  //       toast.error('حدث خطأ أثناء انشاء العملية');
-  //     }
-  //   } catch (error) {
-  //     toast.error('حدث خطأ أثناء انشاء العملية');
-  //   }
-  // };
-
-  // const updateStockaction = async (e, employeeId) => {
-  //   e.preventDefault();
-  //   try {
-  //     const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-  //     const actionBy = employeeId;
-  //     const unit = movement == 'Purchase' ? largeUnit : smallUnit
-
-  //     // Update the stock item's movement
-  //     const changeItem = await axios.put(`${apiUrl}/api/stockitem/movement/${itemId}`, { newBalance, price, newcost, costOfPart }, config);
-
-  //     if (changeItem.status === 200) {
-  //       // Update the existing stock action
-  //       const response = await axios.put(`${apiUrl}/api/stockmanag/${actionId}`, {
-  //         itemId, movement, quantity, cost, unit, newBalance, oldBalance, price, expirationDate,
-  //         actionBy
-  //       }, {
-  //         headers: {
-  //           'authorization': `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log(response.data);
-
-  //       if (movement === 'Purchase') {
-  //         for (const recipe of allrecipes) {
-  //           const recipeid = recipe._id;
-  //           const productname = recipe.product.name;
-  //           const arrayingredients = recipe.ingredients;
-
-  //           const newIngredients = arrayingredients.map((ingredient) => {
-  //             if (ingredient.itemId === itemId) {
-  //               const costofitem = costOfPart;
-  //               const unit = ingredient.unit
-  //               const amount = ingredient.amount
-  //               const totalcostofitem = amount * costOfPart
-  //               return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
-  //             } else {
-  //               return ingredient;
-  //             }
-  //           });
-  //           console.log({ newIngredients })
-  //           const totalcost = newIngredients.reduce((acc, curr) => {
-  //             return acc + (curr.totalcostofitem || 0);
-  //           }, 0);
-  //           // Update the product with the modified recipe and total cost
-  //           const updateRecipe = await axios.put(
-  //             `${apiUrl}/api/recipe/${recipeid}`,
-  //             { ingredients: newIngredients, totalcost }, config
-  //           );
-
-  //           console.log({ updateRecipe });
-
-  //           // Toast for successful update based on recipe change
-  //           toast.success(`تم تحديث وصفه ${productname}`);
-  //         }
-  //       }
-  //       // Update the stock actions list and stock items
-  //       getallStockaction();
-  //       getaStockItems();
-
-  //       // Toast notification for successful update
-  //       toast.success('تم تحديث العنصر بنجاح');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     // Toast notification for error
-  //     toast.error('فشل في تحديث العنصر ! حاول مره اخري');
-  //   }
-  // }
-
-
-
-
-
-  // const deleteStockaction = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     // Delete the selected stock action
-  //     const response = await axios.delete(`${apiUrl}/api/stockmanag/${actionId}`, config);
-  //     console.log(response);
-
-  //     if (response) {
-  //       // Update the stock actions list after successful deletion
-  //       getallStockaction();
-
-  //       // Toast notification for successful deletion
-  //       toast.success('تم حذف حركه المخزن بنجاح');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     // Toast notification for error
-  //     toast.error('فشل حذف حركه المخزن ! حاول مره اخري ');
-  //   }
-  // }
-
-
-
-
-  //********************************** PURCHASE ******************//
 
 
 
@@ -424,6 +302,7 @@ const Purchase = () => {
   const [discount, setDiscount] = useState(0);
   const [salesTax, setSalesTax] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
+
   const calcNetAmount = () => {
     // let total = Number(totalAmount) + Number(additionalCost) + Number(salesTax) - Number(discount)
     let total = Number(totalAmount) + Number(salesTax) - Number(discount)
@@ -536,6 +415,61 @@ const Purchase = () => {
     }
   }
 
+const [invoice, setinvoice] = useState({})
+
+  const getInvoice = async(id)=>{
+    try {
+      const resInvoice = await axios.get(`${apiUrl}/api/purchaseinvoice/${id}`)
+      if(resInvoice){
+        setinvoice(resInvoice.data)
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب الفاتوره ! اعد تحميل الصفحة و حاول مره اخري')
+    }
+  }
+
+  const handlePurchaseReturn = async (e, receiverId) => {
+
+    e.preventDefault()
+    try {
+      const newInvoice = {
+        invoiceNumber,
+        date,
+        supplier,
+        items,
+        totalAmount,
+        discount,
+        salesTax,
+        netAmount,
+        additionalCost,
+        paidAmount,
+        balanceDue,
+        paymentDueDate,
+        cashRegister,
+        paymentStatus,
+        invoiceType,
+        paymentMethod,
+        notes,
+      }
+      console.log({ newInvoice })
+      const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
+      console.log({ response })
+      if (response.status === 201) {
+        items.forEach(item => {
+          createStockAction(item, receiverId)
+        })
+
+        await handleAddSupplierTransactionPurchase(response.data._id)
+        getAllPurchases();
+        toast.success('تم اضافه المشتريات بنجاح')
+      } else {
+        toast.error('فشل اضافه المشتريات ! حاول مره اخري')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
+    }
+  }
+
   const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
   const getAllPurchases = async () => {
     try {
@@ -580,17 +514,6 @@ const Purchase = () => {
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
 
-      // const cashMovementId = await cashMovement.data.cashMovement._id; // Retrieve the cashMovementId from the response data
-
-      // const dailyexpense = await axios.post(apiUrl + '/api/dailyexpense/', {
-      //   expenseID,
-      //   expenseDescription,
-      //   cashRegister,
-      //   cashMovementId,
-      //   paidBy,
-      //   amount,
-      //   notes,
-      // }, config);
       if(cashMovement){
         toast.success('تم تسجيل حركه الخزينه بنجاح');
 
@@ -768,8 +691,8 @@ const Purchase = () => {
                               <td>{formatDateTime(invoice.createdAt)}</td>
                               <td>{invoice.notes}</td>
                               <td>
-                                {/* <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => {getInvoice(invoice._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
                               </td>
                             </tr>
                           )
@@ -902,7 +825,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ width: '100%', height: 'auto' }} />
+                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{height: 'auto' }} />
                                 </div>
                                 {/* <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
@@ -924,12 +847,14 @@ const Purchase = () => {
                                     })}
                                   </select>
                                 </div>
-                                {paymentMethod === 'نقدي' ? <div className="input-group mb-3">
+                                {paymentMethod === 'نقدي' && cashRegister ? 
+                                <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
                                   <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
                                   <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
-
-                                </div> : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>}
+                                </div>
+                                : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
+                                }
 
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
@@ -957,73 +882,162 @@ const Purchase = () => {
                   </div>
                 </div>
               </div>
-              {/* <div id="editStockactionModal" className="modal fade">
+              <div id="purchaseReturnModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => updateStockaction(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={(e) => handlePurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
-                      <div className="modal-body">
-                        <div className="form-group form-group-47">
-                          <span>نوع الحركه</span>
-                          <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
-                            <option >اختر الاجراء</option>
-                            {Stockmovement.map((statu, i) => {
-                              return <option key={i} defaultValue={statu}>{statu}</option>
-                            })}
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الصنف</label>
-                          <select name="" id="" onChange={(e) => {
-                            setitemId(e.target.value);
-                            setlargeUnit(StockItems.filter(i => i._id == e.target.value)[0].largeUnit);
-                            setsmallUnit(StockItems.filter(i => i._id == e.target.value)[0].smallUnit);
-                          }}>
-                            <option >اختر الصنف</option>
-                            {StockItems.map((item, i) => {
-                              return <option key={i} value={item._id}>{item.itemName}</option>
-                            })}
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الكمية</label>
-                          {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-                            <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
-                              <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
-                            </>
-                            : movement == "Purchase" || movement == "ReturnPurchase" ? <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
-                              <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
-                            </> : ''}
+                      <div className="modal-body container ">
+
+                        <div className="card">
+                          <div className="card-header text-center">
+                            <h4>ادخل بيانات فاتورة الشراء</h4>
+                          </div>
+
+                          <div className="card-body min-content">
+                            <div className="row">
+                              <div className="col-6">
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
+                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                    <option>اختر المورد</option>
+                                    {AllSuppliers.map((supplier, i) => (
+                                      <option value={supplier._id} key={i}>{supplier.name}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
+                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
+                                </div>
+
+                              </div>
+                              <div className="col-6">
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
+                                  <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
+                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setDate(e.target.value)} />
+                                </div>
+                              </div>
+                            </div>
+
+                            <table className="table table-bordered table-striped table-hover">
+                              <thead className="table-success">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col" className="col-4">الصنف</th>
+                                  <th scope="col" className="col-2">الكمية</th>
+                                  <th scope="col" className="col-2">الوحده</th>
+                                  <th scope="col" className="col-2">السعر</th>
+                                  <th scope="col" className="col-2">الثمن</th>
+                                  <th scope="col" className="col-2">انتهاء</th>
+                                  <th scope="col" className="col-4 NoPrint">
+                                    <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody id="TBody">
+                                {items.map((item, i) => (
+                                  <tr id="TRow" key={i}>
+                                    <th scope="row">{i + 1}</th>
+                                    <td>
+                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
+                                        <option value="">
+                                          {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
+                                        </option>
+                                        {StockItems.map((stock, j) => (
+                                          <option value={stock._id} key={j}>{stock.itemName}</option>
+                                        ))}
+                                      </select>
+                                    </td>
+                                    <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+
+                                    <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
+
+                                    <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+
+                                    <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+
+                            <div className="row">
+                              <div className="col-6">
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
+                                  <input type="text" className="form-control text-end" value={totalAmount} id="totalInput" readOnly />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="gstInput">خصم</span>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
+                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{height: 'auto' }} />
+                                </div>
+                                {/* <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
+                                </div> */}
+                              </div>
+                              <div className="col-6">
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="paidAmount">مدفوع</span>
+                                  <input type="number" className="form-control text-end" defaultValue={paidAmount} id="paidAmount" onChange={(e) => handlePaidAmount(e.target.value)} />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
+                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.id)}>
+                                    <option>اختر طريقه الدفع</option>
+                                    <option value="نقدي">نقدي</option>
+                                    {financialInfo && financialInfo.map((financialInfo, i) => {
+                                      return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
+                                    })}
+                                  </select>
+                                </div>
+                                {paymentMethod === 'نقدي' && cashRegister ? 
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
+                                  <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
+                                  <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
+                                </div>
+                                : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
+                                }
+
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
+                                  <input type="text" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
+                                  <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={paymentStatus} readOnly />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="form-group form-group-47">
-                          <label>السعر</label>
-                          {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-                            <input type='Number' className="form-control" readOnly required defaultValue={price} />
-                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
-                          }
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>التكلفة</label>
-                          <input type='Number' className="form-control" Value={cost} readOnly />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الرصيد</label>
-                          <input type='text' className="form-control" Value={oldBalance} readOnly />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الرصيد الجديد</label>
-                          <input type='text' className="form-control" Value={newBalance} readOnly />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>التاريخ</label>
-                          <input type="text" className="form-control" Value={actionAt} readOnly />
-                        </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
@@ -1032,7 +1046,8 @@ const Purchase = () => {
                     </form>
                   </div>
                 </div>
-              </div> */}
+              </div>
+             
               {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
