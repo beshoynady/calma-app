@@ -4,8 +4,9 @@ const purchaseInvoiceModel = require('../models/Purchase.model');
 const createPurchaseInvoice = async (req, res) => {
     try {
         const {
+            returnInvoice,
             invoiceNumber,
-            date,
+            invoiceDate,
             supplier,
             items,
             totalAmount,
@@ -18,7 +19,7 @@ const createPurchaseInvoice = async (req, res) => {
             paymentDueDate,
             cashRegister,
             paymentStatus,
-            invoiceType,
+            paymentType,
             paymentMethod,
             notes,
         } = req.body;
@@ -27,13 +28,14 @@ const createPurchaseInvoice = async (req, res) => {
         const createdBy = req.employee.id;
 
         // Check if required fields are missing
-        if (!invoiceNumber || !date || !supplier || !items || !totalAmount || !netAmount || !paymentStatus || !invoiceType) {
+        if (!invoiceNumber || !invoiceDate || !supplier || !items || !totalAmount || !netAmount || !paymentStatus || !paymentType) {
             return res.status(400).json({ message: 'Missing required fields.' });
         }
 
         const newPurchaseInvoice = await purchaseInvoiceModel.create({
+            returnInvoice,
             invoiceNumber,
-            date,
+            invoiceDate,
             supplier,
             items,
             totalAmount,
@@ -46,7 +48,7 @@ const createPurchaseInvoice = async (req, res) => {
             paymentDueDate,
             cashRegister,
             paymentStatus,
-            invoiceType,
+            paymentType,
             paymentMethod,
             notes,
             createdBy
@@ -91,8 +93,11 @@ const getAllPurchaseInvoices = async (req, res) => {
 const getPurchaseInvoiceById = async (req, res) => {
     try {
         // Populate the supplier, items, and createdBy fields
-        const purchaseInvoice = await purchaseInvoiceModel.findById(req.params.id).populate('supplier').populate('items.item').populate('createdBy');
-        if (!purchaseInvoice) {
+        const purchaseInvoice = await purchaseInvoiceModel.findById(req.params.id)
+        .populate('supplier') // Populate supplier field
+        .populate('createdBy') // Populate createdBy field
+        .populate('cashRegister'); // Populate cashRegister field
+    if (!purchaseInvoice) {
             return res.status(404).json({ message: 'Purchase invoice not found' });
         }
         res.status(200).json(purchaseInvoice);

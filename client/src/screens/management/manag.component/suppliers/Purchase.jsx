@@ -106,17 +106,19 @@ const Purchase = () => {
     const expirationDate = item.expirationDate
     const movement = 'Purchase'
     const receiver = receiverid
-
+    const itemPercentage = Number(price) / Number(netAmount)
+    const itemAdditionalCost = additionalCost * itemPercentage
+    const costOfItem = itemAdditionalCost + price
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
     console.log({ stockItem })
-
+    
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
     const currentBalance = Number(quantity) + Number(oldBalance);
     const unit = stockItem.largeUnit
-    const costOfPart = Math.round((Number(price) / Number(parts)) * 100) / 100;
-    console.log({ parts, price, costOfPart })
+    const costOfPart = Math.round((Number(costOfItem) / Number(parts)) * 100) / 100;
+    console.log({itemPercentage,itemAdditionalCost,costOfItem, parts, price, costOfPart })
     try {
 
       // Update the stock item's movement
@@ -211,7 +213,7 @@ const Purchase = () => {
         const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
 
         newCurrentBalance = Number(supplierresponse.data.updatedSupplier.currentBalance)
-        
+
         console.log({ supplierresponse })
         toast.success('تم انشاء العملية بنجاح');
       } else {
@@ -224,7 +226,7 @@ const Purchase = () => {
         const transactionDate = date
         const previousBalance = newCurrentBalance
         const currentBalance = previousBalance - paidAmount
-        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance , currentBalance, paymentMethod, notes };
+        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
         console.log({ requestData })
 
@@ -330,25 +332,25 @@ const Purchase = () => {
 
 
   const [invoiceNumber, setInvoiceNumber] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [invoiceDate, setinvoiceDate] = useState(new Date());
 
   const [paidAmount, setPaidAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState('unpaid');
-  const [invoiceType, setInvoiceType] = useState('');
+  const [paymentType, setpaymentType] = useState('');
 
   const handlePaidAmount = (amount) => {
     setPaidAmount(amount);
     setBalanceDue(Number(netAmount) - Number(amount));
     if (amount == 0) {
       setPaymentStatus('unpaid');
-      setInvoiceType('credit');
+      setpaymentType('credit');
     } else if (amount == netAmount) {
       setPaymentStatus('paid');
-      setInvoiceType('cash');
+      setpaymentType('cash');
     } else if (amount < netAmount) {
       setPaymentStatus('partially_paid');
-      setInvoiceType('credit');
+      setpaymentType('credit');
     }
   };
 
@@ -379,7 +381,7 @@ const Purchase = () => {
     try {
       const newInvoice = {
         invoiceNumber,
-        date,
+        invoiceDate,
         supplier,
         items,
         totalAmount,
@@ -392,7 +394,7 @@ const Purchase = () => {
         paymentDueDate,
         cashRegister,
         paymentStatus,
-        invoiceType,
+        paymentType,
         paymentMethod,
         notes,
       }
@@ -415,12 +417,12 @@ const Purchase = () => {
     }
   }
 
-const [invoice, setinvoice] = useState({})
+  const [invoice, setinvoice] = useState({})
 
-  const getInvoice = async(id)=>{
+  const getInvoice = async (id) => {
     try {
-      const resInvoice = await axios.get(`${apiUrl}/api/purchaseinvoice/${id}`)
-      if(resInvoice){
+      const resInvoice = await axios.get(`${apiUrl}/api/purchaseinvoice/${id}`, config)
+      if (resInvoice) {
         setinvoice(resInvoice.data)
       }
     } catch (error) {
@@ -433,8 +435,9 @@ const [invoice, setinvoice] = useState({})
     e.preventDefault()
     try {
       const newInvoice = {
+        returnInvoice: true,
         invoiceNumber,
-        date,
+        invoiceDate,
         supplier,
         items,
         totalAmount,
@@ -447,7 +450,7 @@ const [invoice, setinvoice] = useState({})
         paymentDueDate,
         cashRegister,
         paymentStatus,
-        invoiceType,
+        paymentType,
         paymentMethod,
         notes,
       }
@@ -514,19 +517,19 @@ const [invoice, setinvoice] = useState({})
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
 
-      if(cashMovement){
+      if (cashMovement) {
         toast.success('تم تسجيل حركه الخزينه بنجاح');
 
         const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
           balance: updatedbalance, // Use the updated balance
         }, config);
-  
+
         // Update the state after successful updates
         if (updatecashRegister) {
           // Toast notification for successful creation
           toast.success(' تم خصم المدفوع من الخزينة');
         }
-      }else {
+      } else {
         toast.success('حدث خطا اثنا تسجيل حركه الخزينه ! حاول مره اخري');
 
       }
@@ -680,7 +683,7 @@ const [invoice, setinvoice] = useState({})
                               <td>{invoice.salesTax}</td>
                               <td>{invoice.additionalCost}</td>
                               <td>{invoice.netAmount}</td>
-                              <td>{invoice.invoiceType}</td>
+                              <td>{invoice.paymentType}</td>
                               <td>{invoice.paidAmount}</td>
                               <td>{invoice.balanceDue}</td>
                               <td>{formatDate(invoice.paymentDueDate)}</td>
@@ -691,7 +694,7 @@ const [invoice, setinvoice] = useState({})
                               <td>{formatDateTime(invoice.createdAt)}</td>
                               <td>{invoice.notes}</td>
                               <td>
-                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => {getInvoice(invoice._id)}}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
                               </td>
                             </tr>
@@ -757,7 +760,7 @@ const [invoice, setinvoice] = useState({})
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setDate(e.target.value)} />
+                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -825,7 +828,7 @@ const [invoice, setinvoice] = useState({})
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{height: 'auto' }} />
+                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                                 </div>
                                 {/* <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
@@ -847,13 +850,13 @@ const [invoice, setinvoice] = useState({})
                                     })}
                                   </select>
                                 </div>
-                                {paymentMethod === 'نقدي' && cashRegister ? 
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
-                                  <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
-                                  <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
-                                </div>
-                                : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
+                                {paymentMethod === 'نقدي' && cashRegister ?
+                                  <div className="input-group mb-3">
+                                    <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
+                                    <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
+                                    <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
+                                  </div>
+                                  : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
                                 }
 
                                 <div className="input-group mb-3">
@@ -896,7 +899,6 @@ const [invoice, setinvoice] = useState({})
                           <div className="card-header text-center">
                             <h4>ادخل بيانات فاتورة الشراء</h4>
                           </div>
-
                           <div className="card-body min-content">
                             <div className="row">
                               <div className="col-6">
@@ -922,7 +924,7 @@ const [invoice, setinvoice] = useState({})
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setDate(e.target.value)} />
+                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -990,12 +992,12 @@ const [invoice, setinvoice] = useState({})
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{height: 'auto' }} />
+                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                                 </div>
-                                {/* <div className="input-group mb-3">
+                                <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
-                                </div> */}
+                                </div>
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
@@ -1012,13 +1014,13 @@ const [invoice, setinvoice] = useState({})
                                     })}
                                   </select>
                                 </div>
-                                {paymentMethod === 'نقدي' && cashRegister ? 
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
-                                  <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
-                                  <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
-                                </div>
-                                : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
+                                {paymentMethod === 'نقدي' && cashRegister ?
+                                  <div className="input-group mb-3">
+                                    <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
+                                    <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
+                                    <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
+                                  </div>
+                                  : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
                                 }
 
                                 <div className="input-group mb-3">
@@ -1047,7 +1049,7 @@ const [invoice, setinvoice] = useState({})
                   </div>
                 </div>
               </div>
-             
+
               {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
