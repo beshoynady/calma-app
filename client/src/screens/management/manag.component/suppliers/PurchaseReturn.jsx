@@ -795,14 +795,14 @@ const PurchaseReturn = () => {
                             <table className="table table-bordered table-striped table-hover">
                               <thead className="table-success">
                                 <tr>
-                                  <th scope="col">#</th>
+                                  <th scope="col" className="col-1">#</th>
                                   <th scope="col" className="col-4">الصنف</th>
-                                  <th scope="col" className="col-2">الكمية</th>
-                                  <th scope="col" className="col-2">الوحده</th>
-                                  <th scope="col" className="col-2">السعر</th>
-                                  <th scope="col" className="col-2">الثمن</th>
+                                  <th scope="col" className="col-1">الكمية</th>
+                                  <th scope="col" className="col-1">الوحده</th>
+                                  <th scope="col" className="col-1">السعر</th>
+                                  <th scope="col" className="col-1">الثمن</th>
                                   <th scope="col" className="col-2">انتهاء</th>
-                                  <th scope="col" className="col-4 NoPrint">
+                                  <th scope="col" className="col-2 NoPrint">
                                     <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
                                   </th>
                                 </tr>
