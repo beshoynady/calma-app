@@ -247,7 +247,7 @@ const PurchaseReturn = () => {
 
 
 
-  const [returnedItems, setreturnedItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
+  const [returnedItems, setreturnedItems] = useState([]);
   const handleNewItem = () => {
     setreturnedItems([...returnedItems, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
   }
@@ -332,10 +332,12 @@ const PurchaseReturn = () => {
   const [originalInvoice, setoriginalInvoice] = useState('');
   const handleInvoice = (id) => {
     const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
+    setinvoice(invoice)
     setreturnedItems(invoice.items)
     setoriginalInvoice(invoice.invoiceNumber)
     handleSupplier(invoice.supplier._id)
   }
+
   const [returnDate, setreturnDate] = useState(new Date());
 
   const [refundedAmount, setrefundedAmount] = useState(0);
@@ -758,9 +760,9 @@ const PurchaseReturn = () => {
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">فاتورة المرتجع</span>
                                   <select required className="form-select" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
-                                    <option>اختر المورد</option>
+                                    <option>اختر الفاتورة</option>
                                     {allPurchaseInvoice.map((Invoice, i) => (
-                                      <option value={Invoice._id} key={i}>{Invoice.invoice}</option>
+                                      <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
                                     ))}
                                   </select>
                                 </div>
@@ -819,8 +821,7 @@ const PurchaseReturn = () => {
                                         ))}
                                       </select>
                                     </td> */}
-                                    <td><input type="text" className="form-control" name="qty" value={StockItems && StockItems.filter(stock => stock._id === item.itemId)[0]?.name}
-                                      readOnly /></td>
+                                    <td><input type="text" className="form-control" name="qty" value={StockItems && StockItems.filter(stock => stock._id === item.itemId)[0]?.itemName} readOnly /></td>
                                     <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
@@ -829,7 +830,7 @@ const PurchaseReturn = () => {
 
                                     <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
 
-                                    <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td><input type="text" className="form-control" name="Exp"readOnly value={formatDate(item.expirationDate)} /></td>
                                     {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
                                   </tr>
                                 ))}
@@ -840,19 +841,19 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="text" className="form-control text-end" value={totalAmount} id="totalInput" readOnly />
+                                  <input type="text" className="form-control text-end" value={invoice.totalAmount} id="totalInput" readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} />
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={invoice.salesTax}/>
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">خصم</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} />
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={invoice.discount}/>
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount} readOnly />
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount>0?netAmount:invoice.netAmount} readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>

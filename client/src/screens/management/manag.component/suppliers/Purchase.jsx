@@ -951,7 +951,7 @@ const Purchase = () => {
                                     <td>
                                       <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
                                         <option value="">
-                                          {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
+                                          {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.itemName}
                                         </option>
                                         {StockItems.map((stock, j) => (
                                           <option value={stock._id} key={j}>{stock.itemName}</option>
