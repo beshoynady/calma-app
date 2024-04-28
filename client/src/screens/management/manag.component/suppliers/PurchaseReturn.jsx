@@ -819,8 +819,9 @@ const PurchaseReturn = () => {
                                         ))}
                                       </select>
                                     </td> */}
-                                    <td><input type="text" className="form-control" name="qty" value={StockItems&&StockItems.filter(item => item._id=== item.item)[0].name}  readOnly/></td>
-                                    <td><input type="text" required className="form-control" value ={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
+                                    <td><input type="text" className="form-control" name="qty" value={StockItems && StockItems.filter(stock => stock._id === item.itemId)[0]?.name}
+                                      readOnly /></td>
+                                    <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
 
