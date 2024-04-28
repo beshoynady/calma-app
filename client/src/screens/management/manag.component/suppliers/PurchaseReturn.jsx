@@ -830,7 +830,7 @@ const PurchaseReturn = () => {
 
                                     <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
 
-                                    <td><input type="text" className="form-control" name="Exp"readOnly value={formatDate(item.expirationDate)} /></td>
+                                    <td><input type="text" className="form-control" name="Exp" readOnly value={formatDate(item.expirationDate)} /></td>
                                     {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
                                   </tr>
                                 ))}
@@ -841,19 +841,19 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="text" className="form-control text-end" value={totalAmount>0?totalAmount:invoice.totalAmount} id="totalInput" readOnly />
+                                  <input type="text" className="form-control text-end" value={totalAmount > 0 ? totalAmount : invoice.totalAmount} id="totalInput" readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={salesTax?salesTax:invoice.salesTax}/>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={salesTax ? salesTax : invoice.salesTax} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">خصم</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={discount>0?discount:invoice.discount}/>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={discount > 0 ? discount : invoice.discount} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount>0?netAmount:invoice.netAmount} readOnly />
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount > 0 ? netAmount : invoice.netAmount} readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
@@ -866,19 +866,23 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <label className="input-group-text" htmlFor="refundMethod">طريقة السداد</label>
-                                  <div className="form-check">
+                                  <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
+                                  <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="checkbox" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
                                     <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
                                   </div>
-                                  <div className="form-check">
+                                  <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="checkbox" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
                                     <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
                                   </div>
-                                  <div className="form-check">
+                                  <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="checkbox" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
                                     <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
                                   </div>
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
+                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
@@ -894,6 +898,7 @@ const PurchaseReturn = () => {
                                     })}
                                   </select>
                                 </div>
+
                                 {paymentMethod === 'نقدي' && cashRegister ?
                                   <div className="input-group mb-3">
                                     <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
