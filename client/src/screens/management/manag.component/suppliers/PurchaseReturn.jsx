@@ -195,14 +195,14 @@ const PurchaseReturn = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-  const handleAddSupplierTransactionPurchase = async (invoiceNumber) => {
+  const handleAddSupplierTransactionPurchase = async (originalInvoice) => {
     try {
       let newCurrentBalance = 0
       const transactionType = 'Purchase'
       const amount = netAmount
       const transactionDate = returnDate
       const currentBalance = previousBalance + amount
-      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+      const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
       console.log({ requestData })
 
@@ -225,7 +225,7 @@ const PurchaseReturn = () => {
         const transactionDate = returnDate
         const previousBalance = newCurrentBalance
         const currentBalance = previousBalance - refundedAmount
-        const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+        const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
         console.log({ requestData })
 
@@ -250,18 +250,18 @@ const PurchaseReturn = () => {
   const [returnedItems, setreturnedItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
 
   const handleNewItem = () => {
-    setreturnedItems([...items, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
+    setreturnedItems([...returnedItems, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
   }
 
   const handleDeleteItem = (index) => {
-    const updatedItems = [...items]
+    const updatedItems = [...returnedItems]
     updatedItems.splice(index, 1)
     setreturnedItems(updatedItems)
     clacTotalAmount()
   }
   const handleItemId = (id, index) => {
     const stockitem = StockItems.filter(item => item._id === id)[0]
-    const updatedItems = [...items]
+    const updatedItems = [...returnedItems]
     updatedItems[index].itemId = stockitem._id
     updatedItems[index].largeUnit = stockitem.largeUnit
     console.log({ updatedItems })
@@ -269,7 +269,7 @@ const PurchaseReturn = () => {
 
   }
   const handleQuantity = (quantity, index) => {
-    const updatedItems = [...items]
+    const updatedItems = [...returnedItems]
     updatedItems[index].quantity = Number(quantity)
     updatedItems[index].cost = Number(quantity) * Number(updatedItems[index].price);
     console.log({ updatedItems })
@@ -277,7 +277,7 @@ const PurchaseReturn = () => {
     clacTotalAmount()
   }
   const handlePrice = (price, index) => {
-    const updatedItems = [...items]
+    const updatedItems = [...returnedItems]
     updatedItems[index].price = Number(price)
     updatedItems[index].cost = Number(updatedItems[index].quantity) * Number(price);
     console.log({ updatedItems })
@@ -285,7 +285,7 @@ const PurchaseReturn = () => {
     clacTotalAmount()
   }
   const handleExpirationDate = (date, index) => {
-    const updatedItems = [...items]
+    const updatedItems = [...returnedItems]
     updatedItems[index].expirationDate = new Date(date);
     console.log({ updatedItems })
     setreturnedItems(updatedItems)
@@ -315,7 +315,7 @@ const PurchaseReturn = () => {
 
   useEffect(() => {
     calcNetAmount()
-  }, [items, additionalCost, discount, salesTax])
+  }, [returnedItems, additionalCost, discount, salesTax])
 
   const [supplier, setSupplier] = useState('');
   const [financialInfo, setFinancialInfo] = useState('');
@@ -335,18 +335,18 @@ const PurchaseReturn = () => {
 
   const [refundedAmount, setrefundedAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
-  const [paymentStatus, setPaymentStatus] = useState('unpaid');
+  const [returnStatus, setreturnStatus] = useState('unpaid');
   const [refundMethod, setrefundMethod] = useState('');
 
   const handlerefundedAmount = (amount) => {
     setrefundedAmount(amount);
     setBalanceDue(Number(netAmount) - Number(amount));
     if (amount == 0) {
-      setPaymentStatus('unreturned');
+      setreturnStatus('unreturned');
     } else if (amount == netAmount) {
-      setPaymentStatus('fully_returned');
+      setreturnStatus('fully_returned');
     } else if (amount < netAmount) {
-      setPaymentStatus('partially_returned');
+      setreturnStatus('partially_returned');
     }
   };
 
@@ -376,7 +376,7 @@ const PurchaseReturn = () => {
   //   e.preventDefault()
   //   try {
   //     const newInvoice = {
-  //       invoiceNumber,
+  //       originalInvoice,
   //       returnDate,
   //       supplier,
   //       items,
@@ -389,7 +389,7 @@ const PurchaseReturn = () => {
   //       balanceDue,
   //       paymentDueDate,
   //       cashRegister,
-  //       paymentStatus,
+  //       returnStatus,
   //       refundMethod,
   //       paymentMethod,
   //       notes,
@@ -522,7 +522,7 @@ const PurchaseReturn = () => {
         registerId: cashRegister,
         amount: refundedAmount,
         type: 'Payment',
-        description: `استرداد مرتجع فاتورة مشتريات رقم${invoiceNumber}`,
+        description: `استرداد مرتجع فاتورة مشتريات رقم${originalInvoice.invoiceNumber}`,
       }, config);
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
@@ -688,7 +688,7 @@ const PurchaseReturn = () => {
                               </td>
                               <td>{i + 1}</td>
                               <td>{formatDate(invoice.returnDate)}</td>
-                              <td>{invoice.originalInvoice}</td>
+                              <td>{invoice.originalInvoice.invoiceNumber}</td>
                               <td>{invoice.supplier.name}</td>
                               <td>{invoice.totalAmount}</td>
                               <td>{invoice.discount}</td>
@@ -767,8 +767,8 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
-                                  <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="originalInvoiceInput">رقم الفاتورة</span>
+                                  <input type="text" className="form-control" required id="originalInvoiceInput" placeholder="رقم الفاتورة" onChange={(e) => setoriginalInvoice(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
@@ -793,7 +793,7 @@ const PurchaseReturn = () => {
                                 </tr>
                               </thead>
                               <tbody id="TBody">
-                                {items.map((item, i) => (
+                                {returnedItems.map((item, i) => (
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
@@ -896,7 +896,7 @@ const PurchaseReturn = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={paymentStatus} readOnly />
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={returnStatus} readOnly />
                                 </div>
                               </div>
                             </div>
@@ -946,8 +946,8 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
-                                  <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="originalInvoiceInput">رقم الفاتورة</span>
+                                  <input type="text" className="form-control" required id="originalInvoiceInput" placeholder="رقم الفاتورة" onChange={(e) => setoriginalInvoice(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
@@ -1060,7 +1060,7 @@ const PurchaseReturn = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={paymentStatus} readOnly />
+                                  <input type="text" className="form-control text-end" id="netAmountInput" value={returnStatus} readOnly />
                                 </div>
                               </div>
                             </div>
