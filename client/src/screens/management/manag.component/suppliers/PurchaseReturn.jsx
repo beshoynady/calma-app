@@ -752,7 +752,7 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handlePurchaseReturn(e.target.value)}>
+                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                                     <option>اختر المورد</option>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
