@@ -293,7 +293,7 @@ const PurchaseReturn = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const clacTotalAmount = () => {
     let total = 0
-    items.forEach(item => {
+    returnedItems.forEach(item => {
       total += item.cost
     })
     setTotalAmount(total)
