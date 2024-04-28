@@ -248,7 +248,6 @@ const PurchaseReturn = () => {
 
 
   const [returnedItems, setreturnedItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
-
   const handleNewItem = () => {
     setreturnedItems([...returnedItems, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
   }
@@ -331,6 +330,12 @@ const PurchaseReturn = () => {
 
 
   const [originalInvoice, setoriginalInvoice] = useState('');
+  const handleInvoice = (id) => {
+    const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
+    setreturnedItems(invoice.items)
+    setoriginalInvoice(invoice.invoiceNumber)
+    handleSupplier(invoice.supplier._id)
+  }
   const [returnDate, setreturnDate] = useState(new Date());
 
   const [refundedAmount, setrefundedAmount] = useState(0);
@@ -661,7 +666,7 @@ const PurchaseReturn = () => {
                         <th>الضريبه</th>
                         <th>الاجمالي</th>
                         <th>اضافية</th>
-                        <th>الاجمالي بالمصاريف</th>
+                        {/* <th>الاجمالي بالمصاريف</th> */}
                         <th>نوع الفاتورة</th>
                         <th>استرد</th>
                         <th>باقي</th>
@@ -693,8 +698,8 @@ const PurchaseReturn = () => {
                               <td>{invoice.totalAmount}</td>
                               <td>{invoice.discount}</td>
                               <td>{invoice.salesTax}</td>
-                              <td>{invoice.additionalCost}</td>
                               <td>{invoice.netAmount}</td>
+                              <td>{invoice.additionalCost}</td>
                               <td>{invoice.refundMethod}</td>
                               <td>{invoice.refundedAmount}</td>
                               <td>{invoice.balanceDue}</td>
@@ -751,13 +756,30 @@ const PurchaseReturn = () => {
                             <div className="row">
                               <div className="col-6">
                                 <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="supplierSelect">فاتورة المرتجع</span>
+                                  <select required className="form-select" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
+                                    <option>اختر المورد</option>
+                                    {allPurchaseInvoice.map((Invoice, i) => (
+                                      <option value={Invoice._id} key={i}>{Invoice.invoice}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="returnDateInput">تاريخ المرتجع</span>
+                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
+                                </div>
+                              </div>
+                              <div className="col-6">
+                                <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                  <input type="text" className="form-control" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
+
+                                  {/* <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                                     <option>اختر المورد</option>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
                                     ))}
-                                  </select>
+                                  </select> */}
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
@@ -765,16 +787,7 @@ const PurchaseReturn = () => {
                                 </div>
 
                               </div>
-                              <div className="col-6">
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="originalInvoiceInput">رقم الفاتورة</span>
-                                  <input type="text" className="form-control" required id="originalInvoiceInput" placeholder="رقم الفاتورة" onChange={(e) => setoriginalInvoice(e.target.value)} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
-                                </div>
-                              </div>
+
                             </div>
 
                             <table className="table table-bordered table-striped table-hover">
@@ -796,7 +809,7 @@ const PurchaseReturn = () => {
                                 {returnedItems.map((item, i) => (
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
-                                    <td>
+                                    {/* <td>
                                       <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
@@ -805,16 +818,18 @@ const PurchaseReturn = () => {
                                           <option value={stock._id} key={j}>{stock.itemName}</option>
                                         ))}
                                       </select>
-                                    </td>
-                                    <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    </td> */}
+                                    <td><input type="text" className="form-control" name="qty" value={StockItems&&StockItems.filter(item => item._id=== item.item)[0].name}  readOnly/></td>
+                                    <td><input type="text" required className="form-control" value ={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
+
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
 
-                                    <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control" name="price" required value={item.price} onChange={(e) => handlePrice(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
 
                                     <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
-                                    <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
+                                    {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
                                   </tr>
                                 ))}
                               </tbody>
