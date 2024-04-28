@@ -114,7 +114,7 @@ const PurchaseReturn = () => {
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
-    const currentBalance =  Number(oldBalance) - Number(quantity);
+    const currentBalance = Number(oldBalance) - Number(quantity);
     const unit = stockItem.largeUnit
     const costOfPart = Math.round((Number(costOfItem) / Number(parts)) * 100) / 100;
     console.log({ itemPercentage, itemAdditionalCost, costOfItem, parts, price, costOfPart })
@@ -867,19 +867,17 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" style={{ width: "100%" }} htmlFor="refundMethod">طريقة السداد</span>
-                                  <div style={{ display: "flex", width: "100%" }}>
-                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
-                                      <input className="form-check-input" type="checkbox" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
-                                      <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
-                                    </div>
-                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
-                                      <input className="form-check-input" type="checkbox" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
-                                      <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
-                                    </div>
-                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
-                                      <input className="form-check-input" type="checkbox" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
-                                      <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
-                                    </div>
+                                  <div className="form-check form-check-inline" >
+                                    <input className="form-check-input" type="radio" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
+                                    <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
+                                  </div>
+                                  <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
+                                    <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
+                                  </div>
+                                  <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
+                                    <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
                                   </div>
                                 </div>
                                 <div className="input-group mb-3">
