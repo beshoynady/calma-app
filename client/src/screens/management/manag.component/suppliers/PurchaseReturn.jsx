@@ -796,7 +796,7 @@ const PurchaseReturn = () => {
                               <thead className="table-success">
                                 <tr>
                                   <th scope="col" className="col-1">#</th>
-                                  <th scope="col" className="col-4">الصنف</th>
+                                  <th scope="col" className="col-3">الصنف</th>
                                   <th scope="col" className="col-1">الكمية</th>
                                   <th scope="col" className="col-1">الوحده</th>
                                   <th scope="col" className="col-1">السعر</th>
@@ -841,15 +841,15 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="text" className="form-control text-end" value={invoice.totalAmount} id="totalInput" readOnly />
+                                  <input type="text" className="form-control text-end" value={totalAmount>0?totalAmount:invoice.totalAmount} id="totalInput" readOnly />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={invoice.salesTax}/>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={salesTax?salesTax:invoice.salesTax}/>
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">خصم</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={invoice.discount}/>
+                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={discount>0?discount:invoice.discount}/>
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
