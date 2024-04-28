@@ -32,6 +32,7 @@ import POS from './screens/management/manag.component/pos/POS';
 
 import Suppliers from './screens/management/manag.component/suppliers/Suppliers';
 import Purchase from './screens/management/manag.component/suppliers/Purchase';
+import PurchaseReturn from './screens/management/manag.component/suppliers/PurchaseReturn';
 import SupplierTransaction from './screens/management/manag.component/suppliers/SupplierTransaction';
 import StockItem from './screens/management/manag.component/stock/StockItem';
 import StockManag from './screens/management/manag.component/stock/StockManag';
@@ -2043,6 +2044,7 @@ function App() {
             <Route path='pos' element={<POS />} />
             <Route path='supplier' element={<Suppliers/>} />
             <Route path='purchase' element={<Purchase/>} />
+            <Route path='purchasereturn' element={<PurchaseReturn/>} />
             <Route path='suppliertransaction' element={<SupplierTransaction/>} />
             <Route path='categoryStock' element={<CategoryStock />} />
             <Route path='stockitem' element={<StockItem />} />

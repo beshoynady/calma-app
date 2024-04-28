@@ -247,6 +247,9 @@ const SideBar = () => {
                         <li><Link to="purchase">المشتريات</Link></li>
                       }
                       {(role === 'manager' || role === 'casher') &&
+                        <li><Link to="purchasereturn">مرتجع المشتريات</Link></li>
+                      }
+                      {(role === 'manager' || role === 'casher') &&
                         <li><Link to="suppliertransaction">تعاملات الموردين</Link></li>
                       }
                     </ul>

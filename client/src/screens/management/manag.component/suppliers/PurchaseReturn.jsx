@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 
 
-const Purchase = () => {
+const PurchaseReturn = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const token = localStorage.getItem('token_e');
@@ -1079,4 +1079,4 @@ const Purchase = () => {
   )
 }
 
-export default Purchase
+export default PurchaseReturn
