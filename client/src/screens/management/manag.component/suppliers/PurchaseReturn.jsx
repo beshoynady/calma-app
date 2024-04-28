@@ -114,7 +114,7 @@ const PurchaseReturn = () => {
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
-    const currentBalance = Number(quantity) + Number(oldBalance);
+    const currentBalance =  Number(oldBalance) - Number(quantity);
     const unit = stockItem.largeUnit
     const costOfPart = Math.round((Number(costOfItem) / Number(parts)) * 100) / 100;
     console.log({ itemPercentage, itemAdditionalCost, costOfItem, parts, price, costOfPart })
@@ -143,35 +143,35 @@ const PurchaseReturn = () => {
 
         console.log(response);
 
-        for (const recipe of allrecipes) {
-          const recipeid = recipe._id;
-          const productname = recipe.productId.name;
-          const arrayingredients = recipe.ingredients;
+        // for (const recipe of allrecipes) {
+        //   const recipeid = recipe._id;
+        //   const productname = recipe.productId.name;
+        //   const arrayingredients = recipe.ingredients;
 
-          const newIngredients = arrayingredients.map((ingredient) => {
-            if (ingredient.itemId === itemId) {
-              const costofitem = costOfPart;
-              const unit = ingredient.unit
-              const amount = ingredient.amount
-              const totalcostofitem = amount * costOfPart
-              return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
-            } else {
-              return ingredient;
-            }
-          });
-          console.log({ newIngredients })
-          const totalcost = newIngredients.reduce((acc, curr) => {
-            return acc + (curr.totalcostofitem || 0);
-          }, 0);
-          // Update the product with the modified recipe and total cost
-          const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`,
-            { ingredients: newIngredients, totalcost }, config);
+        //   const newIngredients = arrayingredients.map((ingredient) => {
+        //     if (ingredient.itemId === itemId) {
+        //       const costofitem = costOfPart;
+        //       const unit = ingredient.unit
+        //       const amount = ingredient.amount
+        //       const totalcostofitem = amount * costOfPart
+        //       return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+        //     } else {
+        //       return ingredient;
+        //     }
+        //   });
+        //   console.log({ newIngredients })
+        //   const totalcost = newIngredients.reduce((acc, curr) => {
+        //     return acc + (curr.totalcostofitem || 0);
+        //   }, 0);
+        //   // Update the product with the modified recipe and total cost
+        //   const updateRecipe = await axios.put(`${apiUrl}/api/recipe/${recipeid}`,
+        //     { ingredients: newIngredients, totalcost }, config);
 
-          console.log({ updateRecipe });
+        //   console.log({ updateRecipe });
 
-          // Toast for successful update based on recipe change
-          toast.success(`تم تحديث وصفة  ${productname}`);
-        }
+        //   // Toast for successful update based on recipe change
+        //   toast.success(`تم تحديث وصفة  ${productname}`);
+        // }
       }
 
       // Update the stock actions list and stock items
@@ -433,7 +433,7 @@ const PurchaseReturn = () => {
     }
   }
 
-  const createPurchaseReturn = async (e) => {
+  const createPurchaseReturn = async (e, receiverId) => {
 
     e.preventDefault()
     try {
@@ -460,9 +460,9 @@ const PurchaseReturn = () => {
       const response = await axios.post(`${apiUrl}/api/purchasereturn`, newInvoice, config);
       console.log({ response })
       if (response.status === 201) {
-        // items.forEach(item => {
-        //   createStockAction(item, receiverId)
-        // })
+        returnedItems.forEach(item => {
+          createStockAction(item, receiverId)
+        })
 
         // await handleAddSupplierTransactionPurchaseReturn(response.data._id)
         getAllPurchasesReturn();
@@ -544,7 +544,7 @@ const PurchaseReturn = () => {
         // Update the state after successful updates
         if (updatecashRegister) {
           // Toast notification for successful creation
-          toast.success(' تم خصم المدفوع من الخزينة');
+          toast.success(' تم اضافه المبلع المسترد الي الخزينة');
         }
       } else {
         toast.success('حدث خطا اثنا تسجيل حركه الخزينه ! حاول مره اخري');
@@ -866,19 +866,25 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
-                                  <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
-                                    <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
+                                  <span className="input-group-text" style={{ width: "100%" }} htmlFor="refundMethod">طريقة السداد</span>
+                                  <div style={{ display: "flex", width: "100%" }}>
+                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
+                                      <input className="form-check-input" type="checkbox" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
+                                      <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
+                                    </div>
+                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
+                                      <input className="form-check-input" type="checkbox" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
+                                      <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
+                                    </div>
+                                    <div className="form-check" style={{ flex: "20%", textAlign: "right" }}>
+                                      <input className="form-check-input" type="checkbox" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
+                                      <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
+                                    </div>
                                   </div>
-                                  <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
-                                    <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
-                                  </div>
-                                  <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="checkbox" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
-                                    <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
-                                  </div>
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
+                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
@@ -899,7 +905,7 @@ const PurchaseReturn = () => {
                                   </select>
                                 </div>
 
-                                {paymentMethod === 'نقدي' && cashRegister ?
+                                {refundMethod === 'نقدي' && cashRegister ?
                                   <div className="input-group mb-3">
                                     <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
                                     <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
