@@ -76,7 +76,6 @@ const PurchaseReturn = () => {
       const allRecipe = await response.data;
       setallrecipes(allRecipe)
       console.log(allRecipe)
-
     } catch (error) {
       console.log(error)
     }
@@ -111,14 +110,14 @@ const PurchaseReturn = () => {
     const costOfItem = itemAdditionalCost + price
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
     console.log({ stockItem })
-    
+
     const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
     const currentBalance = Number(quantity) + Number(oldBalance);
     const unit = stockItem.largeUnit
     const costOfPart = Math.round((Number(costOfItem) / Number(parts)) * 100) / 100;
-    console.log({itemPercentage,itemAdditionalCost,costOfItem, parts, price, costOfPart })
+    console.log({ itemPercentage, itemAdditionalCost, costOfItem, parts, price, costOfPart })
     try {
 
       // Update the stock item's movement
@@ -201,7 +200,7 @@ const PurchaseReturn = () => {
       let newCurrentBalance = 0
       const transactionType = 'Purchase'
       const amount = netAmount
-      const transactionDate = invoiceDate
+      const transactionDate = returnDate
       const currentBalance = previousBalance + amount
       const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
@@ -220,12 +219,12 @@ const PurchaseReturn = () => {
         toast.error('حدث خطأ أثناء انشاء العملية');
       }
 
-      if (paidAmount > 0) {
+      if (refundedAmount > 0) {
         const transactionType = 'Payment'
-        const amount = paidAmount
-        const transactionDate = invoiceDate
+        const amount = refundedAmount
+        const transactionDate = returnDate
         const previousBalance = newCurrentBalance
-        const currentBalance = previousBalance - paidAmount
+        const currentBalance = previousBalance - refundedAmount
         const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
         console.log({ requestData })
@@ -248,16 +247,16 @@ const PurchaseReturn = () => {
 
 
 
-  const [items, setItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
+  const [returnedItems, setreturnedItems] = useState([{ itemId: '', quantity: 0, largeUnit: '', price: 0, cost: 0, expirationDate: '' }]);
 
   const handleNewItem = () => {
-    setItems([...items, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
+    setreturnedItems([...items, { itemId: '', quantity: 0, price: 0, largeUnit: '', cost: 0, expirationDate: '' }])
   }
 
   const handleDeleteItem = (index) => {
     const updatedItems = [...items]
     updatedItems.splice(index, 1)
-    setItems(updatedItems)
+    setreturnedItems(updatedItems)
     clacTotalAmount()
   }
   const handleItemId = (id, index) => {
@@ -266,7 +265,7 @@ const PurchaseReturn = () => {
     updatedItems[index].itemId = stockitem._id
     updatedItems[index].largeUnit = stockitem.largeUnit
     console.log({ updatedItems })
-    setItems(updatedItems)
+    setreturnedItems(updatedItems)
 
   }
   const handleQuantity = (quantity, index) => {
@@ -274,7 +273,7 @@ const PurchaseReturn = () => {
     updatedItems[index].quantity = Number(quantity)
     updatedItems[index].cost = Number(quantity) * Number(updatedItems[index].price);
     console.log({ updatedItems })
-    setItems(updatedItems)
+    setreturnedItems(updatedItems)
     clacTotalAmount()
   }
   const handlePrice = (price, index) => {
@@ -282,14 +281,14 @@ const PurchaseReturn = () => {
     updatedItems[index].price = Number(price)
     updatedItems[index].cost = Number(updatedItems[index].quantity) * Number(price);
     console.log({ updatedItems })
-    setItems(updatedItems)
+    setreturnedItems(updatedItems)
     clacTotalAmount()
   }
   const handleExpirationDate = (date, index) => {
     const updatedItems = [...items]
     updatedItems[index].expirationDate = new Date(date);
     console.log({ updatedItems })
-    setItems(updatedItems)
+    setreturnedItems(updatedItems)
   }
   const [totalAmount, setTotalAmount] = useState(0);
   const clacTotalAmount = () => {
@@ -331,26 +330,23 @@ const PurchaseReturn = () => {
   }
 
 
-  const [invoiceNumber, setInvoiceNumber] = useState('');
-  const [invoiceDate, setinvoiceDate] = useState(new Date());
+  const [originalInvoice, setoriginalInvoice] = useState('');
+  const [returnDate, setreturnDate] = useState(new Date());
 
-  const [paidAmount, setPaidAmount] = useState(0);
+  const [refundedAmount, setrefundedAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState('unpaid');
-  const [paymentType, setpaymentType] = useState('');
+  const [refundMethod, setrefundMethod] = useState('');
 
-  const handlePaidAmount = (amount) => {
-    setPaidAmount(amount);
+  const handlerefundedAmount = (amount) => {
+    setrefundedAmount(amount);
     setBalanceDue(Number(netAmount) - Number(amount));
     if (amount == 0) {
-      setPaymentStatus('unpaid');
-      setpaymentType('credit');
+      setPaymentStatus('unreturned');
     } else if (amount == netAmount) {
-      setPaymentStatus('paid');
-      setpaymentType('cash');
+      setPaymentStatus('fully_returned');
     } else if (amount < netAmount) {
-      setPaymentStatus('partially_paid');
-      setpaymentType('credit');
+      setPaymentStatus('partially_returned');
     }
   };
 
@@ -375,53 +371,53 @@ const PurchaseReturn = () => {
   const [notes, setNotes] = useState('');
 
 
-  const createPurchaseInvoice = async (e, receiverId) => {
+  // const createPurchaseInvoice = async (e, receiverId) => {
 
-    e.preventDefault()
-    try {
-      const newInvoice = {
-        invoiceNumber,
-        invoiceDate,
-        supplier,
-        items,
-        totalAmount,
-        discount,
-        salesTax,
-        netAmount,
-        additionalCost,
-        paidAmount,
-        balanceDue,
-        paymentDueDate,
-        cashRegister,
-        paymentStatus,
-        paymentType,
-        paymentMethod,
-        notes,
-      }
-      console.log({ newInvoice })
-      const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
-      console.log({ response })
-      if (response.status === 201) {
-        items.forEach(item => {
-          createStockAction(item, receiverId)
-        })
+  //   e.preventDefault()
+  //   try {
+  //     const newInvoice = {
+  //       invoiceNumber,
+  //       returnDate,
+  //       supplier,
+  //       items,
+  //       totalAmount,
+  //       discount,
+  //       salesTax,
+  //       netAmount,
+  //       additionalCost,
+  //       refundedAmount,
+  //       balanceDue,
+  //       paymentDueDate,
+  //       cashRegister,
+  //       paymentStatus,
+  //       refundMethod,
+  //       paymentMethod,
+  //       notes,
+  //     }
+  //     console.log({ newInvoice })
+  //     const response = await axios.post(`${apiUrl}/api/purchasereturn`, newInvoice, config);
+  //     console.log({ response })
+  //     if (response.status === 201) {
+  //       items.forEach(item => {
+  //         createStockAction(item, receiverId)
+  //       })
 
-        await handleAddSupplierTransactionPurchase(response.data._id)
-        getAllPurchases();
-        toast.success('تم اضافه المشتريات بنجاح')
-      } else {
-        toast.error('فشل اضافه المشتريات ! حاول مره اخري')
-      }
-    } catch (error) {
-      toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
-    }
-  }
+  //       await handleAddSupplierTransactionPurchase(response.data._id)
+  //       getAllPurchases();
+  //       toast.success('تم اضافه المشتريات بنجاح')
+  //     } else {
+  //       toast.error('فشل اضافه المشتريات ! حاول مره اخري')
+  //     }
+  //   } catch (error) {
+  //     toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
+  //   }
+  // }
 
   const [invoice, setinvoice] = useState({})
 
   const getInvoice = async (id) => {
     try {
-      const resInvoice = await axios.get(`${apiUrl}/api/purchaseinvoice/${id}`, config)
+      const resInvoice = await axios.get(`${apiUrl}/api/purchasereturn/${id}`, config)
       if (resInvoice) {
         setinvoice(resInvoice.data)
       }
@@ -430,46 +426,60 @@ const PurchaseReturn = () => {
     }
   }
 
-  const handlePurchaseReturn = async (e, receiverId) => {
+  const createPurchaseReturn = async (e) => {
 
     e.preventDefault()
     try {
       const newInvoice = {
-        returnInvoice: true,
-        invoiceNumber,
-        invoiceDate,
+        originalInvoice,
+        returnDate,
         supplier,
-        items,
+        returnedItems,
         totalAmount,
         discount,
-        salesTax,
         netAmount,
-        additionalCost,
-        paidAmount,
+        salesTax,
+        refundedAmount,
         balanceDue,
         paymentDueDate,
+        additionalCost,
         cashRegister,
-        paymentStatus,
-        paymentType,
+        returnStatus,
         paymentMethod,
+        refundMethod,
         notes,
       }
       console.log({ newInvoice })
-      const response = await axios.post(`${apiUrl}/api/purchaseinvoice`, newInvoice, config);
+      const response = await axios.post(`${apiUrl}/api/purchasereturn`, newInvoice, config);
       console.log({ response })
       if (response.status === 201) {
-        items.forEach(item => {
-          createStockAction(item, receiverId)
-        })
+        // items.forEach(item => {
+        //   createStockAction(item, receiverId)
+        // })
 
-        await handleAddSupplierTransactionPurchase(response.data._id)
-        getAllPurchases();
+        // await handleAddSupplierTransactionPurchaseReturn(response.data._id)
+        getAllPurchasesReturn();
         toast.success('تم اضافه المشتريات بنجاح')
       } else {
         toast.error('فشل اضافه المشتريات ! حاول مره اخري')
       }
     } catch (error) {
       toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
+    }
+  }
+
+  const [allPurchasesReturn, setallPurchasesReturn] = useState([])
+  const getAllPurchasesReturn = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/purchasereturn', config);
+      console.log({ response })
+      if (response.status === 200) {
+        setallPurchasesReturn(response.data.reverse())
+      } else {
+        toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب فواتير المشتريات ! اعد تحميل الصفحة')
     }
   }
 
@@ -502,7 +512,7 @@ const PurchaseReturn = () => {
 
   const confirmPayment = async (e) => {
     e.preventDefault();
-    const updatedbalance = CashRegisterBalance - paidAmount; // Calculate the updated balance
+    const updatedbalance = CashRegisterBalance + refundedAmount; // Calculate the updated balance
 
     try {
 
@@ -510,9 +520,9 @@ const PurchaseReturn = () => {
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
-        amount: paidAmount,
+        amount: refundedAmount,
         type: 'Payment',
-        description: `دفع فاتورة مشتريات رقم${invoiceNumber}`,
+        description: `استرداد مرتجع فاتورة مشتريات رقم${invoiceNumber}`,
       }, config);
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
@@ -544,6 +554,7 @@ const PurchaseReturn = () => {
 
 
   useEffect(() => {
+    getAllPurchasesReturn()
     getAllPurchases()
     getallStockaction()
     getaStockItems()
@@ -643,17 +654,18 @@ const PurchaseReturn = () => {
                         </th>
                         <th>م</th>
                         <th>التاريخ</th>
-                        <th>الفاتوره</th>
+                        <th>الفاتوره الاصليه</th>
                         <th>المورد</th>
-                        <th>الاجمالي</th>
+                        <th>مجموع المرتجع</th>
                         <th>الخصم</th>
                         <th>الضريبه</th>
-                        <th>اضافية</th>
                         <th>الاجمالي</th>
+                        <th>اضافية</th>
+                        <th>الاجمالي بالمصاريف</th>
                         <th>نوع الفاتورة</th>
-                        <th>دفع</th>
+                        <th>استرد</th>
                         <th>باقي</th>
-                        <th>تاريخ الاستحقاق</th>
+                        <th>تاريخ الاسترداد</th>
                         <th>طريقه الدفع</th>
                         <th>الحالة</th>
                         <th>الخزينه</th>
@@ -664,7 +676,7 @@ const PurchaseReturn = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {allPurchaseInvoice.length > 0 && allPurchaseInvoice.map((invoice, i) => {
+                      {allPurchasesReturn.length > 0 && allPurchasesReturn.map((invoice, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
@@ -675,26 +687,26 @@ const PurchaseReturn = () => {
                                 </label>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{formatDate(invoice.date)}</td>
-                              <td>{invoice.invoiceNumber}</td>
+                              <td>{formatDate(invoice.returnDate)}</td>
+                              <td>{invoice.originalInvoice}</td>
                               <td>{invoice.supplier.name}</td>
                               <td>{invoice.totalAmount}</td>
                               <td>{invoice.discount}</td>
                               <td>{invoice.salesTax}</td>
                               <td>{invoice.additionalCost}</td>
                               <td>{invoice.netAmount}</td>
-                              <td>{invoice.paymentType}</td>
-                              <td>{invoice.paidAmount}</td>
+                              <td>{invoice.refundMethod}</td>
+                              <td>{invoice.refundedAmount}</td>
                               <td>{invoice.balanceDue}</td>
                               <td>{formatDate(invoice.paymentDueDate)}</td>
-                              <td>{invoice.paymentMethod}</td>
-                              <td>{invoice.paymentStatus}</td>
+                              <td>{invoice.refundMethod}</td>
+                              <td>{invoice.refundStatus}</td>
                               <td>{invoice.cashRegister.name}</td>
                               <td>{invoice.createdBy.fullname}</td>
                               <td>{formatDateTime(invoice.createdAt)}</td>
                               <td>{invoice.notes}</td>
                               <td>
-                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                {/* <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                 {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
                               </td>
                             </tr>
@@ -705,7 +717,7 @@ const PurchaseReturn = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{allPurchaseInvoice.length > endpagination ? endpagination : allPurchaseInvoice.length}</b> من <b>{allPurchaseInvoice.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{allPurchasesReturn.length > endpagination ? endpagination : allPurchasesReturn.length}</b> من <b>{allPurchasesReturn.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
@@ -723,9 +735,9 @@ const PurchaseReturn = () => {
               <div id="addPurchaseInvoiceModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createPurchaseInvoice(e, employeeLoginInfo.employeeinfo.id)}>
+                    <form onSubmit={(e) => createPurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                        <h4 className="modal-title">تسجيل مرتجع مشتريات</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body container ">
@@ -740,7 +752,7 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handlePurchaseReturn(e.target.value)}>
                                     <option>اختر المورد</option>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
@@ -759,8 +771,8 @@ const PurchaseReturn = () => {
                                   <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
+                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -830,15 +842,30 @@ const PurchaseReturn = () => {
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
                                   <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                                 </div>
-                                {/* <div className="input-group mb-3">
+                                <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
                                   <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
-                                </div> */}
+                                </div>
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="paidAmount">مدفوع</span>
-                                  <input type="number" className="form-control text-end" defaultValue={paidAmount} id="paidAmount" onChange={(e) => handlePaidAmount(e.target.value)} />
+                                  <label className="input-group-text" htmlFor="refundMethod">طريقة السداد</label>
+                                  <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
+                                    <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
+                                  </div>
+                                  <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
+                                    <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
+                                  </div>
+                                  <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
+                                    <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
+                                  </div>
+                                </div>
+                                <div className="input-group mb-3">
+                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
+                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
@@ -885,7 +912,7 @@ const PurchaseReturn = () => {
                   </div>
                 </div>
               </div>
-              <div id="purchaseReturnModal" className="modal fade">
+              {/* <div id="purchaseReturnModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => handlePurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
@@ -923,8 +950,8 @@ const PurchaseReturn = () => {
                                   <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
+                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -1001,8 +1028,8 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="paidAmount">مدفوع</span>
-                                  <input type="number" className="form-control text-end" defaultValue={paidAmount} id="paidAmount" onChange={(e) => handlePaidAmount(e.target.value)} />
+                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
+                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
@@ -1048,7 +1075,7 @@ const PurchaseReturn = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">

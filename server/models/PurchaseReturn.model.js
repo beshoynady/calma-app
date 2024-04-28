@@ -63,6 +63,7 @@ const purchaseReturnInvoiceSchema = new mongoose.Schema({
     },
     notes: {
         type: String,
+        required: true,
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
