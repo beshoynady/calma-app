@@ -38,7 +38,7 @@ const createStockAction = async (req, res, next) => {
         res.status(201).json(itemAdded);
     } catch (error) {
         // Handle any errors that occur during the process
-        next(error);
+        res(error);
     }
 };
 
@@ -86,28 +86,28 @@ const updateStockAction = async (req, res, next) => {
         res.status(200).json(updatedAction);
     } catch (error) {
         // Handle any errors that occur during the process
-        next(error);
+        res.status(404).json(error);
     }
 };
 
 const getAllStockActions = async (req, res) => {
     try {
-      const allActions = await StockManagementModel.find({})
-        .populate('itemId')
-        .populate('actionBy')
-        .populate('supplier')
-        .populate('receiver');
-  
-      if (allActions.length > 0) {
-        res.status(200).json(allActions);
-      } else {
-        res.status(404).json({ message: 'No stock actions found' });
-      }
+        const allActions = await StockManagementModel.find({})
+            .populate('itemId')
+            .populate('actionBy')
+            .populate('supplier')
+            .populate('receiver');
+
+        if (allActions.length > 0) {
+            res.status(200).json(allActions);
+        } else {
+            res.status(404).json({ message: 'No stock actions found' });
+        }
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        res.status(500).json(error);
     }
-  };
-  
+};
+
 
 const getOneStockAction = async (req, res, next) => {
     try {
@@ -121,7 +121,7 @@ const getOneStockAction = async (req, res, next) => {
 
         res.status(200).json(action);
     } catch (error) {
-        next(error);
+        res.status(400).json(error);
     }
 };
 
@@ -136,7 +136,7 @@ const deleteStockAction = async (req, res, next) => {
 
         res.status(200).json(deletedAction);
     } catch (error) {
-        next(error);
+        res.status(400).json(error);
     }
 };
 

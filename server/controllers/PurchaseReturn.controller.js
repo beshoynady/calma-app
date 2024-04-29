@@ -103,7 +103,7 @@ const getPurchaseReturnInvoiceById = async (req, res) => {
         }
         res.status(200).json(purchaseReturnInvoice);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json(error);
     }
 };
 
@@ -116,7 +116,7 @@ const updatePurchaseReturnInvoiceById = async (req, res) => {
         }
         res.status(200).json(updatedPurchaseReturnInvoice);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json(error);
     }
 };
 
@@ -129,7 +129,7 @@ const deletePurchaseReturnInvoiceById = async (req, res) => {
         }
         res.status(200).json({ message: 'Purchase return invoice deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json(error);
     }
 };
 
