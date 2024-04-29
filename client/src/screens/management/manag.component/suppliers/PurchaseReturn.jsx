@@ -364,7 +364,9 @@ const PurchaseReturn = () => {
   const [cashRegister, setCashRegister] = useState('');
   const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
   const handleCashRegister = (id) => {
+    console.log({id})
     const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.employee === id)[0]
+    console.log({id, filterCashRegister})
     setCashRegister(filterCashRegister._id)
     setCashRegisterBalance(filterCashRegister.balance)
   };
@@ -372,6 +374,7 @@ const PurchaseReturn = () => {
 
   const [paymentMethod, setPaymentMethod] = useState('');
   const handlePaymentMethod = (Method, employeeId) => {
+    console.log({Method, employeeId})
     setPaymentMethod(Method)
     handleCashRegister(employeeId)
   }
