@@ -334,7 +334,7 @@ const PurchaseReturn = () => {
     const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
     setinvoice(invoice)
     setreturnedItems(invoice.items)
-    setoriginalInvoice(invoice.invoiceNumber)
+    setoriginalInvoice(id)
     handleSupplier(invoice.supplier._id)
   }
 
