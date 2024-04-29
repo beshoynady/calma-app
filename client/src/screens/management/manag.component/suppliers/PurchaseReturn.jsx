@@ -440,7 +440,7 @@ const PurchaseReturn = () => {
     e.preventDefault()
     try {
       const items = []
-      returnedItems.items.map(item=>{
+      returnedItems.map(item=>{
         if(item.quantity > 0 ){
           const i = { itemId: item.itemId._id, quantity : item.quantity, price: item.price, largeUnit: item.largeUnit, cost: item.cost, expirationDate: item.expirationDate }
           items.push(i)
