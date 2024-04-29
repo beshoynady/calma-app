@@ -342,7 +342,7 @@ const PurchaseReturn = () => {
 
   const [refundedAmount, setrefundedAmount] = useState(0);
   const [balanceDue, setBalanceDue] = useState(0);
-  const [returnStatus, setreturnStatus] = useState('unpaid');
+  const [returnStatus, setreturnStatus] = useState('unreturned');
   const [refundMethod, setrefundMethod] = useState('');
 
   const handlerefundedAmount = (amount) => {

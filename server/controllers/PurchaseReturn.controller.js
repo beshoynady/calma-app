@@ -68,6 +68,8 @@ const getAllPurchaseReturnInvoices = async (req, res) => {
     try {
         // Retrieve all purchase return invoices and populate related fields
         const purchaseReturnInvoices = await PurchaseReturnInvoiceModel.find()
+            .populate('originalInvoice') // Populate originalInvoice field
+            .populate('returnedItems.itemId') // Populate returnedItems.itemId field
             .populate('supplier') // Populate supplier field
             .populate('createdBy') // Populate createdBy field
             .populate('cashRegister'); // Populate cashRegister field
