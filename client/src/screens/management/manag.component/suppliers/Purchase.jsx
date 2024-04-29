@@ -360,6 +360,7 @@ const Purchase = () => {
   const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
   const handleCashRegister = (id) => {
     const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.employee === id)[0]
+    console.log({id, filterCashRegister})
     setCashRegister(filterCashRegister._id)
     setCashRegisterBalance(filterCashRegister.balance)
   };
