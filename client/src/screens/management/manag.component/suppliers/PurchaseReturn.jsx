@@ -298,6 +298,7 @@ const PurchaseReturn = () => {
       total += item.cost
     })
     setTotalAmount(total)
+    setNetAmount(total)
     setBalanceDue(total)
     
   }
