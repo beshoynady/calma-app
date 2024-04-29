@@ -98,7 +98,7 @@ const PurchaseReturn = () => {
   const Stockmovement = ['Purchase', 'ReturnPurchase'];
 
   const createStockAction = async (item, receiverid) => {
-    const itemId = item.itemId_id;
+    const itemId = item.itemId._id;
     const quantity = item.quantity;
     const price = Number(item.price);
     const cost = item.cost;
