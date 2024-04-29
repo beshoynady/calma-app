@@ -866,41 +866,20 @@ const PurchaseReturn = () => {
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" style={{ width: "100%" }} htmlFor="refundMethod">طريقة السداد</span>
-                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
-                                    <input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      id="cashCheckbox"
-                                      value="cash"
-                                      onChange={() => setrefundMethod("cash")}
-                                      checked={refundMethod === "cash"}
-                                    />
-                                    <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
-                                  </div>
-                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
-                                    <input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      id="creditCheckbox"
-                                      value="credit"
-                                      onChange={() => setrefundMethod("credit")}
-                                      checked={refundMethod === "credit"}
-                                    />
-                                    <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
-                                  </div>
-                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
-                                    <input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      id="deductCheckbox"
-                                      value="deduct_supplier_balance"
-                                      onChange={() => setrefundMethod("deduct_supplier_balance")}
-                                      checked={refundMethod === "deduct_supplier_balance"}
-                                    />
-                                    <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
-                                  </div>
+                                  <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
+                                  <select
+                                    className="form-select"
+                                    id="refundMethod"
+                                    onChange={(e) => setrefundMethod(e.target.value)}
+                                    value={refundMethod}
+                                  >
+                                    <option value="cash">اختر طريقه السداد</option>
+                                    <option value="cash">نقدي</option>
+                                    <option value="credit">سداد مؤجل</option>
+                                    <option value="deduct_supplier_balance">خصم من رصيد المورد</option>
+                                  </select>
                                 </div>
+
 
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
