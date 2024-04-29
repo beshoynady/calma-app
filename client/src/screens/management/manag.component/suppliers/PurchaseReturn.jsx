@@ -867,15 +867,15 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" style={{ width: "100%" }} htmlFor="refundMethod">طريقة السداد</span>
-                                  <div className="form-check form-check-inline" >
+                                  <div className="form-check" style={{ marginLeft: "10px" }}>
                                     <input className="form-check-input" type="radio" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
                                     <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
                                   </div>
-                                  <div className="form-check form-check-inline">
+                                  <div className="form-check" style={{ marginLeft: "10px" }}>
                                     <input className="form-check-input" type="radio" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
                                     <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
                                   </div>
-                                  <div className="form-check form-check-inline">
+                                  <div className="form-check" style={{ marginLeft: "10px" }}>
                                     <input className="form-check-input" type="radio" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
                                     <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
                                   </div>
