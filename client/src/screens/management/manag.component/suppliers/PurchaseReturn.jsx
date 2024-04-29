@@ -787,13 +787,6 @@ const PurchaseReturn = () => {
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
                                   <input type="text" className="form-control" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
-
-                                  {/* <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
-                                    <option>اختر المورد</option>
-                                    {AllSuppliers.map((supplier, i) => (
-                                      <option value={supplier._id} key={i}>{supplier.name}</option>
-                                    ))}
-                                  </select> */}
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
@@ -875,7 +868,7 @@ const PurchaseReturn = () => {
                                     onChange={(e) => setrefundMethod(e.target.value)}
                                     value={refundMethod}
                                   >
-                                    <option value="cash">اختر طريقه السداد</option>
+                                    <option>اختر طريقه السداد</option>
                                     <option value="cash">نقدي</option>
                                     <option value="credit">سداد مؤجل</option>
                                     <option value="deduct_supplier_balance">خصم من رصيد المورد</option>
@@ -889,7 +882,7 @@ const PurchaseReturn = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.id)}>
+                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value,  employeeLoginInfo.employeeinfo.id)}>
                                     <option>اختر طريقه الدفع</option>
                                     <option value="نقدي">نقدي</option>
                                     {financialInfo && financialInfo.map((financialInfo, i) => {
