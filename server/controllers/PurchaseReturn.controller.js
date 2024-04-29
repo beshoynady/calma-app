@@ -84,7 +84,7 @@ const getAllPurchaseReturnInvoices = async (req, res) => {
     } catch (error) {
         // Handle any errors that occur during the process
         console.error('Error in getAllPurchaseReturnInvoices:', error);
-        res.status(500).json({ message: 'Internal server error.' });
+        res.status(500).json({ message: 'Internal server error.' , error});
     }
 };
 

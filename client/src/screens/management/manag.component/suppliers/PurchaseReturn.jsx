@@ -487,6 +487,7 @@ const PurchaseReturn = () => {
         toast.error('فشل جلب جميع فواتير المشتريات ! اعد تحميل الصفحة')
       }
     } catch (error) {
+      console.log({error})
       toast.error('حدث خطأ اثناء جلب فواتير المشتريات ! اعد تحميل الصفحة')
     }
   }
