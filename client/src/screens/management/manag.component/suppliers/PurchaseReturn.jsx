@@ -335,13 +335,7 @@ const PurchaseReturn = () => {
     const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
     console.log({invoice})
     setinvoice(invoice)
-    const itemInvoice = []
-    invoice.items.map(item=>{
-      const i = { itemId: item.itemId._id, quantity : item.quantity, price: item.price, largeUnit: item.largeUnit, cost: item.cost, expirationDate: item.expirationDate }
-      itemInvoice.push(i)
-      console.log({i})
-    })
-    setreturnedItems(itemInvoice)
+    setreturnedItems(itemInvoice.items)
     setoriginalInvoice(id)
     handleSupplier(invoice.supplier._id)
   }
@@ -445,11 +439,19 @@ const PurchaseReturn = () => {
 
     e.preventDefault()
     try {
+      const items = []
+      returnedItems.items.map(item=>{
+        if(item.quantity > 0 ){
+          const i = { itemId: item.itemId._id, quantity : item.quantity, price: item.price, largeUnit: item.largeUnit, cost: item.cost, expirationDate: item.expirationDate }
+          itemInvoice.push(i)
+          console.log({i})
+        }
+      })
       const newInvoice = {
         originalInvoice,
         returnDate,
         supplier,
-        returnedItems,
+        returnedItems:items,
         totalAmount,
         discount,
         netAmount,
@@ -821,17 +823,7 @@ const PurchaseReturn = () => {
                                 {returnedItems&&returnedItems.map((item, i) => (
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
-                                    {/* <td>
-                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
-                                        <option value="">
-                                          {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
-                                        </option>
-                                        {StockItems.map((stock, j) => (
-                                          <option value={stock._id} key={j}>{stock.itemName}</option>
-                                        ))}
-                                      </select>
-                                    </td> */}
-                                    <td><input type="text" className="form-control" name="qty" value={item.itemId} readOnly /></td>
+                                    <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
                                     <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
