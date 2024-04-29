@@ -98,7 +98,7 @@ const PurchaseReturn = () => {
   const Stockmovement = ['Purchase', 'ReturnPurchase'];
 
   const createStockAction = async (item, receiverid) => {
-    const itemId = item.itemId;
+    const itemId = item.itemId_id;
     const quantity = item.quantity;
     const price = Number(item.price);
     const cost = item.cost;
@@ -470,7 +470,7 @@ const PurchaseReturn = () => {
       const response = await axios.post(`${apiUrl}/api/purchasereturn`, newInvoice, config);
       console.log({ response })
       if (response.status === 201) {
-        returnedItems.forEach(item => {
+        items.forEach(item => {
           createStockAction(item, receiverId)
         })
 
