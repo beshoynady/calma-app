@@ -335,7 +335,7 @@ const PurchaseReturn = () => {
     const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
     console.log({invoice})
     setinvoice(invoice)
-    setreturnedItems(itemInvoice.items)
+    setreturnedItems(invoice.items)
     setoriginalInvoice(id)
     handleSupplier(invoice.supplier._id)
   }
@@ -443,7 +443,7 @@ const PurchaseReturn = () => {
       returnedItems.items.map(item=>{
         if(item.quantity > 0 ){
           const i = { itemId: item.itemId._id, quantity : item.quantity, price: item.price, largeUnit: item.largeUnit, cost: item.cost, expirationDate: item.expirationDate }
-          itemInvoice.push(i)
+          items.push(i)
           console.log({i})
         }
       })
