@@ -22,7 +22,7 @@ const purchaseReturnInvoiceSchema = new mongoose.Schema({
     returnedItems: [{
         itemId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'StockItems',
+            ref: 'StockItem',
             required: true,
             description: 'معرف الصنف المرتجع'
         },
