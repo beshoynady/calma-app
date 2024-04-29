@@ -268,6 +268,7 @@ const PurchaseReturn = () => {
 
   }
   const handleQuantity = (quantity, index) => {
+    console.log({returnedItems})
     const updatedItems = [...returnedItems]
     updatedItems[index].quantity = Number(quantity)
     updatedItems[index].cost = Number(quantity) * Number(updatedItems[index].price);
@@ -332,6 +333,7 @@ const PurchaseReturn = () => {
   const [originalInvoice, setoriginalInvoice] = useState('');
   const handleInvoice = (id) => {
     const invoice = allPurchaseInvoice.filter(invoice => invoice._id = id)[0]
+    console.log({invoice})
     setinvoice(invoice)
     setreturnedItems(invoice.items)
     setoriginalInvoice(id)
@@ -823,7 +825,7 @@ const PurchaseReturn = () => {
                                         ))}
                                       </select>
                                     </td> */}
-                                    <td><input type="text" className="form-control" name="qty" value={StockItems && StockItems.filter(stock => stock._id === item.itemId)[0]?.itemName} readOnly /></td>
+                                    <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
                                     <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
