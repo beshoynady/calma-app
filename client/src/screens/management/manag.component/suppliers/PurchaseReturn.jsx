@@ -111,7 +111,7 @@ const PurchaseReturn = () => {
     const stockItem = StockItems.filter(item => item._id === itemId)[0]
     console.log({ stockItem })
 
-    const itemName = stockItem.itemName
+    // const itemName = stockItem.itemName
     const oldBalance = stockItem.currentBalance
     const parts = stockItem.parts
     const currentBalance = Number(oldBalance) - Number(quantity);
