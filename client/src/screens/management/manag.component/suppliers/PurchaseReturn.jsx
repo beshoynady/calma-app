@@ -341,7 +341,7 @@ const PurchaseReturn = () => {
       itemInvoice.push(i)
       console.log({i})
     })
-    setreturnedItems()
+    setreturnedItems(itemInvoice)
     setoriginalInvoice(id)
     handleSupplier(invoice.supplier._id)
   }
