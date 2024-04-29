@@ -867,29 +867,43 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" style={{ width: "100%" }} htmlFor="refundMethod">طريقة السداد</span>
-                                  <div className="form-check" style={{ marginLeft: "10px" }}>
-                                    <input className="form-check-input" type="radio" value="cash" id="cashCheckbox" onChange={() => setrefundMethod("cash")} checked={refundMethod === "cash"} />
+                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
+                                    <input
+                                      className="form-check-input"
+                                      type="checkbox"
+                                      id="cashCheckbox"
+                                      value="cash"
+                                      onChange={() => setrefundMethod("cash")}
+                                      checked={refundMethod === "cash"}
+                                    />
                                     <label className="form-check-label" htmlFor="cashCheckbox">نقدي</label>
                                   </div>
-                                  <div className="form-check" style={{ marginLeft: "10px" }}>
-                                    <input className="form-check-input" type="radio" value="credit" id="creditCheckbox" onChange={() => setrefundMethod("credit")} checked={refundMethod === "credit"} />
+                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
+                                    <input
+                                      className="form-check-input"
+                                      type="checkbox"
+                                      id="creditCheckbox"
+                                      value="credit"
+                                      onChange={() => setrefundMethod("credit")}
+                                      checked={refundMethod === "credit"}
+                                    />
                                     <label className="form-check-label" htmlFor="creditCheckbox">سداد مؤجل</label>
                                   </div>
-                                  <div className="form-check" style={{ marginLeft: "10px" }}>
-                                    <input className="form-check-input" type="radio" value="deduct_supplier_balance" id="deductCheckbox" onChange={() => setrefundMethod("deduct_supplier_balance")} checked={refundMethod === "deduct_supplier_balance"} />
+                                  <div className="form-check" style={{ marginLeft: "10px", width: "33.33%" }}>
+                                    <input
+                                      className="form-check-input"
+                                      type="checkbox"
+                                      id="deductCheckbox"
+                                      value="deduct_supplier_balance"
+                                      onChange={() => setrefundMethod("deduct_supplier_balance")}
+                                      checked={refundMethod === "deduct_supplier_balance"}
+                                    />
                                     <label className="form-check-label" htmlFor="deductCheckbox">خصم من رصيد المورد</label>
                                   </div>
                                 </div>
+
                                 <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
-                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
-                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundedAmount">مدفوع</span>
+                                  <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
                                   <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
