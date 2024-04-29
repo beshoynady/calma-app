@@ -471,6 +471,7 @@ const PurchaseReturn = () => {
         toast.error('فشل اضافه المشتريات ! حاول مره اخري')
       }
     } catch (error) {
+      console.log({error})
       toast.error('حدث خطأ اثناء اضافه المشتريات ! حاول مره اخري')
     }
   }
