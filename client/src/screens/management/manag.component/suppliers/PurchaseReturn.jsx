@@ -717,11 +717,11 @@ const PurchaseReturn = () => {
                               <td>{invoice.salesTax}</td>
                               <td>{invoice.netAmount}</td>
                               <td>{invoice.additionalCost}</td>
-                              <td>{invoice.refundMethod}</td>
                               <td>{invoice.refundedAmount}</td>
+                              <td>{invoice.refundMethod}</td>
                               <td>{invoice.balanceDue}</td>
                               <td>{formatDate(invoice.paymentDueDate)}</td>
-                              <td>{invoice.refundMethod}</td>
+                              <td>{invoice.paymentMethod}</td>
                               <td>{invoice.refundStatus}</td>
                               <td>{invoice.cashRegister.name}</td>
                               <td>{invoice.createdBy.fullname}</td>
@@ -894,7 +894,7 @@ const PurchaseReturn = () => {
                                   </select>
                                 </div>
 
-                                {refundMethod === 'نقدي' && cashRegister ?
+                                {paymentMethod === 'نقدي' && cashRegister ?
                                   <div className="input-group mb-3">
                                     <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
                                     <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
