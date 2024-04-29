@@ -195,15 +195,17 @@ const PurchaseReturn = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-  const confirmDeduct = async (originalInvoice) => {
+  const confirmDeduct = async () => {
     try {
       let newCurrentBalance = 0
+
+      const invoiceNumber = originalInvoice
       const transactionType = 'PurchaseReturn'
       const amount = netAmount
       const transactionDate = returnDate
       const currentBalance = previousBalance - amount
 
-      const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
       console.log({ requestData })
 

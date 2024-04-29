@@ -18,7 +18,7 @@ const createSupplierTransaction = async (req, res) => {
         res.status(201).json(newTransaction);
     } catch (error) {
         // Provide a more specific error message
-        res.status(500).json({ message: 'An error occurred while creating the transaction.', error: error.message });
+        res.status(500).json({ message: 'An error occurred while creating the transaction.', error });
     }
 };
 
