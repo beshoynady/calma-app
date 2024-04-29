@@ -70,10 +70,11 @@ const getAllPurchaseInvoices = async (req, res) => {
     try {
         // Retrieve all purchase invoices and populate related fields
         const purchaseInvoices = await purchaseInvoiceModel.find()
+            .populate('items.itemId') // Populate items.itemId field
             .populate('supplier') // Populate supplier field
             .populate('createdBy') // Populate createdBy field
             .populate('cashRegister'); // Populate cashRegister field
-            
+
         // Check if there are no purchase invoices found
         if (!purchaseInvoices || purchaseInvoices.length === 0) {
             return res.status(404).json({ message: 'No purchase invoices found.' });
@@ -94,10 +95,11 @@ const getPurchaseInvoiceById = async (req, res) => {
     try {
         // Populate the supplier, items, and createdBy fields
         const purchaseInvoice = await purchaseInvoiceModel.findById(req.params.id)
-        .populate('supplier') // Populate supplier field
-        .populate('createdBy') // Populate createdBy field
-        .populate('cashRegister'); // Populate cashRegister field
-    if (!purchaseInvoice) {
+            .populate('items.itemId') // Populate items.itemId field
+            .populate('supplier') // Populate supplier field
+            .populate('createdBy') // Populate createdBy field
+            .populate('cashRegister'); // Populate cashRegister field
+        if (!purchaseInvoice) {
             return res.status(404).json({ message: 'Purchase invoice not found' });
         }
         res.status(200).json(purchaseInvoice);

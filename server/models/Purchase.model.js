@@ -21,7 +21,7 @@ const purchaseInvoiceSchema = new mongoose.Schema({
   items: [{
     itemId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'StockItems',
+      ref: 'StockItem',
       required: true
     },
     quantity: { type: Number, required: true },

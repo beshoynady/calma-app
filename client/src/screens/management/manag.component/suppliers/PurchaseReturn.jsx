@@ -103,7 +103,7 @@ const PurchaseReturn = () => {
     const price = Number(item.price);
     const cost = item.cost;
     const expirationDate = item.expirationDate
-    const movement = 'Purchase'
+    const movement = 'ReturnPurchase'
     const receiver = receiverid
     const itemPercentage = Number(price) / Number(netAmount)
     const itemAdditionalCost = additionalCost * itemPercentage
