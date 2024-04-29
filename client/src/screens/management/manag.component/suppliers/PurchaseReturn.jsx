@@ -818,7 +818,7 @@ const PurchaseReturn = () => {
                                 </tr>
                               </thead>
                               <tbody id="TBody">
-                                {returnedItems.map((item, i) => (
+                                {returnedItems&&returnedItems.map((item, i) => (
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     {/* <td>
@@ -831,7 +831,7 @@ const PurchaseReturn = () => {
                                         ))}
                                       </select>
                                     </td> */}
-                                    <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
+                                    <td><input type="text" className="form-control" name="qty" value={item.itemId} readOnly /></td>
                                     <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
                                     <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
