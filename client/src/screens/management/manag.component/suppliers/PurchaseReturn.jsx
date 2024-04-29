@@ -202,6 +202,7 @@ const PurchaseReturn = () => {
       const amount = netAmount
       const transactionDate = returnDate
       const currentBalance = previousBalance - amount
+      
       const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
       console.log({ requestData })
