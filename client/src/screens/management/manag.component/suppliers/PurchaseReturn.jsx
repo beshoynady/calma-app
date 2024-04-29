@@ -364,7 +364,7 @@ const PurchaseReturn = () => {
   const [cashRegister, setCashRegister] = useState('');
   const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
   const handleCashRegister = (id) => {
-    const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.id === id)[0]
+    const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.employee === id)[0]
     setCashRegister(filterCashRegister._id)
     setCashRegisterBalance(filterCashRegister.balance)
   };

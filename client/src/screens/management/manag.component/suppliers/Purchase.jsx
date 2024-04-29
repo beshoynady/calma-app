@@ -359,7 +359,7 @@ const Purchase = () => {
   const [cashRegister, setCashRegister] = useState('');
   const [CashRegisterBalance, setCashRegisterBalance] = useState(0);
   const handleCashRegister = (id) => {
-    const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.id === id)[0]
+    const filterCashRegister = AllCashRegisters.filter(CashRegister => CashRegister.employee === id)[0]
     setCashRegister(filterCashRegister._id)
     setCashRegisterBalance(filterCashRegister.balance)
   };
@@ -842,7 +842,7 @@ const Purchase = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.id)}>
+                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, eemployeeLoginInfo.employeeinfo.id)}>
                                     <option>اختر طريقه الدفع</option>
                                     <option value="نقدي">نقدي</option>
                                     {financialInfo && financialInfo.map((financialInfo, i) => {
