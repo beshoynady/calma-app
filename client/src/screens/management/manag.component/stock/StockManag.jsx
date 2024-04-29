@@ -135,7 +135,6 @@ const StockManag = () => {
           oldBalance,
           price,
           ...(movement === 'Purchase' && { expirationDate }),
-          actionAt,
         }, config);
 
         console.log(response.data);
@@ -360,7 +359,7 @@ const StockManag = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,FormDataTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -480,7 +479,7 @@ const StockManag = () => {
                               <td>{action.cost}</td>
                               <td>{action.oldBalance}</td>
                               <td>{action.balance}</td>
-                              <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
+                              <td>{FormDataTime(action.createdAt)}</td>
                               <td>{action.actionBy.fullname}</td>
                               <td>
                                 <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance);  setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -509,7 +508,7 @@ const StockManag = () => {
                                 <td>{action.cost}</td>
                                 <td>{action.oldBalance}</td>
                                 <td>{action.balance}</td>
-                                <td>{new Date(action.actionAt).toLocaleString('en-GB', { hour12: true })}</td>
+                                <td>{new Date(action.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>{action.actionBy.fullname}</td>
                                 <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

@@ -447,7 +447,7 @@ const PurchaseReturn = () => {
           console.log({i})
         }
       })
-      const newInvoice = {
+      const purchasereturn = {
         originalInvoice,
         returnDate,
         supplier,
@@ -466,8 +466,8 @@ const PurchaseReturn = () => {
         refundMethod,
         notes,
       }
-      console.log({ newInvoice })
-      const response = await axios.post(`${apiUrl}/api/purchasereturn`, newInvoice, config);
+      console.log({ purchasereturn })
+      const response = await axios.post(`${apiUrl}/api/purchasereturn`, purchasereturn, config);
       console.log({ response })
       if (response.status === 201) {
         items.forEach(item => {
