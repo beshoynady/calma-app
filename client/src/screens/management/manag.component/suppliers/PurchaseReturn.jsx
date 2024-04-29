@@ -202,7 +202,7 @@ const PurchaseReturn = () => {
       const amount = netAmount
       const transactionDate = returnDate
       const currentBalance = previousBalance - amount
-      
+
       const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
 
       console.log({ requestData })
@@ -298,6 +298,8 @@ const PurchaseReturn = () => {
       total += item.cost
     })
     setTotalAmount(total)
+    setBalanceDue(total)
+    
   }
 
   const [additionalCost, setAdditionalCost] = useState(0);
@@ -351,6 +353,7 @@ const PurchaseReturn = () => {
   const handlerefundedAmount = (amount) => {
     setrefundedAmount(amount);
     setBalanceDue(Number(netAmount) - Number(amount));
+
     if (amount == 0) {
       setreturnStatus('unreturned');
     } else if (amount == netAmount) {
