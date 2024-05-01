@@ -302,7 +302,7 @@ const PurchaseReturn = () => {
     setTotalAmount(total)
     setNetAmount(total)
     setBalanceDue(total)
-    
+
   }
 
   const [additionalCost, setAdditionalCost] = useState(0);
@@ -528,14 +528,19 @@ const PurchaseReturn = () => {
   }
 
 
-  const [StockitemFilterd, setStockitemFilterd] = useState([])
-  const searchByitem = (item) => {
-    const items = AllStockactions.filter((action) => action.itemId.itemName.startsWith(item) == true)
-    setStockitemFilterd(items)
+  const searchByInvoice = (Invoice) => {
+    if (item === "all") {
+      getAllPurchasesReturn()
+    }
+    const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.originalInvoice._id === Invoice)
+    setallPurchasesReturn(filters)
   }
-  const searchByaction = (action) => {
-    const items = AllStockactions.filter((Stockactions) => Stockactions.movement == action)
-    setStockitemFilterd(items)
+  const searchBySupplier = (supplierId) => {
+    if (supplierId === "all") {
+      getAllPurchasesReturn()
+    }
+    const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.supplier._id == supplierId)
+    setallPurchasesReturn(filters)
   }
 
 
@@ -603,11 +608,10 @@ const PurchaseReturn = () => {
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6">
-                        <h2>ادارة <b>المشتريات</b></h2>
+                        <h2>ادارة <b>مرتجع المشتريات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
-
                         <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
                       </div>
                     </div>
@@ -634,15 +638,20 @@ const PurchaseReturn = () => {
                       <div className="col-sm-9">
                         <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
                         <div className="filter-group">
-                          <label>اسم الصنف</label>
-                          <input type="text" className="form-control" onChange={(e) => searchByitem(e.target.value)} />
+                          <label>رقم الفاتورة</label>
+                          <select className="form-control" onChange={(e) => searchByInvoice(e.target.value)} >
+                            <option value="all">الكل</option>
+                            {allPurchaseInvoice.map(PurchaseInvoice => {
+                              return <option value={PurchaseInvoice._id}>{PurchaseInvoice.invoiceNumber}</option>;
+                            })}
+                          </select>
                         </div>
                         <div className="filter-group">
-                          <label>نوع الاوردر</label>
-                          <select className="form-control" onChange={(e) => searchByaction(e.target.value)} >
-                            <option value={""}>الكل</option>
-                            {Stockmovement.map(movement => {
-                              return <option value={movement}>{movement}</option>;
+                          <label>المورد</label>
+                          <select className="form-control" onChange={(e) => searchBySupplier(e.target.value)} >
+                            <option value="all">الكل</option>
+                            {AllSuppliers.map(Supplier => {
+                              return <option value={Supplier._id}>{Supplier.name}</option>;
                             })}
                           </select>
                         </div>
@@ -1109,7 +1118,7 @@ const PurchaseReturn = () => {
                 </div>
               </div> */}
 
-              {/* <div id="deleteStockactionModal" className="modal fade">
+          {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
@@ -1130,8 +1139,8 @@ const PurchaseReturn = () => {
                 </div>
               </div> */}
             </div>
-          )
-        }
+  )
+}
       }
     </detacontext.Consumer >
 

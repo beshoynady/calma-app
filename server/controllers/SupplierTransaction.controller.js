@@ -30,7 +30,7 @@ const getAllSupplierTransactions = async (req, res) => {
         const transactions = await SupplierTransactionModel.find().populate('supplier').populate('recordedBy').populate('invoiceNumber');
         res.status(200).json(transactions);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({error });
     }
 };
 
@@ -43,7 +43,7 @@ const getSupplierTransactionById = async (req, res) => {
         }
         res.status(200).json(transaction);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ error });
     }
 };
 
@@ -59,7 +59,7 @@ const updateSupplierTransaction = async (req, res) => {
         }
         res.status(200).json(updatedTransaction);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ error });
     }
 };
 
