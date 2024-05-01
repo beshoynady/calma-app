@@ -529,7 +529,7 @@ const PurchaseReturn = () => {
 
 
   const searchByInvoice = (Invoice) => {
-    if (item === "all") {
+    if (Invoice === "all") {
       getAllPurchasesReturn()
     }
     const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.originalInvoice._id === Invoice)
