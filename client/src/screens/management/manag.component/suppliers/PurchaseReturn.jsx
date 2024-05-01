@@ -546,7 +546,7 @@ const PurchaseReturn = () => {
 
   const confirmPayment = async (e) => {
     e.preventDefault();
-    const updatedbalance = CashRegisterBalance + refundedAmount; // Calculate the updated balance
+    const updatedbalance = Number(CashRegisterBalance) + Number(refundedAmount); // Calculate the updated balance
 
     try {
 
@@ -555,8 +555,8 @@ const PurchaseReturn = () => {
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
         amount: refundedAmount,
-        type: 'Payment',
-        description: `استرداد مرتجع فاتورة مشتريات رقم${originalInvoice.invoiceNumber}`,
+        type: 'Refund',
+        description: `استرداد مرتجع فاتورة مشتريات رقم ${invoice.invoiceNumber}`,
       }, config);
       console.log(cashMovement)
       console.log(cashMovement.data.cashMovement._id)
