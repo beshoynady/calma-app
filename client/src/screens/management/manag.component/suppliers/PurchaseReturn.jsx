@@ -195,60 +195,6 @@ const PurchaseReturn = () => {
   const [previousBalance, setPreviousBalance] = useState(0);
   const [currentBalance, setCurrentBalance] = useState(0);
 
-  const confirmDeduct = async () => {
-    try {
-      let newCurrentBalance = 0
-
-      const invoiceNumber = originalInvoice
-      const transactionType = 'PurchaseReturn'
-      const amount = netAmount
-      const transactionDate = returnDate
-      const currentBalance = previousBalance - amount
-
-      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
-
-      console.log({ requestData })
-
-      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      console.log({ response })
-      if (response.status === 201) {
-        const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
-
-        newCurrentBalance = Number(supplierresponse.data.updatedSupplier.currentBalance)
-
-        console.log({ supplierresponse })
-        toast.success('تم انشاء العملية بنجاح');
-      } else {
-        toast.error('حدث خطأ أثناء انشاء العملية');
-      }
-
-      // if (refundedAmount > 0) {
-      //   const transactionType = 'Payment'
-      //   const amount = refundedAmount
-      //   const transactionDate = returnDate
-      //   const previousBalance = newCurrentBalance
-      //   const currentBalance = previousBalance - refundedAmount
-      //   const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
-
-      //   console.log({ requestData })
-
-      //   const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
-      //   console.log({ response })
-      //   if (response.status === 201) {
-      //     const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
-      //     console.log({ supplierresponse })
-      //     toast.success('تم انشاء العملية بنجاح');
-      //   } else {
-      //     toast.error('حدث خطأ أثناء انشاء العملية');
-      //   }
-      // }
-    } catch (error) {
-      toast.error('حدث خطأ أثناء انشاء العملية');
-    }
-  };
-
-
-
 
   const [returnedItems, setreturnedItems] = useState([]);
   const handleNewItem = () => {
@@ -532,6 +478,7 @@ const PurchaseReturn = () => {
     if (Invoice === "all") {
       getAllPurchasesReturn()
     }
+    getAllPurchasesReturn()
     const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.originalInvoice._id === Invoice)
     setallPurchasesReturn(filters)
   }
@@ -539,10 +486,15 @@ const PurchaseReturn = () => {
     if (supplierId === "all") {
       getAllPurchasesReturn()
     }
+    getAllPurchasesReturn()
     const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.supplier._id == supplierId)
     setallPurchasesReturn(filters)
   }
+  const [startDate, setstartDate] = useState(new Date())
+  const [endDate, setendDate] = useState(new Date())
+  const handleSearchByDate = () => {
 
+  }
 
   const confirmPayment = async (e) => {
     e.preventDefault();
@@ -583,6 +535,59 @@ const PurchaseReturn = () => {
       // Toast notification for error
       toast.error('فشل في تسجيل المصروف !حاول مره اخري');
 
+    }
+  };
+
+  const confirmDeduct = async () => {
+    try {
+      let newCurrentBalance = 0
+
+      const invoiceNumber = originalInvoice
+      const transactionType = 'PurchaseReturn'
+      const paymentMethod = 'خصم من الرصيد'
+      const amount = netAmount
+      const transactionDate = returnDate
+      const currentBalance = previousBalance - amount
+
+      const requestData = { invoiceNumber, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+      console.log({ requestData })
+
+      const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      console.log({ response })
+      if (response.status === 201) {
+        const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+
+        newCurrentBalance = Number(supplierresponse.data.updatedSupplier.currentBalance)
+
+        console.log({ supplierresponse })
+        toast.success('تم انشاء العملية بنجاح');
+      } else {
+        toast.error('حدث خطأ أثناء انشاء العملية');
+      }
+
+      // if (refundedAmount > 0) {
+      //   const transactionType = 'Payment'
+      //   const amount = refundedAmount
+      //   const transactionDate = returnDate
+      //   const previousBalance = newCurrentBalance
+      //   const currentBalance = previousBalance - refundedAmount
+      //   const requestData = { originalInvoice, supplier, transactionDate, transactionType, amount, previousBalance, currentBalance, paymentMethod, notes };
+
+      //   console.log({ requestData })
+
+      //   const response = await axios.post(`${apiUrl}/api/suppliertransaction`, requestData, config);
+      //   console.log({ response })
+      //   if (response.status === 201) {
+      //     const supplierresponse = await axios.put(`${apiUrl}/api/supplier/${supplier}`, { currentBalance }, config);
+      //     console.log({ supplierresponse })
+      //     toast.success('تم انشاء العملية بنجاح');
+      //   } else {
+      //     toast.error('حدث خطأ أثناء انشاء العملية');
+      //   }
+      // }
+    } catch (error) {
+      toast.error('حدث خطأ أثناء انشاء العملية');
     }
   };
 
@@ -636,7 +641,6 @@ const PurchaseReturn = () => {
                         </div>
                       </div>
                       <div className="col-sm-9">
-                        <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
                         <div className="filter-group">
                           <label>رقم الفاتورة</label>
                           <select className="form-control" onChange={(e) => searchByInvoice(e.target.value)} >
@@ -680,6 +684,20 @@ const PurchaseReturn = () => {
                         <label className="filter-icon"><i className="fa fa-filter"></i></label> */}
                       </div>
                     </div>
+                    <div className="filter-group row text-dark">
+                      <div className="col">
+                        <label>من </label>
+                        <input type="date" className="form-control" onChange={(e) => setstartDate(e.target.value)} />
+                      </div>
+                      <div className="col">
+                        <label>إلى </label>
+                        <input type="date" className="form-control" onChange={(e) => setendDate(e.target.value)} />
+                      </div>
+                      <div className="col">
+                        <button className="btn btn-primary" onClick={handleSearchByDate}>بحث</button>
+                      </div>
+                    </div>
+
                   </div>
                   <table className="table table-striped table-hover">
                     <thead>
@@ -894,21 +912,24 @@ const PurchaseReturn = () => {
                                   </select>
                                 </div>
 
-
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
-                                  <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                  <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.employeeinfo.id)}>
-                                    <option>اختر طريقه الدفع</option>
-                                    <option value="نقدي">نقدي</option>
-                                    {financialInfo && financialInfo.map((financialInfo, i) => {
-                                      return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
-                                    })}
-                                  </select>
-                                </div>
+                                {refundMethod && refundMethod === 'cash' &&
+                                  <>
+                                    <div className="input-group mb-3">
+                                      <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
+                                      <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
+                                    </div>
+                                    <div className="input-group mb-3">
+                                      <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
+                                      <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.employeeinfo.id)}>
+                                        <option>اختر طريقه الدفع</option>
+                                        <option value="نقدي">نقدي</option>
+                                        {financialInfo && financialInfo.map((financialInfo, i) => {
+                                          return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
+                                        })}
+                                      </select>
+                                    </div>
+                                  </>
+                                }
 
                                 {refundMethod === 'cash' ?
                                   cashRegister ?
@@ -918,23 +939,24 @@ const PurchaseReturn = () => {
                                       <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
                                     </div>
                                     : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
-                                  :refundMethod === 'deduct_supplier_balance' ?
-                                  <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">رصيد  المورد</span>
-                                  <input type="button" className="form-control text-end" id="netAmountInput" value={supplierInfo.currentBalance} readOnly />
-                                  <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmDeduct} >تاكيد الخصم</button>
-                                </div>
-                                  
-                                  : ''}
+                                  : refundMethod === 'deduct_supplier_balance' ?
+                                    <div className="input-group mb-3">
+                                      <span className="input-group-text" htmlFor="netAmountInput">رصيد  المورد</span>
+                                      <input type="button" className="form-control text-end" id="netAmountInput" value={supplierInfo.currentBalance} readOnly />
+                                      <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmDeduct} >تاكيد الخصم</button>
+                                    </div>
+                                    : ''}
 
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
                                   <input type="text" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
                                 </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
-                                  <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
-                                </div>
+                                {balanceDue > 0 &&
+                                  <div className="input-group mb-3">
+                                    <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
+                                    <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
+                                  </div>
+                                }
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
                                   <input type="text" className="form-control text-end" id="netAmountInput" value={returnStatus} readOnly />
@@ -1118,7 +1140,7 @@ const PurchaseReturn = () => {
                 </div>
               </div> */}
 
-          {/* <div id="deleteStockactionModal" className="modal fade">
+              {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
@@ -1139,8 +1161,8 @@ const PurchaseReturn = () => {
                 </div>
               </div> */}
             </div>
-  )
-}
+          )
+        }
       }
     </detacontext.Consumer >
 
