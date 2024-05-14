@@ -342,7 +342,8 @@ const SupplierTransaction = () => {
                         <th>الرصيد الحالي</th>
                         <th>طريقه الدفع</th>
                         <th>بواسطه</th>
-                        <th>اجراءات</th>
+                        <th>تاريخ التسجيل</th>
+                        {/* <th>اجراءات</th> */}
                       </tr>
                     </thead>
                     <tbody>
@@ -352,7 +353,7 @@ const SupplierTransaction = () => {
                             return (
                               <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>{Transaction.transactionDate}</td>
+                                <td>{formatDateTime(Transaction.transactionDate)}</td>
                                 <td>{Transaction.supplier.name}</td>
                                 <td>{Transaction.invoiceNumber.invoiceNumber}</td>
                                 <td>{Transaction.transactionType}</td>
@@ -361,7 +362,7 @@ const SupplierTransaction = () => {
                                 <td>{Transaction.currentBalance}</td>
                                 <td>{Transaction.paymentMethod}</td>
                                 <td>{Transaction.recordedBy.fullname}</td>
-                                <td>{Transaction.createdAt}</td>
+                                <td>{formatDateTime(Transaction.createdAt)}</td>
                                 <td>
                                   {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
