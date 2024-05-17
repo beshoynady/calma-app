@@ -91,7 +91,9 @@ const StockItem = () => {
         createBy,
       }, config);
       console.log(response.data);
+      console.log({costOfPart, oldCostOfPart})
       if (costOfPart !== oldCostOfPart) {
+        console.log("recipe is go")
         for (const recipe of allrecipes) {
           const recipeid = recipe._id;
           const productname = recipe.product.name;
