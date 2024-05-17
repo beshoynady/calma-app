@@ -23,6 +23,7 @@ const StockItem = () => {
   const [price, setprice] = useState('');
   const [parts, setparts] = useState('');
   const [costOfPart, setcostOfPart] = useState('');
+  const [oldCostOfPart, setoldCostOfPart] = useState('');
   const [minThreshold, setminThreshold] = useState();
 
 
@@ -45,22 +46,38 @@ const StockItem = () => {
       }, config);
       console.log(response.data);
       getStockItems(); // Update the list of stock items after creating a new one
-  
+
       // Notify on success
       toast.success('تم إنشاء عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
       toast.error('فشل في إنشاء عنصر المخزون');
     }
   };
-  
+
+
+  const [allrecipes, setallrecipes] = useState([]);
+
+  const getallrecipes = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/recipe`, config);
+      console.log(response)
+      const allRecipe = await response.data;
+      setallrecipes(allRecipe)
+      console.log(allRecipe)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
   // Function to edit a stock item
   const editStockItem = async (e, userId) => {
     e.preventDefault();
     const createBy = userId;
-    try {  
+    try {
       const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
         itemName,
         categoryId,
@@ -74,20 +91,53 @@ const StockItem = () => {
         createBy,
       }, config);
       console.log(response.data);
+      if (costOfPart !== oldCostOfPart) {
+        for (const recipe of allrecipes) {
+          const recipeid = recipe._id;
+          const productname = recipe.product.name;
+          const arrayingredients = recipe.ingredients;
+
+          const newIngredients = arrayingredients.map((ingredient) => {
+            if (ingredient.itemId === itemId) {
+              const costofitem = costOfPart;
+              const unit = ingredient.unit
+              const amount = ingredient.amount
+              const totalcostofitem = amount * costOfPart
+              return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+            } else {
+              return ingredient;
+            }
+          });
+          console.log({ newIngredients })
+          const totalcost = newIngredients.reduce((acc, curr) => {
+            return acc + (curr.totalcostofitem || 0);
+          }, 0);
+          // Update the product with the modified recipe and total cost
+          const updateRecipe = await axios.put(
+            `${apiUrl}/api/recipe/${recipeid}`,
+            { ingredients: newIngredients, totalcost }, config
+          );
+
+          console.log({ updateRecipe });
+
+          // Toast for successful update based on recipe change
+          toast.success(`تم تحديث وصفه ${productname}`);
+        }
+      }
       if (response) {
         getStockItems(); // Update the list of stock items after editing
       }
-  
+
       // Notify on success
       toast.success('تم تحديث عنصر المخزون بنجاح');
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
       toast.error('فشل في تحديث عنصر المخزون');
     }
   };
-  
+
   // Function to delete a stock item
   const deleteStockItem = async (e) => {
     e.preventDefault();
@@ -96,21 +146,21 @@ const StockItem = () => {
       if (response.status === 200) {
         console.log(response);
         getStockItems(); // Update the list of stock items after deletion
-  
+
         // Notify on success
         toast.success('تم حذف عنصر المخزون بنجاح');
       }
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
       toast.error('فشل في حذف عنصر المخزون');
     }
   };
-  
-  
+
+
   const [AllStockItems, setAllStockItems] = useState([]);
-  
+
   // Function to retrieve all stock items
   const getStockItems = async () => {
     try {
@@ -118,30 +168,30 @@ const StockItem = () => {
         // Handle case where token is not available
         throw new Error('رجاء تسجيل الدخول مره اخري');
       }
-  
+
       const response = await axios.get(apiUrl + '/api/stockitem/', config);
-  
+
       if (!response || !response.data) {
         // Handle unexpected response or empty data
         throw new Error('استجابة غير متوقعة أو بيانات فارغة');
       }
-  
+
       const stockItems = response.data.reverse();
       setAllStockItems(stockItems);
-  
+
       // Notify on success
       toast.success('تم استرداد عناصر المخزون بنجاح');
     } catch (error) {
       console.error(error);
-  
+
       // Notify on error
       toast.error('فشل في استرداد عناصر المخزون');
     }
   };
-  
-  
+
+
   const [AllCategoryStock, setAllCategoryStock] = useState([]);
-  
+
   // Function to retrieve all category stock
   const getAllCategoryStock = async () => {
     try {
@@ -149,12 +199,23 @@ const StockItem = () => {
       setAllCategoryStock(res.data);
     } catch (error) {
       console.log(error);
-  
+
       // Notify on error
       toast.error('فشل في استرداد فئة المخزون');
     }
   };
-  
+
+
+  const handelEditStockItemModal = (item) => {
+    getallrecipes()
+    setStockItemid(item._id); setcategoryId(item.categoryId._id);
+    setcategoryName(item.categoryId.name); setitemName(item.itemName);
+    setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit);
+    setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts);
+    setoldCostOfPart(item.costOfPart); setcostOfPart(item.costOfPart);
+    setminThreshold(item.minThreshold)
+  }
+
 
 
   useEffect(() => {
@@ -164,7 +225,7 @@ const StockItem = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle,formatDate,formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle, formatDate, formatDateTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive mt-1">
@@ -275,7 +336,7 @@ const StockItem = () => {
                               <td>{item.createBy.fullname}</td>
                               <td>{formatDateTime(new Date(item.createdAt))}</td>
                               <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId._id);setcategoryName(item.categoryId.name); setitemName(item.itemName); setcurrentBalance(item.currentBalance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { handelEditStockItemModal(item) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
@@ -341,7 +402,7 @@ const StockItem = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>السعر</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value)}} />
+                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value) }} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
@@ -409,7 +470,7 @@ const StockItem = () => {
 
                         <div className="form-group form-group-47">
                           <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart( e.target.value /Number(parts))}} />
+                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart(e.target.value / Number(parts)) }} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
