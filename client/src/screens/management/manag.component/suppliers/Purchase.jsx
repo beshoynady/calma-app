@@ -678,7 +678,7 @@ const Purchase = () => {
                                 </label>
                               </td>
                               <td>{i + 1}</td>
-                              <td>{formatDate(invoice.date)}</td>
+                              <td>{formatDate(invoice.invoiceDate)}</td>
                               <td>{invoice.invoiceNumber}</td>
                               <td>{invoice.supplier.name}</td>
                               <td>{invoice.totalAmount}</td>
