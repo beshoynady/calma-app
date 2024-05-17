@@ -100,12 +100,12 @@ const StockItem = () => {
           const arrayingredients = recipe.ingredients;
 
           const newIngredients = arrayingredients.map((ingredient) => {
-            if (ingredient.itemId === itemId) {
+            if (ingredient.itemId === stockItemId) {
               const costofitem = costOfPart;
               const unit = ingredient.unit
               const amount = ingredient.amount
               const totalcostofitem = amount * costOfPart
-              return { itemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+              return { itemId:stockItemId, name: itemName, amount, costofitem, unit, totalcostofitem };
             } else {
               return ingredient;
             }
