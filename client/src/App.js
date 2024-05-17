@@ -1966,9 +1966,9 @@ function App() {
 
   useEffect(() => {
     calculateOrderCost()
-    getAllTable();
-    getAllUsers();
     getAllOrders()
+    // getAllUsers();
+    // getAllTable();
     // getUserInfoFromToken()
     // calcsubtotalSplitOrder()
     // Payment_pending_orders()

@@ -409,11 +409,11 @@ const StockItem = () => {
 
                         <div className="form-group form-group-47">
                           <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value)}} />
+                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart( e.target.value /Number(parts))}} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
+                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(Number(price) / e.target.value) }} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>تكلفة الوحده</label>
