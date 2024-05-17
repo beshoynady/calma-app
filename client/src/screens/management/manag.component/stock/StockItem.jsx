@@ -66,7 +66,7 @@ const StockItem = () => {
       console.log(response)
       const allRecipe = await response.data;
       setallrecipes(allRecipe)
-      console.log(allRecipe)
+      console.log({allRecipe})
 
     } catch (error) {
       console.log(error)
@@ -96,7 +96,7 @@ const StockItem = () => {
         console.log("recipe is go")
         for (const recipe of allrecipes) {
           const recipeid = recipe._id;
-          const productname = recipe.product.name;
+          const productname = recipe.productId.name;
           const arrayingredients = recipe.ingredients;
 
           const newIngredients = arrayingredients.map((ingredient) => {
