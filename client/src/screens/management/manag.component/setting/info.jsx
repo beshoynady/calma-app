@@ -605,23 +605,23 @@ const Info = () => {
                           <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <div className="d-flex flex-column text-right">
                               <div className="form-check">
-                                <label className="form-check-label">
-                                  <input type="checkbox" className="form-check-input" /> الصاله
+                                <label className="form-check-label" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> الصاله
                                 </label>
                               </div>
                               <div className="form-check">
-                                <label className="form-check-label">
-                                  <input type="checkbox" className="form-check-input" /> حجز الطاولات
+                                <label className="form-check-label" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> حجز الطاولات
                                 </label>
                               </div>
                               <div className="form-check">
-                                <label className="form-check-label">
-                                  <input type="checkbox" className="form-check-input" /> خدمة التوصيل
+                                <label className="form-check-label" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> خدمة التوصيل
                                 </label>
                               </div>
                               <div className="form-check">
-                                <label className="form-check-label">
-                                  <input type="checkbox" className="form-check-input" /> خدمة التيك اوي
+                                <label className="form-check-label" style={{ display: 'flex', alignItems: 'center' }}>
+                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> خدمة التيك اوي
                                 </label>
                               </div>
                             </div>
