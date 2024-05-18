@@ -169,30 +169,30 @@
 
 }
 
-nav.borderYtoX li:before, nav.borderYtoX li:after
+ul.borderYtoX li:before, ul.borderYtoX li:after
 {
     position: absolute;
     opacity: 0.5;
     height: 100%;
     width: 2px;
     content: '';
-    background: #FFF;
+    background: #ffe600b7;
     transition: all 0.3s;
 }
 
-nav.borderYtoX li:before
+ul.borderYtoX li:before
 {
     left: 0px;
     top: 0px;
 }
 
-nav.borderYtoX li:after
+ul.borderYtoX li:after
 {
     right: 0px;
     bottom: 0px;
 }
 
-nav.borderYtoX li:hover:before, nav.borderYtoX li:hover:after
+ul.borderYtoX li:hover:before, ul.borderYtoX li:hover:after
 {
     opacity: 1;
     height: 2px;
