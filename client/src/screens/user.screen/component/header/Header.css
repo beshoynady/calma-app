@@ -64,13 +64,13 @@
   width: max-content;
   height: -moz-min-content;
   height: min-content;
+  margin: 5px;
   position: relative;
 }
 .header-client .container-lg .nav > .navigator li a {
   font-size: 20px;
   color: var(--u-dark);
   font-weight: 900;
-  margin-right: 10px;
 }
 .header-client .container-lg .right-nav {
   display: flex;
@@ -165,7 +165,7 @@ ul.borderYtoX li:after {
 
 ul.borderYtoX li:hover:after {
   opacity: 1;
-  height: 2px;
+  height: 3px;
   width: 100%;
 }
 
