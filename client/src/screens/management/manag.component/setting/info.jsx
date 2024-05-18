@@ -685,7 +685,7 @@ const Info = () => {
                             </div>
                           </div>
                         </div> */}
-                        <div className="col-lg-6 stretch-card">
+                        <div className="col-lg-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
@@ -1072,6 +1072,7 @@ const Info = () => {
                   </div>
                 </div>
               </div>
+              
               <div className="col-lg-6 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">

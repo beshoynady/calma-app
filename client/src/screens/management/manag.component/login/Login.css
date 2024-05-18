@@ -23,7 +23,7 @@ body {
     box-shadow: 0 2px 60px -5px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
+.login-box.logo {
     font-family: "Script MT";
     font-size: 54px;
     text-align: center;

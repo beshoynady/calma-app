@@ -46,7 +46,7 @@ const Header = () => {
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
             <nav ref={navref} className='nav'>
-              <ul className='navigator'>
+              <ul className='navigator borderYtoX'>
                 <li onClick={toggleMobileMenu}><a href="#main">الرئيسيه</a></li>
                 <li onClick={toggleMobileMenu}><a href="#menu">قائمة الطعام</a></li>
                 <li onClick={toggleMobileMenu}><a href="#offer">العروض</a></li>

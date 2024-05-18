@@ -66,7 +66,7 @@
   height: min-content;
 }
 .header-client .container-lg .nav > .navigator li a {
-  font-size: 24px;
+  font-size: 20px;
   color: var(--u-dark);
   font-weight: 900;
   margin-right: 10px;
@@ -145,6 +145,32 @@
   top: -2%;
   right: -10%;
   border-radius: 50%;
+}
+
+nav.borderYtoX li:before, nav.borderYtoX li:after {
+  position: absolute;
+  opacity: 0.5;
+  height: 100%;
+  width: 2px;
+  content: "";
+  background: #FFF;
+  transition: all 0.3s;
+}
+
+nav.borderYtoX li:before {
+  left: 0px;
+  top: 0px;
+}
+
+nav.borderYtoX li:after {
+  right: 0px;
+  bottom: 0px;
+}
+
+nav.borderYtoX li:hover:before, nav.borderYtoX li:hover:after {
+  opacity: 1;
+  height: 2px;
+  width: 100%;
 }
 
 .show {
