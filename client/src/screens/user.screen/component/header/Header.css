@@ -64,6 +64,7 @@
   width: max-content;
   height: -moz-min-content;
   height: min-content;
+  position: relative;
 }
 .header-client .container-lg .nav > .navigator li a {
   font-size: 20px;
@@ -147,7 +148,8 @@
   border-radius: 50%;
 }
 
-ul.borderYtoX li:before, ul.borderYtoX li:after {
+ul.borderYtoX li:before,
+ul.borderYtoX li:after {
   position: absolute;
   opacity: 0.5;
   height: 100%;
@@ -167,7 +169,8 @@ ul.borderYtoX li:after {
   bottom: 0px;
 }
 
-ul.borderYtoX li:hover:before, ul.borderYtoX li:hover:after {
+ul.borderYtoX li:hover:before,
+ul.borderYtoX li:hover:after {
   opacity: 1;
   height: 2px;
   width: 100%;
