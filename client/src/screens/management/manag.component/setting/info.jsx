@@ -18,14 +18,14 @@ const Info = () => {
 
   const [shifts, setShifts] = useState([]);
 
-  const getAllShifts= async()=>{
+  const getAllShifts = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/shift`, config)
       const data = await response.data
       console.log({ data })
-      if(data){
+      if (data) {
         setShifts(data)
-      }else{
+      } else {
         toast.error('لا يوجد بيانات للورديات ! اضف بيانات الورديات ')
       }
     } catch (error) {
@@ -36,21 +36,21 @@ const Info = () => {
   // إضافة وردية جديدة
   const addShift = () => {
     setShifts([...shifts, { shiftType: '', startTime: '', endTime: '' }]);
-    console.log({shifts});
+    console.log({ shifts });
   };
 
   // حذف وردية
-  const removeShift = async(index, id) => {
+  const removeShift = async (index, id) => {
     const updatedShifts = shifts.filter((_, i) => i !== index);
-    if (id){
+    if (id) {
       const response = await axios.delete(`${apiUrl}/api/shift/${id}`, config);
-      console.log({response})
+      console.log({ response })
       if (response.status === 200) {
         toast.success('تمت حذف الوردية بنجاح');
       } else {
         toast.error('حدث خطأ أثناء حذف الوردية');
       }
-      
+
     }
     setShifts(updatedShifts);
   };
@@ -82,27 +82,27 @@ const Info = () => {
     e.preventDefault();
     try {
       shifts.map(async (shift) => {
-        const id = shift._id? shift._id : null;
+        const id = shift._id ? shift._id : null;
         const shiftType = shift.shiftType
         const startTime = shift.startTime
         const endTime = shift.endTime
-        if(id && shiftType && startTime && endTime ){
-          const response = await axios.put(`${apiUrl}/api/shift/${id}`, {startTime, endTime, shiftType}, config);
-          console.log({response})
+        if (id && shiftType && startTime && endTime) {
+          const response = await axios.put(`${apiUrl}/api/shift/${id}`, { startTime, endTime, shiftType }, config);
+          console.log({ response })
           if (response.status === 200) {
             toast.success('تمت تعديل بيانات الوردية بنجاح');
           } else {
             toast.error('حدث خطأ أثناء تعديل بيانات الوردية');
           }
-        }else if(shiftType && startTime && endTime){
+        } else if (shiftType && startTime && endTime) {
           const response = await axios.post(`${apiUrl}/api/shift`, { startTime, endTime, shiftType }, config);
-          console.log({response})
+          console.log({ response })
           if (response.status === 201) {
             toast.success('تمت إضافة الوردية بنجاح');
           } else {
             toast.error('حدث خطأ أثناء إضافة الوردية');
           }
-          
+
         }
       })
       getAllShifts()
@@ -121,15 +121,15 @@ const Info = () => {
 
   const [areas, setAreas] = useState([]);
 
-  
-    const getAllDeliveryAreas= async()=>{
+
+  const getAllDeliveryAreas = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
       const data = await response.data
       console.log({ data })
-      if(data){
+      if (data) {
         setAreas(data)
-      }else{
+      } else {
         toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
       }
     } catch (error) {
@@ -139,21 +139,21 @@ const Info = () => {
 
   const addArea = () => {
     setAreas([...areas, { name: '', delivery_fee: 0 }]);
-    console.log({areas})
+    console.log({ areas })
   };
 
 
-  const removeArea = async(index, id) => {
+  const removeArea = async (index, id) => {
     const updatedAreas = areas.filter((area, i) => i !== index);
-    if (id){
+    if (id) {
       const response = await axios.delete(`${apiUrl}/api/deliveryarea/${id}`, config);
-      console.log({response})
+      console.log({ response })
       if (response.status === 200) {
         toast.success('تمت حذف منطقه التوصيل بنجاح');
       } else {
         toast.error('حدث خطأ أثناء حذف منطقه التوصيل');
       }
-      
+
     }
     setAreas(updatedAreas);
   };
@@ -175,28 +175,28 @@ const Info = () => {
   const handleDeliveryArea = async (e) => {
     e.preventDefault();
     try {
-      areas.map(async (area , i) => {
-        console.log({area})
-        const id = area._id? area._id : null;
+      areas.map(async (area, i) => {
+        console.log({ area })
+        const id = area._id ? area._id : null;
         const name = area.name
         const delivery_fee = area.delivery_fee
-        if(id && name && delivery_fee) {
-          const response = await axios.put(`${apiUrl}/api/deliveryarea/${id}`, {name, delivery_fee}, config);
-          console.log({response})
+        if (id && name && delivery_fee) {
+          const response = await axios.put(`${apiUrl}/api/deliveryarea/${id}`, { name, delivery_fee }, config);
+          console.log({ response })
           if (response.status === 200) {
             toast.success('تمت تعديل بيانات منطقه التوصيل بنجاح');
           } else {
             toast.error('حدث خطأ أثناء تعديل بيانات منطقه التوصيل');
           }
-        }else if(name && delivery_fee){
+        } else if (name && delivery_fee) {
           const response = await axios.post(`${apiUrl}/api/deliveryarea`, { name, delivery_fee }, config);
-          console.log({response})
+          console.log({ response })
           if (response.status === 201) {
             toast.success('تمت إضافة منطقه التوصيل بنجاح');
           } else {
             toast.error('حدث خطأ أثناء إضافة منطقه التوصيل');
           }
-          
+
         }
       })
       getAllDeliveryAreas()
@@ -216,6 +216,7 @@ const Info = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [logo, setLogo] = useState('');
+  const [website, setwebsite] = useState('');
 
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
@@ -247,7 +248,7 @@ const Info = () => {
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     if (file && file.size <= maxSize && allowedTypes.includes(file.type)) {
-      console.log({file})
+      console.log({ file })
       setLogo(file);
       toast.success('تم رفع الصوره بنجاح');
     } else {
@@ -267,19 +268,20 @@ const Info = () => {
     try {
       // تجميع البيانات في كائن العنوان
       const address = {
-        country: country? country: null,
-        city: city? city: null,
-        state: state? state: null,
-        street: street? street: null,
-        postal_code: postalCode? postalCode: null
+        country: country ? country : null,
+        city: city ? city : null,
+        state: state ? state : null,
+        street: street ? street : null,
+        website: website ? website : null,
+        postal_code: postalCode ? postalCode : null
       };
-      if(id){
-        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, image:logo }, config);
-        console.log({response})
-      }else{
+      if (id) {
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo }, config);
+        console.log({ response })
+      } else {
         // إرسال البيانات إلى الخادم باستخدام axios
-        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, image:logo }, config);
-        console.log({response})
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo }, config);
+        console.log({ response })
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
           getRestaurant()
@@ -300,14 +302,14 @@ const Info = () => {
     try {
       const contact = {
         phone: [...phone],
-        whatsapp: whatsapp? whatsapp : null,
-        email: email? email: null,
+        whatsapp: whatsapp ? whatsapp : null,
+        email: email ? email : null,
         social_media: {
-          facebook: facebook? facebook: null,
-          instagram: instagram? instagram: null,
-          twitter: twitter? twitter: null,
-          linkedin: linkedin? linkedin: null,
-          youtube: youtube? youtube: null
+          facebook: facebook ? facebook : null,
+          instagram: instagram ? instagram : null,
+          twitter: twitter ? twitter : null,
+          linkedin: linkedin ? linkedin : null,
+          youtube: youtube ? youtube : null
         }
       };
 
@@ -320,7 +322,7 @@ const Info = () => {
       if (response.status === 200) {
         toast.success('تمت إضافة بيانات التواصل بنجاح');
         getRestaurant()
-        
+
       } else {
         toast.error('فشل إضافة بيانات التواصل');
       }
@@ -433,13 +435,13 @@ const Info = () => {
     e.preventDefault();
     try {
       const opening_hours = {
-        Saturday: saturday?saturday:{},
-        Sunday: sunday? sunday: {},
-        Monday: monday? monday: {},
-        Tuesday: tuesday? tuesday: {},
-        Wednesday: wednesday? wednesday:{},
-        Thursday: thursday? thursday: {},
-        Friday: friday? friday: {} 
+        Saturday: saturday ? saturday : {},
+        Sunday: sunday ? sunday : {},
+        Monday: monday ? monday : {},
+        Tuesday: tuesday ? tuesday : {},
+        Wednesday: wednesday ? wednesday : {},
+        Thursday: thursday ? thursday : {},
+        Friday: friday ? friday : {}
       }
 
       console.log({ opening_hours })
@@ -465,35 +467,35 @@ const Info = () => {
     const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
     const restaurantData = await restaurant.data[0]
     console.log({ restaurantData })
-    if(restaurantData){
-    const id = await restaurantData._id
-    setid(id)
-    setName(restaurantData.name)
-    setLogo(restaurantData.logo)
-    setDescription(restaurantData.description)
-    setCountry(restaurantData.address.country)
-    setState(restaurantData.address.state)
-    setCity(restaurantData.address.city)
-    setStreet(restaurantData.address.street)
-    setPostalCode(restaurantData.address.postal_code)
+    if (restaurantData) {
+      const id = await restaurantData._id
+      setid(id)
+      setName(restaurantData.name)
+      setLogo(restaurantData.logo)
+      setDescription(restaurantData.description)
+      setCountry(restaurantData.address.country)
+      setState(restaurantData.address.state)
+      setCity(restaurantData.address.city)
+      setStreet(restaurantData.address.street)
+      setPostalCode(restaurantData.address.postal_code)
 
-    setPhone(restaurantData.contact.phone)
-    setWhatsapp(restaurantData.contact.whatsapp)
-    setEmail(restaurantData.contact.email)
-    setFacebook(restaurantData.contact.social_media.facebook)
-    setTwitter(restaurantData.contact.social_media.twitter)
-    setInstagram(restaurantData.contact.social_media.instagram)
-    setLinkedin(restaurantData.contact.social_media.linkedin)
-    setYoutube(restaurantData.contact.social_media.youtube)
+      setPhone(restaurantData.contact.phone)
+      setWhatsapp(restaurantData.contact.whatsapp)
+      setEmail(restaurantData.contact.email)
+      setFacebook(restaurantData.contact.social_media.facebook)
+      setTwitter(restaurantData.contact.social_media.twitter)
+      setInstagram(restaurantData.contact.social_media.instagram)
+      setLinkedin(restaurantData.contact.social_media.linkedin)
+      setYoutube(restaurantData.contact.social_media.youtube)
 
-    setSaturday(restaurantData.opening_hours.Saturday)
-    setSunday(restaurantData.opening_hours.Sunday)
-    setMonday(restaurantData.opening_hours.Monday)
-    setTuesday(restaurantData.opening_hours.Tuesday)
-    setWednesday(restaurantData.opening_hours.Wednesday)
-    setThursday(restaurantData.opening_hours.Thursday)
-    setFriday(restaurantData.opening_hours.Friday)
-    }else{
+      setSaturday(restaurantData.opening_hours.Saturday)
+      setSunday(restaurantData.opening_hours.Sunday)
+      setMonday(restaurantData.opening_hours.Monday)
+      setTuesday(restaurantData.opening_hours.Tuesday)
+      setWednesday(restaurantData.opening_hours.Wednesday)
+      setThursday(restaurantData.opening_hours.Thursday)
+      setFriday(restaurantData.opening_hours.Friday)
+    } else {
       toast.warning('لم يتم اضافه بيانات المطعم ')
     }
   }
@@ -511,7 +513,7 @@ const Info = () => {
     <detacontext.Consumer>
       {({ }) => (
         <div className="container" dir='rtl'>
-          <div className="content-wrapper" style={{height: '20px'}}>
+          <div className="content-wrapper" style={{ height: '20px' }}>
             <div className="row">
               <div className="col-12 grid-margin">
                 <div className="card">
@@ -585,7 +587,7 @@ const Info = () => {
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">رابط المنيو</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
+                              <input type="text" className="form-control" defaultValue={website} required onChange={(e) => setwebsite(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -599,24 +601,29 @@ const Info = () => {
                         </div>
                       </div>
                       <div className="row">
-                      <div className="col-lg-6">
+                        <div className="col-lg-6">
                           <div className="form-group form-group-47" style={{ width: '100%' }}>
-
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Default </label>
-                            </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
-                            </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
-                            </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                            <div className="d-flex flex-column text-right">
+                              <div className="form-check">
+                                <label className="form-check-label">
+                                  <input type="checkbox" className="form-check-input" /> الصاله
+                                </label>
+                              </div>
+                              <div className="form-check">
+                                <label className="form-check-label">
+                                  <input type="checkbox" className="form-check-input" /> حجز الطاولات
+                                </label>
+                              </div>
+                              <div className="form-check">
+                                <label className="form-check-label">
+                                  <input type="checkbox" className="form-check-input" /> خدمة التوصيل
+                                </label>
+                              </div>
+                              <div className="form-check">
+                                <label className="form-check-label">
+                                  <input type="checkbox" className="form-check-input" /> خدمة التيك اوي
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -625,7 +632,7 @@ const Info = () => {
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
                               <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
-                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100}/>
+                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100} />
                             </div>
                           </div>
                         </div>
@@ -783,7 +790,7 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control"  name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
                                   <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
@@ -816,7 +823,7 @@ const Info = () => {
                                 <input type="text" className="form-control" placeholder="اسم الوردية" defaultValue={shift.shiftType} onChange={(e) => handleShiftTypeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={shift.startTime}  onChange={(e) => handleStartTimeChange(index, e)} />
+                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={shift.startTime} onChange={(e) => handleStartTimeChange(index, e)} />
                               </div>
                               <div className="col">
                                 <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
