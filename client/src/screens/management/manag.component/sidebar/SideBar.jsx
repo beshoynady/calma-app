@@ -182,8 +182,8 @@ const SideBar = () => {
                       )}
                       {(role === 'manager' || role === 'casher') && (
                         <>
-                        <li><Link to="employeessalary">تعاملات</Link></li>
-                        <li><Link to="attendancerecord">الحضور و الانصراف</Link></li>
+                          <li><Link to="employeessalary">تعاملات</Link></li>
+                          <li><Link to="attendancerecord">الحضور و الانصراف</Link></li>
                         </>
                       )}
                     </ul>
@@ -295,7 +295,7 @@ const SideBar = () => {
                     </ul>
                   </li>
 
-                  <li ref={arrowRefs.arrowsetting} onClick={() => openSubMenu(arrowRefs.arrowsetting)}>
+                  {/* <li ref={arrowRefs.arrowsetting} onClick={() => openSubMenu(arrowRefs.arrowsetting)}>
                     <div className="iocn-link">
                       <a href="#">
                         <span class="material-symbols-outlined icon">monetization_on</span>
@@ -310,7 +310,19 @@ const SideBar = () => {
                         <li><Link to="cashmovement">تسجيل حركه</Link></li>
                       )}
                     </ul>
-                  </li>
+                  </li> */}
+
+                  {role === 'manager' && (
+                    <li>
+                      <Link to="info">
+                        <span className="material-symbols-outlined icon">settings</span>
+                        <span className="link_name">الاعدادات</span>
+                      </Link>
+                      <ul className="sub-menu blank">
+                        <li><Link to="info" className="link_name">الاعدادات</Link></li>
+                      </ul>
+                    </li>
+                  )}
 
                   <li className="profile-details">
                     <div className="profile-content">

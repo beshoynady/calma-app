@@ -511,7 +511,7 @@ const Info = () => {
     <detacontext.Consumer>
       {({ }) => (
         <div className="container" dir='rtl'>
-          <div className="content-wrapper">
+          <div className="content-wrapper" style={{height: '20px'}}>
             <div className="row">
               <div className="col-12 grid-margin">
                 <div className="card">
@@ -583,10 +583,9 @@ const Info = () => {
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
-                            <label className="col-sm-3 col-form-label">اللوجو</label>
+                            <label className="col-sm-3 col-form-label">رابط المنيو</label>
                             <div className="col-sm-9">
-                              <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
-                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100}/>
+                              <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -595,6 +594,38 @@ const Info = () => {
                             <label className="col-sm-3 col-form-label">كود البريد</label>
                             <div className="col-sm-9">
                               <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                      <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" /> Default </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
+                            <label className="col-sm-3 col-form-label">اللوجو</label>
+                            <div className="col-sm-9">
+                              <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100}/>
                             </div>
                           </div>
                         </div>
