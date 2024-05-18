@@ -601,8 +601,66 @@ const Info = () => {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                        <div className="col-lg-6 grid-margin stretch-card">
+                          <div className="card">
+                            <div className="card-body">
+                              <h4 className="card-title">Checkbox Flat Controls</h4>
+                              <p className="card-description">Checkbox and radio controls with flat design</p>
+                              <form className="forms-sample">
+                                <div className="row">
+                                  <div className="col-lg-6">
+                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                                      <div className="form-check form-check-flat">
+                                        <label className="form-check-label">
+                                          <input type="checkbox" className="form-check-input" /> Default </label>
+                                      </div>
+                                      <div className="form-check form-check-flat">
+                                        <label className="form-check-label">
+                                          <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                      </div>
+                                      <div className="form-check form-check-flat">
+                                        <label className="form-check-label">
+                                          <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                      </div>
+                                      <div className="form-check form-check-flat">
+                                        <label className="form-check-label">
+                                          <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-6">
+                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                                      <div className="form-radio form-radio-flat">
+                                        <label className="form-check-label">
+                                          <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
+                                      </div>
+                                      <div className="form-radio form-radio-flat">
+                                        <label className="form-check-label">
+                                          <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
+                                      </div>
+                                    </div>
+                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                                      <div className="form-radio form-radio-flat disabled">
+                                        <label className="form-check-label">
+                                          <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
+                                      </div>
+                                      <div className="form-radio form-radio-flat disabled">
+                                        <label className="form-check-label">
+                                          <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%', height: '100%' }}>
                             <div className="d-flex flex-column text-right">
                               <div className="form-check" style={{ marginBottom: '10px' }}>
                                 <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -626,8 +684,8 @@ const Info = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-md-6">
+                        </div> */}
+                        <div className="col-lg-6 stretch-card">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
