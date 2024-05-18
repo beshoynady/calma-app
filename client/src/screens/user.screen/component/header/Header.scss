@@ -170,28 +170,28 @@
 
 }
 
-ul.borderYtoX li:before,
+// ul.borderYtoX li:before,
 ul.borderYtoX li:after {
     position: absolute;
     opacity: 0.5;
-    height: 100%;
-    width: 2px;
+    height: 0px;
+    width: 0px;
     content: '';
     background: #ffe600b7;
     transition: all 0.3s;
 }
 
-ul.borderYtoX li:before {
-    left: 0px;
-    top: 0px;
-}
+// ul.borderYtoX li:before {
+//     left: 0px;
+//     top: 0px;
+// }
 
 ul.borderYtoX li:after {
     right: 0px;
     bottom: 0px;
 }
 
-ul.borderYtoX li:hover:before,
+// ul.borderYtoX li:hover:before,
 ul.borderYtoX li:hover:after {
     opacity: 1;
     height: 2px;

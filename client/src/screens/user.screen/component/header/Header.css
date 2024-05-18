@@ -148,20 +148,14 @@
   border-radius: 50%;
 }
 
-ul.borderYtoX li:before,
 ul.borderYtoX li:after {
   position: absolute;
   opacity: 0.5;
-  height: 100%;
-  width: 2px;
+  height: 0px;
+  width: 0px;
   content: "";
   background: rgba(255, 230, 0, 0.7176470588);
   transition: all 0.3s;
-}
-
-ul.borderYtoX li:before {
-  left: 0px;
-  top: 0px;
 }
 
 ul.borderYtoX li:after {
@@ -169,7 +163,6 @@ ul.borderYtoX li:after {
   bottom: 0px;
 }
 
-ul.borderYtoX li:hover:before,
 ul.borderYtoX li:hover:after {
   opacity: 1;
   height: 2px;
