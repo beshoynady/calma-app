@@ -69,10 +69,21 @@ function App() {
   // Reataurant data //
   const [restaurantData, setrestaurantData] = useState({})
   const getRestaurant = async () => {
-    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    const restaurantData = await restaurant.data[0]
-    setrestaurantData(restaurantData)
-  }
+    try {
+      const response = await axios.get(`${apiUrl}/api/restaurant/`, config);
+      if (response.status === 200 && response.data.length > 0) {
+        const restaurantData = response.data[0];
+        console.log({ restaurantData });
+        setrestaurantData(restaurantData);
+        // toast.success('تم جلب بيانات المطعم بنجاح!');
+      } else {
+        throw new Error('لم يتم العثور على بيانات المطعم.');
+      }
+    } catch (error) {
+      console.error('Error fetching restaurant data:', error);
+      toast.error('حدث خطأ أثناء جلب بيانات المطعم.');
+    }
+  };
 
   //++++++++++++++++++++ pagination ++++++++++
 
