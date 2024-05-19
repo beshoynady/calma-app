@@ -46,7 +46,7 @@ const Header = () => {
               </div>
               {restaurantData.logo?
               <img src={`${apiUrl}/images/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
-              :<a href="/" className='res-name'>كافيار</a>
+              :<a href="/" className='res-name'>{restaurantData.name}</a>
               }
             </div>
             <nav ref={navref} className='nav'>
