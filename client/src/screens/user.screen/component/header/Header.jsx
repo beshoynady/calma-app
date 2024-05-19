@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <detacontext.Consumer>
-      {({restaurantData, userLoginInfo, logout, itemsInCart }) => (
+      {({restaurantData,apiUrl, userLoginInfo, logout, itemsInCart }) => (
         <header className={`header-client ${isScroll ? 'scroll' : ''}`}>
           <div className="container-lg">
             <div className='logo'>
@@ -42,7 +42,7 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
-              <img src={`../../../../image/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
+              <img src={`${apiUrl}/image/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
             <nav ref={navref} className='nav'>

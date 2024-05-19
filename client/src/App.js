@@ -1989,7 +1989,7 @@ function App() {
 
   return (
     <detacontext.Provider value={{
-      restaurantData, clientInfo,
+      restaurantData, clientInfo,apiUrl,
       // Functions related to authentication
       userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 
