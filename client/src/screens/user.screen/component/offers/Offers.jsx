@@ -56,7 +56,7 @@ export default function Offers() {
                           <div className='offers-note'>
                             <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
                               <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق ' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
-                              <div className='note-btn btn-47'>
+                              <div className='note-btn'>
                                 <button>تاكيد</button>
                                 <button onClick={() => setnoteArea(!noteArea)}>الغاء</button>
                               </div>
@@ -80,7 +80,7 @@ export default function Offers() {
                             </div>
                             <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                           </div>
-                          <div className='offer-card-btn btn-47'>
+                          <div className='offer-card-btn'>
                             {itemId.filter((i)=>i == product._id).length>0 && product.quantity>0?
                               <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
                               : <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, product.quantity)} }}>اضف الي طلباتي</button>}

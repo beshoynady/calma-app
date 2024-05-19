@@ -9,7 +9,7 @@ import Location from './component/location/Location.jsx';
 import Contact from './component/contact/Contact.jsx';
 import Reservation from './component/reservations/Reservation.jsx';
 import Footer from './component/footer/Footer.jsx';
-import { detacontext } from '../../../../App'
+import { detacontext } from '../../App.js'
 
 
 
