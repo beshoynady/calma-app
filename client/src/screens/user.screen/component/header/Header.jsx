@@ -42,8 +42,10 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
-              <img src={`${apiUrl}/image/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
-              {/* <a href="/" className='res-name'>كافيار</a> */}
+              {restaurantData.logo?
+              <img src={`${apiUrl}/images/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
+              :<a href="/" className='res-name'>كافيار</a>
+              }
             </div>
             <nav ref={navref} className='nav'>
               <ul className='navigator borderYtoX'>
