@@ -77,6 +77,7 @@ function App() {
         setrestaurantData(restaurantData);
         // toast.success('تم جلب بيانات المطعم بنجاح!');
       } else {
+        toast.error('لم يتم العثور على بيانات المطعم..');
         throw new Error('لم يتم العثور على بيانات المطعم.');
       }
     } catch (error) {
