@@ -42,7 +42,7 @@
   margin-top: 30px;
   text-align: center;
 }
-.main-home .container .content .main-btn .btn-47 {
+.main-home .container .content .main-btn {
   width: 90%;
   height: 20%;
   display: flex;
@@ -50,7 +50,7 @@
   justify-content: space-between;
   list-style: none;
 }
-.main-home .container .content .main-btn .btn-47 .main-li {
+.main-home .container .content .main-btn .main-li {
   align-items: center;
   background-color: var(--u-dark);
   border: 2px solid transparent;
@@ -64,11 +64,11 @@
   font-size: 26px;
   font-weight: 800;
 }
-.main-home .container .content .main-btn .btn-47 .main-li.mrl-auto {
+.main-home .container .content .main-btn .main-li.mrl-auto {
   margin-left: auto !important;
   margin-right: auto !important;
 }
-.main-home .container .content .main-btn .btn-47 .main-li a {
+.main-home .container .content .main-btn .main-li a {
   display: inline-block;
   text-decoration: none;
   font-size: 26px;
@@ -116,7 +116,7 @@
     font-weight: 600;
     text-align: center;
   }
-  .main-home .container .content .main-btn .btn-47 {
+  .main-home .container .content .main-btn {
     width: 90%;
     height: 20%;
     display: flex;
@@ -124,7 +124,7 @@
     justify-content: space-between;
     list-style: none;
   }
-  .main-home .container .content .main-btn .btn-47 .main-li {
+  .main-home .container .content .main-btn .main-li {
     align-items: center;
     border: 2px solid transparent;
     border-radius: 25px;
@@ -136,7 +136,7 @@
     justify-content: center;
     width: 45%;
   }
-  .main-home .container .content .main-btn .btn-47 .main-li a {
+  .main-home .container .content .main-btn .main-li a {
     display: inline-block;
     text-decoration: none;
   }

@@ -19,7 +19,7 @@ const Home = () => {
                   :<p className='main-title'>مرحبا بكم  <br/> في</p>
                   }
                   <p className='main-text'> {restaurantData.name} <br /> {restaurantData.description}</p>
-                  <ul className="main-btn btn-47">
+                  <ul className="main-btn">
 
                     {id?<>
                     <li className='main-li' onClick={()=>askingForHelp(id)}>طلب الويتر</li>
