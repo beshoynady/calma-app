@@ -4,14 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: transparent;
+  background-color: white;
   z-index: 1000;
   position: fixed;
   top: 0;
   left: 0;
 }
 .header-client.scroll {
-  background: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
+  background-color: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
 }
 .header-client.scroll a {
   color: var(--u-dark);
@@ -43,7 +43,7 @@
   text-decoration: none;
 }
 .header-client .container-lg .nav {
-  width: 50% !important;
+  width: 60% !important;
   height: 100%;
   display: flex;
   align-items: center;
@@ -83,11 +83,12 @@
   align-items: center;
 }
 .header-client .container-lg .right-nav .nav-logout {
-  width: 70px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background-color: var(--u-log);
   color: var(--u-white);
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -96,19 +97,18 @@
 }
 .header-client .container-lg .right-nav .nav-logout > span {
   color: var(--u-white);
-  font-size: 25px;
+  font-size: 20px;
+  font-weight: 900;
 }
 .header-client .container-lg .right-nav .nav-login {
-  width: 70px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background-color: var(--u-light);
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 900;
   color: var(--u-log);
   border: 1px solid var(--u-dark);
   border-radius: 10px;
-  padding: 5pt 10px;
-  margin: auto 20px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -118,18 +118,18 @@
   background-color: var(--u-dark);
 }
 .header-client .container-lg .right-nav .nav-login > span {
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 900;
 }
 .header-client .container-lg .right-nav .cart-icon {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   text-align: center;
   position: relative;
   cursor: pointer;
 }
 .header-client .container-lg .right-nav .cart-icon .shopping_cart {
-  font-size: 60px;
+  font-size: 55px;
   color: var(--u-log);
 }
 .header-client .container-lg .right-nav .cart-icon .cartcounter {
@@ -179,7 +179,7 @@ ul.borderYtoX li:hover:after {
     height: 80px;
   }
   .header-client .container-lg .logo {
-    width: 60%;
+    width: 50%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -194,6 +194,7 @@ ul.borderYtoX li:hover:after {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    scale: 1;
   }
   .header-client .container-lg .logo .mob-menu span {
     width: 100%;
@@ -202,13 +203,6 @@ ul.borderYtoX li:hover:after {
     background-color: var(--u-log);
     color: var(--u-white);
     margin-bottom: 10px;
-  }
-  .header-client .container-lg .logo .res-name {
-    width: 75%;
-    font-size: 35px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: end;
   }
   .header-client .container-lg .nav {
     width: 100% !important;

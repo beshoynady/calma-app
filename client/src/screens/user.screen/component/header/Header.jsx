@@ -4,7 +4,7 @@ import { detacontext } from '../../../../App';
 import './Header.css';
 import Cart from '../cart/Cart';
 import LoginRegistr from '../auth/LoginRegistr';
-import logo from '../../../../image/logo-calma.png';
+// import logo from '../../../../image/logo-calma.png';
 
 const Header = () => {
 
@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <detacontext.Consumer>
-      {({ userLoginInfo, logout, itemsInCart }) => (
+      {({restaurantData, userLoginInfo, logout, itemsInCart }) => (
         <header className={`header-client ${isScroll ? 'scroll' : ''}`}>
           <div className="container-lg">
             <div className='logo'>
@@ -42,7 +42,7 @@ const Header = () => {
                 <span id='line-2'></span>
                 <span id='line-3'></span>
               </div>
-              <img src={logo} alt='Calma' style={{height:'100%', width:'90px'}} />
+              <img src={`../../../../image/${restaurantData.logo}`} alt={restaurantData.name} style={{height:'100%', width:'90px'}} />
               {/* <a href="/" className='res-name'>كافيار</a> */}
             </div>
             <nav ref={navref} className='nav'>
@@ -50,7 +50,9 @@ const Header = () => {
                 <li onClick={toggleMobileMenu}><a href="#main">الرئيسيه</a></li>
                 <li onClick={toggleMobileMenu}><a href="#menu">قائمة الطعام</a></li>
                 <li onClick={toggleMobileMenu}><a href="#offer">العروض</a></li>
+                {restaurantData.usesReservationSystem && 
                 <li onClick={toggleMobileMenu}><a href="#reservation">حجز الطاولات</a></li>
+                }
                 <li onClick={toggleMobileMenu}><a href="#location">موقعنا</a></li>
                 <li onClick={toggleMobileMenu}><a href="#contact">تواصل معنا</a></li>
               </ul>
