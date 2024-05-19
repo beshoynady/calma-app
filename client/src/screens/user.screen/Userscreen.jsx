@@ -18,7 +18,7 @@ const Userscreen = () => {
     return (
         <detacontext.Consumer>
             {
-                ({ restaurantData, askingForHelp, userLoginInfo, usertitle }) => {
+                ({ restaurantData }) => {
                     return (<div className='userscreen'>
                         <ToastContainer />
                         <Header />
