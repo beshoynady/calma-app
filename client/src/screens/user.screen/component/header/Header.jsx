@@ -6,6 +6,8 @@ import Cart from '../cart/Cart';
 import LoginRegistr from '../auth/LoginRegistr';
 // import logo from '../../../../image/logo-calma.png';
 
+
+
 const Header = () => {
 
   const { id } = useParams();

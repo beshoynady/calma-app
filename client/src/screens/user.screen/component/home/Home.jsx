@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <detacontext.Consumer>
       {
-        ({askingForHelp ,userLoginInfo, usertitle}) => {
+        ({restaurantData, askingForHelp ,userLoginInfo, usertitle}) => {
           return (
             <main className='main-home' id='main'> 
               <div className="container">
@@ -18,7 +18,7 @@ const Home = () => {
                   : id?<p className='main-title'>مرحبا ضيوف طاولة {usertitle(id)} <br/> في</p>
                   :<p className='main-title'>مرحبا بكم  <br/> في</p>
                   }
-                  <p className='main-text'> Calma Cafe <br /> ابدأ رحلة استكشاف الحلو من كالما كافيه بمنتجات جديدة</p>
+                  <p className='main-text'> {restaurantData.name} <br /> {restaurantData.description}</p>
                   <ul className="main-btn btn-47">
 
                     {id?<>

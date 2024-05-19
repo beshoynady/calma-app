@@ -4,14 +4,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: white;
+    background: white;
     z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
 
     &.scroll {
-        background-color: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
+        background: linear-gradient(270deg, #f7ba7c 19%, var(--u-main-color));
 
         a {
             color: var(--u-dark);

@@ -209,7 +209,7 @@
   height: 50px;
   align-items: center;
 }
-.pos-section .pos-content .categ-menu .pos-category .category-ul .category-li .category-pos-btn btn-47 {
+.pos-section .pos-content .categ-menu .pos-category .category-ul .category-li .category-pos-btn .btn-47 {
   text-decoration: none;
   color: white;
   font-size: 16px;
@@ -414,7 +414,7 @@
     border-bottom: 2px solid gainsboro;
     cursor: pointer;
   }
-  .pos-section .pos-content .categ-menu .pos-category .category-ul .category-li .category-pos-btn btn-47 {
+  .pos-section .pos-content .categ-menu .pos-category .category-ul .category-li .category-pos-btn .btn-47 {
     text-decoration: none;
     color: white;
     font-size: 18px;
