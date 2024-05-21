@@ -47,9 +47,11 @@ const Footer = () => {
 
 
                       <div class="mt-4">
-                        {Object.keys(restaurantData.contact.social_media).map((social, i)=>{
-                          <a type="button" class="btn btn-floating btn-warning btn-lg"><i className={`fab fa-${social}`}></i></a>
-                        })}
+                        {console.log(Object.keys(restaurantData.contact.social_media)) 
+                        // .map((social, i)=>{
+                        //   <a type="button" class="btn btn-floating btn-warning btn-lg"><i className={`fab fa-${social}`}></i></a>
+                        // })
+                        }
                         {/* <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-dribbble"></i></a>
                         <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
                         <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-google-plus-g"></i></a> */}
