@@ -47,7 +47,7 @@ const Footer = () => {
 
 
                       <div class="mt-4">
-                        {restaurantData.contact.Object.keys(social_media).map((social, i)=>{
+                        {Object.keys(restaurantData.contact.social_media).map((social, i)=>{
                           <a type="button" class="btn btn-floating btn-warning btn-lg"><i className={`fab fa-${social}`}></i></a>
                         })}
                         {/* <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-dribbble"></i></a>
