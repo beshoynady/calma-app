@@ -827,8 +827,8 @@ const Info = () => {
                                 {listFeatures.map(feature => (
                                   <div className="form-check form-check-flat mb-2 mr-4" key={feature} style={{ minWidth: "200px" }}>
                                     <label className="form-check-label d-flex align-items-center">
-                                      <input type="checkbox" className="form-check-input" style={{ marginRight: "10px" }} /> {feature}
                                     </label>
+                                    <input type="checkbox" className="form-check-input" style={{ marginLeft: "10px" }} /> {feature}
                                   </div>
                                 ))}
                               </div>
