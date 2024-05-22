@@ -118,6 +118,14 @@ const restaurantSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    subscriptionStart: {
+        type: Date,
+        // required: true
+    },
+    subscriptionEnd: {
+        type: Date,
+        // required: true
     }
 }, { timestamps: true }
 );

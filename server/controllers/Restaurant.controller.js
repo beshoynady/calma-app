@@ -15,7 +15,8 @@ const createRestaurant = async (req, res) => {
             website,
             acceptedPayments,
             features,
-            usesReservationSystem
+            usesReservationSystem,
+
         } = req.body;
 
         // Validate required fields
@@ -35,7 +36,8 @@ const createRestaurant = async (req, res) => {
             website,
             acceptedPayments,
             features,
-            usesReservationSystem
+            usesReservationSystem,
+
         });
 
         // Save the restaurant to the database
@@ -97,7 +99,7 @@ const updateRestaurant = async (req, res) => {
             website,
             acceptedPayments,
             features,
-            usesReservationSystem
+            usesReservationSystem,
         } = req.body;
 
         // Validate restaurant ID
@@ -117,7 +119,8 @@ const updateRestaurant = async (req, res) => {
             website,
             acceptedPayments,
             features,
-            usesReservationSystem
+            usesReservationSystem,
+
         }, { new: true, runValidators: true });
 
         if (!restaurant) {

@@ -229,6 +229,9 @@ const Info = () => {
 
 
   const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
+  const listFeaturesAr = ['واي فاي','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','صديق للأطفال','أخرى'
+  ];
+  
   const [features, setfeatures] = useState();
 
 
@@ -824,10 +827,10 @@ const Info = () => {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="form-group d-flex flex-wrap">
-                                {listFeatures.map(feature => (
-                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={feature} style={{ minWidth: "200px" }}>
+                                {listFeatures.map((feature, i) => (
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
                                     <input type="checkbox" className="form-check-input" value={feature} />
-                                    <label className="form-check-label mr-2">{feature}</label>
+                                    <label className="form-check-label mr-4">{listFeaturesAr[i]}</label>
                                   </div>
                                 ))}
                               </div>
