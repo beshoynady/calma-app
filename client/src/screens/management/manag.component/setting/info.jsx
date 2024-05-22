@@ -263,12 +263,12 @@ const Info = () => {
   const listAcceptedPaymentsAr = ['نقداً', 'بطاقة ائتمان', 'بطاقة خصم مباشر', 'فودافون كاش', 'اتصالات كاش', 'أورنج كاش', 'فوري', 'ميزة', 'باي بال', 'أمان'];
 
   const [acceptedPayments, setacceptedPayments] = useState([]);
-  const handleacceptedPaymentsCheckboxChange = (acceptedPayments) => {
-    console.log({ acceptedPayments })
-    if (acceptedPayments.includes(acceptedPayments)) {
-      setacceptedPayments(acceptedPayments.filter((item) => item !== acceptedPayments));
+  const handleacceptedPaymentsCheckboxChange = (acceptedPayment) => {
+    console.log({ acceptedPayment })
+    if (acceptedPayments.includes(acceptedPayment)) {
+      setacceptedPayments(acceptedPayments.filter((item) => item !== acceptedPayment));
     } else {
-      setacceptedPayments([...acceptedPayments, acceptedPayments]);
+      setacceptedPayments([...acceptedPayments, acceptedPayment]);
     }
   };
 
