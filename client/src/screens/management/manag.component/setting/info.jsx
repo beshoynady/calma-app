@@ -753,7 +753,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group" style={{ width: '100%' }}>
 
                             <div className="form-check">
                               <label className="form-check-label">
@@ -774,7 +774,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group " style={{ width: '100%' }}>
 
                             <div className="form-radio">
                               <label className="form-check-label">
@@ -785,7 +785,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group " style={{ width: '100%' }}>
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
