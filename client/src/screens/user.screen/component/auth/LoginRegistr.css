@@ -65,7 +65,7 @@
     background: linear-gradient(276deg, #f7ba7c 19%, var(--u-main-color));
     transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
   }
-  input[type="radio"]{
+  .slide-controls input[type="radio"]{
     display: none;
   }
   #signup:checked ~ .slider-tab{
@@ -148,14 +148,14 @@
   .form-inner form .signup-link a:hover{
     text-decoration: underline;
   }
-  form .btn btn-47{
+  form .btn .btn-47{
     height: 150px;
     width: 100%;
     border-radius: 5px;
     position: relative;
     overflow: hidden;
   }
-  form .btn btn-47 .btn btn-layer{
+  form .btn .btn-47 .btn-layer{
     height: 100%;
     width: 300%;
     position: absolute;
@@ -164,10 +164,10 @@
     border-radius: 5px;
     transition: all 0.4s ease;;
   }
-  form .btn btn-47:hover .btn btn-layer{
+  form .btn .btn-47:hover .btn btn-layer{
     left: 0;
   }
-  form .btn btn-47 input[type="submit"]{
+  form .btn .btn-47 input[type="submit"]{
     height: 100%;
     width: 100%;
     z-index: 1;
