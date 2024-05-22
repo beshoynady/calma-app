@@ -90,7 +90,11 @@ const Footer = () => {
                           {restaurantData.opening_hours?restaurantData.opening_hours.map(item=>
                           <tr>
                             <td>{item.day}:</td>
-                            <td>{item.from} - {item.to}</td>
+                            {
+                              item.closed?
+                              <td>مغلق</td>
+                              :<td>{item.from} - {item.to}</td>
+                            }
                           </tr>
                           ):''}
                         </tbody>
