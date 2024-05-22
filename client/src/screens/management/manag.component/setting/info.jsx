@@ -242,7 +242,7 @@ const Info = () => {
     }
   };
 
-  const handleA = async (e) => {
+  const handleFeatures = async (e) => {
     e.preventDefault();
     try {
       console.log({ features })
