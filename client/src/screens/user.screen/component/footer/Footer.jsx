@@ -64,7 +64,7 @@ const Footer = () => {
 
                       <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
                         <li className="mb-3">
-                          <span className="ms-2">{restaurantData.address}</span>
+                          <span className="ms-2">dfsdfdsfdsfs</span>
                           <span className="fa-li"><i className="fas fa-home"></i></span>
                         </li>
                         <li className="mb-3">
