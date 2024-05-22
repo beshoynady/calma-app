@@ -218,6 +218,7 @@ const Info = () => {
   const [street, setStreet] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+
   const [phone, setPhone] = useState([]);
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
@@ -229,11 +230,32 @@ const Info = () => {
 
 
   const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
-  const listFeaturesAr = ['واي فاي','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','صديق للأطفال','أخرى'
+  const listFeaturesAr = ['WiFi','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','ركن للاطفال','أخرى'
   ];
   
   const [features, setfeatures] = useState();
+  const handleFeaturesCheckboxChange = (feature) => {
+    if (features.includes(feature)) {
+      setfeatures(features.filter((item) => item !== feature));
+    } else {
+      setfeatures([...features, feature]);
+    }
+  };
 
+  const handleFeatures = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { features }, config);
+      if (response.status === 200) {
+        toast.success('تمت إضافة الخدمات الاضافية بنجاح');
+        getRestaurant();
+      } else {
+        toast.error('حدث خطأ أثناء إضافة الخدمات الاضافية! حاول مرة أخرى.');
+      }
+    } catch (error) {
+      toast.error('فشل إضافة الخدمات الاضافية! حاول مرة أخرى');
+    }
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -823,13 +845,13 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">خدمات اضافيه</h4>
                         <p className="card-description">اختر الخدمات المتاحة التي يقدمها المطعم</p>
-                        <form className="forms-sample">
+                        <form className="forms-sample" onSubmit={handleFeatures}>
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="form-group d-flex flex-wrap">
                                 {listFeatures.map((feature, i) => (
                                   <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
-                                    <input type="checkbox" className="form-check-input" value={feature} />
+                                    <input type="checkbox" className="form-check-input" value={feature} onChange={(e)=>handleFeaturesCheckboxChange(e.value.target)}/>
                                     <label className="form-check-label mr-4">{listFeaturesAr[i]}</label>
                                   </div>
                                 ))}
