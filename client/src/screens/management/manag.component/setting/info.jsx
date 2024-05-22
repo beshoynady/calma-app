@@ -824,14 +824,14 @@ const Info = () => {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="form-group d-flex flex-wrap">
-                                  {listFeatures.map(feature => {
-                                    <div className="form-check form-check-flat mb-2">
-                                      <label className="form-check-label">
-                                        <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> {feature}
-                                      </label>
-                                    </div>
-                                  })}
-                                  {/* <div className="form-check form-check-flat mb-2">
+                                {listFeatures.map(feature => (
+                                  <div className="form-check form-check-flat mb-2" key={feature}>
+                                    <label className="form-check-label">
+                                      <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> {feature}
+                                    </label>
+                                  </div>
+                                ))}
+                                {/* <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
                                     <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} defaultChecked /> Checked
                                   </label>
@@ -872,11 +872,11 @@ const Info = () => {
                               </div>
                             </div> */}
                             </div>
-                            </div>
-                            <div className="d-flex justify-content-between mt-4">
-                              <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                              <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
-                            </div>
+                          </div>
+                          <div className="d-flex justify-content-between mt-4">
+                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
+                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                          </div>
                         </form>
                       </div>
                     </div>
