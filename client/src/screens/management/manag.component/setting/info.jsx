@@ -821,7 +821,7 @@ const Info = () => {
                                       type="checkbox"
                                       className="form-check-input"
                                       value={AcceptedPayment}
-                                      checked={features.includes(AcceptedPayment)}
+                                      checked={acceptedPayments.includes(AcceptedPayment)}
                                       onChange={() => handleacceptedPaymentsCheckboxChange(AcceptedPayment)}
                                     />
                                     <label className="form-check-label mr-4">{listAcceptedPaymentsAr[i]}</label>
