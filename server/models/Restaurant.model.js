@@ -62,51 +62,39 @@ const restaurantSchema = new mongoose.Schema({
             trim: true,
             match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
         },
-        social_media: {
-            facebook: String,
-            twitter: String,
-            instagram: String,
-            linkedin: String,
-            youtube: String,
-        }
+
     },
-    opening_hours: {
-        Saturday: {
+    social_media: [
+        {platform: {
+            type: String,
+            required: true,
+            trim: true,
+            enum: ['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']
+        },
+        url: {
+            type: String,
+            required: true,
+            trim: true,
+            match: [/^https?:\/\/[^\s$.?#].[^\s]*$/, 'Please enter a valid URL']
+        }}
+        // { facebook: String },
+        // { twitter: String },
+        // { instagram: String },
+        // { linkedin: String },
+        // { youtube: String },
+    ],
+    opening_hours: [
+        {
+            day: {
+                type: String,
+                required: true,
+                enum: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+            },
             from: String,
             to: String,
             closed: Boolean
         },
-        Sunday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        },
-        Monday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        },
-        Tuesday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        },
-        Wednesday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        },
-        Thursday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        },
-        Friday: {
-            from: String,
-            to: String,
-            closed: Boolean
-        }
-    },
+    ],
     website: {
         type: String,
         trim: true,
@@ -114,12 +102,17 @@ const restaurantSchema = new mongoose.Schema({
     },
     acceptedPayments: {
         type: [String],
-        enum: ['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Aman', 'PayPal', 'Other'],
+        enum: ['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Orange Cash', 'Fawry', 'Meeza', 'PayPal', 'Aman', 'Other'],
         default: 'Cash'
     },
     amenities: {
         type: [String],
         enum: ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
+    },
+    deliveryService: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     usesReservationSystem: {
         type: Boolean,

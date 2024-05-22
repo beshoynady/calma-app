@@ -12,7 +12,6 @@ const Info = () => {
     },
   };
 
-  const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
 
 
 
@@ -111,11 +110,6 @@ const Info = () => {
       console.error('Error:', error);
     }
   };
-
-
-
-
-
 
 
 
@@ -233,13 +227,6 @@ const Info = () => {
   const [linkedin, setLinkedin] = useState('');
   const [youtube, setYoutube] = useState('');
 
-  const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
-  const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
-  const [monday, setMonday] = useState({ from: '', to: '', closed: false });
-  const [tuesday, setTuesday] = useState({ from: '', to: '', closed: false });
-  const [wednesday, setWednesday] = useState({ from: '', to: '', closed: false });
-  const [thursday, setThursday] = useState({ from: '', to: '', closed: false });
-  const [friday, setFriday] = useState({ from: '', to: '', closed: false });
 
 
   const handleFileUpload = (e) => {
@@ -332,135 +319,189 @@ const Info = () => {
     }
   };
 
+  
+  const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+  const daysOfWeekEn = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
-  const handleSetFrom = (i, e) => {
-    const day = daysOfWeek[i];
-    const value = e.target.value;
-    switch (day) {
-      case 'السبت':
-        setSaturday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الأحد':
-        setSunday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الاثنين':
-        setMonday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الثلاثاء':
-        setTuesday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الأربعاء':
-        setWednesday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الخميس':
-        setThursday(prevState => ({ ...prevState, from: value }));
-        break;
-      case 'الجمعة':
-        setFriday(prevState => ({ ...prevState, from: value }));
-        break;
-      default:
-        break;
-    }
+  const initialOpeningHours = daysOfWeekEn.map(day => ({
+    day,
+    from: '',
+    to: '',
+    closed: false
+  }));
+  
+  const [opening_hours, setOpening_hours] = useState(initialOpeningHours);
+  
+  const handleSetFrom = (index, value) => {
+    const updatedHours = [...opening_hours];
+    updatedHours[index].from = value;
+    setOpening_hours(updatedHours);
   };
-
-  const handleSetTo = (i, e) => {
-    const day = daysOfWeek[i];
-    const value = e.target.value;
-    switch (day) {
-      case 'السبت':
-        setSaturday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الأحد':
-        setSunday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الاثنين':
-        setMonday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الثلاثاء':
-        setTuesday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الأربعاء':
-        setWednesday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الخميس':
-        setThursday(prevState => ({ ...prevState, to: value }));
-        break;
-      case 'الجمعة':
-        setFriday(prevState => ({ ...prevState, to: value }));
-        break;
-      default:
-        break;
-    }
+  
+  const handleSetTo = (index, value) => {
+    const updatedHours = [...opening_hours];
+    updatedHours[index].to = value;
+    setOpening_hours(updatedHours);
   };
-
-  const [closedDays, setClosedDays] = useState([]);
-
+  
   const handleCheckboxChange = (index) => {
-    const updatedClosedDays = [...closedDays];
-    console.log({ updatedClosedDays })
-    updatedClosedDays[index] = !updatedClosedDays[index];
-    console.log({ updatedClosedDays })
-    setClosedDays(updatedClosedDays);
-
-    const day = daysOfWeek[index];
-
-    switch (day) {
-      case 'السبت':
-        setSaturday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الأحد':
-        setSunday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الاثنين':
-        setMonday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الثلاثاء':
-        setTuesday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الأربعاء':
-        setWednesday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الخميس':
-        setThursday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      case 'الجمعة':
-        setFriday(prevState => ({ ...prevState, closed: !prevState.closed }));
-        break;
-      default:
-        break;
-    }
+    const updatedHours = [...opening_hours];
+    updatedHours[index].closed = !updatedHours[index].closed;
+    setOpening_hours(updatedHours);
   };
-
+  
   const handleOpeningHours = async (e) => {
     e.preventDefault();
     try {
-      const opening_hours = {
-        Saturday: saturday ? saturday : {},
-        Sunday: sunday ? sunday : {},
-        Monday: monday ? monday : {},
-        Tuesday: tuesday ? tuesday : {},
-        Wednesday: wednesday ? wednesday : {},
-        Thursday: thursday ? thursday : {},
-        Friday: friday ? friday : {}
-      }
-
-      console.log({ opening_hours })
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { opening_hours }, config);
-      console.log({ response })
-
       if (response.status === 200) {
-        toast.success('تمت إضافة موعيد العمل بنجاح');
-        getRestaurant()
+        toast.success('تمت إضافة مواعيد العمل بنجاح');
+        getRestaurant();
       } else {
-
-        toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
+        toast.error('حدث خطأ أثناء إضافة مواعيد العمل! حاول مرة أخرى.');
       }
-
     } catch (error) {
-      toast.error('فشل اضافه مواعيد العمل !حاول مره اخري')
+      toast.error('فشل إضافة مواعيد العمل! حاول مرة أخرى');
     }
+  };
 
-  }
+
+  // const [opening_hours, setopening_hours] = useState({day:'', from: '', to: '', closed: false });
+  // const [saturday, setSaturday] = useState({ from: '', to: '', closed: false });
+  // const [sunday, setSunday] = useState({ from: '', to: '', closed: false });
+  // const [monday, setMonday] = useState({ from: '', to: '', closed: false });
+  // const [tuesday, setTuesday] = useState({ from: '', to: '', closed: false });
+  // const [wednesday, setWednesday] = useState({ from: '', to: '', closed: false });
+  // const [thursday, setThursday] = useState({ from: '', to: '', closed: false });
+  // const [friday, setFriday] = useState({ from: '', to: '', closed: false });
+  // const handleSetFrom = (i, e) => {
+  //   const day = daysOfWeek[i];
+  //   const value = e.target.value;
+  //   switch (day) {
+  //     case 'السبت':
+  //       setSaturday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الأحد':
+  //       setSunday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الاثنين':
+  //       setMonday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الثلاثاء':
+  //       setTuesday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الأربعاء':
+  //       setWednesday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الخميس':
+  //       setThursday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     case 'الجمعة':
+  //       setFriday(prevState => ({ ...prevState, from: value }));
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
+  // const handleSetTo = (i, e) => {
+  //   const day = daysOfWeek[i];
+  //   const value = e.target.value;
+  //   switch (day) {
+  //     case 'السبت':
+  //       setSaturday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الأحد':
+  //       setSunday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الاثنين':
+  //       setMonday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الثلاثاء':
+  //       setTuesday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الأربعاء':
+  //       setWednesday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الخميس':
+  //       setThursday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     case 'الجمعة':
+  //       setFriday(prevState => ({ ...prevState, to: value }));
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
+  // const [closedDays, setClosedDays] = useState([]);
+
+  // const handleCheckboxChange = (index) => {
+  //   const updatedClosedDays = [...closedDays];
+  //   console.log({ updatedClosedDays })
+  //   updatedClosedDays[index] = !updatedClosedDays[index];
+  //   console.log({ updatedClosedDays })
+  //   setClosedDays(updatedClosedDays);
+
+  //   const day = daysOfWeek[index];
+
+  //   switch (day) {
+  //     case 'السبت':
+  //       setSaturday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الأحد':
+  //       setSunday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الاثنين':
+  //       setMonday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الثلاثاء':
+  //       setTuesday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الأربعاء':
+  //       setWednesday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الخميس':
+  //       setThursday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     case 'الجمعة':
+  //       setFriday(prevState => ({ ...prevState, closed: !prevState.closed }));
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
+  // const handleOpeningHours = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const opening_hours = {
+  //       Saturday: saturday ? saturday : {},
+  //       Sunday: sunday ? sunday : {},
+  //       Monday: monday ? monday : {},
+  //       Tuesday: tuesday ? tuesday : {},
+  //       Wednesday: wednesday ? wednesday : {},
+  //       Thursday: thursday ? thursday : {},
+  //       Friday: friday ? friday : {}
+  //     }
+
+  //     console.log({ opening_hours })
+  //     const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { opening_hours }, config);
+  //     console.log({ response })
+
+  //     if (response.status === 200) {
+  //       toast.success('تمت إضافة موعيد العمل بنجاح');
+  //       getRestaurant()
+  //     } else {
+
+  //       toast.error('حدث خطأ اثناءاضفافه موعيد العمل !حاول مره اخري');
+  //     }
+
+  //   } catch (error) {
+  //     toast.error('فشل اضافه مواعيد العمل !حاول مره اخري')
+  //   }
+
+  // }
 
 
   const getRestaurant = async () => {
@@ -701,6 +742,125 @@ const Info = () => {
                   </div>
                 </div>
               </div>
+
+
+              <div className="col-lg-6 grid-margin stretch-card">
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">Checkbox Controls</h4>
+                    <p className="card-description">Checkbox and radio controls</p>
+                    <form className="forms-sample">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" /> Default </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                            </div>
+                            <div className="form-check">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-radio">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="" checked /> Option one </label>
+                            </div>
+                            <div className="form-radio">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
+                            </div>
+                          </div>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-radio disabled">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" disabled /> Option three is disabled </label>
+                            </div>
+                            <div className="form-radio disabled">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="col-lg-6 grid-margin stretch-card">
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">Checkbox Flat Controls</h4>
+                    <p className="card-description">Checkbox and radio controls with flat design</p>
+                    <form className="forms-sample">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-check form-check-flat">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" /> Default </label>
+                            </div>
+                            <div className="form-check form-check-flat">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                            </div>
+                            <div className="form-check form-check-flat">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                            </div>
+                            <div className="form-check form-check-flat">
+                              <label className="form-check-label">
+                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-radio form-radio-flat">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
+                            </div>
+                            <div className="form-radio form-radio-flat">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
+                            </div>
+                          </div>
+                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+
+                            <div className="form-radio form-radio-flat disabled">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
+                            </div>
+                            <div className="form-radio form-radio-flat disabled">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
 
               <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">

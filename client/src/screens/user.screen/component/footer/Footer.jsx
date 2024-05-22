@@ -64,16 +64,20 @@ const Footer = () => {
 
                       <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
                         <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-home"></i></span><span className="ms-2">New York, NY 10012, US</span>
+                          <span className="ms-2">{restaurantData.address}</span>
+                          <span className="fa-li"><i className="fas fa-home"></i></span>
                         </li>
                         <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-envelope"></i></span><span className="ms-2">info@example.com</span>
+                          <span className="ms-2">info@example.com</span>
+                          <span className="fa-li"><i className="fas fa-envelope"></i></span>
                         </li>
                         <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-phone"></i></span><span className="ms-2">+ 01 234 567 88</span>
+                          <span className="ms-2">+ 01 234 567 88</span>
+                          <span className="fa-li"><i className="fas fa-phone"></i></span>
                         </li>
                         <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-print"></i></span><span className="ms-2">+ 01 234 567 89</span>
+                          <span className="ms-2">+ 01 234 567 89</span>
+                          <span className="fa-li"><i className="fas fa-print"></i></span>
                         </li>
                       </ul>
                     </div>
