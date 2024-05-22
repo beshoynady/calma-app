@@ -825,13 +825,13 @@ const Info = () => {
                             <div className="col-lg-12">
                               <div className="form-group d-flex flex-wrap">
                                 {listFeatures.map(feature => (
-                                  <div className="form-check form-check-flat mb-2 mr-4" key={feature} style={{ minWidth: "200px" }}>
-                                    <label className="form-check-label d-flex align-items-center"> {feature}
-                                    </label>
-                                    <input type="checkbox" className="form-check-input" value={feature} style={{ marginLeft: "10px" }} />
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={feature} style={{ minWidth: "200px" }}>
+                                    <input type="checkbox" className="form-check-input" value={feature} />
+                                    <label className="form-check-label ml-2">{feature}</label>
                                   </div>
                                 ))}
                               </div>
+
 
                               {/* <div className="col-lg-6">
                               <div className="form-group">
