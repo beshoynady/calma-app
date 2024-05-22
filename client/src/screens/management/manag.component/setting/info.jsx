@@ -319,7 +319,7 @@ const Info = () => {
     }
   };
 
-  
+
   const daysOfWeek = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
   const daysOfWeekEn = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -329,27 +329,27 @@ const Info = () => {
     to: '',
     closed: false
   }));
-  
+
   const [opening_hours, setOpening_hours] = useState(initialOpeningHours);
-  
+
   const handleSetFrom = (index, value) => {
     const updatedHours = [...opening_hours];
     updatedHours[index].from = value;
     setOpening_hours(updatedHours);
   };
-  
+
   const handleSetTo = (index, value) => {
     const updatedHours = [...opening_hours];
     updatedHours[index].to = value;
     setOpening_hours(updatedHours);
   };
-  
+
   const handleCheckboxChange = (index) => {
     const updatedHours = [...opening_hours];
     updatedHours[index].closed = !updatedHours[index].closed;
     setOpening_hours(updatedHours);
   };
-  
+
   const handleOpeningHours = async (e) => {
     e.preventDefault();
     try {
@@ -745,123 +745,142 @@ const Info = () => {
               </div>
 
 
-              <div className="col-lg-6 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">Checkbox Controls</h4>
-                    <p className="card-description">Checkbox and radio controls</p>
-                    <form className="forms-sample">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <div className="form-group ">
-
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Default </label>
+              <div className="container mt-5">
+                <div className="row">
+                  <div className="col-lg-6 mb-4">
+                    <div className="card">
+                      <div className="card-body">
+                        <h4 className="card-title">Checkbox Controls</h4>
+                        <p className="card-description">Checkbox and radio controls</p>
+                        <form className="forms-sample">
+                          <div className="row">
+                            <div className="col-lg-6">
+                              <div className="form-group">
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" /> Default
+                                  </label>
+                                </div>
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" defaultChecked /> Checked
+                                  </label>
+                                </div>
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" disabled /> Disabled
+                                  </label>
+                                </div>
+                                <div className="form-check">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" disabled defaultChecked /> Disabled checked
+                                  </label>
+                                </div>
+                              </div>
                             </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Checked </label>
-                            </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Disabled </label>
-                            </div>
-                            <div className="form-check">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Disabled checked </label>
+                            <div className="col-lg-6">
+                              <div className="form-group">
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="optionsRadios" value="option1" /> Option one
+                                  </label>
+                                </div>
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="optionsRadios" value="option2" /> Option two
+                                  </label>
+                                </div>
+                                <div className="form-check mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="optionsRadiosDisabled" value="option3" disabled /> Option three is disabled
+                                  </label>
+                                </div>
+                                <div className="form-check">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="optionsRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
+                                  </label>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="form-group">
-                            <div className="form-radio">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="" /> Option one </label>
-                            </div>
-                            <div className="form-radio">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
-                            </div>
+                          <div className="d-flex justify-content-between mt-4">
+                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
+                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
                           </div>
-                          <div className="form-group">
-
-                            <div className="form-radio disabled">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" /> Option three is disabled </label>
-                            </div>
-                            <div className="form-radio disabled">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" /> Option four is selected and disabled </label>
-                            </div>
-                          </div>
-                        </div>
+                        </form>
                       </div>
-                    </form>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6 mb-4">
+                    <div className="card">
+                      <div className="card-body">
+                        <h4 className="card-title">Checkbox Flat Controls</h4>
+                        <p className="card-description">Checkbox and radio controls with flat design</p>
+                        <form className="forms-sample">
+                          <div className="row">
+                            <div className="col-lg-6">
+                              <div className="form-group">
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" /> Default
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" defaultChecked /> Checked
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" disabled /> Disabled
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat">
+                                  <label className="form-check-label">
+                                    <input type="checkbox" className="form-check-input" disabled defaultChecked /> Disabled checked
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-6">
+                              <div className="form-group">
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="flatRadios" value="option1" /> Option one
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="flatRadios" value="option2" /> Option two
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat mb-2">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="flatRadiosDisabled" value="option3" disabled /> Option three is disabled
+                                  </label>
+                                </div>
+                                <div className="form-check form-check-flat">
+                                  <label className="form-check-label">
+                                    <input type="radio" className="form-check-input" name="flatRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="d-flex justify-content-between mt-4">
+                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
+                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              <div className="col-lg-6 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">Checkbox Flat Controls</h4>
-                    <p className="card-description">Checkbox and radio controls with flat design</p>
-                    <form className="forms-sample">
-                      <div className="row">
-                        <div className="col-lg-6">
-                          <div className="form-group ">
-
-                            <div className="form-check form-check-flat">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Default </label>
-                            </div>
-                            <div className="form-check form-check-flat">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Checked </label>
-                            </div>
-                            <div className="form-check form-check-flat">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Disabled </label>
-                            </div>
-                            <div className="form-check form-check-flat">
-                              <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Disabled checked </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="form-group ">
-
-                            <div className="form-radio form-radio-flat">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value=""  /> Option one </label>
-                            </div>
-                            <div className="form-radio form-radio-flat">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
-                            </div>
-                          </div>
-                          <div className="form-group ">
-
-                            <div className="form-radio form-radio-flat disabled">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" /> Option three is disabled </label>
-                            </div>
-                            <div className="form-radio form-radio-flat disabled">
-                              <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" /> Option four is selected and disabled </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
 
 
-
+              {/* contact  */}
               <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
                   <div className="col-12 stretch-card">
@@ -947,7 +966,6 @@ const Info = () => {
                 </div>
               </div>
 
-
               <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
                   <div className="col-12 stretch-card">
@@ -969,8 +987,8 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours&&opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e)} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours&&opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
