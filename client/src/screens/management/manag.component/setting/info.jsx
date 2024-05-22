@@ -589,7 +589,7 @@ const Info = () => {
       setLinkedin(restaurantData.contact.social_media.linkedin)
       setYoutube(restaurantData.contact.social_media.youtube)
 
-      setOpening_hours(restaurantData.opening_hours)
+      // setOpening_hours(restaurantData.opening_hours)
       // setSaturday(restaurantData.opening_hours.Saturday)
       // setSunday(restaurantData.opening_hours.Sunday)
       // setMonday(restaurantData.opening_hours.Monday)
