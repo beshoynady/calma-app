@@ -775,10 +775,9 @@ const Info = () => {
                         </div>
                         <div className="col-lg-6">
                           <div className="form-group">
-
                             <div className="form-radio">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="" checked /> Option one </label>
+                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="" /> Option one </label>
                             </div>
                             <div className="form-radio">
                               <label className="form-check-label">
@@ -789,11 +788,11 @@ const Info = () => {
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" disabled /> Option three is disabled </label>
+                                <input type="radio" className="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" /> Option three is disabled </label>
                             </div>
                             <div className="form-radio disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                <input type="radio" className="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" /> Option four is selected and disabled </label>
                             </div>
                           </div>
                         </div>
@@ -819,15 +818,15 @@ const Info = () => {
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                <input type="checkbox" className="form-check-input" /> Checked </label>
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                <input type="checkbox" className="form-check-input" /> Disabled </label>
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                <input type="checkbox" className="form-check-input" /> Disabled checked </label>
                             </div>
                           </div>
                         </div>
@@ -836,7 +835,7 @@ const Info = () => {
 
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
+                                <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value=""  /> Option one </label>
                             </div>
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
@@ -847,11 +846,11 @@ const Info = () => {
 
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
+                                <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" /> Option three is disabled </label>
                             </div>
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" /> Option four is selected and disabled </label>
                             </div>
                           </div>
                         </div>
