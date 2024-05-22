@@ -275,7 +275,7 @@ const Info = () => {
   const handleAcceptedPayments = async (e) => {
     e.preventDefault();
     try {
-      console.log({ features })
+      console.log({ acceptedPayments })
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, {acceptedPayments}, config);
       if (response.status === 200) {
         toast.success('تمت إضافة الخدمات الاضافية بنجاح');
@@ -982,9 +982,9 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e)} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e)} /></td>
-                                  <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e.target.value)} /></td>
+                                  <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`} onChange={(e) => handleCheckboxChange(index)} /></td>
                                 </tr>
                               ))}
                             </tbody>
