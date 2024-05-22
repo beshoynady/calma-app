@@ -229,12 +229,12 @@ const Info = () => {
   const [youtube, setYoutube] = useState('');
 
 
-  const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
-  const listFeaturesAr = ['WiFi','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','ركن للاطفال','أخرى'
-  ];
+  const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly']
+  const listFeaturesAr = ['WiFi','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','ركن للاطفال'];
   
-  const [features, setfeatures] = useState();
+  const [features, setfeatures] = useState([]);
   const handleFeaturesCheckboxChange = (feature) => {
+    console.log({feature})
     if (features.includes(feature)) {
       setfeatures(features.filter((item) => item !== feature));
     } else {
@@ -245,6 +245,7 @@ const Info = () => {
   const handleFeatures = async (e) => {
     e.preventDefault();
     try {
+      console.log({features})
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { features }, config);
       if (response.status === 200) {
         toast.success('تمت إضافة الخدمات الاضافية بنجاح');
