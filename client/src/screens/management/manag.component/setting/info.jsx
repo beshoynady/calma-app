@@ -392,6 +392,7 @@ const Info = () => {
   const [opening_hours, setOpening_hours] = useState(initialOpeningHours);
 
   const handleSetFrom = (index, value) => {
+    console.log({opening_hours})
     const updatedHours = [...opening_hours];
     updatedHours[index].from = value;
     setOpening_hours(updatedHours);
@@ -983,7 +984,9 @@ const Info = () => {
                                 <tr key={index}>
                                   <td>{day}</td>
                                   <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
+
                                   <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e.target.value)} /></td>
+
                                   <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`} onChange={(e) => handleCheckboxChange(index)} /></td>
                                 </tr>
                               ))}
