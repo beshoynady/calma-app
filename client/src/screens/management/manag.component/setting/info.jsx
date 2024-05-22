@@ -588,8 +588,8 @@ const Info = () => {
       setInstagram(restaurantData.contact.social_media.instagram)
       setLinkedin(restaurantData.contact.social_media.linkedin)
       setYoutube(restaurantData.contact.social_media.youtube)
-
-      setOpening_hours(restaurantData.opening_hours?restaurantData.opening_hours: initialOpeningHours)
+      console.log({initialOpeningHours})
+      setOpening_hours(restaurantData.opening_hours.length>0?restaurantData.opening_hours: initialOpeningHours)
       // setSaturday(restaurantData.opening_hours.Saturday)
       // setSunday(restaurantData.opening_hours.Sunday)
       // setMonday(restaurantData.opening_hours.Monday)
