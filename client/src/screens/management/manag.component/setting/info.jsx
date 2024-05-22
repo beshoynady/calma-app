@@ -434,14 +434,14 @@ const Info = () => {
   //   }
   // };
 
-  // const [closedDays, setClosedDays] = useState([]);
+  // const [open , setopen ] = useState([]);
 
   // const handleCheckboxChange = (index) => {
-  //   const updatedClosedDays = [...closedDays];
-  //   console.log({ updatedClosedDays })
-  //   updatedClosedDays[index] = !updatedClosedDays[index];
-  //   console.log({ updatedClosedDays })
-  //   setClosedDays(updatedClosedDays);
+  //   const updatedopen  = [...open ];
+  //   console.log({ updatedopen  })
+  //   updatedopen [index] = !updatedopen [index];
+  //   console.log({ updatedopen  })
+  //   setopen (updatedopen );
 
   //   const day = daysOfWeek[index];
 
@@ -529,13 +529,14 @@ const Info = () => {
       setLinkedin(restaurantData.contact.social_media.linkedin)
       setYoutube(restaurantData.contact.social_media.youtube)
 
-      setSaturday(restaurantData.opening_hours.Saturday)
-      setSunday(restaurantData.opening_hours.Sunday)
-      setMonday(restaurantData.opening_hours.Monday)
-      setTuesday(restaurantData.opening_hours.Tuesday)
-      setWednesday(restaurantData.opening_hours.Wednesday)
-      setThursday(restaurantData.opening_hours.Thursday)
-      setFriday(restaurantData.opening_hours.Friday)
+      setOpening_hours(restaurantData.opening_hours)
+      // setSaturday(restaurantData.opening_hours.Saturday)
+      // setSunday(restaurantData.opening_hours.Sunday)
+      // setMonday(restaurantData.opening_hours.Monday)
+      // setTuesday(restaurantData.opening_hours.Tuesday)
+      // setWednesday(restaurantData.opening_hours.Wednesday)
+      // setThursday(restaurantData.opening_hours.Thursday)
+      // setFriday(restaurantData.opening_hours.Friday)
     } else {
       toast.warning('لم يتم اضافه بيانات المطعم ')
     }
@@ -947,45 +948,6 @@ const Info = () => {
                 </div>
               </div>
 
-              {/* <div className="col-lg-6 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">إضافة بيانات الورديات</h4>
-                    <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
-                    <div className="form-row mb-3">
-                      <div className="col">
-                        <button type="button" className="btn btn-47 btn-success btn btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
-                      </div>
-                    </div>
-                    <form className="forms-sample">
-                      {shifts.map((shift, index) => (
-                        <div key={index} className="form-row mb-3 align-items-center">
-                          <div className="col">
-                            <input type="text" className="form-control" placeholder="اسم الوردية" value={shift.name} onChange={(e) => handleShiftTypeChange(index, e)} />
-                          </div>
-                          <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد البدء" value={shift.startTime} onChange={(e) => handlestartTimeChange(index, e)} />
-                          </div>
-                          <div className="col">
-                            <input type="time" className="form-control" placeholder="ميعاد الانتهاء" value={shift.to} onChange={(e) => handleEndTimeChange(index, e)} />
-                          </div>
-                          <div className="col-auto">
-                            <button type="button" className="btn btn-47 btn-danger" onClick={() => removeShift(index)} style={{ height: '50px' }}>
-                              <i className="mdi mdi-delete" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                      <div className="form-row mt-3">
-                        <div className="col">
-                          <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تأكيد</button>
-                          <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div> */}
 
               <div className="col-lg-6 d-flex align-items-stretch grid-margin">
                 <div className="row flex-grow">
@@ -1008,8 +970,8 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetFrom(index, e)} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={closedDays[index]} onChange={(e) => handleSetTo(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours[index].closed} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours[index].closed} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
