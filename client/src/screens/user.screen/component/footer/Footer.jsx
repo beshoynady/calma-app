@@ -83,22 +83,16 @@ const Footer = () => {
                     </div>
 
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-                      <h5 className="text-uppercase mb-4">Opening hours</h5>
+                      <h5 className="text-uppercase mb-4">مواعيد العمل</h5>
 
                       <table className="table text-center text-white">
                         <tbody className="font-weight-normal">
+                          {restaurantData.opening_hours.map(item=>(
                           <tr>
-                            <td>Mon - Thu:</td>
-                            <td>8am - 9pm</td>
+                            <td>{item.day}:</td>
+                            <td>{item.from} - {item.to}</td>
                           </tr>
-                          <tr>
-                            <td>Fri - Sat:</td>
-                            <td>8am - 1am</td>
-                          </tr>
-                          <tr>
-                            <td>Sunday:</td>
-                            <td>9am - 10pm</td>
-                          </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
