@@ -389,7 +389,7 @@ const Info = () => {
     closed: false
   }));
 
-  const [opening_hours, setOpening_hours] = useState(initialOpeningHours);
+  const [opening_hours, setOpening_hours] = useState([]);
 
   const handleSetFrom = (index, value) => {
     console.log({opening_hours})
@@ -589,7 +589,7 @@ const Info = () => {
       setLinkedin(restaurantData.contact.social_media.linkedin)
       setYoutube(restaurantData.contact.social_media.youtube)
 
-      // setOpening_hours(restaurantData.opening_hours)
+      setOpening_hours(restaurantData.opening_hours?restaurantData.opening_hours: initialOpeningHours)
       // setSaturday(restaurantData.opening_hours.Saturday)
       // setSunday(restaurantData.opening_hours.Sunday)
       // setMonday(restaurantData.opening_hours.Monday)
@@ -983,11 +983,16 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
+                                  value={opening_hours && opening_hours[index]?.from}
+                                  onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
 
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e.target.value)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} 
+                                  value={opening_hours && opening_hours[index]?.to}
+                                  onChange={(e) => handleSetTo(index, e.target.value)} /></td>
 
-                                  <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`} onChange={(e) => handleCheckboxChange(index)} /></td>
+                                  <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`}
+                                  checked={opening_hours[index]?.closed} onChange={(e) => handleCheckboxChange(index)} /></td>
                                 </tr>
                               ))}
                             </tbody>
