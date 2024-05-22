@@ -230,11 +230,11 @@ const Info = () => {
 
 
   const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly']
-  const listFeaturesAr = ['WiFi','موقف سيارات','أماكن جلوس خارجية','مناسب للكراسي المتحركة','موسيقى حية','صديق للحيوانات الأليفة','ركن للاطفال'];
-  
+  const listFeaturesAr = ['WiFi', 'موقف سيارات', 'أماكن جلوس خارجية', 'مناسب للكراسي المتحركة', 'موسيقى حية', 'صديق للحيوانات الأليفة', 'ركن للاطفال'];
+
   const [features, setfeatures] = useState([]);
   const handleFeaturesCheckboxChange = (feature) => {
-    console.log({feature})
+    console.log({ feature })
     if (features.includes(feature)) {
       setfeatures(features.filter((item) => item !== feature));
     } else {
@@ -245,7 +245,7 @@ const Info = () => {
   const handleFeatures = async (e) => {
     e.preventDefault();
     try {
-      console.log({features})
+      console.log({ features })
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { features }, config);
       if (response.status === 200) {
         toast.success('تمت إضافة الخدمات الاضافية بنجاح');
@@ -852,7 +852,13 @@ const Info = () => {
                               <div className="form-group d-flex flex-wrap">
                                 {listFeatures.map((feature, i) => (
                                   <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
-                                    <input type="checkbox" className="form-check-input" value={feature} onChange={(e)=>handleFeaturesCheckboxChange(e.value.target)}/>
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      value={feature}
+                                      checked={features.includes(feature)}
+                                      onChange={() => handleFeaturesCheckboxChange(feature)}
+                                    />
                                     <label className="form-check-label mr-4">{listFeaturesAr[i]}</label>
                                   </div>
                                 ))}
