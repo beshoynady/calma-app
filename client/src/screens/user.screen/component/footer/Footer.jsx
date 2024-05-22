@@ -87,12 +87,12 @@ const Footer = () => {
 
                       <table className="table text-center text-white">
                         <tbody className="font-weight-normal">
-                          {restaurantData.opening_hours.map(item=>(
+                          {restaurantData.opening_hours?restaurantData.opening_hours.map(item=>
                           <tr>
                             <td>{item.day}:</td>
                             <td>{item.from} - {item.to}</td>
                           </tr>
-                          ))}
+                          ):''}
                         </tbody>
                       </table>
                     </div>
