@@ -33,7 +33,7 @@ const Footer = () => {
             //     </ul>
             //   </div>
             // </div>
-            <div className="container my-5">
+            <div className="container bottom-0">
               <footer className="text-white text-center text-lg-start" style={{ backgroundColor: "#23242a" }}>
                 <div className="container p-4">
                   <div className="row mt-4">
