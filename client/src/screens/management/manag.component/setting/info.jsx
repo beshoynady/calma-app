@@ -825,28 +825,14 @@ const Info = () => {
                             <div className="col-lg-12">
                               <div className="form-group d-flex flex-wrap">
                                 {listFeatures.map(feature => (
-                                  <div className="form-check form-check-flat mb-2" key={feature}>
-                                    <label className="form-check-label">
-                                      <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> {feature}
+                                  <div className="form-check form-check-flat mb-2 mr-4" key={feature} style={{ minWidth: "200px" }}>
+                                    <label className="form-check-label d-flex align-items-center">
+                                      <input type="checkbox" className="form-check-input" style={{ marginRight: "10px" }} /> {feature}
                                     </label>
                                   </div>
                                 ))}
-                                {/* <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} defaultChecked /> Checked
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled /> Disabled
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled defaultChecked /> Disabled checked
-                                  </label>
-                                </div> */}
                               </div>
+
                               {/* <div className="col-lg-6">
                               <div className="form-group">
                                 <div className="form-check form-check-flat mb-2">
