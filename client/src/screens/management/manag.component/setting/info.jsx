@@ -970,8 +970,8 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours[index].closed} onChange={(e) => handleSetFrom(index, e)} /></td>
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours[index].closed} onChange={(e) => handleSetTo(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours&&opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours&&opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e)} /></td>
                                   <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
