@@ -242,11 +242,41 @@ const Info = () => {
     }
   };
 
-  const handleFeatures = async (e) => {
+  const handleA = async (e) => {
     e.preventDefault();
     try {
       console.log({ features })
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { features }, config);
+      if (response.status === 200) {
+        toast.success('تمت إضافة الخدمات الاضافية بنجاح');
+        getRestaurant();
+      } else {
+        toast.error('حدث خطأ أثناء إضافة الخدمات الاضافية! حاول مرة أخرى.');
+      }
+    } catch (error) {
+      toast.error('فشل إضافة الخدمات الاضافية! حاول مرة أخرى');
+    }
+  };
+
+
+  const listAcceptedPayments =['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Orange Cash', 'Fawry', 'Meeza', 'PayPal', 'Aman']
+  const listAcceptedPaymentsAr = ['نقداً', 'بطاقة ائتمان', 'بطاقة خصم مباشر', 'فودافون كاش', 'اتصالات كاش', 'أورنج كاش', 'فوري', 'ميزة', 'باي بال', 'أمان'];
+
+  const [acceptedPayments, setacceptedPayments] = useState([]);
+  const handleacceptedPaymentsCheckboxChange = (acceptedPayments) => {
+    console.log({ acceptedPayments })
+    if (acceptedPayments.includes(acceptedPayments)) {
+      setacceptedPayments(acceptedPayments.filter((item) => item !== acceptedPayments));
+    } else {
+      setacceptedPayments([...acceptedPayments, acceptedPayments]);
+    }
+  };
+
+  const handleAcceptedPayments = async (e) => {
+    e.preventDefault();
+    try {
+      console.log({ features })
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, {acceptedPayments}, config);
       if (response.status === 200) {
         toast.success('تمت إضافة الخدمات الاضافية بنجاح');
         getRestaurant();
@@ -777,58 +807,26 @@ const Info = () => {
               <div className="container mt-5">
                 <div className="row">
                   <div className="col-lg-6 mb-4">
-                    <div className="card">
+                  <div className="card">
                       <div className="card-body">
-                        <h4 className="card-title">Checkbox Controls</h4>
-                        <p className="card-description">Checkbox and radio controls</p>
-                        <form className="forms-sample">
+                        <h4 className="card-title">وسائل الدفع المقبوله</h4>
+                        <p className="card-description">اختر وسائل الدفع المقبوله لدفع فواتير المطعم</p>
+                        <form className="forms-sample" onSubmit={handleAcceptedPayments}>
                           <div className="row">
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> Default
-                                  </label>
-                                </div>
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} defaultChecked /> Checked
-                                  </label>
-                                </div>
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled /> Disabled
-                                  </label>
-                                </div>
-                                <div className="form-check">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled defaultChecked /> Disabled checked
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadios" value="option1" /> Option one
-                                  </label>
-                                </div>
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadios" value="option2" /> Option two
-                                  </label>
-                                </div>
-                                <div className="form-check mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadiosDisabled" value="option3" disabled /> Option three is disabled
-                                  </label>
-                                </div>
-                                <div className="form-check">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
-                                  </label>
-                                </div>
+                            <div className="col-lg-12">
+                              <div className="form-group d-flex flex-wrap">
+                                {listAcceptedPayments.map((AcceptedPayment, i) => (
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      value={AcceptedPayment}
+                                      checked={features.includes(AcceptedPayment)}
+                                      onChange={() => handleacceptedPaymentsCheckboxChange(AcceptedPayment)}
+                                    />
+                                    <label className="form-check-label mr-4">{listAcceptedPaymentsAr[i]}</label>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
@@ -863,32 +861,6 @@ const Info = () => {
                                   </div>
                                 ))}
                               </div>
-
-
-                              {/* <div className="col-lg-6">
-                              <div className="form-group">
-                                <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios" value="option1" /> Option one
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios" value="option2" /> Option two
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadiosDisabled" value="option3" disabled /> Option three is disabled
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat">
-                                  <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
-                                  </label>
-                                </div>
-                              </div>
-                            </div> */}
                             </div>
                           </div>
                           <div className="d-flex justify-content-between mt-4">
