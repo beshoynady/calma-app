@@ -14,7 +14,7 @@ const createRestaurant = async (req, res) => {
             opening_hours,
             website,
             acceptedPayments,
-            amenities,
+            features,
             usesReservationSystem
         } = req.body;
 
@@ -34,7 +34,7 @@ const createRestaurant = async (req, res) => {
             opening_hours,
             website,
             acceptedPayments,
-            amenities,
+            features,
             usesReservationSystem
         });
 
@@ -96,7 +96,7 @@ const updateRestaurant = async (req, res) => {
             opening_hours,
             website,
             acceptedPayments,
-            amenities,
+            features,
             usesReservationSystem
         } = req.body;
 
@@ -116,7 +116,7 @@ const updateRestaurant = async (req, res) => {
             opening_hours,
             website,
             acceptedPayments,
-            amenities,
+            features,
             usesReservationSystem
         }, { new: true, runValidators: true });
 

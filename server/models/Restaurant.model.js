@@ -105,7 +105,7 @@ const restaurantSchema = new mongoose.Schema({
         enum: ['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Orange Cash', 'Fawry', 'Meeza', 'PayPal', 'Aman', 'Other'],
         default: 'Cash'
     },
-    amenities: {
+    Features: {
         type: [String],
         enum: ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
     },

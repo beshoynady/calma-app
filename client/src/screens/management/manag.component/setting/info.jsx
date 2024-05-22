@@ -228,6 +228,9 @@ const Info = () => {
   const [youtube, setYoutube] = useState('');
 
 
+  const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
+  const [features, setfeatures] = useState();
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -655,19 +658,19 @@ const Info = () => {
 
                                       <div className="form-check form-check-flat">
                                         <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" /> Default </label>
+                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> Default </label>
                                       </div>
                                       <div className="form-check form-check-flat">
                                         <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} checked /> Checked </label>
                                       </div>
                                       <div className="form-check form-check-flat">
                                         <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled /> Disabled </label>
                                       </div>
                                       <div className="form-check form-check-flat">
                                         <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled checked /> Disabled checked </label>
                                       </div>
                                     </div>
                                   </div>
@@ -676,22 +679,22 @@ const Info = () => {
 
                                       <div className="form-radio form-radio-flat">
                                         <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
+                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
                                       </div>
                                       <div className="form-radio form-radio-flat">
                                         <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
+                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
                                       </div>
                                     </div>
                                     <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                                       <div className="form-radio form-radio-flat disabled">
                                         <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
+                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
                                       </div>
                                       <div className="form-radio form-radio-flat disabled">
                                         <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
                                       </div>
                                     </div>
                                   </div>
@@ -706,22 +709,22 @@ const Info = () => {
                             <div className="d-flex flex-column text-right">
                               <div className="form-check" style={{ marginBottom: '10px' }}>
                                 <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> الصاله
+                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> الصاله
                                 </label>
                               </div>
                               <div className="form-check" style={{ marginBottom: '10px' }}>
                                 <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> حجز الطاولات
+                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> حجز الطاولات
                                 </label>
                               </div>
                               <div className="form-check" style={{ marginBottom: '10px' }}>
                                 <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> خدمة التوصيل
+                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> خدمة التوصيل
                                 </label>
                               </div>
                               <div className="form-check">
                                 <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{ marginRight: '10px' }} /> خدمة التيك اوي
+                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> خدمة التيك اوي
                                 </label>
                               </div>
                             </div>
@@ -758,22 +761,22 @@ const Info = () => {
                               <div className="form-group">
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" /> Default
+                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> Default
                                   </label>
                                 </div>
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" defaultChecked /> Checked
+                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} defaultChecked /> Checked
                                   </label>
                                 </div>
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" disabled /> Disabled
+                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled /> Disabled
                                   </label>
                                 </div>
                                 <div className="form-check">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" disabled defaultChecked /> Disabled checked
+                                    <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled defaultChecked /> Disabled checked
                                   </label>
                                 </div>
                               </div>
@@ -782,22 +785,22 @@ const Info = () => {
                               <div className="form-group">
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="optionsRadios" value="option1" /> Option one
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadios" value="option1" /> Option one
                                   </label>
                                 </div>
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="optionsRadios" value="option2" /> Option two
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadios" value="option2" /> Option two
                                   </label>
                                 </div>
                                 <div className="form-check mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="optionsRadiosDisabled" value="option3" disabled /> Option three is disabled
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadiosDisabled" value="option3" disabled /> Option three is disabled
                                   </label>
                                 </div>
                                 <div className="form-check">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="optionsRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="optionsRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
                                   </label>
                                 </div>
                               </div>
@@ -815,63 +818,65 @@ const Info = () => {
                   <div className="col-lg-6 mb-4">
                     <div className="card">
                       <div className="card-body">
-                        <h4 className="card-title">Checkbox Flat Controls</h4>
-                        <p className="card-description">Checkbox and radio controls with flat design</p>
+                        <h4 className="card-title">خدمات اضافيه</h4>
+                        <p className="card-description">اختر الخدمات المتاحة التي يقدمها المطعم</p>
                         <form className="forms-sample">
                           <div className="row">
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <div className="form-check form-check-flat mb-2">
+                            <div className="col-lg-12">
+                              <div className="form-group d-flex flex-wrap">
+                                  {listFeatures.map(feature => {
+                                    <div className="form-check form-check-flat mb-2">
+                                      <label className="form-check-label">
+                                        <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> {feature}
+                                      </label>
+                                    </div>
+                                  })}
+                                  {/* <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" /> Default
+                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} defaultChecked /> Checked
                                   </label>
                                 </div>
                                 <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" defaultChecked /> Checked
-                                  </label>
-                                </div>
-                                <div className="form-check form-check-flat mb-2">
-                                  <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" disabled /> Disabled
+                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled /> Disabled
                                   </label>
                                 </div>
                                 <div className="form-check form-check-flat">
                                   <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" disabled defaultChecked /> Disabled checked
+                                    <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled defaultChecked /> Disabled checked
                                   </label>
-                                </div>
+                                </div> */}
                               </div>
-                            </div>
-                            <div className="col-lg-6">
+                              {/* <div className="col-lg-6">
                               <div className="form-group">
                                 <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="flatRadios" value="option1" /> Option one
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios" value="option1" /> Option one
                                   </label>
                                 </div>
                                 <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="flatRadios" value="option2" /> Option two
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios" value="option2" /> Option two
                                   </label>
                                 </div>
                                 <div className="form-check form-check-flat mb-2">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="flatRadiosDisabled" value="option3" disabled /> Option three is disabled
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadiosDisabled" value="option3" disabled /> Option three is disabled
                                   </label>
                                 </div>
                                 <div className="form-check form-check-flat">
                                   <label className="form-check-label">
-                                    <input type="radio" className="form-check-input" name="flatRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
+                                    <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadiosDisabled" value="option4" disabled defaultChecked /> Option four is selected and disabled
                                   </label>
                                 </div>
                               </div>
+                            </div> */}
                             </div>
-                          </div>
-                          <div className="d-flex justify-content-between mt-4">
-                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
-                          </div>
+                            </div>
+                            <div className="d-flex justify-content-between mt-4">
+                              <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
+                              <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                            </div>
                         </form>
                       </div>
                     </div>
@@ -989,7 +994,7 @@ const Info = () => {
                                   <td>{day}</td>
                                   <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetFrom(index, e)} /></td>
                                   <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} onChange={(e) => handleSetTo(index, e)} /></td>
-                                  <td><input type="checkbox" className="form-check-input" name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
+                                  <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`} onChange={(e) => handleCheckboxChange(index, e)} /></td>
                                 </tr>
                               ))}
                             </tbody>
@@ -1166,19 +1171,19 @@ const Info = () => {
 
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Default </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} /> Default </label>
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} checked /> Checked </label>
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled /> Disabled </label>
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled checked /> Disabled checked </label>
                             </div>
                           </div>
                         </div>
@@ -1187,22 +1192,22 @@ const Info = () => {
 
                             <div className="form-radio">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="" checked /> Option one </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="optionsRadios" id="optionsRadios1" value="" checked /> Option one </label>
                             </div>
                             <div className="form-radio">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
                           <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadios2" id="optionsRadios3" value="option3" disabled /> Option three is disabled </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="optionsRadios2" id="optionsRadios3" value="option3" disabled /> Option three is disabled </label>
                             </div>
                             <div className="form-radio disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="optionsRadio2" id="optionsRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="optionsRadio2" id="optionsRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
                             </div>
                           </div>
                         </div>
@@ -1224,19 +1229,19 @@ const Info = () => {
 
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" /> Default </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} /> Default </label>
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} checked /> Checked </label>
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled /> Disabled </label>
                             </div>
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} disabled checked /> Disabled checked </label>
                             </div>
                           </div>
                         </div>
@@ -1245,22 +1250,22 @@ const Info = () => {
 
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
                             </div>
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
                           <div className="form-group form-group-47" style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
                             </div>
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
-                                <input type="radio" className="form-check-input" name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
+                                <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
                             </div>
                           </div>
                         </div>
