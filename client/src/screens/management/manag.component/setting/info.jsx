@@ -753,7 +753,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group" style={{ width: '100%' }}>
+                          <div className="form-group ">
 
                             <div className="form-check">
                               <label className="form-check-label">
@@ -761,20 +761,20 @@ const Info = () => {
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" checked /> Checked </label>
+                                <input type="checkbox" className="form-check-input" /> Checked </label>
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled /> Disabled </label>
+                                <input type="checkbox" className="form-check-input" /> Disabled </label>
                             </div>
                             <div className="form-check">
                               <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" disabled checked /> Disabled checked </label>
+                                <input type="checkbox" className="form-check-input" /> Disabled checked </label>
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group " style={{ width: '100%' }}>
+                          <div className="form-group">
 
                             <div className="form-radio">
                               <label className="form-check-label">
@@ -785,7 +785,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group " style={{ width: '100%' }}>
+                          <div className="form-group">
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
@@ -811,7 +811,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group ">
 
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
@@ -832,7 +832,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group ">
 
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
@@ -843,7 +843,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group form-group-47" style={{ width: '100%' }}>
+                          <div className="form-group ">
 
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
