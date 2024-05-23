@@ -14,7 +14,7 @@ const Footer = () => {
                   <div className="row mt-4">
                     <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
                       <h5 className="text-uppercase mb-4">{restaurantData.name}</h5>
-                      <p>{restaurantData.description}</p>
+                      <p>{restaurantData.aboutText}</p>
                       <div className="mt-4">
                         {restaurantData.social_media && restaurantData.social_media.map((item, i) => (
                           item.platform === 'facebook' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-facebook-f"></i></a> :

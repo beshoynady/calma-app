@@ -318,11 +318,11 @@ const Info = () => {
         postal_code: postalCode ? postalCode : null
       };
       if (id) {
-        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn,takeAway,deliveryService, usesReservationSystem }, config);
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn, takeAway, deliveryService, usesReservationSystem }, config);
         console.log({ response })
       } else {
         // إرسال البيانات إلى الخادم باستخدام axios
-        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn,takeAway,deliveryService, usesReservationSystem }, config);
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn, takeAway, deliveryService, usesReservationSystem }, config);
         console.log({ response })
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
@@ -455,7 +455,7 @@ const Info = () => {
       setCity(restaurantData.address.city)
       setStreet(restaurantData.address.street)
       setPostalCode(restaurantData.address.postal_code)
-      
+
       setPhone(restaurantData.contact.phone)
       setWhatsapp(restaurantData.contact.whatsapp)
       setEmail(restaurantData.contact.email)
@@ -609,7 +609,7 @@ const Info = () => {
 
                       <div className="row mb-5">
                         <div className="col-md-6 col">
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -618,7 +618,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">الصالة</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -627,7 +627,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">التيك اوي</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -636,7 +636,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">خدمة التوصيل</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -647,7 +647,7 @@ const Info = () => {
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
+                          <div className="form-group form-group-47 row" style={{ width: '100%', height: "100%" }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="d-flex align-items-center col-sm-9">
                               <input type="file" className="form-control me-3" onChange={(e) => handleFileUpload(e)} />
