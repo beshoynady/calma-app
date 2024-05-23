@@ -446,6 +446,7 @@ const Info = () => {
       setid(id)
       setName(restaurantData.name)
       setLogo(restaurantData.logo)
+      setwebsite(restaurantData.website)
       setlocationUrl(restaurantData.locationUrl)
       setaboutText(restaurantData.aboutText)
       setDescription(restaurantData.description)
