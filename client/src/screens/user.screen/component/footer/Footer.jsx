@@ -62,22 +62,30 @@ const Footer = () => {
                       </div> */}
 
                       <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
+                        {restaurantData.address?
                         <li className="mb-3">
                           <span className="fa-li"><i className="fas fa-home"></i></span>
                           <span className="ms-2">{`${restaurantData.address&&restaurantData.address.state} ${restaurantData.address&&restaurantData.address.city} ${restaurantData.address&&restaurantData.address.street}`}</span>
-                        </li>
+                        </li>:null
+                        }
+                        {restaurantData.contact.email?
                         <li className="mb-3">
                           <span className="fa-li"><i className="fas fa-envelope"></i></span>
                           <span className="ms-2">{restaurantData.contact&&restaurantData.contact.email}</span>
                         </li>
+                        :null}
+                        {restaurantData.contact.phone?
                         <li className="mb-3">
                           <span className="fa-li"><i className="fas fa-phone"></i></span>
                           <span className="ms-2">{restaurantData.contact&&restaurantData.contact.phone}</span>
                         </li>
+                        :null}
+                        {restaurantData.contact.whatsapp?
                         <li className="mb-3">
                           <span className="fa-li"><i className="fas fa-whatsapp"></i></span>
                           <span className="ms-2">{restaurantData.contact&&restaurantData.contact.whatsapp}</span>
                         </li>
+                        :null}
                       </ul>
                     </div>
 
