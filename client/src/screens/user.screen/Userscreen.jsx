@@ -15,28 +15,32 @@ import { detacontext } from '../../App.js'
 
 
 const Userscreen = () => {
-    return (
-        <detacontext.Consumer>
-            {
-                ({ restaurantData }) => {
-                    return (<div className='userscreen' style={{direction: "rtl"}}>
-                        <ToastContainer />
-                        <Header />
-                        <Home />
-                        <Offers />
-                        <Menu />
-                        <Location />
-                        <Contact />
-                        {restaurantData.usesReservationSystem &&
-                            <Reservation />
-                        }
-                        <Footer />
-                    </div>
-                    )
-                }
-            }
-        </detacontext.Consumer>
-    )
+	return (
+		<detacontext.Consumer>
+			{
+				({ restaurantData }) => {
+					return (<div className='userscreen' style={{ direction: "rtl" }}>
+						<ToastContainer />
+						<Header />
+						<Home />
+						<Offers />
+						<Menu />
+						{restaurantData.location &&
+							<Location />
+						}
+						{restaurantData.contact && restaurantData.social_media &&
+							<Contact />
+						}
+						{restaurantData.usesReservationSystem &&
+							<Reservation />
+						}
+						<Footer />
+					</div>
+					)
+				}
+			}
+		</detacontext.Consumer>
+	)
 
 }
 
