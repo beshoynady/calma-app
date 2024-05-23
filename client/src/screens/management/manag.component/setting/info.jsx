@@ -342,26 +342,28 @@ const Info = () => {
   const [instagram, setInstagram] = useState('');
   const [linkedin, setLinkedin] = useState('');
   const [youtube, setYoutube] = useState('');
-  const [social_media, setsocial_media] = useState([{platform:'', url:''}]);
+  // const [social_media, setsocial_media] = useState([{platform:'', url:''}]);
   const [listSocial_media, setlistSocial_media] = useState(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']);
 
-  const handleContactData = async (e) => {
+  const handleContactSocialmedia = async (e) => {
     e.preventDefault();
     try {
       const contact = {
         phone: [...phone],
         whatsapp: whatsapp ? whatsapp : null,
-        email: email ? email : null,
-        // social_media: {
-        //   facebook: facebook ? facebook : null,
-        //   instagram: instagram ? instagram : null,
-        //   twitter: twitter ? twitter : null,
-        //   linkedin: linkedin ? linkedin : null,
-        //   youtube: youtube ? youtube : null
-        // }
+        email: email ? email : null
+        
       };
+      const social_media= [
+        {platform:'facebook', url: facebook},
+        {platform:'twitter', url: twitter},
+        {platform:'instagram', url: instagram},
+        {platform:'linkedin', url: linkedin},
+        {platform:'youtube', url: youtube}
 
-      console.log({ contact })
+      ]
+
+      console.log({ contact, social_media})
 
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact, social_media }, config);
@@ -448,11 +450,11 @@ const Info = () => {
       setPhone(restaurantData.contact.phone)
       setWhatsapp(restaurantData.contact.whatsapp)
       setEmail(restaurantData.contact.email)
-      setFacebook(restaurantData.contact.social_media.facebook)
-      setTwitter(restaurantData.contact.social_media.twitter)
-      setInstagram(restaurantData.contact.social_media.instagram)
-      setLinkedin(restaurantData.contact.social_media.linkedin)
-      setYoutube(restaurantData.contact.social_media.youtube)
+      setFacebook(restaurantData.social_media.facebook)
+      setTwitter(restaurantData.social_media.twitter)
+      setInstagram(restaurantData.social_media.instagram)
+      setLinkedin(restaurantData.social_media.linkedin)
+      setYoutube(restaurantData.social_media.youtube)
       setOpening_hours(restaurantData.opening_hours.length>0?restaurantData.opening_hours: initialOpeningHours)
     } else {
       toast.warning('لم يتم اضافه بيانات المطعم ')
@@ -741,7 +743,7 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">بيانات التواصل</h4>
                         <p className="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
-                        <form className="forms-sample" onSubmit={(e) => handleContactData(e)}>
+                        <form className="forms-sample" onSubmit={(e) => handleContactSocialmedia(e)}>
                           <div className="form-group form-group-47" style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
                             <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
