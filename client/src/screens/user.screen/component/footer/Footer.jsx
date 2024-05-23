@@ -49,11 +49,7 @@ const Footer = () => {
                           item.platform === 'instagram' ? <a href="https://www.instagram.com"a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-instagram"></i></a> :
                           item.platform === 'linkedin' ? <a href="https://www.linkedin.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-linkedin-in"></i></a> :
                           item.platform === 'youtube' ? <a href="https://www.youtube.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-youtube"></i></a> : ''}
-                        )
-                        {/* <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-facebook-f"></i></a>
-                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-dribbble"></i></a>
-                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-twitter"></i></a>
-                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-google-plus-g"></i></a> */}
+                        )}
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
