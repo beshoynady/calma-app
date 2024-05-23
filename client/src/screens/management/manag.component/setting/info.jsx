@@ -355,11 +355,11 @@ const Info = () => {
         
       };
       const social_media= [
-        {platform:'facebook', url: facebook},
-        {platform:'twitter', url: twitter},
-        {platform:'instagram', url: instagram},
-        {platform:'linkedin', url: linkedin},
-        {platform:'youtube', url: youtube}
+        facebook?{platform:'facebook', url: facebook}:'',
+        twitter?{platform:'twitter', url: twitter}:'',
+        instagram?{platform:'instagram', url: instagram}:'',
+        linkedin?{platform:'linkedin', url: linkedin}:'',
+        youtube?{platform:'youtube', url: youtube}:'',
 
       ]
 
