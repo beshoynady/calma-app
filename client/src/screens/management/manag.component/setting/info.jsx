@@ -565,7 +565,7 @@ const Info = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="row mb-2">
+                      <div className="row mb-5">
                         <div className="col-md-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">رابط خريطه جوجل</label>
@@ -610,7 +610,7 @@ const Info = () => {
                         <div className="col-lg-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
-                            <div className="col-sm-9">
+                            <div className="flex  col-sm-9">
                               <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                               <div className="mt-3 d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px', backgroundColor: 'gray' }}>
                                 <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
@@ -620,7 +620,7 @@ const Info = () => {
                         </div>
                       </div>
                       <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                      <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
+                      <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                     </form>
                   </div>
                 </div>
@@ -655,7 +655,7 @@ const Info = () => {
                           </div>
                           <div className="d-flex justify-content-between mt-4">
                             <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                            <button type="button" className="btn btn-danger" style={{ width: '47%', height: '50px' }}>إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -688,7 +688,7 @@ const Info = () => {
                           </div>
                           <div className="d-flex justify-content-between mt-4">
                             <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                            <button type="button" className="btn btn-light" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                            <button type="button" className="btn btn-danger" style={{ width: '47%', height: '50px' }}>إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -740,7 +740,7 @@ const Info = () => {
                             <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
                           <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                          <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
+                          <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                         </form>
                       </div>
                     </div>
@@ -774,7 +774,7 @@ const Info = () => {
                           <div className="form-row mt-3">
                             <div className="col">
                               <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تأكيد</button>
-                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
+                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                             </div>
                           </div>
                         </form>
@@ -821,7 +821,7 @@ const Info = () => {
                           </table>
                           <div className="mt-3">
                             <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                            <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
+                            <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -860,7 +860,7 @@ const Info = () => {
                           <div className="form-row mt-3">
                             <div className="col">
                               <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تأكيد</button>
-                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-light">إلغاء</button>
+                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                             </div>
                           </div>
                         </form>
