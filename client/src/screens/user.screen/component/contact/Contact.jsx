@@ -62,13 +62,14 @@ const Contact = () => {
                 </div>
                 <div className='contact-content'>
                   <div className="right">
-                    {restaurantData.social_media?.map(item=>{
-                      item.platform==='facebook'?
+                    {restaurantData.social_media?.map((item) => {
+                      item.platform === 'facebook'?(
                     <p>صفحتنا علي الفيس بوك
                       <a href={item?.url} target="_blank" rel="noreferrer">
                         <img src={facebook} alt="facebook Icon" />
                       </a>
                     </p>
+                      )
                     :null
                     })}
                     <p> واتساب
