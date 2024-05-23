@@ -49,12 +49,12 @@ const restaurantSchema = new mongoose.Schema({
             {
                 type: String,
                 trim: true,
-                match: [/^(?:\+?01)?[0-9]{10}$/, 'Please enter a valid phone number']
+                match: [/^(\+?\d{1,4}[-\s]?)?\d{11}$/, 'Please enter a valid phone number']
             }],
         whatsapp: {
             type: String,
             trim: true,
-            match: [/^(?:\+?01)?[0-9]{10}$/, 'Please enter a valid phone number']
+            match: [/^(\+?\d{1,4}[-\s]?)?\d{11}$/, 'Please enter a valid phone number']
         },
         email: {
             type: String,
@@ -65,18 +65,20 @@ const restaurantSchema = new mongoose.Schema({
 
     },
     social_media: [
-        {platform: {
-            type: String,
-            required: true,
-            trim: true,
-            enum: ['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']
-        },
-        url: {
-            type: String,
-            required: true,
-            trim: true,
-            match: [/^https?:\/\/[^\s$.?#].[^\s]*$/, 'Please enter a valid URL']
-        }}
+        {
+            platform: {
+                type: String,
+                required: true,
+                trim: true,
+                enum: ['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']
+            },
+            url: {
+                type: String,
+                required: true,
+                trim: true,
+                match: [/^https?:\/\/[^\s$.?#].[^\s]*$/, 'Please enter a valid URL']
+            }
+        }
         // { facebook: String },
         // { twitter: String },
         // { instagram: String },
