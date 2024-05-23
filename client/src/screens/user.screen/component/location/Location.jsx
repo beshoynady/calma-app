@@ -18,10 +18,10 @@ const Location = () => {
 
                 <div className='location-content'>
                   <div className="right">
-                    <h1>منتظركم في  <br />{restaurantData.name}</h1>
+                    <h1>منتظرنكم في  <br />{restaurantData.name}</h1>
                     {restaurantData.address && 
                     <p>
-                      العنوان :{`محافظة: ${restaurantData.address.state || ''} مدينة: ${restaurantData.address.city || ''} شارع: ${restaurantData.address.street || ''}`}
+                      العنوان :{`محافظة: ${restaurantData.address.state || ''} -مدينة: ${restaurantData.address.city || ''} -شارع: ${restaurantData.address.street || ''}`}
                     </p>
                     }
                   </div>
