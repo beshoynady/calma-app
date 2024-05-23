@@ -49,12 +49,12 @@ const restaurantSchema = new mongoose.Schema({
             {
                 type: String,
                 trim: true,
-                match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+                match: [/^(?:\+?01)?[0-9]{10}$/, 'Please enter a valid phone number']
             }],
         whatsapp: {
             type: String,
             trim: true,
-            match: [/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Please enter a valid phone number'],
+            match: [/^(?:\+?01)?[0-9]{10}$/, 'Please enter a valid phone number']
         },
         email: {
             type: String,
