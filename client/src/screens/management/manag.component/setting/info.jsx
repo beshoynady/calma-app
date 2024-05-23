@@ -610,9 +610,9 @@ const Info = () => {
                         <div className="col-lg-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>
-                            <div className="flex  col-sm-9">
-                              <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
-                              <div className="mt-3 d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px', backgroundColor: 'gray' }}>
+                            <div className="d-flex align-items-center col-sm-9">
+                              <input type="file" className="form-control me-3" onChange={(e) => handleFileUpload(e)} />
+                              <div className="d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px', backgroundColor: 'gray' }}>
                                 <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                               </div>
                             </div>
