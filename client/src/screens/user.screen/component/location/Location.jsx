@@ -21,19 +21,21 @@ const Location = () => {
                     <h1>منتظركم في  <br />{restaurantData.name}</h1>
                     {restaurantData.address && 
                     <p>
-                      العنوان :{`محافظة: ${restaurantData.address.state || ''}مدينة: ${restaurantData.address.city || ''} شارع: ${restaurantData.address.street || ''}`}
+                      العنوان :{`محافظة: ${restaurantData.address.state || ''} مدينة: ${restaurantData.address.city || ''} شارع: ${restaurantData.address.street || ''}`}
                     </p>
                     }
                   </div>
                   <div className="left">
+                    {restaurantData.LocationUrl&&
                     <iframe
-                      src={restaurantData.LocationUrl}
+                      src={restaurantData.LocationUrl&&restaurantData.LocationUrl}
                       width="100%"
                       height="100%"
                       style={{ border: '0', allowfullscreen: '', referrerpolicy: 'no-referrer-when-downgrade' }}
                       loading="async"
                       title="Google Map"
                     ></iframe>
+                    }
                   </div>
 
                 </div>
