@@ -22,7 +22,7 @@ const createRestaurant = async (req, res) => {
         } = req.body;
 
         // Validate required fields
-        if (!name || !description || !address || !contact || !website || !usesReservationSystem) {
+        if (!name || !description || !address  || !website) {
             return res.status(400).json({ message: 'All required fields must be provided' });
         }
 
