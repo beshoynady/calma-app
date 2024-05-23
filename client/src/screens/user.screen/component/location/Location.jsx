@@ -26,9 +26,9 @@ const Location = () => {
                     }
                   </div>
                   <div className="left">
-                    {restaurantData.LocationUrl&&
+                    {restaurantData.locationUrl&&
                     <iframe
-                      src={restaurantData.LocationUrl&&restaurantData.LocationUrl}
+                      src={restaurantData.locationUrl&&restaurantData.locationUrl}
                       width="100%"
                       height="100%"
                       style={{ border: '0', allowfullscreen: '', referrerpolicy: 'no-referrer-when-downgrade' }}
