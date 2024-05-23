@@ -62,9 +62,15 @@ const Contact = () => {
                 </div>
                 <div className='contact-content'>
                   <div className="right">
-                    <p>صفحتنا علي الفيس بوك<br />
-                      <a href={restaurantData.social_media?.facebook} target="_blank" rel="noreferrer"> <img src={facebook} alt="facebook Icon" /></a>
+                    {restaurantData.social_media?.map(item=>{
+                      item.platform==='facebook'?
+                    <p>صفحتنا علي الفيس بوك
+                      <a href={item?.url} target="_blank" rel="noreferrer">
+                        <img src={facebook} alt="facebook Icon" />
+                      </a>
                     </p>
+                    :null
+                    })}
                     <p> واتساب
                       <a href={`https://api.whatsapp.com/send?phone=+2${restaurantData.contact?.whatsapp}`} target="_blank" rel="noreferrer"><img src={whatsapp} alt="WhatsApp Icon" /></a>
                     </p>
