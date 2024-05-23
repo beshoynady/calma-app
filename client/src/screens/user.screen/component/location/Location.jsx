@@ -1,5 +1,8 @@
 import React from 'react';
 import './Location.css';
+import { detacontext } from '../../../../App'
+
+
 
 const Location = () => {
   return (
