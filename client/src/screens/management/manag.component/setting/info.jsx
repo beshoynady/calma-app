@@ -219,16 +219,6 @@ const Info = () => {
   const [postalCode, setPostalCode] = useState('');
 
 
-  const [phone, setPhone] = useState([]);
-  const [whatsapp, setWhatsapp] = useState('');
-  const [email, setEmail] = useState('');
-  const [facebook, setFacebook] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [youtube, setYoutube] = useState('');
-
-
   const listFeatures = ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly']
   const listFeaturesAr = ['WiFi', 'موقف سيارات', 'أماكن جلوس خارجية', 'مناسب للكراسي المتحركة', 'موسيقى حية', 'صديق للحيوانات الأليفة', 'ركن للاطفال'];
 
@@ -343,6 +333,18 @@ const Info = () => {
   };
 
 
+
+  const [phone, setPhone] = useState([]);
+  const [whatsapp, setWhatsapp] = useState('');
+  const [email, setEmail] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [youtube, setYoutube] = useState('');
+  const [social_media, setsocial_media] = useState([{platform:'', url:''}]);
+  const [listSocial_media, setlistSocial_media] = useState(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']);
+
   const handleContactData = async (e) => {
     e.preventDefault();
     try {
@@ -350,19 +352,19 @@ const Info = () => {
         phone: [...phone],
         whatsapp: whatsapp ? whatsapp : null,
         email: email ? email : null,
-        social_media: {
-          facebook: facebook ? facebook : null,
-          instagram: instagram ? instagram : null,
-          twitter: twitter ? twitter : null,
-          linkedin: linkedin ? linkedin : null,
-          youtube: youtube ? youtube : null
-        }
+        // social_media: {
+        //   facebook: facebook ? facebook : null,
+        //   instagram: instagram ? instagram : null,
+        //   twitter: twitter ? twitter : null,
+        //   linkedin: linkedin ? linkedin : null,
+        //   youtube: youtube ? youtube : null
+        // }
       };
 
       console.log({ contact })
 
       // إرسال البيانات إلى الخادم باستخدام axios
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact }, config);
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact, social_media }, config);
       console.log({ response })
 
       if (response.status === 200) {

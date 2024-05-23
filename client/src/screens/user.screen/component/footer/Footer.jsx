@@ -43,60 +43,59 @@ const Footer = () => {
                       <p>{restaurantData.description}</p>
 
                       <div className="mt-4">
-                        {/* {Object.keys(restaurantData.contact.social_media).map((social, i) => (
-                        <a key={i} type="button" className="btn btn-floating btn-warning btn-lg" href={restaurantData.contact.social_media[social]} target="_blank" rel="noopener noreferrer">
-                          <i className={`fab fa-${social}`}></i>
-                        </a>
-                      ))} */}
-                        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
-                        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-dribbble"></i></a>
-                        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
-                        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-google-plus-g"></i></a>
+                        {restaurantData.social_media.platform === 'facebook' ? <a href="https://www.facebook.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-facebook-f"></i></a> : ''}
+                        {restaurantData.social_media.platform === 'twitter' ? <a href="https://www.twitter.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-twitter"></i></a> : ""}
+                        {restaurantData.social_media.platform === 'instagram' ? <a href="https://www.instagram.com"a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-instagram"></i></a> : ""}
+                        {restaurantData.social_media.platform === 'linkedin' ? <a href="https://www.linkedin.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-linkedin-in"></i></a> : ""}
+                        {restaurantData.social_media.platform === 'youtube' ? <a href="https://www.youtube.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-youtube"></i></a> : ''}
+                        {/* <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-facebook-f"></i></a>
+                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-dribbble"></i></a>
+                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-twitter"></i></a>
+                        <a type="button" className="btn btn-floating btn-warning btn-lg"><i className="fab fa-google-plus-g"></i></a> */}
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-                      <h5 className="text-uppercase mb-4 pb-1">Search something</h5>
+                      {/* <h5 className="text-uppercase mb-4 pb-1">Search something</h5>
 
                       <div className="form-outline form-white mb-4">
                         <input type="text" id="formControlLg" className="form-control form-control-lg" />
                         <label className="form-label" htmlFor="formControlLg" style={{ marginLeft: 0 }}>Search</label>
-                      </div>
+                      </div> */}
 
                       <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
                         <li className="mb-3">
-                          <span className="ms-2">dfsdfdsfdsfs</span>
                           <span className="fa-li"><i className="fas fa-home"></i></span>
+                          <span className="ms-2">`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`</span>
                         </li>
                         <li className="mb-3">
-                          <span className="ms-2">info@example.com</span>
                           <span className="fa-li"><i className="fas fa-envelope"></i></span>
+                          <span className="ms-2">{restaurantData.contact.email}</span>
                         </li>
                         <li className="mb-3">
-                          <span className="ms-2">+ 01 234 567 88</span>
                           <span className="fa-li"><i className="fas fa-phone"></i></span>
+                          <span className="ms-2">{restaurantData.contact.phone}</span>
                         </li>
                         <li className="mb-3">
-                          <span className="ms-2">+ 01 234 567 89</span>
-                          <span className="fa-li"><i className="fas fa-print"></i></span>
+                          <span className="fa-li"><i className="fas fa-whatsapp"></i></span>
+                          <span className="ms-2">{restaurantData.contact.whatsapp}</span>
                         </li>
                       </ul>
                     </div>
 
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
                       <h5 className="text-uppercase mb-4">مواعيد العمل</h5>
-
                       <table className="table text-center text-white">
                         <tbody className="font-weight-normal">
-                          {restaurantData.opening_hours?restaurantData.opening_hours.map(item=>
-                          <tr>
-                            <td>{item.day}:</td>
-                            {
-                              item.closed?
-                              <td>مغلق</td>
-                              :<td>{item.from} - {item.to}</td>
-                            }
-                          </tr>
-                          ):''}
+                          {restaurantData.opening_hours ? restaurantData.opening_hours.map(item =>
+                            <tr>
+                              <td>{item.day}:</td>
+                              {
+                                item.closed ?
+                                  <td>مغلق</td>
+                                  : <td>{item.from} - {item.to}</td>
+                              }
+                            </tr>
+                          ) : ''}
                         </tbody>
                       </table>
                     </div>
