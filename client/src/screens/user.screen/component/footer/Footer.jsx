@@ -43,7 +43,7 @@ const Footer = () => {
                       <p>{restaurantData.description}</p>
 
                       <div className="mt-4">
-                        {restaurantData.social_media&&restaurantData.social_media.map((item, i) => (
+                        {restaurantData.social_media && restaurantData.social_media.map((item, i) => (
                           item.platform === 'facebook' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-facebook-f"></i></a> :
                             item.platform === 'twitter' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-twitter"></i></a> :
                               item.platform === 'instagram' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-instagram"></i></a> :
@@ -61,32 +61,35 @@ const Footer = () => {
                         <label className="form-label" htmlFor="formControlLg" style={{ marginLeft: 0 }}>Search</label>
                       </div> */}
 
-                      {/* <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
-                        {restaurantData.address?
-                        <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-home"></i></span>
-                          <span className="ms-2">{`${restaurantData.address&&restaurantData.address.state} ${restaurantData.address&&restaurantData.address.city} ${restaurantData.address&&restaurantData.address.street}`}</span>
-                        </li>:null
-                        }
-                        {restaurantData.contact.email?
-                        <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-envelope"></i></span>
-                          <span className="ms-2">{restaurantData.contact&&restaurantData.contact.email}</span>
-                        </li>
-                        :null}
-                        {restaurantData.contact.phone?
-                        <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-phone"></i></span>
-                          <span className="ms-2">{restaurantData.contact&&restaurantData.contact.phone}</span>
-                        </li>
-                        :null}
-                        {restaurantData.contact.whatsapp?
-                        <li className="mb-3">
-                          <span className="fa-li"><i className="fas fa-whatsapp"></i></span>
-                          <span className="ms-2">{restaurantData.contact&&restaurantData.contact.whatsapp}</span>
-                        </li>
-                        :null}
-                      </ul> */}
+                      <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
+                        {restaurantData.address && (
+                          <li className="mb-3">
+                            <span className="fa-li"><i className="fas fa-home"></i></span>
+                            <span className="ms-2">
+                              {`${restaurantData.address.state || ''} ${restaurantData.address.city || ''} ${restaurantData.address.street || ''}`}
+                            </span>
+                          </li>
+                        )}
+                        {restaurantData.contact?.email && (
+                          <li className="mb-3">
+                            <span className="fa-li"><i className="fas fa-envelope"></i></span>
+                            <span className="ms-2">{restaurantData.contact.email}</span>
+                          </li>
+                        )}
+                        {restaurantData.contact?.phone && (
+                          <li className="mb-3">
+                            <span className="fa-li"><i className="fas fa-phone"></i></span>
+                            <span className="ms-2">{restaurantData.contact.phone}</span>
+                          </li>
+                        )}
+                        {restaurantData.contact?.whatsapp && (
+                          <li className="mb-3">
+                            <span className="fa-li"><i className="fas fa-whatsapp"></i></span>
+                            <span className="ms-2">{restaurantData.contact.whatsapp}</span>
+                          </li>
+                        )}
+                      </ul>
+
                     </div>
 
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
