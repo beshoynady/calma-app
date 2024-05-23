@@ -210,7 +210,9 @@ const Info = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [logo, setLogo] = useState('');
+  const [aboutText, setaboutText] = useState('');
   const [website, setwebsite] = useState('');
+  const [locationUrl, setlocationUrl] = useState('');
 
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
@@ -249,7 +251,7 @@ const Info = () => {
   };
 
 
-  const listAcceptedPayments =['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Orange Cash', 'Fawry', 'Meeza', 'PayPal', 'Aman']
+  const listAcceptedPayments = ['Cash', 'Credit Card', 'Debit Card', 'Vodafone Cash', 'Etisalat Cash', 'Orange Cash', 'Fawry', 'Meeza', 'PayPal', 'Aman']
   const listAcceptedPaymentsAr = ['نقداً', 'بطاقة ائتمان', 'بطاقة خصم مباشر', 'فودافون كاش', 'اتصالات كاش', 'أورنج كاش', 'فوري', 'ميزة', 'باي بال', 'أمان'];
 
   const [acceptedPayments, setacceptedPayments] = useState([]);
@@ -266,7 +268,7 @@ const Info = () => {
     e.preventDefault();
     try {
       console.log({ acceptedPayments })
-      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, {acceptedPayments}, config);
+      const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { acceptedPayments }, config);
       if (response.status === 200) {
         toast.success('تمت إضافة الخدمات الاضافية بنجاح');
         getRestaurant();
@@ -312,11 +314,11 @@ const Info = () => {
         postal_code: postalCode ? postalCode : null
       };
       if (id) {
-        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo }, config);
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo ,locationUrl,aboutText}, config);
         console.log({ response })
       } else {
         // إرسال البيانات إلى الخادم باستخدام axios
-        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo }, config);
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo , locationUrl, aboutText}, config);
         console.log({ response })
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
@@ -352,18 +354,18 @@ const Info = () => {
         phone: [...phone],
         whatsapp: whatsapp ? whatsapp : null,
         email: email ? email : null
-        
+
       };
-      const social_media= [
-        facebook?{platform:'facebook', url: facebook}:'',
-        twitter?{platform:'twitter', url: twitter}:'',
-        instagram?{platform:'instagram', url: instagram}:'',
-        linkedin?{platform:'linkedin', url: linkedin}:'',
-        youtube?{platform:'youtube', url: youtube}:'',
+      const social_media = [
+        facebook ? { platform: 'facebook', url: facebook } : '',
+        twitter ? { platform: 'twitter', url: twitter } : '',
+        instagram ? { platform: 'instagram', url: instagram } : '',
+        linkedin ? { platform: 'linkedin', url: linkedin } : '',
+        youtube ? { platform: 'youtube', url: youtube } : '',
 
       ]
 
-      console.log({ contact, social_media})
+      console.log({ contact, social_media })
 
       // إرسال البيانات إلى الخادم باستخدام axios
       const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { contact, social_media }, config);
@@ -396,7 +398,7 @@ const Info = () => {
   const [opening_hours, setOpening_hours] = useState([]);
 
   const handleSetFrom = (index, value) => {
-    console.log({opening_hours})
+    console.log({ opening_hours })
     const updatedHours = [...opening_hours];
     updatedHours[index].from = value;
     setOpening_hours(updatedHours);
@@ -440,6 +442,8 @@ const Info = () => {
       setid(id)
       setName(restaurantData.name)
       setLogo(restaurantData.logo)
+      setlocationUrl(restaurantData.locationUrl)
+      setaboutText(restaurantData.aboutText)
       setDescription(restaurantData.description)
       setCountry(restaurantData.address.country)
       setState(restaurantData.address.state)
@@ -455,7 +459,7 @@ const Info = () => {
       setInstagram(restaurantData.social_media.instagram)
       setLinkedin(restaurantData.social_media.linkedin)
       setYoutube(restaurantData.social_media.youtube)
-      setOpening_hours(restaurantData.opening_hours.length>0?restaurantData.opening_hours: initialOpeningHours)
+      setOpening_hours(restaurantData.opening_hours.length > 0 ? restaurantData.opening_hours : initialOpeningHours)
     } else {
       toast.warning('لم يتم اضافه بيانات المطعم ')
     }
@@ -562,60 +566,17 @@ const Info = () => {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-lg-6 grid-margin stretch-card">
-                          <div className="card">
-                            <div className="card-body">
-                              <h4 className="card-title">Checkbox Flat Controls</h4>
-                              <p className="card-description">Checkbox and radio controls with flat design</p>
-                              <form className="forms-sample">
-                                <div className="row">
-                                  <div className="col-lg-6">
-                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
-
-                                      <div className="form-check form-check-flat">
-                                        <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} /> Default </label>
-                                      </div>
-                                      <div className="form-check form-check-flat">
-                                        <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} checked /> Checked </label>
-                                      </div>
-                                      <div className="form-check form-check-flat">
-                                        <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled /> Disabled </label>
-                                      </div>
-                                      <div className="form-check form-check-flat">
-                                        <label className="form-check-label">
-                                          <input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} disabled checked /> Disabled checked </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-lg-6">
-                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
-
-                                      <div className="form-radio form-radio-flat">
-                                        <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios1" id="flatRadios1" value="" checked /> Option one </label>
-                                      </div>
-                                      <div className="form-radio form-radio-flat">
-                                        <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
-                                      </div>
-                                    </div>
-                                    <div className="form-group form-group-47" style={{ width: '100%' }}>
-
-                                      <div className="form-radio form-radio-flat disabled">
-                                        <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios3" id="flatRadios3" value="option3" disabled /> Option three is disabled </label>
-                                      </div>
-                                      <div className="form-radio form-radio-flat disabled">
-                                        <label className="form-check-label">
-                                          <input type="radio" className="form-check-input" style={{ paddingRight: "20px" }} name="flatRadios4" id="flatRadios4" value="option4" disabled checked /> Option four is selected and disabled </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </form>
+                        <div className="col-md-6">
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
+                            <label className="col-sm-3 col-form-label">رابط خريطه جوجل</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
+                            </div>
+                          </div>
+                          <div className="form-group form-group-47 row" style={{ width: '100%' }}>
+                            <label className="col-sm-3 col-form-label">about us</label>
+                            <div className="col-sm-9">
+                              <textarea className="form-control" defaultValue={aboutText} required onChange={(e) => setaboutText(e.target.value)} />
                             </div>
                           </div>
                         </div>
@@ -667,7 +628,7 @@ const Info = () => {
               <div className="container mt-5">
                 <div className="row">
                   <div className="col-lg-6 mb-4">
-                  <div className="card">
+                    <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">وسائل الدفع المقبوله</h4>
                         <p className="card-description">اختر وسائل الدفع المقبوله لدفع فواتير المطعم</p>
@@ -843,15 +804,15 @@ const Info = () => {
                                 <tr key={index}>
                                   <td>{day}</td>
                                   <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
-                                  value={opening_hours && opening_hours[index]?.from}
-                                  onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
+                                    value={opening_hours && opening_hours[index]?.from}
+                                    onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
 
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed} 
-                                  value={opening_hours && opening_hours[index]?.to}
-                                  onChange={(e) => handleSetTo(index, e.target.value)} /></td>
+                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
+                                    value={opening_hours && opening_hours[index]?.to}
+                                    onChange={(e) => handleSetTo(index, e.target.value)} /></td>
 
                                   <td><input type="checkbox" className="form-check-input" style={{ paddingRight: "20px" }} name={`closed${day}`}
-                                  checked={opening_hours[index]?.closed} onChange={(e) => handleCheckboxChange(index)} /></td>
+                                    checked={opening_hours[index]?.closed} onChange={(e) => handleCheckboxChange(index)} /></td>
                                 </tr>
                               ))}
                             </tbody>

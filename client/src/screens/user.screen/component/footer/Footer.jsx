@@ -9,7 +9,7 @@ const Footer = () => {
         ({ restaurantData, askingForHelp, userLoginInfo, usertitle }) => {
           return (
             <div className="container bottom-0">
-              <footer className="text-white text-center text-lg-start" style={{ backgroundColor: "#23242a", direction: "rtl" }}>
+              <footer className="text-white text-center" style={{ backgroundColor: "#23242a" }}>
                 <div className="container p-4">
                   <div className="row mt-4">
                     <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
@@ -35,28 +35,28 @@ const Footer = () => {
                       <ul className="fa-ul" style={{ marginRight: "1.65em" }}>
                         {restaurantData.address && (
                           <li className="mb-3">
-                            <span className="fa-li"><i className="fas fa-home"></i></span>
                             <span className="ms-2">
                               {`${restaurantData.address.state || ''} ${restaurantData.address.city || ''} ${restaurantData.address.street || ''}`}
                             </span>
+                            <span className="fa-li"><i className="fas fa-home"></i></span>
                           </li>
                         )}
                         {restaurantData.contact?.email && (
                           <li className="mb-3">
-                            <span className="fa-li"><i className="fas fa-envelope"></i></span>
                             <span className="ms-2">{restaurantData.contact.email}</span>
+                            <span className="fa-li"><i className="fas fa-envelope"></i></span>
                           </li>
                         )}
                         {restaurantData.contact?.phone && (
                           <li className="mb-3">
-                            <span className="fa-li"><i className="fas fa-phone"></i></span>
                             <span className="ms-2">{restaurantData.contact.phone}</span>
+                            <span className="fa-li"><i className="fas fa-phone"></i></span>
                           </li>
                         )}
                         {restaurantData.contact?.whatsapp && (
                           <li className="mb-3">
-                            <span className="fa-li"><i className="fas fa-whatsapp"></i></span>
                             <span className="ms-2">{restaurantData.contact.whatsapp}</span>
+                            <span className="fa-li"><i className="fab fa-whatsapp"></i></span>
                           </li>
                         )}
                       </ul>

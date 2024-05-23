@@ -18,6 +18,17 @@ const restaurantSchema = new mongoose.Schema({
         // required: true,
         trim: true
     },
+    locationUrl:{
+        type: String,
+        trim: true,
+        match: [/^https?:\/\/[^\s$.?#].[^\s]*$/, 'Please enter a valid URL']
+    },
+    aboutText:{
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 1000
+    },
     address: {
         country: {
             type: String,
