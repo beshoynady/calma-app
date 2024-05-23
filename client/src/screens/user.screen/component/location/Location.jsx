@@ -21,7 +21,7 @@ const Location = () => {
                     <h1>منتظركم في  <br />{restaurantData.name}</h1>
                     {restaurantData.address && 
                     <p>
-                      العنوان :{`${restaurantData.address.state || ''} ${restaurantData.address.city || ''} ${restaurantData.address.street || ''}`}
+                      العنوان :{`محافظة: ${restaurantData.address.state || ''}مدينة: ${restaurantData.address.city || ''} شارع: ${restaurantData.address.street || ''}`}
                     </p>
                     }
                   </div>
