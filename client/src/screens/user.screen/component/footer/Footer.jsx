@@ -17,11 +17,11 @@ const Footer = () => {
                       <p>{restaurantData.description}</p>
                       <div className="mt-4">
                         {restaurantData.social_media && restaurantData.social_media.map((item, i) => (
-                          item.platform === 'facebook' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-facebook-f"></i></a> :
-                            item.platform === 'twitter' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-twitter"></i></a> :
-                              item.platform === 'instagram' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-instagram"></i></a> :
-                                item.platform === 'linkedin' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-linkedin-in"></i></a> :
-                                  item.platform === 'youtube' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-youtube"></i></a> :
+                          item.platform === 'facebook' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-facebook-f"></i></a> :
+                            item.platform === 'twitter' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-twitter"></i></a> :
+                              item.platform === 'instagram' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-instagram"></i></a> :
+                                item.platform === 'linkedin' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-linkedin-in"></i></a> :
+                                  item.platform === 'youtube' ? <a key={i} href={item.url} target="_blank" className="btn btn-floating btn-warning btn-lg mr-1"><i className="fab fa-youtube"></i></a> :
                                     null
                         ))}
                       </div>
