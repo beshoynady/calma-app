@@ -43,13 +43,14 @@ const Footer = () => {
                       <p>{restaurantData.description}</p>
 
                       <div className="mt-4">
-                        {restaurantData.social_media.map((item,i)=>{
-                          item.platform === 'facebook' ? <a href="https://www.facebook.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-facebook-f"></i></a> :
-                          item.platform === 'twitter' ? <a href="https://www.twitter.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-twitter"></i></a> :
-                          item.platform === 'instagram' ? <a href="https://www.instagram.com"a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-instagram"></i></a> :
-                          item.platform === 'linkedin' ? <a href="https://www.linkedin.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-linkedin-in"></i></a> :
-                          item.platform === 'youtube' ? <a href="https://www.youtube.com" a type="button" className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-youtube"></i></a> : ''}
-                        )}
+                        {restaurantData.social_media.map((item, i) => (
+                          item.platform === 'facebook' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-facebook-f"></i></a> :
+                            item.platform === 'twitter' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-twitter"></i></a> :
+                              item.platform === 'instagram' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-instagram"></i></a> :
+                                item.platform === 'linkedin' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-linkedin-in"></i></a> :
+                                  item.platform === 'youtube' ? <a key={i} href={item.url} className="btn btn-floating btn-warning btn-lg ml-1"><i className="fab fa-youtube"></i></a> :
+                                    null
+                        ))}
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
