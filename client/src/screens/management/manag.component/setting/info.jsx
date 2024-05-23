@@ -456,6 +456,9 @@ const Info = () => {
       setStreet(restaurantData.address.street)
       setPostalCode(restaurantData.address.postal_code)
 
+      setfeatures(restaurantData.features)
+      setacceptedPayments(restaurantData.acceptedPayments)
+
       setPhone(restaurantData.contact.phone)
       setWhatsapp(restaurantData.contact.whatsapp)
       setEmail(restaurantData.contact.email)
@@ -467,15 +470,15 @@ const Info = () => {
 
       restaurantData.social_media.map((item, i) => {
         if (item.platform === facebook) {
-          setFacebook(restaurantData.social_media.facebook)
+          setFacebook(item.url)
         } else if (item.platform === twitter) {
-          setTwitter(restaurantData.social_media.twitter)
+          setTwitter(item.url)
         } else if (item.platform === instagram) {
-          setInstagram(restaurantData.social_media.instagram)
+          setInstagram(item.url)
         } else if (item.platform === linkedin) {
-          setLinkedin(restaurantData.social_media.linkedin)
+          setLinkedin(item.url)
         } else if (item.platform === youtube) {
-          setYoutube(restaurantData.social_media.youtube)
+          setYoutube(item.url)
         }
       })
       setOpening_hours(restaurantData.opening_hours.length > 0 ? restaurantData.opening_hours : initialOpeningHours)
