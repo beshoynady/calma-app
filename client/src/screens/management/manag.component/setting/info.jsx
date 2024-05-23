@@ -608,7 +608,7 @@ const Info = () => {
 
                       <div className="row mb-5">
                         <div className="col-md-6 col">
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -617,7 +617,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">الصالة</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -626,7 +626,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">التيك اوي</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
@@ -635,7 +635,7 @@ const Info = () => {
                             />
                             <label className="form-check-label mr-4">خدمة التوصيل</label>
                           </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center"  style={{ minWidth: "200px" }}>
                             <input
                               type="checkbox"
                               className="form-check-input"
