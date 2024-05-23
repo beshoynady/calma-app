@@ -314,11 +314,11 @@ const Info = () => {
         postal_code: postalCode ? postalCode : null
       };
       if (id) {
-        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo ,locationUrl,aboutText}, config);
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo, locationUrl, aboutText }, config);
         console.log({ response })
       } else {
         // إرسال البيانات إلى الخادم باستخدام axios
-        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo , locationUrl, aboutText}, config);
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo, locationUrl, aboutText }, config);
         console.log({ response })
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
@@ -565,7 +565,7 @@ const Info = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="row">
+                      <div className="row mb-2">
                         <div className="col-md-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">رابط خريطه جوجل</label>
@@ -612,7 +612,9 @@ const Info = () => {
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="col-sm-9">
                               <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
-                              <img src={`${apiUrl}/images/${logo}`} alt="logo" width={50} height={100} />
+                              <div className="mt-3 d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px', backgroundColor: 'gray' }}>
+                                <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                              </div>
                             </div>
                           </div>
                         </div>
