@@ -61,7 +61,7 @@ const Footer = () => {
                         <label className="form-label" htmlFor="formControlLg" style={{ marginLeft: 0 }}>Search</label>
                       </div> */}
 
-                      <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
+                      {/* <ul className="fa-ul" style={{ marginLeft: "1.65em" }}>
                         {restaurantData.address?
                         <li className="mb-3">
                           <span className="fa-li"><i className="fas fa-home"></i></span>
@@ -86,7 +86,7 @@ const Footer = () => {
                           <span className="ms-2">{restaurantData.contact&&restaurantData.contact.whatsapp}</span>
                         </li>
                         :null}
-                      </ul>
+                      </ul> */}
                     </div>
 
                     <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
