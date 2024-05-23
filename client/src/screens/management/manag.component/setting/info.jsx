@@ -213,6 +213,10 @@ const Info = () => {
   const [aboutText, setaboutText] = useState('');
   const [website, setwebsite] = useState('');
   const [locationUrl, setlocationUrl] = useState('');
+  const [dineIn, setdineIn] = useState('');
+  const [takeAway, settakeAway] = useState('');
+  const [deliveryService, setdeliveryService] = useState('');
+  const [usesReservationSystem, setusesReservationSystem] = useState('');
 
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
@@ -314,11 +318,11 @@ const Info = () => {
         postal_code: postalCode ? postalCode : null
       };
       if (id) {
-        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo, locationUrl, aboutText }, config);
+        const response = await axios.put(`${apiUrl}/api/restaurant/${id}`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn,takeAway,deliveryService, usesReservationSystem }, config);
         console.log({ response })
       } else {
         // إرسال البيانات إلى الخادم باستخدام axios
-        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo, locationUrl, aboutText }, config);
+        const response = await axios.post(`${apiUrl}/api/restaurant/`, { name, description, address, website, image: logo, locationUrl, aboutText, dineIn,takeAway,deliveryService, usesReservationSystem }, config);
         console.log({ response })
         if (response.status === 201) {
           toast.success('تمت إضافة المطعم بنجاح');
@@ -450,15 +454,29 @@ const Info = () => {
       setCity(restaurantData.address.city)
       setStreet(restaurantData.address.street)
       setPostalCode(restaurantData.address.postal_code)
-
+      
       setPhone(restaurantData.contact.phone)
       setWhatsapp(restaurantData.contact.whatsapp)
       setEmail(restaurantData.contact.email)
-      setFacebook(restaurantData.social_media.facebook)
-      setTwitter(restaurantData.social_media.twitter)
-      setInstagram(restaurantData.social_media.instagram)
-      setLinkedin(restaurantData.social_media.linkedin)
-      setYoutube(restaurantData.social_media.youtube)
+
+      setdineIn(restaurantData.dineIn)
+      setdeliveryService(restaurantData.deliveryService)
+      settakeAway(restaurantData.takeAway)
+      setusesReservationSystem(restaurantData.usesReservationSystem)
+
+      restaurantData.social_media.map((item, i) => {
+        if (item.platform === facebook) {
+          setFacebook(restaurantData.social_media.facebook)
+        } else if (item.platform === twitter) {
+          setTwitter(restaurantData.social_media.twitter)
+        } else if (item.platform === instagram) {
+          setInstagram(restaurantData.social_media.instagram)
+        } else if (item.platform === linkedin) {
+          setLinkedin(restaurantData.social_media.linkedin)
+        } else if (item.platform === youtube) {
+          setYoutube(restaurantData.social_media.youtube)
+        }
+      })
       setOpening_hours(restaurantData.opening_hours.length > 0 ? restaurantData.opening_hours : initialOpeningHours)
     } else {
       toast.warning('لم يتم اضافه بيانات المطعم ')
@@ -565,7 +583,10 @@ const Info = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="row mb-5">
+
+
+
+                      <div className="row">
                         <div className="col-md-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">رابط خريطه جوجل</label>
@@ -573,6 +594,8 @@ const Info = () => {
                               <input type="text" className="form-control" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
                             </div>
                           </div>
+                        </div>
+                        <div className="col-md-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">about us</label>
                             <div className="col-sm-9">
@@ -580,33 +603,48 @@ const Info = () => {
                             </div>
                           </div>
                         </div>
+                      </div>
 
-                        {/* <div className="col-lg-6">
-                          <div className="form-group form-group-47" style={{ width: '100%', height: '100%' }}>
-                            <div className="d-flex flex-column text-right">
-                              <div className="form-check" style={{ marginBottom: '10px' }}>
-                                <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> الصاله
-                                </label>
-                              </div>
-                              <div className="form-check" style={{ marginBottom: '10px' }}>
-                                <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> حجز الطاولات
-                                </label>
-                              </div>
-                              <div className="form-check" style={{ marginBottom: '10px' }}>
-                                <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> خدمة التوصيل
-                                </label>
-                              </div>
-                              <div className="form-check">
-                                <label className="form-check-label" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                  <input type="checkbox" className="form-check-input" style={{paddingRight:"20px"}} style={{ marginRight: '10px' }} /> خدمة التيك اوي
-                                </label>
-                              </div>
-                            </div>
+
+                      <div className="row mb-5">
+                        <div className="col-md-6 col">
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={dineIn}
+                              onChange={() => setdineIn(!dineIn)}
+                            />
+                            <label className="form-check-label mr-4">الصالة</label>
                           </div>
-                        </div> */}
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={takeAway}
+                              onChange={() => settakeAway(!takeAway)}
+                            />
+                            <label className="form-check-label mr-4">التيك اوي</label>
+                          </div>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={deliveryService}
+                              onChange={() => setdeliveryService(!deliveryService)}
+                            />
+                            <label className="form-check-label mr-4">خدمة التوصيل</label>
+                          </div>
+                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={usesReservationSystem}
+                              onChange={() => setusesReservationSystem(!usesReservationSystem)}
+                            />
+                            <label className="form-check-label mr-4">حجز الطاولة</label>
+                          </div>
+                        </div>
                         <div className="col-lg-6">
                           <div className="form-group form-group-47 row" style={{ width: '100%' }}>
                             <label className="col-sm-3 col-form-label">اللوجو</label>

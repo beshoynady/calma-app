@@ -18,12 +18,12 @@ const restaurantSchema = new mongoose.Schema({
         // required: true,
         trim: true
     },
-    locationUrl:{
+    locationUrl: {
         type: String,
         trim: true,
         match: [/^https?:\/\/[^\s$.?#].[^\s]*$/, 'Please enter a valid URL']
     },
-    aboutText:{
+    aboutText: {
         type: String,
         required: true,
         trim: true,
@@ -121,6 +121,16 @@ const restaurantSchema = new mongoose.Schema({
     features: {
         type: [String],
         enum: ['WiFi', 'Parking', 'Outdoor Seating', 'Wheelchair Accessible', 'Live Music', 'Pet Friendly', 'Kids Friendly', 'Other']
+    },
+    dineIn: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    takeAway: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     deliveryService: {
         type: Boolean,
