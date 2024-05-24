@@ -34,14 +34,17 @@ const Employees = () => {
   const getShifts = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/shift`, config);
-      const data = response.data;
-      setshifts(data);
-      console.log({Shifts: data });
+      if (response.status === 200 && response.data) {
+        const { data } = response;
+        setshift(data);
+        console.log({ Shifts: data });
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Failed to fetch shifts:", error);
     }
   };
-  
   
 
   const [employeeid, setemployeeid] = useState("")
@@ -373,7 +376,7 @@ const Employees = () => {
                               <td>{emp.basicSalary}</td>
                               <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{emp.sectionNumber}</td>
-                              <td>{emp.shift.shiftType}</td>
+                              <td>{emp.shift&&emp.shift.shiftType}</td>
                               <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
                                 <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
@@ -411,7 +414,7 @@ const Employees = () => {
                                 <td>{emp.basicSalary}</td>
                                 <td>{emp.isActive ? 'متاح' : "غير متاح"}</td>
                                 <td>{emp.sectionNumber}</td> 
-                                <td>{emp.shift.shiftType}</td>
+                                <td>{emp.shift&&emp.shift.shiftType}</td>
                                 <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {

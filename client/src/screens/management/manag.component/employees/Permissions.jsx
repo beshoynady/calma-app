@@ -326,16 +326,16 @@ const Permissions = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                      <thead class="thead-light">
+                  <div className="table-responsive">
+                    <table className="table table-bordered table-hover">
+                      <thead className="thead-light">
                         <tr>
-                          <th scope="col" style="width: 30%;">Form Name</th>
-                          <th scope="col">Edit Form <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
-                          <th scope="col">Submit <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
-                          <th scope="col">Read <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
-                          <th scope="col">Update <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
-                          <th scope="col">Delete <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th>
+                          <th scope="col" style={{width: "30%"}}>Form Name</th>
+                          <th scope="col">Edit Form <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
+                          <th scope="col">Submit <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
+                          <th scope="col">Read <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
+                          <th scope="col">Update <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
+                          <th scope="col">Delete <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -397,22 +397,22 @@ const Permissions = () => {
                         </tr>
                       </tbody>
                     </table>
-                    </div>
-                    <div className="clearfix">
-                      <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
-                      <ul className="pagination">
-                        <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                      </ul>
-                    </div>
+                  </div>
+                  <div className="clearfix">
+                    <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
+                    <ul className="pagination">
+                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                    </ul>
                   </div>
                 </div>
-                {/* <div id="addEmployeeModal" className="modal fade">
+              </div>
+              {/* <div id="addEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createEmployee}>
@@ -630,12 +630,12 @@ const Permissions = () => {
                   </div>
                 </div>
               </div> */}
-              </div>
-              )
-        }
-      }
-            </detacontext.Consumer>
+            </div>
           )
         }
+      }
+    </detacontext.Consumer>
+  )
+}
 
 export default Permissions
