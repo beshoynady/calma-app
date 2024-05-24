@@ -349,7 +349,7 @@ const Info = () => {
   const [linkedin, setLinkedin] = useState('');
   const [youtube, setYoutube] = useState('');
   // const [social_media, setsocial_media] = useState([{platform:'', url:''}]);
-  const [listSocial_media, setlistSocial_media] = useState(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']);
+  // const [listSocial_media, setlistSocial_media] = useState(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube']);
 
   const handleContactSocialmedia = async (e) => {
     e.preventDefault();
@@ -671,9 +671,13 @@ const Info = () => {
                             <label className="col-sm-3 col-form-label">اللوجو</label>
                             <div className="d-flex align-items-center col-sm-9">
                               <input type="file" className="form-control me-3" onChange={(e) => handleFileUpload(e)} />
+                              {logo?
                               <div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
+                              </div>
+                              :<div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
                                 <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                               </div>
+                              }
                             </div>
                           </div>
                         </div>

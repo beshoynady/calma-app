@@ -25,7 +25,7 @@ const Userscreen = () => {
 						<Home />
 						<Offers />
 						<Menu />
-						{restaurantData.location &&
+						{restaurantData.locationUrl &&
 							<Location />
 						}
 						{restaurantData.contact && restaurantData.social_media &&
