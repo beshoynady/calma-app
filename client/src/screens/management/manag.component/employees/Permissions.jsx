@@ -22,13 +22,19 @@ const Permissions = () => {
   const getEmployees = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
-      const data = response.data;
-      setListOfEmployees(data);
-      console.log({ data });
+      if (response.status === 200) {
+        const data = response.data;
+        setListOfEmployees(data);
+        console.log({ data });
+      } else {
+        throw new Error('Failed to fetch employees: Unexpected status code');
+      }
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching employees:', error.message);
     }
   };
+
+  const [permissionsList, setpermissionsList] = useState([ 'الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل', 'استهلاك المطبخ' ]);
   const [shifts, setshifts] = useState([]);
 
   const getShifts = async () => {
@@ -65,102 +71,7 @@ const Permissions = () => {
     });
   };
 
-  //   const EmployeeSchema = Joi.object({
-  //     fullname: Joi.string().min(3).max(100),
-  //     numberID: Joi.string().length(14),
-  //     username: Joi.string().min(3).max(100),
-  //     email: Joi.string().email(),
-  //     address: Joi.string().min(3).max(150),
-  //     phone: Joi.string().length(11),
-  //     password: Joi.string().min(3),
-  //     basicSalary: Joi.number().min(0),
-  //     sectionNumber: Joi.string().valid('manager', 'casher', 'waiter', 'deliveryman', 'Chef'),
-  //     isActive: Joi.boolean(),
-  // });
-  const createEmployee = async (e) => {
-    e.preventDefault()
-    // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
-    // if (error) {
-    //     notify(error.details[0].message, 'error');
-    //     return;
-    // }
-    if (
-      !fullname ||
-      !basicSalary ||
-      !numberID ||
-      !username ||
-      !password ||
-      !address ||
-      !phone ||
-      !email ||
-      !isActive ||
-      !role
-    ) {
-      // Notify the user that some fields are missing
-      notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
-      return;
-    }
-    try {
-      console.log(fullname)
-      console.log(username)
-      console.log(password)
-      console.log(address)
-      console.log(phone)
-      console.log(email)
-      console.log(shift)
-      console.log(isActive)
-      console.log(role)
-      console.log(basicSalary)
 
-
-      const newemployee = await axios.post(apiUrl + '/api/employee', { fullname, basicSalary, numberID, username, password, address, shift, phone, email, isActive, role, sectionNumber }, config)
-      console.log(newemployee)
-      notify('تم انشاء حساب الموظف بنجاح', 'success');
-      getEmployees();
-    } catch (error) {
-      console.log(error);
-      notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
-    }
-  };
-
-
-  const editEmployee = async (e) => {
-    e.preventDefault()
-    console.log(fullname)
-    console.log(username)
-    console.log(password)
-    console.log(address)
-    console.log(phone)
-    console.log(email)
-    console.log(shift)
-    console.log(isActive)
-    console.log(role)
-    console.log(basicSalary)
-    try {
-
-      // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
-      // if (error) {
-      //     notify(error.details[0].message, 'error');
-      //     return;
-      // }
-
-      const updateData = password
-        ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
-        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
-
-      const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
-      if (update.status === 200) {
-        getEmployees()
-        notify('تم تحديث بيانات الموظف', 'success');
-        // Additional logic if needed after successful update
-      }
-
-    } catch (error) {
-      notify('فشل تحديث بيانات الموظف! حاول مره اخري', 'error');
-      console.log(error);
-      // Additional error handling
-    }
-  };
 
 
   const [filterEmp, setfilterEmp] = useState([])
@@ -225,27 +136,7 @@ const Permissions = () => {
     }
   };
 
-  const deleteSelectedIds = async (e) => {
-    e.preventDefault();
-    console.log(selectedIds)
-    try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
-      }
-      getEmployees()
-      toast.success('Selected orders deleted successfully');
-      setSelectedIds([]);
-    } catch (error) {
-      console.log(error);
-      toast.error('Failed to delete selected orders');
-    }
-  };
 
 
 
@@ -264,11 +155,11 @@ const Permissions = () => {
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6">
-                        <h2>ادارة <b>الموظفين</b></h2>
+                        <h2>ادارة <b>صلاحيات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addEmployeeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addEmployeeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
+                        <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
                       </div>
                     </div>
                   </div>
@@ -329,24 +220,30 @@ const Permissions = () => {
                   <table className="table table-bordered table-hover">
                     <thead className="thead-light">
                       <tr>
-                        <th scope="col" style={{ width: "30%" }}>Form Name</th>
-                        <th scope="col">Edit Form <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
-                        <th scope="col">Submit <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
-                        <th scope="col">Read <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
-                        <th scope="col">Update <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
-                        <th scope="col">Delete <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th>
+                        <th scope="col" style={{ width: "30%" }}>اسم </th>
+                        <th scope="col">الانشاء <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
+                        <th scope="col">التعديل <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
+                        <th scope="col">العرض <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
+                        <th scope="col">الحذف <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
+                        {/* <th scope="col">Delete <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th> */}
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Default For New Forms</td>
+                    {permissionsList.map((permission,i)=>{
+                      // if (i >= startpagination & i < endpagination) {
+                        return (
+                      <tr key={i}>
+                        <td>{permission}</td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
+                      </tr>)
+
+                        // )}
+                    })}
+                      {/* <tr>
                         <td>Warehouse Inventory</td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
@@ -393,7 +290,7 @@ const Permissions = () => {
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                   <div className="clearfix">
