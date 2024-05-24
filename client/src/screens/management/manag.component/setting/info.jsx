@@ -438,54 +438,71 @@ const Info = () => {
 
 
   const getRestaurant = async () => {
-    const restaurant = await axios.get(`${apiUrl}/api/restaurant/`, config)
-    const restaurantData = await restaurant.data[0]
-    console.log({ restaurantData })
-    if (restaurantData) {
-      const id = await restaurantData._id
-      setid(id)
-      setName(restaurantData.name)
-      setLogo(restaurantData.logo)
-      setwebsite(restaurantData.website)
-      setlocationUrl(restaurantData.locationUrl)
-      setaboutText(restaurantData.aboutText)
-      setDescription(restaurantData.description)
-      setCountry(restaurantData.address.country)
-      setState(restaurantData.address.state)
-      setCity(restaurantData.address.city)
-      setStreet(restaurantData.address.street)
-      setPostalCode(restaurantData.address.postal_code)
-
-      setfeatures(restaurantData.features)
-      setacceptedPayments(restaurantData.acceptedPayments)
-
-      setPhone(restaurantData.contact.phone)
-      setWhatsapp(restaurantData.contact.whatsapp)
-      setEmail(restaurantData.contact.email)
-
-      setdineIn(restaurantData.dineIn)
-      setdeliveryService(restaurantData.deliveryService)
-      settakeAway(restaurantData.takeAway)
-      setusesReservationSystem(restaurantData.usesReservationSystem)
-
-      restaurantData.social_media.map((item, i) => {
-        if (item.platform === facebook) {
-          setFacebook(item.url)
-        } else if (item.platform === twitter) {
-          setTwitter(item.url)
-        } else if (item.platform === instagram) {
-          setInstagram(item.url)
-        } else if (item.platform === linkedin) {
-          setLinkedin(item.url)
-        } else if (item.platform === youtube) {
-          setYoutube(item.url)
-        }
-      })
-      setOpening_hours(restaurantData.opening_hours.length > 0 ? restaurantData.opening_hours : initialOpeningHours)
-    } else {
-      toast.warning('لم يتم اضافه بيانات المطعم ')
+    try {
+      const response = await axios.get(`${apiUrl}/api/restaurant/`, config);
+      const restaurantData = response.data[0];
+  
+      if (restaurantData) {
+        setid(restaurantData._id);
+        setName(restaurantData.name);
+        setLogo(restaurantData.logo);
+        setwebsite(restaurantData.website);
+        setlocationUrl(restaurantData.locationUrl);
+        setaboutText(restaurantData.aboutText);
+        setDescription(restaurantData.description);
+  
+        setCountry(restaurantData.address.country);
+        setState(restaurantData.address.state);
+        setCity(restaurantData.address.city);
+        setStreet(restaurantData.address.street);
+        setPostalCode(restaurantData.address.postal_code);
+  
+        setfeatures(restaurantData.features);
+        setacceptedPayments(restaurantData.acceptedPayments);
+  
+        setPhone(restaurantData.contact.phone);
+        setWhatsapp(restaurantData.contact.whatsapp);
+        setEmail(restaurantData.contact.email);
+  
+        setdineIn(restaurantData.dineIn);
+        setdeliveryService(restaurantData.deliveryService);
+        settakeAway(restaurantData.takeAway);
+        setusesReservationSystem(restaurantData.usesReservationSystem);
+  
+        restaurantData.social_media.forEach((item) => {
+          switch (item.platform) {
+            case 'facebook':
+              setFacebook(item.url);
+              break;
+            case 'twitter':
+              setTwitter(item.url);
+              break;
+            case 'instagram':
+              setInstagram(item.url);
+              break;
+            case 'linkedin':
+              setLinkedin(item.url);
+              break;
+            case 'youtube':
+              setYoutube(item.url);
+              break;
+            default:
+              break;
+          }
+        });
+  
+        setOpening_hours(
+          restaurantData.opening_hours.length > 0 ? restaurantData.opening_hours : initialOpeningHours
+        );
+      } else {
+        toast.warning('لم يتم اضافه بيانات المطعم');
+      }
+    } catch (error) {
+      console.error('Error fetching restaurant data:', error);
+      toast.error('خطأ في جلب بيانات المطعم');
     }
-  }
+  };
+  
 
 
 
