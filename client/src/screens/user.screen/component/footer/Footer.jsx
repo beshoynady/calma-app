@@ -56,7 +56,7 @@ const Footer = () => {
                         {restaurantData.contact?.whatsapp && (
                           <li className="mb-3">
                             <span className="fa-li"><i className="fab fa-whatsapp"></i></span>
-                            <a className="ms-2" href={`https://api.whatsapp.com/send?phone=+2${restaurantData.contact?.whatsapp}`} target="_blank" rel="noreferrer"></a>
+                            <a className="ms-2" href={`https://api.whatsapp.com/send?phone=+2${restaurantData.contact?.whatsapp}`} target="_blank" rel="noreferrer">{restaurantData.contact?.whatsapp}</a>
                           </li>
                         )}
                       </ul>
