@@ -34,7 +34,7 @@ const Permissions = () => {
     }
   };
 
-  const [permissionsList, setpermissionsList] = useState([ 'الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل', 'استهلاك المطبخ' ]);
+  const [permissionsList, setpermissionsList] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل', 'استهلاك المطبخ']);
   const [shifts, setshifts] = useState([]);
 
   const getShifts = async () => {
@@ -220,29 +220,29 @@ const Permissions = () => {
                   <table className="table table-bordered table-hover">
                     <thead className="thead-light">
                       <tr>
-                        <th scope="col" style={{ width: "30%" }}>اسم </th>
-                        <th scope="col">الانشاء <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
-                        <th scope="col">التعديل <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
-                        <th scope="col">العرض <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
-                        <th scope="col">الحذف <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
-                        {/* <th scope="col">Delete <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th> */}
+                        <th scope="col"><i className="fas fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Permission to create"></i></th>
+                        <th scope="col" style={{ width: "30%" }}>اسم</th>
+                        <th scope="col">إنشاء <i className="fas fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Permission to create"></i></th>
+                        <th scope="col">تعديل <i className="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Permission to edit"></i></th>
+                        <th scope="col">عرض <i className="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Permission to view"></i></th>
+                        <th scope="col">حذف <i className="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Permission to delete"></i></th>
                       </tr>
                     </thead>
                     <tbody>
-                    {permissionsList.map((permission,i)=>{
-                      // if (i >= startpagination & i < endpagination) {
+                      {permissionsList.map((permission, i) => {
+                        // if (i >= startpagination & i < endpagination) {
                         return (
-                      <tr key={i}>
-                        <td>{permission}</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>)
+                          <tr key={i}>
+                            <td>{i + 1}</td>
+                            <td>{permission}</td>
+                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                          </tr>)
 
                         // )}
-                    })}
+                      })}
                       {/* <tr>
                         <td>Warehouse Inventory</td>
                         <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
