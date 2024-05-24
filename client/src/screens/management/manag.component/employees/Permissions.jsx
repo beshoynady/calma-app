@@ -340,59 +340,59 @@ const Permissions = () => {
                     <tbody>
                       <tr>
                         <td>Default For New Forms</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Warehouse Inventory</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Customers</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Orders</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Orders Being Shipped</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Distribution Tracking</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                       <tr>
                         <td>Supplier Ordering</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
                       </tr>
                     </tbody>
                   </table>
