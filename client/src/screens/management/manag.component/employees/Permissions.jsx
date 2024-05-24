@@ -10,15 +10,15 @@ const Joi = require('joi')
 const Permissions = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e');
-  
+
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
   };
-  
+
   const [listOfEmployees, setListOfEmployees] = useState([]);
-  
+
   const getEmployees = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
@@ -30,19 +30,19 @@ const Permissions = () => {
     }
   };
   const [shifts, setshifts] = useState([]);
-  
+
   const getShifts = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/shift`, config);
       const data = response.data;
       setshifts(data);
-      console.log({Shifts: data });
+      console.log({ Shifts: data });
     } catch (error) {
       console.log(error);
     }
   };
-  
-  
+
+
 
   const [employeeid, setemployeeid] = useState("")
   const [fullname, setfullname] = useState("")
@@ -113,7 +113,7 @@ const Permissions = () => {
       console.log(basicSalary)
 
 
-      const newemployee = await axios.post(apiUrl+'/api/employee', { fullname, basicSalary, numberID, username, password, address,shift, phone, email, isActive, role, sectionNumber }, config)
+      const newemployee = await axios.post(apiUrl + '/api/employee', { fullname, basicSalary, numberID, username, password, address, shift, phone, email, isActive, role, sectionNumber }, config)
       console.log(newemployee)
       notify('تم انشاء حساب الموظف بنجاح', 'success');
       getEmployees();
@@ -145,8 +145,8 @@ const Permissions = () => {
       // }
 
       const updateData = password
-        ? { fullname, numberID, username, email,shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
-        : { fullname, numberID, username, email,shift, address, phone, basicSalary, isActive, role, sectionNumber };
+        ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
+        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
       const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
       if (update.status === 200) {
@@ -187,9 +187,9 @@ const Permissions = () => {
     let filteredEmployees;
 
     if (status === 'true') {
-      filteredEmployees = listOfEmployees.length>0?listOfEmployees.filter((employee) => employee.isActive === true):'';
+      filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
     } else if (status === 'false') {
-      filteredEmployees = listOfEmployees?listOfEmployees.filter((employee) => employee.isActive === false):"";
+      filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
     } else {
       filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
     }
@@ -256,7 +256,7 @@ const Permissions = () => {
   return (
     <detacontext.Consumer>
       {
-        ({restaurantData, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -291,7 +291,7 @@ const Permissions = () => {
                       <div className="col-sm-9">
                         <div className="filter-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" onChange={(e)=>getEmployeesByName(e.target.value)} />
+                          <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
                           <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
                         </div>
                         <div className="filter-group">
@@ -307,10 +307,10 @@ const Permissions = () => {
                         <div className="filter-group">
                           <label>الشيفت</label>
                           <select className="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
-                          <option >اختر</option>
+                            <option >اختر</option>
                             {shifts ? shifts.map((shift, i) =>
-                            <option value={shift._id} key={i}>{shift.shiftType}</option>
-                            ):<option>لم يتم انشاء شفتات</option>}
+                              <option value={shift._id} key={i}>{shift.shiftType}</option>
+                            ) : <option>لم يتم انشاء شفتات</option>}
 
                           </select>
                         </div>
@@ -326,91 +326,93 @@ const Permissions = () => {
                       </div>
                     </div>
                   </div>
-                  <table className="table table-bordered table-hover">
-        <thead className="thead-light">
-          <tr>
-            <th scope="col">Form Name</th>
-            <th scope="col">Edit Form <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
-            <th scope="col">Submit <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
-            <th scope="col">Read <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
-            <th scope="col">Update <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
-            <th scope="col">Delete <i className="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Default For New Forms</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Warehouse Inventory</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Customers</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Orders</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Orders Being Shipped</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Distribution Tracking</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-          <tr>
-            <td>Supplier Ordering</td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
-            <td className="text-center"><input type="checkbox" className="form-check-input"/></td>
-          </tr>
-        </tbody>
-      </table>
-                  <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
-                    <ul className="pagination">
-                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                    </ul>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col" style="width: 30%;">Form Name</th>
+                          <th scope="col">Edit Form <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to edit the form structure"></i></th>
+                          <th scope="col">Submit <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to submit the form"></i></th>
+                          <th scope="col">Read <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to read the form data"></i></th>
+                          <th scope="col">Update <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to update the form data"></i></th>
+                          <th scope="col">Delete <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Permission to delete the form data"></i></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Default For New Forms</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Warehouse Inventory</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Customers</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Orders</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Orders Being Shipped</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Distribution Tracking</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                        <tr>
+                          <td>Supplier Ordering</td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" checked /></td>
+                          <td className="text-center"><input type="checkbox" className="form-check-input" /></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <div className="clearfix">
+                      <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
+                      <ul className="pagination">
+                        <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+                        <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* <div id="addEmployeeModal" className="modal fade">
+                {/* <div id="addEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createEmployee}>
@@ -628,12 +630,12 @@ const Permissions = () => {
                   </div>
                 </div>
               </div> */}
-            </div>
-          )
+              </div>
+              )
         }
       }
-    </detacontext.Consumer>
-  )
-}
+            </detacontext.Consumer>
+          )
+        }
 
 export default Permissions
