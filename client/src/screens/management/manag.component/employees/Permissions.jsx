@@ -88,7 +88,7 @@ const PermissionsComponent = () => {
           updatePermissions[i].delete = !permission.delete
         }
 
-        if (permission.create===false && permission.update === false && permission.read===false && permission.delete === false){
+        if  (!permission.create && !permission.update && !permission.read && !permission.delete){
           updatePermissions = updatePermissions.filter(per => per.resource !== permission.resource)
 
         }
@@ -106,7 +106,7 @@ const PermissionsComponent = () => {
       } else if (action === 'delete') {
         newPermission.delete = true
       }
-      updatePermissions = [...updatePermissions, newPermission]
+      updatePermissions.push(newPermission);
     }
     console.log({updatePermissions})
     setPermissions(updatePermissions)
