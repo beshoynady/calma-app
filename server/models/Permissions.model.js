@@ -10,7 +10,7 @@ const permissionsSchema = new Schema(
       required: true,
       index: true
     },
-    permissions: [
+    Permissions: [
       {
         resource: {
           type: String,
