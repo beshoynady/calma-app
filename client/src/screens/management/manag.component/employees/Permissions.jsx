@@ -90,40 +90,40 @@ const Permissions = () => {
 
 
 
-  const [selectedEmployee, setselectedEmployee] = useState([])
+  const [filterEmp, setfilterEmp] = useState([])
   const getEmployeesByJob = (role) => {
     if (listOfEmployees.length > 0) {
-      const selectedEmployees = listOfEmployees.filter(employee => employee.role == role)
-      setselectedEmployee(selectedEmployees)
+      const FilterEmployees = listOfEmployees.filter(employee => employee.role == role)
+      setfilterEmp(FilterEmployees)
+    }
+  }
+  const getEmployeesByShift = (shift) => {
+    if (listOfEmployees.length > 0) {
+      const FilterEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
+      setfilterEmp(FilterEmployees)
     }
   }
   const getEmployeesByName = (name) => {
     if (listOfEmployees.length > 0) {
       const employee = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      setselectedEmployee(employee)
+      setfilterEmp(employee)
     }
   }
-  // const getEmployeesByShift = (shift) => {
-  //   if (listOfEmployees.length > 0) {
-  //     const selectedEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
-  //     setselectedEmployee(selectedEmployees)
-  //   }
-  // }
-  // const selectedEmployeeByStatus = (status) => {
-  //   console.log(status);
-  //   let filteredEmployees;
+  const filterEmpByStatus = (status) => {
+    console.log(status);
+    let filteredEmployees;
 
-  //   if (status === 'true') {
-  //     filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
-  //   } else if (status === 'false') {
-  //     filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
-  //   } else {
-  //     filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
-  //   }
+    if (status === 'true') {
+      filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
+    } else if (status === 'false') {
+      filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
+    } else {
+      filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
+    }
 
-  //   console.log(filteredEmployees);
-  //   setselectedEmployee(filteredEmployees);
-  // };
+    console.log(filteredEmployees);
+    setfilterEmp(filteredEmployees);
+  };
 
 
 
@@ -169,53 +169,35 @@ const Permissions = () => {
                     </div>
                   </div>
                   <div className="table-filter">
-                    <div className="row text-dark">
-                      <div className="col-sm-9">
+                    <div className="d-flex flex-column text-dark">
+                      <div className="row col-12 col-sm-9">
                         <div className="filter-group">
-                          <label htmlFor="name-filter">الاسم</label>
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              id="name-filter"
-                              className="form-control"
-                              placeholder="ابحث بالاسم"
-                              onChange={(e) => getEmployeesByName(e.target.value)}
-                            />
-                            <div className="input-group-append">
-                              <button type="button" className="btn btn-primary">
-                                <i className="fa fa-search"></i>
-                              </button>
-                            </div>
-                          </div>
+                          <label>الاسم</label>
+                          <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                          <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
                         </div>
                         <div className="filter-group">
-                          <label htmlFor="employee-filter">الموظف</label>
-                          <select
-                            id="employee-filter"
-                            className="form-control"
-                            onChange={(e) => getEmployeesByJob(e.target.value)}
-                          >
-                            <option value="">الكل</option>
-                            {listOfEmployees.map((employee) => (
-                              <option key={employee._id} value={employee._id}>
-                                {employee.fullname}
-                              </option>
-                            ))}
+                          <label>الموظف</label>
+                          <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                            <option>الكل</option>
+                            {listOfEmployees.map((employee, i) => {
+                              <option value={manager._id}>{employee.fullname}</option>
+                            })}
                           </select>
                         </div>
                       </div>
-                    </div>
-                    {selectedEmployee && (
-                      <div className="row text-dark mt-3">
-                        <div className="col-sm-9">
-                          <div className="employee-details">
-                            <h5>بيانات الموظف</h5>
-                            <p><strong>الاسم:</strong> {selectedEmployee.fullname}</p>
-                            <p><strong>الوظيفة:</strong> {selectedEmployee.jobTitle}</p>
-                          </div>
+                      <div className='d-flex'>
+                        <div className="filter-group">
+                          <label>اسم الموظف</label>
+                          <input type="text" className="form-control" readOnly />
+                        </div>
+
+                        <div className="filter-group">
+                          <label>الوظية</label>
+                          <input type="text" className="form-control" readOnly />
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                   <table className="table table-bordered table-hover">
                     <thead className="thead-light">
