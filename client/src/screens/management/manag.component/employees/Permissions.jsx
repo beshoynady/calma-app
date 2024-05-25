@@ -165,7 +165,7 @@ const Permissions = () => {
                           <label>الموظف</label>
                           <select className="form-control" onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
-                            {listOfEmployees.map((employee, i) => (
+                            {listOfEmployees&&listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>
                             ))}
                           </select>
