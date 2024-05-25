@@ -108,21 +108,6 @@ const Permissions = () => {
     }
   }
 
-  const selectedEmployeeByStatus = (status) => {
-    console.log(status);
-    let filteredEmployees;
-
-    if (status === 'true') {
-      filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
-    } else if (status === 'false') {
-      filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
-    } else {
-      filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
-    }
-
-    console.log(filteredEmployees);
-    setselectedEmployee(filteredEmployees);
-  };
 
 
 
