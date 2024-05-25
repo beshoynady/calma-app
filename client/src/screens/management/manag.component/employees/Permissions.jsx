@@ -95,9 +95,9 @@ const Permissions = () => {
   const [selectedEmployee, setselectedEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
-    console.log({listOfEmployees})
     if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
+      console.log({selectedEmployees})
       setselectedEmployee(selectedEmployees[0])
     }
   }
@@ -174,12 +174,12 @@ const Permissions = () => {
                       <div className='d-flex'>
                         <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>اسم الموظف</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee.fullname} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee&&selectedEmployee.fullname} readOnly />
                         </div>
 
                         <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>الوظية</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee.role} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee&&selectedEmployee.role} readOnly />
                         </div>
                       </div>
                     </div>
