@@ -14,6 +14,7 @@ const connectdb = require('./database/connectdb.js');
 
 // Import all route files
 const routerestaurant = require('./router/Restaurant.router.js');
+const routepermission = require('./router/Permission.router.js');
 const routeattendance = require('./router/AttendanceRecord.router.js');
 const routeshift = require('./router/Shift.router.js');
 const routedeliveryarea = require('./router/DeliveryArea.router.js');
@@ -93,6 +94,7 @@ app.get('/', (req, res) => {
 
 // Route requests to appropriate routers
 app.use('/api/restaurant', routerestaurant)
+app.use('/api/permission', routepermission)
 app.use('/api/attendance', routeattendance)
 app.use('/api/shift', routeshift);
 app.use('/api/deliveryarea', routedeliveryarea);

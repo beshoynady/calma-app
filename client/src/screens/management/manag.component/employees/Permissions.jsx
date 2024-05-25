@@ -34,7 +34,7 @@ const Permissions = () => {
     }
   };
 
-  const [permissionsList, setpermissionsList] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل', 'استهلاك المطبخ']);
+  const [permissionsList, setpermissionsList] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
   const [shifts, setshifts] = useState([]);
 
   const getShifts = async () => {
@@ -220,7 +220,7 @@ const Permissions = () => {
                   <table className="table table-bordered table-hover">
                     <thead className="thead-light">
                       <tr>
-                        <th scope="col"><i className="fas fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Permission to create"></i></th>
+                        <th scope="col"></th>
                         <th scope="col" style={{ width: "30%" }}>اسم</th>
                         <th scope="col">إنشاء <i className="fas fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Permission to create"></i></th>
                         <th scope="col">تعديل <i className="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Permission to edit"></i></th>
@@ -243,57 +243,9 @@ const Permissions = () => {
 
                         // )}
                       })}
-                      {/* <tr>
-                        <td>Warehouse Inventory</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
-                        <td>Customers</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
-                        <td>Orders</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
-                        <td>Orders Being Shipped</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
-                        <td>Distribution Tracking</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr>
-                      <tr>
-                        <td>Supplier Ordering</td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                        <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                      </tr> */}
                     </tbody>
                   </table>
-                  <div className="clearfix">
+                  {/* <div className="clearfix">
                     <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
@@ -304,7 +256,7 @@ const Permissions = () => {
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* <div id="addEmployeeModal" className="modal fade">
