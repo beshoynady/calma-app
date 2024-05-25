@@ -156,14 +156,14 @@ const Permissions = () => {
                   <div className="table-filter">
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
-                        <div className="filter-group">
+                        <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>الاسم</label>
-                          <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} onChange={(e) => getEmployeesByName(e.target.value)} />
                           <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
                         </div>
-                        <div className="filter-group">
+                        <div className="filter-group" style={{minWidth:'40%'}}>
                           <label>الموظف</label>
-                          <select className="form-control" onChange={(e) => getEmployeesById(e.target.value)} >
+                          <select className="form-control" style={{minWidth:'200px'}} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
                             {listOfEmployees&&listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>
@@ -172,14 +172,14 @@ const Permissions = () => {
                         </div>
                       </div>
                       <div className='d-flex'>
-                        <div className="filter-group">
+                        <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>اسم الموظف</label>
-                          <input type="text" className="form-control" value={selectedEmployee.fullname} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee.fullname} readOnly />
                         </div>
 
-                        <div className="filter-group">
+                        <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>الوظية</label>
-                          <input type="text" className="form-control" value={selectedEmployee.role} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee.role} readOnly />
                         </div>
                       </div>
                     </div>
