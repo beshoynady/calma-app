@@ -93,7 +93,13 @@ const PermissionsComponent = () => {
       })
 
     } else {
-      let newPermission = {}
+      let newPermission = {
+        resource:'',
+        create: false,
+        update: false,
+        read: false,
+        delete: false}
+        
       newPermission.resource = resource
       console.log({newPermission})
       if (action === 'create') {
@@ -114,7 +120,12 @@ const PermissionsComponent = () => {
         console.log({newPermission})
       }
       // updatePermissions.push(newPermission);
-      newPermission = null
+      newPermission = {
+        resource:'',
+        create: false,
+        update: false,
+        read: false,
+        delete: false}
       console.log({newPermission})
     }
     console.log({updatePermissions})
