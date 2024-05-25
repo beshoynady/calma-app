@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { type } = require('os');
 
 const { Schema } = mongoose;
 
@@ -11,25 +10,24 @@ const permissionsSchema = new Schema(
       required: true,
       index: true
     },
-    Permissions:[
+    permissions: [
       {
-        resource :{
+        resource: {
           type: String,
           enum: [
             'AttendanceRecord', 'CashMovement', 'CashRegister', 'Category', 'CategoryStock', 'DailyExpense',
-            'DeliveryArea', 'Employee', 'EmployeeSalary', 'Expense', 'ExpenseRecords', 
+            'DeliveryArea', 'Employee', 'EmployeeSalary', 'Expense', 'ExpenseRecords',
             'KitchenConsumption', 'Order', 'Payroll', 'Message', 'Permissions',
             'Product', 'Purchase', 'PurchaseReturn', 'Recipe', 'ReservationTable',
             'Restaurant', 'Shift', 'StockItem', 'StockManag', 'Supplier',
             'SupplierAccount', 'SupplierTransaction', 'Table', 'Users'
           ],
-          required:true,
+          required: true,
         },
-        action:[{
-          type: String,
-          enum: ['create', 'update', 'read', 'delete'],
-          required: true
-        }],
+        create: { type: Boolean, default: false },
+        update: { type: Boolean, default: false },
+        read: { type: Boolean, default: false },
+        delete: { type: Boolean, default: false },
       }
     ],
     createdBy: {

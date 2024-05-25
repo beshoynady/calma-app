@@ -3,11 +3,12 @@ import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { create } from '../../../../../../server/models/Permissions.model';
 const Joi = require('joi')
 
 
 
-const Permissions = () => {
+const PermissionsComponent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e');
 
@@ -59,6 +60,8 @@ const Permissions = () => {
     }
   };
 
+  const [permissionsListEn, setpermissionsListEn] = useState(['Employees', 'Attendance', 'Salaries', 'Cash Register', 'Cash Movement', 'Daily Expenses', 'Inventory Item', 'Inventory Categories', 'Inventory Management', 'Orders', 'Tables', 'Table Reservations', 'Restaurant Settings', 'Permissions', 'Delivery Zones', 'Shifts', 'Expenses', 'Expense Log', 'Menu Categories', 'Products', 'Recipes', 'Kitchen Usage', 'Purchases', 'Purchase Returns', 'Supplier Data', 'Supplier Account', 'Supplier Movement', 'Users', 'Messages']);
+
   const [permissionsListAr, setpermissionsListAr] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
 
 
@@ -66,19 +69,69 @@ const Permissions = () => {
 
 
   const [employeeid, setemployeeid] = useState("")
-  const [fullname, setfullname] = useState("")
-  const [numberID, setnumberID] = useState("")
-  const [username, setusername] = useState("")
-  const [basicSalary, setbasicSalary] = useState()
-  const [shift, setshift] = useState('')
-  const [password, setpassword] = useState("")
-  const [address, setaddress] = useState("")
-  const [phone, setphone] = useState("")
-  const [email, setemail] = useState("")
-  const [isActive, setisActive] = useState(true)
-  const [role, setrole] = useState("")
-  const [sectionNumber, setsectionNumber] = useState()
+  const [Permissions, setPermissions] = useState([])
 
+  const handeladdPermissions = (e, i) => {
+    const resource = permissionsListEn[i]
+    const action = e.value.target
+    const updatePermissions = [...Permissions]
+    const findPermission = updatePermissions.filter(permission => permission.resource === resource)
+
+    if (findPermission.length > 0) {
+      updatePermissions.map((permission, i) => {
+        if (action === 'create') {
+          updatePermissions[i].create = !permission.create
+        } else if (action === 'update') {
+          updatePermissions[i].update = !permission.update
+        } else if (action === 'read') {
+          updatePermissions[i].read = !permission.read
+        } else if (action === 'delete') {
+          updatePermissions[i].delete = !permission.delete
+        }
+
+        if (permission.create===false && permission.update === false && permission.read===false && permission.delete === false){
+          updatePermissions = updatePermissions.filter(per => per.resource !== permission.resource)
+
+        }
+      })
+
+    } else {
+      const newPermission = {}
+      newPermission.resource = resource
+      if (action === 'create') {
+        newPermission.create = true
+      } else if (action === 'update') {
+        newPermission.update = true
+      } else if (action === 'read') {
+        newPermission.read = true
+      } else if (action === 'delete') {
+        newPermission.delete = true
+      }
+      updatePermissions = [...updatePermissions, newPermission]
+    }
+    console.log({updatePermissions})
+    setPermissions(updatePermissions)
+
+  }
+
+
+
+  const addPermissions = async (createdBy) => {
+    try {
+      const response = await axios.post(`${apiUrl}/api/permission`, {
+        employee: employeeid, Permissions, createdBy
+      }, config);
+      if (response.status === 200) {
+        const data = response.data;
+        setpermissionsList(data);
+        console.log({ data });
+      } else {
+        throw new Error('Failed to fetch permissions: Unexpected status code');
+      }
+    } catch (error) {
+      console.error('Error fetching permissions:', error.message);
+    }
+  };
 
 
 
@@ -87,38 +140,25 @@ const Permissions = () => {
   const [selectedEmployee, setselectedEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
-    if(name==''){
+    if (name == '') {
       setselectedEmployee(null)
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      console.log({selectedEmployees})
+      console.log({ selectedEmployees })
       setselectedEmployee(selectedEmployees[0])
+      setemployeeid(selectedEmployee[0]._id)
     }
   }
   const getEmployeesById = (id) => {
-    if(id==''){
+    if (id == '') {
       setselectedEmployee(null)
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
       setselectedEmployee(selectedEmployees[0])
+      setemployeeid(selectedEmployee[0]._id)
+
     }
   }
-
-
-
-
-  const [selectedIds, setSelectedIds] = useState([]);
-  const handleCheckboxChange = (e) => {
-    const Id = e.target.value;
-    const isChecked = e.target.checked;
-
-    if (isChecked) {
-      setSelectedIds([...selectedIds, Id]);
-    } else {
-      const updatedSelectedIds = selectedIds.filter((id) => id !== Id);
-      setSelectedIds(updatedSelectedIds);
-    }
-  };
 
 
 
@@ -151,30 +191,30 @@ const Permissions = () => {
                   <div className="table-filter">
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
-                        <div className="filter-group" style={{minWidth:'35%'}}>
+                        <div className="filter-group" style={{ minWidth: '35%' }}>
                           <label>الاسم</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} onChange={(e) => getEmployeesByName(e.target.value)} />
+                          <input type="text" className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesByName(e.target.value)} />
                           {/* <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
-                        <div className="filter-group" style={{minWidth:'40%'}}>
+                        <div className="filter-group" style={{ minWidth: '40%' }}>
                           <label>الموظف</label>
-                          <select className="form-control" style={{minWidth:'200px'}} onChange={(e) => getEmployeesById(e.target.value)} >
+                          <select className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
-                            {listOfEmployees&&listOfEmployees.map((employee, i) => (
+                            {listOfEmployees && listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>
                             ))}
                           </select>
                         </div>
                       </div>
                       <div className='d-flex'>
-                        <div className="filter-group" style={{minWidth:'35%'}}>
+                        <div className="filter-group" style={{ minWidth: '35%' }}>
                           <label>اسم الموظف</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee?selectedEmployee.fullname:''} readOnly />
+                          <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.fullname : ''} readOnly />
                         </div>
 
-                        <div className="filter-group" style={{minWidth:'35%'}}>
+                        <div className="filter-group" style={{ minWidth: '35%' }}>
                           <label>الوظية</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee?selectedEmployee.role:''} readOnly />
+                          <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.role : ''} readOnly />
                         </div>
                       </div>
                     </div>
@@ -197,10 +237,10 @@ const Permissions = () => {
                           <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{permission}</td>
-                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
-                            <td className="text-center"><input type="checkbox" className="form-check-input position-relative" /></td>
+                            <td className="text-center"><input type="checkbox" value='create' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='update' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='read' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='delete' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
                           </tr>)
 
                         // )}
@@ -447,4 +487,4 @@ const Permissions = () => {
   )
 }
 
-export default Permissions
+export default PermissionsComponent
