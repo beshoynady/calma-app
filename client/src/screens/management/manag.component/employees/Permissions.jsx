@@ -74,15 +74,15 @@ const PermissionsComponent = () => {
     const findPermission = updatePermissions.filter(permission => permission.resource === resource)
 
     if (findPermission.length > 0) {
-      updatePermissions.map((permission, i) => {
+      updatePermissions.map((permission, ind) => {
         if (action === 'create') {
-          updatePermissions[i].create = !permission.create
+          updatePermissions[ind].create = !permission.create
         } else if (action === 'update') {
-          updatePermissions[i].update = !permission.update
+          updatePermissions[ind].update = !permission.update
         } else if (action === 'read') {
-          updatePermissions[i].read = !permission.read
+          updatePermissions[ind].read = !permission.read
         } else if (action === 'delete') {
-          updatePermissions[i].delete = !permission.delete
+          updatePermissions[ind].delete = !permission.delete
         }
 
         if  (!permission.create && !permission.update && !permission.read && !permission.delete){
