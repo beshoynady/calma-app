@@ -90,26 +90,22 @@ const Permissions = () => {
 
 
 
-  const [filterEmp, setfilterEmp] = useState([])
-  const getEmployeesByJob = (role) => {
-    if (listOfEmployees.length > 0) {
-      const FilterEmployees = listOfEmployees.filter(employee => employee.role == role)
-      setfilterEmp(FilterEmployees)
-    }
-  }
-  const getEmployeesByShift = (shift) => {
-    if (listOfEmployees.length > 0) {
-      const FilterEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
-      setfilterEmp(FilterEmployees)
-    }
-  }
+  const [selectedEmployee, setselectedEmployee] = useState({})
+
   const getEmployeesByName = (name) => {
     if (listOfEmployees.length > 0) {
-      const employee = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      setfilterEmp(employee)
+      const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
+      setselectedEmployee(selectedEmployees[0])
     }
   }
-  const filterEmpByStatus = (status) => {
+  const getEmployeesById = (id) => {
+    if (listOfEmployees.length > 0) {
+      const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
+      setselectedEmployee(selectedEmployees[0])
+    }
+  }
+  
+  const selectedEmployeeByStatus = (status) => {
     console.log(status);
     let filteredEmployees;
 
@@ -122,7 +118,7 @@ const Permissions = () => {
     }
 
     console.log(filteredEmployees);
-    setfilterEmp(filteredEmployees);
+    setselectedEmployee(filteredEmployees);
   };
 
 
@@ -149,6 +145,7 @@ const Permissions = () => {
     getEmployees()
     getShifts()
   }, [])
+
   return (
     <detacontext.Consumer>
       {
@@ -170,7 +167,7 @@ const Permissions = () => {
                   </div>
                   <div className="table-filter">
                     <div className="d-flex flex-column text-dark">
-                      <div className="row col-12 col-sm-9">
+                      <div className='d-flex'>
                         <div className="filter-group">
                           <label>الاسم</label>
                           <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
@@ -178,7 +175,7 @@ const Permissions = () => {
                         </div>
                         <div className="filter-group">
                           <label>الموظف</label>
-                          <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                          <select className="form-control" onChange={(e) => getEmployeesById(e.target.value)} >
                             <option>الكل</option>
                             {listOfEmployees.map((employee, i) => {
                               <option value={employee._id}>{employee.fullname}</option>
@@ -189,12 +186,12 @@ const Permissions = () => {
                       <div className='d-flex'>
                         <div className="filter-group">
                           <label>اسم الموظف</label>
-                          <input type="text" className="form-control" readOnly />
+                          <input type="text" className="form-control" value={selectedEmployee.fullname} readOnly />
                         </div>
 
                         <div className="filter-group">
                           <label>الوظية</label>
-                          <input type="text" className="form-control" readOnly />
+                          <input type="text" className="form-control"value={selectedEmployee.role}  readOnly />
                         </div>
                       </div>
                     </div>
