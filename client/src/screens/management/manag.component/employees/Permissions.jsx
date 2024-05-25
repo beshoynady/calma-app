@@ -86,7 +86,7 @@ const PermissionsComponent = () => {
         }
 
         if  (!permission.create && !permission.update && !permission.read && !permission.delete){
-          const update = updatePermissions.filter(per => per.resource !== permission.resource)
+          const update = updatePermissions.filter(per => per.resource !== resource)
           updatePermissions = [...update]
 
         }
@@ -95,21 +95,27 @@ const PermissionsComponent = () => {
     } else {
       let newPermission = {}
       newPermission.resource = resource
+      console.log({newPermission})
       if (action === 'create') {
         newPermission.create = true
         updatePermissions.push(newPermission);
+        console.log({newPermission})
       } else if (action === 'update') {
         newPermission.update = true
         updatePermissions.push(newPermission);
+        console.log({newPermission})
       } else if (action === 'read') {
         newPermission.read = true
         updatePermissions.push(newPermission);
+        console.log({newPermission})
       } else if (action === 'delete') {
         newPermission.delete = true
         updatePermissions.push(newPermission);
+        console.log({newPermission})
       }
       // updatePermissions.push(newPermission);
       newPermission = null
+      console.log({newPermission})
     }
     console.log({updatePermissions})
     setPermissions(updatePermissions)
