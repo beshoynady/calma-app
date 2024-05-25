@@ -73,7 +73,7 @@ const PermissionsComponent = () => {
   const handeladdPermissions = (e, i) => {
     const resource = permissionsListEn[i]
     const action = e.target.value
-    const updatePermissions = [...Permissions]
+    let updatePermissions = [...Permissions]
     const findPermission = updatePermissions.filter(permission => permission.resource === resource)
 
     if (findPermission.length > 0) {
@@ -89,7 +89,8 @@ const PermissionsComponent = () => {
         }
 
         if  (!permission.create && !permission.update && !permission.read && !permission.delete){
-          updatePermissions = updatePermissions.filter(per => per.resource !== permission.resource)
+          const update = updatePermissions.filter(per => per.resource !== permission.resource)
+          updatePermissions = [...update]
 
         }
       })
