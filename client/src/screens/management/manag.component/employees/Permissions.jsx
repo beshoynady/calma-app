@@ -100,14 +100,19 @@ const PermissionsComponent = () => {
       newPermission.resource = resource
       if (action === 'create') {
         newPermission.create = true
+        updatePermissions.push(newPermission);
       } else if (action === 'update') {
         newPermission.update = true
+        updatePermissions.push(newPermission);
       } else if (action === 'read') {
         newPermission.read = true
+        updatePermissions.push(newPermission);
       } else if (action === 'delete') {
         newPermission.delete = true
+        updatePermissions.push(newPermission);
       }
-      updatePermissions.push(newPermission);
+      // updatePermissions.push(newPermission);
+      newPermission = {}
     }
     console.log({updatePermissions})
     setPermissions(updatePermissions)
