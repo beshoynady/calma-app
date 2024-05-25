@@ -64,9 +64,6 @@ const PermissionsComponent = () => {
   const [permissionsListAr, setpermissionsListAr] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
 
 
-
-
-
   const [employeeid, setemployeeid] = useState("")
   const [Permissions, setPermissions] = useState([])
 
@@ -96,7 +93,7 @@ const PermissionsComponent = () => {
       })
 
     } else {
-      const newPermission = {}
+      let newPermission = {}
       newPermission.resource = resource
       if (action === 'create') {
         newPermission.create = true
@@ -112,7 +109,7 @@ const PermissionsComponent = () => {
         updatePermissions.push(newPermission);
       }
       // updatePermissions.push(newPermission);
-      newPermission = {}
+      newPermission = null
     }
     console.log({updatePermissions})
     setPermissions(updatePermissions)
