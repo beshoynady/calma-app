@@ -143,7 +143,7 @@ const PermissionsComponent = () => {
       console.log({ newPermission })
     }
     console.log({ updatePermissions })
-    setPermissions(updatePermissions)
+    setPermissions([...updatePermissions])
 
   }
 
