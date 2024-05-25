@@ -160,7 +160,7 @@ const PermissionsComponent = () => {
   
         if (response.status === 201) {
           const data = response.data;
-          setpermissionsList(data);
+          setPermissions(data);
           toast.success('تم إنشاء الصلاحيات بنجاح!');
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
@@ -174,7 +174,7 @@ const PermissionsComponent = () => {
   
         if (response.status === 200) {
           const data = response.data;
-          setpermissionsList(data);
+          setPermissions(data);
           toast.success('تم تحديث الصلاحيات بنجاح!');
         } else {
           toast.error('فشل في تحديث الصلاحيات: كود حالة غير متوقع');
@@ -295,10 +295,18 @@ const PermissionsComponent = () => {
                           <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{permission}</td>
-                            <td className="text-center"><input type="checkbox" value='create' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='update' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='read' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='delete' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='create' className="form-check-input position-relative"
+                            checked={permissionsListEn[i]=== permissionEmployee.resource&& permissionEmployee.create}
+                            onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='update' 
+                            checked={permissionsListEn[i]=== permissionEmployee.resource&& permissionEmployee.update}
+                            className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='read'
+                            checked={permissionsListEn[i]=== permissionEmployee.resource&& permissionEmployee.read}
+                            className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='delete'
+                            checked={permissionsListEn[i]=== permissionEmployee.resource&& permissionEmployee.delete}
+                            className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
                           </tr>)
 
                         // )}
