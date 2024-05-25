@@ -88,7 +88,7 @@ const Permissions = () => {
 
   const getEmployeesByName = (name) => {
     if(name==''){
-      setselectedEmployee([])
+      setselectedEmployee(null)
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
       console.log({selectedEmployees})
@@ -97,7 +97,7 @@ const Permissions = () => {
   }
   const getEmployeesById = (id) => {
     if(id==''){
-      setselectedEmployee([])
+      setselectedEmployee(null)
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
       setselectedEmployee(selectedEmployees[0])
