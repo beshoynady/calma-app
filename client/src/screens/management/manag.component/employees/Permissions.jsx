@@ -33,8 +33,24 @@ const Permissions = () => {
       console.error('Error fetching employees:', error.message);
     }
   };
+  const [permissionsList, setpermissionsList] = useState([]);
 
-  const [permissionsList, setpermissionsList] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
+  const getPermissions = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/permissions`, config);
+      if (response.status === 200) {
+        const data = response.data;
+        setpermissionsList(data);
+        console.log({ data });
+      } else {
+        throw new Error('Failed to fetch permissions: Unexpected status code');
+      }
+    } catch (error) {
+      console.error('Error fetching permissions:', error.message);
+    }
+  };
+
+  const [permissionsListAr, setpermissionsListAr] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
   const [shifts, setshifts] = useState([]);
 
   const getShifts = async () => {
@@ -141,6 +157,7 @@ const Permissions = () => {
 
 
   useEffect(() => {
+    getPermissions()
     getEmployees()
     getShifts()
   }, [])
@@ -229,7 +246,7 @@ const Permissions = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {permissionsList.map((permission, i) => {
+                      {permissionsListAr.map((permission, i) => {
                         // if (i >= startpagination & i < endpagination) {
                         return (
                           <tr key={i}>
