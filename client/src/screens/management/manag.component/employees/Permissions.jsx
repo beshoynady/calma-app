@@ -129,7 +129,6 @@ const Permissions = () => {
   useEffect(() => {
     getPermissions()
     getEmployees()
-    getShifts()
   }, [])
 
   return (
