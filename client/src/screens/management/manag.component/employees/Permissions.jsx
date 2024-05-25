@@ -150,7 +150,7 @@ const PermissionsComponent = () => {
 
   const addPermissions = async (e) => {
     e.preventDefault();
-    console.log({employee, Permissions})
+    console.log({employeeid, Permissions})
     try {
       let response;
 
