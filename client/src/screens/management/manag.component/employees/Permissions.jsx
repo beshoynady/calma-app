@@ -161,9 +161,9 @@ const PermissionsComponent = () => {
         if (response.status === 201) {
           const data = response.data;
           setpermissionsList(data);
-          toast.success('تم إنشاء الأذونات بنجاح!');
+          toast.success('تم إنشاء الصلاحيات بنجاح!');
         } else {
-          toast.error('فشل في إنشاء الأذونات: كود حالة غير متوقع');
+          toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
         }
   
       } else {
@@ -175,15 +175,15 @@ const PermissionsComponent = () => {
         if (response.status === 200) {
           const data = response.data;
           setpermissionsList(data);
-          toast.success('تم تحديث الأذونات بنجاح!');
+          toast.success('تم تحديث الصلاحيات بنجاح!');
         } else {
-          toast.error('فشل في تحديث الأذونات: كود حالة غير متوقع');
+          toast.error('فشل في تحديث الصلاحيات: كود حالة غير متوقع');
         }
       }
   
     } catch (error) {
       console.error('Error fetching permissions:', error.message);
-      toast.error('حدث خطأ أثناء تحديث الأذونات');
+      toast.error('حدث خطأ أثناء تحديث الصلاحيات');
     }
   };
 
