@@ -214,6 +214,7 @@ const PermissionsComponent = () => {
           null;
 
         setpermissionEmployee(permissionEmployee);
+        console.log({ permissionEmployee });
         console.log({ selectedEmployees });
       } else {
         setselectedEmployee(null);
@@ -234,6 +235,9 @@ const PermissionsComponent = () => {
 
         const permissionEmployee = permissionsList ? permissionsList.find(permission => permission.employee === selectedEmployee._id) : null;
         setpermissionEmployee(permissionEmployee);
+        console.log({ permissionEmployee });
+        console.log({ selectedEmployee });
+
       }
     }
   };
