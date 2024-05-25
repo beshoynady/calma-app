@@ -33,6 +33,8 @@ const Permissions = () => {
       console.error('Error fetching employees:', error.message);
     }
   };
+
+
   const [permissionsList, setpermissionsList] = useState([]);
 
   const getPermissions = async () => {
@@ -93,6 +95,7 @@ const Permissions = () => {
   const [selectedEmployee, setselectedEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
+    console.log({listOfEmployees})
     if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
       setselectedEmployee(selectedEmployees[0])
@@ -104,7 +107,7 @@ const Permissions = () => {
       setselectedEmployee(selectedEmployees[0])
     }
   }
-  
+
   const selectedEmployeeByStatus = (status) => {
     console.log(status);
     let filteredEmployees;
@@ -176,10 +179,10 @@ const Permissions = () => {
                         <div className="filter-group">
                           <label>الموظف</label>
                           <select className="form-control" onChange={(e) => getEmployeesById(e.target.value)} >
-                            <option>الكل</option>
-                            {listOfEmployees.map((employee, i) => {
+                            <option value="">الكل</option>
+                            {listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>
-                            })}
+                            ))}
                           </select>
                         </div>
                       </div>
@@ -191,7 +194,7 @@ const Permissions = () => {
 
                         <div className="filter-group">
                           <label>الوظية</label>
-                          <input type="text" className="form-control"value={selectedEmployee.role}  readOnly />
+                          <input type="text" className="form-control" value={selectedEmployee.role} readOnly />
                         </div>
                       </div>
                     </div>
