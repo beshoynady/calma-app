@@ -75,6 +75,7 @@ const PermissionsComponent = () => {
 
     if (findPermission.length > 0) {
       updatePermissions.map((permission, ind) => {
+        console.log({permission})
         if (action === 'create') {
           updatePermissions[ind].create = !permission.create
         } else if (action === 'update') {
@@ -93,32 +94,41 @@ const PermissionsComponent = () => {
       })
 
     } else {
-      let newPermission = {
-        resource:'',
+      const newPermission = {
+        resource: resource,
         create: false,
         update: false,
         read: false,
-        delete: false}
+        delete: false
+      };
+      newPermission[action] = true;
+      updatePermissions.push(newPermission);
+      // let newPermission = {
+      //   resource:'',
+      //   create: false,
+      //   update: false,
+      //   read: false,
+      //   delete: false}
 
-      newPermission.resource = resource
-      console.log({newPermission})
-      if (action === 'create') {
-        newPermission.create = true
-        updatePermissions.push(newPermission);
-        console.log({updatePermissions})
-      } else if (action === 'update') {
-        newPermission.update = true
-        updatePermissions.push(newPermission);
-        console.log({updatePermissions})
-      } else if (action === 'read') {
-        newPermission.read = true
-        updatePermissions.push(newPermission);
-        console.log({updatePermissions})
-      } else if (action === 'delete') {
-        newPermission.delete = true
-        updatePermissions.push(newPermission);
-        console.log({updatePermissions})
-      }
+      // newPermission.resource = resource
+      // console.log({newPermission})
+      // if (action === 'create') {
+      //   newPermission.create = true
+      //   updatePermissions.push(newPermission);
+      //   console.log({updatePermissions})
+      // } else if (action === 'update') {
+      //   newPermission.update = true
+      //   updatePermissions.push(newPermission);
+      //   console.log({updatePermissions})
+      // } else if (action === 'read') {
+      //   newPermission.read = true
+      //   updatePermissions.push(newPermission);
+      //   console.log({updatePermissions})
+      // } else if (action === 'delete') {
+      //   newPermission.delete = true
+      //   updatePermissions.push(newPermission);
+      //   console.log({updatePermissions})
+      // }
       // updatePermissions.push(newPermission);
       newPermission = {
         resource:'',
