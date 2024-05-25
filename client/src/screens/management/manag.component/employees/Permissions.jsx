@@ -76,7 +76,7 @@ const PermissionsComponent = () => {
 
     if (findPermission.length > 0) {
       updatePermissions.map((permission, ind) => {
-        if(permission.resource === resource){
+        if (permission.resource === resource) {
           console.log({ permission })
           if (action === 'create') {
             updatePermissions[ind].create = !permission.create
@@ -148,20 +148,42 @@ const PermissionsComponent = () => {
   }
 
 
-  const addPermissions = async (createdBy) => {
+  const addPermissions = async () => {
     try {
-      const response = await axios.post(`${apiUrl}/api/permission`, {
-        employee: employeeid, Permissions, createdBy
-      }, config);
-      if (response.status === 200) {
-        const data = response.data;
-        setpermissionsList(data);
-        console.log({ data });
+      let response;
+  
+      if (permissionEmployee) {
+        response = await axios.post(`${apiUrl}/api/permission`, {
+          employee: employeeid,
+          Permissions,
+        }, config);
+  
+        if (response.status === 201) {
+          const data = response.data;
+          setpermissionsList(data);
+          toast.success('تم إنشاء الأذونات بنجاح!');
+        } else {
+          toast.error('فشل في إنشاء الأذونات: كود حالة غير متوقع');
+        }
+  
       } else {
-        throw new Error('Failed to fetch permissions: Unexpected status code');
+        const id = permissionEmployee._id;
+        response = await axios.put(`${apiUrl}/api/permission/${id}`, {
+          Permissions,
+        }, config);
+  
+        if (response.status === 200) {
+          const data = response.data;
+          setpermissionsList(data);
+          toast.success('تم تحديث الأذونات بنجاح!');
+        } else {
+          toast.error('فشل في تحديث الأذونات: كود حالة غير متوقع');
+        }
       }
+  
     } catch (error) {
       console.error('Error fetching permissions:', error.message);
+      toast.error('حدث خطأ أثناء تحديث الأذونات');
     }
   };
 
@@ -170,15 +192,18 @@ const PermissionsComponent = () => {
 
 
   const [selectedEmployee, setselectedEmployee] = useState({})
+  const [permissionEmployee, setpermissionEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
     if (name == '') {
       setselectedEmployee(null)
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      console.log({ selectedEmployees })
       setselectedEmployee(selectedEmployees[0])
-      setemployeeid(selectedEmployee[0]._id)
+      const id = selectedEmployees[0]._id
+      setemployeeid(id)
+      permissionsList && selectedEmployees && setpermissionEmployee(permissionsList.find(permission => permission.employee === id))
+      console.log({ selectedEmployees })
     }
   }
   const getEmployeesById = (id) => {
@@ -187,8 +212,9 @@ const PermissionsComponent = () => {
     } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
       setselectedEmployee(selectedEmployees[0])
-      setemployeeid(selectedEmployee[0]._id)
-
+      const id = selectedEmployees[0]._id
+      setemployeeid(id)
+      permissionsList && selectedEmployees && setpermissionEmployee(permissionsList.find(permission => permission.employee === id))
     }
   }
 
@@ -215,7 +241,7 @@ const PermissionsComponent = () => {
                         <h2>ادارة <b>صلاحيات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addEmployeeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
+                        <a  className="btn btn-47 btn-success" onClick={addPermissions}><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
                         <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
                       </div>
                     </div>

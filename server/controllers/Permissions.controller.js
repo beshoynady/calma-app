@@ -2,8 +2,8 @@ const PermissionsModel = require('../models/Permissions.model');
 
 const createPermission = async (req, res) => {
     try {
-        const { employee, Permissions, createdBy } = req.body;
-
+        const { employee, Permissions } = req.body;
+        const createdBy = req.employee.id
         if (!employee || !Permissions || Permissions.length === 0 || !createdBy) {
             return res.status(400).json({ message: 'حقول مطلوبة مفقودة.' });
         }
@@ -50,8 +50,11 @@ const getPermissionById = async (req, res) => {
 };
 
 const updatePermissionById = async (req, res) => {
-    try {
-        const updatedPermission = await PermissionsModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    try {        
+        const updatedBy = req.employee.id
+        const { employee, Permissions } = req.body;
+
+        const updatedPermission = await PermissionsModel.findByIdAndUpdate(req.params.id, { employee, Permissions, updatedBy }, { new: true });
 
         if (!updatedPermission) {
             return res.status(404).json({ message: 'الصلاحية غير موجودة' });
