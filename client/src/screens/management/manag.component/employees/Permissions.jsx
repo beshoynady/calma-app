@@ -195,28 +195,47 @@ const PermissionsComponent = () => {
   const [permissionEmployee, setpermissionEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
-    if (name == '') {
-      setselectedEmployee(null)
+    if (!name) {
+      setselectedEmployee(null);
     } else if (listOfEmployees.length > 0) {
-      const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      setselectedEmployee(selectedEmployees[0])
-      const id = selectedEmployees[0]._id
-      setemployeeid(id)
-      permissionsList && selectedEmployees && setpermissionEmployee(permissionsList.find(permission => permission.employee === id))
-      console.log({ selectedEmployees })
+      const selectedEmployees = listOfEmployees.filter((employee) => 
+        employee.fullname.toLowerCase().startsWith(name.toLowerCase())
+      );
+  
+      if (selectedEmployees.length > 0) {
+        const selectedEmployee = selectedEmployees[0];
+        setselectedEmployee(selectedEmployee);
+        setemployeeid(selectedEmployee._id);
+  
+        const permissionEmployee = permissionsList ? 
+          permissionsList.find(permission => permission.employee === selectedEmployee._id) : 
+          null;
+          
+        setpermissionEmployee(permissionEmployee);
+        console.log({ selectedEmployees });
+      } else {
+        setselectedEmployee(null);
+      }
     }
-  }
+  };
+
+  
   const getEmployeesById = (id) => {
-    if (id == '') {
-      setselectedEmployee(null)
+    if (!id) {
+      setselectedEmployee(null);
     } else if (listOfEmployees.length > 0) {
-      const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
-      setselectedEmployee(selectedEmployees[0])
-      const id = selectedEmployees[0]._id
-      setemployeeid(id)
-      permissionsList && selectedEmployees && setpermissionEmployee(permissionsList.find(permission => permission.employee === id))
+      const selectedEmployee = listOfEmployees.find((employee) => employee._id === id);
+      
+      if (selectedEmployee) {
+        setselectedEmployee(selectedEmployee);
+        setemployeeid(selectedEmployee._id);
+        
+        const permissionEmployee = permissionsList ? permissionsList.find(permission => permission.employee === selectedEmployee._id) : null;
+        setpermissionEmployee(permissionEmployee);
+      }
     }
-  }
+  };
+  
 
 
 
