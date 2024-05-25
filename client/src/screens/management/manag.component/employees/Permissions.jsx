@@ -17,6 +17,13 @@ const Permissions = () => {
     },
   };
 
+  const notify = (message, type) => {
+    toast[type](message, {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000, // Close after 3 seconds
+    });
+  };
+
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
@@ -39,7 +46,7 @@ const Permissions = () => {
 
   const getPermissions = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/permissions`, config);
+      const response = await axios.get(`${apiUrl}/api/permission`, config);
       if (response.status === 200) {
         const data = response.data;
         setpermissionsList(data);
@@ -53,18 +60,8 @@ const Permissions = () => {
   };
 
   const [permissionsListAr, setpermissionsListAr] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'سجل النقدية', 'حركة النقدية', 'المصروفات اليومية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
-  const [shifts, setshifts] = useState([]);
 
-  const getShifts = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/api/shift`, config);
-      const data = response.data;
-      setshifts(data);
-      console.log({ Shifts: data });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
 
 
@@ -82,12 +79,7 @@ const Permissions = () => {
   const [role, setrole] = useState("")
   const [sectionNumber, setsectionNumber] = useState()
 
-  const notify = (message, type) => {
-    toast[type](message, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000, // Close after 3 seconds
-    });
-  };
+
 
 
 
@@ -95,6 +87,9 @@ const Permissions = () => {
   const [selectedEmployee, setselectedEmployee] = useState({})
 
   const getEmployeesByName = (name) => {
+    if(name==''){
+      setselectedEmployee([])
+    }
     if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
       console.log({selectedEmployees})
@@ -102,6 +97,9 @@ const Permissions = () => {
     }
   }
   const getEmployeesById = (id) => {
+    if(id==''){
+      setselectedEmployee([])
+    }
     if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
       setselectedEmployee(selectedEmployees[0])
@@ -159,7 +157,7 @@ const Permissions = () => {
                         <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>الاسم</label>
                           <input type="text" className="form-control" style={{minWidth:'200px'}} onChange={(e) => getEmployeesByName(e.target.value)} />
-                          <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button>
+                          {/* <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
                         <div className="filter-group" style={{minWidth:'40%'}}>
                           <label>الموظف</label>
