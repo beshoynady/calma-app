@@ -89,8 +89,7 @@ const Permissions = () => {
   const getEmployeesByName = (name) => {
     if(name==''){
       setselectedEmployee([])
-    }
-    if (listOfEmployees.length > 0) {
+    } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
       console.log({selectedEmployees})
       setselectedEmployee(selectedEmployees[0])
@@ -99,8 +98,7 @@ const Permissions = () => {
   const getEmployeesById = (id) => {
     if(id==''){
       setselectedEmployee([])
-    }
-    if (listOfEmployees.length > 0) {
+    } else if (listOfEmployees.length > 0) {
       const selectedEmployees = listOfEmployees.filter((employee) => employee._id === id)
       setselectedEmployee(selectedEmployees[0])
     }
@@ -171,12 +169,12 @@ const Permissions = () => {
                       <div className='d-flex'>
                         <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>اسم الموظف</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee&&selectedEmployee.fullname} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee?selectedEmployee.fullname:''} readOnly />
                         </div>
 
                         <div className="filter-group" style={{minWidth:'35%'}}>
                           <label>الوظية</label>
-                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee&&selectedEmployee.role} readOnly />
+                          <input type="text" className="form-control" style={{minWidth:'200px'}} value={selectedEmployee?selectedEmployee.role:''} readOnly />
                         </div>
                       </div>
                     </div>
