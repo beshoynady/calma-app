@@ -130,12 +130,12 @@ const PermissionsComponent = () => {
       //   console.log({updatePermissions})
       // }
       // updatePermissions.push(newPermission);
-      newPermission = {
-        resource:'',
-        create: false,
-        update: false,
-        read: false,
-        delete: false}
+      // newPermission = {
+      //   resource:'',
+      //   create: false,
+      //   update: false,
+      //   read: false,
+      //   delete: false}
       console.log({newPermission})
     }
     console.log({updatePermissions})
