@@ -68,6 +68,7 @@ const PermissionsComponent = () => {
   const [Permissions, setPermissions] = useState([])
 
   const handeladdPermissions = (e, i) => {
+    console.log({ Permissions })
     const resource = permissionsListEn[i]
     const action = e.target.value
     let updatePermissions = [...Permissions]
@@ -75,26 +76,28 @@ const PermissionsComponent = () => {
 
     if (findPermission.length > 0) {
       updatePermissions.map((permission, ind) => {
-        console.log({permission})
-        if (action === 'create') {
-          updatePermissions[ind].create = !permission.create
-        } else if (action === 'update') {
-          updatePermissions[ind].update = !permission.update
-        } else if (action === 'read') {
-          updatePermissions[ind].read = !permission.read
-        } else if (action === 'delete') {
-          updatePermissions[ind].delete = !permission.delete
+        if(permission.resource === resource){
+          console.log({ permission })
+          if (action === 'create') {
+            updatePermissions[ind].create = !permission.create
+          } else if (action === 'update') {
+            updatePermissions[ind].update = !permission.update
+          } else if (action === 'read') {
+            updatePermissions[ind].read = !permission.read
+          } else if (action === 'delete') {
+            updatePermissions[ind].delete = !permission.delete
+          }
+
+          if (!permission.create && !permission.update && !permission.read && !permission.delete) {
+            const update = updatePermissions.filter(per => per.resource !== resource)
+            updatePermissions = [...update]
+          }
         }
 
-        if  (!permission.create && !permission.update && !permission.read && !permission.delete){
-          const update = updatePermissions.filter(per => per.resource !== resource)
-          updatePermissions = [...update]
-
-        }
       })
 
     } else {
-      const newPermission = {
+      let newPermission = {
         resource: resource,
         create: false,
         update: false,
@@ -130,19 +133,19 @@ const PermissionsComponent = () => {
       //   console.log({updatePermissions})
       // }
       // updatePermissions.push(newPermission);
-      // newPermission = {
-      //   resource:'',
-      //   create: false,
-      //   update: false,
-      //   read: false,
-      //   delete: false}
-      console.log({newPermission})
+      newPermission = {
+        resource: resource,
+        create: false,
+        update: false,
+        read: false,
+        delete: false
+      }
+      console.log({ newPermission })
     }
-    console.log({updatePermissions})
+    console.log({ updatePermissions })
     setPermissions(updatePermissions)
 
   }
-
 
 
   const addPermissions = async (createdBy) => {
@@ -266,10 +269,10 @@ const PermissionsComponent = () => {
                           <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{permission}</td>
-                            <td className="text-center"><input type="checkbox" value='create' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='update' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='read' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
-                            <td className="text-center"><input type="checkbox" value='delete' className="form-check-input position-relative" onChange={(e)=>handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='create' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='update' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='read' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
+                            <td className="text-center"><input type="checkbox" value='delete' className="form-check-input position-relative" onChange={(e) => handeladdPermissions(e, i)} /></td>
                           </tr>)
 
                         // )}
