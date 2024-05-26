@@ -150,17 +150,17 @@ const PermissionsComponent = () => {
 
   const addPermissions = async (e) => {
     e.preventDefault();
-    console.log({employeeid, Permissions})
+    console.log({ employeeid, Permissions })
     try {
       let response;
-      
+
       if (!permissionEmployee) {
         response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
-        
-        console.log({response})
+
+        console.log({ response })
         if (response.status === 201) {
           const data = response.data;
           setPermissions(data);
@@ -168,14 +168,14 @@ const PermissionsComponent = () => {
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
         }
-        
+
       } else {
         const id = permissionEmployee._id;
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
-        
-        console.log({response})
+
+        console.log({ response })
         if (response.status === 200) {
           const data = response.data;
           setPermissions(data);
@@ -212,7 +212,7 @@ const PermissionsComponent = () => {
         setemployeeid(selectedEmployee._id);
 
         const permissionEmployee = permissionsList ?
-        permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
+          permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
           null;
 
         setpermissionEmployee(permissionEmployee);
@@ -234,7 +234,7 @@ const PermissionsComponent = () => {
       if (selectedEmployee) {
         setselectedEmployee(selectedEmployee);
         setemployeeid(selectedEmployee._id);
-        
+
         console.log({ permissionsList });
         const permissionEmployee = permissionsList ? permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] : null;
         setpermissionEmployee(permissionEmployee);
@@ -318,8 +318,9 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        // const resourceMatch = permissionEmployee && permissionEmployee.resource === permissionsListEn[i];
-                        // console.log({resourceMatch})
+                        const resourcePermissions = permissionEmployee ? permissionEmployee.filter(per => per.resource === permissionsListEn[i]) : [];
+                        const hasResourcePermissions = resourcePermissions.length > 0;
+                        const permissionDetails = hasResourcePermissions ? resourcePermissions[0] : {};
                         return (
                           <tr key={i}>
                             <td>{i + 1}</td>
@@ -329,7 +330,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="create"
                                 className="form-check-input position-relative"
-                                checked={permissionEmployee && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].create}
+                                checked={hasResourcePermissions && permissionDetails.create}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -338,7 +339,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={permissionEmployee && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].update}
+                                checked={hasResourcePermissions && permissionDetails.update}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -347,7 +348,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="read"
                                 className="form-check-input position-relative"
-                                checked={permissionEmployee && permissionEmployee.read}
+                                checked={hasResourcePermissions && permissionDetails.read}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -356,7 +357,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="delete"
                                 className="form-check-input position-relative"
-                                checked={permissionEmployee && permissionEmployee.delete}
+                                checked={hasResourcePermissions && permissionDetails.delete}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -366,10 +367,10 @@ const PermissionsComponent = () => {
 
                     </tbody>
                   </table>
-                  
+
                 </div>
               </div>
-            
+
             </div>
           )
         }
