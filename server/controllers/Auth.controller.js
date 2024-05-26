@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const signup = async (req, res) => {
     try {
-        const { username, email, address,deliveryArea, phone, password } = req.body;
+        const { username, email, address, deliveryArea, phone, password } = req.body;
 
         // Validate input fields
         const errors = validationResult(req);
@@ -40,41 +40,41 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  try {
-      const { phone, password } = req.body;
+    try {
+        const { phone, password } = req.body;
 
-      // Validate input
-      if (!phone || !password) {
-          return res.status(400).json({ success: false, error: 'Phone number and password are required' });
-      }
+        // Validate input
+        if (!phone || !password) {
+            return res.status(400).json({ success: false, error: 'Phone number and password are required' });
+        }
 
-      // Find user by phone number
-      const findUser = await Usermodel.findOne({ phone });
-      if (!findUser) {
-          return res.status(404).json({ success: false, error: 'Phone number is not registered' });
-      }
+        // Find user by phone number
+        const findUser = await Usermodel.findOne({ phone });
+        if (!findUser) {
+            return res.status(404).json({ success: false, error: 'Phone number is not registered' });
+        }
 
-      // Check if user is active
-      if (!findUser.isActive) {
-          return res.status(401).json({ success: false, error: 'User is not active' });
-      }
+        // Check if user is active
+        if (!findUser.isActive) {
+            return res.status(401).json({ success: false, error: 'User is not active' });
+        }
 
-      // Validate password
-      const match =  bcrypt.compare(password, findUser.password);
-      if (!match) {
-          return res.status(401).json({ success: false, error: 'Incorrect password' });
-      }
+        // Validate password
+        const match = bcrypt.compare(password, findUser.password);
+        if (!match) {
+            return res.status(401).json({ success: false, error: 'Incorrect password' });
+        }
 
-      // Generate access token
-      const accessToken = generateAccessToken(findUser);
+        // Generate access token
+        const accessToken = generateAccessToken(findUser);
 
-      // Send successful response with user data and access token
-      res.status(200).json( {findUser, accessToken });
-  } catch (error) {
-      // Handle server errors
-      console.error('Login error:', error);
-      res.status(500).json({ success: false, error: 'Internal server error' });
-  }
+        // Send successful response with user data and access token
+        res.status(200).json({ findUser, accessToken });
+    } catch (error) {
+        // Handle server errors
+        console.error('Login error:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+    }
 };
 
 
