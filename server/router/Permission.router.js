@@ -7,7 +7,7 @@ const {
     updatePermissionById,
     deletePermissionById
 } = require('../controllers/Permissions.controller');
-const authenticateToken = require('../utlits/authenticate');
+const authenticateToken = require('../utlits/authenticate')
 
 router.route('/')
     .post(authenticateToken, createPermission)
