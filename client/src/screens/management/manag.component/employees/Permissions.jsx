@@ -153,13 +153,14 @@ const PermissionsComponent = () => {
     console.log({employeeid, Permissions})
     try {
       let response;
-
+      
       if (!permissionEmployee) {
         response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
-
+        
+        console.log({response})
         if (response.status === 201) {
           const data = response.data;
           setPermissions(data);
@@ -167,13 +168,14 @@ const PermissionsComponent = () => {
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
         }
-
+        
       } else {
         const id = permissionEmployee._id;
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
-
+        
+        console.log({response})
         if (response.status === 200) {
           const data = response.data;
           setPermissions(data);

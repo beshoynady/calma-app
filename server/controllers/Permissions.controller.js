@@ -9,7 +9,7 @@ const createPermission = async (req, res) => {
         }
 
         const newPermission = await PermissionsModel.create({ employee, Permissions, createdBy });
-
+        
         if (!newPermission) {
             return res.status(500).json({ message: 'فشل إنشاء الصلاحية.' });
         }
