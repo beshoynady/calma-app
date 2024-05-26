@@ -318,8 +318,8 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        const resourceMatch = permissionEmployee && permissionEmployee.resource === permissionsListEn[i];
-                        console.log({resourceMatch})
+                        // const resourceMatch = permissionEmployee && permissionEmployee.resource === permissionsListEn[i];
+                        // console.log({resourceMatch})
                         return (
                           <tr key={i}>
                             <td>{i + 1}</td>
@@ -329,7 +329,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="create"
                                 className="form-check-input position-relative"
-                                checked={resourceMatch && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].create}
+                                checked={permissionEmployee && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].create}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -338,7 +338,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={resourceMatch && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].update}
+                                checked={permissionEmployee && permissionEmployee.filter(per=>per.resource===permissionsListEn[i])[0].update}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -347,7 +347,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="read"
                                 className="form-check-input position-relative"
-                                checked={resourceMatch && permissionEmployee.read}
+                                checked={permissionEmployee && permissionEmployee.read}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -356,7 +356,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="delete"
                                 className="form-check-input position-relative"
-                                checked={resourceMatch && permissionEmployee.delete}
+                                checked={permissionEmployee && permissionEmployee.delete}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
