@@ -14,14 +14,7 @@ const permissionsSchema = new Schema(
       {
         resource: {
           type: String,
-          enum: [
-            'AttendanceRecord', 'CashMovement', 'CashRegister', 'Category', 'CategoryStock', 'DailyExpense',
-            'DeliveryArea', 'Employee', 'EmployeeSalary', 'Expense', 'ExpenseRecords',
-            'KitchenConsumption', 'Order', 'Payroll', 'Message', 'Permissions',
-            'Product', 'Purchase', 'PurchaseReturn', 'Recipe', 'ReservationTable',
-            'Restaurant', 'Shift', 'StockItem', 'StockManag', 'Supplier',
-            'SupplierAccount', 'SupplierTransaction', 'Table', 'Users'
-          ],
+          enum:['Employees', 'Attendance', 'Salaries', 'Cash Register', 'Cash Movement', 'Daily Expenses', 'Inventory Item', 'Inventory Categories', 'Inventory Management', 'Orders', 'Tables', 'Table Reservations', 'Restaurant Settings', 'Permissions', 'Delivery Zones', 'Shifts', 'Expenses', 'Expense Log', 'Menu Categories', 'Products', 'Recipes', 'Kitchen Usage', 'Purchases', 'Purchase Returns', 'Supplier Data', 'Supplier Account', 'Supplier Movement', 'Users', 'Messages'],
           required: true,
         },
         create: { type: Boolean, default: false },
