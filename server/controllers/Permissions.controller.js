@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const PermissionsModel = require('../models/Permissions.model');
 
 const createPermission = async (req, res) => {
@@ -12,7 +14,7 @@ const createPermission = async (req, res) => {
         const newPermission = await PermissionsModel.create({ employee, Permissions, createdBy });
 
         if (!newPermission) {
-            return res.status(500).json({ message: 'Failed to create permission.', newPermission });
+            return res.status(500).json({ message: 'Failed to create permission.', newPermission, employee, Permissions, createdBy });
         }
 
         res.status(201).json(newPermission);
