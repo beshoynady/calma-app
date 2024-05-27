@@ -318,10 +318,9 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        const resourcePermissions = Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i]) : [];
-                        const hasResourcePermissions = resourcePermissions.length > 0;
-                        const permissionDetails = hasResourcePermissions ? resourcePermissions[0] : {};
-                        console.log({resourcePermissions, permissionDetails})
+                        // const resourcePermissions = Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i]) : [];
+                        // const hasResourcePermissions = resourcePermissions.length > 0;
+                        // const permissionDetails = hasResourcePermissions ? resourcePermissions[0] : {};
                         return (
                           <tr key={i}>
                             <td>{i + 1}</td>
@@ -331,7 +330,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="create"
                                 className="form-check-input position-relative"
-                                checked={hasResourcePermissions && permissionDetails.create}
+                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0].create : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -340,7 +339,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={hasResourcePermissions && permissionDetails.update}
+                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0].update: false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -349,7 +348,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="read"
                                 className="form-check-input position-relative"
-                                checked={hasResourcePermissions && permissionDetails.read}
+                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0].read : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -358,7 +357,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="delete"
                                 className="form-check-input position-relative"
-                                checked={hasResourcePermissions && permissionDetails.delete}
+                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0].delete : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
