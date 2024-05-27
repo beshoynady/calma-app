@@ -82,10 +82,12 @@ const AttendanceManagement = () => {
     }
   }
 
+  const [recordToUpdate, setrecordToUpdate] = useState({})
   const handleEditRecord = (id) => {
     setRecordId(id);
     const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
-    if(getRecord){
+    if (getRecord) {
+      setrecordToUpdate(getRecord)
       setEmployee(getRecord.employee);
       setCurrentDate(getRecord.currentDate);
       setArrivalDate(getRecord.arrivalDate);
@@ -157,21 +159,21 @@ const AttendanceManagement = () => {
       console.log(error);
     }
   };
-  
+
 
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
     // console.log({ employeeid })
     const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
     // console.log({ employee: employee.shift })
-    if(employee){
+    if (employee) {
       setEmployee(employeeid)
-      if(employee.shift){
+      if (employee.shift) {
         setShift(employee.shift)
-      }else{
+      } else {
         toast.warn('لم يتم تحديد له شيفت ! حدد للموظف شيف اولا')
       }
-    }else{
+    } else {
       setEmployee('')
       setShift({})
 
@@ -193,7 +195,7 @@ const AttendanceManagement = () => {
     shiftStartTime.setHours(shiftStartTimeArray[0]);
     shiftStartTime.setMinutes(shiftStartTimeArray[1]);
     console.log({ shiftStartTime })
-    
+
     const shiftStartTimeInMinutes = new Date(shiftStartTime).getHours() * 60 + new Date(shiftStartTime).getMinutes();
     console.log({ shiftStartTimeInMinutes })
 
@@ -201,7 +203,7 @@ const AttendanceManagement = () => {
     const calculateLateMinutes = (arrivalTimeInMinutes - shiftStartTimeInMinutes);
 
     console.log({ calculateLateMinutes })
-      setLateMinutes(calculateLateMinutes);
+    setLateMinutes(calculateLateMinutes);
     if (calculateLateMinutes !== 0) {
       setIsLate(true)
     }
@@ -227,7 +229,7 @@ const AttendanceManagement = () => {
 
     const calculateExtraMinutes = departureTime - shiftEndTimeInMinutes;
     setOvertimeMinutes(calculateExtraMinutes);
-    if(calculateExtraMinutes !== 0){
+    if (calculateExtraMinutes !== 0) {
       setIsOvertime(true)
     }
   }
@@ -411,6 +413,7 @@ const AttendanceManagement = () => {
                             onChange={handleSelectEmployee}
                             style={{ width: "100%" }}
                           >
+                            <option>اختر الموظف</option>
                             {listOfEmployees.map((employee, index) => (
                               <option key={index} value={employee._id}>{employee.fullname}</option>
                             ))}
@@ -532,17 +535,9 @@ const AttendanceManagement = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <select
-                            className="form-control"
-                            readOnly
-                            name="status"
-                            defaultValue={employee && employee.fullname}
-                            style={{ width: "100%" }}
-                          >
-                            {listOfEmployees.map((employee, index) => (
-                              <option key={index} value={employee._id}>{employee.fullname}</option>
-                            ))}
-                          </select>
+                          <input type='text' className="form-control"
+                            readOnly value={recordToUpdate.employee.fullname} />
+
                         </div>
                         <div className="form-group form-group-47">
                           <label>الشيفت</label>
