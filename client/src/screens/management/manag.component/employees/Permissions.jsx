@@ -67,11 +67,106 @@ const PermissionsComponent = () => {
   const [employeeid, setemployeeid] = useState("")
   const [Permissions, setPermissions] = useState([])
 
+  // const handeladdPermissions = (e, i) => {
+  //   console.log({ Permissions })
+  //   const resource = permissionsListEn[i]
+  //   const action = e.target.value
+  //   let updatePermissions = [...Permissions]
+  //   const findPermission = updatePermissions.filter(permission => permission.resource === resource)
+
+  //   if (findPermission.length > 0) {
+  //     updatePermissions.map((permission, ind) => {
+  //       if (permission.resource === resource) {
+  //         console.log({ permission })
+  //         if (action === 'create') {
+  //           updatePermissions[ind].create = !permission.create
+  //         } else if (action === 'update') {
+  //           updatePermissions[ind].update = !permission.update
+  //         } else if (action === 'read') {
+  //           updatePermissions[ind].read = !permission.read
+  //         } else if (action === 'delete') {
+  //           updatePermissions[ind].delete = !permission.delete
+  //         }
+
+  //         if (!permission.create && !permission.update && !permission.read && !permission.delete) {
+  //           const update = updatePermissions.filter(per => per.resource !== resource)
+  //           updatePermissions = [...update]
+  //         }
+  //       }
+
+  //     })
+
+  //   } else {
+  //     let newPermission = {
+  //       resource: resource,
+  //       create: false,
+  //       update: false,
+  //       read: false,
+  //       delete: false
+  //     };
+  //     newPermission[action] = true;
+  //     updatePermissions.push(newPermission);
+  //     // let newPermission = {
+  //     //   resource:'',
+  //     //   create: false,
+  //     //   update: false,
+  //     //   read: false,
+  //     //   delete: false}
+
+  //     // newPermission.resource = resource
+  //     // console.log({newPermission})
+  //     // if (action === 'create') {
+  //     //   newPermission.create = true
+  //     //   updatePermissions.push(newPermission);
+  //     //   console.log({updatePermissions})
+  //     // } else if (action === 'update') {
+  //     //   newPermission.update = true
+  //     //   updatePermissions.push(newPermission);
+  //     //   console.log({updatePermissions})
+  //     // } else if (action === 'read') {
+  //     //   newPermission.read = true
+  //     //   updatePermissions.push(newPermission);
+  //     //   console.log({updatePermissions})
+  //     // } else if (action === 'delete') {
+  //     //   newPermission.delete = true
+  //     //   updatePermissions.push(newPermission);
+  //     //   console.log({updatePermissions})
+  //     // }
+  //     // updatePermissions.push(newPermission);
+  //     newPermission = {
+  //       resource: resource,
+  //       create: false,
+  //       update: false,
+  //       read: false,
+  //       delete: false
+  //     }
+  //     console.log({ newPermission })
+  //   }
+  //   console.log({ updatePermissions })
+  //   setPermissions([...updatePermissions])
+
+
+  //   const newPermissionEmployee = permissionEmployee.Permissions.map((per, i) => {
+  //     const filter = updatePermissions.filter(u => u.resource === per.resource)
+  //     console.log({ filter })
+  //     if (filter) {
+  //       return filter[0]
+  //     } else {
+  //       return per
+  //     }
+  //   })
+  //   console.log({ newPermissionEmployee })
+  //   //   setpermissionEmployee(prevState => ({
+  //   //     ...prevState,
+  //   //     Permissions: newPermissionEmployee 
+  //   //   }));  
+  // }
+
   const handeladdPermissions = (e, i) => {
     console.log({ Permissions })
     const resource = permissionsListEn[i]
     const action = e.target.value
-    let updatePermissions = [...Permissions]
+    let updatePermissions = [...permissionEmployee]
     const findPermission = updatePermissions.filter(permission => permission.resource === resource)
 
     if (findPermission.length > 0) {
@@ -106,33 +201,7 @@ const PermissionsComponent = () => {
       };
       newPermission[action] = true;
       updatePermissions.push(newPermission);
-      // let newPermission = {
-      //   resource:'',
-      //   create: false,
-      //   update: false,
-      //   read: false,
-      //   delete: false}
 
-      // newPermission.resource = resource
-      // console.log({newPermission})
-      // if (action === 'create') {
-      //   newPermission.create = true
-      //   updatePermissions.push(newPermission);
-      //   console.log({updatePermissions})
-      // } else if (action === 'update') {
-      //   newPermission.update = true
-      //   updatePermissions.push(newPermission);
-      //   console.log({updatePermissions})
-      // } else if (action === 'read') {
-      //   newPermission.read = true
-      //   updatePermissions.push(newPermission);
-      //   console.log({updatePermissions})
-      // } else if (action === 'delete') {
-      //   newPermission.delete = true
-      //   updatePermissions.push(newPermission);
-      //   console.log({updatePermissions})
-      // }
-      // updatePermissions.push(newPermission);
       newPermission = {
         resource: resource,
         create: false,
@@ -144,22 +213,23 @@ const PermissionsComponent = () => {
     }
     console.log({ updatePermissions })
     setPermissions([...updatePermissions])
-    
-    
-    const newPermissionEmployee = permissionEmployee.Permissions.map((per,i)=>{
-      const filter = updatePermissions.filter(u => u.resource === per.resource)
-      console.log({ filter })
-        if(filter){
-          return filter[0]
-        }else{
-          return per
-        }
-    })
-    console.log({newPermissionEmployee})
-  //   setpermissionEmployee(prevState => ({
-  //     ...prevState,
-  //     Permissions: newPermissionEmployee 
-  //   }));  
+    setpermissionEmployee([...updatePermissions])
+
+
+    // const newPermissionEmployee = permissionEmployee.Permissions.map((per, i) => {
+    //   const filter = updatePermissions.filter(u => u.resource === per.resource)
+    //   console.log({ filter })
+    //   if (filter) {
+    //     return filter[0]
+    //   } else {
+    //     return per
+    //   }
+    // })
+    // console.log({ newPermissionEmployee })
+    //   setpermissionEmployee(prevState => ({
+    //     ...prevState,
+    //     Permissions: newPermissionEmployee 
+    //   }));  
   }
 
 
@@ -320,7 +390,7 @@ const PermissionsComponent = () => {
                       </div>
                     </div>
                   </div>
-                  <table className="table table-bordered table-hover">
+                  <table className="table table-striped table-hover">
                     <thead className="thead-light">
                       <tr>
                         <th scope="col"></th>
@@ -352,7 +422,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update: false}
+                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
