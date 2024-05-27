@@ -146,7 +146,7 @@ const PermissionsComponent = () => {
     setPermissions([...updatePermissions])
 
 
-    const newPermissionEmployee = permissionEmployee.map((per,i)=>{
+    const newPermissionEmployee =permissionEmployee.Permissions.map((per,i)=>{
       updatePermissions.map((upd,n)=>{
         if(per.resource === upd.resource){
           return upd
