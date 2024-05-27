@@ -144,8 +144,10 @@ const PermissionsComponent = () => {
     }
     console.log({ updatePermissions })
     setPermissions([...updatePermissions])
-
-  }
+    setpermissionEmployee(prevState => ({
+      ...prevState,
+      Permissions: updatePermissions
+    }));  }
 
 
   const addPermissions = async (e) => {
