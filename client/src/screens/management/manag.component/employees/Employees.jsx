@@ -36,7 +36,7 @@ const Employees = () => {
       const response = await axios.get(`${apiUrl}/api/shift`, config);
       if (response.status === 200 && response.data) {
         const { data } = response;
-        setshift(data);
+        setshifts(data);
         console.log({ Shifts: data });
       } else {
         throw new Error("Invalid response format");
