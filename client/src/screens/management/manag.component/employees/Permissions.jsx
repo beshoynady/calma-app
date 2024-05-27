@@ -232,7 +232,7 @@ const PermissionsComponent = () => {
         console.log({ response })
         if (response.status === 201) {
           const data = response.data;
-          setPermissions(data);
+          setPermissions(data.Permissions);
           toast.success('تم إنشاء الصلاحيات بنجاح!');
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
@@ -247,7 +247,7 @@ const PermissionsComponent = () => {
         console.log({ response })
         if (response.status === 200) {
           const data = response.data;
-          setPermissions(data);
+          setPermissions(data.Permissions);
           toast.success('تم تحديث الصلاحيات بنجاح!');
         } else {
           toast.error('فشل في تحديث الصلاحيات: كود حالة غير متوقع');
