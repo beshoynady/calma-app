@@ -318,7 +318,7 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        const resourcePermissions = permissionEmployee ? permissionEmployee.filter(per => per.resource === permissionsListEn[i]) : [];
+                        const resourcePermissions = Array.isArray(permissionEmployee) ? permissionEmployee.filter(per => per.resource === permissionsListEn[i]) : [];
                         const hasResourcePermissions = resourcePermissions.length > 0;
                         const permissionDetails = hasResourcePermissions ? resourcePermissions[0] : {};
                         return (
