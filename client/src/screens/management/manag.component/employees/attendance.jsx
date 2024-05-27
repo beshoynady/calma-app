@@ -157,7 +157,7 @@ const AttendanceManagement = () => {
       console.log(error);
     }
   };
-
+  
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
     // console.log({ employeeid })
