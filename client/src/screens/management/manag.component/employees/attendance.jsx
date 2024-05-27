@@ -87,7 +87,7 @@ const AttendanceManagement = () => {
     setRecordId(id);
     const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
     if (getRecord) {
-      console.log({getRecord})
+      console.log({ getRecord })
       setrecordToUpdate(getRecord)
       setEmployee(getRecord.employee);
       setCurrentDate(getRecord.currentDate);
@@ -536,10 +536,7 @@ const AttendanceManagement = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <input type='text' className="form-control"
-                            readOnly 
-                            // value={recordToUpdate?.employee.fullname} 
-                            />
+                          <input type='text' className="form-control" readOnly defaultValue={recordToUpdate && recordToUpdate.employee.fullname} />
 
                         </div>
                         <div className="form-group form-group-47">
