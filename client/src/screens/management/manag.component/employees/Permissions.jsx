@@ -146,17 +146,18 @@ const PermissionsComponent = () => {
     setPermissions([...updatePermissions])
 
 
-    setpermissionEmployee(prevState => ({
-      ...prevState,
-      Permissions: Permissions.map((per , i)=>{
-        const filter = updatePermissions.filter(item=>item.resource === per.resource)[0]
-        if(filter){
-          return filter 
+    const newPermissionEmployee = permissionEmployee.map((per,i)=>{
+      updatePermissions.map((upd,n)=>{
+        if(per.resource === upd.resource){
+          return upd
         }else{
           return per
         }
-      
       })
+    })
+    setpermissionEmployee(prevState => ({
+      ...prevState,
+      Permissions: newPermissionEmployee 
     }));  
   }
 
@@ -273,7 +274,7 @@ const PermissionsComponent = () => {
       {
         ({ restaurantData, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            <div className="container-xl mlr-auto">
+            <div className="containewPermissionEmployee-xl mlr-auto">
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
