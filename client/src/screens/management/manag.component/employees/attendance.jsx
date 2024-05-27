@@ -536,7 +536,8 @@ const AttendanceManagement = () => {
                         </div>
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <input type='text' className="form-control" readOnly defaultValue={recordToUpdate && recordToUpdate.employee.fullname} />
+                          <input type='text' className="form-control" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''}
+                          />
 
                         </div>
                         <div className="form-group form-group-47">
