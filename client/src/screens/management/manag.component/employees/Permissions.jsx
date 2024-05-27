@@ -146,8 +146,13 @@ const PermissionsComponent = () => {
     setPermissions([...updatePermissions])
     setpermissionEmployee(prevState => ({
       ...prevState,
-      Permissions: updatePermissions
-    }));  }
+      Permissions: Permissions.map((per , i)=>{
+        if(per.resource === updatePermissions.resource){
+          return updatePermissions
+        }else{ return pre}
+      })
+    }));  
+  }
 
 
   const addPermissions = async (e) => {
