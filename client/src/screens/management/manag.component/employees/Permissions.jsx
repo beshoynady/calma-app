@@ -281,7 +281,7 @@ const PermissionsComponent = () => {
 
 
   const [selectedEmployee, setselectedEmployee] = useState({})
-  const [permissionEmployee, setpermissionEmployee] = useState({})
+  const [permissionEmployee, setpermissionEmployee] = useState([])
 
   const getEmployeesByName = (name) => {
     if (!name) {
