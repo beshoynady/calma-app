@@ -322,7 +322,7 @@ const PermissionsComponent = () => {
 
         console.log({ permissionsList });
         const permissionEmployee = permissionsList ? permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] : null;
-        setpermissionEmployee(permissionEmployee);
+        setpermissionEmployee(permissionEmployee.Permissions);
         console.log({ permissionEmployee });
         console.log({ selectedEmployee });
 
