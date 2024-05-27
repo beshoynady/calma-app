@@ -538,7 +538,7 @@ const AttendanceManagement = () => {
                           <label>الاسم</label>
                           <input type='text' className="form-control"
                             readOnly 
-                            value={recordToUpdate?.employee.fullname} 
+                            // value={recordToUpdate?.employee.fullname} 
                             />
 
                         </div>
