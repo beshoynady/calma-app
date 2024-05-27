@@ -81,17 +81,20 @@ const AttendanceManagement = () => {
       toast.error('حدث خطاء اثناء جلب سجل الحضور و الانصراف ! اعد تحميل الصفحة')
     }
   }
+
   const handleEditRecord = (id) => {
     setRecordId(id);
     const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
-    setEmployee(getRecord.employee);
-    setCurrentDate(getRecord.currentDate);
-    setArrivalDate(getRecord.arrivalDate);
-    setDepartureDate(getRecord.departureDate);
-    setShift(getRecord.shift);
-    setNotes(getRecord.notes);
-    setOvertimeMinutes(getRecord.overtimeMinutes);
-    setLateMinutes(getRecord.lateMinutes);
+    if(getRecord){
+      setEmployee(getRecord.employee);
+      setCurrentDate(getRecord.currentDate);
+      setArrivalDate(getRecord.arrivalDate);
+      setDepartureDate(getRecord.departureDate);
+      setShift(getRecord.shift);
+      setNotes(getRecord.notes);
+      setOvertimeMinutes(getRecord.overtimeMinutes);
+      setLateMinutes(getRecord.lateMinutes);
+    }
   }
 
   const editAttendanceRecord = async (e) => {
@@ -160,8 +163,18 @@ const AttendanceManagement = () => {
     // console.log({ employeeid })
     const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
     // console.log({ employee: employee.shift })
-    setEmployee(employeeid)
-    setShift(employee.shift)
+    if(employee){
+      setEmployee(employeeid)
+      if(employee.shift){
+        setShift(employee.shift)
+      }else{
+        toast.warn('لم يتم تحديد له شيفت ! حدد للموظف شيف اولا')
+      }
+    }else{
+      setEmployee('')
+      setShift({})
+
+    }
   }
 
   const handleArrivealDate = (e) => {
