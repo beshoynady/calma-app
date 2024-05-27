@@ -3,7 +3,6 @@ import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Joi = require('joi')
 
 
 
@@ -17,12 +16,6 @@ const PermissionsComponent = () => {
     },
   };
 
-  const notify = (message, type) => {
-    toast[type](message, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000, // Close after 3 seconds
-    });
-  };
 
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
@@ -67,100 +60,6 @@ const PermissionsComponent = () => {
   const [employeeid, setemployeeid] = useState("")
   const [Permissions, setPermissions] = useState([])
 
-  // const handeladdPermissions = (e, i) => {
-  //   console.log({ Permissions })
-  //   const resource = permissionsListEn[i]
-  //   const action = e.target.value
-  //   let updatePermissions = [...Permissions]
-  //   const findPermission = updatePermissions.filter(permission => permission.resource === resource)
-
-  //   if (findPermission.length > 0) {
-  //     updatePermissions.map((permission, ind) => {
-  //       if (permission.resource === resource) {
-  //         console.log({ permission })
-  //         if (action === 'create') {
-  //           updatePermissions[ind].create = !permission.create
-  //         } else if (action === 'update') {
-  //           updatePermissions[ind].update = !permission.update
-  //         } else if (action === 'read') {
-  //           updatePermissions[ind].read = !permission.read
-  //         } else if (action === 'delete') {
-  //           updatePermissions[ind].delete = !permission.delete
-  //         }
-
-  //         if (!permission.create && !permission.update && !permission.read && !permission.delete) {
-  //           const update = updatePermissions.filter(per => per.resource !== resource)
-  //           updatePermissions = [...update]
-  //         }
-  //       }
-
-  //     })
-
-  //   } else {
-  //     let newPermission = {
-  //       resource: resource,
-  //       create: false,
-  //       update: false,
-  //       read: false,
-  //       delete: false
-  //     };
-  //     newPermission[action] = true;
-  //     updatePermissions.push(newPermission);
-  //     // let newPermission = {
-  //     //   resource:'',
-  //     //   create: false,
-  //     //   update: false,
-  //     //   read: false,
-  //     //   delete: false}
-
-  //     // newPermission.resource = resource
-  //     // console.log({newPermission})
-  //     // if (action === 'create') {
-  //     //   newPermission.create = true
-  //     //   updatePermissions.push(newPermission);
-  //     //   console.log({updatePermissions})
-  //     // } else if (action === 'update') {
-  //     //   newPermission.update = true
-  //     //   updatePermissions.push(newPermission);
-  //     //   console.log({updatePermissions})
-  //     // } else if (action === 'read') {
-  //     //   newPermission.read = true
-  //     //   updatePermissions.push(newPermission);
-  //     //   console.log({updatePermissions})
-  //     // } else if (action === 'delete') {
-  //     //   newPermission.delete = true
-  //     //   updatePermissions.push(newPermission);
-  //     //   console.log({updatePermissions})
-  //     // }
-  //     // updatePermissions.push(newPermission);
-  //     newPermission = {
-  //       resource: resource,
-  //       create: false,
-  //       update: false,
-  //       read: false,
-  //       delete: false
-  //     }
-  //     console.log({ newPermission })
-  //   }
-  //   console.log({ updatePermissions })
-  //   setPermissions([...updatePermissions])
-
-
-  //   const newPermissionEmployee = permissionEmployee.Permissions.map((per, i) => {
-  //     const filter = updatePermissions.filter(u => u.resource === per.resource)
-  //     console.log({ filter })
-  //     if (filter) {
-  //       return filter[0]
-  //     } else {
-  //       return per
-  //     }
-  //   })
-  //   console.log({ newPermissionEmployee })
-  //   //   setpermissionEmployee(prevState => ({
-  //   //     ...prevState,
-  //   //     Permissions: newPermissionEmployee 
-  //   //   }));  
-  // }
 
   const handeladdPermissions = (e, i) => {
     console.log({ permissionEmployee })
@@ -357,7 +256,7 @@ const PermissionsComponent = () => {
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a className="btn btn-47 btn-success" onClick={addPermissions}><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
-                        <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
+                        <a className="btn btn-47 btn-danger" onClick={getPermissions}><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
                       </div>
                     </div>
                   </div>
