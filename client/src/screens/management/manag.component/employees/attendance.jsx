@@ -423,7 +423,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             readOnly={true}
                             name="shift"
-                            defaultValue={employee.shift.shiftType}
+                            value={shift?.shiftType}
                             style={{ width: "100%" }}
                           />
                         </div>
@@ -551,7 +551,7 @@ const AttendanceManagement = () => {
                             className="form-control"
                             readOnly={true}
                             name="shift"
-                            defaultValue={shift.shiftType}
+                            value={shift?.shiftType}
                             style={{ width: "100%" }}
                           />
                         </div>
