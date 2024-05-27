@@ -576,7 +576,7 @@ const Employees = () => {
                         <div className="form-group form-group-47">
                           <label>الحالة</label>
                           <select form="carform" required defaultValue={isActive} onChange={(e) => setisActive(e.target.value)}>
-                            <option>اختر</option>
+                            <option>{isActive?'متاح':'ليس متاح'}</option>
                             <option value={true}>متاح</option>
                             <option value={false}>ليس متاح</option>
                           </select>
@@ -584,7 +584,7 @@ const Employees = () => {
                         <div className="form-group form-group-47">
                           <label>الشيفت</label>
                           <select form="carform" required onChange={(e) => setshift(e.target.value)}>
-                            <option >اختر</option>
+                            <option >{shift.shiftType}</option>
                             {shifts ? shifts.map((shift, i) =>
                             <option value={shift._id} key={i}>{shift.shiftType}</option>
                             ):<option>لم يتم انشاء شفتات</option>}
@@ -593,7 +593,7 @@ const Employees = () => {
                         <div className="form-group form-group-47">
                           <label>الوظيفة</label>
                           <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
-                            <option>اختار وظيفة</option>
+                            <option>{role}</option>n
                             <option value="manager">مدير</option>
                             <option value="casher">كاشير</option>
                             <option value="deliveryman">الديلفري</option>
