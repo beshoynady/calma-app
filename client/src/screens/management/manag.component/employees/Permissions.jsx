@@ -144,16 +144,16 @@ const PermissionsComponent = () => {
     }
     console.log({ updatePermissions })
     setPermissions([...updatePermissions])
-
-
+    
+    
     const newPermissionEmployee = permissionEmployee.Permissions.map((per,i)=>{
-      updatePermissions.map((upd,n)=>{
-        if(per.resource === upd.resource){
-          return upd
+      const filter = updatePermissions.filter(u => u.resource === per.resource)
+      console.log({ filter })
+        if(filter){
+          return filter[0]
         }else{
           return per
         }
-      })
     })
     console.log({newPermissionEmployee})
   //   setpermissionEmployee(prevState => ({
