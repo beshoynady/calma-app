@@ -325,9 +325,7 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        // const resourcePermissions = Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i]) : [];
-                        // const hasResourcePermissions = resourcePermissions.length > 0;
-                        // const permissionDetails = hasResourcePermissions ? resourcePermissions[0] : {};
+                        console.log({permissionEmployee})
                         return (
                           <tr key={i}>
                             <td>{i + 1}</td>
