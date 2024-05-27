@@ -330,7 +330,9 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="create"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.create : false}
+                                checked={updatePermissions.length>0?
+                                  updatePermissions.filter(per => per.resource === permissionsListEn[i])[0]?.create
+                                  :Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.create : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -339,7 +341,9 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update: false}
+                                checked={updatePermissions.length>0?
+                                  updatePermissions.filter(per => per.resource === permissionsListEn[i])[0]?.update
+                                  :Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update: false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -348,7 +352,9 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="read"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.read : false}
+                                checked={updatePermissions.length>0?
+                                  updatePermissions.filter(per => per.resource === permissionsListEn[i])[0]?.read
+                                  :Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.read : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -357,7 +363,9 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="delete"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.delete : false}
+                                checked={updatePermissions.length>0?
+                                  updatePermissions.filter(per => per.resource === permissionsListEn[i])[0]?.delete
+                                  :Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.delete : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
