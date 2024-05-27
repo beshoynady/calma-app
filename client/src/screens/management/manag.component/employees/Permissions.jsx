@@ -163,10 +163,10 @@ const PermissionsComponent = () => {
   // }
 
   const handeladdPermissions = (e, i) => {
-    console.log({ Permissions })
+    console.log({ permissionEmployee })
     const resource = permissionsListEn[i]
     const action = e.target.value
-    let updatePermissions = [...permissionEmployee]
+    let updatePermissions = [...permissionEmployee.Permissions]
     const findPermission = updatePermissions.filter(permission => permission.resource === resource)
 
     if (findPermission.length > 0) {
@@ -300,7 +300,7 @@ const PermissionsComponent = () => {
           permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
           null;
 
-        setpermissionEmployee(permissionEmployee);
+        setpermissionEmployee(permissionEmployee.Permissions);
         console.log({ permissionEmployee });
         console.log({ selectedEmployees });
       } else {
@@ -413,7 +413,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="create"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.create : false}
+                                checked={Array.isArray(permissionEmployee) ? permissionEmployee.filter(per => per.resource === permissionsListEn[i])[0]?.create : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -422,7 +422,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="update"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update : false}
+                                checked={Array.isArray(permissionEmployee) ? permissionEmployee.filter(per => per.resource === permissionsListEn[i])[0]?.update : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -431,7 +431,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="read"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.read : false}
+                                checked={Array.isArray(permissionEmployee) ? permissionEmployee.filter(per => per.resource === permissionsListEn[i])[0]?.read : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
@@ -440,7 +440,7 @@ const PermissionsComponent = () => {
                                 type="checkbox"
                                 value="delete"
                                 className="form-check-input position-relative"
-                                checked={Array.isArray(permissionEmployee.Permissions) ? permissionEmployee.Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.delete : false}
+                                checked={Array.isArray(permissionEmployee) ? permissionEmployee.filter(per => per.resource === permissionsListEn[i])[0]?.delete : false}
                                 onChange={(e) => handeladdPermissions(e, i)}
                               />
                             </td>
