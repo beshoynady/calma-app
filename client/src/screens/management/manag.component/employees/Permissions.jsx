@@ -146,7 +146,7 @@ const PermissionsComponent = () => {
     setPermissions([...updatePermissions])
 
 
-    const newPermissionEmployee =permissionEmployee.Permissions.map((per,i)=>{
+    const newPermissionEmployee = permissionEmployee.Permissions.map((per,i)=>{
       updatePermissions.map((upd,n)=>{
         if(per.resource === upd.resource){
           return upd
@@ -155,10 +155,11 @@ const PermissionsComponent = () => {
         }
       })
     })
-    setpermissionEmployee(prevState => ({
-      ...prevState,
-      Permissions: newPermissionEmployee 
-    }));  
+    console.log({newPermissionEmployee})
+  //   setpermissionEmployee(prevState => ({
+  //     ...prevState,
+  //     Permissions: newPermissionEmployee 
+  //   }));  
   }
 
 
@@ -332,7 +333,7 @@ const PermissionsComponent = () => {
                     </thead>
                     <tbody>
                       {permissionsListAr.map((permission, i) => {
-                        console.log({permissionEmployee})
+                        // console.log({permissionEmployee})
                         return (
                           <tr key={i}>
                             <td>{i + 1}</td>
