@@ -166,7 +166,7 @@ const PermissionsComponent = () => {
     console.log({ permissionEmployee })
     const resource = permissionsListEn[i]
     const action = e.target.value
-    let updatePermissions = [...permissionEmployee.Permissions]
+    let updatePermissions = [...permissionEmployee]
     const findPermission = updatePermissions.filter(permission => permission.resource === resource)
 
     if (findPermission.length > 0) {
