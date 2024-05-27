@@ -290,6 +290,8 @@ const PermissionsComponent = () => {
             console.log({ permissionEmployee });
             console.log({ selectedEmployee });
           }else{
+            setpermissionEmployee({});
+            setPermissions([])
             toast.info('هذا الموظف ليس له اي صلاحيات')
           }
         } else {
@@ -317,8 +319,14 @@ const PermissionsComponent = () => {
           console.log({ permissionEmployee });
           console.log({ selectedEmployee });
         }else{
+          setpermissionEmployee({});
+          setPermissions([])
           toast.info('هذا الموظف ليس له اي صلاحيات')
         }
+
+      }else{
+        setselectedEmployee({});
+        setemployeeid('');
 
       }
     }
