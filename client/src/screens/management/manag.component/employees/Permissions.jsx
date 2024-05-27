@@ -284,12 +284,15 @@ const PermissionsComponent = () => {
           permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
           null;
 
-        setpermissionEmployee(permissionEmployee);
-        setPermissions(permissionEmployee.Permissions)
-
-        console.log({ permissionEmployee });
-        console.log({ selectedEmployees });
-      } else {
+          if(permissionEmployee){
+            setpermissionEmployee(permissionEmployee);
+            setPermissions(permissionEmployee.Permissions)
+            console.log({ permissionEmployee });
+            console.log({ selectedEmployee });
+          }else{
+            toast.info('هذا الموظف ليس له اي صلاحيات')
+          }
+        } else {
         setselectedEmployee(null);
       }
     }
@@ -308,10 +311,14 @@ const PermissionsComponent = () => {
 
         console.log({ permissionsList });
         const permissionEmployee = permissionsList ? permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] : null;
-        setpermissionEmployee(permissionEmployee);
-        setPermissions(permissionEmployee.Permissions)
-        console.log({ permissionEmployee });
-        console.log({ selectedEmployee });
+        if(permissionEmployee){
+          setpermissionEmployee(permissionEmployee);
+          setPermissions(permissionEmployee.Permissions)
+          console.log({ permissionEmployee });
+          console.log({ selectedEmployee });
+        }else{
+          toast.info('هذا الموظف ليس له اي صلاحيات')
+        }
 
       }
     }
