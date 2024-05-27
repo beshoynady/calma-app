@@ -593,7 +593,7 @@ const Employees = () => {
                         <div className="form-group form-group-47">
                           <label>الوظيفة</label>
                           <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
-                            <option>{role}</option>n
+                            <option>{role}</option>
                             <option value="manager">مدير</option>
                             <option value="casher">كاشير</option>
                             <option value="deliveryman">الديلفري</option>
