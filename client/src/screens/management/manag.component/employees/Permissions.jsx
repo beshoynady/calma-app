@@ -213,24 +213,7 @@ const PermissionsComponent = () => {
       console.log({ newPermission })
     }
     console.log({ updatePermissions })
-    setPermissions([...updatePermissions])
-    // setpermissionEmployee([...updatePermissions])
-
-
-    // const newPermissionEmployee = permissionEmployee.Permissions.map((per, i) => {
-    //   const filter = updatePermissions.filter(u => u.resource === per.resource)
-    //   console.log({ filter })
-    //   if (filter) {
-    //     return filter[0]
-    //   } else {
-    //     return per
-    //   }
-    // })
-    // console.log({ newPermissionEmployee })
-    //   setpermissionEmployee(prevState => ({
-    //     ...prevState,
-    //     Permissions: newPermissionEmployee 
-    //   }));  
+    setPermissions([...updatePermissions]) 
   }
 
 
