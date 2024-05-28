@@ -64,7 +64,7 @@ function App() {
       'Authorization': `Bearer ${token}`,
     },
   };
-const [isLoadiog, setisLoadiog] = useState(true)
+const [isLoadiog, setisLoadiog] = useState(false)
   axios.defaults.withCredentials = true;
 
   // Reataurant data //
