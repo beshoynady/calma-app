@@ -258,7 +258,7 @@ const Category = () => {
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-8 d-flex justify-content-end ">
-                        <a href="#orderCategoryModal" className="btn btn-47 btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
+                        <a href="#orderCategoryModal" className="btn btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
                         <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
                         <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
                           <option value="">{mainCategory ? mainCategory.name : "اختر نص"}</option>
@@ -266,8 +266,8 @@ const Category = () => {
                             <option key={index} value={category._id}>{category.name}</option>
                           ))}
                         </select>
-                        <a href="#addCategoryModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteCategoryModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
