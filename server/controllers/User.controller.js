@@ -88,6 +88,7 @@ const updateuser = async (req, res) => {
             email: Joi.string().email().trim().min(10).max(100),
             address: Joi.string().trim().min(3).max(150),
             phone: Joi.string().trim().length(11),
+            deliveryArea: Joi.string().hex().length(24),
             password: Joi.string().trim().min(3).max(200),
             isActive: Joi.boolean(),
             isVarified: Joi.boolean(),
@@ -125,7 +126,7 @@ const updateuser = async (req, res) => {
 
         res.status(200).json(updatedUser);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message , err});
     }
 };
 

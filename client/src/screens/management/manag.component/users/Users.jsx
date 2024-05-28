@@ -92,6 +92,13 @@ const Users = () => {
   const handleUpdateUser = async (e) => {
     e.preventDefault();
     try {
+      console.log({username,
+        email,
+        address,
+        deliveryArea,
+        phone,
+        isActive,
+        isVarified,})
       const response = await axios.put(`${apiUrl}/api/user/${userid}`, {
         username,
         email,
