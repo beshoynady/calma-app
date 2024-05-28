@@ -224,10 +224,11 @@ const Category = () => {
       status,
     };
   
+    console.log({categoryData})
     try {
       const response = await axios.post(`${apiUrl}/api/category/`, categoryData, config);
   console.log({response})
-      if (response.status === 200) {
+      if (response.status === 201) {
         
         await getallCategory();
         toast.success("تم إنشاء الفئة بنجاح.");
