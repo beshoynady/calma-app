@@ -128,7 +128,7 @@ const Users = () => {
   const [Areas, setAreas] = useState([])
   const getAllDeliveryAreas = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`)
       const data = await response.data
       console.log({ data })
       if (data) {
