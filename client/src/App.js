@@ -1540,7 +1540,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
           // Retrieve user info from token if needed
           getUserInfoFromToken();
           // Update login state
-          setisLogin(!isLogin);
+          setisLogin(true);
           toast.success('تم تسجيل الدخول!');
         } else {
           toast.error('هذا المستخدم غير نشط. الرجاء الاتصال بنا.');

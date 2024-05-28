@@ -164,9 +164,9 @@ const Cart = (props) => {
                         {itemsInCart.length > 0 && (
                           <div className="total-order">
                             {id ? (
-                              <button className='total-order-btn btn' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
+                              <button className='total-order-btn btn btn-success' onClick={() => createOrderForTableByClient(id)}>تأكيد الطلب</button>
                             ) : (userLoginInfo && userLoginInfo.userinfo) && (
-                              <button className='total-order-btn btn' onClick={() => createDeliveryOrderByClient(userLoginInfo.userinfo.id, clientInfo.address, clientInfo.deliveryArea.delivery_fee)}>تأكيد الطلب</button>
+                              <button className='total-order-btn btn btn-success' onClick={() => createDeliveryOrderByClient(clientInfo._id, clientInfo.address, clientInfo.deliveryArea.delivery_fee)}>تأكيد الطلب</button>
                             )}
                             <div className='total-order-details'>
                               <h2>المجموع</h2>
