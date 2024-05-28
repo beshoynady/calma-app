@@ -253,15 +253,17 @@ const Category = () => {
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
-                    <div className="row">
-                      <div className="col-sm-4 text-right">
+                    <div className="row align-items-center mb-3">
+                      <div className="col-sm-4 text-sm-right text-center mb-3 mb-sm-0">
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
-                      <div className="col-sm-8 d-flex justify-content-end ">
-                        <div>
-                          <a href="#orderCategoryModal" className="btn btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
-                          <div>
-                            <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
+                      <div className="col-sm-8 d-flex flex-column flex-sm-row justify-content-sm-start justify-content-center align-items-center">
+                        <div className="d-flex flex-column flex-sm-row align-items-center mr-sm-3 mb-3 mb-sm-0">
+                          <a href="#orderCategoryModal" className="btn btn-info mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
+                            <i className="material-icons">&#xE164;</i><span>ترتيب</span>
+                          </a>
+                          <div className="d-flex align-items-center">
+                            <label htmlFor="categorySelect" className="mb-0 mr-2">اختر التصنيف الرئيسي:</label>
                             <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
                               <option value="">{mainCategory ? mainCategory.name : "اختر نص"}</option>
                               {allCategory.map((category, index) => (
@@ -270,9 +272,13 @@ const Category = () => {
                             </select>
                           </div>
                         </div>
-                        <div>
-                          <a href="#addCategoryModal" className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                          <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <div className="d-flex flex-column flex-sm-row align-items-center">
+                          <a href="#addCategoryModal" className="btn btn-success mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
+                            <i className="material-icons">&#xE147;</i><span>اضافه تصنيف</span>
+                          </a>
+                          <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal">
+                            <i className="material-icons">&#xE15C;</i><span>حذف</span>
+                          </a>
                         </div>
                       </div>
                     </div>
