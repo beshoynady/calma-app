@@ -216,7 +216,7 @@ const Category = () => {
 
   const createCategory = async (event, setLoading) => {
     event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
 
     const categoryData = {
       name: categoryName,
@@ -240,8 +240,8 @@ const Category = () => {
       toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
         position: toast.POSITION.TOP_RIGHT
       });
-    } finally {
-      setLoading(false);
+    // } finally {
+    //   setLoading(false);
     }
   };
 
@@ -440,20 +440,10 @@ const Category = () => {
                           </select>
                         </div>
 
-                        {/* <div className="form-group form-group-47">
-                          <label>
-                            <input
-                              type="checkbox"
-                              checked={isMain}
-                              onChange={(e) => setisMain(e.target.checked)}
-                            />
-                            هل هذا التصنيف الرئيس؟
-                          </label>
-                        </div> */}
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" data-dismiss="modal" value="اضافه" />
+                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
