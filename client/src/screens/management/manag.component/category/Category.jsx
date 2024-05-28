@@ -549,10 +549,10 @@ const Category = () => {
                       </div>
                       <div className="d-flex flex-row">
                         <div className="col-6">
-                          <input type="button" className="btn btn-danger btn btn-block" data-dismiss="modal" value="إغلاق" />
+                          <input type="button" className="btn btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
                         </div>
                         <div className="col-6">
-                          <input type="submit" className="btn btn-success btn btn-block" value="حفظ" />
+                          <input type="submit" className="btn btn-success btn-block" value="حفظ" />
                         </div>
                       </div>
                     </form>
