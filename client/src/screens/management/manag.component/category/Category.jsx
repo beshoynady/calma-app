@@ -216,20 +216,19 @@ const Category = () => {
 
   const createCategory = async (event, setLoading) => {
     event.preventDefault();
-    setLoading(true);
-    
+    // setLoading(true);
+
     const categoryData = {
       name: categoryName,
       isMain,
       status,
     };
-  
-    console.log({categoryData})
+
+    console.log({ categoryData })
     try {
       const response = await axios.post(`${apiUrl}/api/category/`, categoryData, config);
-  console.log({response})
+      console.log({ response })
       if (response.status === 201) {
-        
         await getallCategory();
         toast.success("تم إنشاء الفئة بنجاح.");
       } else {
@@ -237,15 +236,15 @@ const Category = () => {
       }
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
-  
+
       toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
         position: toast.POSITION.TOP_RIGHT
       });
-    } finally {
-      setLoading(false);
+    // } finally {
+    //   setLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     getallCategory()
@@ -410,7 +409,7 @@ const Category = () => {
               <div id="addCategoryModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={(e)=>createCategory(e, setisLoadiog)}>
+                    <form onSubmit={(e) => createCategory(e, setisLoadiog)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه تصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -435,6 +434,7 @@ const Category = () => {
                             onChange={(e) => setstatus(e.target.value === "true")} // تحويل القيمة المحددة إلى قيمة بوليانية
                             style={{ width: "100%" }}
                           >
+                            <option >اختر الحالة</option>
                             <option value="true">متاح</option>
                             <option value="false">غير متاح</option>
                           </select>
