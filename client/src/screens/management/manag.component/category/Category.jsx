@@ -528,8 +528,8 @@ const Category = () => {
                 </div>
               </div>
               <div id="orderCategoryModal" className="modal fade">
-                <div className="modal-dialog p-1">
-                  <div className="modal-content">
+                <div className="modal-dialog ">
+                  <div className="modal-content p-1">
                     <form onSubmit={handleOrderCategory}>
                       <div className="modal-header">
                         <h4 className="modal-title">تعديل التصنيف</h4>
@@ -542,18 +542,14 @@ const Category = () => {
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
                             onDrop={(e) => handleDrop(e, index)}
-                            className='btn btn-primary btn btn-sm mb-2 mr-md-2 w-23 w-10 w-md-100'>
+                            className='btn btn-primary btn btn-sm mb-2 mr-md-2 w-15 w-md-100'>
                             {category.name}
                           </div>
                         ))}
                       </div>
                       <div className="d-flex flex-row">
-                        <div className="col-6">
-                          <input type="button" className="btn btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
-                        </div>
-                        <div className="col-6">
-                          <input type="submit" className="btn btn-success btn-block" value="حفظ" />
-                        </div>
+                          <input type="button" className="btn btn-47  btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
+                          <input type="submit" className="btn btn-47  btn-success btn-block" value="حفظ" />
                       </div>
                     </form>
                   </div>
