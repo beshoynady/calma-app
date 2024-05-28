@@ -214,35 +214,37 @@ const Category = () => {
 
 
 
-  const createCategory = async (e, setisLoadiog) => {
-    e.preventDefault();
-    setisLoadiog(true)
+  const createCategory = async (event, setLoading) => {
+    event.preventDefault();
+    setLoading(true);
+  
+    const categoryData = {
+      name: categoryName,
+      isMain,
+      status,
+    };
+  
     try {
-      const bodydata = {
-        name: categoryName,
-        isMain,
-        status,
-      }
-      const response = await axios.post(apiUrl + "/api/category/", bodydata, config);
-
+      const response = await axios.post(`${apiUrl}/api/category/`, categoryData, config);
+  console.log({response})
       if (response.status === 200) {
-        getallCategory();
+        
+        await getallCategory();
         toast.success("تم إنشاء الفئة بنجاح.");
       } else {
         throw new Error("حدث خطأ أثناء إنشاء الفئة.");
       }
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
-
-      // عرض رسالة الخطأ باستخدام toast
+  
       toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
         position: toast.POSITION.TOP_RIGHT
       });
-    }
-    finally {
-      setisLoadiog(false);
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getallCategory()
@@ -269,7 +271,7 @@ const Category = () => {
                           <div className="d-flex align-items-center">
                             <label htmlFor="categorySelect" className="mb-0 mr-2" style={{ width: '55%' }}>اختر التصنيف الرئيسي:</label>
                             <select id="categorySelect" className="form-control" style={{ width: '40%' }}
-                              onChange={handleCategoryChange()}>
+                              onChange={handleCategoryChange}>
                               <option value="">{mainCategory ? mainCategory.name : ""}</option>
                               {allCategory.map((category, index) => (
                                 <option key={index} value={category._id}>{category.name}</option>
