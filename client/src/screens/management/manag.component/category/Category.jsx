@@ -263,8 +263,9 @@ const Category = () => {
                             <i className="material-icons">&#xE164;</i><span>ترتيب</span>
                           </a>
                           <div className="d-flex align-items-center">
-                            <label htmlFor="categorySelect" className="mb-0 mr-2">اختر التصنيف الرئيسي:</label>
-                            <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
+                            <label htmlFor="categorySelect" className="mb-0 mr-2" style={{width:'55%'}}>اختر التصنيف الرئيسي:</label>
+                            <select id="categorySelect" className="form-control" style={{width:'40%'}}
+                            onChange={handleCategoryChange}>
                               <option value="">{mainCategory ? mainCategory.name : ""}</option>
                               {allCategory.map((category, index) => (
                                 <option key={index} value={category._id}>{category.name}</option>
