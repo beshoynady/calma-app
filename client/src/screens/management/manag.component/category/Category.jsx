@@ -542,17 +542,17 @@ const Category = () => {
                             onDragStart={(e) => handleDragStart(e, index)}
                             onDragOver={handleDragOver}
                             onDrop={(e) => handleDrop(e, index)}
-                            className='btn btn-47 btn-primary btn btn-sm mb-2 mr-md-2 w-23 w-md-100'>
+                            className='btn btn-primary btn btn-sm mb-2 mr-md-2 w-23 w-10 w-md-100'>
                             {category.name}
                           </div>
                         ))}
                       </div>
                       <div className="d-flex flex-row">
                         <div className="col-6">
-                          <input type="button" className="btn btn-47 btn-danger btn btn-block" data-dismiss="modal" value="إغلاق" />
+                          <input type="button" className="btn btn-danger btn btn-block" data-dismiss="modal" value="إغلاق" />
                         </div>
                         <div className="col-6">
-                          <input type="submit" className="btn btn-47 btn-success btn btn-block" value="حفظ" />
+                          <input type="submit" className="btn btn-success btn btn-block" value="حفظ" />
                         </div>
                       </div>
                     </form>
