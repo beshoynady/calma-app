@@ -243,7 +243,7 @@ const AttendanceManagement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, calcTotalSalesOfCategory, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ allProducts, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -281,28 +281,7 @@ const AttendanceManagement = () => {
                           <label>اسم التصنيف</label>
                           {/* <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} /> */}
                         </div>
-                        {/* <div class="filter-group">
-                          <label>Location</label>
-                          <select class="form-control">
-                            <option>All</option>
-                            <option>Berlin</option>
-                            <option>London</option>
-                            <option>Madrid</option>
-                            <option>New York</option>
-                            <option>Paris</option>
-                          </select>
-                        </div>
-                        <div class="filter-group">
-                          <label>Status</label>
-                          <select class="form-control">
-                            <option>Any</option>
-                            <option>Delivered</option>
-                            <option>Shipped</option>
-                            <option>Pending</option>
-                            <option>Cancelled</option>
-                          </select>
-                        </div>
-                        <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                        
                       </div>
                     </div>
                   </div>

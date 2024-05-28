@@ -56,7 +56,7 @@ import KitchenConsumption from './screens/management/manag.component/stock/Kitch
 export const detacontext = createContext({});
 
 function App() {
-
+  
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
   const config = {
@@ -64,7 +64,7 @@ function App() {
       'Authorization': `Bearer ${token}`,
     },
   };
-
+const [isLoadiog, setisLoadiog] = useState(true)
   axios.defaults.withCredentials = true;
 
   // Reataurant data //
@@ -230,24 +230,24 @@ function App() {
 
 
 
-  const calcTotalSalesOfCategory = (id) => {
-    try {
-      let totalSalesOfCategory = 0;
+  // const calcTotalSalesOfCategory = (id) => {
+  //   try {
+  //     let totalSalesOfCategory = 0;
 
-      // Filter products based on the category ID
-      const productsOfCategory = allProducts.filter((product) => product.category === id);
+  //     // Filter products based on the category ID
+  //     const productsOfCategory = allProducts.filter((product) => product.category === id);
 
-      // Calculate total sales
-      for (let i = 0; i < productsOfCategory.length; i++) {
-        totalSalesOfCategory += productsOfCategory[i].sales;
-      }
+  //     // Calculate total sales
+  //     for (let i = 0; i < productsOfCategory.length; i++) {
+  //       totalSalesOfCategory += productsOfCategory[i].sales;
+  //     }
 
-      return totalSalesOfCategory;
-    } catch (error) {
-      console.error('Error calculating total sales of category:', error.message);
-      return 0;
-    }
-  }
+  //     return totalSalesOfCategory;
+  //   } catch (error) {
+  //     console.error('Error calculating total sales of category:', error.message);
+  //     return 0;
+  //   }
+  // }
 
   // ++++++++++ order ++++++++++++
   const [allOrders, setallOrders] = useState([])
@@ -2026,7 +2026,7 @@ function App() {
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
       createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
-
+      ,isLoadiog, setisLoadiog
     }}>
       <BrowserRouter>
         <Routes>

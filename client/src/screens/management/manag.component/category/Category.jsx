@@ -7,7 +7,7 @@ import { detacontext } from '../../../../App';
 const Category = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const token = localStorage.getItem('token_e');
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -145,8 +145,6 @@ const Category = () => {
     setCategoryFilterd(categories)
   }
 
-
-
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('index', index);
   };
@@ -247,7 +245,7 @@ const Category = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, calcTotalSalesOfCategory, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ allProducts, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -307,28 +305,7 @@ const Category = () => {
                           <label>اسم التصنيف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
                         </div>
-                        {/* <div class="filter-group">
-                          <label>Location</label>
-                          <select class="form-control">
-                            <option>All</option>
-                            <option>Berlin</option>
-                            <option>London</option>
-                            <option>Madrid</option>
-                            <option>New York</option>
-                            <option>Paris</option>
-                          </select>
-                        </div>
-                        <div class="filter-group">
-                          <label>Status</label>
-                          <select class="form-control">
-                            <option>Any</option>
-                            <option>Delivered</option>
-                            <option>Shipped</option>
-                            <option>Pending</option>
-                            <option>Cancelled</option>
-                          </select>
-                        </div>
-                        <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                        
                       </div>
                     </div>
                   </div>
@@ -347,7 +324,6 @@ const Category = () => {
                         <th>الترتيب</th>
                         <th>الحالة</th>
                         <th>عدد المنتجات</th>
-                        <th>عدد المنتجات المباعه</th>
                         <th>بواسطة</th>
                         <th>اجراءات</th>
                       </tr>
@@ -369,7 +345,6 @@ const Category = () => {
                                 <td>{category.order}</td>
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
-                                <td>{calcTotalSalesOfCategory(category._id)}</td>
                                 <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
                                   <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -395,7 +370,6 @@ const Category = () => {
                                 <td>{category.order}</td>
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
-                                <td>{calcTotalSalesOfCategory(category._id)}</td>
                                 <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
                                   <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
