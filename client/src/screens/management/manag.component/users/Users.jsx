@@ -102,6 +102,7 @@ const Users = () => {
         isActive,
         isVarified,
       });
+      console.log({response})
       if(response.status === 200){
         toast.success('تم تحديث المستخدم بنجاح');
       }
