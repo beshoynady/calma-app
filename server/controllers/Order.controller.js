@@ -69,7 +69,7 @@ const createOrder = async (req, res) => {
             throw new Error('Failed to create new order');
         }
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(400).json({ error: err.message , err});
     }
 };
 

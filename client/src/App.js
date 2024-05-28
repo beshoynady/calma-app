@@ -745,7 +745,6 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
   const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
     try {
-      const token = localStorage.getItem('token_u');
 
       // Find the user's orders
       const userOrders = allOrders.filter((order) => order.user === userId);
