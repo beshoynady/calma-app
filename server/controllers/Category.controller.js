@@ -3,9 +3,9 @@ const CategoryModel = require('../models/Category.model');
 // Create a new category
 const createCategory = async (req, res, next) => {
     try {
-        const { name, isMain, status, order } = req.body;
+        const { name, isMain, status } = req.body;
         const id = req.employee.id;
-        const newCategory = await CategoryModel.create({ name, isMain, status, order, createdBy: id });
+        const newCategory = await CategoryModel.create({ name, isMain, status, createdBy: id });
         res.status(201).json(newCategory);
     } catch (error) {
         if (error.code === 11000) { // Duplicate key error
@@ -20,7 +20,7 @@ const createCategory = async (req, res, next) => {
 // Get all categories
 const getAllCategories = async (req, res, next) => {
     try {
-        const allCategories = await CategoryModel.find({}).populate('createdBy').sort({ order: 1 });
+        const allCategories = await CategoryModel.find({}).populate('createdBy');
 
         res.status(200).json(allCategories);
     } catch (error) {
@@ -49,12 +49,12 @@ const getOneCategory = async (req, res, next) => {
 // Update a category
 const updateCategory = async (req, res, next) => {
     const { categoryId } = req.params;
-    const { name, isMain, status, order } = req.body;
+    const { name, isMain, status } = req.body;
     const id = req.employee.id;
     try {
         const updatedCategory = await CategoryModel.findByIdAndUpdate(
             categoryId,
-            { name, isMain, status, order, createdBy: id },
+            { name, isMain, status, createdBy: id },
             { new: true }
         );
         if (!updatedCategory) {

@@ -27,12 +27,7 @@ const categorySchema = new mongoose.Schema({
         ref: 'Employee',
         required: true
     },
-    // Display order of the category
-    order: {
-        type: Number,
-        required: true,
-        default: 0 
-    }
+
 }, { timestamps: true });
 
 // Create the Category model

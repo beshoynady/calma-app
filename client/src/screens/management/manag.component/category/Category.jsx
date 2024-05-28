@@ -217,7 +217,7 @@ const Category = () => {
   const createCategory = async (event, setLoading) => {
     event.preventDefault();
     setLoading(true);
-  
+    
     const categoryData = {
       name: categoryName,
       isMain,
