@@ -49,7 +49,6 @@ const OrderSchema = new mongoose.Schema({
             sizeId: {   
                 type: ObjectId,
                 ref: 'Product',
-                required: true,
             },
             size : {
                 type: String,
