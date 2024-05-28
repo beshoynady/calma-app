@@ -26,11 +26,11 @@ const Category = () => {
   const getallCategory = async () => {
     try {
       const res = await axios.get(apiUrl + "/api/category/");
-      if(res){
+      if (res) {
         const categories = res.data
         setallCategory(categories);
         const filterMain = categories.filter(category => category.isMain === true)[0];
-        if(filterMain){
+        if (filterMain) {
           setmainCategory(filterMain)
         }
       }
@@ -254,25 +254,36 @@ const Category = () => {
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
+                      <div className="col-sm-8 d-flex justify-content-start align-items-center">
+                        <div className="d-flex align-items-center mr-3">
+                          <a href="#orderCategoryModal" className="btn btn-info mr-2" data-toggle="modal">
+                            <i className="material-icons">&#xE164;</i><span>ترتيب</span>
+                          </a>
+                          <div className="d-flex align-items-center">
+                            <label htmlFor="categorySelect" className="mb-0 mr-2">اختر التصنيف الرئيسي:</label>
+                            <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
+                              <option value="">{mainCategory ? mainCategory.name : "اختر نص"}</option>
+                              {allCategory.map((category, index) => (
+                                <option key={index} value={category._id}>{category.name}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="ml-3">
+                          <a href="#addCategoryModal" className="btn btn-success mr-2" data-toggle="modal">
+                            <i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span>
+                          </a>
+                          <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal">
+                            <i className="material-icons">&#xE15C;</i> <span>حذف</span>
+                          </a>
+                        </div>
+                      </div>
                       <div className="col-sm-4 text-right">
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
-                      <div className="col-sm-8 d-flex justify-content-end">
-                        <a href="#addCategoryModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#orderCategoryModal" className="btn btn-47 btn-info" data-toggle="modal"><i className="material-icons">&#xE164;</i><span>ترتيب</span></a>
-                        <a href="#deleteCategoryModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
-                        <div>
-                          <label htmlFor="categorySelect">اختر التصنيف الرئيسي:</label>
-                          <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
-                            <option value="">{mainCategory? mainCategory.name : "اختر نص"}</option>
-                            {allCategory.map((category, index) => (
-                              <option key={index} value={category._id}>{category.name}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
                     </div>
                   </div>
+
                   <div class="table-filter">
                     <div class="row text-dark">
                       <div class="col-sm-3">
