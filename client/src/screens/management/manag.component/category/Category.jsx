@@ -528,7 +528,7 @@ const Category = () => {
                 </div>
               </div>
               <div id="orderCategoryModal" className="modal fade">
-                <div className="modal-dialog">
+                <div className="modal-dialog p-1">
                   <div className="modal-content">
                     <form onSubmit={handleOrderCategory}>
                       <div className="modal-header">
