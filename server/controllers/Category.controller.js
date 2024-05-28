@@ -25,7 +25,7 @@ const getAllCategories = async (req, res, next) => {
         res.status(200).json(allCategories);
     } catch (error) {
         // Handle errors
-        res.status(500).json({ message: 'Failed to fetch categories' });
+        res.status(500).json({ message: 'Failed to fetch categories' , error});
         next(error);
     }
 };
@@ -66,7 +66,7 @@ const updateCategory = async (req, res, next) => {
             return res.status(400).json({ message: 'Category name already exists' });
         }
         // Handle other errors
-        res.status(500).json({ message: 'Failed to update category' });
+        res.status(500).json({ message: 'Failed to update category' ,error});
         next(error);
     }
 };
