@@ -2010,7 +2010,7 @@ const [isLoadiog, setisLoadiog] = useState(true)
       getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
 
       // Functions related to creating different types of orders
-      checkout, calcTotalSalesOfCategory,
+      checkout,
       createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
 
       // Functions related to pagination
