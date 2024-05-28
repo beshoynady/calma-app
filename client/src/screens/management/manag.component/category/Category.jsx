@@ -269,7 +269,7 @@ const Category = () => {
                           <div className="d-flex align-items-center">
                             <label htmlFor="categorySelect" className="mb-0 mr-2" style={{ width: '55%' }}>اختر التصنيف الرئيسي:</label>
                             <select id="categorySelect" className="form-control" style={{ width: '40%' }}
-                              onChange={handleCategoryChange(e, setisLoadiog)}>
+                              onChange={handleCategoryChange()}>
                               <option value="">{mainCategory ? mainCategory.name : ""}</option>
                               {allCategory.map((category, index) => (
                                 <option key={index} value={category._id}>{category.name}</option>
@@ -407,7 +407,7 @@ const Category = () => {
               <div id="addCategoryModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={()=>createCategory(e, setisLoadiog)}>
+                    <form onSubmit={(e)=>createCategory(e, setisLoadiog)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه تصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
