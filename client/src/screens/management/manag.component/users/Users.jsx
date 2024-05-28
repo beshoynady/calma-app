@@ -92,18 +92,19 @@ const Users = () => {
   const handleUpdateUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`/api/user/${userid}`, {
+      const response = await axios.put(`${apiUrl}/api/user/${userid}`, {
         username,
         email,
         address,
         deliveryArea,
         phone,
-        password,
+        // password,
         isActive,
         isVarified,
       });
-
-      toast.success('تم تحديث المستخدم بنجاح');
+      if(response.status === 200){
+        toast.success('تم تحديث المستخدم بنجاح');
+      }
     } catch (error) {
       toast.error(error.response.data.message || 'حدث خطأ ما');
     }
@@ -473,8 +474,8 @@ const Users = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-info" value="حفظ" />
+                        <input type="button" className="btn btn-danger btn-47" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-success btn-47" value="حفظ" />
                       </div>
                     </form>
                   </div>
