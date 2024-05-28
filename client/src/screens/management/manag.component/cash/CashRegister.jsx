@@ -166,7 +166,7 @@ const CashRegister = () => {
 
   return (
     <detacontext.Consumer>
-      {({ EditPagination, usertitle, startpagination, endpagination, setstartpagination, setendpagination }) => {
+      {({ setisLoadiog, EditPagination, usertitle, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
             <div className="table-responsive">

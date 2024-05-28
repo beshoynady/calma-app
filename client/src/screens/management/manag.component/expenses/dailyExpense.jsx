@@ -264,7 +264,7 @@ const DailyExpense = () => {
 
   return (
     <detacontext.Consumer>
-      {({ employeeLoginInfo, usertitle, formatDate, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+      {({ employeeLoginInfo, usertitle, formatDate, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="container-xl mlr-auto">
             <div className="table-responsive mt-1">

@@ -243,7 +243,7 @@ const AttendanceManagement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ allProducts, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">

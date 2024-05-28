@@ -244,7 +244,7 @@ const PermissionsComponent = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="containewPermissionEmployee-xl mlr-auto">
               <div className="table-responsive">

@@ -93,7 +93,7 @@ const Users = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination, restaurantData }) => {
+        ({ setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination, restaurantData }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">

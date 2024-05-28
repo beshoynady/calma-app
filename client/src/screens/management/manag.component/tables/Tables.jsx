@@ -229,7 +229,7 @@ const deleteTable = async (e) => {
   return (
     <detacontext.Consumer>
       {
-        ({ EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
 
           return (
             <div className="container-xl mlr-auto">

@@ -55,32 +55,7 @@ const Category = () => {
   }
 
 
-  const createCategory = async (e) => {
-    e.preventDefault();
 
-    try {
-      const bodydata = {
-        name: categoryName,
-        isMain,
-        status,
-      }
-      const response = await axios.post(apiUrl + "/api/category/", bodydata, config);
-
-      if (response.status === 200) {
-        getallCategory();
-        toast.success("تم إنشاء الفئة بنجاح.");
-      } else {
-        throw new Error("حدث خطأ أثناء إنشاء الفئة.");
-      }
-    } catch (error) {
-      console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
-
-      // عرض رسالة الخطأ باستخدام toast
-      toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    }
-  };
 
   // Function to edit a category
   const editCategory = async (e) => {
@@ -238,6 +213,37 @@ const Category = () => {
   }
 
 
+
+  const createCategory = async (e, setisLoadiog) => {
+    e.preventDefault();
+    setisLoadiog(true)
+    try {
+      const bodydata = {
+        name: categoryName,
+        isMain,
+        status,
+      }
+      const response = await axios.post(apiUrl + "/api/category/", bodydata, config);
+
+      if (response.status === 200) {
+        getallCategory();
+        toast.success("تم إنشاء الفئة بنجاح.");
+      } else {
+        throw new Error("حدث خطأ أثناء إنشاء الفئة.");
+      }
+    } catch (error) {
+      console.error("حدث خطأ أثناء إرسال الطلب:", error.message);
+
+      // عرض رسالة الخطأ باستخدام toast
+      toast.error("حدث خطأ أثناء إنشاء الفئة. الرجاء المحاولة مرة أخرى.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    }
+    finally {
+      setisLoadiog(false);
+    }
+  };
+
   useEffect(() => {
     getallCategory()
   }, [])
@@ -245,7 +251,7 @@ const Category = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ allProducts, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -261,9 +267,9 @@ const Category = () => {
                             <i className="material-icons">&#xE164;</i><span>ترتيب</span>
                           </a>
                           <div className="d-flex align-items-center">
-                            <label htmlFor="categorySelect" className="mb-0 mr-2" style={{width:'55%'}}>اختر التصنيف الرئيسي:</label>
-                            <select id="categorySelect" className="form-control" style={{width:'40%'}}
-                            onChange={handleCategoryChange}>
+                            <label htmlFor="categorySelect" className="mb-0 mr-2" style={{ width: '55%' }}>اختر التصنيف الرئيسي:</label>
+                            <select id="categorySelect" className="form-control" style={{ width: '40%' }}
+                              onChange={()=>handleCategoryChange(e, setisLoadiog)}>
                               <option value="">{mainCategory ? mainCategory.name : ""}</option>
                               {allCategory.map((category, index) => (
                                 <option key={index} value={category._id}>{category.name}</option>
@@ -305,7 +311,7 @@ const Category = () => {
                           <label>اسم التصنيف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
                         </div>
-                        
+
                       </div>
                     </div>
                   </div>

@@ -2014,7 +2014,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
       createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
 
       // Functions related to pagination
-      EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
+      setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
 
       // Other utility functions or state variables
       itemId, setitemId,

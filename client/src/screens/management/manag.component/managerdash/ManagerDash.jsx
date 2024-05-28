@@ -511,7 +511,7 @@ const ManagerDash = () => {
   return (
     <detacontext.Consumer>
       {
-        ({restaurantData, employeeLoginInfo, usertitle, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <section className='dashboard'>
               <div className='container'>
