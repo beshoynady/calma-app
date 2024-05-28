@@ -253,35 +253,38 @@ const Category = () => {
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
-                    <div className="row align-items-center mb-3">
-                      <div className="col-sm-4 text-sm-right text-center mb-3 mb-sm-0">
-                        <h2>ادارة <b>التصنيفات</b></h2>
-                      </div>
-                      <div className="col-sm-8 d-flex flex-column flex-sm-row justify-content-sm-start justify-content-center align-items-center">
-                        <div className="d-flex w-70 justify-content-right flex-column flex-sm-row align-items-center mr-sm-3 mb-3 mb-sm-0">
-                          <a href="#orderCategoryModal" className="btn btn-info mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
-                            <i className="material-icons">&#xE164;</i><span>ترتيب</span>
-                          </a>
-                          <div className="d-flex align-items-center">
-                            <label htmlFor="categorySelect" className="w-55 mb-0 mr-2">اختر التصنيف الرئيسي:</label>
-                            <select id="categorySelect" className="form-control w-40" onChange={handleCategoryChange}>
-                              <option value="">{mainCategory ? mainCategory.name : ""}</option>
-                              {allCategory.map((category, index) => (
-                                <option key={index} value={category._id}>{category.name}</option>
-                              ))}
-                            </select>
-                          </div>
+                    <div className="container">
+                      <div className="row align-items-center mb-3">
+                        <div className="col-sm-4 text-sm-right text-center mb-3 mb-sm-0">
+                          <h2>ادارة <b>التصنيفات</b></h2>
                         </div>
-                        <div className="d-flex w-30 justify-content-left flex-column flex-sm-row align-items-center">
-                          <a href="#addCategoryModal" className="btn btn-success mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
-                            <i className="material-icons">&#xE147;</i><span>اضافه تصنيف</span>
-                          </a>
-                          <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal">
-                            <i className="material-icons">&#xE15C;</i><span>حذف</span>
-                          </a>
+                        <div className="col-sm-8 d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                          <div className="d-flex flex-column flex-sm-row align-items-center mb-3 mb-sm-0">
+                            <a href="#orderCategoryModal" className="btn btn-info mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
+                              <i className="material-icons">&#xE164;</i><span>ترتيب</span>
+                            </a>
+                            <div className="d-flex align-items-center">
+                              <label htmlFor="categorySelect" className="mb-0 mr-2">اختر التصنيف الرئيسي:</label>
+                              <select id="categorySelect" className="form-control" onChange={handleCategoryChange}>
+                                <option value="">{mainCategory ? mainCategory.name : ""}</option>
+                                {allCategory.map((category, index) => (
+                                  <option key={index} value={category._id}>{category.name}</option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="d-flex flex-column flex-sm-row align-items-center">
+                            <a href="#addCategoryModal" className="btn btn-success mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
+                              <i className="material-icons">&#xE147;</i><span>اضافه تصنيف</span>
+                            </a>
+                            <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal">
+                              <i className="material-icons">&#xE15C;</i><span>حذف</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                   <div class="table-filter">
                     <div class="row text-dark">
@@ -548,8 +551,8 @@ const Category = () => {
                         ))}
                       </div>
                       <div className="d-flex flex-row">
-                          <input type="submit" className="btn btn-47  btn-success btn-block" value="حفظ" />
-                          <input type="button" className="btn btn-47  btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn btn-47  btn-success btn-block" value="حفظ" />
+                        <input type="button" className="btn btn-47  btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
