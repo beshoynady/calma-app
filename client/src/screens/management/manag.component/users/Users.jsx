@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const Users = () => {
@@ -16,11 +16,11 @@ const Users = () => {
 
       const response = await axios.get(apiUrl + '/api/user', {
         headers: {
-            'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
-    });
+      });
       setAllUsers(response.data)
-      console.log({AllUsers: response})
+      console.log({ AllUsers: response })
     } catch (error) {
       console.log(error)
     }
@@ -36,9 +36,9 @@ const Users = () => {
       // Send a request to update the 'isVarified' status
       const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isVarified }, {
         headers: {
-            'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
-    });
+      });
       console.log(response.data)
 
       // Notify success using toast
@@ -63,9 +63,9 @@ const Users = () => {
       // Send a request to update the 'isActive' status
       const response = await axios.put(`${apiUrl}/api/user/update-status/${id}`, { isActive }, {
         headers: {
-            'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
-    });
+      });
 
       // Notify success using toast
       toast.success('تم تغير الحاله بنجاح');
@@ -79,15 +79,71 @@ const Users = () => {
     }
   };
 
+  const [userid, setUserid] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [deliveryArea, setDeliveryArea] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [isActive, setIsActive] = useState(false);
+  const [isVarified, setIsVarified] = useState(false);
+
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`/api/user/${userid}`, {
+        username,
+        email,
+        address,
+        deliveryArea,
+        phone,
+        password,
+        isActive,
+        isVarified,
+      });
+
+      toast.success('تم تحديث المستخدم بنجاح');
+    } catch (error) {
+      toast.error(error.response.data.message || 'حدث خطأ ما');
+    }
+  };
+  const handelEditUser = (user) => {
+    setUserid(user._id);
+    setUsername(user.username);
+    setEmail(user.email);
+    setAddress(user.address);
+    setDeliveryArea(user.deliveryArea);
+    setPhone(user.phone);
+    setIsActive(user.isActive);
+    setIsVarified(user.isVarified);
+  };
+
   const [filteruser, setfilteruser] = useState([])
   const getUserByPhone = async (phone) => {
     const user = AllUsers.filter(user => user.phone.startsWith(phone));
     setfilteruser(user)
   }
 
+  const [Areas, setAreas] = useState([])
+  const getAllDeliveryAreas = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/deliveryarea`, config)
+      const data = await response.data
+      console.log({ data })
+      if (data) {
+        setAreas(data)
+      } else {
+        toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء جلب بيانات منطقه التوصيل! اعد تحميل الصفحة')
+    }
+  }
 
   useEffect(() => {
     getAllUsers()
+    getAllDeliveryAreas()
   }, [])
 
   return (
@@ -131,28 +187,14 @@ const Users = () => {
                           <input type="text" class="form-control" onChange={(e) => getUserByPhone(e.target.value)} />
                           <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
-                        {/*
-                        <div class="filter-group">
-                          <label>الحالة</label>
-                          <select class="form-control" onChange={(e) => filteruserByStatus(e.target.value)} >
-                            <option >الكل</option>
-                            <option value={true}>متاح</option>
-                            <option value={false}>غير متاح</option>
-                          </select>
-                        </div> */}
-                        {/* <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+
                       </div>
                     </div>
                   </div>
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        {/* <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th> */}
+
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الموبايل</th>
@@ -171,16 +213,11 @@ const Users = () => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                {/* <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td> */}
+
                                 <td>{i + 1}</td>
                                 <td>{user.username}</td>
                                 <td>{user.phone}</td>
-                                <td>{user.deliveryArea?user.deliveryArea.name:'لم يحدد'}</td>
+                                <td>{user.deliveryArea ? user.deliveryArea.name : 'لم يحدد'}</td>
                                 <td>{user.address}</td>
                                 <td>{user.email}</td>
                                 <td>
@@ -200,9 +237,7 @@ const Users = () => {
                                 <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
                                   <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
-                                  //    onClick={() => {
-                                  //     setuserloyeeid(user._id); setfullname(user.fullname); setnumberID(user.numberID); setusername(user.username); setaddress(user.address); setemail(user.email); setisActive(user.isActive); setphone(user.phone); setrole(user.role); setbasicSalary(user.basicSalary)
-                                  //   }}
+                                    onClick={() => { handelEditUser(user) }}
                                   >&#xE254;</i></a>
                                   <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
                                   //    onClick={() => setuserloyeeid(user._id)}
@@ -227,7 +262,7 @@ const Users = () => {
                                   <td>{i + 1}</td>
                                   <td>{user.username}</td>
                                   <td>{user.phone}</td>
-                                  <td>{user.deliveryArea?user.deliveryArea.name:'لم يحدد'}</td>
+                                  <td>{user.deliveryArea ? user.deliveryArea.name : 'لم يحدد'}</td>
                                   <td>{user.address}</td>
                                   <td>{user.email}</td>
                                   <td>
@@ -247,9 +282,7 @@ const Users = () => {
                                   <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
                                     <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
-                                    //    onClick={() => {
-                                    //     setuserloyeeid(user._id); setfullname(user.fullname); setnumberID(user.numberID); setusername(user.username); setaddress(user.address); setemail(user.email); setisActive(user.isActive); setphone(user.phone); setrole(user.role); setbasicSalary(user.basicSalary)
-                                    //   }}
+                                      onClick={() => { handelEditUser(user) }}
                                     >&#xE254;</i></a>
                                     <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
                                     //    onClick={() => setuserloyeeid(user._id)}
@@ -287,7 +320,7 @@ const Users = () => {
                       <div className="modal-body">
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
+                          <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setusername(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid name.</div>
                         </div>
                         <div className="form-group form-group-47">
@@ -348,81 +381,107 @@ const Users = () => {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div id="edituserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={edituserloyee}>
+                    <form onSubmit={handleUpdateUser}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل بيانات الموظفين</h4>
+                        <h4 className="modal-title">تعديل بيانات العملاء</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={username}
+                            required
+                            pattern="[A-Za-z\u0600-\u06FF\s]+"
+                            onChange={(e) => setUsername(e.target.value)}
+                          />
                           <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                         </div>
-                        <div className="form-group form-group-47">
-                          <label>اسم المستخدم</label>
-                          <input type="text" className="form-control" defaultValue={username} required onChange={(e) => setusername(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>الموبايل</label>
-                          <input type="text" className="form-control" defaultValue={phone} required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={phone}
+                            required
+                            pattern="[0-9]{11}"
+                            onChange={(e) => setPhone(e.target.value)}
+                          />
                           <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>الباسورد</label>
-                          <input type="password" className="form-control" onChange={(e) => setpassword(e.target.value)} />
+                          <input
+                            type="password"
+                            className="form-control"
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
                         </div>
-                        <div className="form-group form-group-47">
-                          <label>الرقم القومي</label>
-                          <input type="text" className="form-control" defaultValue={numberID} required onChange={(e) => setnumberID(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>الايميل</label>
-                          <input type="email" className="form-control" defaultValue={email} required onChange={(e) => setemail(e.target.value)} />
+                          <input
+                            type="email"
+                            className="form-control"
+                            value={email}
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
                           <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>العنوان</label>
-                          <textarea className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
+                          <textarea
+                            className="form-control"
+                            value={address}
+                            required
+                            onChange={(e) => setAddress(e.target.value)}
+                          ></textarea>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group">
                           <label>الحالة</label>
-                          <select form="carform" required defaultValue={isActive} onChange={(e) => setisActive(e.target.value)}>
-                            <option>اختر</option>
-                            <option value={true}>متاح</option>
-                            <option value={false}>ليس متاح</option>
+                          <select
+                            className="form-control"
+                            value={isActive}
+                            required
+                            onChange={(e) => setIsActive(e.target.value === 'true')}
+                          >
+                            <option value="">اختر</option>
+                            <option value="true">متاح</option>
+                            <option value="false">ليس متاح</option>
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
-                          <label>الوظيفة</label>
-                          <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
-                            <option>اختار وظيفة</option>
-                            <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
-                            <option value="deliveryman">الديلفري</option>
-                            <option value="waiter">ويتر</option>
-                            <option value="chef">شيف</option>
+                        <div className="form-group">
+                          <label>المنطقة</label>
+                          <select
+                            name="area"
+                            className="form-control"
+                            value={deliveryArea}
+                            required
+                            onChange={(e) => setDeliveryArea(e.target.value)}
+                          >
+                            <option value="">اختار المنطقه</option>
+                            {Areas.map((area) => (
+                              <option key={area._id} value={area._id}>{area.name}</option>
+                            ))}
                           </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>المرتب الاساسي</label>
-                          <input type="Number" min={0} className="form-control" defaultValue={basicSalary} required onChange={(e) => setbasicSalary(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+                        <input type="button" className="btn btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
 
-              <div id="deleteuserModal" className="modal fade">
+              {/* <div id="deleteuserModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteuserloyee}>
