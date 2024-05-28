@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema
+
 
 const userschema = new mongoose.Schema({
     username: {
@@ -24,7 +26,7 @@ const userschema = new mongoose.Schema({
         minlength: 3,
     },
     deliveryArea: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: ObjectId,
         ref: 'DeliveryArea',
         required: true
     },

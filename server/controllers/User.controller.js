@@ -1,4 +1,4 @@
-const Usermodel = require('../models/Users.model.js');
+const Usermodel = require('../models/Users.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
@@ -121,7 +121,7 @@ const updateuser = async (req, res) => {
         const updatedUser = await Usermodel.findByIdAndUpdate(userid, updateFields, { new: true });
 
         if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' ,updatedUser});
         }
 
         res.status(200).json(updatedUser);
