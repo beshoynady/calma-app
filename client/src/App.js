@@ -592,7 +592,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
         // Quantity of the product
         quantity: 0,
         // Notes for the product
-        notes: cartItem.notes,
+        notes: cartItem.notes?cartItem.notes:'',
         // Price of the product
         price: 0,
         priceAfterDiscount: 0,
@@ -618,6 +618,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
       if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
         const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
+        console.log({ repeatedItem });
         if (repeatedItem.length === 0) {
           // Add the item to the cart if it's not already in it
           setitemsInCart([...itemsInCart, newItem]);
