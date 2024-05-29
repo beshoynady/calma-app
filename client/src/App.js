@@ -587,8 +587,8 @@ const [isLoadiog, setisLoadiog] = useState(false)
         productid: cartItem._id,
         // Product name
         name: cartItem.name,
-        sizeId: "",
-        size: "",
+        // sizeId: "",
+        // size: "",
         // Quantity of the product
         quantity: 0,
         // Notes for the product
