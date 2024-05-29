@@ -615,14 +615,24 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
       console.log({ newItem });
       // Check if the cart is not empty
-      if (itemsInCart.length > 0) {
+      if (itemsInCart.length > 0 ) {
         // Check if the item is already in the cart
-        const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
-        console.log({ repeatedItem });
-        if (repeatedItem.length === 0) {
-          // Add the item to the cart if it's not already in it
-          setitemsInCart([...itemsInCart, newItem]);
-          setitemId([...itemId, sizeId ? sizeId : productId]);
+        if(sizeId){
+          const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
+          console.log({ repeatedItem });
+          if (repeatedItem.length === 0) {
+            // Add the item to the cart if it's not already in it
+            setitemsInCart([...itemsInCart, newItem]);
+            setitemId([...itemId, sizeId ? sizeId : productId]);
+          }
+        }else{
+          const repeatedItem = itemsInCart.filter(item => item._id === productId);
+          console.log({ repeatedItem });
+          if (repeatedItem.length === 0) {
+            // Add the item to the cart if it's not already in it
+            setitemsInCart([...itemsInCart, newItem]);
+            // setitemId([...itemId, sizeId ? sizeId : productId]);
+          }
         }
       } else {
         // Add the item to the cart if the cart is empty
