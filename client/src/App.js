@@ -756,7 +756,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
   const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
     try {
-
+      console.log({itemsInCart})
       // Find the user's orders
       const userOrders = allOrders.filter((order) => order.user === userId);
       const lastUserOrder = userOrders.length > 0 ? userOrders[userOrders.length - 1] : null;
