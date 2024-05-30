@@ -248,9 +248,9 @@ const Cart = (props) => {
                               <p>{restaurantData.name}</p>
                               <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
                               <p>العنوان: {restaurantData.address &&
-                              <>
-                              {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
-                              </> }
+                                <>
+                                  {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                                </>}
                               </p>
                             </>
                           )}
@@ -258,21 +258,19 @@ const Cart = (props) => {
 
 
                         {/* Footer */}
-                        <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                          <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
-                          <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
+                        <div className="footer">
+                          <p>Developed by: <span>beshoy Nady</span></p>
+                          <p>Mobile: <span>01122455010</span></p>
                         </div>
-                      </div>
-                      <div className="total-order">
-                        {id ? <button className='total-order-btn btn-47' onClick={() => checkout()}>طلب الحساب</button> : ""}
-
-                        <button className='total-order-btn btn-47' onClick={handlePrint}>طباعه</button>
-                        {/* <div className='total-order-details'>
-                          <h2>الاجمالي</h2>
-                          <p>{orderTotal}</p>
-                        </div> */}
 
                       </div>
+                      <div className="total-order p-1 d-flex align-items-center justify-content-between mt-3">
+                        {id ? (
+                          <button className='total-order-btn btn btn-success' onClick={checkout}>طلب الحساب</button>
+                        ) : null}
+                        <button className='total-order-btn btn btn-info' onClick={handlePrint}>طباعه</button>
+                      </div>
+
                     </div>
 
                   </div>

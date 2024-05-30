@@ -285,3 +285,28 @@
 .page-container {
   display: none;
 }
+
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #828282;
+}
+
+.footer span {
+  color: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    margin-top: 15px;
+    font-size: 12px;
+  }
+}

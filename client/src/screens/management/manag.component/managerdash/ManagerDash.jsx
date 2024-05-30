@@ -217,49 +217,83 @@ const ManagerDash = () => {
 
   const handleCashRegister = async (id) => {
     try {
-      const response = await axios.get(apiUrl + '/api/cashregister', config);
-      setAllCashRegisters(response.data.reverse());
-      const data = response.data;
-      const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
-      if (CashRegister) {
-        setcashRegister(CashRegister._id);
-        setcashRegistername(CashRegister.name);
-        setbalance(CashRegister.balance);
-        setcreateBy(id);
+      // جلب بيانات جميع السجلات النقدية
+      const response = await axios.get(`${apiUrl}/api/cashregister`, config);
+      if(response){
+        // تحديث حالة جميع السجلات النقدية بالبيانات الجديدة وعكس ترتيبها
+        setAllCashRegisters(response.data.reverse());
+        const data = response.data;
+        
+        // البحث عن السجل النقدي المرتبط بمعرّف الموظّف
+        const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
+        
+        if (CashRegister) {
+          // تحديث حالة السجل النقدي المحدد
+          setcashRegister(CashRegister._id);
+          setcashRegistername(CashRegister.name);
+          setbalance(CashRegister.balance);
+          setcreateBy(id);
+        }
       }
     } catch (error) {
+      // سجل الخطأ في وحدة التحكم للتصحيح
       console.log(error);
+      return toast.error('لا يوجد لك حساب خزينه ليتم تسجيل بها الايراد ')
     }
   };
+  
 
 
   const RevenueRecording = async (id, amount, description) => {
+    // تأكد من معالجة السجل النقدي للمعرف المحدد
     handleCashRegister(id);
+  
     try {
       if (cashRegister) {
+        // احسب الرصيد المحدث
         const updatedBalance = balance + amount;
-        const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
-          registerId: cashRegister,
-          createBy,
-          amount,
-          type: 'Revenue',
-          description,
-        },config);
-        const updatecashRegister = await axios.put(`${apiUrl}/api/cashregister/${cashRegister}`, {
-          balance: updatedBalance,
-        }, config);
-        if (updatecashRegister) {
+  
+        // إنشاء سجل حركة نقدية
+        const cashMovement = await axios.post(
+          `${apiUrl}/api/cashMovement/`, 
+          {
+            registerId: cashRegister,
+            createBy,
+            amount,
+            type: 'Revenue',
+            description,
+          },
+          config
+        );
+  
+        // تحديث رصيد السجل النقدي
+        const updateCashRegister = await axios.put(
+          `${apiUrl}/api/cashregister/${cashRegister}`, 
+          {
+            balance: updatedBalance,
+          }, 
+          config
+        );
+  
+        if (updateCashRegister) {
+          // تحديث حالة الرصيد المحلية
           setbalance(updatedBalance);
-          fetchOrdersData()
-          toast.success('Expense created successfully');
+          // جلب بيانات الطلبات المحدثة
+          fetchOrdersData();
+          // إخطار المستخدم بالنجاح
+          toast.success('تم تسجيل الإيراد بنجاح');
+          // تفعيل التحديث لإعادة تحميل المكونات إذا لزم الأمر
           setupdate(!update);
         }
       }
     } catch (error) {
+      // سجل الخطأ في وحدة التحكم للتصحيح
       console.log(error);
-      toast.error('Failed to create expense');
+      // إخطار المستخدم بالفشل
+      toast.error('فشل في تسجيل الإيراد');
     }
   };
+  
 
 
   // const [employeeLoginInfo, setemployeeLoginInfo] = useState(null)
