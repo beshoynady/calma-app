@@ -69,7 +69,7 @@ const POS = () => {
     }
   }
 
-
+  const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
