@@ -87,7 +87,7 @@ const POS = () => {
                 <div className='pos-content'>
                   <div className='categ-menu'>
                     <div className='pos-menu'>
-                      {allProducts&&allProducts.filter(pro => pro.category === categoryid).map((product, index) => {
+                      {allProducts&&allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
                           <div className="pos-card" key={index} onClick={() => addItemToCart(product._id)}>
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
