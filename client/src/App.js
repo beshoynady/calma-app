@@ -446,6 +446,7 @@ function App() {
     }
   };
 
+
   const decrementProductQuantity = (productId, sizeId) => {
     try {
       // Decrement the count state
@@ -515,10 +516,11 @@ function App() {
 
   const [productNote, setproductNote] = useState('')
 
-  const addNoteToProduct = (e, productId) => {
+
+  const addNoteToProduct = (e, productId, sizeId) => {
     try {
       e.preventDefault();
-
+      console.log({productOrderToUpdate, productId, sizeId})
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
@@ -528,13 +530,55 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      // Update the notes of the found product
-      findProduct.notes = productNote;
+      if (sizeId) {
+        findProduct.sizes.map(size => {
+          if (size._id === sizeId) {
+            // incrementProductQuantity the quantity of the found product
+            size.notes = productNote;
+          }
+        })
+        itemsInCart.map(item => {
+          if (item.productid === productId && item.sizeId === sizeId) {
+            item.notes = productNote;
+          }
+        })
+      } else {
+        // incrementProductQuantity the quantity of the found product
+        findProduct.notes = productNote;
+        itemsInCart.map(item => {
+          if (item.productid === productId) {
+            item.notes = productNote;
+          }
+        })
+      }
+
+      console.log(findProduct);
+      console.log(itemsInCart);
     } catch (error) {
-      console.error('Error adding note to product:', error.message);
+      console.error('Error incrementing product quantity:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
+  // const addNoteToProduct = (e, productId) => {
+  //   try {
+  //     e.preventDefault();
+
+  //     // Find the product either in the order or in all products
+  //     const findProduct = productOrderToUpdate.length > 0 ?
+  //       productOrderToUpdate.find(product => product._id === productId) :
+  //       allProducts.find(product => product._id === productId);
+
+  //     if (!findProduct) {
+  //       throw new Error('Product not found.');
+  //     }
+
+  //     // Update the notes of the found product
+  //     findProduct.notes = productNote;
+  //   } catch (error) {
+  //     console.error('Error adding note to product:', error.message);
+  //     // You can handle the error appropriately, such as displaying an error message to the user.
+  //   }
+  // };
 
   //list of items id to add & delete btn btn-47
   const [itemId, setitemId] = useState([])
