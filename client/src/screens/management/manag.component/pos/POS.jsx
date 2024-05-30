@@ -435,7 +435,7 @@ const POS = () => {
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
                                     <button onClick={() => decrementProductQuantity(i._id)} className="btn btn-47 btn-light">-</button>
-                                    <span>{i.quantity ? i.quantity : 0}</span>
+                                    <span>{i.quantity>0 ? i.quantity : 0}</span>
                                     <button onClick={() => incrementProductQuantity(i._id)} className="btn btn-47 btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
