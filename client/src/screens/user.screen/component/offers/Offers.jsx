@@ -99,8 +99,9 @@ export default function Offers() {
                           </div>
                           <div className='offer-card-btn'>
                             {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
-                              <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
-                              : <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId) }}>اضف الي طلباتي</button>
+                              <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id, sizeId) }}>احذف من الطلبات</button>
+
+                              : <button type="button" className='btn btn-success addtocart' onClick={() => addItemToCart(product._id, sizeId)}> اضف الي طلباتي</button>
                             }
                           </div>
                         </div>
