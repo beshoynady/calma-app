@@ -22,8 +22,6 @@ export default function Offers() {
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
 
-
-
   const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
   const [sizeQuantity, setsizeQuantity] = useState(0)
@@ -93,16 +91,26 @@ export default function Offers() {
                             <div className="p-counter">
                               <button className='counter-symb' onClick={() => decrementProductQuantity(product._id, sizeId)}>-</button>
                               <div className='counter-num'>{product.quantity}</div>
-                              <button className='counter-symb' onClick={() => incrementProductQuantity(product._id , sizeId)}>+</button>
+                              <button className='counter-symb' onClick={() => incrementProductQuantity(product._id)}>+</button>
+
                             </div>
                             <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                           </div>
                           <div className='offer-card-btn'>
-                            {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
-                              <button type="button" className='btn btn-danger delfromcart' onClick={() => { deleteItemFromCart(product._id, sizeId) }}>احذف من الطلبات</button>
-
-                              : <button type="button" className='btn btn-success addtocart' onClick={() => addItemToCart(product._id, sizeId)}> اضف الي طلباتي</button>
+                            {
+                              (itemId.includes(product._id) ||
+                                (sizeId && itemId.includes(sizeId) && product.sizes.some(size => size._id === sizeId && size.sizeQuantity > 0)))
+                                ? (
+                                  <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>
+                                    احذف من الطلبات
+                                  </button>
+                                ) : (
+                                  <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId) }}>
+                                    اضف الي طلباتي
+                                  </button>
+                                )
                             }
+
                           </div>
                         </div>
                       </div>
