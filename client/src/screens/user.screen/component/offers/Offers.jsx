@@ -91,9 +91,9 @@ export default function Offers() {
                           </div>
                           <div className="offer-price">
                             <div className="p-counter">
-                              <button className='counter-symb' onClick={() => decrementProductQuantity(product._id)}>-</button>
+                              <button className='counter-symb' onClick={() => decrementProductQuantity(product._id, sizeId)}>-</button>
                               <div className='counter-num'>{product.quantity}</div>
-                              <button className='counter-symb' onClick={() => incrementProductQuantity(product._id)}>+</button>
+                              <button className='counter-symb' onClick={() => incrementProductQuantity(product._id , sizeId)}>+</button>
                             </div>
                             <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                           </div>
