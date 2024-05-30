@@ -589,8 +589,8 @@ function App() {
         productid: cartItem._id,
         // Product name
         name: cartItem.name,
-        sizeId: sizeId ? sizeId : '',
-        size: "",
+        // sizeId: sizeId ? sizeId : '',
+        // size: "",
         // Quantity of the product
         quantity: 0,
         // Notes for the product
