@@ -53,15 +53,15 @@ const POS = () => {
 
   const [areas, setAreas] = useState([]);
 
-  
-    const getAllDeliveryAreas= async()=>{
+
+  const getAllDeliveryAreas = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/deliveryarea`)
       const data = await response.data
       console.log({ data })
-      if(data){
+      if (data) {
         setAreas(data)
-      }else{
+      } else {
         toast.error('لا يوجد بيانات لمنطقه التوصيل ! اضف بيانات منطقه التوصيل ')
       }
     } catch (error) {
@@ -72,13 +72,13 @@ const POS = () => {
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
-  
+
 
   return (
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
-          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder , restaurantData
+          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -87,7 +87,7 @@ const POS = () => {
                 <div className='pos-content'>
                   <div className='categ-menu'>
                     <div className='pos-menu'>
-                      {allProducts&&allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
+                      {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
                           <div className="pos-card" key={index} onClick={() => addItemToCart(product._id)}>
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
@@ -110,10 +110,10 @@ const POS = () => {
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
-                        {allcategories&&allcategories.map((c, i) => 
-                        <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
-                          <a className='category-pos-btn '>{c.name}</a>
-                        </li>
+                        {allcategories && allcategories.map((c, i) =>
+                          <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
+                            <a className='category-pos-btn '>{c.name}</a>
+                          </li>
                         )}
                       </ul>
                     </nav>
@@ -376,22 +376,22 @@ const POS = () => {
                           </table>
 
                           <div className="text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                          {restaurantData && (
-                            <>
-                              <p>{restaurantData.name}</p>
-                              <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
-                              <p>العنوان: {restaurantData.address &&
+                            {restaurantData && (
                               <>
-                              {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
-                              </> }
-                              </p>
-                            </>
-                          )}
+                                <p>{restaurantData.name}</p>
+                                <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                                <p>العنوان: {restaurantData.address &&
+                                  <>
+                                    {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                                  </>}
+                                </p>
+                              </>
+                            )}
                           </div>
 
                           <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                          <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
-                          <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                            <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                           </div>
                         </div>
                       </div>
@@ -434,8 +434,8 @@ const POS = () => {
                                 <div className="d-flex justify-content-between align-items-center py-2">
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => decrementProductQuantity(i._id)} className="btn btn-47 btn-light">-</button>
-                                    <span>{i.quantity>0 ? i.quantity : 0}</span>
+                                    <button onClick={() => {decrementProductQuantity(i._id);console.log({i})}} className="btn btn-47 btn-light">-</button>
+                                    <span>{i.quantity > 0 ? i.quantity : 0}</span>
                                     <button onClick={() => incrementProductQuantity(i._id)} className="btn btn-47 btn-light">+</button>
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
@@ -503,9 +503,9 @@ const POS = () => {
 
                           {ordertype == 'Delivery' ?
                             <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
-                            <span className="font-weight-bold">خدمة التوصيل:</span>
-                            <span>{deliverycost > 0 ? deliverycost : 0}ج</span>
-                          </p> : ""}
+                              <span className="font-weight-bold">خدمة التوصيل:</span>
+                              <span>{deliverycost > 0 ? deliverycost : 0}ج</span>
+                            </p> : ""}
                           {addaddition || addition > 0 ?
                             <p className="order-item border-bottom mb-0 d-flex justify-content-between align-items-center text-black">
                               <span className="font-weight-bold">رسوم إضافية:</span>
