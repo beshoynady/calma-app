@@ -69,6 +69,22 @@ const POS = () => {
     }
   }
 
+
+  const [sizeId, setsizeId] = useState('')
+  const [sizeQuantity, setsizeQuantity] = useState(0)
+  const [sizePrice, setsizePrice] = useState()
+  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
+  const handleSizeClick = (size) => {
+    setsize(size)
+    setsizeId(size._id)
+    setsizeQuantity(size.sizeQuantity)
+    setsizePrice(size.sizePrice);
+    if (size.sizeDiscount > 0) {
+      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
+    }
+  };
+
+
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
@@ -77,7 +93,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,itemId,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -89,7 +105,8 @@ const POS = () => {
                     <div className='pos-menu'>
                       {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
-                          <div className="pos-card" key={index} onClick={() => addItemToCart(product._id)}>
+
+                          <div className="pos-card" key={index} onClick={() =>{ addItemToCart(product._id, sizeId)}}>
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
                             <div className="pos-card-detalis">
                               <div className='card-name'>
