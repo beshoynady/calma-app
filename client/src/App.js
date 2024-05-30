@@ -577,6 +577,8 @@ function App() {
     try {
       console.log(productId);
       console.log(sizeId);
+      console.log(itemsInCart);
+      console.log(itemId);
 
       // Find the product to add to the cart
       const cartItem = allProducts.filter(item => item._id === productId)[0];
@@ -597,6 +599,7 @@ function App() {
         price: 0,
         priceAfterDiscount: 0,
       }
+
       if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
         const size = cartItem.sizes.find(size => size._id === sizeId);
         if (size) {
@@ -626,7 +629,7 @@ function App() {
             setitemId([...itemId, sizeId]);
           }
         } else {
-          const repeatedItem = itemsInCart.filter(item => item._id === productId);
+          const repeatedItem = itemsInCart.filter(item => item.productid === productId);
           console.log({ repeatedItem });
           if (repeatedItem.length === 0) {
             // Add the item to the cart if it's not already in it
