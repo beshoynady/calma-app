@@ -575,10 +575,10 @@ function App() {
 
   const addItemToCart = (productId, sizeId) => {
     try {
-      console.log(productId);
-      console.log(sizeId);
-      console.log(itemsInCart);
-      console.log(itemId);
+      console.log({productId});
+      console.log({sizeId});
+      console.log({itemsInCart});
+      console.log({itemId});
 
       // Find the product to add to the cart
       const cartItem = allProducts.filter(item => item._id === productId)[0];
