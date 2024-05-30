@@ -110,8 +110,9 @@ const POS = () => {
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
-                        {allcategories.map((c, i) => <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
-                          <a className='category-pos-btn btn-47'>{c.name}</a>
+                        {allcategories.map((c, i) => 
+                        <li key={i} className='category-li' onClick={() => setcategoryid(c._id)}>
+                          <a className='category-pos-btn '>{c.name}</a>
                         </li>
                         )}
                       </ul>

@@ -709,7 +709,7 @@ function App() {
 
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
-
+        
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
