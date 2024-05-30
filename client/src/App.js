@@ -406,7 +406,7 @@ function App() {
     try {
       // incrementProductQuantity the count state
       setcount(count + 1);
-      console.log({productOrderToUpdate, productId, sizeId})
+      console.log({ productOrderToUpdate, productId, sizeId })
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
@@ -520,7 +520,7 @@ function App() {
   const addNoteToProduct = (e, productId, sizeId) => {
     try {
       e.preventDefault();
-      console.log({productOrderToUpdate, productId, sizeId})
+      console.log({ productOrderToUpdate, productId, sizeId })
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
@@ -619,72 +619,74 @@ function App() {
 
   const addItemToCart = (productId, sizeId) => {
     try {
-      console.log({productId});
-      console.log({sizeId});
-      console.log({itemsInCart});
-      console.log({itemId});
+      console.log({ productId });
+      console.log({ sizeId });
+      console.log({ itemsInCart });
+      console.log({ itemId });
 
       // Find the product to add to the cart
       const cartItem = allProducts.filter(item => item._id === productId)[0];
 
       console.log({ cartItem });
+      if (cartItem && cartItem.quantity > 0) {
 
-      let newItem = {
-        productid: cartItem._id,
-        // Product name
-        name: cartItem.name,
-        // sizeId: sizeId ? sizeId : '',
-        // size: "",
-        // Quantity of the product
-        quantity: 0,
-        // Notes for the product
-        notes: cartItem.notes ? cartItem.notes : '',
-        // Price of the product
-        price: 0,
-        priceAfterDiscount: 0,
-      }
-
-      if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
-        const size = cartItem.sizes.find(size => size._id === sizeId);
-        if (size) {
-          newItem.sizeId = size._id;
-          newItem.size = size.sizeName;
-          newItem.quantity = size.sizeQuantity;
-          newItem.price = size.sizePrice;
-          newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
+        let newItem = {
+          productid: cartItem._id,
+          // Product name
+          name: cartItem.name,
+          // sizeId: sizeId ? sizeId : '',
+          // size: "",
+          // Quantity of the product
+          quantity: 0,
+          // Notes for the product
+          notes: cartItem.notes ? cartItem.notes : '',
+          // Price of the product
+          price: 0,
+          priceAfterDiscount: 0,
         }
-      } else {
-        newItem.quantity = cartItem.quantity;
-        newItem.price = cartItem.price;
-        newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
 
-      }
-
-      console.log({ newItem });
-      // Check if the cart is not empty
-      if (itemsInCart.length > 0) {
-        // Check if the item is already in the cart
-        if (sizeId) {
-          const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
-          console.log({ repeatedItem });
-          if (repeatedItem.length === 0) {
-            // Add the item to the cart if it's not already in it
-            setitemsInCart([...itemsInCart, newItem]);
-            setitemId([...itemId, sizeId]);
+        if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
+          const size = cartItem.sizes.find(size => size._id === sizeId);
+          if (size) {
+            newItem.sizeId = size._id;
+            newItem.size = size.sizeName;
+            newItem.quantity = size.sizeQuantity;
+            newItem.price = size.sizePrice;
+            newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
           }
         } else {
-          const repeatedItem = itemsInCart.filter(item => item.productid === productId);
-          console.log({ repeatedItem });
-          if (repeatedItem.length === 0) {
-            // Add the item to the cart if it's not already in it
-            setitemsInCart([...itemsInCart, newItem]);
-            setitemId([...itemId, productId]);
-          }
+          newItem.quantity = cartItem.quantity;
+          newItem.price = cartItem.price;
+          newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
+
         }
-      } else {
-        // Add the item to the cart if the cart is empty
-        setitemsInCart([newItem]);
-        setitemId([sizeId ? sizeId : productId]);
+
+        console.log({ newItem });
+        // Check if the cart is not empty
+        if (itemsInCart.length > 0) {
+          // Check if the item is already in the cart
+          if (sizeId) {
+            const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
+            console.log({ repeatedItem });
+            if (repeatedItem.length === 0) {
+              // Add the item to the cart if it's not already in it
+              setitemsInCart([...itemsInCart, newItem]);
+              setitemId([...itemId, sizeId]);
+            }
+          } else {
+            const repeatedItem = itemsInCart.filter(item => item.productid === productId);
+            console.log({ repeatedItem });
+            if (repeatedItem.length === 0) {
+              // Add the item to the cart if it's not already in it
+              setitemsInCart([...itemsInCart, newItem]);
+              setitemId([...itemId, productId]);
+            }
+          }
+        } else {
+          // Add the item to the cart if the cart is empty
+          setitemsInCart([newItem]);
+          setitemId([sizeId ? sizeId : productId]);
+        }
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
@@ -756,7 +758,7 @@ function App() {
 
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
-        
+
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
