@@ -56,7 +56,7 @@ import KitchenConsumption from './screens/management/manag.component/stock/Kitch
 export const detacontext = createContext({});
 
 function App() {
-  
+
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
   const config = {
@@ -64,7 +64,7 @@ function App() {
       'Authorization': `Bearer ${token}`,
     },
   };
-const [isLoadiog, setisLoadiog] = useState(false)
+  const [isLoadiog, setisLoadiog] = useState(false)
   axios.defaults.withCredentials = true;
 
   // Reataurant data //
@@ -159,25 +159,25 @@ const [isLoadiog, setisLoadiog] = useState(false)
     // Get the hour and minutes
     let hours = date.getHours();
     let minutes = date.getMinutes();
-  
+
     // Convert the hour to 12-hour format
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12; // 12-hour format 12 denotes noon
-  
+
     // Add leading zero to hours and minutes if less than 10
     hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
-  
+
     // Format the time
     const formattedTime = hours + ':' + minutes + ' ' + ampm;
-  
+
     // Format the date
     const formattedDate = date.toLocaleDateString();
-  
+
     return formattedDate + ' ' + formattedTime;
   };
-  
+
   //+++++++++++++++++ product ++++++++++++++++++++
   const [allProducts, setallProducts] = useState([])
 
@@ -213,12 +213,12 @@ const [isLoadiog, setisLoadiog] = useState(false)
       }
       const activeCategories = await response.data.filter(category => category.status === true);
       // Set fetched categories in the state
-      console.log({activeCategories})
-      
+      console.log({ activeCategories })
+
       setallcategories(activeCategories);
-      
-      const mainCategory= activeCategories.filter(category=>category.isMain === true)[0]
-      if(mainCategory){
+
+      const mainCategory = activeCategories.filter(category => category.isMain === true)[0]
+      if (mainCategory) {
         setcategoryid(mainCategory._id)
       }
     } catch (error) {
@@ -587,12 +587,12 @@ const [isLoadiog, setisLoadiog] = useState(false)
         productid: cartItem._id,
         // Product name
         name: cartItem.name,
-        // sizeId: "",
-        // size: "",
+        sizeId: sizeId ? sizeId : '',
+        size: "",
         // Quantity of the product
         quantity: 0,
         // Notes for the product
-        notes: cartItem.notes?cartItem.notes:'',
+        notes: cartItem.notes ? cartItem.notes : '',
         // Price of the product
         price: 0,
         priceAfterDiscount: 0,
@@ -615,23 +615,23 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
       console.log({ newItem });
       // Check if the cart is not empty
-      if (itemsInCart.length > 0 ) {
+      if (itemsInCart.length > 0) {
         // Check if the item is already in the cart
-        if(sizeId){
+        if (sizeId) {
           const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
           console.log({ repeatedItem });
           if (repeatedItem.length === 0) {
             // Add the item to the cart if it's not already in it
             setitemsInCart([...itemsInCart, newItem]);
-            setitemId([...itemId, sizeId ? sizeId : productId]);
+            setitemId([...itemId, sizeId]);
           }
-        }else{
+        } else {
           const repeatedItem = itemsInCart.filter(item => item._id === productId);
           console.log({ repeatedItem });
           if (repeatedItem.length === 0) {
             // Add the item to the cart if it's not already in it
             setitemsInCart([...itemsInCart, newItem]);
-            // setitemId([...itemId, sizeId ? sizeId : productId]);
+            setitemId([...itemId, productId]);
           }
         }
       } else {
@@ -756,7 +756,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
   const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
     try {
-      console.log({itemsInCart})
+      console.log({ itemsInCart })
       // Find the user's orders
       const userOrders = allOrders.filter((order) => order.user === userId);
       const lastUserOrder = userOrders.length > 0 ? userOrders[userOrders.length - 1] : null;
@@ -1508,7 +1508,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
       if (decodedToken) {
         const userId = await decodedToken.userinfo.id
         console.log({ userId });
-        if(userId){
+        if (userId) {
           const client = await axios.get(`${apiUrl}/api/user/${userId}`)
           console.log({ client });
           setclientInfo(client.data);
@@ -2000,7 +2000,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
   return (
     <detacontext.Provider value={{
-      restaurantData, clientInfo,apiUrl,
+      restaurantData, clientInfo, apiUrl,
       // Functions related to authentication
       userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 
@@ -2028,7 +2028,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
 
       // Other utility functions or state variables
       itemId, setitemId,
-      
+
       formatDateTime, formatDate, formatTime,
       orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
       createOrderForTableByClient, createDeliveryOrderByClient,
@@ -2036,7 +2036,7 @@ const [isLoadiog, setisLoadiog] = useState(false)
       orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
       putNumOfPaid, splitInvoice, subtotalSplitOrder,
       createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
-      ,isLoadiog, setisLoadiog
+      , isLoadiog, setisLoadiog
     }}>
       <BrowserRouter>
         <Routes>
@@ -2056,9 +2056,9 @@ const [isLoadiog, setisLoadiog] = useState(false)
             <Route path='reservation' element={<ReservationTables />} />
             <Route path='employees' element={<Employees />} />
             <Route path='permissions' element={<PermissionsComponent />} />
-            <Route path='Employeessalary' element={<EmployeesSalary/>} />
-            <Route path='payroll' element={<PayRoll/>} />
-            <Route path='attendancerecord' element={<AttendanceManagement/>} />
+            <Route path='Employeessalary' element={<EmployeesSalary />} />
+            <Route path='payroll' element={<PayRoll />} />
+            <Route path='attendancerecord' element={<AttendanceManagement />} />
             <Route path='category' element={<Category />} />
             <Route path='kitchen' element={<Kitchen />} />
             <Route path='waiter' element={<Waiter />} />
@@ -2066,10 +2066,10 @@ const [isLoadiog, setisLoadiog] = useState(false)
             <Route path='message' element={<CustomerMessage />} />
             <Route path='deliveryman' element={<DeliveryMan />} />
             <Route path='pos' element={<POS />} />
-            <Route path='supplier' element={<Suppliers/>} />
-            <Route path='purchase' element={<Purchase/>} />
-            <Route path='purchasereturn' element={<PurchaseReturn/>} />
-            <Route path='suppliertransaction' element={<SupplierTransaction/>} />
+            <Route path='supplier' element={<Suppliers />} />
+            <Route path='purchase' element={<Purchase />} />
+            <Route path='purchasereturn' element={<PurchaseReturn />} />
+            <Route path='suppliertransaction' element={<SupplierTransaction />} />
             <Route path='categoryStock' element={<CategoryStock />} />
             <Route path='stockitem' element={<StockItem />} />
             <Route path='stockmang' element={<StockManag />} />
