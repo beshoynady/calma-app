@@ -23,7 +23,7 @@ export default function Offers() {
   const [productid, setproductid] = useState('')
 
 
-  
+
   const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
   const [sizeQuantity, setsizeQuantity] = useState(0)
@@ -63,7 +63,7 @@ export default function Offers() {
                 modules={[EffectCoverflow, Pagination]}
                 className="mySwiper"
               >
-                
+
                 {allProducts.filter(pro => pro.discount > 0).map((product, index) => {
                   return (
                     <SwiperSlide>
@@ -99,8 +99,9 @@ export default function Offers() {
                           </div>
                           <div className='offer-card-btn'>
                             {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
-                              <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId)} }>اضف الي طلباتي</button>
-                              :<button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>}
+                              <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
+                              : <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId) }}>اضف الي طلباتي</button>
+                            }
                           </div>
                         </div>
                       </div>
