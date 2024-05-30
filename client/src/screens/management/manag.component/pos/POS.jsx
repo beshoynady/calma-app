@@ -434,10 +434,10 @@ const POS = () => {
                         itemsInCart.length > 0 ? itemsInCart.map((i, index) => (
                           <div className="card mb-3" key={index}>
                             {i.productid === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }}>
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={addNoteToProduct}>
                                 <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }} onClick={addNoteToProduct}>تاكيد</button>
+                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
                                   <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                 </div>
                               </form>
