@@ -406,7 +406,7 @@ function App() {
     try {
       // incrementProductQuantity the count state
       setcount(count + 1);
-
+      console.log({productOrderToUpdate, productId, sizeId})
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
