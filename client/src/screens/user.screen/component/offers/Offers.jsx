@@ -21,6 +21,23 @@ export default function Offers() {
 
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
+
+
+  
+  const [size, setsize] = useState('')
+  const [sizeId, setsizeId] = useState('')
+  const [sizeQuantity, setsizeQuantity] = useState(0)
+  const [sizePrice, setsizePrice] = useState()
+  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
+  const handleSizeClick = (size) => {
+    setsize(size)
+    setsizeId(size._id)
+    setsizeQuantity(size.sizeQuantity)
+    setsizePrice(size.sizePrice);
+    if (size.sizeDiscount > 0) {
+      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
+    }
+  };
   return (
     <detacontext.Consumer>
       {
@@ -81,9 +98,9 @@ export default function Offers() {
                             <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                           </div>
                           <div className='offer-card-btn'>
-                            {itemId.filter((i)=>i == product._id).length>0 && product.quantity>0?
-                              <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>
-                              : <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, product.quantity)} }}>اضف الي طلباتي</button>}
+                            {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
+                              <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId)} }>اضف الي طلباتي</button>
+                              :<button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>احذف من الطلبات</button>}
                           </div>
                         </div>
                       </div>
