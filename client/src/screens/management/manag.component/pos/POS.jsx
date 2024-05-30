@@ -437,7 +437,7 @@ const POS = () => {
                               <form className="card-body" style={{ padding: '5px', margin: '0' }}>
                                 <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }} onClick={addNoteToProduct}>تاكيد</button>
                                   <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                 </div>
                               </form>
