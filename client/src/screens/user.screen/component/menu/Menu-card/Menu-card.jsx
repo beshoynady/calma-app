@@ -61,13 +61,13 @@ const MenuCard = () => {
                   </div>
                   <div className="form-row align-items-center">
                     <div className="col-4">
-                      <button className="btn btn-outline-secondary" type="button">+</button>
+                      <button className="btn btn-outline-secondary w-100" type="button">+</button>
                     </div>
                     <div className="col-4">
-                      <input type="text" className="form-control text-center" readonly value="0"/>
+                      <input type="text" className="form-control text-center w-100" readonly value="0"/>
                     </div>
                     <div className="col-4">
-                      <button className="btn btn-outline-secondary" type="button">-</button>
+                      <button className="btn btn-outline-secondary w-100" type="button">-</button>
                     </div>
                   </div>
                 </div>
