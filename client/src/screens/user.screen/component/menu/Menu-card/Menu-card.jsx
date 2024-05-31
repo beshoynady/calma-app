@@ -24,6 +24,9 @@ const MenuCard = () => {
       setsizePriceAfterDescount(size.sizePriceAfterDiscount);
     }
   };
+
+
+  
   return (
     <detacontext.Consumer>
       {
