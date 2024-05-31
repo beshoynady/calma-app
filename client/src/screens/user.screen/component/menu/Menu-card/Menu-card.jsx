@@ -29,53 +29,44 @@ const MenuCard = () => {
       {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
-            <div className="card mx-auto" style={{ maxWidth: '400px', height: '190px', overflow: 'hidden', width: '100%' }}>
-            <div className="row no-gutters" style={{ width: '100%', height: '100%' }}>
+            <div className="card mx-auto" style={{ maxWidth: "400px", width: "100%" }}>
+            <div className="row g-0 h-100">
               <div className="col-5 d-flex flex-column justify-content-between">
-                <img src={defaultsImage} className="card-img" alt="Delicious soup" style={{ height: '70%' }} />
-                <button type="button" className="btn btn-success btn-block d-flex justify-content-center align-items-center" style={{ fontSize: '12px', height: '30%' }}>
-                  أضف الى طلباتي
-                </button>
+                <img src={defaultsImage} className="img-fluid" alt="Delicious soup" />
+                <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }}>أضف الى طلباتي</button>
               </div>
-              <div className="col-7 d-flex flex-column justify-content-center p-0">
-                <div className="card-body p-2 d-flex flex-column justify-content-between">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="card-title">بيتزا شاورما</h5>
-                    <span className="material-symbols-outlined">note_alt</span>
+              <div className="col-7 d-flex flex-column p-2">
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <h5 className="card-title mb-0">بيتزا شاورما</h5>
+                  <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
+                </div>
+                <p className="card-text mb-2">بيتزا شاورما</p>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label className="btn btn-outline-secondary btn-sm">
+                      <input type="radio" name="size" id="sizeS" /> S
+                    </label>
+                    <label className="btn btn-outline-secondary btn-sm active">
+                      <input type="radio" name="size" id="sizeM" defaultChecked /> M
+                    </label>
+                    <label className="btn btn-outline-secondary btn-sm">
+                      <input type="radio" name="size" id="sizeL" /> L
+                    </label>
                   </div>
-                  <p className="card-text">بيتزا شاورما</p>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <div className="btn-group btn-group-toggle w-60" data-toggle="buttons">
-                      <label className="btn btn-outline-secondary btn-sm w-30">
-                        <input type="radio" name="size" id="sizeS" /> S
-                      </label>
-                      <label className="btn btn-outline-secondary btn-sm active w-30">
-                        <input type="radio" name="size" id="sizeM" defaultChecked /> M
-                      </label>
-                      <label className="btn btn-outline-secondary btn-sm w-30">
-                        <input type="radio" name="size" id="sizeL" /> L
-                      </label>
-                    </div>
-                    <div>
-                      <small className="text-muted"><s>150ج</s></small>
-                      <span className="text-danger"> 103ج</span>
-                    </div>
+                  <div className="d-flex flex-column align-items-end">
+                    <small className="text-muted"><s>150ج</s></small>
+                    <span className="text-danger fw-bold">103ج</span>
                   </div>
-                  <div className="d-flex justify-content-between align-items-center mb-2" style={{ width: '100%', height: '40px' }}>
-                    <div className="input-group input-group-sm">
-                      <div className="input-group-prepend w-35 h-100">
-                        <button className="btn btn-outline-secondary btn-sm w-100 h-100 d-flex justify-content-center align-items-center" style={{ fontSize: '30px', fontWeight: '400' }} type="button">+</button>
-                      </div>
-                      <input type="text" className="form-control text-center" readOnly value="0" style={{ fontSize: '24px', height: '40px', fontWeight: '400' }} />
-                      <div className="input-group-append w-35 h-100">
-                        <button className="btn btn-outline-secondary btn-sm w-100 h-100 d-flex justify-content-center align-items-center" style={{ fontSize: '30px', fontWeight: '400' }} type="button">-</button>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+                <div className="input-group input-group-sm">
+                  <button className="btn btn-outline-secondary" type="button">+</button>
+                  <input type="text" className="form-control text-center" readOnly value="0" />
+                  <button className="btn btn-outline-secondary" type="button">-</button>
                 </div>
               </div>
             </div>
           </div>
+          
             // <div className="card-group">
             //   {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
             //     if (product.hasSizes) {
