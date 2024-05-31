@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Menu-card.css';
+// import './Menu-card.css';
 import { detacontext } from '../../../../../App';
 
 
