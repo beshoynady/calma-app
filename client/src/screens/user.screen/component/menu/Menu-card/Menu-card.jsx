@@ -25,8 +25,6 @@ const MenuCard = () => {
     }
   };
 
-
-  
   return (
     <detacontext.Consumer>
       {
