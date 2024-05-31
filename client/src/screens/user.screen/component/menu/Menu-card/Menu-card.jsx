@@ -31,43 +31,49 @@ const MenuCard = () => {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
             <div className="card mx-auto" style={{ maxWidth: "400px", width: "100%" }}>
-            <div className="row g-0 h-100">
-              <div className="col-5 d-flex flex-column justify-content-between">
-                <img src={defaultsImage} className="img-fluid" alt="Delicious soup" />
-                <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }}>أضف الى طلباتي</button>
-              </div>
-              <div className="col-7 d-flex flex-column p-2">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  <h5 className="card-title mb-0">بيتزا شاورما</h5>
-                  <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
+              <div className="row g-0 h-100">
+                <div className="col-5 d-flex flex-column justify-content-between">
+                  <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
+                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }}>أضف الى طلباتي</button>
                 </div>
-                <p className="card-text mb-2">بيتزا شاورما</p>
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label className="btn btn-outline-secondary btn-sm">
-                      <input type="radio" name="size" id="sizeS" /> S
-                    </label>
-                    <label className="btn btn-outline-secondary btn-sm active">
-                      <input type="radio" name="size" id="sizeM" defaultChecked /> M
-                    </label>
-                    <label className="btn btn-outline-secondary btn-sm">
-                      <input type="radio" name="size" id="sizeL" /> L
-                    </label>
+                <div className="col-7 d-flex flex-column p-2">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="card-title mb-0">بيتزا شاورما</h5>
+                    <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
                   </div>
-                  <div className="d-flex flex-column align-items-end">
-                    <small className="text-muted"><s>150ج</s></small>
-                    <span className="text-danger fw-bold">103ج</span>
+                  <p className="card-text mb-2">بيتزا شاورما</p>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label className="btn btn-outline-secondary btn-sm">
+                        <input type="radio" name="size" id="sizeS" /> S
+                      </label>
+                      <label className="btn btn-outline-secondary btn-sm active">
+                        <input type="radio" name="size" id="sizeM" defaultChecked /> M
+                      </label>
+                      <label className="btn btn-outline-secondary btn-sm">
+                        <input type="radio" name="size" id="sizeL" /> L
+                      </label>
+                    </div>
+                    <div className="d-flex flex-column align-items-end">
+                      <small className="text-muted"><s>150ج</s></small>
+                      <span className="text-danger fw-bold">103ج</span>
+                    </div>
                   </div>
-                </div>
-                <div className="input-group input-group-sm">
-                  <button className="btn btn-outline-secondary" type="button">+</button>
-                  <input type="text" className="form-control text-center" readOnly value="0" />
-                  <button className="btn btn-outline-secondary" type="button">-</button>
+                  <div className="form-row align-items-center">
+                    <div className="col-auto">
+                      <button className="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                    <div className="col">
+                      <input type="text" className="form-control text-center" readonly value="0"/>
+                    </div>
+                    <div className="col-auto">
+                      <button className="btn btn-outline-secondary" type="button">-</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          
+
             // <div className="card-group">
             //   {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
             //     if (product.hasSizes) {
