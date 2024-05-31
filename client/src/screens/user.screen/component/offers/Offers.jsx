@@ -69,7 +69,7 @@ export default function Offers() {
                     <SwiperSlide>
                       <div className="offer-card" key={index}>
                         {/* <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
-                        <img className='img-card' src={defaultsImage} alt="Delicious soup" />
+                        <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
                         {product._id == productid & noteArea == true ?
                           <div className='offers-note'>
                             <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
