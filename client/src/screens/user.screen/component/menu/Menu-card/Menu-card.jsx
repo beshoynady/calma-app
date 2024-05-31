@@ -36,7 +36,8 @@ const MenuCard = () => {
                     <div className="menu-card" key={index}>
                       {/* <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" /> */}
                       <img className='img-card' src={defaultsImage} alt="Delicious soup" />
-                      {product._id == productid & noteArea == true ? <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
+                      {product._id == productid & noteArea == true ? 
+                      <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
                         <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
                         <div className='note-btn'>
                           <button>تاكيد</button>
@@ -91,7 +92,8 @@ const MenuCard = () => {
                 } else {
                   return (
                     <div className="menu-card" key={index}>
-                      <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" />
+                      {/* <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" /> */}
+                      <img className='img-card' src={defaultsImage} alt="Delicious soup" />
                       {product._id == productid & noteArea == true ? <form onSubmit={(e) => { addNoteToProduct(e, product._id);; setnoteArea(!noteArea) }}>
                         <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
                         <div className='note-btn'>

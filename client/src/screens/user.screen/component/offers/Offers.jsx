@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { detacontext } from '../../../../App'
 import { ToastContainer, toast } from 'react-toastify';
 
+import defaultsImage from '../../../../image/menu/soup.jpg'
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -66,7 +68,8 @@ export default function Offers() {
                   return (
                     <SwiperSlide>
                       <div className="offer-card" key={index}>
-                        <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" />
+                        {/* <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
+                        <img className='img-card' src={defaultsImage} alt="Delicious soup" />
                         {product._id == productid & noteArea == true ?
                           <div className='offers-note'>
                             <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
