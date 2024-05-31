@@ -42,19 +42,19 @@ const MenuCard = () => {
                     <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
                   </div>
                   <p className="card-text mb-2">بيتزا شاورما</p>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label className="btn btn-outline-secondary btn-sm">
+                  <div className="d-flex row justify-content-between align-items-center mb-2">
+                    <div className="col-8 btn-group btn-group-toggle" data-toggle="buttons">
+                      <label className="col-4 btn btn-outline-secondary btn-sm">
                         <input type="radio" name="size" id="sizeS" /> S
                       </label>
-                      <label className="btn btn-outline-secondary btn-sm active">
+                      <label className="col-4 btn btn-outline-secondary btn-sm active">
                         <input type="radio" name="size" id="sizeM" defaultChecked /> M
                       </label>
-                      <label className="btn btn-outline-secondary btn-sm">
+                      <label className="col-4 btn btn-outline-secondary btn-sm">
                         <input type="radio" name="size" id="sizeL" /> L
                       </label>
                     </div>
-                    <div className="d-flex flex-column align-items-end">
+                    <div className="col-4 d-flex flex-column align-items-end">
                       <small className="text-muted"><s>150ج</s></small>
                       <span className="text-danger fw-bold">103ج</span>
                     </div>
