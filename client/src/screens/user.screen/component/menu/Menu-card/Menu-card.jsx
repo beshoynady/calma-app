@@ -30,38 +30,33 @@ const MenuCard = () => {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
             <div className="card mx-auto" style={{ maxWidth: '400px', maxHeight: '200px', overflow: 'hidden', width: '100%' }}>
-            <div className="row no-gutters">
-              <div className="col-4">
-                <img src={defaultsImage} className="card-img" alt="Delicious soup" style={{ height: '100%', objectFit: 'cover' }} />
-              </div>
-              <div className="col-8">
-                <div className="card-body p-2">
-                  <h5 className="card-title">بيتزا شاورما</h5>
-                  <p className="card-text">بيتزا شاورما</p>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <div>
-                      <small className="text-muted"><s>150ج</s></small>
-                      <span className="text-danger"> 103ج</span>
+              <div className="row no-gutters">
+                <div className="col-4" style={{ position: 'relative' }}>
+                  <img src={defaultsImage} className="card-img" alt="Delicious soup" style={{ height: '100%', objectFit: 'cover' }} />
+                  <button type="button" className="btn btn-success btn-block" style={{ position: 'absolute', bottom: '0', width: '100%' }}>أضف الى طلباتي</button>
+                </div>
+                <div className="col-8">
+                  <div className="card-body p-2">
+                    <h5 className="card-title">بيتزا شاورما</h5>
+                    <p className="card-text">بيتزا شاورما</p>
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label className="btn btn-outline-secondary btn-sm">
+                          <input type="radio" name="size" id="sizeS" /> S
+                        </label>
+                        <label className="btn btn-outline-secondary btn-sm active">
+                          <input type="radio" name="size" id="sizeM" defaultChecked /> M
+                        </label>
+                        <label className="btn btn-outline-secondary btn-sm">
+                          <input type="radio" name="size" id="sizeL" /> L
+                        </label>
+                      </div>
+                      <div>
+                        <small className="text-muted"><s>150ج</s></small>
+                        <span className="text-danger"> 103ج</span>
+                      </div>
                     </div>
-                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label className="btn btn-outline-secondary btn-sm">
-                        <input type="radio" name="size" id="sizeS" /> S
-                      </label>
-                      <label className="btn btn-outline-secondary btn-sm active">
-                        <input type="radio" name="size" id="sizeM" defaultChecked /> M
-                      </label>
-                      <label className="btn btn-outline-secondary btn-sm">
-                        <input type="radio" name="size" id="sizeL" /> L
-                      </label>
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label className="btn btn-outline-secondary btn-sm active">
-                        <input type="radio" name="size" id="sizeL" /> L
-                      </label>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex justify-content-between align-items-center mb-2">
                       <div className="input-group input-group-sm">
                         <div className="input-group-prepend">
                           <button className="btn btn-outline-secondary btn-sm" type="button">+</button>
@@ -73,11 +68,9 @@ const MenuCard = () => {
                       </div>
                     </div>
                   </div>
-                  <button type="button" className="btn btn-success btn-block mt-2">أضف الى طلباتي</button>
                 </div>
               </div>
             </div>
-          </div>
             // <div className="card-group">
             //   {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
             //     if (product.hasSizes) {
