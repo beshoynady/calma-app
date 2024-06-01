@@ -83,7 +83,7 @@ const MenuCard = () => {
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "400px", width: "100%", height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
@@ -115,10 +115,10 @@ const MenuCard = () => {
                             <p className="card-text mb-2">{product.description}</p>
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
-                              <div className="col-md-8 btn-group btn-group-toggle" style={{direction:'ltr'}} data-toggle="buttons">
+                              <div className="col-8 btn-group btn-group-toggle" style={{direction:'ltr'}} data-toggle="buttons">
                                 {product.sizes.length>0 && product.sizes?.map((size, i) => {
                                   return(
-                                  <label key={i} className={`d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm ${size._id===sizeId? "active" : i===0 ?"active":''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id===sizeId? true : i===0?true :false} onClick={() => handleSizeClick(size)}>
+                                  <label key={i} className={`d-flex justify-content-center align-items-center col-4 btn btn-outline-secondary btn-sm ${size._id===sizeId? "active" : i===0 ?"active":''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id===sizeId? true : i===0?true :false} onClick={() => handleSizeClick(size)}>
                                     <input type="radio" name="size" id={`sizeS${i}`} />
                                     {size.sizeName}
                                   </label>
@@ -207,7 +207,7 @@ const MenuCard = () => {
                     // </div>
                   } else {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "400px", width: "100%", height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
@@ -238,11 +238,11 @@ const MenuCard = () => {
                             <p className="card-text mb-2">بيتزا شاورما</p>
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
-                              <div className="col-md-8 ">
+                              <div className="col-7 ">
 
                               </div>
 
-                              <div className="col-4 d-flex flex-column align-items-end">
+                              <div className="col-5 d-flex flex-column align-items-end">
                                 {product.discount > 0 ?
                                   <>
                                     <sup><small className="text-muted"><s>{product.price}ج</s></small></sup>
