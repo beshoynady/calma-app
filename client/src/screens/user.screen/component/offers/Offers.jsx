@@ -30,7 +30,7 @@ export default function Offers() {
   const [sizePrice, setsizePrice] = useState()
 
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-  
+
   const handleSizeClick = (size) => {
     setsize(size)
     setsizeId(size._id)
@@ -128,7 +128,7 @@ export default function Offers() {
                       }
                     }
                     )
-                  }els
+                  }else
                   return (
                     <SwiperSlide>
                       <div className="offer-card" key={index}>
