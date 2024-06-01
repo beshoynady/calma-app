@@ -24,22 +24,6 @@ export default function Offers() {
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
 
-  const [size, setsize] = useState('')
-  const [size._id, setsize._id] = useState('')
-  const [sizeQuantity, setsizeQuantity] = useState(0)
-  const [sizePrice, setsizePrice] = useState()
-
-  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-
-  const handleSizeClick = (size) => {
-    setsize(size)
-    setsize._id(size._id)
-    setsizeQuantity(size.sizeQuantity)
-    setsizePrice(size.sizePrice);
-    if (size.sizeDiscount > 0) {
-      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
-    }
-  };
   return (
     <detacontext.Consumer>
       {
