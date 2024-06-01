@@ -67,13 +67,11 @@ export default function Offers() {
               >
 
                 {allProducts.map((product, productIndex) => {
-                  if (product.hasSizes === true) {
-                     product.sizes.map((size, sizeIndex) => {
-                      //  console.log({sizeoffer: size.sizeDiscount})
-                       if (size.sizeDiscount > 0) {
-                        console.log({sizeoffer: size})
+                  if (product.hasSizes) {
+                    return product.sizes.map((size, sizeIndex) => {
+                      if (size.sizeDiscount > 0) {
                         return (
-                          <SwiperSlide key={sizeIndex}>
+                          <SwiperSlide key={size._id}>
                             <div className="offer-card">
                               <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
                               {size._id === productid && noteArea && (
@@ -90,7 +88,7 @@ export default function Offers() {
                               <div className="offer-detalis">
                                 <div className='offer-info'>
                                   <div className='p-info'>
-                                    <h2 className='p-name'>{`${product.name} - ${size.sizeName}`} </h2>
+                                    <h2 className='p-name'>{`${product.name} - ${size.sizeName}`}</h2>
                                     <span className="material-symbols-outlined note-icon" onClick={() => { setnoteArea(!noteArea); setproductid(size._id); }}>note_alt</span>
                                   </div>
                                   <div className='offer-description'>{size.description}</div>
@@ -175,6 +173,7 @@ export default function Offers() {
                   }
                   return null;
                 })}
+
 
               </Swiper>
             </section>
