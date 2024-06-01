@@ -104,7 +104,7 @@ export default function Offers() {
                                   </div>
                                 </div>
                                 <div className='offer-card-btn'>
-                                  {(itemId.includes(product._id) || (sizeId && itemId.includes(sizeId) && product.sizes.some(size => size._id === sizeId && size.sizeQuantity > 0))) ? (
+                                  {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
                                     <button className='delcart' onClick={() => { deleteItemFromCart(product._id, size._id); }}>
                                       احذف من الطلبات
                                     </button>
