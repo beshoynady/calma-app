@@ -25,7 +25,7 @@ export default function Offers() {
   const [productid, setproductid] = useState('')
 
   const [size, setsize] = useState('')
-  const [sizeId, setsizeId] = useState('')
+  const [size._id, setsize._id] = useState('')
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
 
@@ -33,7 +33,7 @@ export default function Offers() {
 
   const handleSizeClick = (size) => {
     setsize(size)
-    setsizeId(size._id)
+    setsize._id(size._id)
     setsizeQuantity(size.sizeQuantity)
     setsizePrice(size.sizePrice);
     if (size.sizeDiscount > 0) {
@@ -104,12 +104,12 @@ export default function Offers() {
                                   </div>
                                 </div>
                                 <div className='offer-card-btn'>
-                                  {itemId.filter((i) => i === sizeId).length > 0 && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
+                                  {itemId.filter((i) => i === size._id).length > 0 && size._id && product.sizes.filter(size => size._id === size._id)[0].sizeQuantity > 0 ? (
                                     <button className='delcart' onClick={() => { deleteItemFromCart(product._id, size._id); }}>
                                       احذف من الطلبات
                                     </button>
                                   ) : (
-                                    <button className='addtocart' onClick={() => { addItemToCart(product._id, size._id); }}>
+                                    <button className='addtocart' onClick={() => {if (product.quantity > 0) {  addItemToCart(product._id, size._id)}}}>
                                       اضف الي طلباتي
                                     </button>
                                   )}
@@ -156,12 +156,12 @@ export default function Offers() {
                               </div>
                             </div>
                             <div className='offer-card-btn'>
-                              {(itemId.includes(product._id) || (sizeId && itemId.includes(sizeId) && product.sizes.some(size => size._id === sizeId && size.sizeQuantity > 0))) ? (
+                              {(itemId.includes(product._id) || (size._id && itemId.includes(size._id) && product.sizes.some(size => size._id === size._id && size.sizeQuantity > 0))) ? (
                                 <button className='delcart' onClick={() => { deleteItemFromCart(product._id); }}>
                                   احذف من الطلبات
                                 </button>
                               ) : (
-                                <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId); }}>
+                                <button className='addtocart' onClick={() => { addItemToCart(product._id, size._id); }}>
                                   اضف الي طلباتي
                                 </button>
                               )}
