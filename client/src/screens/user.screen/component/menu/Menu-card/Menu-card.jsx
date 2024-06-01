@@ -79,12 +79,13 @@ const MenuCard = () => {
             <div className="card-group">
               {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                 if (product.hasSizes) {
+                  console.log({product})
                   return (
                     <div className="card mx-auto" key={index} style={{ maxWidth: "400px", width: "100%", height: '200px' }}>
                       <div className="row g-0 h-100">
                         <div className="col-5 d-flex flex-column justify-content-between">
                           <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
-                          {product.available ? (
+                          {product.avaliable ? (
                             itemId.includes(sizeId) && sizeId && product.sizes.find(size => size._id === sizeId).sizeQuantity > 0 ? (
                               <button type="button" className="btn btn-danger btn-block" style={{ fontSize: "14px" }} onClick={() => { deleteItemFromCart(product._id, sizeId) }}>
                                 حذف من الطلبات
