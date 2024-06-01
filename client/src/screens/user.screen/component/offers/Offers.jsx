@@ -24,6 +24,7 @@ export default function Offers() {
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
 
+
   return (
     <detacontext.Consumer>
       {
@@ -79,9 +80,9 @@ export default function Offers() {
                                 </div>
                                 <div className="offer-price">
                                   <div className="p-counter">
-                                    <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id, size._id); setsizeQuantity(sizeQuantity - 1); }}>-</button>
+                                    <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id, size._id) }}>-</button>
                                     <div className='counter-num'>{size.sizeQuantity}</div>
-                                    <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id, size._id); setsizeQuantity(sizeQuantity + 1); }}>+</button>
+                                    <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id, size._id)}}>+</button>
                                   </div>
                                   <div className='p-price'>
                                     {size.sizePriceAfterDiscount}ج <span>{size.sizePrice}</span>
@@ -93,7 +94,7 @@ export default function Offers() {
                                       احذف من الطلبات
                                     </button>
                                   ) : (
-                                    <button className='addtocart' onClick={() => {if (product.quantity > 0) {  addItemToCart(product._id, size._id)}}}>
+                                    <button className='addtocart' onClick={() => {if (size.sizeQuantity > 0) {  addItemToCart(product._id, size._id)}}}>
                                       اضف الي طلباتي
                                     </button>
                                   )}
@@ -131,16 +132,16 @@ export default function Offers() {
                             </div>
                             <div className="offer-price">
                               <div className="p-counter">
-                                <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id); setsizeQuantity(sizeQuantity - 1); }}>-</button>
+                                <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id) }}>-</button>
                                 <div className='counter-num'>{product.quantity}</div>
-                                <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id); setsizeQuantity(sizeQuantity + 1); }}>+</button>
+                                <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id)}}>+</button>
                               </div>
                               <div className='p-price'>
                                 {product.price - product.discount}ج <span>{product.price}</span>
                               </div>
                             </div>
                             <div className='offer-card-btn'>
-                              {(itemId.includes(product._id) || (size._id && itemId.includes(size._id) && product.sizes.some(size => size._id === size._id && size.sizeQuantity > 0))) ? (
+                              {itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ? (
                                 <button className='delcart' onClick={() => { deleteItemFromCart(product._id); }}>
                                   احذف من الطلبات
                                 </button>
