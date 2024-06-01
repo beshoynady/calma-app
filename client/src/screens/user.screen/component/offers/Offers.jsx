@@ -129,61 +129,63 @@ export default function Offers() {
                     }
                     )
                   }else
-                  return (
-                    <SwiperSlide>
-                      <div className="offer-card" key={index}>
-                        {/* <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
-                        <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
-                        {product._id == productid & noteArea == true ?
-                          <div className='offers-note'>
-                            <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
-                              <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق ' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
-                              <div className='note-btn'>
-                                <button>تاكيد</button>
-                                <button onClick={() => setnoteArea(!noteArea)}>الغاء</button>
+                  if (product.discount>0){
+                    return (
+                      <SwiperSlide>
+                        <div className="offer-card" key={index}>
+                          {/* <img className='offer-img' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
+                          <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
+                          {product._id == productid & noteArea == true ?
+                            <div className='offers-note'>
+                              <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea) }}>
+                                <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق ' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }}></textarea>
+                                <div className='note-btn'>
+                                  <button>تاكيد</button>
+                                  <button onClick={() => setnoteArea(!noteArea)}>الغاء</button>
+                                </div>
+                              </form>
+                            </div>
+                            : ''}
+  
+                          <div className="offer-detalis">
+                            <div className='offer-info'>
+                              <div className='p-info'>
+                                <h2 className='p-name'>{product.name}</h2>
+                                <span className="material-symbols-outlined note-icon" onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                               </div>
-                            </form>
-                          </div>
-                          : ''}
-
-                        <div className="offer-detalis">
-                          <div className='offer-info'>
-                            <div className='p-info'>
-                              <h2 className='p-name'>{product.name}</h2>
-                              <span className="material-symbols-outlined note-icon" onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                              <div className='offer-description'>{product.description}</div>
                             </div>
-                            <div className='offer-description'>{product.description}</div>
-                          </div>
-                          <div className="offer-price">
-                            <div className="p-counter">
-                              <button className='counter-symb' onClick={() => {decrementProductQuantity(product._id, sizeId) ; setsizeQuantity(sizeQuantity-1)}}>-</button>
-                              <div className='counter-num'>{product.quantity}</div>
-                              <button className='counter-symb' onClick={() =>{incrementProductQuantity(product._id , sizeId) ; setsizeQuantity(sizeQuantity+1) }}>+</button>
-
+                            <div className="offer-price">
+                              <div className="p-counter">
+                                <button className='counter-symb' onClick={() => {decrementProductQuantity(product._id, sizeId) ; setsizeQuantity(sizeQuantity-1)}}>-</button>
+                                <div className='counter-num'>{product.quantity}</div>
+                                <button className='counter-symb' onClick={() =>{incrementProductQuantity(product._id , sizeId) ; setsizeQuantity(sizeQuantity+1) }}>+</button>
+  
+                              </div>
+                              <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
                             </div>
-                            <div className='p-price'>{product.price - product.discount}ج <span>{product.price}</span></div>
-                          </div>
-                          <div className='offer-card-btn'>
-                            {
-                              (itemId.includes(product._id) ||
-                                (sizeId && itemId.includes(sizeId) && product.sizes.some(size => size._id === sizeId && size.sizeQuantity > 0)))
-                                ? (
-                                  <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>
-                                    احذف من الطلبات
-                                  </button>
-                                ) : (
-                                  <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId) }}>
-                                    اضف الي طلباتي
-                                  </button>
-                                )
-                            }
-
+                            <div className='offer-card-btn'>
+                              {
+                                (itemId.includes(product._id) ||
+                                  (sizeId && itemId.includes(sizeId) && product.sizes.some(size => size._id === sizeId && size.sizeQuantity > 0)))
+                                  ? (
+                                    <button className='delcart' onClick={() => { deleteItemFromCart(product._id) }}>
+                                      احذف من الطلبات
+                                    </button>
+                                  ) : (
+                                    <button className='addtocart' onClick={() => { addItemToCart(product._id, sizeId) }}>
+                                      اضف الي طلباتي
+                                    </button>
+                                  )
+                              }
+  
+                            </div>
                           </div>
                         </div>
-                      </div>
-
-                    </SwiperSlide>
-                  )
+  
+                      </SwiperSlide>
+                    )
+                  }
                 }
                 )}
               </Swiper>
