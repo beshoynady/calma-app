@@ -20,7 +20,7 @@ const Products = () => {
   const [productdiscount, setproductdiscount] = useState(null)
   const [productdescription, setproductdescription] = useState("");
   const [productcategoryid, setproductcategoryid] = useState(null);
-  const [avaliable, setavaliable] = useState();
+  const [available, setavailable] = useState();
   const [productimg, setproductimg] = useState("");
 
   const [hasSizes, setHasSizes] = useState(false);
@@ -46,7 +46,7 @@ const Products = () => {
         productname: productname,
         productdescription: productdescription,
         productcategoryid: productcategoryid,
-        avaliable: avaliable,
+        available: available,
       };
   
       // If product has sizes, include sizes in the request body
@@ -121,7 +121,7 @@ const Products = () => {
         productname: productname,
         productdescription: productdescription,
         productcategoryid: productcategoryid,
-        avaliable: avaliable,
+        available: available,
       };
   
       // If product has sizes, include sizes in the request body
@@ -410,9 +410,9 @@ const Products = () => {
                                 <td>{p.discount}</td>
                                 <td>{p.priceAfterDiscount}</td>
                                 <td>{p.sales}</td>
-                                <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
+                                <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavailable(p.available); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
 
@@ -442,9 +442,9 @@ const Products = () => {
                                 <td>{p.discount}</td>
                                 <td>{p.priceAfterDiscount}</td>
                                 <td>{p.sales}</td>
-                                <td>{p.avaliable ? 'متاح' : 'غير متاح'}</td>
+                                <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavaliable(p.avaliable); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavailable(p.available); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -594,9 +594,9 @@ const Products = () => {
                         }
                         <div className="form-group form-group-47">
                           <label>متاح</label>
-                          <select name="category" id="category" form="carform" onChange={(e) => setavaliable(e.target.value)}>
+                          <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
 
-                            <option defaultValue={avaliable} >اختر الحاله</option>
+                            <option defaultValue={available} >اختر الحاله</option>
                             <option value={true} >متاح</option>
                             <option value={false} >غير متاح</option>
                           </select>
@@ -738,7 +738,7 @@ const Products = () => {
                         }
                         <div className="form-group form-group-47">
                           <label>متاح</label>
-                          <select name="category" id="category" form="carform" onChange={(e) => setavaliable(e.target.value)}>
+                          <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
                             <option value={true} >متاح</option>
                             <option value={false} >غير متاح</option>
                           </select>
