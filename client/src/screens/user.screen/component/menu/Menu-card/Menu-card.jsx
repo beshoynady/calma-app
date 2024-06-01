@@ -16,7 +16,7 @@ const MenuCard = () => {
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
 
-  
+
   const handleSizeClick = (size) => {
     setsize(size)
     setsizeId(size._id)
@@ -88,8 +88,9 @@ const MenuCard = () => {
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
-                            {product.available ? (
+                            {product.available === true ? (
                               <>
+                              {console.log({available: product.available})}
                                 {itemId.includes(sizeId) && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
                                   <button type="button" className="btn btn-danger btn-block" style={{ fontSize: "14px" }} onClick={() => { deleteItemFromCart(product._id, sizeId) }}>
                                     حذف من الطلبات
