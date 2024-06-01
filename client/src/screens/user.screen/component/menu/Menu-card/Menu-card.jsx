@@ -77,7 +77,8 @@ const MenuCard = () => {
             // </div>
 
             <div className="card-group">
-              {allProducts.length > 0 ? allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
+              {allProducts.length > 0 ? 
+              allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                 if (product.hasSizes) {
                   console.log({product})
                   return (
@@ -86,7 +87,8 @@ const MenuCard = () => {
                         <div className="col-5 d-flex flex-column justify-content-between">
                           <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                           {product.avaliable ? (
-                            itemId.includes(sizeId) && sizeId && product.sizes.find(size => size._id === sizeId).sizeQuantity > 0 ? (
+                            <>
+                            {itemId.includes(sizeId) && sizeId && product.sizes.find(size => size._id === sizeId).sizeQuantity > 0 ? (
                               <button type="button" className="btn btn-danger btn-block" style={{ fontSize: "14px" }} onClick={() => { deleteItemFromCart(product._id, sizeId) }}>
                                 حذف من الطلبات
                               </button>
@@ -94,8 +96,10 @@ const MenuCard = () => {
                               <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => addItemToCart(product._id, sizeId)}>
                                 أضف الى طلباتي
                               </button>
-                            )
-                          ) : (
+                            )}
+                            </>
+                          ) 
+                          : (
                             <button type="button" className="btn btn-warning btn-block" style={{ fontSize: "14px" }}>
                               غير متاح الان
                             </button>
@@ -112,8 +116,8 @@ const MenuCard = () => {
 
                           <div className="d-flex row justify-content-between align-items-center mb-2">
                             <div className="col-md-8 btn-group btn-group-toggle" data-toggle="buttons">
-                              {product.sizes.map((size, i) => {
-                                <label className="d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm" style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} onClick={() => handleSizeClick(size)}>
+                              {product.sizes&&product.sizes.map((size, i) => {
+                                <label key={i} className="d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm" style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} onClick={() => handleSizeClick(size)}>
                                   <input type="radio" name="size" id={`sizeS${i}`} />{size.sizeName}
                                 </label>
                               })}
