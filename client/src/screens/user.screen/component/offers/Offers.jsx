@@ -82,19 +82,19 @@ export default function Offers() {
                                   <div className="p-counter">
                                     <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id, size._id) }}>-</button>
                                     <div className='counter-num'>{size.sizeQuantity}</div>
-                                    <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id, size._id)}}>+</button>
+                                    <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id, size._id) }}>+</button>
                                   </div>
                                   <div className='p-price'>
                                     {size.sizePriceAfterDiscount}ج <span>{size.sizePrice}</span>
                                   </div>
                                 </div>
                                 <div className='offer-card-btn'>
-                                  {itemId.filter((i) => i === size._id).length > 0 && size._id && product.sizes.filter(size => size._id === size._id)[0].sizeQuantity > 0 ? (
+                                  {itemId.filter((i) => i === size._id).length > 0 && size.sizeQuantity > 0 ? (
                                     <button className='delcart' onClick={() => { deleteItemFromCart(product._id, size._id); }}>
                                       احذف من الطلبات
                                     </button>
                                   ) : (
-                                    <button className='addtocart' onClick={() => {if (size.sizeQuantity > 0) {  addItemToCart(product._id, size._id)}}}>
+                                    <button className='addtocart' onClick={() => { if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
                                       اضف الي طلباتي
                                     </button>
                                   )}
@@ -134,7 +134,7 @@ export default function Offers() {
                               <div className="p-counter">
                                 <button className='counter-symb' onClick={() => { decrementProductQuantity(product._id) }}>-</button>
                                 <div className='counter-num'>{product.quantity}</div>
-                                <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id)}}>+</button>
+                                <button className='counter-symb' onClick={() => { incrementProductQuantity(product._id) }}>+</button>
                               </div>
                               <div className='p-price'>
                                 {product.price - product.discount}ج <span>{product.price}</span>
@@ -146,7 +146,7 @@ export default function Offers() {
                                   احذف من الطلبات
                                 </button>
                               ) : (
-                                <button className='addtocart' onClick={() => { if (product.quantity > 0) {addItemToCart(product._id, size._id)}}}>
+                                <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id); } }}>
                                   اضف الي طلباتي
                                 </button>
                               )}
