@@ -580,10 +580,6 @@ function App() {
   //   }
   // };
 
-  //list of items id to add & delete btn btn-47
-  const [itemId, setitemId] = useState([])
-  // add items to cart
-  const [itemsInCart, setitemsInCart] = useState([])
 
   // const addItemToCart = (productId) => {
   //   try {
@@ -617,83 +613,65 @@ function App() {
   //   }
   // };
 
-  const addItemToCart = (productId, sizeId) => {
-    try {
-      // console.log({ productId });
-      // console.log({ sizeId });
-      // console.log({ itemsInCart });
-      // console.log({ itemId });
+  
+  const [itemId, setitemId] = useState([]);
+const [itemsInCart, setitemsInCart] = useState([]);
 
-      // Find the product to add to the cart
-      const cartItem = allProducts.filter(item => item._id === productId)[0];
+const addItemToCart = (productId, sizeId) => {
+  try {
+    // Find the product to add to the cart
+    const cartItem = allProducts.find(item => item._id === productId);
 
-      console.log({ cartItem });
-      if (cartItem && cartItem.quantity > 0) {
+    console.log({ cartItem });
+    if (cartItem) {
+      let newItem = {
+        productid: cartItem._id,
+        name: cartItem.name,
+        quantity: 1, // Default to adding one item
+        notes: cartItem.notes || '',
+        price: 0,
+        priceAfterDiscount: 0,
+      };
 
-        let newItem = {
-          productid: cartItem._id,
-          // Product name
-          name: cartItem.name,
-          // sizeId: sizeId ? sizeId : '',
-          // size: "",
-          // Quantity of the product
-          quantity: 0,
-          // Notes for the product
-          notes: cartItem.notes ? cartItem.notes : '',
-          // Price of the product
-          price: 0,
-          priceAfterDiscount: 0,
+      if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
+        const size = cartItem.sizes.find(size => size._id === sizeId);
+        console.log({ size });
+        if (size) {
+          newItem.sizeId = size._id;
+          newItem.size = size.sizeName;
+          newItem.price = size.sizePrice;
+          newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
         }
-
-        if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
-          const size = cartItem.sizes.filter(size => size._id === sizeId)[0];
-          console.log({size})
-          if (size) {
-            newItem.sizeId = size._id;
-            newItem.size = size.sizeName;
-            newItem.quantity = size.sizeQuantity;
-            newItem.price = size.sizePrice;
-            newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
-          }
-        } else {
-          newItem.quantity = cartItem.quantity;
-          newItem.price = cartItem.price;
-          newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
-
-        }
-
-        console.log({ newItem });
-        // Check if the cart is not empty
-        if (itemsInCart.length > 0) {
-          // Check if the item is already in the cart
-          if (sizeId) {
-            const repeatedItem = itemsInCart.filter(item => item._id === productId && item.sizeId == sizeId);
-            console.log({ repeatedItem });
-            if (repeatedItem.length === 0) {
-              // Add the item to the cart if it's not already in it
-              setitemsInCart([...itemsInCart, newItem]);
-              setitemId([...itemId, sizeId]);
-            }
-          } else {
-            const repeatedItem = itemsInCart.filter(item => item.productid === productId);
-            console.log({ repeatedItem });
-            if (repeatedItem.length === 0) {
-              // Add the item to the cart if it's not already in it
-              setitemsInCart([...itemsInCart, newItem]);
-              setitemId([...itemId, productId]);
-            }
-          }
-        } else {
-          // Add the item to the cart if the cart is empty
-          setitemsInCart([newItem]);
-          setitemId([sizeId ? sizeId : productId]);
-        }
+      } else {
+        newItem.quantity = 1; // Set default quantity for products without sizes
+        newItem.price = cartItem.price;
+        newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
       }
-    } catch (error) {
-      console.error('Error adding item to cart:', error.message);
-      // You can handle the error appropriately, such as displaying an error message to the user.
+
+      console.log({ newItem });
+      if (itemsInCart.length > 0) {
+        if (sizeId) {
+          const repeatedItem = itemsInCart.find(item => item.productid === productId && item.sizeId === sizeId);
+          if (!repeatedItem) {
+            setitemsInCart([...itemsInCart, newItem]);
+            setitemId([...itemId, sizeId]);
+          }
+        } else {
+          const repeatedItem = itemsInCart.find(item => item.productid === productId);
+          if (!repeatedItem) {
+            setitemsInCart([...itemsInCart, newItem]);
+            setitemId([...itemId, productId]);
+          }
+        }
+      } else {
+        setitemsInCart([newItem]);
+        setitemId([sizeId ? sizeId : productId]);
+      }
     }
-  };
+  } catch (error) {
+    console.error('Error adding item to cart:', error.message);
+  }
+};
 
 
 
