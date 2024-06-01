@@ -627,7 +627,7 @@ const addItemToCart = (productId, sizeId) => {
       let newItem = {
         productid: cartItem._id,
         name: cartItem.name,
-        quantity: 1, // Default to adding one item
+        quantity: 0, // Default to adding one item
         notes: cartItem.notes || '',
         price: 0,
         priceAfterDiscount: 0,
@@ -640,10 +640,11 @@ const addItemToCart = (productId, sizeId) => {
           newItem.sizeId = size._id;
           newItem.size = size.sizeName;
           newItem.price = size.sizePrice;
+          newItem.quantity = size.sizeQuantity;
           newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
         }
       } else {
-        newItem.quantity = 1; // Set default quantity for products without sizes
+        newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
         newItem.price = cartItem.price;
         newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
       }
