@@ -3,6 +3,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
+import { ConnectionStates } from 'mongoose';
 
 
 const Products = () => {
@@ -114,7 +115,7 @@ const Products = () => {
   const [productid, setproductid] = useState("")
   const editProduct = async (e) => {
     e.preventDefault();
-  
+  console.log({productdiscount})
     try {
       // Prepare request body
       const requestBody = {
