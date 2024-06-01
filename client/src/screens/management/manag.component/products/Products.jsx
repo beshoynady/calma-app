@@ -114,7 +114,6 @@ const Products = () => {
   const [productid, setproductid] = useState("")
   const editProduct = async (e) => {
     e.preventDefault();
-    console.log({productdiscount})
     try {
       // Prepare request body
       const requestBody = {
@@ -130,12 +129,11 @@ const Products = () => {
         requestBody.sizes = sizes;
       }else {
         requestBody.productprice = productprice
-        // If product has discount, include discount details in the request body
-        if (productdiscount > 0) {
-          requestBody.productdiscount = productdiscount;
-          const priceAfterDiscount = productprice - productdiscount;
-          requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
-        }
+        requestBody.productdiscount = productdiscount;
+        const priceAfterDiscount = productprice - productdiscount;
+        requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
+
+
       }
 
 
