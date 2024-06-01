@@ -30,7 +30,7 @@ const MenuCard = () => {
       {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, itemId }) => {
           return (
-            <div className="card mx-auto" style={{ maxWidth: "400px", width: "100%" }}>
+            <div className="card mx-auto" style={{ maxWidth: "400px", width: "100%", height: '200px' }}>
               <div className="row g-0 h-100">
                 <div className="col-5 d-flex flex-column justify-content-between">
                   <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
@@ -42,18 +42,20 @@ const MenuCard = () => {
                     <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
                   </div>
                   <p className="card-text mb-2">بيتزا شاورما</p>
+                  
                   <div className="d-flex row justify-content-between align-items-center mb-2">
-                    <div className="col-8 btn-group btn-group-toggle" data-toggle="buttons">
-                      <label className="col-4 btn btn-outline-secondary btn-sm">
+                    <div className="col-md-8 btn-group btn-group-toggle" data-toggle="buttons">
+                      <label className="d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm" style={{ height: "40px", fontSize: "24px", fontWeight: "600" }}>
                         <input type="radio" name="size" id="sizeS" /> S
                       </label>
-                      <label className="col-4 btn btn-outline-secondary btn-sm active">
+                      <label className="d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm active" style={{ height: "40px", fontSize: "24px", fontWeight: "600" }}>
                         <input type="radio" name="size" id="sizeM" defaultChecked /> M
                       </label>
-                      <label className="col-4 btn btn-outline-secondary btn-sm">
+                      <label className="d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm" style={{ height: "40px", fontSize: "24px", fontWeight: "600" }}>
                         <input type="radio" name="size" id="sizeL" /> L
                       </label>
                     </div>
+
                     <div className="col-4 d-flex flex-column align-items-end">
                       <small className="text-muted"><s>150ج</s></small>
                       <span className="text-danger fw-bold">103ج</span>
@@ -64,7 +66,7 @@ const MenuCard = () => {
                       <button className="btn btn-outline-secondary w-100" type="button">+</button>
                     </div>
                     <div className="col-4">
-                      <input type="text" className="form-control text-center w-100" readonly value="0"/>
+                      <input type="text" className="form-control text-center w-100" readonly value="0" />
                     </div>
                     <div className="col-4">
                       <button className="btn btn-outline-secondary w-100" type="button">-</button>
