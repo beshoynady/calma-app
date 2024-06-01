@@ -121,12 +121,13 @@ const MenuCard = () => {
                                 {product.sizes.length>0 && product.sizes?.map((size, i) => {
                                   {console.log({size})}
                                   {console.log({sizeName:size.sizeName})}
+                                  return(
                                   <label key={i} className={`d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm ${size._id===sizeId? "active" : i===0 ?"active":''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id===sizeId? true : i===0?true :false} onClick={() => handleSizeClick(size)}>
 
                                     <input type="radio" name="size" id={`sizeS${i}`} />
-                                    m
-                                    {/* {size.sizeName} */}
+                                    {size.sizeName}
                                   </label>
+                                  )
                                 })}
                               </div>
 
