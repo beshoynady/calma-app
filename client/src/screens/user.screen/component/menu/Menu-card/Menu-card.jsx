@@ -36,10 +36,10 @@ const MenuCard = () => {
                   <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                   <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }}>أضف الى طلباتي</button>
                 </div>
-                <div className="col-7 d-flex flex-column p-2">
+                <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                   <div className="d-flex justify-content-between align-items-center mb-2">
                     <h5 className="card-title mb-0">بيتزا شاورما</h5>
-                    <span className="material-icons" style={{ color: "red", fontSize: "24px" }}>note_alt</span>
+                    <span className="material-icons" style={{ color: "red", fontSize: "45px" }}>note_alt</span>
                   </div>
                   <p className="card-text mb-2">بيتزا شاورما</p>
                   
