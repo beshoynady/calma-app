@@ -3,7 +3,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
-import { ConnectionStates } from 'mongoose';
 
 
 const Products = () => {
@@ -115,14 +114,12 @@ const Products = () => {
   const [productid, setproductid] = useState("")
   const editProduct = async (e) => {
     e.preventDefault();
-  console.log({productdiscount})
+    console.log({productdiscount})
     try {
       // Prepare request body
       const requestBody = {
         productname: productname,
         productdescription: productdescription,
-        // productprice,
-        // productdiscount,
         productcategoryid: productcategoryid,
         available: available,
       };
@@ -734,7 +731,7 @@ const Products = () => {
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(Number(e.target.value))} />
+                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
