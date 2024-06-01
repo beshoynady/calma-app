@@ -237,10 +237,10 @@ const MenuCard = () => {
                             <div className="col-4 d-flex flex-column align-items-end">
                               {product.discount > 0 ?
                                 <>
-                                  <sup><small className="text-muted"><s>{price}ج</s></small></sup>
+                                  <sup><small className="text-muted"><s>{product.price}ج</s></small></sup>
                                   <span className="text-danger fw-bold">{product.priceAfterDiscount}ج</span>
                                 </>
-                                : <span className="text-danger fw-bold">{price}ج</span>}
+                                : <span className="text-danger fw-bold">{product.price}ج</span>}
                             </div>
                           </div>
                           <div className="form-row align-items-center">
