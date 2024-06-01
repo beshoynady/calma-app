@@ -14,35 +14,38 @@ const ManagLayout = () => {
 
 
 
-  // if (localStorage.getItem('token_e')) {
-  //   // console.log(localStorage.getItem('token'))
+  if (localStorage.getItem('token_e')) {
+    //   // console.log(localStorage.getItem('token'))
     const tokenStorage = localStorage.getItem('token_e')
     const decodetoken = jwt_decode(tokenStorage)
-      if (decodetoken.employeeinfo.isActive) {
-        return (
-          <detacontext.Consumer>
-            {
-              ({ allProducts, isLoadiog, setisLoadiog }) => {
-                if (!isLoadiog) {
-                  return (
-                    <div className='manag-body '>
-                      <ToastContainer />
-                      <SideBar />
-                      <main className='content'>
-                        <NavBar />
-                        <Outlet></Outlet>
-                      </main>
-                    </div>)
-                } else {
-                  return (
-                    <LoadingPage/>
-                  )
-                }
-              }}
-          </detacontext.Consumer>
-        );
-      } else {
-        return <Navigate to={'/login'} />;
-      }
+    if (decodetoken.employeeinfo.isActive) {
+      return (
+        <detacontext.Consumer>
+          {
+            ({ allProducts, isLoadiog, setisLoadiog }) => {
+              if (!isLoadiog) {
+                return (
+                  <div className='manag-body '>
+                    <ToastContainer />
+                    <SideBar />
+                    <main className='content'>
+                      <NavBar />
+                      <Outlet></Outlet>
+                    </main>
+                  </div>)
+              } else {
+                return (
+                  <LoadingPage />
+                )
+              }
+            }}
+        </detacontext.Consumer>
+      );
+    } else {
+      return <Navigate to={'/login'} />;
     }
-    export default ManagLayout
+  } else {
+    return <Navigate to={'/login'} />;
+  }
+}
+export default ManagLayout
