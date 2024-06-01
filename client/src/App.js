@@ -619,10 +619,10 @@ function App() {
 
   const addItemToCart = (productId, sizeId) => {
     try {
-      console.log({ productId });
-      console.log({ sizeId });
-      console.log({ itemsInCart });
-      console.log({ itemId });
+      // console.log({ productId });
+      // console.log({ sizeId });
+      // console.log({ itemsInCart });
+      // console.log({ itemId });
 
       // Find the product to add to the cart
       const cartItem = allProducts.filter(item => item._id === productId)[0];
@@ -646,7 +646,8 @@ function App() {
         }
 
         if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
-          const size = cartItem.sizes.find(size => size._id === sizeId);
+          const size = cartItem.sizes.filter(size => size._id === sizeId)[0];
+          console.log({size})
           if (size) {
             newItem.sizeId = size._id;
             newItem.size = size.sizeName;
