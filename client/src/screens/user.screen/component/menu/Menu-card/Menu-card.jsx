@@ -118,7 +118,7 @@ const MenuCard = () => {
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
                               <div className="col-md-8 btn-group btn-group-toggle" data-toggle="buttons">
-                                {product.sizes.length>0 && product.sizes.map((size, i) => {
+                                {product.sizes.length>0 && product.sizes?.map((size, i) => {
                                   {console.log({size})}
                                   <label key={i} className={`d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm ${size._id===sizeId? "active" : i===0 ?"active":''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id===sizeId? true : i===0?true :false} onClick={() => handleSizeClick(size)}>
 
