@@ -67,8 +67,7 @@ export default function Offers() {
               >
 
                 {allProducts.map((product, productIndex) => {
-                  if (product.hasSize === true) {
-                    console.log({sizes: product.hasSize})
+                  if (product.hasSizes === true) {
                      product.sizes.map((size, sizeIndex) => {
                        console.log({sizeoffer: size.sizeDiscount})
                       if (size.sizeDiscount > 0) {
@@ -124,7 +123,6 @@ export default function Offers() {
                       return null;
                     });
                   } else if (product.discount > 0) {
-                    console.log({discount:product.discount})
                     return (
                       <SwiperSlide key={product._id}>
                         <div className="offer-card">
