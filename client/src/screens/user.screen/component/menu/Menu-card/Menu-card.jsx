@@ -82,7 +82,6 @@ const MenuCard = () => {
               {allProducts.length > 0 ?
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
-                    console.log({ product })
                     return (
                       <div className="card mx-auto" key={index} style={{ maxWidth: "400px", width: "100%", height: '200px' }}>
                         <div className="row g-0 h-100">
@@ -90,7 +89,6 @@ const MenuCard = () => {
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {product.available === true ? (
                               <>
-                              {console.log({available: product.available})}
                                 {itemId.includes(sizeId) && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
                                   <button type="button" className="btn btn-danger btn-block" style={{ fontSize: "14px" }} onClick={() => { deleteItemFromCart(product._id, sizeId) }}>
                                     حذف من الطلبات
@@ -117,13 +115,10 @@ const MenuCard = () => {
                             <p className="card-text mb-2">{product.description}</p>
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
-                              <div className="col-md-8 btn-group btn-group-toggle" data-toggle="buttons">
+                              <div className="col-md-8 btn-group btn-group-toggle" style={{direction:'ltr'}} data-toggle="buttons">
                                 {product.sizes.length>0 && product.sizes?.map((size, i) => {
-                                  {console.log({size})}
-                                  {console.log({sizeName:size.sizeName})}
                                   return(
                                   <label key={i} className={`d-flex justify-content-center align-items-center col-sm-4 btn btn-outline-secondary btn-sm ${size._id===sizeId? "active" : i===0 ?"active":''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id===sizeId? true : i===0?true :false} onClick={() => handleSizeClick(size)}>
-
                                     <input type="radio" name="size" id={`sizeS${i}`} />
                                     {size.sizeName}
                                   </label>
