@@ -214,7 +214,9 @@ const MenuCard = () => {
                     return (
                       <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
                         {product._id === productid && noteArea === true ?
-                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, ''); setnoteArea(!noteArea); }} className="position-absolute w-100 h-100 top-0 end-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center"><textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }} className="w-95 h-70 my-1 z-index-1"></textarea>
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, ''); setnoteArea(!noteArea); }} className="position-absolute w-100 h-100 z-index-1 top-0 end-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden">
+                            <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }} className="w-95 h-70 my-1 z-index-1">
+                            </textarea>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 h-20 mt-2'>
                               <button className="btn w-45 h-100 text-light bg-dark rounded-2 me-2">تاكيد</button>
                               <button onClick={() => setnoteArea(!noteArea)} className="btn w-45 h-100 text-light bg-dark rounded-2">الغاء</button>
