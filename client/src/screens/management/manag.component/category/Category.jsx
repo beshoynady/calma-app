@@ -157,7 +157,7 @@ const Category = () => {
       for (let index = 0; index < allCategory.length; index++) {
         const category = allCategory[index];
         const id = category._id;
-        const order = index + 1;
+        const order = category.order;
         // Send a PUT request to edit the category order
         const edit = await axios.put(`${apiUrl}/api/category/${id}`, { order }, config);
         // If any request fails, set done to false
@@ -167,6 +167,7 @@ const Category = () => {
       }
       // Check if all requests were successful
       if (done) {
+        console.log({edit})
         // Call the function to get all categories
         getallCategory();
         // Display a success toast

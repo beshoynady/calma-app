@@ -20,7 +20,7 @@ const createCategory = async (req, res, next) => {
 // Get all categories
 const getAllCategories = async (req, res, next) => {
     try {
-        const allCategories = await CategoryModel.find({}).populate('createdBy');
+        const allCategories = await CategoryModel.find({}).sort('order').populate('createdBy');
 
         res.status(200).json(allCategories);
     } catch (error) {
