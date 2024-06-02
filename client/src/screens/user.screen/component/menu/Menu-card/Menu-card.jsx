@@ -100,10 +100,10 @@ const MenuCard = () => {
                               style={{ zIndex: 11 }}
                             ></textarea>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{height: '40px'}}>
-                              <button className="btn w-45 h-100 text-light bg-dark rounded-2 me-2">تاكيد</button>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
                               <button
                                 onClick={() => setnoteArea(!noteArea)}
-                                className="btn w-45 h-100 text-light bg-dark rounded-2"
+                                className="btn w-50 h-100 text-light btn-danger rounded-2"
                               >الغاء</button>
                             </div>
                           </form>
@@ -252,10 +252,10 @@ const MenuCard = () => {
                               style={{ zIndex: 11 }}
                             ></textarea>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{height: '40px'}}>
-                              <button className="btn w-45 h-100 text-light bg-dark rounded-2 me-2">تاكيد</button>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
                               <button
                                 onClick={() => setnoteArea(!noteArea)}
-                                className="btn w-45 h-100 text-light bg-dark rounded-2"
+                                className="btn w-50 h-100 text-light btn-danger rounded-2"
                               >الغاء</button>
                             </div>
                           </form>
