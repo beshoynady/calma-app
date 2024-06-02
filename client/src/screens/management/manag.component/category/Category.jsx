@@ -28,6 +28,7 @@ const Category = () => {
       const res = await axios.get(apiUrl + "/api/category/");
       if (res) {
         const categories = res.data
+        console.log({res})
         setallCategory(categories);
         const filterMain = categories.filter(category => category.isMain === true)[0];
         if (filterMain) {
