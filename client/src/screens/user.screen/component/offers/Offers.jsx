@@ -59,17 +59,29 @@ export default function Offers() {
                           <SwiperSlide key={size._id}>
                             <div className="offer-card">
                               <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
-                              {size._id === productid && noteArea && (
-                                <div className='offers-note'>
-                                  <form onSubmit={(e) => { addNoteToProduct(e, size._id); setnoteArea(!noteArea); }}>
-                                    <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value); }}></textarea>
-                                    <div className='note-btn'>
-                                      <button type="submit">تاكيد</button>
-                                      <button type="button" onClick={() => setnoteArea(!noteArea)}>الغاء</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              )}
+                              {size._id === productid && noteArea === true ?
+                                <form onSubmit={(e) => { addNoteToProduct(e, product._id, size._id); setnoteArea(!noteArea); }}
+                                  className="position-absolute w-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                                  style={{ zIndex: 10 , height:'40%'}}
+                                >
+                                  <textarea
+                                    placeholder='اضف تعليماتك الخاصة بهذا الطبق'
+                                    name="note"
+                                    cols="100"
+                                    rows="3"
+                                    onChange={(e) => { setproductNote(e.target.value) }}
+                                    className="w-100 h-100 my-1"
+                                    style={{ zIndex: 11 }}
+                                  ></textarea>
+                                  <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
+                                    <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
+                                    <button
+                                      onClick={() => setnoteArea(!noteArea)}
+                                      className="btn w-50 h-100 text-light btn-danger rounded-2"
+                                    >الغاء</button>
+                                  </div>
+                                </form>
+                                : ''}
                               <div className="offer-detalis">
                                 <div className='offer-info'>
                                   <div className='p-info'>
@@ -111,17 +123,29 @@ export default function Offers() {
                       <SwiperSlide key={product._id}>
                         <div className="offer-card">
                           <img className='offer-img' src={defaultsImage} alt="Delicious soup" />
-                          {product._id === productid && noteArea && (
-                            <div className='offers-note'>
-                              <form onSubmit={(e) => { addNoteToProduct(e, product._id); setnoteArea(!noteArea); }}>
-                                <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value); }}></textarea>
-                                <div className='note-btn'>
-                                  <button type="submit">تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)}>الغاء</button>
-                                </div>
-                              </form>
+                          {product._id === productid && noteArea === true ?
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, ''); setnoteArea(!noteArea); }} 
+                          className="position-absolute w-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style={{ zIndex: 10, height:'40%' }}
+                          >
+                            <textarea
+                              placeholder='اضف تعليماتك الخاصة بهذا الطبق'
+                              name="note"
+                              cols="100"
+                              rows="3"
+                              onChange={(e) => { setproductNote(e.target.value) }}
+                              className="w-100 h-100 my-1"
+                              style={{ zIndex: 11 }}
+                            ></textarea>
+                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{height: '40px'}}>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
+                              <button
+                                onClick={() => setnoteArea(!noteArea)}
+                                className="btn w-50 h-100 text-light btn-danger rounded-2"
+                              >الغاء</button>
                             </div>
-                          )}
+                          </form>
+                          : ''}
                           <div className="offer-detalis">
                             <div className='offer-info'>
                               <div className='p-info'>
