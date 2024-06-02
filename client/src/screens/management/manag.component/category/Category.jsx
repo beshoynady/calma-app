@@ -28,7 +28,6 @@ const Category = () => {
       const res = await axios.get(apiUrl + "/api/category/");
       if (res) {
         const categories = res.data
-        console.log({res})
         setallCategory(categories);
         const filterMain = categories.filter(category => category.isMain === true)[0];
         if (filterMain) {
@@ -130,19 +129,14 @@ const Category = () => {
   };
 
   const handleDrop = (e, newIndex) => {
-    console.log({newIndex})
     const oldIndex = e.dataTransfer.getData('index');
-    console.log({oldIndex})
     const draggedCategory = allCategory[oldIndex];
-    console.log({draggedCategory})
     
     // Remove the dragged category from its old position
     const updatedCategories = allCategory.filter((_, index) => index != oldIndex);
 
     // Insert the dragged category at the new position
     updatedCategories.splice(newIndex, 0, draggedCategory);
-
-    console.log({updatedCategories})
     // Update the state with the new order
     setallCategory(updatedCategories);
   };
@@ -168,7 +162,6 @@ const Category = () => {
       }
       // Check if all requests were successful
       if (done) {
-        console.log({edit})
         // Call the function to get all categories
         getallCategory();
         // Display a success toast
