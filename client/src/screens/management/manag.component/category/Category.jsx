@@ -129,7 +129,10 @@ const Category = () => {
   };
 
   const handleDrop = (e, newIndex) => {
+    console.log({newIndex})
     const oldIndex = e.dataTransfer.getData('index');
+    console.log({dataTransfer:e.dataTransfer})
+    console.log({oldIndex})
     const draggedCategory = allCategory[oldIndex];
 
     // Remove the dragged category from its old position

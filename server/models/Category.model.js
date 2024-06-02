@@ -27,8 +27,21 @@ const categorySchema = new mongoose.Schema({
         ref: 'Employee',
         required: true
     },
-
+    // Order index for sorting
+    order: {
+        type: Number,
+        required: [true, 'Order is required.']
+    }
 }, { timestamps: true });
+
+// Pre-save middleware to set the order to the last position if not provided
+categorySchema.pre('save', async function (next) {
+    if (this.isNew) {
+        const highestOrderCategory = await mongoose.model('Category').findOne().sort('-order').exec();
+        this.order = highestOrderCategory ? highestOrderCategory.order + 1 : 1;
+    }
+    next();
+});
 
 // Create the Category model
 const Categorymodel = mongoose.model('Category', categorySchema)

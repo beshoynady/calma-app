@@ -49,12 +49,12 @@ const getOneCategory = async (req, res, next) => {
 // Update a category
 const updateCategory = async (req, res, next) => {
     const { categoryId } = req.params;
-    const { name, isMain, status } = req.body;
+    const { name, isMain, status , order } = req.body;
     const id = req.employee.id;
     try {
         const updatedCategory = await CategoryModel.findByIdAndUpdate(
             categoryId,
-            { name, isMain, status, createdBy: id },
+            { name, isMain,order, status, createdBy: id },
             { new: true }
         );
         if (!updatedCategory) {
