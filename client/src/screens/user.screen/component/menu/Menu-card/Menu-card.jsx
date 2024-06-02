@@ -212,14 +212,31 @@ const MenuCard = () => {
                     // </div>
                   } else {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
+                      <div className="card mx-auto rounded-3 position-relative" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
                         {product._id === productid && noteArea === true ?
-                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, ''); setnoteArea(!noteArea); }} className="position-absolute w-100 h-100 z-index-1 top-0 end-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden">
-                            <textarea placeholder='اضف تعليماتك الخاصة بهذا الطبق' name="note" cols="100" rows="3" onChange={(e) => { setproductNote(e.target.value) }} className="w-95 h-70 my-1 z-index-1">
-                            </textarea>
+                          <form
+                            onSubmit={(e) => {
+                              addNoteToProduct(e, product._id, '');
+                              setnoteArea(!noteArea);
+                            }}
+                            className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style={{ zIndex: 10 }}
+                          >
+                            <textarea
+                              placeholder='اضف تعليماتك الخاصة بهذا الطبق'
+                              name="note"
+                              cols="100"
+                              rows="3"
+                              onChange={(e) => { setproductNote(e.target.value) }}
+                              className="w-95 h-70 my-1"
+                              style={{ zIndex: 11 }}
+                            ></textarea>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 h-20 mt-2'>
                               <button className="btn w-45 h-100 text-light bg-dark rounded-2 me-2">تاكيد</button>
-                              <button onClick={() => setnoteArea(!noteArea)} className="btn w-45 h-100 text-light bg-dark rounded-2">الغاء</button>
+                              <button
+                                onClick={() => setnoteArea(!noteArea)}
+                                className="btn w-45 h-100 text-light bg-dark rounded-2"
+                              >الغاء</button>
                             </div>
                           </form>
                           : ''}
@@ -242,7 +259,6 @@ const MenuCard = () => {
                                 غير متاح الان
                               </button>
                             )}
-
                           </div>
                           <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                             <div className="d-flex justify-content-between align-items-center mb-2">
@@ -251,12 +267,8 @@ const MenuCard = () => {
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <p className="card-text mb-2">بيتزا شاورما</p>
-
                             <div className="d-flex row justify-content-between align-items-center mb-2">
-                              <div className="col-7 ">
-
-                              </div>
-
+                              <div className="col-7"></div>
                               <div className="col-5 d-flex flex-column align-items-end">
                                 {product.discount > 0 ?
                                   <>
@@ -271,7 +283,7 @@ const MenuCard = () => {
                                 <button className="btn btn-outline-secondary w-100" type="button" onClick={() => incrementProductQuantity(product._id)}>+</button>
                               </div>
                               <div className="col-4">
-                                <input type="text" className="form-control text-center w-100" readonly value={product.quantity} />
+                                <input type="text" className="form-control text-center w-100" readOnly value={product.quantity} />
                               </div>
                               <div className="col-4">
                                 <button className="btn btn-outline-secondary w-100" type="button" onClick={() => decrementProductQuantity(product._id)}>-</button>
@@ -280,6 +292,7 @@ const MenuCard = () => {
                           </div>
                         </div>
                       </div>
+
                       // <div className="menu-card" key={index}>
                       //   {/* <img className='img-card' src={product.image ? `${apiUrl}/images/${product.image}` : ""} alt="" /> */}
                       //   <img className='img-card' src={defaultsImage} alt="Delicious soup" />
