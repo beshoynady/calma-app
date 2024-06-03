@@ -56,6 +56,51 @@ const LoginRegistr = (props) => {
     authform.current.style.display = "none"
   }
 
+
+  const login = async (e, phone, password, getUserInfoFromToken) => {
+    e.preventDefault();
+    console.log({ phone, password });
+
+    try {
+      // Check if phone and password are provided
+      if (!phone || !password) {
+        toast.error('رقم الموبايل أو كلمة السر غير مُقدمة.');
+        return;
+      }
+
+      // Make a POST request to login endpoint
+      const response = await axios.post(apiUrl + '/api/auth/login', { phone, password });
+
+      // Handle response data
+      if (response && response.data) {
+        const { accessToken, findUser } = response.data;
+
+        // Check if user is active and token is provided
+        if (accessToken && findUser.isActive) {
+          // Store access token in local storage
+          localStorage.setItem('token_u', accessToken);
+          // Retrieve user info from token if needed
+          getUserInfoFromToken();
+          // Update login state
+          // setisLogin(true);
+          toast.success('تم تسجيل الدخول!');
+        } else {
+          toast.error('هذا المستخدم غير نشط. الرجاء الاتصال بنا.');
+        }
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle different error scenarios
+      if (error.response && error.response.status === 404) {
+        toast.error('رقم الهاتف غير مسجل.');
+      } else if (error.response && error.response.status === 401) {
+        toast.error('كلمة السر غير صحيحة.');
+      } else {
+        toast.error('حدث خطأ أثناء تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+      }
+    }
+  };
+
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
@@ -64,7 +109,7 @@ const LoginRegistr = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ login, signup }) => {
+        ({ signup, getUserInfoFromToken }) => {
           return (
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">
@@ -92,7 +137,7 @@ const LoginRegistr = (props) => {
                     <div className="slider-tab"></div>
                   </div>
                   <div className="form-inner">
-                    <form ref={loginForm} className="login" onSubmit={(e) => login(e, phone, password)}>
+                    <form ref={loginForm} className="login" onSubmit={(e) => login(e, phone, password, getUserInfoFromToken)}>
                       <div className="field">
                         <input type="text" placeholder="Phone" required onChange={(e) => setphone(e.target.value)} />
                       </div>
