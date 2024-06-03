@@ -27,10 +27,24 @@ const SideBar = () => {
     sidebarRef.current.classList.toggle('close');
   };
 
+  const employeelogout = () => {
+    try {
+      // Remove admin token from local storage
+
+      localStorage.removeItem('token_e');
+      window.location.href = `https://${window.location.hostname}/login`;
+    } catch (error) {
+      // Handle any potential errors
+      console.error('Logout error:', error);
+      // Display a notification to the user about the error
+      alert('حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.');
+    }
+  }
+
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, employeelogout }) => {
+        ({ employeeLoginInfo }) => {
           const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>

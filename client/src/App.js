@@ -613,66 +613,66 @@ function App() {
   //   }
   // };
 
-  
+
   const [itemId, setitemId] = useState([]);
-const [itemsInCart, setitemsInCart] = useState([]);
+  const [itemsInCart, setitemsInCart] = useState([]);
 
-const addItemToCart = (productId, sizeId) => {
-  try {
-    // Find the product to add to the cart
-    const cartItem = allProducts.find(item => item._id === productId);
+  const addItemToCart = (productId, sizeId) => {
+    try {
+      // Find the product to add to the cart
+      const cartItem = allProducts.find(item => item._id === productId);
 
-    console.log({ cartItem });
-    if (cartItem) {
-      let newItem = {
-        productid: cartItem._id,
-        name: cartItem.name,
-        quantity: 0, // Default to adding one item
-        notes: cartItem.notes || '',
-        price: 0,
-        priceAfterDiscount: 0,
-      };
+      console.log({ cartItem });
+      if (cartItem) {
+        let newItem = {
+          productid: cartItem._id,
+          name: cartItem.name,
+          quantity: 0, // Default to adding one item
+          notes: cartItem.notes || '',
+          price: 0,
+          priceAfterDiscount: 0,
+        };
 
-      if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
-        const size = cartItem.sizes.find(size => size._id === sizeId);
-        console.log({ size });
-        if (size) {
-          newItem.sizeId = size._id;
-          newItem.size = size.sizeName;
-          newItem.price = size.sizePrice;
-          newItem.quantity = size.sizeQuantity;
-          newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
-        }
-      } else {
-        newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
-        newItem.price = cartItem.price;
-        newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
-      }
-
-      console.log({ newItem });
-      if (itemsInCart.length > 0) {
-        if (sizeId) {
-          const repeatedItem = itemsInCart.find(item => item.productid === productId && item.sizeId === sizeId);
-          if (!repeatedItem) {
-            setitemsInCart([...itemsInCart, newItem]);
-            setitemId([...itemId, sizeId]);
+        if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
+          const size = cartItem.sizes.find(size => size._id === sizeId);
+          console.log({ size });
+          if (size) {
+            newItem.sizeId = size._id;
+            newItem.size = size.sizeName;
+            newItem.price = size.sizePrice;
+            newItem.quantity = size.sizeQuantity;
+            newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
           }
         } else {
-          const repeatedItem = itemsInCart.find(item => item.productid === productId);
-          if (!repeatedItem) {
-            setitemsInCart([...itemsInCart, newItem]);
-            setitemId([...itemId, productId]);
-          }
+          newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
+          newItem.price = cartItem.price;
+          newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
         }
-      } else {
-        setitemsInCart([newItem]);
-        setitemId([sizeId ? sizeId : productId]);
+
+        console.log({ newItem });
+        if (itemsInCart.length > 0) {
+          if (sizeId) {
+            const repeatedItem = itemsInCart.find(item => item.productid === productId && item.sizeId === sizeId);
+            if (!repeatedItem) {
+              setitemsInCart([...itemsInCart, newItem]);
+              setitemId([...itemId, sizeId]);
+            }
+          } else {
+            const repeatedItem = itemsInCart.find(item => item.productid === productId);
+            if (!repeatedItem) {
+              setitemsInCart([...itemsInCart, newItem]);
+              setitemId([...itemId, productId]);
+            }
+          }
+        } else {
+          setitemsInCart([newItem]);
+          setitemId([sizeId ? sizeId : productId]);
+        }
       }
+    } catch (error) {
+      console.error('Error adding item to cart:', error.message);
     }
-  } catch (error) {
-    console.error('Error adding item to cart:', error.message);
-  }
-};
+  };
 
 
 
@@ -1601,54 +1601,54 @@ const addItemToCart = (productId, sizeId) => {
 
 
 
-  const adminLogin = async (e, phone, password) => {
-    e.preventDefault();
+  // const adminLogin = async (e, phone, password ) => {
+  //   e.preventDefault();
 
-    // Input validation
-    if (!phone || !password) {
-      toast.error('Phone number and password are required');
-      return;
-    }
+  //   // Input validation
+  //   if (!phone || !password) {
+  //     toast.error('Phone number and password are required');
+  //     return;
+  //   }
 
-    try {
-      // Send login request
-      const response = await axios.post(apiUrl + '/api/employee/login', {
-        phone,
-        password,
-      });
+  //   try {
+  //     // Send login request
+  //     const response = await axios.post(apiUrl + '/api/employee/login', {
+  //       phone,
+  //       password,
+  //     });
 
-      // Handle response
-      if (response && response.data) {
-        const { data } = response;
+  //     // Handle response
+  //     if (response && response.data) {
+  //       const { data } = response;
 
-        // Display response message
-        toast.success('تم تسجيل الدخول بنجاح');
+  //       // Display response message
+  //       toast.success('تم تسجيل الدخول بنجاح');
 
-        if (data.accessToken) {
-          localStorage.setItem('token_e', data.accessToken);
-          // Retrieve user info from token if needed
-          const userInfo = getUserInfoFromToken();
-          console.log(userInfo);
-        }
+  //       if (data.accessToken) {
+  //         localStorage.setItem('token_e', data.accessToken);
+  //         // Retrieve user info from token if needed
+  //         const userInfo = getUserInfoFromToken();
+  //         console.log(userInfo);
+  //       }
 
-        // Redirect to management page if employee is active
-        if (data.findEmployee.isActive === true) {
-          window.location.href = `https://${window.location.hostname}/management`;
-        } else {
-          toast.error('غير مسموح لك بالدخول');
-        }
-      }
-    } catch (error) {
-      console.error(error);
+  //       // Redirect to management page if employee is active
+  //       if (data.findEmployee.isActive === true) {
+  //         window.location.href = `https://${window.location.hostname}/management`;
+  //       } else {
+  //         toast.error('غير مسموح لك بالدخول');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
 
-      // Display error message from server response
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error('حدث خطأ. الرجاء المحاولة مرة أخرى.');
-      }
-    }
-  };
+  //     // Display error message from server response
+  //     if (error.response && error.response.data && error.response.data.message) {
+  //       toast.error(error.response.data.message);
+  //     } else {
+  //       toast.error('حدث خطأ. الرجاء المحاولة مرة أخرى.');
+  //     }
+  //   }
+  // };
 
 
   const logout = () => {
@@ -1666,19 +1666,19 @@ const addItemToCart = (productId, sizeId) => {
     }
   }
 
-  const employeelogout = () => {
-    try {
-      // Remove admin token from local storage
+  // const employeelogout = () => {
+  //   try {
+  //     // Remove admin token from local storage
 
-      localStorage.removeItem('token_e');
-      window.location.href = `https://${window.location.hostname}/login`;
-    } catch (error) {
-      // Handle any potential errors
-      console.error('Logout error:', error);
-      // Display a notification to the user about the error
-      alert('حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.');
-    }
-  }
+  //     localStorage.removeItem('token_e');
+  //     window.location.href = `https://${window.location.hostname}/login`;
+  //   } catch (error) {
+  //     // Handle any potential errors
+  //     console.error('Logout error:', error);
+  //     // Display a notification to the user about the error
+  //     alert('حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.');
+  //   }
+  // }
 
 
   //######### get order ditalis by serial 
@@ -2028,45 +2028,46 @@ const addItemToCart = (productId, sizeId) => {
   }, [count, itemsInCart, productOrderToUpdate, isLogin])
 
   return (
-    <detacontext.Provider value={{
-      restaurantData, clientInfo, apiUrl,
-      // Functions related to authentication
-      userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
+    <detacontext.Provider
+      value={{
+        restaurantData, clientInfo, apiUrl,
+        // Functions related to authentication
+        userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
 
-      // Functions related to products and categories
-      allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
+        // Functions related to products and categories
+        allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
 
-      // Functions related to users, tables, and orders
-      allUsers, allTable, usertitle, allOrders, askingForHelp,
+        // Functions related to users, tables, and orders
+        allUsers, allTable, usertitle, allOrders, askingForHelp,
 
-      // Functions related to manipulating product details
-      setproductNote, addNoteToProduct,
+        // Functions related to manipulating product details
+        setproductNote, addNoteToProduct,
 
-      // Functions related to order processing and calculations
-      invoice, listProductsOrder, orderUpdateDate, myOrder,
-      categoryid, itemsInCart, costOrder,
-      addItemToCart, setitemsInCart, incrementProductQuantity, decrementProductQuantity,
-      getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
+        // Functions related to order processing and calculations
+        invoice, listProductsOrder, orderUpdateDate, myOrder,
+        categoryid, itemsInCart, costOrder,
+        addItemToCart, setitemsInCart, incrementProductQuantity, decrementProductQuantity,
+        getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
 
-      // Functions related to creating different types of orders
-      checkout,
-      createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
+        // Functions related to creating different types of orders
+        checkout,
+        createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
 
-      // Functions related to pagination
-      setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
+        // Functions related to pagination
+        setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination,
 
-      // Other utility functions or state variables
-      itemId, setitemId,
+        // Other utility functions or state variables
+        itemId, setitemId,
 
-      formatDateTime, formatDate, formatTime,
-      orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
-      createOrderForTableByClient, createDeliveryOrderByClient,
+        formatDateTime, formatDate, formatTime,
+        orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
+        createOrderForTableByClient, createDeliveryOrderByClient,
 
-      orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
-      putNumOfPaid, splitInvoice, subtotalSplitOrder,
-      createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
-      , isLoadiog, setisLoadiog
-    }}>
+        orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
+        putNumOfPaid, splitInvoice, subtotalSplitOrder,
+        createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
+        , isLoadiog, setisLoadiog
+      }}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Userscreen />} />
