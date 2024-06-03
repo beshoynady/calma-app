@@ -7,53 +7,53 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 const Waiter = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
- // Refs for buttons
- const start = useRef();
- const ready = useRef();
+  // Refs for buttons
+  const start = useRef();
+  const ready = useRef();
 
- // State for pending orders and payments
- const [pendingOrders, setPendingOrders] = useState([]);
- const [pendingPayments, setPendingPayments] = useState([]);
+  // State for pending orders and payments
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [pendingPayments, setPendingPayments] = useState([]);
 
- // Function to fetch pending orders and payments
- const fetchPendingData = async () => {
-   try {
-     const res = await axios.get(apiUrl+'/api/order');
-     const recentStatus = res.data.filter((order) => order.status === 'Pending');
-     const recentPaymentStatus = res.data.filter((order) => order.payment_status === 'Pending');
-     setPendingOrders(recentStatus);
-     setPendingPayments(recentPaymentStatus);
-   } catch (error) {
-     console.log(error);
-   }
- };
-
- // State for internal orders
- const [internalOrders, setInternalOrders] = useState([]);
-
- // Function to fetch internal orders
- const fetchInternalOrders = async () => {
-  try {
-    const orders = await axios.get(apiUrl+'/api/order');
-    const activeOrders = orders.data.filter((order) => order.isActive === true);
-    const internalOrdersData = activeOrders.filter(order => order.orderType === 'Internal');
-    
-    console.log({ internalOrdersData: internalOrdersData });
-    const products = internalOrdersData.length > 0 ? internalOrdersData.flatMap(order => order.products) : [];
-    console.log({ products: products });
-    const productsFiltered = products.length > 0 ? products.filter((product) => product.isDone === true && product.isDeleverd === false) : [];
-    
-    console.log({ productsFiltered: productsFiltered });
-
-    if (productsFiltered.length > 0) {
-      setInternalOrders(internalOrdersData);
+  // Function to fetch pending orders and payments
+  const fetchPendingData = async () => {
+    try {
+      const res = await axios.get(apiUrl + '/api/order');
+      const recentStatus = res.data.filter((order) => order.status === 'Pending');
+      const recentPaymentStatus = res.data.filter((order) => order.payment_status === 'Pending');
+      setPendingOrders(recentStatus);
+      setPendingPayments(recentPaymentStatus);
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
+
+  // State for internal orders
+  const [internalOrders, setInternalOrders] = useState([]);
+
+  // Function to fetch internal orders
+  const fetchInternalOrders = async () => {
+    try {
+      const orders = await axios.get(apiUrl + '/api/order');
+      const activeOrders = orders.data.filter((order) => order.isActive === true);
+      const internalOrdersData = activeOrders.filter(order => order.orderType === 'Internal');
+
+      console.log({ internalOrdersData: internalOrdersData });
+      const products = internalOrdersData.length > 0 ? internalOrdersData.flatMap(order => order.products) : [];
+      console.log({ products: products });
+      const productsFiltered = products.length > 0 ? products.filter((product) => product.isDone === true && product.isDeleverd === false) : [];
+
+      console.log({ productsFiltered: productsFiltered });
+
+      if (productsFiltered.length > 0) {
+        setInternalOrders(internalOrdersData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   const updateOrderOnWay = async (id) => {
@@ -74,8 +74,8 @@ const Waiter = () => {
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = orderData.data.products.map((prod) => ({ ...prod, isDeleverd: true }));
       const status = 'Delivered';
-      const updateOrder= await axios.put(`${apiUrl}/api/order/${id}`, { status ,products});
-      if(updateOrder.status == 200){
+      const updateOrder = await axios.put(`${apiUrl}/api/order/${id}`, { status, products });
+      if (updateOrder.status == 200) {
         fetchInternalOrders()
         fetchPendingData();
         toast.success('Order has been delivered!');
@@ -89,8 +89,8 @@ const Waiter = () => {
   const helpOnWay = async (id) => {
     try {
       const helpStatus = 'On the way';
-      const res=await axios.put(`${apiUrl}/api/order/${id}`, { helpStatus });
-      if(res.status==200){
+      const res = await axios.put(`${apiUrl}/api/order/${id}`, { helpStatus });
+      if (res.status == 200) {
         fetchInternalOrders();
         fetchPendingData();
         toast.success('Help is on the way!');
@@ -115,7 +115,7 @@ const Waiter = () => {
   };
 
 
- // Fetch initial data on component mount
+  // Fetch initial data on component mount
   useEffect(() => {
     fetchPendingData();
     fetchInternalOrders();
@@ -153,7 +153,7 @@ const Waiter = () => {
                     <div className="card-footer text-center">
                       {order.helpStatus === 'On the way' ?
                         <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() => helpDone(order._id)}>تم</button>
-                        : 
+                        :
                         <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { helpOnWay(order._id) }}>متجة للعميل</button>
                       }
                     </div>
@@ -173,9 +173,9 @@ const Waiter = () => {
                           <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">اسم الويتر: {usertitle(order.waiter)}</p>
-                          <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                          <p className="card-text">الويتر: {usertitle(order.waiter)}</p>
                           <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                          <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>
                       </div>
                       <ul className="list-group list-group-flush">
@@ -191,7 +191,7 @@ const Waiter = () => {
                       <div className="card-footer text-center">
                         {order.status === 'Prepared' ?
                           <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(order._id) }}>استلام الطلب</button>
-                          : <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() =>{ updateOrderDelivered(order._id)}}>تم التسليم</button>
+                          : <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(order._id) }}>تم التسليم</button>
                         }
                       </div>
                     </div>
