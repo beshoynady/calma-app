@@ -520,7 +520,7 @@ function App() {
   const addNoteToProduct = (e, productId, sizeId) => {
     try {
       e.preventDefault();
-      console.log({ productOrderToUpdate, productId, sizeId })
+      console.log({ productNote, productId, sizeId })
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
