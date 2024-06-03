@@ -6,7 +6,12 @@ import { toast } from 'react-toastify'; // Importing toast from 'react-toastify'
 
 const Kitchen = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const start = useRef();
   const ready = useRef();
 
@@ -23,13 +28,8 @@ const Kitchen = () => {
 
   const getAllRecipe = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(`${apiUrl}/api/recipe`, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ response });
       setallRecipe(response.data)
     } catch (error) {
@@ -40,7 +40,6 @@ const Kitchen = () => {
 
   const getAllOrders = async () => {
     try {
-      const token = localStorage.getItem('token_e');
 
       // Fetch orders from the API
       const ordersResponse = await axios.get(`${apiUrl}/api/order`);
@@ -56,11 +55,7 @@ const Kitchen = () => {
       setOrderActive(activeOrders);
 
       // Fetch recipes from the API
-      const recipesResponse = await axios.get(`${apiUrl}/api/recipe`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const recipesResponse = await axios.get(`${apiUrl}/api/recipe`, config);
       const allRecipes = recipesResponse.data;
 
       // Process active orders to update productsOrderActive and consumptionOrderActive
@@ -72,8 +67,8 @@ const Kitchen = () => {
           if (!product.isDone) {
             console.log({ product })
 
-            const existingProductIndex = updatedProductsOrderActive.findIndex(p => p.productid === product.productid);
-            const recipe = allRecipes.find(recipe => recipe.product.id === product.productid)?.ingredients || [];
+            const existingProductIndex = updatedProductsOrderActive.findIndex(p => p.productid._id === product.productid._id);
+            const recipe = allRecipes.find(recipe => recipe.productId._id === product.productid)?.ingredients || [];
             console.log({ recipe })
             if (existingProductIndex !== -1) {
               // If the product already exists, update the quantity
@@ -128,15 +123,10 @@ const Kitchen = () => {
 
   const getKitchenConsumption = async () => {
     try {
-      const token = localStorage.getItem('token_e');
 
       setFilteredKitchenConsumptionToday([])
       console.log('Fetching kitchen consumption...');
-      const response = await axios.get(apiUrl + '/api/kitchenconsumption', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/kitchenconsumption', config);
       if (response && response.data) {
         const kitchenConsumptions = response.data.data || [];
         setAllKitchenConsumption(kitchenConsumptions);
@@ -177,13 +167,8 @@ const Kitchen = () => {
 
   const getAllWaiters = async () => {
     try {
-      const token = localStorage.getItem('token_e');
 
-      const allEmployees = await axios.get(apiUrl + '/api/employee', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const allEmployees = await axios.get(apiUrl + '/api/employee', config);
 
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
       const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive) : [];
@@ -246,7 +231,6 @@ const Kitchen = () => {
 
   const orderInProgress = async (id, type) => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const status = 'Preparing';
       let waiter = '';
@@ -259,11 +243,7 @@ const Kitchen = () => {
         orderData.waiter = waiter;
       }
 
-      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, {
-        headers: {
-          'authorization': `Bearer ${token}`, // Send the token in the authorization header
-        },
-      });
+      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
       if (response.status === 200) {
         // Fetch orders from the API
         const orders = await axios.get(apiUrl + '/api/order');
@@ -292,7 +272,6 @@ const Kitchen = () => {
 
   const updateOrderDone = async (id) => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
@@ -354,11 +333,7 @@ const Kitchen = () => {
                   consumptionQuantity,
                   bookBalance,
                   productsProduced: kitconsumption.productsProduced
-                }, {
-                  headers: {
-                    'authorization': `Bearer ${token}`, // Send the token in the authorization header
-                  },
-                });
+                }, config);
                 console.log({ update: update });
               } catch (error) {
                 console.log({ error: error });
@@ -471,7 +446,8 @@ const Kitchen = () => {
                           <ul className='list-group list-group-flush'>
                             {order.products.filter((pr) => pr.isDone === false).map((product, i) => {
                               return (
-                                <li className='list-group-item d-flex justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} 
+                                style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                   <div className="d-flex justify-content-between align-items-center w-100">
                                     <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
                                     <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
