@@ -101,6 +101,47 @@ const LoginRegistr = (props) => {
     }
   };
 
+
+    // Function to handle user signup
+    const signup = async (e, username, phone, deliveryArea, address, email, password, passconfirm) => {
+      e.preventDefault();
+  
+      try {
+        // Check if any field is empty
+        if (!username || !password || !phone || !address) {
+          toast.error('هناك حقول فارغة.');
+          return;
+        }
+  
+        // Check if passwords match if passconfirm is provided
+        if (passconfirm !== undefined && password !== passconfirm) {
+          toast.error('كلمة المرور غير متطابقة.');
+          return;
+        }
+  
+        // Send signup request
+        const response = await axios.post(apiUrl + '/api/auth/signup', {
+          username,
+          password,
+          phone,
+          deliveryArea,
+          address,
+          email,
+        });
+  
+        // Handle successful signup
+        if (response && response.data) {
+          const { accessToken, newUser } = response.data;
+          localStorage.setItem('token_u', accessToken);
+          toast.success('تم إنشاء الحساب بنجاح!');
+          // Perform actions with accessToken or newUser if needed
+        }
+      } catch (error) {
+        // Handle signup error
+        console.error('Signup error:', error);
+        toast.error('حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.');
+      }
+    };
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
@@ -109,7 +150,7 @@ const LoginRegistr = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ signup, getUserInfoFromToken }) => {
+        ({ getUserInfoFromToken }) => {
           return (
             <div className='auth-section' ref={authform} style={openlogin ? { 'display': 'flex' } : { 'display': 'none' }}>
               <div className="wrapper">

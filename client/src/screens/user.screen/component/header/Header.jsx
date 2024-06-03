@@ -14,6 +14,21 @@ const Header = () => {
   const [opencart, setopencart] = useState(false);
   const [openlogin, setopenlogin] = useState(false);
 
+  const logout = () => {
+    try {
+      // Remove user token from local storage
+      localStorage.removeItem('token_u');
+
+      // Redirect to home page
+      window.location.href = `https://${window.location.hostname}`;
+    } catch (error) {
+      // Handle any potential errors
+      console.error('Logout error:', error);
+      // Display a notification to the user about the error
+      alert('حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.');
+    }
+  }
+
   const navref = useRef();
 
   const toggleMobileMenu = () => {
@@ -35,7 +50,7 @@ const Header = () => {
 
   return (
     <detacontext.Consumer>
-      {({restaurantData,apiUrl, userLoginInfo, logout, itemsInCart }) => (
+      {({restaurantData,apiUrl, userLoginInfo, itemsInCart }) => (
         <header className={`header-client ${isScroll ? 'scroll' : ''}`}>
           <div className="container-lg">
             <div className='logo'>
@@ -69,13 +84,13 @@ const Header = () => {
                       <span className="material-symbols-outlined">logout</span>
                     </div>
                   ) : (
-                    <div className='nav-login' onClick={() => setopenlogin(!openlogin)}>دخول<span className="material-symbols-outlined">
+                    <div className='nav-login' onClick={() => {setopenlogin(!openlogin) ; setopencart(false)}}>دخول<span className="material-symbols-outlined">
                       login
                     </span></div>
                   )}
                 </>
               )}
-              <div className='cart-icon' onClick={() => setopencart(!opencart)}>
+              <div className='cart-icon' onClick={() => {setopencart(!opencart); setopenlogin(false)}}>
                 <span className="material-symbols-rounded shopping_cart">shopping_cart</span>
                 <span className='cartcounter'>{itemsInCart.length}</span>
               </div>
