@@ -2032,7 +2032,8 @@ function App() {
       value={{
         restaurantData, clientInfo, apiUrl,
         // Functions related to authentication
-        userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout, adminLogin, employeelogout,
+        userLoginInfo, employeeLoginInfo, getUserInfoFromToken, login, signup, logout,
+        //  adminLogin, employeelogout,
 
         // Functions related to products and categories
         allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
