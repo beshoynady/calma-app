@@ -1097,15 +1097,15 @@ const ManagerDash = () => {
                                     <div style={{ maxWidth: "50%" }}>
                                       <p className="card-text">الفاتورة: {kitchenOrder.serial}</p>
                                       <p className="card-text">الكاشير: {employeeLoginInfo && employeeLoginInfo.employeeinfo ? usertitle(employeeLoginInfo.employeeinfo.id) : ''}</p>
-                                      {/* {kitchenOrder.waiter ? <p className="card-text">الويتر: {usertitle(kitchenOrder.waiter)}</p> : ""} */}
-                                      {/* <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                      <p className="card-text">الانتظار: {55} دقيقه</p> */}
+                                      {kitchenOrder.waiter ? <p className="card-text">الويتر: {usertitle(kitchenOrder.waiter)}</p> : ""}
+                                      <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                      <p className="card-text">الانتظار: {55} دقيقه</p>
                                     </div>
                                   </div>
                                   <ul className='list-group list-group-flush'>
                                     {kitchenProducts.map((product, i) => {
                                       return (
-                                        <li className='list-group-item d-flex column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                        <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                           <div className="d-flex justify-content-between align-items-center w-100">
                                             <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
                                             <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
