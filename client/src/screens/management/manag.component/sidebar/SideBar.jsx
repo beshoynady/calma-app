@@ -68,9 +68,9 @@ const SideBar = () => {
 
       const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
       if (response.status === 200) {
-        const data = response.data;
-        setpermissionsList(data);
+        const data = response.data.Permissions;
         console.log({ data });
+        setpermissionsList(data);
       } else {
         throw new Error('Failed to fetch permissions: Unexpected status code');
       }
@@ -165,7 +165,7 @@ const SideBar = () => {
 
 
                   {/* Orders */}
-                  {role === 'manager' && (
+                  {role === 'manager' && permissionsList.filter(permission => permission.resource ==='Orders')[0].read&&(
                     <li>
                       <Link to="orders">
                         <span className="material-symbols-outlined icon">list_alt</span>
