@@ -93,6 +93,7 @@ const Cart = (props) => {
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
+              {console.log({itemsInCart})}
               <div className="cart-wrapper">
                 {/* <div className="title-text">
                   <div ref={ordersText} className="title order" >
