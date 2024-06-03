@@ -1,10 +1,20 @@
-import React, { useEffect, useRef } from 'react';
-import './SideBar.css';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { detacontext } from '../../../../App';
+import { toast } from 'react-toastify';
+
 import { Link } from 'react-router-dom';
+import './SideBar.css';
 
 const SideBar = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e');
 
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   const arrowRefs = {
     arrowsetting: useRef(),
     arrowmen: useRef(),
@@ -51,7 +61,6 @@ const SideBar = () => {
       let id = null
     if (employeeToken) {
       decodedToken = jwt_decode(employeeToken);
-      setEmployeeLoginInfo(decodedToken);
       console.log(decodedToken.employeeinfo);
       id = decodedToken.employeeinfo.id
     }
