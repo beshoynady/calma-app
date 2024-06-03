@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './SideBar.css';
 import { detacontext } from '../../../../App';
 import { Link } from 'react-router-dom';
@@ -41,17 +41,50 @@ const SideBar = () => {
     }
   }
 
+  const [permissionsList, setpermissionsList] = useState([]);
+
+  const getPermissions = async () => {
+    try {
+      
+    const employeeToken = localStorage.getItem('token_e');
+    let decodedToken = null;
+      let id = null
+    if (employeeToken) {
+      decodedToken = jwt_decode(employeeToken);
+      setEmployeeLoginInfo(decodedToken);
+      console.log(decodedToken.employeeinfo);
+      id = decodedToken.employeeinfo.id
+    }
+
+      const response = await axios.get(`${apiUrl}/api/permission/${id}`, config);
+      if (response.status === 200) {
+        const data = response.data;
+        setpermissionsList(data);
+        console.log({ data });
+      } else {
+        throw new Error('Failed to fetch permissions: Unexpected status code');
+      }
+    } catch (error) {
+      console.error('Error fetching permissions:', error.message);
+    }
+  };
+
+  
+  useEffect(() => {
+    getPermissions()
+  }, [])
+
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo }) => {
+        ({restaurantData, employeeLoginInfo }) => {
           const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>
               <div ref={sidebarRef} className="sidebar close">
                 <div className="logo-details">
                   <i className='bx bxl-c-plus-plus'></i>
-                  <span className="logo_name">CALMA</span>
+                  <span className="logo_name">{restaurantData.name}</span>
                 </div>
                 <ul className="nav-links">
                   {/* Dashboard */}
