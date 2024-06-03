@@ -119,7 +119,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => addItemToCart(product._id, sizeId)}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() =>{ if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )}
@@ -270,7 +270,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => addItemToCart(product._id, sizeId)}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (product.quantity > 0) { addItemToCart(product._id)} }}>
                                     أضف الى طلباتي
                                   </button>
                                 )

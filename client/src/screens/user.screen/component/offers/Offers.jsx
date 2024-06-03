@@ -170,7 +170,7 @@ export default function Offers() {
                                   احذف من الطلبات
                                 </button>
                               ) : (
-                                <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id); } }}>
+                                <button className='addtocart' onClick={() => { if (product.quantity > 0) { addItemToCart(product._id)} }}>
                                   اضف الي طلباتي
                                 </button>
                               )}
