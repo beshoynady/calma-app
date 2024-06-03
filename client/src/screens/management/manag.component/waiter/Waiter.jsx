@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { detacontext } from '../../../../App'
-import './Waiter.css'
+// import './Waiter.css'
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -133,13 +133,13 @@ const Waiter = () => {
                     <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">الطاولة: {usertitle(order.table)}</p>
-                        <p className="card-text">رقم الفاتورة: {order.serial}</p>
+                        <p className="card-text">الفاتورة: {order.serial}</p>
                         <p className="card-text">نوع الطلب: {order.orderType}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
-                        <p className="card-text">اسم الويتر: {usertitle(order.waiter)}</p>
-                        <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                        <p className="card-text">الويتر: {usertitle(order.waiter)}</p>
                         <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                        <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
                     </div>
                     <ul className="list-group list-group-flush">
