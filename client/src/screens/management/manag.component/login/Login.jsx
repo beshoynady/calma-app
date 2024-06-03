@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 
 const Login = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const [phone, setphone] = useState('')
   const [password, setpassword] = useState('')
