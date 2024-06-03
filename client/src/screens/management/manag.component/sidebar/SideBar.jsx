@@ -165,7 +165,7 @@ const SideBar = () => {
 
 
                   {/* Orders */}
-                  {role === 'manager' && permissionsList.filter(permission => permission.resource ==='Orders')[0].read&&(
+                  {role === 'manager' && permissionsList.filter(permission => permission.resource ==='Orders')[0]?.read&&(
                     <li>
                       <Link to="orders">
                         <span className="material-symbols-outlined icon">list_alt</span>
