@@ -193,7 +193,7 @@ const LoginRegistr = (props) => {
                         <input type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
-                    <form className="signup" onSubmit={(e) => signup(e, username, phone, deliveryArea, address, email, password, passconfirm)}>
+                    <form className="signup" style={{overflow: "scroll", scrollbarWidth: "none"}}  onSubmit={(e) => signup(e, username, phone, deliveryArea, address, email, password, passconfirm)}>
                       <div className="field">
                         <input type="text" placeholder="اسمك" required onChange={(e) => setusername(e.target.value)} />
                       </div>
@@ -204,7 +204,7 @@ const LoginRegistr = (props) => {
                         <input type="text" placeholder="الموبايل" required onChange={(e) => setphone(e.target.value)} />
                       </div>
                       <div className="field">
-                        <select onChange={(e) => setdeliveryArea(e.target.value)}>
+                        <select className="field" onChange={(e) => setdeliveryArea(e.target.value)}>
                           <option>اختر المنطقة</option>
                           {areas ? (
                             areas.map((area, i) => (
