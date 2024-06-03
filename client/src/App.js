@@ -628,7 +628,7 @@ function App() {
           productid: cartItem._id,
           name: cartItem.name,
           quantity: 0, // Default to adding one item
-          notes: cartItem.notes || '',
+          notes: '',
           price: 0,
           priceAfterDiscount: 0,
         };
@@ -642,11 +642,14 @@ function App() {
             newItem.price = size.sizePrice;
             newItem.quantity = size.sizeQuantity;
             newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
+            newItem.notes = size.notes
           }
         } else {
           newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
+          newItem.notes = cartItem.notes
+
         }
 
         console.log({ newItem });
