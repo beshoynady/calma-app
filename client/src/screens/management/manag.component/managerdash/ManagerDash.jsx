@@ -40,16 +40,11 @@ const ManagerDash = () => {
 
   const fetchOrdersData = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       if (!token) {
         // Handle case where token is not available
         throw new Error('توكن غير متاح');
       }
-      const res = await axios.get(apiUrl + '/api/order', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(apiUrl + '/api/order', config);
       const orders = res.data;
       setallOrders(orders);
 
@@ -1110,7 +1105,7 @@ const ManagerDash = () => {
                                   <ul className='list-group list-group-flush'>
                                     {kitchenProducts.map((product, i) => {
                                       return (
-                                        <li className='list-group-item d-flex justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                        <li className='list-group-item d-flex column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                           <div className="d-flex justify-content-between align-items-center w-100">
                                             <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
                                             <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
