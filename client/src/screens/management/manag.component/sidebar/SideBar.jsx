@@ -66,7 +66,7 @@ const SideBar = () => {
       id = decodedToken.employeeinfo.id
     }
 
-      const response = await axios.get(`${apiUrl}/api/permission/${id}`, config);
+      const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
       if (response.status === 200) {
         const data = response.data;
         setpermissionsList(data);

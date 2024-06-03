@@ -54,6 +54,23 @@ const getPermissionById = async (req, res) => {
     }
 };
 
+
+const getPermissionByEmployee = async (req, res) => {
+    try {
+        // Correcting the findOne method and chaining populate correctly
+        const permission = await PermissionsModel.findOne({ employee: req.params.id }).populate('employee');
+
+        if (!permission) {
+            return res.status(404).json({ message: 'الصلاحية غير موجودة' });
+        }
+
+        res.status(200).json(permission);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 const updatePermissionById = async (req, res) => {
     try {        
         const updatedBy = req.employee.id
@@ -89,6 +106,7 @@ module.exports = {
     createPermission,
     getAllPermissions,
     getPermissionById,
+    getPermissionByEmployee,
     updatePermissionById,
     deletePermissionById
 };

@@ -4,6 +4,7 @@ const {
     createPermission,
     getAllPermissions,
     getPermissionById,
+    getPermissionByEmployee,
     updatePermissionById,
     deletePermissionById
 } = require('../controllers/Permissions.controller');
@@ -17,5 +18,7 @@ router.route('/:id')
     .get(authenticateToken, getPermissionById)
     .put(authenticateToken, updatePermissionById)
     .delete(authenticateToken, deletePermissionById);
+
+    router.route('/employee/:id').get(authenticateToken, getPermissionByEmployee);
 
 module.exports = router;
