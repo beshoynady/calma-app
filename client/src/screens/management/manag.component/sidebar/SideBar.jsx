@@ -137,7 +137,7 @@ const SideBar = () => {
                   )}
 
                   {/* Waiter */}
-                  {(role === 'manager') && (
+                  {(role === 'manager' || role ==='waiter') && (
                     <li>
                       <Link to="waiter">
                         <span className="material-symbols-outlined icon">concierge</span>
@@ -189,13 +189,11 @@ const SideBar = () => {
                       </div>
                       <ul className="sub-menu">
                         <li><a className="link_name" href="#">الطاولات</a></li>
-                        {role === 'manager' && (
                           <li><Link to="tables">ادارة الطاولات</Link></li>
-                        )}
-                        {(role === 'casher' || role === 'manager') && (
+                        {permissionsList?.filter(permission => permission.resource === 'Table Reservations')[0]?.read && (
                           <li><Link to="reservation">حجز الطاولات</Link></li>
                         )}
-                        {(role === 'casher' || role === 'manager' || role === 'waiter') && (
+                        {permissionsList?.filter(permission => permission.resource === 'Tables')[0]?.read && (
                           <li><Link to="tablespage">الطاولات</Link></li>
                         )}
                       </ul>
