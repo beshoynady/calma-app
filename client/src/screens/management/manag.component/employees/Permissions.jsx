@@ -52,7 +52,7 @@ const PermissionsComponent = () => {
     }
   };
 
-  const [permissionsListEn, setpermissionsListEn] = useState(['Employees', 'Attendance', 'Salaries','Payroll', 'Cash Register', 'Cash Movement', 'Inventory Item', 'Inventory Categories', 'Inventory Management', 'Orders', 'Tables', 'Table Reservations', 'Restaurant Settings', 'Permissions', 'Delivery Zones', 'Shifts', 'Expenses', 'Daily Expenses', 'Menu Categories', 'Products', 'Recipes', 'Kitchen Usage', 'Purchases', 'Purchase Returns', 'Supplier Data', 'Supplier Account', 'Supplier Movement', 'Users', 'Messages']);
+  const [permissionsListEn, setpermissionsListEn] = useState(['Employees', 'Attendance', 'Salaries', 'Payroll', 'Cash Register', 'Cash Movement', 'Inventory Item', 'Inventory Categories', 'Inventory Management', 'Orders', 'Tables', 'Table Reservations', 'Restaurant Settings', 'Permissions', 'Delivery Zones', 'Shifts', 'Expenses', 'Daily Expenses', 'Menu Categories', 'Products', 'Recipes', 'Kitchen Usage', 'Purchases', 'Purchase Returns', 'Supplier Data', 'Supplier Account', 'Supplier Movement', 'Users', 'Messages']);
 
   const [permissionsListAr, setpermissionsListAr] = useState(['الموظفين', 'تسجيل الحضور', 'المرتبات', 'دفع المرتبات', 'سجل النقدية', 'حركة النقدية', 'عنصر المخزن', 'تصنيفات المخزن', 'إدارة المخزن', 'الطلبات', 'الطاولة', 'حجز الطاولات', 'اعدادات المطعم', 'الصلاحيات', 'مناطق التوصيل', 'الوردية', 'المصروفات', 'سجل المصروفات', 'تصنيفات المنيو', 'المنتجات', 'الوصفات', 'استهلاك المطبخ', 'المشتريات', 'مرتجع المشتريات', 'بيانات الموردين', 'حساب المورد', 'حركه الموردين', 'المستخدمين', 'الرسائل']);
 
@@ -75,15 +75,21 @@ const PermissionsComponent = () => {
           console.log({ permission })
           if (action === 'create') {
             permission.create = !permission.create;
-            permission.read = true
+            if (!permission.create === true) {
+              permission.read = true
+            }
           } else if (action === 'update') {
             permission.update = !permission.update;
-            permission.read = true
+            if (!permission.update === true) {
+              permission.read = true
+            }
           } else if (action === 'read') {
             permission.read = !permission.read
           } else if (action === 'delete') {
             permission.delete = !permission.delete;
-            permission.read = true
+            if (!permission.delete === true) {
+              permission.read = true
+            }
           }
           console.log({ permission })
 
@@ -118,7 +124,7 @@ const PermissionsComponent = () => {
       console.log({ newPermission })
     }
     console.log({ updatePermissions })
-    setPermissions([...updatePermissions]) 
+    setPermissions([...updatePermissions])
   }
 
 
@@ -189,17 +195,17 @@ const PermissionsComponent = () => {
           permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
           null;
 
-          if(permissionEmployee){
-            setpermissionEmployee(permissionEmployee);
-            setPermissions(permissionEmployee.Permissions)
-            console.log({ permissionEmployee });
-            console.log({ selectedEmployee });
-          }else{
-            setpermissionEmployee({});
-            setPermissions([])
-            toast.info('هذا الموظف ليس له اي صلاحيات')
-          }
+        if (permissionEmployee) {
+          setpermissionEmployee(permissionEmployee);
+          setPermissions(permissionEmployee.Permissions)
+          console.log({ permissionEmployee });
+          console.log({ selectedEmployee });
         } else {
+          setpermissionEmployee({});
+          setPermissions([])
+          toast.info('هذا الموظف ليس له اي صلاحيات')
+        }
+      } else {
         setselectedEmployee(null);
       }
     }
@@ -218,18 +224,18 @@ const PermissionsComponent = () => {
 
         console.log({ permissionsList });
         const permissionEmployee = permissionsList ? permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] : null;
-        if(permissionEmployee){
+        if (permissionEmployee) {
           setpermissionEmployee(permissionEmployee);
           setPermissions(permissionEmployee.Permissions)
           console.log({ permissionEmployee });
           console.log({ selectedEmployee });
-        }else{
+        } else {
           setpermissionEmployee({});
           setPermissions([])
           toast.info('هذا الموظف ليس له اي صلاحيات')
         }
 
-      }else{
+      } else {
         setselectedEmployee({});
         setemployeeid('');
 
