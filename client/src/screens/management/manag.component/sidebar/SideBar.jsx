@@ -56,15 +56,15 @@ const SideBar = () => {
 
   const getPermissions = async () => {
     try {
-      
-    const employeeToken = localStorage.getItem('token_e');
-    let decodedToken = null;
+
+      const employeeToken = localStorage.getItem('token_e');
+      let decodedToken = null;
       let id = null
-    if (employeeToken) {
-      decodedToken = jwt_decode(employeeToken);
-      console.log(decodedToken.employeeinfo);
-      id = decodedToken.employeeinfo.id
-    }
+      if (employeeToken) {
+        decodedToken = jwt_decode(employeeToken);
+        console.log(decodedToken.employeeinfo);
+        id = decodedToken.employeeinfo.id
+      }
 
       const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
       if (response.status === 200) {
@@ -79,7 +79,7 @@ const SideBar = () => {
     }
   };
 
-  
+
   useEffect(() => {
     getPermissions()
   }, [])
@@ -87,7 +87,7 @@ const SideBar = () => {
   return (
     <detacontext.Consumer>
       {
-        ({restaurantData, employeeLoginInfo }) => {
+        ({ restaurantData, employeeLoginInfo }) => {
           const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>
@@ -165,7 +165,7 @@ const SideBar = () => {
 
 
                   {/* Orders */}
-                  {role === 'manager' && permissionsList.filter(permission => permission.resource ==='Orders')[0]?.read&&(
+                  {role === 'manager' && permissionsList.filter(permission => permission.resource === 'Orders')[0]?.read && (
                     <li>
                       <Link to="orders">
                         <span className="material-symbols-outlined icon">list_alt</span>
@@ -178,27 +178,29 @@ const SideBar = () => {
                   )}
 
                   {/* Tables */}
-                  <li ref={arrowRefs.arrowtable} onClick={() => openSubMenu(arrowRefs.arrowtable)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span className="material-symbols-outlined icon">table_restaurant</span>
-                        <span className="link_name">الطاولات</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      <li><a className="link_name" href="#">الطاولات</a></li>
-                      {role === 'manager' && (
-                        <li><Link to="tables">ادارة الطاولات</Link></li>
-                      )}
-                      {(role === 'casher' || role === 'manager') && (
-                        <li><Link to="reservation">حجز الطاولات</Link></li>
-                      )}
-                      {(role === 'casher' || role === 'manager' || role === 'waiter') && (
-                        <li><Link to="tablespage">الطاولات</Link></li>
-                      )}
-                    </ul>
-                  </li>
+                  {(role === 'manager' || role === 'casher') && permissionsList.filter(permission => permission.resource === 'Tables')[0]?.read && (
+                    <li ref={arrowRefs.arrowtable} onClick={() => openSubMenu(arrowRefs.arrowtable)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                          <span className="material-symbols-outlined icon">table_restaurant</span>
+                          <span className="link_name">الطاولات</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
+                        <li><a className="link_name" href="#">الطاولات</a></li>
+                        {role === 'manager' && (
+                          <li><Link to="tables">ادارة الطاولات</Link></li>
+                        )}
+                        {(role === 'casher' || role === 'manager') && (
+                          <li><Link to="reservation">حجز الطاولات</Link></li>
+                        )}
+                        {(role === 'casher' || role === 'manager' || role === 'waiter') && (
+                          <li><Link to="tablespage">الطاولات</Link></li>
+                        )}
+                      </ul>
+                    </li>
+                  )}
 
 
                   {/* Menu */}
@@ -221,34 +223,36 @@ const SideBar = () => {
                   )}
 
                   {/* Employees */}
-                  <li ref={arrowRefs.arrowemp} onClick={() => openSubMenu(arrowRefs.arrowemp)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span className="material-symbols-outlined icon">group_add</span>
-                        <span className="link_name">الموظفون</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      <li><a className="link_name" href="#">الموظفون</a></li>
-                      {(role === 'manager') && (
-                        <>
-                          <li><Link to="employees">البيانات</Link></li>
+                  {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.read && (
+                    <li ref={arrowRefs.arrowemp} onClick={() => openSubMenu(arrowRefs.arrowemp)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                          <span className="material-symbols-outlined icon">group_add</span>
+                          <span className="link_name">الموظفون</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
+                        <li><a className="link_name" href="#">الموظفون</a></li>
+                        <li><Link to="employees">البيانات</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Permissions')[0]?.read && (
                           <li><Link to="permissions">الصلاحيات</Link></li>
-                          <li><Link to="payroll">المرتبات</Link></li>
-                        </>
-                      )}
-                      {(role === 'manager' || role === 'casher') && (
-                        <>
-                          <li><Link to="employeessalary">تعاملات</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Attendance')[0]?.read && (
                           <li><Link to="attendancerecord">الحضور و الانصراف</Link></li>
-                        </>
-                      )}
-                    </ul>
-                  </li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Salaries')[0]?.read && (
+                          <li><Link to="employeessalary">تعاملات</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Payroll')[0]?.read && (
+                          <li><Link to="payroll">المرتبات</Link></li>
+                        )}
+                      </ul>
+                    </li>
+                  )}
 
                   {/* Users */}
-                  {role === 'manager' && (
+                  {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.read && (
                     <li ref={arrowRefs.arrowmessage} onClick={() => openSubMenu(arrowRefs.arrowmessage)}>
                       <div className="iocn-link">
                         <a href="#">
@@ -260,13 +264,15 @@ const SideBar = () => {
                       <ul className="sub-menu">
                         <li><a className="link_name" href="#">العملاء</a></li>
                         <li><Link to="users">ادارة العملاء</Link></li>
-                        <li><Link to="message">رسائل العملاء</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Messages')[0]?.read && (
+                          <li><Link to="message">رسائل العملاء</Link></li>
+                        )}
                       </ul>
                     </li>
                   )}
 
                   {/* Stock */}
-                  {role === 'manager' && (
+                  {permissionsList?.filter(permission => permission.resource === 'Inventory Item' || permission.resource === 'Kitchen Usage')[0]?.read && (
                     <li ref={arrowRefs.arrowsto} onClick={() => openSubMenu(arrowRefs.arrowsto)}>
                       <div className="iocn-link">
                         <a href="#">
@@ -277,10 +283,18 @@ const SideBar = () => {
                       </div>
                       <ul className="sub-menu">
                         <li><a className="link_name" href="#">المخزن</a></li>
-                        <li><Link to="categoryStock">تصنيفات</Link></li>
-                        <li><Link to="stockitem">الاصناف</Link></li>
-                        <li><Link to="stockmang">حركه المخزن</Link></li>
-                        <li><Link to="kitchenconsumption">استهلاك المطبخ</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Inventory Categories')[0]?.read && (
+                          <li><Link to="categoryStock">تصنيفات</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Inventory Item')[0]?.read && (
+                          <li><Link to="stockitem">الاصناف</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Inventory Management')[0]?.read && (
+                          <li><Link to="stockmang">حركه المخزن</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Kitchen Usage')[0]?.read && (
+                          <li><Link to="kitchenconsumption">استهلاك المطبخ</Link></li>
+                        )}
                       </ul>
                     </li>
                   )}
