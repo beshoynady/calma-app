@@ -74,13 +74,16 @@ const PermissionsComponent = () => {
         if (permission.resource === resource) {
           console.log({ permission })
           if (action === 'create') {
-            updatePermissions[ind].create = !permission.create
+            updatePermissions[ind].create = !permission.create;
+            updatePermissions[ind].read = true
           } else if (action === 'update') {
-            updatePermissions[ind].update = !permission.update
+            updatePermissions[ind].update = !permission.update;
+            updatePermissions[ind].read = true
           } else if (action === 'read') {
             updatePermissions[ind].read = !permission.read
           } else if (action === 'delete') {
-            updatePermissions[ind].delete = !permission.delete
+            updatePermissions[ind].delete = !permission.delete;
+            updatePermissions[ind].read = true
           }
 
           if (!permission.create && !permission.update && !permission.read && !permission.delete) {
