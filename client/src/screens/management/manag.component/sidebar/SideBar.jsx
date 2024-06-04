@@ -165,7 +165,7 @@ const SideBar = () => {
 
 
                   {/* Orders */}
-                  {role === 'manager' && permissionsList.filter(permission => permission.resource === 'Orders')[0]?.read && (
+                  {permissionsList?.filter(permission => permission.resource === 'Orders')[0]?.read && (
                     <li>
                       <Link to="orders">
                         <span className="material-symbols-outlined icon">list_alt</span>
@@ -178,7 +178,7 @@ const SideBar = () => {
                   )}
 
                   {/* Tables */}
-                  {(role === 'manager' || role === 'casher') && permissionsList.filter(permission => permission.resource === 'Tables')[0]?.read && (
+                  {permissionsList?.filter(permission => permission.resource === 'Tables')[0]?.read && (
                     <li ref={arrowRefs.arrowtable} onClick={() => openSubMenu(arrowRefs.arrowtable)}>
                       <div className="iocn-link">
                         <a href="#">
@@ -204,9 +204,9 @@ const SideBar = () => {
 
 
                   {/* Menu */}
-                  {role === 'manager' && (
+                  {permissionsList?.filter(permission => permission.resource === 'Products')[0]?.read && (
                     <li ref={arrowRefs.arrowmen} onClick={() => openSubMenu(arrowRefs.arrowmen)}>
-                      <div className="iocn-link">
+                      <div className="icon-link">
                         <a href="#">
                           <span className="material-symbols-outlined icon">restaurant_menu</span>
                           <span className="link_name">المنيو</span>
@@ -215,9 +215,13 @@ const SideBar = () => {
                       </div>
                       <ul className="sub-menu">
                         <li><a className="link_name" href="#">المنيو</a></li>
-                        <li><Link to="category">التصنيفات</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Menu Categories')[0]?.read && (
+                          <li><Link to="category">التصنيفات</Link></li>
+                        )}
                         <li><Link to="products">الاطباق</Link></li>
-                        <li><Link to="productrecipe">التكاليف</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Recipes')[0]?.read && (
+                          <li><Link to="productrecipe">التكاليف</Link></li>
+                        )}
                       </ul>
                     </li>
                   )}
@@ -252,7 +256,7 @@ const SideBar = () => {
                   )}
 
                   {/* Users */}
-                  {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.read && (
+                  {permissionsList?.filter(permission => permission.resource === 'Users')[0]?.read && (
                     <li ref={arrowRefs.arrowmessage} onClick={() => openSubMenu(arrowRefs.arrowmessage)}>
                       <div className="iocn-link">
                         <a href="#">
@@ -300,91 +304,75 @@ const SideBar = () => {
                   )}
 
                   {/* Suppliers */}
-                  <li ref={arrowRefs.arrowssupplier} onClick={() => openSubMenu(arrowRefs.arrowssupplier)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span className="material-symbols-outlined icon">request_page</span>
-                        <span className="link_name">الموردين</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      {role === 'manager' && (
-                        <>
-                          <li><a className="link_name" href="#">الموردين</a></li>
-                          <li><Link to="supplier">الموردين</Link></li>
-                        </>
-                      )}
-                      {(role === 'manager' || role === 'casher') &&
-                        <li><Link to="purchase">المشتريات</Link></li>
-                      }
-                      {(role === 'manager' || role === 'casher') &&
-                        <li><Link to="purchasereturn">مرتجع المشتريات</Link></li>
-                      }
-                      {(role === 'manager' || role === 'casher') &&
-                        <li><Link to="suppliertransaction">تعاملات الموردين</Link></li>
-                      }
-                    </ul>
-                  </li>
+                  {permissionsList?.filter(permission => permission.resource === 'Supplier Data')[0]?.read && (
+                    <li ref={arrowRefs.arrowssupplier} onClick={() => openSubMenu(arrowRefs.arrowssupplier)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                          <span className="material-symbols-outlined icon">request_page</span>
+                          <span className="link_name">الموردين</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
+
+                        <li><a className="link_name" href="#">الموردين</a></li>
+                        <li><Link to="supplier">الموردين</Link></li>
+
+                        {permissionsList?.filter(permission => permission.resource === 'Purchases')[0]?.read && (
+                          <li><Link to="purchase">المشتريات</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Purchase Returns')[0]?.read && (
+                          <li><Link to="purchasereturn">مرتجع المشتريات</Link></li>
+                        )}
+                        {permissionsList?.filter(permission => permission.resource === 'Supplier Movement')[0]?.read && (
+                          <li><Link to="suppliertransaction">تعاملات الموردين</Link></li>
+                        )}
+                      </ul>
+                    </li>
+                  )}
 
 
                   {/* Expenses */}
-                  <li ref={arrowRefs.arrowsexp} onClick={() => openSubMenu(arrowRefs.arrowsexp)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span className="material-symbols-outlined icon">request_page</span>
-                        <span className="link_name">المصروفات</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      {role === 'manager' && (
-                        <>
-                          <li><a className="link_name" href="#">المصروفات</a></li>
-                          <li><Link to="expense">المصروفات</Link></li>
-                        </>
-                      )}
-                      {(role === 'manager' || role === 'casher') &&
-                        <li><Link to="dailyexpense">تسجيل مصروف</Link></li>
-                      }
-                    </ul>
-                  </li>
+                  {permissionsList?.filter(permission => permission.resource === 'Expenses')[0]?.read && (
+                    <li ref={arrowRefs.arrowsexp} onClick={() => openSubMenu(arrowRefs.arrowsexp)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                          <span className="material-symbols-outlined icon">request_page</span>
+                          <span className="link_name">المصروفات</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
 
-                  <li ref={arrowRefs.arrowsCash} onClick={() => openSubMenu(arrowRefs.arrowsCash)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span class="material-symbols-outlined icon">monetization_on</span>
-                        <span className="link_name">الخزينة</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      {role === 'manager' && <li><a className="link_name" href="#">الخزينة</a></li>}
-                      <li><Link to="cashregister">الرصيد</Link></li>
-                      {(role === 'manager' || role === 'casher') && (
-                        <li><Link to="cashmovement">تسجيل حركه</Link></li>
-                      )}
-                    </ul>
-                  </li>
+                        <li><a className="link_name" href="#">المصروفات</a></li>
+                        <li><Link to="expense">المصروفات</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Daily Expenses')[0]?.read && (
+                          <li><Link to="dailyexpense">تسجيل مصروف</Link></li>
+                        )}
+                      </ul>
+                    </li>
+                  )}
 
-                  {/* <li ref={arrowRefs.arrowsetting} onClick={() => openSubMenu(arrowRefs.arrowsetting)}>
-                    <div className="iocn-link">
-                      <a href="#">
-                        <span class="material-symbols-outlined icon">monetization_on</span>
-                        <span className="link_name">الخزينة</span>
-                      </a>
-                      <i className='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul className="sub-menu">
-                      {role === 'manager' && <li><a className="link_name" href="#">الخزينة</a></li>}
-                      <li><Link to="info">البيانات</Link></li>
-                      {(role === 'manager' || role === 'casher') && (
-                        <li><Link to="cashmovement">تسجيل حركه</Link></li>
-                      )}
-                    </ul>
-                  </li> */}
+                  {permissionsList?.filter(permission => permission.resource === 'Cash Register')[0]?.read && (
+                    <li ref={arrowRefs.arrowsCash} onClick={() => openSubMenu(arrowRefs.arrowsCash)}>
+                      <div className="iocn-link">
+                        <a href="#">
+                          <span class="material-symbols-outlined icon">monetization_on</span>
+                          <span className="link_name">الخزينة</span>
+                        </a>
+                        <i className='bx bxs-chevron-down arrow'></i>
+                      </div>
+                      <ul className="sub-menu">
+                        <li><a className="link_name" href="#">الخزينة</a></li>
+                        <li><Link to="cashregister">الرصيد</Link></li>
+                        {permissionsList?.filter(permission => permission.resource === 'Cash Movement')[0]?.read && (
+                          <li><Link to="cashmovement">تسجيل حركه</Link></li>
+                        )}
+                      </ul>
+                    </li>
+                  )}
 
-                  {role === 'manager' && (
+                  {permissionsList?.filter(permission => permission.resource === 'Delivery Zones' || permission.resource === 'Shifts' || permission.resource === 'Restaurant Settings')[0]?.read && (
                     <li>
                       <Link to="info">
                         <span className="material-symbols-outlined icon">settings</span>

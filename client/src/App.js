@@ -281,20 +281,20 @@ function App() {
 
   const getAllTable = async () => {
     try {
-      // Fetch table data from the API
-      const response = await axios.get(apiUrl + '/api/table');
-
-      // Check if response is successful and contains data
-      if (response.status === 200 && response.data) {
-        // console.log("Received table data:", response.data);
-        // Set fetched table data in the state
+      const response = await axios.get(apiUrl + '/api/table', { timeout: 5000 });
+        if (response.status === 200 && response.data) {
         setallTable(response.data);
       } else {
         console.error("Failed to receive valid table data");
       }
     } catch (error) {
-      console.error("Error fetching table data:", error);
-      // You can add additional error handling logic here, such as displaying an error message to the user.
+      // إعادة المحاولة عند حدوث خطأ
+      if (error.code === 'ECONNABORTED') {
+        console.error("Request timed out, retrying...");
+        setTimeout(getAllTable, 3000); 
+      } else {
+        console.error("Error fetching table data:", error);
+      }
     }
   };
 
