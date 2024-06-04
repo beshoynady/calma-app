@@ -107,11 +107,10 @@ const PermissionsComponent = () => {
         resource: resource,
         create: false,
         update: false,
-        read: false,
+        read: true,
         delete: false
       };
       newPermission[action] = true;
-      newPermission[read] = true;
       updatePermissions.push(newPermission);
 
       newPermission = {
