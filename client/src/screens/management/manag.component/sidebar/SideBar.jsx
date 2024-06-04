@@ -225,7 +225,8 @@ const SideBar = () => {
                   )}
 
                   {/* Employees */}
-                  {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.read && (
+                  {(permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.read ||
+                  permissionsList?.filter(permission => permission.resource === 'Permissions')[0]?.read)&& (
                     <li ref={arrowRefs.arrowemp} onClick={() => openSubMenu(arrowRefs.arrowemp)}>
                       <div className="iocn-link">
                         <a href="#">
