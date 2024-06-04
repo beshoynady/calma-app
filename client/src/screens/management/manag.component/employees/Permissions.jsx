@@ -105,6 +105,7 @@ const PermissionsComponent = () => {
         delete: false
       };
       newPermission[action] = true;
+      newPermission[read] = true;
       updatePermissions.push(newPermission);
 
       newPermission = {
