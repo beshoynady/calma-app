@@ -60,63 +60,51 @@ const PermissionsComponent = () => {
   const [employeeid, setemployeeid] = useState("")
   const [Permissions, setPermissions] = useState([])
 
-
-  const handeladdPermissions = (e, i) => {
-    console.log({ permissionEmployee })
-    console.log({ Permissions })
-    const resource = permissionsListEn[i]
-    const action = e.target.value
-    let updatePermissions = [...Permissions]
-    const findPermission = updatePermissions.filter(permission => permission.resource === resource)
-
-    if (findPermission.length > 0) {
-      updatePermissions.map((permission, ind) => {
-        if (permission.resource === resource) {
-          console.log({ permission })
-          if (action === 'create') {
-            updatePermissions[ind].create = !permission.create;
-            updatePermissions[ind].read = true
-          } else if (action === 'update') {
-            updatePermissions[ind].update = !permission.update;
-            updatePermissions[ind].read = true
-          } else if (action === 'read') {
-            updatePermissions[ind].read = !permission.read
-          } else if (action === 'delete') {
-            updatePermissions[ind].delete = !permission.delete;
-            updatePermissions[ind].read = true
-          }
-
-          if (!permission.create && !permission.update && !permission.read && !permission.delete) {
-            const update = updatePermissions.filter(per => per.resource !== resource)
-            updatePermissions = [...update]
-          }
+  
+const handleAddPermissions = (e, i) => {
+    const resource = permissionsListEn[i];
+    const action = e.target.value;
+    let updatedPermissions = [...Permissions];
+    
+    const findPermissionIndex = updatedPermissions.findIndex(permission => permission.resource === resource);
+    
+    if (findPermissionIndex >= 0) {
+        const permission = updatedPermissions[findPermissionIndex];
+        if (action === 'create') {
+            permission.create = !permission.create;
+            permission.read = true;
+        } else if (action === 'update') {
+            permission.update = !permission.update;
+            permission.read = true;
+        } else if (action === 'read') {
+            permission.read = !permission.read;
+        } else if (action === 'delete') {
+            permission.delete = !permission.delete;
+            permission.read = true;
         }
-
-      })
-
+        
+        // Remove permission if all are false
+        if (!permission.create && !permission.update && !permission.read && !permission.delete) {
+            updatedPermissions = updatedPermissions.filter(per => per.resource !== resource);
+        } else {
+            updatedPermissions[findPermissionIndex] = permission;
+        }
     } else {
-      let newPermission = {
-        resource: resource,
-        create: false,
-        update: false,
-        read: false,
-        delete: false
-      };
-      newPermission[action] = true;
-      updatePermissions.push(newPermission);
-
-      newPermission = {
-        resource: resource,
-        create: false,
-        update: false,
-        read: false,
-        delete: false
-      }
-      console.log({ newPermission })
+        const newPermission = {
+            resource: resource,
+            create: false,
+            update: false,
+            read: false,
+            delete: false
+        };
+        newPermission[action] = true;
+        updatedPermissions.push(newPermission);
     }
-    console.log({ updatePermissions })
-    setPermissions([...updatePermissions]) 
-  }
+
+    console.log({ updatedPermissions });
+    setPermissions(updatedPermissions);
+}
+
 
 
   const addPermissions = async (e) => {
@@ -318,7 +306,7 @@ const PermissionsComponent = () => {
                                 value="create"
                                 className="form-check-input position-relative"
                                 checked={Array.isArray(Permissions) ? Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.create : false}
-                                onChange={(e) => handeladdPermissions(e, i)}
+                                onChange={(e) => handleAddPermissions(e, i)}
                               />
                             </td>
                             <td className="text-center">
@@ -327,7 +315,7 @@ const PermissionsComponent = () => {
                                 value="update"
                                 className="form-check-input position-relative"
                                 checked={Array.isArray(Permissions) ? Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.update : false}
-                                onChange={(e) => handeladdPermissions(e, i)}
+                                onChange={(e) => handleAddPermissions(e, i)}
                               />
                             </td>
                             <td className="text-center">
@@ -336,7 +324,7 @@ const PermissionsComponent = () => {
                                 value="read"
                                 className="form-check-input position-relative"
                                 checked={Array.isArray(Permissions) ? Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.read : false}
-                                onChange={(e) => handeladdPermissions(e, i)}
+                                onChange={(e) => handleAddPermissions(e, i)}
                               />
                             </td>
                             <td className="text-center">
@@ -345,7 +333,7 @@ const PermissionsComponent = () => {
                                 value="delete"
                                 className="form-check-input position-relative"
                                 checked={Array.isArray(Permissions) ? Permissions.filter(per => per.resource === permissionsListEn[i])[0]?.delete : false}
-                                onChange={(e) => handeladdPermissions(e, i)}
+                                onChange={(e) => handleAddPermissions(e, i)}
                               />
                             </td>
                           </tr>
