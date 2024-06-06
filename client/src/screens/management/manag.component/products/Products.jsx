@@ -98,10 +98,11 @@ const Products = () => {
       // التحقق من توفر صورة المنتج
       if (productimg) {
         requestBody.image = productimg;
-      } else {
-        toast.error('يجب إضافة صورة للمنتج');
-        return;
-      }
+      } 
+      // else {
+      //   toast.error('يجب إضافة صورة للمنتج');
+      //   return;
+      // }
 
       // إرسال طلب الإنشاء
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
