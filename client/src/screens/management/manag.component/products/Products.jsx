@@ -108,7 +108,7 @@ const Products = () => {
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
       console.log({ responsecreateproduct: response });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         getallproducts();
         console.log(response.data);
         toast.success("تم إنشاء المنتج بنجاح.");
