@@ -652,13 +652,13 @@ const Products = () => {
                                       checked={extras.includes(ProductsAddon)}
                                       onChange={(e) => addExtra(e.target.value)}
                                     />
-                                    <label className="form-check-label mr-4">{listAcceptedPaymentsAr[i]}</label>
+                                    <label className="form-check-label mr-4">{ProductsAddon.name}</label>
                                   </div>
                                 ))}
                               </div>
                             </div>
                           </div>
-                          :<input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                          :<input type="text" className="form-control"value='لا يوجد اي اضافات' />
                           }
                         </div>
                         <div className="form-group form-group-47">
