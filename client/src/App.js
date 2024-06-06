@@ -649,6 +649,7 @@ function App() {
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
           newItem.notes = cartItem.notes
+          
 
         }
 

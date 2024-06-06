@@ -25,37 +25,63 @@ const Products = () => {
 
   const [hasSizes, setHasSizes] = useState(false);
   const [sizes, setsizes] = useState([]);
+  const [hasExtras, setHasExtras] = useState(false);
+  const [isAddon, setIsAddon] = useState(false);
+  const [extras, setExtras] = useState([]);
 
   const handleCheckboxChange = (e) => {
-    setHasSizes(e.target.checked);
+    setHasSizes(!hasSizes);
   };
+
+  const handleIsHasExtrasCheckboxChange = (e) => {
+    setHasExtras(!hasExtras);
+  };
+
+  const handleIsAddonCheckboxChange = (e) => {
+    setIsAddon(!isAddon);
+  };
+
   const addSize = () => {
-    setsizes([...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 }])
-  }
+    setsizes([...sizes, { sizeName: '', sizePrice: 0, sizeDiscount: 0, sizePriceAfterDiscount: 0 }]);
+  };
+
   const removeSize = (index) => {
-    const newsizes = sizes.filter((size, i) => i !== index)
-    setsizes([...newsizes])
-  }
+    const newsizes = sizes.filter((size, i) => i !== index);
+    setsizes([...newsizes]);
+  };
+
+  const addExtra = (extraId) => {
+    console.log({ extraId })
+    if (extras.includes(extraId)) {
+      setExtras(extras.filter((item) => item !== extraId));
+    } else {
+      setExtras([...extras, extraId]);
+    }
+  };
+
 
   const createProduct = async (e) => {
     e.preventDefault();
 
     try {
-      // Prepare request body
+      // إعداد جسم الطلب
       const requestBody = {
         productname: productname,
         productdescription: productdescription,
         productcategoryid: productcategoryid,
         available: available,
+        isAddon: isAddon,
       };
-  
-      // If product has sizes, include sizes in the request body
+
+      // إضافة الأحجام إلى جسم الطلب إذا كانت موجودة
       if (hasSizes) {
         requestBody.hasSizes = hasSizes;
         requestBody.sizes = sizes;
-      }else {
-        requestBody.productprice = productprice
-        // If product has discount, include discount details in the request body
+      } else {
+        // تضمين السعر في الطلب إذا لم تكن هناك أحجام
+        requestBody.productprice = productprice;
+
+        // تضمين الخصم في الطلب إذا كان موجودا
         if (productdiscount > 0) {
           requestBody.productdiscount = productdiscount;
           const priceAfterDiscount = productprice - productdiscount;
@@ -63,33 +89,41 @@ const Products = () => {
         }
       }
 
+      // إضافة الإضافات إلى جسم الطلب إذا كانت موجودة
+      if (hasExtras) {
+        requestBody.hasExtras = hasExtras;
+        requestBody.extras = extras;
+      }
 
+      // التحقق من توفر صورة المنتج
       if (productimg) {
         requestBody.image = productimg;
-      }else{
-        toast.error('يجب اضافه صوره للمنتج')
-        return 
+      } else {
+        toast.error('يجب إضافة صورة للمنتج');
+        return;
       }
-      console.log({ requestBody })
 
+      // إرسال طلب الإنشاء
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
+      console.log({ responsecreateproduct: response });
 
       if (response.status === 200) {
-        getallproducts()
+        getallproducts();
         console.log(response.data);
-        toast.success("تم انشاء المنتج بنجاح.");
+        toast.success("تم إنشاء المنتج بنجاح.");
       } else {
-        throw new Error("فشل اضافه المنتج للقائمه !حاول مره اخري.");
+        throw new Error("فشلت عملية إضافة المنتج إلى القائمة! يرجى المحاولة مرة أخرى.");
       }
     } catch (error) {
-      console.error("حدث خطأ اثناء اضافه المنتج !حاول مره اخري:", error);
+      console.error("حدث خطأ أثناء إضافة المنتج! يرجى المحاولة مرة أخرى:", error);
 
-      // Display error toast notification
-      toast.error("Failed to create product. Please try again later.", {
+      // عرض إشعار الخطأ
+      toast.error("فشل إنشاء المنتج. يرجى المحاولة مرة أخرى لاحقًا.", {
         position: toast.POSITION.TOP_RIGHT
       });
     }
   };
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -122,12 +156,12 @@ const Products = () => {
         productcategoryid: productcategoryid,
         available: available,
       };
-  
+
       // If product has sizes, include sizes in the request body
       if (hasSizes) {
         requestBody.hasSizes = hasSizes;
         requestBody.sizes = sizes;
-      }else {
+      } else {
         requestBody.productprice = productprice
         requestBody.productdiscount = productdiscount;
         const priceAfterDiscount = productprice - productdiscount;
@@ -140,28 +174,28 @@ const Products = () => {
       if (productimg) {
         requestBody.image = productimg;
       }
-  
-      console.log({requestBody})
-      
+
+      console.log({ requestBody })
+
       // Perform the API request to update the product
       const response = requestBody.image ?
         await axios.put(`${apiUrl}/api/product/${productid}`, requestBody, config)
         : await axios.put(`${apiUrl}/api/product/withoutimage/${productid}`, requestBody, config);
-  
+
       // Handle successful response
       console.log(response.data);
       if (response) {
         // Refresh categories and products after successful update
         getallCategories();
         getallproducts();
-  
+
         // Show success toast
         toast.success('تم تحديث المنتج بنجاح.');
       }
     } catch (error) {
       // Handle errors
       console.log(error);
-  
+
       // Show error toast
       toast.error('حدث خطأ أثناء تحديث المنتج. الرجاء المحاولة مرة أخرى.');
     }
@@ -170,14 +204,19 @@ const Products = () => {
 
 
   const [listofProducts, setlistofProducts] = useState([]);
+  const [listofProductsAddon, setlistofProductsAddon] = useState([]);
 
   const getallproducts = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/product/');
-      const products = await response.data;
-      if (products) {
+      if (response) {
+        const products = await response.data;
         console.log({ products })
         setlistofProducts(products.reverse())
+        const filterAddon = products.filter((product) => product.isAddon === true)
+        if (filterAddon.length > 0) {
+          setlistofProductsAddon(filterAddon)
+        }
       }
     } catch (error) {
       console.log(error)
@@ -503,7 +542,7 @@ const Products = () => {
                             {sizes.map((size, index) => (
                               <div key={index} className="row mb-3">
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>اسم الحجم</label>
                                     <input
                                       type="text"
@@ -520,7 +559,7 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>السعر</label>
                                     <div className="input-group">
                                       <input
@@ -542,7 +581,7 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>التخفيض</label>
                                     <div className="input-group">
                                       <input
@@ -590,6 +629,38 @@ const Products = () => {
                           </>
                         )
                         }
+                        <div className="form-group form-group-47">
+                          <label>هل هذا المنتج اضافه</label>
+                          <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>هل له اضافات</label>
+                          <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>اختر الاضافات</label>
+                          {listofProductsAddon.length>0?
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="form-group d-flex flex-wrap">
+                                {listofProductsAddon&&listofProductsAddon.map((ProductsAddon, i) => (
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      value={ProductsAddon._id}
+                                      checked={extras.includes(ProductsAddon)}
+                                      onChange={(e) => addExtra(e.target.value)}
+                                    />
+                                    <label className="form-check-label mr-4">{listAcceptedPaymentsAr[i]}</label>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          :<input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                          }
+                        </div>
                         <div className="form-group form-group-47">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
@@ -647,7 +718,7 @@ const Products = () => {
                             {sizes.map((size, index) => (
                               <div key={index} className="row mb-3">
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>اسم الحجم</label>
                                     <input
                                       type="text"
@@ -664,7 +735,7 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>السعر</label>
                                     <div className="input-group">
                                       <input
@@ -686,7 +757,7 @@ const Products = () => {
                                   </div>
                                 </div>
                                 <div className="col-md-4">
-                                  <div className="form-group form-group-47" style={{width:'95%'}}>
+                                  <div className="form-group form-group-47" style={{ width: '95%' }}>
                                     <label>التخفيض</label>
                                     <div className="input-group">
                                       <input

@@ -16,8 +16,9 @@ const productSchema = new mongoose.Schema(
       type: String,
       maxlength: [100, 'Description cannot exceed 100 characters'],
       minlength: [3, 'Description must have at least 3 characters'],
+      default: ''
     },
-    hasSizes:{
+    hasSizes: {
       type: Boolean,
       required: true,
       default: false,
@@ -33,7 +34,7 @@ const productSchema = new mongoose.Schema(
           required: [true, 'Total cost is required'],
           default: 0,
         },
-        sizeQuantity:{
+        sizeQuantity: {
           type: Number,
           default: 0,
           required: true
@@ -61,10 +62,20 @@ const productSchema = new mongoose.Schema(
           min: [0, 'Price after discount cannot be negative'],
           default: 0,
         },
-
       }
     ],
-
+    isAddon: {
+      type: Boolean,
+      default: false,
+    },
+    hasExtras: {
+      type: Boolean,
+      default: false,
+    },
+    extras: {
+      type: [ObjectId],
+      ref: 'Product',
+    },
     totalcost: {
       type: Number,
       required: [true, 'Total cost is required'],
@@ -89,7 +100,7 @@ const productSchema = new mongoose.Schema(
         message: props => `${props.value} is not a valid value for discount`,
       },
     },
-    quantity:{
+    quantity: {
       type: Number,
       default: 0,
       required: true

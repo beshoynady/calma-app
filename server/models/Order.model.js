@@ -46,11 +46,11 @@ const OrderSchema = new mongoose.Schema({
                 required: true,
                 trim: true,
             },
-            sizeId: {   
+            sizeId: {
                 type: ObjectId,
                 ref: 'Product',
             },
-            size : {
+            size: {
                 type: String,
                 trim: true,
             },
@@ -69,6 +69,32 @@ const OrderSchema = new mongoose.Schema({
                 type: String,
                 default: "",
             },
+            extras: [{
+                extraId: {
+                    type: ObjectId,
+                    ref: 'Extra',
+                },
+                quantityExtras: {
+                    ...defaultOptions,
+                    validate: {
+                        validator: function (v) {
+                            return v >= 1 && v <= 1000000;
+                        },
+                        message: '{VALUE} is not a valid quantity',
+                    },
+                },
+                priceExtras: {
+                    ...defaultOptions,
+                    validate: {
+                        validator: function (v) {
+                            return v >= 1 && v <= 100000;
+                        },
+                        message: '{VALUE} is not a valid price',
+                    },
+                },
+
+            }
+            ],
             // Price of the product
             price: {
                 ...defaultOptions,
@@ -260,7 +286,7 @@ const OrderSchema = new mongoose.Schema({
         default: 'Internal',
         required: true
     },
-    isSplit:{
+    isSplit: {
         type: Boolean,
         required: true,
         default: false,
