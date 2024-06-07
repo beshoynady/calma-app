@@ -259,7 +259,6 @@ const Products = () => {
         const updatedListofProducts = listofProducts.map((pro) => {
           return { ...pro, sales: 0 };
         });
-        console.log({ updatedListofProducts })
 
         const filteredOrders = allOrders.filter((order) => {
           const orderDate = new Date(order.createdAt);
@@ -276,15 +275,12 @@ const Products = () => {
           );
         });
 
-        console.log({ filteredOrders });
-
         filteredOrders.forEach((order) => {
           order.products.forEach((product) => {
             updatedListofProducts.forEach((pro) => {
               // console.log({pro})
               if (product.productid === pro._id) {
                 pro.sales += product.quantity;
-                console.log({ pro })
               }
             });
           });
@@ -299,15 +295,15 @@ const Products = () => {
   };
 
 
-  const [productFilterd, setproductFilterd] = useState([])
+  // const [productFilterd, setproductFilterd] = useState([])
   const getemployeesByCategory = (category) => {
     const products = listofProducts.filter(product => product.category._id == category)
-    setproductFilterd(products)
+    setlistofProducts(products)
   }
 
   const searchByName = (name) => {
     const products = listofProducts.filter((pro) => pro.name.startsWith(name) == true)
-    setproductFilterd(products)
+    setlistofProducts(products)
   }
 
   const deleteProduct = async (e) => {
@@ -408,7 +404,7 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="row text-dark">
-                        <div className="col-md-12">
+                        <div className="col-md-8">
                           {/* <div className="filter-group"> */}
                           <label>عدد المبيعات في فتره محدده</label>
                           <label>بداية التاريخ</label>
@@ -416,10 +412,16 @@ const Products = () => {
                           <label>نهاية التاريخ</label>
                           <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
                           <button type="button" className="btn btn-47 btn-primary" onClick={calcsalseofproducts}>
-                            <i className="fa fa-search"></i> فلتر
+                          <i className="fa fa-search"></i> فلتر
                           </button>
                           {/* </div> */}
                         </div>
+                        <div className="col-md-8">
+                        <button type="button" className="btn btn-47 btn-primary" onClick={getallproducts}>
+                          حذف الفلتر
+                          </button>
+
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -438,6 +440,8 @@ const Products = () => {
                         <th>الاسم</th>
                         <th>الوصف</th>
                         <th>التصنيف</th>
+                        <th>الاحجام</th>
+                        <th>الاضافات</th>
                         <th>التكلفة</th>
                         <th>السعر</th>
                         <th>التخفيض</th>
@@ -448,8 +452,42 @@ const Products = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {productFilterd.length > 0 ?
-                        productFilterd.map((p, i) => {
+                      {
+                      // productFilterd.length > 0 ?
+                      //   productFilterd.map((p, i) => {
+                      //     if (i >= startpagination & i < endpagination) {
+                      //       return (
+                      //         <tr key={i}>
+                      //           <td>
+                      //             <span className="custom-checkbox">
+                      //               <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                      //               <label htmlFor="checkbox1"></label>
+                      //             </span>
+                      //           </td>
+                      //           <td>{i + 1}</td>
+                      //           <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
+                      //           <td>{p.name}</td>
+                      //           <td>{p.description}</td>
+                      //           <td>{p.category.name}</td>
+                      //           <td>{p.totalcost}</td>
+                      //           <td>{p.price}</td>
+                      //           <td>{p.discount}</td>
+                      //           <td>{p.priceAfterDiscount}</td>
+                      //           <td>{p.sales}</td>
+                      //           <td>{p.available ? 'متاح' : 'غير متاح'}</td>
+                      //           <td>
+                      //             <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+
+                      //             {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
+
+                      //             <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      //           </td>
+                      //         </tr>
+                      //       )
+                      //     }
+                      //   })
+                      //   : 
+                      listofProducts&&listofProducts.map((p, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -464,38 +502,8 @@ const Products = () => {
                                 <td>{p.name}</td>
                                 <td>{p.description}</td>
                                 <td>{p.category.name}</td>
-                                <td>{p.totalcost}</td>
-                                <td>{p.price}</td>
-                                <td>{p.discount}</td>
-                                <td>{p.priceAfterDiscount}</td>
-                                <td>{p.sales}</td>
-                                <td>{p.available ? 'متاح' : 'غير متاح'}</td>
-                                <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-
-                                  {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-
-                                  <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                              </tr>
-                            )
-                          }
-                        })
-                        : listofProducts.map((p, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
-                              <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
-                                <td>{i + 1}</td>
-                                <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
-                                <td>{p.name}</td>
-                                <td>{p.description}</td>
-                                <td>{p.category.name}</td>
+                                <td>{p.sizes.length}</td>
+                                <td>{p.extras.length}</td>
                                 <td>{p.totalcost}</td>
                                 <td>{p.price}</td>
                                 <td>{p.discount}</td>
