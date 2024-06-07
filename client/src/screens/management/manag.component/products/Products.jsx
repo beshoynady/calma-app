@@ -98,13 +98,13 @@ const Products = () => {
       // التحقق من توفر صورة المنتج
       if (productimg) {
         requestBody.image = productimg;
-      } 
+      }
       // else {
       //   toast.error('يجب إضافة صورة للمنتج');
       //   return;
       // }
 
-      console.log({requestBody});
+      console.log({ requestBody });
 
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
       console.log({ responsecreateproduct: response });
@@ -605,9 +605,9 @@ const Products = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="col-md-12">
-                                  <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
-                                </div>
+                              <div className="col-md-12">
+                                <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                              </div>
                               </div>
                             ))}
 
@@ -639,30 +639,32 @@ const Products = () => {
                           <label>هل له اضافات</label>
                           <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                         </div>
-                        <div className="form-group form-group-47">
-                          <label>اختر الاضافات</label>
-                          {listofProductsAddon.length>0?
-                          <div className="row">
-                            <div className="col-lg-12">
-                              <div className="form-group d-flex flex-wrap">
-                                {listofProductsAddon&&listofProductsAddon.map((ProductsAddon, i) => (
-                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
-                                    <input
-                                      type="checkbox"
-                                      className="form-check-input"
-                                      value={ProductsAddon._id}
-                                      checked={extras.includes(ProductsAddon)}
-                                      onChange={(e) => addExtra(e.target.value)}
-                                    />
-                                    <label className="form-check-label mr-4">{ProductsAddon.name}</label>
+                        {hasExtras &&
+                          <div className="form-group ">
+                            <label>اختر الاضافات</label>
+                            {listofProductsAddon.length > 0 ?
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="form-group d-flex flex-wrap">
+                                    {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
+                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                        <input
+                                          type="checkbox"
+                                          className="form-check-input"
+                                          value={ProductsAddon._id}
+                                          checked={extras.includes(ProductsAddon)}
+                                          onChange={(e) => addExtra(e.target.value)}
+                                        />
+                                        <label className="form-check-label mr-4">{ProductsAddon.name}</label>
+                                      </div>
+                                    ))}
                                   </div>
-                                ))}
+                                </div>
                               </div>
-                            </div>
+                              : <input type="text" className="form-control" value='لا يوجد اي اضافات' />
+                            }
                           </div>
-                          :<input type="text" className="form-control"value='لا يوجد اي اضافات' />
-                          }
-                        </div>
+                        }
                         <div className="form-group form-group-47">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
