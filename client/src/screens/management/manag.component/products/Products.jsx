@@ -150,13 +150,18 @@ const Products = () => {
   };
 
 
-const handelEditProductModal = (product)=>{
-  console.log({extras:product.extras})
-  setproductid(product._id); setproductname(product.name); setproductdescription(product.description); 
-  setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category); 
-  setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
-  setIsAddon(product.isAddon);setHasExtras(product.hasExtras); setExtras(product.extras)
-  } 
+  const handelEditProductModal = (product) => {
+    setproductid(product._id); setproductname(product.name); setproductdescription(product.description);
+    setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category);
+    setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
+    setIsAddon(product.isAddon); setHasExtras(product.hasExtras);
+    if (hasExtras) {
+      const list = []
+      product.extras.map(ext => list.push(ext._id))
+      console.log({ list })
+      setExtras(list)
+    }
+  }
 
 
 
@@ -500,7 +505,7 @@ const handelEditProductModal = (product)=>{
                                 <td>{p.sales}</td>
                                 <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => {handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
