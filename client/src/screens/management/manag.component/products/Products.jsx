@@ -640,7 +640,7 @@ const Products = () => {
                           <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                         </div>
                         {hasExtras &&
-                          <div className="form-group ">
+                          <div className="form-group " style={{fontSize:'16px', fontWeight:'900'}}>
                             <label>اختر الاضافات</label>
                             {listofProductsAddon.length > 0 ?
                               <div className="row">
@@ -649,11 +649,13 @@ const Products = () => {
                                     {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
                                       <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
                                         <input
+                                          style={{fontSize:'16px', border:'2px solid red'}}
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
                                           checked={extras.includes(ProductsAddon)}
                                           onChange={(e) => addExtra(e.target.value)}
+
                                         />
                                         <label className="form-check-label mr-4">{ProductsAddon.name}</label>
                                       </div>

@@ -366,7 +366,7 @@ table.table .avatar {
 	align-items: center;
     display: flex;
     height: auto;
-    justify-content: space-around;
+    justify-content: flex-start;
     width: 47%;
     border: 1px solid gray;
     padding: 4px;
@@ -374,7 +374,7 @@ table.table .avatar {
 
 .modal form .form-group-47 label {
 	font-weight: 600;
-	width: 80%;
+	width: 40%;
 	text-align: right;
 	font-size: 14px;
 	padding-right: 5px;
