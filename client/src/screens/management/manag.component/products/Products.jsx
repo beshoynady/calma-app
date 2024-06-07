@@ -641,11 +641,11 @@ const Products = () => {
                           <>
                             <div className="form-group form-group-47">
                               <label>السعر</label>
-                              <input type='Number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
+                              <input type='number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
@@ -820,11 +820,11 @@ const Products = () => {
                           <>
                             <div className="form-group form-group-47">
                               <label>السعر</label>
-                              <input type='Number' className="form-control" defaultValue={productprice} required onChange={(e) => setproductprice(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='Number' className="form-control" defaultValue={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
