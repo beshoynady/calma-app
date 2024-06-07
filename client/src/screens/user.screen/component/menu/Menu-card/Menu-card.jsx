@@ -79,12 +79,12 @@ const MenuCard = () => {
             //   </div>
             // </div>
 
-            <div className="card-group">
+            <div className="card-group d-flex">
               {allProducts.length > 0 ?
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth:'300px', width: "100%" ,marginLeft:'10px !important', height: '200px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -268,13 +268,10 @@ const MenuCard = () => {
                     // </div>
                   } else {
                     return (
-                      <div className="card mx-auto rounded-3 position-relative" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth:'300px', width: "100%" ,marginLeft:'10px !important', height: '200px' }}>
+
                         {product._id === productid && noteArea === true ?
-                          <form
-                            onSubmit={(e) => {
-                              addNoteToProduct(e, product._id, '');
-                              setnoteArea(!noteArea);
-                            }}
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}
                           >
@@ -296,6 +293,36 @@ const MenuCard = () => {
                             </div>
                           </form>
                           : ''}
+
+                        {product._id === productid && extraArea === true ?
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
+                            className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style={{ zIndex: 10 }}>
+                            <div className="col-lg-12">
+                              <div className="form-group d-flex flex-wrap">
+                                {product.extras.map((extra, i) => (
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      value={extra._id}
+                                    // onChange={() => handleFeaturesCheckboxChange(feature)}
+                                    />
+                                    <label className="form-check-label mr-4">{extra.name}</label>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
+                              <button
+                                onClick={() => setextraArea(!extraArea)}
+                                className="btn w-50 h-100 text-light btn-danger rounded-2"
+                              >الغاء</button>
+                            </div>
+                          </form>
+                          : ''}
+
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
