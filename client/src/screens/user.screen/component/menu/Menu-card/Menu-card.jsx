@@ -9,6 +9,7 @@ const MenuCard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [noteArea, setnoteArea] = useState(false)
+  const [extraArea, setextraArea] = useState(false)
   const [productid, setproductid] = useState('')
   const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
@@ -86,8 +87,8 @@ const MenuCard = () => {
                       <div className="card mx-auto" key={index} style={{ maxWidth: "320px", width: "100%", height: '200px' }}>
 
                         {product._id === productid && noteArea === true ?
-                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }} 
-                          className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
+                            className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}
                           >
                             <textarea
@@ -99,10 +100,39 @@ const MenuCard = () => {
                               className="w-100 h-100 my-1"
                               style={{ zIndex: 11 }}
                             ></textarea>
-                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{height: '40px'}}>
+                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
                               <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
                               <button
                                 onClick={() => setnoteArea(!noteArea)}
+                                className="btn w-50 h-100 text-light btn-danger rounded-2"
+                              >الغاء</button>
+                            </div>
+                          </form>
+                          : ''}
+
+                        {product._id === productid && extraArea === true ?
+                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
+                            className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style={{ zIndex: 10 }}>
+                            <div className="col-lg-12">
+                              <div className="form-group d-flex flex-wrap">
+                                {product.extras.map((extra, i) => (
+                                  <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input"
+                                      value={extra._id}
+                                      // onChange={() => handleFeaturesCheckboxChange(feature)}
+                                    />
+                                    <label className="form-check-label mr-4">{extra.name}</label>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
+                              <button
+                                onClick={() => setextraArea(!extraArea)}
                                 className="btn w-50 h-100 text-light btn-danger rounded-2"
                               >الغاء</button>
                             </div>
@@ -119,7 +149,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() =>{ if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )}
@@ -137,7 +167,11 @@ const MenuCard = () => {
                               <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
-                            <p className="card-text mb-2">{product.description}</p>
+                            <div className="d-flex justify-content-between align-items-center mb-2">
+                              <p className="card-text mb-2">{product.description}</p>
+                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
+                                onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                            </div>
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
                               <div className="col-8 btn-group btn-group-toggle" style={{ direction: 'ltr' }} data-toggle="buttons">
@@ -251,7 +285,7 @@ const MenuCard = () => {
                               className="w-100 h-100 my-1"
                               style={{ zIndex: 11 }}
                             ></textarea>
-                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{height: '40px'}}>
+                            <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
                               <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
                               <button
                                 onClick={() => setnoteArea(!noteArea)}
@@ -270,7 +304,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (product.quantity > 0) { addItemToCart(product._id)} }}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )
