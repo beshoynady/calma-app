@@ -820,11 +820,11 @@ const Products = () => {
                           <>
                             <div className="form-group form-group-47">
                               <label>السعر</label>
-                              <input type='number' className="form-control" defaultValue={productprice} required onChange={(e) => setproductprice(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={productprice} placeholder={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='number' className="form-control" defaultValue={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={productdiscount} placeholder={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
@@ -843,16 +843,16 @@ const Products = () => {
                             {listofProductsAddon.length > 0 ?
                               <div className="row">
                                 <div className="col-lg-12">
-                                  <div className="form-group d-flex flex-wrap">
+                                  <div className="form-group d-flex flex-wrap" >
                                     {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
-                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px", cursor: 'pointer' }} onClick={(e) => addExtra(e.target.value)}>
                                         <input
                                           style={{ fontSize: '16px', border: '2px solid red' }}
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
                                           checked={extras.includes(ProductsAddon._id)}
-                                          onChange={(e) => addExtra(e.target.value)}
+                                          
                                         />
                                         <label className="form-check-label mr-4">{ProductsAddon.name}</label>
                                       </div>
