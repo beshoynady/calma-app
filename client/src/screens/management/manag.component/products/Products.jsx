@@ -151,7 +151,7 @@ const Products = () => {
 
 
 const handelEditProductModal = (product)=>{
-  console,log({extras:product.extras})
+  console.log({extras:product.extras})
   setproductid(product._id); setproductname(product.name); setproductdescription(product.description); 
   setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category); 
   setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
