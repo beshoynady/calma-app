@@ -167,8 +167,8 @@ const MenuCard = () => {
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
-                            <p className="card-text mb-2" style={{fontSize: "12px", fontWeight: "700"}}>{product.description}</p>
-                            {product.hasExtras &&
+                              <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
+                              {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
@@ -295,12 +295,13 @@ const MenuCard = () => {
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
-                              <p className="card-text mb-2" style={{fontSize: "12px", fontWeight: "700"}}>{product.description}</p>
+                              <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
-                            </div>                            <div className="d-flex row justify-content-between align-items-center mb-2">
+                            </div>
+                            <div className="d-flex row justify-content-between align-items-center mb-2">
                               <div className="col-7"></div>
                               <div className="col-5 d-flex flex-column align-items-end">
                                 {product.discount > 0 ?
