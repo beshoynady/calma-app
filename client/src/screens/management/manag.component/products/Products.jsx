@@ -158,7 +158,7 @@ const Products = () => {
       const list = product.extras.map(ext => ext._id);
       console.log({ list });
       setExtras(list);
-    }
+    }else{setExtras([])}
   }
 
 
