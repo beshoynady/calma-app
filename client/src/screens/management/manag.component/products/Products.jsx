@@ -151,6 +151,7 @@ const Products = () => {
 
 
 const handelEditProductModal = (product)=>{
+  console,log({extras:product.extras})
   setproductid(product._id); setproductname(product.name); setproductdescription(product.description); 
   setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category); 
   setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
@@ -500,7 +501,6 @@ const handelEditProductModal = (product)=>{
                                 <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
                                   <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => {handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                  {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
@@ -849,7 +849,7 @@ const handelEditProductModal = (product)=>{
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
-                                          checked={extras.includes(ProductsAddon)}
+                                          checked={extras.includes(ProductsAddon._id)}
                                           onChange={(e) => addExtra(e.target.value)}
                                         />
                                         <label className="form-check-label mr-4">{ProductsAddon.name}</label>
