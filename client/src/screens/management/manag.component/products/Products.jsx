@@ -672,7 +672,7 @@ const Products = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
-                                          checked={extras.includes(ProductsAddon)}
+                                          checked={extras.includes(ProductsAddon._id)}
                                           onChange={(e) => addExtra(e.target.value)}
                                         />
                                         <label className="form-check-label mr-4" style={{ cursor: 'pointer' }} onClick={(e) => addExtra(ProductsAddon._id)}>{ProductsAddon.name}</label>
@@ -851,7 +851,7 @@ const Products = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
-                                          checked={extras.includes(ProductsAddon)}
+                                          checked={extras.includes(ProductsAddon._id)}
                                           onChange={(e) => addExtra(e.target.value)}
                                         />
                                         <label className="form-check-label mr-4" style={{ cursor: 'pointer' }} onClick={(e) => addExtra(ProductsAddon._id)}>{ProductsAddon.name}</label>
