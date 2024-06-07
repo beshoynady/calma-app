@@ -20,7 +20,7 @@ const Products = () => {
   const [productdiscount, setproductdiscount] = useState(0)
   const [productdescription, setproductdescription] = useState("");
   const [productcategoryid, setproductcategoryid] = useState(null);
-  const [available, setavailable] = useState();
+  const [available, setavailable] = useState(false);
   const [productimg, setproductimg] = useState("");
 
   const [hasSizes, setHasSizes] = useState(false);
@@ -700,8 +700,8 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
@@ -820,16 +820,15 @@ const Products = () => {
                           <>
                             <div className="form-group form-group-47">
                               <label>السعر</label>
-                              <input type='Number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
+                              <input type='Number' className="form-control" defaultValue={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='Number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='Number' className="form-control" defaultValue={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
                         }
-
                         <div className="form-group form-group-47">
                           <label>هل هذا المنتج اضافه</label>
                           <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
@@ -878,8 +877,8 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="modal-footer">
+                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
                         <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -899,8 +898,8 @@ const Products = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
                         <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
