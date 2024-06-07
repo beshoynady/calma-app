@@ -666,7 +666,7 @@ const Products = () => {
                                 <div className="col-lg-12">
                                   <div className="form-group d-flex flex-wrap">
                                     {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
-                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px", cursor: 'pointer' }} onClick={(e) => addExtra(e.target.value)}>
                                         <input
                                           style={{ fontSize: '16px', border: '2px solid red' }}
                                           type="checkbox"
