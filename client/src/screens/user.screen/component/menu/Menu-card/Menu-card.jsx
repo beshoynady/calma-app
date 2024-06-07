@@ -169,7 +169,7 @@ const MenuCard = () => {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2">{product.description}</p>
-                              {product.hasExtra &&
+                              {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
@@ -351,7 +351,7 @@ const MenuCard = () => {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2">{product.description}</p>
-                              {product.hasExtra &&
+                              {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
