@@ -104,7 +104,8 @@ const Products = () => {
       //   return;
       // }
 
-      // إرسال طلب الإنشاء
+      console.log({requestBody});
+
       const response = await axios.post(apiUrl + '/api/product/', requestBody, config);
       console.log({ responsecreateproduct: response });
 
