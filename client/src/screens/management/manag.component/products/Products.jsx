@@ -25,9 +25,6 @@ const Products = () => {
 
   const [hasSizes, setHasSizes] = useState(false);
   const [sizes, setsizes] = useState([]);
-  const [hasExtras, setHasExtras] = useState(false);
-  const [isAddon, setIsAddon] = useState(false);
-  const [extras, setExtras] = useState([]);
 
   const handleCheckboxChange = (e) => {
     setHasSizes(!hasSizes);
@@ -49,6 +46,11 @@ const Products = () => {
     const newsizes = sizes.filter((size, i) => i !== index);
     setsizes([...newsizes]);
   };
+
+
+  const [hasExtras, setHasExtras] = useState(false);
+  const [isAddon, setIsAddon] = useState(false);
+  const [extras, setExtras] = useState([]);
 
   const addExtra = (extraId) => {
     console.log({ extraId })
@@ -147,6 +149,16 @@ const Products = () => {
     }
   };
 
+
+const handelEditProductModal = (product)=>{
+  setproductid(product._id); setproductname(product.name); setproductdescription(product.description); 
+  setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category); 
+  setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
+  setIsAddon(product.isAddon);setHasExtras(product.hasExtras); setExtras(product.extras)
+  } 
+
+
+
   const [productid, setproductid] = useState("")
   const editProduct = async (e) => {
     e.preventDefault();
@@ -157,6 +169,7 @@ const Products = () => {
         productdescription: productdescription,
         productcategoryid: productcategoryid,
         available: available,
+        isAddon: isAddon,
       };
 
       // If product has sizes, include sizes in the request body
@@ -168,8 +181,11 @@ const Products = () => {
         requestBody.productdiscount = productdiscount;
         const priceAfterDiscount = productprice - productdiscount;
         requestBody.priceAfterDiscount = priceAfterDiscount > 0 ? priceAfterDiscount : 0;
+      }
 
-
+      if (hasExtras) {
+        requestBody.hasExtras = hasExtras;
+        requestBody.extras = extras;
       }
 
 
@@ -368,7 +384,7 @@ const Products = () => {
                           <div className="row">
                             <div className="col-md-6">
                               <div className="filter-group">
-                                <label>Name</label>
+                                <label>الاسم</label>
                                 <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
                               </div>
                             </div>
@@ -451,7 +467,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavailable(p.available); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
 
@@ -483,7 +499,7 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id); setproductname(p.name); setproductdescription(p.description); setproductprice(p.price); setproductdiscount(p.discount); setproductcategoryid(p.category); setavailable(p.available); setsizes(p.sizes); setHasSizes(p.hasSizes) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => {handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                   {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
                                   <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
@@ -605,9 +621,9 @@ const Products = () => {
                                     </div>
                                   </div>
                                 </div>
-                              <div className="col-md-12">
-                                <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
-                              </div>
+                                <div className="col-md-12">
+                                  <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                                </div>
                               </div>
                             ))}
 
@@ -640,7 +656,7 @@ const Products = () => {
                           <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                         </div>
                         {hasExtras &&
-                          <div className="form-group " style={{fontSize:'16px', fontWeight:'900'}}>
+                          <div className="form-group " style={{ fontSize: '16px', fontWeight: '900' }}>
                             <label>اختر الاضافات</label>
                             {listofProductsAddon.length > 0 ?
                               <div className="row">
@@ -649,13 +665,12 @@ const Products = () => {
                                     {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
                                       <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
                                         <input
-                                          style={{fontSize:'16px', border:'2px solid red'}}
+                                          style={{ fontSize: '16px', border: '2px solid red' }}
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
-                                          checked={extras.includes(ProductsAddon)}
+                                          // checked={extras.includes(ProductsAddon)}
                                           onChange={(e) => addExtra(e.target.value)}
-
                                         />
                                         <label className="form-check-label mr-4">{ProductsAddon.name}</label>
                                       </div>
@@ -810,6 +825,42 @@ const Products = () => {
                             </div>
                           </>
                         )
+                        }
+
+                        <div className="form-group form-group-47">
+                          <label>هل هذا المنتج اضافه</label>
+                          <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
+                        </div>
+                        <div className="form-group form-group-47">
+                          <label>هل له اضافات</label>
+                          <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
+                        </div>
+                        {hasExtras &&
+                          <div className="form-group " style={{ fontSize: '16px', fontWeight: '900' }}>
+                            <label>اختر الاضافات</label>
+                            {listofProductsAddon.length > 0 ?
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="form-group d-flex flex-wrap">
+                                    {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
+                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
+                                        <input
+                                          style={{ fontSize: '16px', border: '2px solid red' }}
+                                          type="checkbox"
+                                          className="form-check-input"
+                                          value={ProductsAddon._id}
+                                          checked={extras.includes(ProductsAddon)}
+                                          onChange={(e) => addExtra(e.target.value)}
+                                        />
+                                        <label className="form-check-label mr-4">{ProductsAddon.name}</label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              : <input type="text" className="form-control" value='لا يوجد اي اضافات' />
+                            }
+                          </div>
                         }
                         <div className="form-group form-group-47">
                           <label>متاح</label>
