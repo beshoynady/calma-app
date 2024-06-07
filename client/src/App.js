@@ -559,59 +559,51 @@ function App() {
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
-  // const addNoteToProduct = (e, productId) => {
-  //   try {
-  //     e.preventDefault();
 
-  //     // Find the product either in the order or in all products
-  //     const findProduct = productOrderToUpdate.length > 0 ?
-  //       productOrderToUpdate.find(product => product._id === productId) :
-  //       allProducts.find(product => product._id === productId);
-
-  //     if (!findProduct) {
-  //       throw new Error('Product not found.');
-  //     }
-
-  //     // Update the notes of the found product
-  //     findProduct.notes = productNote;
-  //   } catch (error) {
-  //     console.error('Error adding note to product:', error.message);
-  //     // You can handle the error appropriately, such as displaying an error message to the user.
-  //   }
-  // };
-
-
-  // const addItemToCart = (productId) => {
-  //   try {
-  //     console.log(productId);
-
-  //     // Find the product to add to the cart
-  //     const cartItem = allProducts.filter(item => item._id === productId);
-
-  //     // Assign the product ID to the cart item
-  //     cartItem[0].productid = productId;
-
-  //     console.log({ cartItem });
-
-  //     // Check if the cart is not empty
-  //     if (itemsInCart.length > 0) {
-  //       // Check if the item is already in the cart
-  //       const repeatedItem = itemsInCart.filter(item => item._id === productId);
-  //       if (repeatedItem.length === 0) {
-  //         // Add the item to the cart if it's not already in it
-  //         setitemsInCart([...itemsInCart, ...cartItem]);
-  //         setitemId([...itemId, productId]);
-  //       }
-  //     } else {
-  //       // Add the item to the cart if the cart is empty
-  //       setitemsInCart([...cartItem]);
-  //       setitemId([productId]);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error adding item to cart:', error.message);
-  //     // You can handle the error appropriately, such as displaying an error message to the user.
-  //   }
-  // };
+  const addExtrasToProduct = (e, productId, sizeId, productExtras) => {
+    e.preventDefault();
+    if(productExtras.length>0){
+        try {
+        console.log({ productExtras, productId, sizeId })
+        // Find the product either in the order or in all products
+        const findProduct = productOrderToUpdate.length > 0 ?
+          productOrderToUpdate.find(product => product._id === productId) :
+          allProducts.find(product => product._id === productId);
+  
+        if (!findProduct) {
+          throw new Error('Product not found.');
+        }
+  
+        if (sizeId) {
+          findProduct.sizes.map(size => {
+            if (size._id === sizeId) {
+              // incrementProductQuantity the quantity of the found product
+              size.extras = productExtras;
+            }
+          })
+          itemsInCart.map(item => {
+            if (item.productid === productId && item.sizeId === sizeId) {
+              item.extras = productExtras;
+            }
+          })
+        } else {
+          // incrementProductQuantity the quantity of the found product
+          findProduct.extras = productExtras;
+          itemsInCart.map(item => {
+            if (item.productid === productId) {
+              item.extras = productExtras;
+            }
+          })
+        }
+  
+        console.log(findProduct);
+        console.log(itemsInCart);
+      } catch (error) {
+        console.error('Error incrementing product quantity:', error.message);
+        // You can handle the error appropriately, such as displaying an error message to the user.
+      }
+      }
+  };
 
 
   const [itemId, setitemId] = useState([]);
@@ -1896,7 +1888,7 @@ function App() {
         allUsers, allTable, usertitle, allOrders, askingForHelp,
 
         // Functions related to manipulating product details
-        setproductNote, addNoteToProduct,
+        setproductNote, addNoteToProduct, addExtrasToProduct,
 
         // Functions related to order processing and calculations
         invoice, listProductsOrder, orderUpdateDate, myOrder,
