@@ -152,13 +152,13 @@ const Products = () => {
 
   const handelEditProductModal = (product) => {
     setproductid(product._id); setproductname(product.name); setproductdescription(product.description);
-    setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category);setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
+    setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category); setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
     setIsAddon(product.isAddon); setHasExtras(product.hasExtras);
     if (product.hasExtras) {
       const list = product.extras.map(ext => ext._id);
       console.log({ list });
       setExtras(list);
-    }else{setExtras([])}
+    } else { setExtras([]) }
   }
 
 
@@ -675,7 +675,7 @@ const Products = () => {
                                           checked={extras.includes(ProductsAddon)}
                                           onChange={(e) => addExtra(e.target.value)}
                                         />
-                                        <label className="form-check-label mr-4" style={{cursor: 'pointer' }} onClick={(e) => addExtra(e.target.value)}>{ProductsAddon.name}</label>
+                                        <label className="form-check-label mr-4" style={{ cursor: 'pointer' }} onClick={(e) => addExtra(ProductsAddon._id)}>{ProductsAddon.name}</label>
                                       </div>
                                     ))}
                                   </div>
@@ -845,16 +845,16 @@ const Products = () => {
                                 <div className="col-lg-12">
                                   <div className="form-group d-flex flex-wrap" >
                                     {listofProductsAddon && listofProductsAddon.map((ProductsAddon, i) => (
-                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px", cursor: 'pointer' }} onClick={(e) => addExtra(e.target.value)}>
+                                      <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
                                         <input
                                           style={{ fontSize: '16px', border: '2px solid red' }}
                                           type="checkbox"
                                           className="form-check-input"
                                           value={ProductsAddon._id}
-                                          checked={extras.includes(ProductsAddon._id)}
-                                          
+                                          checked={extras.includes(ProductsAddon)}
+                                          onChange={(e) => addExtra(e.target.value)}
                                         />
-                                        <label className="form-check-label mr-4">{ProductsAddon.name}</label>
+                                        <label className="form-check-label mr-4" style={{ cursor: 'pointer' }} onClick={(e) => addExtra(ProductsAddon._id)}>{ProductsAddon.name}</label>
                                       </div>
                                     ))}
                                   </div>
