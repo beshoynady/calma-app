@@ -122,7 +122,7 @@ const MenuCard = () => {
                                       type="checkbox"
                                       className="form-check-input"
                                       value={extra._id}
-                                      // onChange={() => handleFeaturesCheckboxChange(feature)}
+                                    // onChange={() => handleFeaturesCheckboxChange(feature)}
                                     />
                                     <label className="form-check-label mr-4">{extra.name}</label>
                                   </div>
@@ -169,8 +169,10 @@ const MenuCard = () => {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2">{product.description}</p>
-                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
-                                onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                              {product.hasExtra &&
+                                <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
+                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                              }
                             </div>
 
                             <div className="d-flex row justify-content-between align-items-center mb-2">
