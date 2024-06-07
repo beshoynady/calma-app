@@ -152,14 +152,12 @@ const Products = () => {
 
   const handelEditProductModal = (product) => {
     setproductid(product._id); setproductname(product.name); setproductdescription(product.description);
-    setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category);
-    setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
+    setproductprice(product.price); setproductdiscount(product.discount); setproductcategoryid(product.category);setavailable(product.available); setsizes(product.sizes); setHasSizes(product.hasSizes);
     setIsAddon(product.isAddon); setHasExtras(product.hasExtras);
-    if (hasExtras) {
-      const list = []
-      product.extras.map(ext => list.push(ext._id))
-      console.log({ list })
-      setExtras(list)
+    if (product.hasExtras) {
+      const list = product.extras.map(ext => ext._id);
+      console.log({ list });
+      setExtras(list);
     }
   }
 
