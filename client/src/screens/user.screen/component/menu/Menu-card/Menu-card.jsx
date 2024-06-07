@@ -84,7 +84,7 @@ const MenuCard = () => {
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth:'300px', width: "100%" ,marginLeft:'10px !important', height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", marginLeft: '10px !important', height: '200px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -268,7 +268,7 @@ const MenuCard = () => {
                     // </div>
                   } else {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth:'300px', width: "100%" ,marginLeft:'10px !important', height: '200px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", marginLeft: '10px !important', height: '200px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -349,8 +349,13 @@ const MenuCard = () => {
                               <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
-                            <p className="card-text mb-2">بيتزا شاورما</p>
-                            <div className="d-flex row justify-content-between align-items-center mb-2">
+                            <div className="d-flex justify-content-between align-items-center mb-2">
+                              <p className="card-text mb-2">{product.description}</p>
+                              {product.hasExtra &&
+                                <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
+                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                              }
+                            </div>                            <div className="d-flex row justify-content-between align-items-center mb-2">
                               <div className="col-7"></div>
                               <div className="col-5 d-flex flex-column align-items-end">
                                 {product.discount > 0 ?
