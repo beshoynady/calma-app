@@ -578,16 +578,16 @@ function App() {
         }
         
         // إعادة حساب السعر الجديد للإضافات
-        newExtras[ind].priceExtras = newExtras[ind].extraId.reduce((total, id) => {
-          const extraItem = extras.find(e => e._id === id); // بافتراض أن extras متاحة في النطاق
-          return total + (extraItem ? extraItem.price : 0);
-        }, 0);
+        // newExtras[ind].priceExtras = newExtras[ind].extraId.reduce((total, id) => {
+        //   const extraItem = extras.find(e => e._id === id); // بافتراض أن extras متاحة في النطاق
+        //   return total + (extraItem ? extraItem.price : 0);
+        // }, 0);
 
       } else {
         // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
         newExtras[ind] = {
           extraId: [extra._id],
-          priceExtras: extra.price
+          priceExtras: 0
         };
       }
 
