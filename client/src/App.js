@@ -573,6 +573,7 @@ function App() {
     }
   };
 
+  
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
     console.log({ productId, sizeId , productExtras})

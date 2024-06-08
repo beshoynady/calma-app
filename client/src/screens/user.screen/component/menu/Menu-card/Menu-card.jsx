@@ -66,7 +66,7 @@ const MenuCard = () => {
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
                               <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
                               <button
-                                onClick={() => setnoteArea(!noteArea)}
+                                onClick={() => {setnoteArea(!noteArea)}}
                                 className="btn w-50 h-100 text-light btn-danger rounded-2"
                               >الغاء</button>
                             </div>
@@ -211,7 +211,7 @@ const MenuCard = () => {
                           : ''}
 
                         {product._id === productid && extraArea === true ?
-                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, sizeId)}; setnoteArea(!noteArea); }}
+                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, sizeId)}; setextraArea(!extraArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
