@@ -282,7 +282,7 @@ function App() {
   const getAllTable = async () => {
     try {
       const response = await axios.get(apiUrl + '/api/table', { timeout: 5000 });
-        if (response.status === 200 && response.data) {
+      if (response.status === 200 && response.data) {
         setallTable(response.data);
       } else {
         console.error("Failed to receive valid table data");
@@ -291,7 +291,7 @@ function App() {
       // إعادة المحاولة عند حدوث خطأ
       if (error.code === 'ECONNABORTED') {
         console.error("Request timed out, retrying...");
-        setTimeout(getAllTable, 3000); 
+        setTimeout(getAllTable, 3000);
       } else {
         console.error("Error fetching table data:", error);
       }
@@ -562,47 +562,48 @@ function App() {
 
   const addExtrasToProduct = (e, productId, sizeId, productExtras) => {
     e.preventDefault();
-    if(productExtras.length>0){
-        try {
-        console.log({ productExtras, productId, sizeId })
-        // Find the product either in the order or in all products
-        const findProduct = productOrderToUpdate.length > 0 ?
-          productOrderToUpdate.find(product => product._id === productId) :
-          allProducts.find(product => product._id === productId);
-  
-        if (!findProduct) {
-          throw new Error('Product not found.');
-        }
-  
-        if (sizeId) {
-          findProduct.sizes.map(size => {
-            if (size._id === sizeId) {
-              // incrementProductQuantity the quantity of the found product
-              size.extras = productExtras;
-            }
-          })
-          itemsInCart.map(item => {
-            if (item.productid === productId && item.sizeId === sizeId) {
-              item.extras = productExtras;
-            }
-          })
-        } else {
-          // incrementProductQuantity the quantity of the found product
-          findProduct.extras = productExtras;
-          itemsInCart.map(item => {
-            if (item.productid === productId) {
-              item.extras = productExtras;
-            }
-          })
-        }
-  
-        console.log(findProduct);
-        console.log(itemsInCart);
-      } catch (error) {
-        console.error('Error incrementing product quantity:', error.message);
-        // You can handle the error appropriately, such as displaying an error message to the user.
+    console.log({ productExtras, productId, sizeId })
+    if (!productExtras) {
+      return
+    }
+    try {
+      // Find the product either in the order or in all products
+      const findProduct = productOrderToUpdate.length > 0 ?
+        productOrderToUpdate.find(product => product._id === productId) :
+        allProducts.find(product => product._id === productId);
+
+      if (!findProduct) {
+        throw new Error('Product not found.');
       }
+
+      if (sizeId) {
+        findProduct.sizes.map(size => {
+          if (size._id === sizeId) {
+            // incrementProductQuantity the quantity of the found product
+            size.extras = productExtras;
+          }
+        })
+        itemsInCart.map(item => {
+          if (item.productid === productId && item.sizeId === sizeId) {
+            item.extras = productExtras;
+          }
+        })
+      } else {
+        // incrementProductQuantity the quantity of the found product
+        findProduct.extras = productExtras;
+        itemsInCart.map(item => {
+          if (item.productid === productId) {
+            item.extras = productExtras;
+          }
+        })
       }
+
+      console.log(findProduct);
+      console.log(itemsInCart);
+    } catch (error) {
+      console.error('Error incrementing product quantity:', error.message);
+      // You can handle the error appropriately, such as displaying an error message to the user.
+    }
   };
 
 
@@ -641,7 +642,7 @@ function App() {
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
           newItem.notes = cartItem.notes
-          
+
 
         }
 
@@ -1877,7 +1878,7 @@ function App() {
       value={{
         restaurantData, clientInfo, apiUrl,
         // Functions related to authentication
-        userLoginInfo, employeeLoginInfo, getUserInfoFromToken, 
+        userLoginInfo, employeeLoginInfo, getUserInfoFromToken,
         // login, signup, logout,
         //  adminLogin, employeelogout,
 

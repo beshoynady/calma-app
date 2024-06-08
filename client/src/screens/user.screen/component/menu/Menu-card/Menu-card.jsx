@@ -211,7 +211,7 @@ const MenuCard = () => {
                           : ''}
 
                         {product._id === productid && extraArea === true ?
-                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, productExtras)}; setnoteArea(!noteArea); }}
+                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, sizeId, productExtras)}; setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
