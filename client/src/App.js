@@ -560,50 +560,63 @@ function App() {
     }
   };
 
-  const addExtrasToProduct = (e, productId, sizeId, productExtras) => {
+
+
+  const [productExtras, setproductExtras] = useState([])
+
+  const handleAddproductExtras = (extraId) => {
+    if (productExtras.length>0 && productExtras.includes(extraId)) {
+      const extraList = productExtras.filter(ex => ex !== extraId);
+      setproductExtras(extraList);
+    } else {
+      setproductExtras([...productExtras, extraId]);
+    }
+  };
+
+  const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
-    console.log({ productExtras, productId, sizeId })
-    // if (!productExtras) {
-    //   return
-    // }
-    // try {
-    //   // Find the product either in the order or in all products
-    //   const findProduct = productOrderToUpdate.length > 0 ?
-    //     productOrderToUpdate.find(product => product._id === productId) :
-    //     allProducts.find(product => product._id === productId);
+    console.log({ productId, sizeId , productExtras})
+    if (productExtras.length<1) {
+      return
+    }
+    try {
+      // Find the product either in the order or in all products
+      const findProduct = productOrderToUpdate.length > 0 ?
+        productOrderToUpdate.find(product => product._id === productId) :
+        allProducts.find(product => product._id === productId);
 
-    //   if (!findProduct) {
-    //     throw new Error('Product not found.');
-    //   }
+      if (!findProduct) {
+        throw new Error('Product not found.');
+      }
 
-    //   if (sizeId) {
-    //     findProduct.sizes.map(size => {
-    //       if (size._id === sizeId) {
-    //         // incrementProductQuantity the quantity of the found product
-    //         size.extras = productExtras;
-    //       }
-    //     })
-    //     itemsInCart.map(item => {
-    //       if (item.productid === productId && item.sizeId === sizeId) {
-    //         item.extras = productExtras;
-    //       }
-    //     })
-    //   } else {
-    //     // incrementProductQuantity the quantity of the found product
-    //     findProduct.extras = productExtras;
-    //     itemsInCart.map(item => {
-    //       if (item.productid === productId) {
-    //         item.extras = productExtras;
-    //       }
-    //     })
-    //   }
+      if (sizeId) {
+        findProduct.sizes.map(size => {
+          if (size._id === sizeId) {
+            // incrementProductQuantity the quantity of the found product
+            size.extras = productExtras;
+          }
+        })
+        itemsInCart.map(item => {
+          if (item.productid === productId && item.sizeId === sizeId) {
+            item.extras = productExtras;
+          }
+        })
+      } else {
+        // incrementProductQuantity the quantity of the found product
+        findProduct.extras = productExtras;
+        itemsInCart.map(item => {
+          if (item.productid === productId) {
+            item.extras = productExtras;
+          }
+        })
+      }
 
-    //   console.log(findProduct);
-    //   console.log(itemsInCart);
-    // } catch (error) {
-    //   console.error('Error incrementing product quantity:', error.message);
-    //   // You can handle the error appropriately, such as displaying an error message to the user.
-    // }
+      console.log(findProduct);
+      console.log(itemsInCart);
+    } catch (error) {
+      console.error('Error incrementing product quantity:', error.message);
+      // You can handle the error appropriately, such as displaying an error message to the user.
+    }
   };
 
 
@@ -1889,7 +1902,7 @@ function App() {
         allUsers, allTable, usertitle, allOrders, askingForHelp,
 
         // Functions related to manipulating product details
-        setproductNote, addNoteToProduct, addExtrasToProduct,
+        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddproductExtras, productExtras,
 
         // Functions related to order processing and calculations
         invoice, listProductsOrder, orderUpdateDate, myOrder,

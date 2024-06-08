@@ -16,16 +16,16 @@ const MenuCard = () => {
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-  const [productExtras, setproductExtras] = useState([])
+  // const [productExtras, setproductExtras] = useState([])
 
-  const handleAddproductExtras = (extraId) => {
-    if (productExtras.length>0 && productExtras.includes(extraId)) {
-      const extraList = productExtras.filter(ex => ex !== extraId);
-      setproductExtras(extraList);
-    } else {
-      setproductExtras([...productExtras, extraId]);
-    }
-  };
+  // const handleAddproductExtras = (extraId) => {
+  //   if (productExtras.length>0 && productExtras.includes(extraId)) {
+  //     const extraList = productExtras.filter(ex => ex !== extraId);
+  //     setproductExtras(extraList);
+  //   } else {
+  //     setproductExtras([...productExtras, extraId]);
+  //   }
+  // };
 
   const xax = (size) => {
     setsize(size)
@@ -40,7 +40,7 @@ const MenuCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct,addExtrasToProduct, itemId }) => {
+        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct,addExtrasToProduct, handleAddproductExtras, productExtras, itemId }) => {
           return (
 
             <div className="card-group d-flex">
@@ -74,7 +74,7 @@ const MenuCard = () => {
                           : ''}
 
                         {product._id === productid && extraArea === true ?
-                          <form onSubmit={(e) => { addExtrasToProduct(e, product._id, sizeId, productExtras); setnoteArea(!noteArea); }}
+                          <form onSubmit={(e) => { addExtrasToProduct(e, product._id, sizeId, productExtras); setextraArea(!extraArea) }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
@@ -91,7 +91,7 @@ const MenuCard = () => {
                               ))}
                             </div>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
-                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
+                              <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2" >تاكيد</button>
                               <button
                                 onClick={() => setextraArea(!extraArea)}
                                 className="btn w-50 h-100 text-light btn-danger rounded-2"
