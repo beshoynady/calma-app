@@ -110,7 +110,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id , exreas) } }}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )}
@@ -187,7 +187,7 @@ const MenuCard = () => {
                       <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
 
                         {product._id === productid && noteArea === true ?
-                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, productExtras)}; setnoteArea(!noteArea); }}
+                          <form onSubmit={(e) => {addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}
                           >
@@ -211,7 +211,7 @@ const MenuCard = () => {
                           : ''}
 
                         {product._id === productid && extraArea === true ?
-                          <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
+                          <form onSubmit={(e) => {if(productExtras.length>0){ addExtrasToProduct(e, product._id, productExtras)}; setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-3 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}>
                             <div className="form-group d-flex flex-wrap w-100">
@@ -247,7 +247,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (product.quantity > 0) { addItemToCart(product._id, extras) } }}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (product.quantity > 0) { addItemToCart(product._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )
