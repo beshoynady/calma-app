@@ -16,10 +16,10 @@ const MenuCard = () => {
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-  const [productExtras, setproductExtras] = useState()
+  const [productExtras, setproductExtras] = useState([])
 
   const handleAddproductExtras = (extraId) => {
-    if (productExtras.includes(extraId)) {
+    if (productExtras.length>0 && productExtras.includes(extraId)) {
       const extraList = productExtras.filter(ex => ex !== extraId);
       setproductExtras(extraList);
     } else {
@@ -79,14 +79,14 @@ const MenuCard = () => {
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
                               {product.extras.map((extra, i) => (
-                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%', paddingLeft: '10px' }}>
+                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
                                   <input
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
                                   onChange={(e) => handleAddproductExtras(e.target.value)}
                                   />
-                                  <label className="form-check-label mr-4" style={{fontSize:'14px', fontWeight:'900'}}>{extra.name}</label>
+                                  <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
                               ))}
                             </div>
@@ -216,14 +216,14 @@ const MenuCard = () => {
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
                               {product.extras.map((extra, i) => (
-                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%', paddingLeft: '10px' }}>
+                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
                                   <input
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
                                   onChange={(e) => handleAddproductExtras(e.target.value)}
                                   />
-                                  <label className="form-check-label mr-4" style={{fontSize:'14px', fontWeight:'900'}}>{extra.name}</label>
+                                  <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
                               ))}
                             </div>
