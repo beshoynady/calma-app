@@ -577,24 +577,25 @@ function App() {
             // إذا لم تكن الإضافة موجودة، قم بإضافتها
             ex.extraId.push(extra._id);
           }
-        })
 
-        
-        // إعادة حساب السعر الجديد للإضافات
         ex.priceExtras = ex.extraId.map(id=>{
           if(id== extra._id){
             return ex.priceExtras + extra.price
           }
         })
 
-      } else {
-        // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
-        newExtras = [{
-          extraId: [extra._id],
-          priceExtras: extra.price
-        }];
-      }
-
+      })
+        } else {
+          // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
+          newExtras = [{
+            extraId: [extra._id],
+            priceExtras: extra.price
+          }];
+          
+          
+          // إعادة حساب السعر الجديد للإضافات
+        }
+        setproductExtras(newExtras)
     //   return newExtras;
     // });
     console.log({newExtras})
