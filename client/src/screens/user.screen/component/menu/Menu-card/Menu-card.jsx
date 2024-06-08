@@ -86,7 +86,7 @@ const MenuCard = () => {
                                     value={extra._id}
                                   onChange={(e) => handleAddproductExtras(e.target.value)}
                                   />
-                                  <label className="form-check-label mr-4">{extra.name}</label>
+                                  <label className="form-check-label mr-4" style={{fontSize:'14px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
                               ))}
                             </div>
@@ -223,7 +223,7 @@ const MenuCard = () => {
                                     value={extra._id}
                                   onChange={(e) => handleAddproductExtras(e.target.value)}
                                   />
-                                  <label className="form-check-label mr-4">{extra.name}</label>
+                                  <label className="form-check-label mr-4" style={{fontSize:'14px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
                               ))}
                             </div>
