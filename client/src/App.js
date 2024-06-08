@@ -628,7 +628,7 @@ function App() {
         })
       } else {
         // incrementProductQuantity the quantity of the found product
-        findProduct.extras = productExtras;
+        findProduct.extrasSelected = productExtras;
         itemsInCart.map(item => {
           if (item.productid === productId) {
             item.extrasSelected = productExtras;
