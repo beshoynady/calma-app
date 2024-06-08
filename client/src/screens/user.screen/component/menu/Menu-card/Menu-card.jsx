@@ -79,7 +79,7 @@ const MenuCard = () => {
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
                               {product.extras.map((extra, i) => (
-                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%' }}>
+                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%', paddingLeft: '10px' }}>
                                   <input
                                     type="checkbox"
                                     className="form-check-input"
@@ -216,7 +216,7 @@ const MenuCard = () => {
                             style={{ zIndex: 10 , overflow:'scroll', scrollbarWidth:'thin'}}>
                             <div className="form-group d-flex flex-wrap w-100">
                               {product.extras.map((extra, i) => (
-                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%' }}>
+                                <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '49%', paddingLeft: '10px' }}>
                                   <input
                                     type="checkbox"
                                     className="form-check-input"
