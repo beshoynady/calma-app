@@ -84,7 +84,7 @@ const MenuCard = () => {
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
-                                  onChange={(e) => handleAddProductExtras(e.target.value)}
+                                  onChange={(e) => handleAddProductExtras(extra, i)}
                                   />
                                   <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
@@ -221,7 +221,7 @@ const MenuCard = () => {
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
-                                  onChange={(e) => handleAddProductExtras(e.target.value)}
+                                  onChange={(e) => handleAddProductExtras(extra, i)}
                                   />
                                   <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
