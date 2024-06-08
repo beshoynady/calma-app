@@ -564,13 +564,36 @@ function App() {
 
   const [productExtras, setproductExtras] = useState([])
 
-  const handleAddproductExtras = (extraId) => {
-    if (productExtras.length>0 && productExtras.includes(extraId)) {
-      const extraList = productExtras.filter(ex => ex !== extraId);
-      setproductExtras(extraList);
-    } else {
-      setproductExtras([...productExtras, extraId]);
-    }
+  const handleAddProductExtras = (extra, ind) => {
+    setproductExtras(prevExtras => {
+      const newExtras = [...prevExtras];
+      
+      if (newExtras[ind]) {
+        if (newExtras[ind].extraId.includes(extra._id)) {
+          // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
+          newExtras[ind].extraId = newExtras[ind].extraId.filter(id => id !== extra._id);
+        } else {
+          // إذا لم تكن الإضافة موجودة، قم بإضافتها
+          newExtras[ind].extraId.push(extra._id);
+        }
+        
+        // إعادة حساب السعر الجديد للإضافات
+        newExtras[ind].priceExtras = newExtras[ind].extraId.reduce((total, id) => {
+          const extraItem = extras.find(e => e._id === id); // بافتراض أن extras متاحة في النطاق
+          return total + (extraItem ? extraItem.price : 0);
+        }, 0);
+
+      } else {
+        // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
+        newExtras[ind] = {
+          extraId: [extra._id],
+          priceExtras: extra.price
+        };
+      }
+
+      return newExtras;
+    });
+    console.log({productExtras})
   };
 
 
@@ -649,15 +672,15 @@ function App() {
             newItem.price = size.sizePrice;
             newItem.quantity = size.sizeQuantity;
             newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
-            newItem.notes = size.notes
-            newItem.extras = size.extras
+            newItem.notes = size.notes?size.notes:''
+            newItem.extras = size.extras?size.extras:[]
           }
         } else {
           newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
-          newItem.notes = cartItem.notes             
-          newItem.extras = cartItem.extras             
+          newItem.notes = cartItem.notes?cartItem.notes :''             
+          newItem.extras = cartItem.extras?cartItem.extras:[]             
 
 
         }
@@ -1905,7 +1928,7 @@ function App() {
         allUsers, allTable, usertitle, allOrders, askingForHelp,
 
         // Functions related to manipulating product details
-        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddproductExtras, productExtras,
+        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras,
 
         // Functions related to order processing and calculations
         invoice, listProductsOrder, orderUpdateDate, myOrder,

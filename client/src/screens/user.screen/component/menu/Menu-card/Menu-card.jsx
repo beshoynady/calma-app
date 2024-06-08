@@ -18,7 +18,7 @@ const MenuCard = () => {
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
   // const [productExtras, setproductExtras] = useState([])
 
-  // const handleAddproductExtras = (extraId) => {
+  // const handleAddProductExtras = (extraId) => {
   //   if (productExtras.length>0 && productExtras.includes(extraId)) {
   //     const extraList = productExtras.filter(ex => ex !== extraId);
   //     setproductExtras(extraList);
@@ -40,7 +40,7 @@ const MenuCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct,addExtrasToProduct, handleAddproductExtras, productExtras, itemId }) => {
+        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct,addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
           return (
 
             <div className="card-group d-flex">
@@ -84,7 +84,7 @@ const MenuCard = () => {
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
-                                  onChange={(e) => handleAddproductExtras(e.target.value)}
+                                  onChange={(e) => handleAddProductExtras(e.target.value)}
                                   />
                                   <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
@@ -221,7 +221,7 @@ const MenuCard = () => {
                                     type="checkbox"
                                     className="form-check-input"
                                     value={extra._id}
-                                  onChange={(e) => handleAddproductExtras(e.target.value)}
+                                  onChange={(e) => handleAddProductExtras(e.target.value)}
                                   />
                                   <label className="form-check-label mr-4" style={{fontSize:'18px', fontWeight:'900'}}>{extra.name}</label>
                                 </div>
