@@ -231,7 +231,7 @@ const MenuCard = () => {
                                             type="checkbox"
                                             className="form-check-input"
                                             value={extra._id}
-                                            onChange={(e) => handleAddProductExtras(extra, ind )}
+                                            onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />
                                           <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
                                         </div>
@@ -251,7 +251,6 @@ const MenuCard = () => {
                             </div>
                           </form>
                         ) : ''}
-
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
@@ -282,7 +281,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                                  onClick={() => { console.log({product}); setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
