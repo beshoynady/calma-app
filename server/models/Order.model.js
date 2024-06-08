@@ -68,6 +68,7 @@ const OrderSchema = new mongoose.Schema({
             notes: {
                 type: String,
                 default: "",
+                trim: true
             },
             extras: [{
                 extraId: {
@@ -75,7 +76,11 @@ const OrderSchema = new mongoose.Schema({
                     ref: 'Extra',
                 },
                 quantityExtras: {
-                    ...defaultOptions,
+                    type: Number,
+                    default: 1,
+                    min: 0,
+                    max: 1000000,
+                    trim: true,
                     validate: {
                         validator: function (v) {
                             return v >= 1 && v <= 1000000;
