@@ -563,47 +563,47 @@ function App() {
   const addExtrasToProduct = (e, productId, sizeId, productExtras) => {
     e.preventDefault();
     console.log({ productExtras, productId, sizeId })
-    if (!productExtras) {
-      return
-    }
-    try {
-      // Find the product either in the order or in all products
-      const findProduct = productOrderToUpdate.length > 0 ?
-        productOrderToUpdate.find(product => product._id === productId) :
-        allProducts.find(product => product._id === productId);
+    // if (!productExtras) {
+    //   return
+    // }
+    // try {
+    //   // Find the product either in the order or in all products
+    //   const findProduct = productOrderToUpdate.length > 0 ?
+    //     productOrderToUpdate.find(product => product._id === productId) :
+    //     allProducts.find(product => product._id === productId);
 
-      if (!findProduct) {
-        throw new Error('Product not found.');
-      }
+    //   if (!findProduct) {
+    //     throw new Error('Product not found.');
+    //   }
 
-      if (sizeId) {
-        findProduct.sizes.map(size => {
-          if (size._id === sizeId) {
-            // incrementProductQuantity the quantity of the found product
-            size.extras = productExtras;
-          }
-        })
-        itemsInCart.map(item => {
-          if (item.productid === productId && item.sizeId === sizeId) {
-            item.extras = productExtras;
-          }
-        })
-      } else {
-        // incrementProductQuantity the quantity of the found product
-        findProduct.extras = productExtras;
-        itemsInCart.map(item => {
-          if (item.productid === productId) {
-            item.extras = productExtras;
-          }
-        })
-      }
+    //   if (sizeId) {
+    //     findProduct.sizes.map(size => {
+    //       if (size._id === sizeId) {
+    //         // incrementProductQuantity the quantity of the found product
+    //         size.extras = productExtras;
+    //       }
+    //     })
+    //     itemsInCart.map(item => {
+    //       if (item.productid === productId && item.sizeId === sizeId) {
+    //         item.extras = productExtras;
+    //       }
+    //     })
+    //   } else {
+    //     // incrementProductQuantity the quantity of the found product
+    //     findProduct.extras = productExtras;
+    //     itemsInCart.map(item => {
+    //       if (item.productid === productId) {
+    //         item.extras = productExtras;
+    //       }
+    //     })
+    //   }
 
-      console.log(findProduct);
-      console.log(itemsInCart);
-    } catch (error) {
-      console.error('Error incrementing product quantity:', error.message);
-      // You can handle the error appropriately, such as displaying an error message to the user.
-    }
+    //   console.log(findProduct);
+    //   console.log(itemsInCart);
+    // } catch (error) {
+    //   console.error('Error incrementing product quantity:', error.message);
+    //   // You can handle the error appropriately, such as displaying an error message to the user.
+    // }
   };
 
 
