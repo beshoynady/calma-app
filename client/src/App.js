@@ -565,35 +565,39 @@ function App() {
   const [productExtras, setproductExtras] = useState([])
 
   const handleAddProductExtras = (extra, ind) => {
-    setproductExtras(prevExtras => {
-      const newExtras = [...prevExtras];
+    // setproductExtras(prevExtras => {
+      const newExtras = [...productExtras];
       
-      if (newExtras[ind]) {
-        if (newExtras[ind].extraId.includes(extra._id)) {
-          // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
-          newExtras[ind].extraId = newExtras[ind].extraId.filter(id => id !== extra._id);
-        } else {
-          // إذا لم تكن الإضافة موجودة، قم بإضافتها
-          newExtras[ind].extraId.push(extra._id);
-        }
+      if (newExtras.length>0) {
+        newExtras[ind].map((ex, i)=>{
+          if (ex.extraId.includes(extra._id)) {
+            // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
+            ex.extraId = ex.extraId.filter(id => id !== extra._id);
+          } else {
+            // إذا لم تكن الإضافة موجودة، قم بإضافتها
+            ex.extraId.push(extra._id);
+          }
+        })
+
         
         // إعادة حساب السعر الجديد للإضافات
-        newExtras[ind].priceExtras = newExtras[ind].extraId.map(id=>{
+        ex.priceExtras = ex.extraId.map(id=>{
           if(id== extra._id){
-            return newExtras[ind].priceExtras + extra.price
+            return ex.priceExtras + extra.price
           }
         })
 
       } else {
         // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
-        newExtras[ind] = {
+        newExtras = [{
           extraId: [extra._id],
           priceExtras: extra.price
-        };
+        }];
       }
 
-      return newExtras;
-    });
+    //   return newExtras;
+    // });
+    console.log({newExtras})
     console.log({productExtras})
   };
 
