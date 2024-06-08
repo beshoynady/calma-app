@@ -578,16 +578,17 @@ function App() {
         }
         
         // إعادة حساب السعر الجديد للإضافات
-        // newExtras[ind].priceExtras = newExtras[ind].extraId.reduce((total, id) => {
-        //   const extraItem = extras.find(e => e._id === id); // بافتراض أن extras متاحة في النطاق
-        //   return total + (extraItem ? extraItem.price : 0);
-        // }, 0);
+        newExtras[ind].priceExtras = newExtras[ind].extraId.map(id=>{
+          if(id== extra._id){
+            return newExtras[ind].priceExtras + extra.price
+          }
+        })
 
       } else {
         // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
         newExtras[ind] = {
           extraId: [extra._id],
-          priceExtras: 0
+          priceExtras: extra.price
         };
       }
 
@@ -617,12 +618,12 @@ function App() {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
-            size.extras = productExtras;
+            size.extrasSelected = productExtras;
           }
         })
         itemsInCart.map(item => {
           if (item.productid === productId && item.sizeId === sizeId) {
-            item.extras = productExtras;
+            item.extrasSelected = productExtras;
           }
         })
       } else {
@@ -630,7 +631,7 @@ function App() {
         findProduct.extras = productExtras;
         itemsInCart.map(item => {
           if (item.productid === productId) {
-            item.extras = productExtras;
+            item.extrasSelected = productExtras;
           }
         })
       }
