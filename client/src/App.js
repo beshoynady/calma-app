@@ -573,7 +573,7 @@ function App() {
     }
   };
 
-  
+
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
     console.log({ productId, sizeId , productExtras})
@@ -650,12 +650,14 @@ function App() {
             newItem.quantity = size.sizeQuantity;
             newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
             newItem.notes = size.notes
+            newItem.extras = size.extras
           }
         } else {
           newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
-          newItem.notes = cartItem.notes
+          newItem.notes = cartItem.notes             
+          newItem.extras = cartItem.extras             
 
 
         }
