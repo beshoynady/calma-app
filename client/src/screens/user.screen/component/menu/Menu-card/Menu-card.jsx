@@ -37,7 +37,7 @@ const MenuCard = () => {
     }
   };
 
-  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
 
 
   return (
@@ -80,7 +80,7 @@ const MenuCard = () => {
                         {product._id === productid && extraArea === true ?
                           <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}>
-                            <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
+                            <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); };setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                               className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                               {/* أزرار الأصناف */}
                               <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
@@ -111,7 +111,7 @@ const MenuCard = () => {
                                             }
                                             onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />
-                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price}`} </label>
+                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
                                         </div>
                                       ))}
                                     </div>
@@ -239,7 +239,7 @@ const MenuCard = () => {
                         {product._id === productid && extraArea === true ? (
                           <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}>
-                            <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
+                            <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); };setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                               className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                               {/* أزرار الأصناف */}
                               <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
@@ -270,7 +270,7 @@ const MenuCard = () => {
                                             }
                                             onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />
-                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price}`} </label>
+                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
                                         </div>
                                       ))}
                                     </div>
