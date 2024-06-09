@@ -105,9 +105,9 @@ const MenuCard = () => {
                                             value={extra._id}
                                             checked={
                                               (productExtras && productExtras[ind] && productExtras[ind].extraId.includes(extra._id)) ||
-                                              (product.extrasSelected &&
-                                                product.extrasSelected[ind] &&
-                                                product.extrasSelected[ind].extraId.includes(extra._id))
+                                              (product.sizes.filter(size=> size._id === sizeId)[0].extrasSelected &&
+                                              product.sizes.filter(size=> size._id === sizeId)[0].extrasSelected[ind] &&
+                                              product.sizes.filter(size=> size._id === sizeId)[0].extrasSelected[ind].extraId.includes(extra._id))
                                             }
                                             onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />

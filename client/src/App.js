@@ -639,6 +639,7 @@ function App() {
 
       console.log(findProduct);
       console.log(itemsInCart);
+      setproductExtras([])
     } catch (error) {
       console.error('Error incrementing product quantity:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.
@@ -1930,7 +1931,7 @@ function App() {
         allUsers, allTable, usertitle, allOrders, askingForHelp,
 
         // Functions related to manipulating product details
-        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras,
+        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras,setproductExtras, productExtras,
 
         // Functions related to order processing and calculations
         invoice, listProductsOrder, orderUpdateDate, myOrder,
