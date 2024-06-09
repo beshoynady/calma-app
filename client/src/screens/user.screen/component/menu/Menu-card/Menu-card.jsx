@@ -219,24 +219,31 @@ const MenuCard = () => {
                             style={{ zIndex: 10, overflow: 'scroll', scrollbarWidth: 'thin' }}>
                             <div className='d-flex align-items-center justify-content-center flex-wrap'style={{overflow: 'scroll', scrollbarWidth: 'thin' }}>
                               {Array.from({ length: product.quantity }).map((_, ind) => (
-                                <div key={ind} style={{ margin: '5px' }}>
+                                <>
+                                <div key={ind} className='d-flex align-items-center justify-content-center flex-wrap'>
                                   <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                     {ind + 1}
                                   </button>
+                                  </div>
+
                                   <div className="form-group d-flex flex-wrap mt-2">
-                                    {product.extras.map((extra, i) => (
+                                    {selectedButtonIndex === ind +1 &&
+                                    (product.extras.map((extra, i) => (
                                       <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
                                         <input
                                           type="checkbox"
                                           className="form-check-input"
                                           value={extra._id}
+                                          checked={product.extrasSelected[ind].extraId.map(id=>id===extra._id?true: false)
+                                          }
                                           onChange={(e) =>{console.log({extra, ind}); handleAddProductExtras(extra, ind)}}
                                         />
                                         <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
                                       </div>
-                                    ))}
+                                    )))
+                                    }
                                   </div>
-                                </div>
+                                </>
                               ))}
                             </div>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
