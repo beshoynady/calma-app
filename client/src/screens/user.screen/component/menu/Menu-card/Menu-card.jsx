@@ -240,7 +240,7 @@ const MenuCard = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={extra._id}
-                                          checked={
+                                          checked={productExtras[ind].extraId.includes(extra._id)||
                                             product.extrasSelected &&
                                             product.extrasSelected[ind] &&
                                             product.extrasSelected[ind].extraId.includes(extra._id)
@@ -254,8 +254,6 @@ const MenuCard = () => {
                                 )
                               ))}
                             </div>
-
-                            {/* أزرار التأكيد والإلغاء */}
                             <div className="note-btn d-flex align-items-center justify-content-center w-100 mt-2" style={{ height: '40px' }}>
                               <button className="btn btn-success rounded-2 me-2" style={{ width: '50%' }}>تأكيد</button>
                               <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '50%' }}>إلغاء</button>

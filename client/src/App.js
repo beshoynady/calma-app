@@ -572,7 +572,6 @@ function App() {
         const existingExtra = newExtras[ind];
         
         if (existingExtra.extraId.includes(extra._id)) {
-          // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
           existingExtra.extraId = existingExtra.extraId.filter(id => id !== extra._id);
           existingExtra.priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
         } else {
