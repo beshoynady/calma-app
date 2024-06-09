@@ -124,7 +124,9 @@ const MenuCard = () => {
                               </div>
                             </form>
                           </div>
-                          : ''}
+                          : <div className='w-100 h-100 d-flex align-item-center justify-content-center'>
+                            <p className='w-100 h-25' style={{fontSize:'18px', fontWeight:'900'}}>اختر اولا الحجم و الكمية</p>
+                            </div>}
 
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-nowrap flex-column justify-content-between">
@@ -158,7 +160,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
 
@@ -283,7 +285,9 @@ const MenuCard = () => {
                               </div>
                             </form>
                           </div>
-                        ) : ''}
+                        ) :<div className='w-100 h-100 d-flex align-item-center justify-content-center'>
+                        <p className='w-100 h-25' style={{fontSize:'18px', fontWeight:'900'}}>اختر اولا  الكمية</p>
+                        </div>}
 
 
                         <div className="row g-0 h-100">
@@ -316,7 +320,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
