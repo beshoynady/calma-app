@@ -217,7 +217,7 @@ const MenuCard = () => {
                           <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10, overflow: 'scroll', scrollbarWidth: 'thin' }}>
-                            <div className='d-flex align-items-center justify-content-center flex-wrap'>
+                            <div className='d-flex align-items-center justify-content-center flex-wrap'style={{overflow: 'scroll', scrollbarWidth: 'thin' }}>
                               {Array.from({ length: product.quantity }).map((_, ind) => (
                                 <div key={ind} style={{ margin: '5px' }}>
                                   <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
@@ -230,7 +230,7 @@ const MenuCard = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={extra._id}
-                                          onChange={(e) => handleAddProductExtras(extra, ind)}
+                                          onChange={(e) =>{console.log({extra, ind}); handleAddProductExtras(extra, ind)}}
                                         />
                                         <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
                                       </div>
