@@ -79,7 +79,7 @@ const MenuCard = () => {
 
                         {product._id === productid && extraArea === true ?
                           sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
-                            <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                               style={{ zIndex: 10 }}>
                               <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                 className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
@@ -125,7 +125,8 @@ const MenuCard = () => {
                                 </div>
                               </form>
                             </div>
-                            : <div className='w-100 h-100 d-flex align-item-center justify-content-center'>
+                            ) : <div className='position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden'
+                              style={{ zIndex: 10 }}>
                               <p className='d-flex align-item-center justify-content-center w-100 h-25' style={{ fontSize: '18px', fontWeight: '900' }}>اختر اولا الحجم و الكمية</p>
                             </div>
                           : ''}
@@ -288,8 +289,9 @@ const MenuCard = () => {
                                 </div>
                               </form>
                             </div>
-                          ) : <div className='w-100 h-100 d-flex align-item-center justify-content-center'>
-                            <p className='d-flex align-item-center justify-content-centerw-100 h-25' style={{ fontSize: '18px', fontWeight: '900', textAlign:"center" }}>اختر اولا  الكمية</p>
+                          ) : <div className='position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden'
+                            style={{ zIndex: 10 }}>
+                            <p className='d-flex align-item-center justify-content-centerw-100 h-25' style={{ fontSize: '18px', fontWeight: '900', textAlign: "center" }}>اختر اولا  الكمية</p>
                           </div>
                           : ''}
 
