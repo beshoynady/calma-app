@@ -83,7 +83,7 @@
     width: 100%;
     flex-wrap: nowrap;
   }
-  #menu .container-lg .section-content .menu-nav {
+  /* #menu .container-lg .section-content .menu-nav {
     height: 100%;
     margin: 10px auto;
     rotate: 0;
@@ -123,5 +123,5 @@
     background-color: var(--u-light);
     color: var(r--u-dark);
     border: 2px solid var(--u-main-color);
-  }
+  } */
 }/*# sourceMappingURL=Menu.css.map */
