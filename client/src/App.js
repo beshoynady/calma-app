@@ -563,44 +563,41 @@ function App() {
 
 
   const [productExtras, setproductExtras] = useState([])
-
+  
   const handleAddProductExtras = (extra, ind) => {
-    // setproductExtras(prevExtras => {
-      const newExtras = [...productExtras];
-      
-      if (newExtras.length>0) {
-        newExtras[ind].map((ex, i)=>{
-          if (ex.extraId.includes(extra._id)) {
-            // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
-            ex.extraId = ex.extraId.filter(id => id !== extra._id);
-          } else {
-            // إذا لم تكن الإضافة موجودة، قم بإضافتها
-            ex.extraId.push(extra._id);
-          }
-
-        ex.priceExtras = ex.extraId.map(id=>{
-          if(id== extra._id){
-            return ex.priceExtras + extra.price
-          }
-        })
-
-      })
+    const newExtras = [...productExtras];
+    
+    if (newExtras.length > 0) {
+      if (newExtras[ind]) {
+        const existingExtra = newExtras[ind];
+        
+        if (existingExtra.extraId.includes(extra._id)) {
+          // إذا كانت الإضافة موجودة بالفعل، قم بإزالتها باستخدام filter
+          existingExtra.extraId = existingExtra.extraId.filter(id => id !== extra._id);
+          existingExtra.priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
         } else {
-          // إذا لم تكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
-          newExtras = [{
-            extraId: [extra._id],
-            priceExtras: extra.price
-          }];
-          
-          
-          // إعادة حساب السعر الجديد للإضافات
+          // إذا لم تكن الإضافة موجودة، قم بإضافتها
+          existingExtra.extraId.push(extra._id);
+          existingExtra.priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
         }
-        setproductExtras(newExtras)
-    //   return newExtras;
-    // });
-    console.log({newExtras})
-    console.log({productExtras})
+      } else {
+        // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
+        newExtras[ind] = {
+          extraId: [extra._id],
+          priceExtras: extra.price
+        };
+      }
+    } else {
+      // إذا كانت المصفوفة فارغة بالكامل، قم بإنشاء إدخال جديد
+      newExtras[ind] = {
+        extraId: [extra._id],
+        priceExtras: extra.price
+      };
+    }
+    
+    setproductExtras(newExtras);
   };
+  
 
 
   const addExtrasToProduct = (e, productId, sizeId) => {
