@@ -52,7 +52,7 @@ const MenuCard = () => {
                   if (product.hasSizes) {
                     return (
                       <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
-                        
+
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
@@ -84,7 +84,7 @@ const MenuCard = () => {
                               className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                               {/* أزرار الأصناف */}
                               <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
-                                {Array.from({ length: product.quantity }).map((_, ind) => (
+                                {Array.from({ length: product.sizes.filter(size=> size._id === sizeId)[0].quantity }).map((_, ind) => (
                                   <div key={ind} style={{ margin: '5px' }}>
                                     <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                       {ind + 1}
