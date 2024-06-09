@@ -88,50 +88,50 @@
         width: 100%;
         flex-wrap: nowrap;
 
-        .menu-nav {
-          height: 100%;
-          margin: 10px auto;
-          rotate: 0;
-          width: 19%;
-          position: relative;
-          top: 650px;
+        // .menu-nav {
+        //   height: 100%;
+        //   margin: 10px auto;
+        //   rotate: 0;
+        //   width: 19%;
+        //   position: relative;
+        //   top: 650px;
 
-          .menu-ul {
-            align-items: center;
-            display: flex;
-            flex-wrap: nowrap;
-            height: 100%;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            rotate: 270deg;
+        //   .menu-ul {
+        //     align-items: center;
+        //     display: flex;
+        //     flex-wrap: nowrap;
+        //     height: 100%;
+        //     justify-content: center;
+        //     margin: 0;
+        //     padding: 0;
+        //     width: 100%;
+        //     rotate: 270deg;
 
-            .menu-nav-li {
-              list-style: none;
-              display: flex;
-              align-items: center;
-              justify-content: center;
+        //     .menu-nav-li {
+        //       list-style: none;
+        //       display: flex;
+        //       align-items: center;
+        //       justify-content: center;
 
-              .category-btn {
-                cursor: pointer;
-                height: 55px;
-                min-width: max-content;
-                border-radius: 5px;
-                font-size: 18px;
-                font-weight: 800;
-                cursor: pointer;
-                padding: 5px 10px;
+        //       .category-btn {
+        //         cursor: pointer;
+        //         height: 55px;
+        //         min-width: max-content;
+        //         border-radius: 5px;
+        //         font-size: 18px;
+        //         font-weight: 800;
+        //         cursor: pointer;
+        //         padding: 5px 10px;
 
-                &.active {
-                  background-color: var(--u-light);
-                  color: var(r--u-dark);
-                  border: 2px solid var(--u-main-color);
-                }
-              }
-            }
-          }
-        }
+        //         &.active {
+        //           background-color: var(--u-light);
+        //           color: var(r--u-dark);
+        //           border: 2px solid var(--u-main-color);
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
       }
     }
   }
