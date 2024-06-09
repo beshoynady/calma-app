@@ -216,49 +216,49 @@ const MenuCard = () => {
                         {product._id === productid && extraArea === true ? (
                           <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}>
-                          <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
-                            className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center"
-                            style={{overflow: 'scroll', scrollbarWidth: 'thin' }}>
-                            {/* أزرار الأصناف */}
-                            <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height:'auto'}}>
-                              {Array.from({ length: product.quantity }).map((_, ind) => (
-                                <div key={ind} style={{ margin: '5px' }}>
-                                  <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
-                                    {ind + 1}
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-
-                            <div className="form-group d-flex flex-wrap mt-2" style={{ width: '100%', height:'40%', overflowY: "scroll"}}>
-                              {Array.from({ length: product.quantity }).map((_, ind) => (
-                                selectedButtonIndex === ind + 1 && (
-                                  <div key={ind} className="form-group w-100 d-flex align-items-center justify-content-center flex-wrap">
-                                    {product.extras.map((extra, i) => (
-                                      <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', height:'30px' , paddingLeft: '10px' }}>
-                                        <input
-                                          type="checkbox"
-                                          className="form-check-input"
-                                          value={extra._id}
-                                          checked={productExtras[ind].extraId.includes(extra._id)||
-                                            product.extrasSelected &&
-                                            product.extrasSelected[ind] &&
-                                            product.extrasSelected[ind].extraId.includes(extra._id)
-                                          }                                          
-                                          onChange={(e) => handleAddProductExtras(extra, ind)}
-                                        />
-                                        <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
-                                      </div>
-                                    ))}
+                            <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
+                              className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center"
+                              style={{ overflow: 'scroll', scrollbarWidth: 'thin' }}>
+                              {/* أزرار الأصناف */}
+                              <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
+                                {Array.from({ length: product.quantity }).map((_, ind) => (
+                                  <div key={ind} style={{ margin: '5px' }}>
+                                    <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
+                                      {ind + 1}
+                                    </button>
                                   </div>
-                                )
-                              ))}
-                            </div>
-                            <div className="note-btn d-flex align-items-center justify-content-center w-100 mt-2" style={{ height: '40px' }}>
-                              <button className="btn btn-success rounded-2 me-2" style={{ width: '50%' }}>تأكيد</button>
-                              <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '50%' }}>إلغاء</button>
-                            </div>
-                          </form>
+                                ))}
+                              </div>
+
+                              <div className="form-group d-flex flex-wrap mt-2" style={{ width: '100%', height: '40%', overflowY: "scroll" }}>
+                                {Array.from({ length: product.quantity }).map((_, ind) => (
+                                  selectedButtonIndex === ind + 1 && (
+                                    <div key={ind} className="form-group w-100 d-flex align-items-center justify-content-center flex-wrap">
+                                      {product.extras.map((extra, i) => (
+                                        <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', height: '30px', paddingLeft: '10px' }}>
+                                          <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            value={extra._id}
+                                            checked={productExtras[ind].extraId.includes(extra._id) ||
+                                            (product.extrasSelected &&
+                                              product.extrasSelected[ind] &&
+                                              product.extrasSelected[ind].extraId.includes(extra._id))
+                                            }
+                                            onChange={(e) => handleAddProductExtras(extra, ind)}
+                                          />
+                                          <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )
+                                ))}
+                              </div>
+                              <div className="note-btn d-flex align-items-center justify-content-center w-100 mt-2" style={{ height: '40px' }}>
+                                <button className="btn btn-success rounded-2 me-2" style={{ width: '50%' }}>تأكيد</button>
+                                <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '50%' }}>إلغاء</button>
+                              </div>
+                            </form>
                           </div>
                         ) : ''}
 
