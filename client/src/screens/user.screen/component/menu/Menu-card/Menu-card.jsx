@@ -46,12 +46,12 @@ const MenuCard = () => {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
           return (
 
-            <div className="card-group d-flex">
+            <div className="card-group d-flex flex-wrap ">
               {allProducts.length > 0 ?
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '215px', margin: '0 0 10px 10px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -124,37 +124,10 @@ const MenuCard = () => {
                               </div>
                             </form>
                           </div>
-
-
-
-                          // <form onSubmit={(e) => { addExtrasToProduct(e, product._id, sizeId); setextraArea(!extraArea) }}
-                          //   className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
-                          //   style={{ zIndex: 10, overflow: 'scroll', scrollbarWidth: 'thin' }}>
-                          //   <div className="form-group d-flex flex-wrap w-100">
-                          //     {product.extras.map((extra, i) => (
-                          //       <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
-                          //         <input
-                          //           type="checkbox"
-                          //           className="form-check-input"
-                          //           value={extra._id}
-                          //           onChange={(e) => handleAddProductExtras(extra, i)}
-                          //         />
-                          //         <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
-                          //       </div>
-                          //     ))}
-                          //   </div>
-                          //   <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
-                          //     <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2" >تاكيد</button>
-                          //     <button
-                          //       onClick={() => setextraArea(!extraArea)}
-                          //       className="btn w-50 h-100 text-light btn-danger rounded-2"
-                          //     >الغاء</button>
-                          //   </div>
-                          // </form>
                           : ''}
 
                         <div className="row g-0 h-100">
-                          <div className="col-5 d-flex flex-column justify-content-between">
+                          <div className="col-5 d-flex flex-nowrap flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {product.available === true ? (
                               <>
@@ -237,7 +210,7 @@ const MenuCard = () => {
 
                   } else {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
+                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '270px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
