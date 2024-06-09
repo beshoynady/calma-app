@@ -46,7 +46,7 @@ const MenuCard = () => {
         ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
           return (
 
-            <div className="d-flex flex-wrap flex-m-column">
+            <div className="d-flex flex-wrap flex-md-row">
               {allProducts.length > 0 ?
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
