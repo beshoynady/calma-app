@@ -214,11 +214,13 @@ const MenuCard = () => {
                           : ''}
 
                         {product._id === productid && extraArea === true ? (
+                          <div className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                            style={{ zIndex: 10 }}>
                           <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
-                            className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
-                            style={{ zIndex: 10, overflow: 'scroll', scrollbarWidth: 'thin' }}>
+                            className="w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center"
+                            style={{overflow: 'scroll', scrollbarWidth: 'thin' }}>
                             {/* أزرار الأصناف */}
-                            <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ overflow: 'scroll', scrollbarWidth: 'thin' }}>
+                            <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height:'auto'}}>
                               {Array.from({ length: product.quantity }).map((_, ind) => (
                                 <div key={ind} style={{ margin: '5px' }}>
                                   <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
@@ -228,7 +230,7 @@ const MenuCard = () => {
                               ))}
                             </div>
 
-                            <div className="form-group d-flex flex-wrap mt-2">
+                            <div className="form-group d-flex flex-wrap mt-2" style={{ width: '100%', height:'60%'}}>
                               {Array.from({ length: product.quantity }).map((_, ind) => (
                                 selectedButtonIndex === ind + 1 && (
                                   <div key={ind} className="form-group w-100 d-flex align-items-center justify-content-center flex-wrap">
@@ -255,6 +257,7 @@ const MenuCard = () => {
                               <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '50%' }}>إلغاء</button>
                             </div>
                           </form>
+                          </div>
                         ) : ''}
 
 
