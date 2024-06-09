@@ -240,10 +240,11 @@ const MenuCard = () => {
                                             type="checkbox"
                                             className="form-check-input"
                                             value={extra._id}
-                                            checked={productExtras[ind].extraId.includes(extra._id) ||
-                                            (product.extrasSelected &&
-                                              product.extrasSelected[ind] &&
-                                              product.extrasSelected[ind].extraId.includes(extra._id))
+                                            checked={
+                                              (productExtras && productExtras[ind] && productExtras[ind].extraId.includes(extra._id)) ||
+                                              (product.extrasSelected &&
+                                                product.extrasSelected[ind] &&
+                                                product.extrasSelected[ind].extraId.includes(extra._id))
                                             }
                                             onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />
