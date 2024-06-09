@@ -228,7 +228,6 @@ const MenuCard = () => {
                               ))}
                             </div>
 
-                            {/* خيارات الأصناف */}
                             <div className="form-group d-flex flex-wrap mt-2">
                               {Array.from({ length: product.quantity }).map((_, ind) => (
                                 selectedButtonIndex === ind + 1 && (
@@ -239,7 +238,7 @@ const MenuCard = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={extra._id}
-                                          checked={product.extrasSelected ? product.extrasSelected[ind].extraId.includes(extra._id) : f}
+                                          // checked={product.extrasSelected ? product.extrasSelected[ind].extraId.includes(extra._id) : false}
                                           onChange={(e) => handleAddProductExtras(extra, ind)}
                                         />
                                         <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
