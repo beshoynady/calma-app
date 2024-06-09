@@ -289,7 +289,7 @@ const MenuCard = () => {
                               </form>
                             </div>
                           ) : <div className='w-100 h-100 d-flex align-item-center justify-content-center'>
-                            <p className='d-flex align-item-center justify-content-centerw-100 h-25' style={{ fontSize: '18px', fontWeight: '900', textAlign:center }}>اختر اولا  الكمية</p>
+                            <p className='d-flex align-item-center justify-content-centerw-100 h-25' style={{ fontSize: '18px', fontWeight: '900', textAlign:"center" }}>اختر اولا  الكمية</p>
                           </div>
                           : ''}
 
