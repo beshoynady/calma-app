@@ -94,7 +94,7 @@ const MenuCard = () => {
                               </div>
 
                               <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', overflowY: "scroll" }}>
-                                {Array.from({ length: product.quantity }).map((_, ind) => (
+                                {Array.from({ length: product.sizes.filter(size=> size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
                                   selectedButtonIndex === ind + 1 && (
                                     <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap">
                                       {product.extras.map((extra, i) => (
