@@ -223,6 +223,9 @@ const MenuCard = () => {
                                   <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                     {ind + 1}
                                   </button>
+                                  </div>
+                              ))}
+
                                   <div className="form-group d-flex flex-wrap mt-2">
                                     {selectedButtonIndex === ind +1 &&
                                     (product.extras.map((extra, i) => (
@@ -231,7 +234,7 @@ const MenuCard = () => {
                                           type="checkbox"
                                           className="form-check-input"
                                           value={extra._id}
-                                          checked={product.extrasSelected ? product.extrasSelected[ind].extraId.includes(extra._id) : false}
+                                          // checked={product.extrasSelected ? product.extrasSelected[ind].extraId.includes(extra._id) : false}
                                           onChange={(e) =>{console.log({extra, ind}); handleAddProductExtras(extra, ind)}}
                                         />
                                         <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
@@ -239,8 +242,6 @@ const MenuCard = () => {
                                     )))
                                     }
                                   </div>
-                                </div>
-                              ))}
                             </div>
                             <div className='note-btn d-flex align-items-center justify-content-center w-100 mt-2' style={{ height: '40px' }}>
                               <button className="btn w-50 h-100 text-light btn-success rounded-2 me-2">تاكيد</button>
