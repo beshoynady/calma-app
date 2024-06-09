@@ -675,14 +675,14 @@ function App() {
             newItem.quantity = size.sizeQuantity;
             newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
             newItem.notes = size.notes?size.notes:''
-            newItem.extras = size.extras?size.extras:[]
+            newItem.extras = size.extrasSelected?size.extrasSelected:[]
           }
         } else {
           newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
           newItem.notes = cartItem.notes?cartItem.notes :''             
-          newItem.extras = cartItem.extras?cartItem.extras:[]             
+          newItem.extras = cartItem.extrasSelected?cartItem.extrasSelected:[]             
 
 
         }
