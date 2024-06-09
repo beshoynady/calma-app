@@ -37,8 +37,8 @@ const MenuCard = () => {
     }
   };
 
-
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
+
 
   return (
     <detacontext.Consumer>
@@ -217,27 +217,25 @@ const MenuCard = () => {
                           <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); } setextraArea(!extraArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10, overflow: 'scroll', scrollbarWidth: 'thin' }}>
-                            <div className="form-group d-flex flex-wrap w-100">
+                            <div className='d-flex align-items-center justify-content-center flex-wrap'>
                               {Array.from({ length: product.quantity }).map((_, ind) => (
-                                <div key={ind}>
-                                  <button type="button" onClick={() => setSelectedButtonIndex(ind + 1)}>
+                                <div key={ind} style={{ margin: '5px' }}>
+                                  <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                     {ind + 1}
                                   </button>
-                                  {selectedButtonIndex === ind + 1 && (
-                                    <div className="extra-options">
-                                      {product.extras.map((extra, i) => (
-                                        <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
-                                          <input
-                                            type="checkbox"
-                                            className="form-check-input"
-                                            value={extra._id}
-                                            onChange={(e) => handleAddProductExtras(extra, ind)}
-                                          />
-                                          <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
+                                  <div className="form-group d-flex flex-wrap mt-2">
+                                    {product.extras.map((extra, i) => (
+                                      <div className="form-check form-check-flat mb-2 mr-1 d-flex align-items-center" key={i} style={{ width: '45%', paddingLeft: '10px' }}>
+                                        <input
+                                          type="checkbox"
+                                          className="form-check-input"
+                                          value={extra._id}
+                                          onChange={(e) => handleAddProductExtras(extra, ind)}
+                                        />
+                                        <label className="form-check-label mr-4" style={{ fontSize: '18px', fontWeight: '900' }}>{extra.name}</label>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               ))}
                             </div>
@@ -251,6 +249,7 @@ const MenuCard = () => {
                             </div>
                           </form>
                         ) : ''}
+
                         <div className="row g-0 h-100">
                           <div className="col-5 d-flex flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
@@ -281,7 +280,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
-                                  onClick={() => { console.log({product}); setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
+                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>note_alt</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
