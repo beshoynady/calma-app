@@ -93,13 +93,14 @@ const Cart = (props) => {
                             item.quantity > 0 &&
                             <div className="card mb-3 w-100" key={index}>
                               <div className="row no-gutters">
-                                <div className="col-md-4">
+                                <div className="col-md-3">
 
-                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} />
+                                  {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
+                                  <img src={defaultsImage} className="card-img" alt={item.name} />
                                 </div>
-                                <div className="col-md-8">
-                                  <div className="card-body">
-                                    <div className="d-flex justify-content-between">
+                                <div className="col-md-9">
+                                  <div className="card-body d-flex flex-column align-items-stretch justify-content-start">
+                                    <div className="d-flex justify-content-between w-100">
                                       <h5 className="card-title">{item.name} - {item.size}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
@@ -114,7 +115,7 @@ const Cart = (props) => {
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
                                           <div key={i} className="d-flex flex-wrap">
-                                            <div className='d-flex col-8 align-items-center justfiy-content-between'>
+                                            <div className='d-flex col-8 align-items-center justfiy-content-between flex-wrap'>
                                             {extra.extraId.map((extraid) => {
                                               const extradata = allProducts.find(pro => pro._id === extraid);
                                               return (
