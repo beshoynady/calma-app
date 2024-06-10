@@ -101,7 +101,7 @@ const Cart = (props) => {
                                 <div className="col-md-9">
                                   <div className="card-body d-flex flex-column align-items-stretch justify-content-start">
                                     <div className="d-flex justify-content-between w-100">
-                                      <h5 className="card-title">{item.name} - {item.size}</h5>
+                                      <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
                                     <div className="d-flex justify-content-between mt-2">
@@ -114,7 +114,7 @@ const Cart = (props) => {
                                     {item.extras && (
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                        extra&&extra.extraId&&<div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                          extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                             <div className='d-flex col-10 align-items-center justfiy-content-between flex-wrap p-0 m-0'>
                                               {extra.extraId.map((extraid) => {
                                                 const extradata = allProducts.find(pro => pro._id === extraid);
