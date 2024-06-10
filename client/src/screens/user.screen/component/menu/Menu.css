@@ -66,7 +66,7 @@
     height: -moz-fit-content;
     height: fit-content;
     padding-bottom: 15px;
-    min-height: 170vh;
+    min-height: 250vh;
   }
   #menu .container-lg {
     height: 100%;
@@ -89,7 +89,8 @@
     rotate: 0;
     width: 19%;
     position: relative;
-    top: 650px;
+    top: 100vh;
+    transform: translateY(100%);
   }
   #menu .container-lg .section-content .menu-nav .menu-ul {
     align-items: center;
