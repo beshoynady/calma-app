@@ -811,7 +811,8 @@ function App() {
         const itemTotalPrice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
         
         if(item.extras.length>0){
-          item.extras.map(extra=> totalExtras += extra.priceExtras)
+          item.extras.map((extra, i)=>{
+             if(extra){totalExtras += extra.priceExtras}})
         }
         item.totalprice = (itemTotalPrice + totalExtras);
         totalCost += (itemTotalPrice+totalExtras);
