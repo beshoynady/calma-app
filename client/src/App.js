@@ -802,17 +802,21 @@ function App() {
   const calculateOrderCost = () => {
     try {
       let totalCost = 0;
-
+      let totalExtras = 0 
       // Determine which list to operate on based on the presence of items in itemsInCart or productOrderToUpdate
       const itemsList = itemsInCart.length > 0 ? itemsInCart : productOrderToUpdate;
 
       // Calculate total cost based on the items in the list
       itemsList.forEach(item => {
         const itemTotalPrice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
-        item.totalprice = itemTotalPrice;
-        totalCost += itemTotalPrice;
+        
+        if(item.extras.length>0){
+          item.extras.map(extra=> totalExtras += extra.priceExtras)
+        }
+        item.totalprice = (itemTotalPrice+totalExtras);
+        totalCost += (itemTotalPrice+totalExtras);
       });
-
+      console.log({totalCost, totalExtras})
       // Update the state with the total cost
       setcostOrder(totalCost);
     } catch (error) {
