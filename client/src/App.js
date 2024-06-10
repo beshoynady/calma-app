@@ -813,7 +813,7 @@ function App() {
         if(item.extras.length>0){
           item.extras.map(extra=> totalExtras += extra.priceExtras)
         }
-        item.totalprice = (itemTotalPrice+totalExtras);
+        item.totalprice = (itemTotalPrice + totalExtras);
         totalCost += (itemTotalPrice+totalExtras);
       });
       console.log({totalCost, totalExtras})
