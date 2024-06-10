@@ -132,26 +132,41 @@ const Cart = (props) => {
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
                       <div className='side-content'>
-                        {itemsInCart.length > 0 ? itemsInCart.map((i, index) => {
+                        {itemsInCart.length > 0 ? itemsInCart.map((item, index) => {
                           return (
-                            i.quantity > 0 ?
+                            item.quantity > 0 ?
                               <div className="cart-item" key={index}>
                                 <div className="cart-img">
-                                  <img src={i.image ? `${apiUrl}/images/${i.image}` : ''} />
+                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : ''} />
                                 </div>
                                 <div className='cart-det'>
                                   <div className="item-head">
-                                    <p>{i.name} - {i.size}</p>
-                                    <button onClick={() => deleteItemFromCart(i.productid, i.sizeId)}>حذف</button>
+                                    <p>{item.name} - {item.size}</p>
+                                    <button onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                   </div>
                                   <div className="del-cost">
                                     <div className='cart-price'>
-                                      <p>{i.priceAfterDiscount ? i.priceAfterDiscount : i.price} ج</p>
-                                      <p>×{i.quantity}</p>
+                                      <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
+                                      <p>×{item.quantity}</p>
                                     </div>
-                                    <p>{i.priceAfterDiscount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity}</p>
+                                    <p>{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity}</p>
                                   </div>
-                                  {i.notes ? <div className='cart-note'>{i.notes}</div> : ''}
+                                  {item.extras?(
+                                    <div>
+                                      {item.extras.map((extra,i)=>{
+                                        <>
+                                        {extra.extraId.map((extraid)=>{
+                                          const extradata = allprduct.filter(pro=>pro._id === extraid)[0]
+                                          return(
+                                            <p>{`${extradata.name} ${extradata.price}`}</p>
+                                          )
+                                        })}
+                                        <p>{extra.priceExtras}</p>
+                                        </>
+                                      })}
+                                    </div>
+                                  ):''}
+                                  {item.notes ? <div className='cart-note'>{item.notes}</div> : ''}
                                 </div>
 
                               </div>
