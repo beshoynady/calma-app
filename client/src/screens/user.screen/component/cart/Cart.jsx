@@ -87,12 +87,12 @@ const Cart = (props) => {
                   </div>
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
-                      <div className="d-flex flex-column w-100">
+                      <div className="d-flex flex-column w-100 p-0 m-0" style={{ heitgh: 'max-content', overflowY: 'auto', overflowX: 'hidden', backgroundColor: 'gray' }}>
                         {itemsInCart.length > 0 ? itemsInCart.map((item, index) => {
                           return (
                             item.quantity > 0 &&
                             <div className="card mb-3 w-100" key={index}>
-                              <div className="row no-gutters">
+                              <div className="row no-gutters w-100">
                                 <div className="col-md-3">
 
                                   {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
@@ -114,15 +114,15 @@ const Cart = (props) => {
                                     {item.extras && (
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                          <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{borderBottom :'1px solid black'}}>
+                                          <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                             <div className='d-flex col-10 align-items-center justfiy-content-between flex-wrap p-0 m-0'>
-                                            {extra.extraId.map((extraid) => {
-                                              const extradata = allProducts.find(pro => pro._id === extraid);
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
-                                              );
-                                            })}
-                                              </div>
+                                              {extra&&extra.extraId&&extra.extraId.map((extraid) => {
+                                                const extradata = allProducts.find(pro => pro._id === extraid);
+                                                return (
+                                                  <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                                );
+                                              })}
+                                            </div>
                                             <p className="d-flex col-2 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
                                           </div>
                                         ))}
