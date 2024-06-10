@@ -43,11 +43,11 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData,allProducts, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({ restaurantData, allProducts, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
-              {console.log({itemsInCart})}
+              {console.log({ itemsInCart })}
               <div className="cart-wrapper">
                 {/* <div className="title-text">
                   <div ref={ordersText} className="title order" >
@@ -85,49 +85,50 @@ const Cart = (props) => {
                   </div>
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
-                      <div className='side-content'>
+                      <div className="d-flex flex-column">
                         {itemsInCart.length > 0 ? itemsInCart.map((item, index) => {
                           return (
-                            item.quantity > 0 ?
-                              <div className="cart-item" key={index}>
-                                <div className="cart-img">
-                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : ''} />
+                            item.quantity > 0 &&
+                            <div className="card mb-3" key={index}>
+                              <div className="row no-gutters">
+                                <div className="col-md-4">
+                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : ''} className="card-img" alt={item.name} />
                                 </div>
-                                <div className='cart-det'>
-                                  <div className="item-head">
-                                    <p>{item.name} - {item.size}</p>
-                                    <button onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
-                                  </div>
-                                  <div className="del-cost">
-                                    <div className='cart-price'>
-                                      <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
-                                      <p>×{item.quantity}</p>
+                                <div className="col-md-8">
+                                  <div className="card-body">
+                                    <div className="d-flex justify-content-between">
+                                      <h5 className="card-title">{item.name} - {item.size}</h5>
+                                      <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
-                                    <p>{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity}</p>
-                                  </div>
-                                  {item.extras?(
-                                    <div className='d-flex w-100 h-auto align-item-start justify-constent-between'>
-                                      {item.extras.map((extra,i)=>{
-                                        <>
-                                        {extra.extraId.map((extraid)=>{
-                                          const extradata = allProducts.filter(pro=>pro._id === extraid)[0]
-                                          return(
-                                            <p>{`${extradata.name} ${extradata.price}`}</p>
-                                          )
-                                        })}
-                                        <p>{extra.priceExtras}</p>
-                                        </>
-                                      })}
+                                    <div className="d-flex justify-content-between mt-2">
+                                      <div>
+                                        <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
+                                        <p className="card-text">×{item.quantity}</p>
+                                      </div>
+                                      <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</p>
                                     </div>
-                                  ):''}
-                                  {item.notes ? <div className='cart-note'>{item.notes}</div> : ''}
+                                    {item.extras && (
+                                      <div className="d-flex flex-wrap mt-2">
+                                        {item.extras.map((extra, i) => (
+                                          <div key={i}>
+                                            {extra.extraId.map((extraid) => {
+                                              const extradata = allProducts.find(pro => pro._id === extraid);
+                                              return (
+                                                <p className="badge badge-secondary mr-2" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                              );
+                                            })}
+                                            <p className="badge badge-info">{extra.priceExtras} ج</p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    )}
+                                    {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
+                                  </div>
                                 </div>
-
                               </div>
-                              : ''
-                          )
-                        })
-                          : ''}
+                            </div>
+                          );
+                        }) : <p>لا توجد منتجات في العربة.</p>}
                       </div>
                       <div className="total-order">
 
