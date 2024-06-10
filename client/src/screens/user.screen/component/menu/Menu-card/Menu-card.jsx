@@ -16,16 +16,7 @@ const MenuCard = () => {
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-  // const [productExtras, setproductExtras] = useState([])
 
-  // const handleAddProductExtras = (extraId) => {
-  //   if (productExtras.length>0 && productExtras.includes(extraId)) {
-  //     const extraList = productExtras.filter(ex => ex !== extraId);
-  //     setproductExtras(extraList);
-  //   } else {
-  //     setproductExtras([...productExtras, extraId]);
-  //   }
-  // };
 
   const xax = (size) => {
     setsize(size)
