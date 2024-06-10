@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { useReactToPrint } from 'react-to-print';
 import './Cart.css'
+import defaultsImage from '../../.././../image/menu/soup.jpg'
+
 import html2pdf from 'html2pdf.js';
 
 const Cart = (props) => {
@@ -85,14 +87,15 @@ const Cart = (props) => {
                   </div>
                   <div className="cart-inner">
                     <div ref={orderside} className="order side">
-                      <div className="d-flex flex-column">
+                      <div className="d-flex flex-column w-100">
                         {itemsInCart.length > 0 ? itemsInCart.map((item, index) => {
                           return (
                             item.quantity > 0 &&
-                            <div className="card mb-3" key={index}>
+                            <div className="card mb-3 w-100" key={index}>
                               <div className="row no-gutters">
                                 <div className="col-md-4">
-                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : ''} className="card-img" alt={item.name} />
+
+                                  <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} />
                                 </div>
                                 <div className="col-md-8">
                                   <div className="card-body">
@@ -101,7 +104,7 @@ const Cart = (props) => {
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
                                     <div className="d-flex justify-content-between mt-2">
-                                      <div>
+                                      <div className="d-flex justify-content-between w-50">
                                         <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                         <p className="card-text">×{item.quantity}</p>
                                       </div>
@@ -110,7 +113,7 @@ const Cart = (props) => {
                                     {item.extras && (
                                       <div className="d-flex flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                          <div key={i}>
+                                          <div key={i} className="d-flex flex-wrap">
                                             {extra.extraId.map((extraid) => {
                                               const extradata = allProducts.find(pro => pro._id === extraid);
                                               return (
