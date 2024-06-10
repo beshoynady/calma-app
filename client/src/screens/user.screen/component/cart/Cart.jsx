@@ -37,53 +37,7 @@ const Cart = (props) => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  // const [listProductsOrder, setlistProductsOrder] = useState([])
-  // const [serial, setserial] = useState('')
-  // const [orderType, setorderType] = useState('')
-  // const [name, setname] = useState('')
-  // const [address, setaddress] = useState('')
-  // const [phone, setphone] = useState('')
-  // const [ordertax, setordertax] = useState()
-  // const [orderTotal, setorderTotal] = useState()
-  // const [orderSubtotal, setorderSubtotal] = useState()
-  // const [orderdeliveryCost, setorderdeliveryCost] = useState()
-  // const [deliveryMan, setdeliveryMan] = useState()
-  // const [ordernum, setordernum] = useState()
-  // const [table, settable] = useState()
-  // const [casher, setcasher] = useState()
-  // const [ivocedate, setivocedate] = useState('')
 
-  // // Fetch orders from API
-  // const getOrderDetalis = async (id) => {
-  //   try {
-
-  //     const res = await axios.get(apiUrl+'/api/order');
-
-  //     const order = res.data.find(o => o.serial == serial)
-
-  //     setlistProductsOrder(order.products)
-  //     setorderTotal(order.total)
-  //     setorderSubtotal(order.subTotal)
-  //     setordertax(order.tax)
-  //     setorderdeliveryCost(order.deliveryCost)
-  //     setserial(order.serial)
-  //     setivocedate(order.createdAt)
-  //     setcasher(order.casher)
-  //     settable(order.orderType == 'Internal' ? order.table : '')
-  //     setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-  //     setorderType(order.orderType)
-  //     setaddress(order.orderType == 'Delivery' ? order.address : "")
-  //     setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
-  //     if (order.orderType != 'Internal') {
-  //       setname(order.name)
-  //       setphone(order.phone)
-  //     }
-
-  //   } catch (error) {
-  //     console.log(error);
-  //     // Display toast or handle error
-  //   }
-  // };
 
   const { id } = useParams()
   return (
@@ -192,6 +146,11 @@ const Cart = (props) => {
                         )}
                       </div>
                     </div>
+
+
+
+
+
                     <div className="invoice side" >
                       <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height: "80%", textAlign: 'center' }}>
                         {/* Invoice Header */}
@@ -288,7 +247,6 @@ const Cart = (props) => {
                       </div>
 
                     </div>
-
                   </div>
                 </div>
               </div >
