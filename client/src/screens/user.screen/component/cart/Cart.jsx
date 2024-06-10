@@ -43,7 +43,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({ restaurantData,allProducts, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -110,7 +110,7 @@ const Cart = (props) => {
                                       {item.extras.map((extra,i)=>{
                                         <>
                                         {extra.extraId.map((extraid)=>{
-                                          const extradata = allprduct.filter(pro=>pro._id === extraid)[0]
+                                          const extradata = allProducts.filter(pro=>pro._id === extraid)[0]
                                           return(
                                             <p>{`${extradata.name} ${extradata.price}`}</p>
                                           )
