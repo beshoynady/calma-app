@@ -104,6 +104,7 @@ const Cart = (props) => {
                                       <p>×{item.quantity}</p>
                                     </div>
                                     <p>{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity}</p>
+                                  </div>
                                   {item.extras?(
                                     <div className='d-flex w-100 h-auto align-item-start justify-constent-between'>
                                       {item.extras.map((extra,i)=>{
@@ -118,8 +119,7 @@ const Cart = (props) => {
                                         </>
                                       })}
                                     </div>
-                                  ):'لاي وجد'}
-                                  </div>
+                                  ):''}
                                   {item.notes ? <div className='cart-note'>{item.notes}</div> : ''}
                                 </div>
 
