@@ -114,16 +114,16 @@ const Cart = (props) => {
                                     {item.extras && (
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                          <div key={i} className="d-flex flex-wrap">
-                                            <div className='d-flex col-8 align-items-center justfiy-content-between flex-wrap'>
+                                          <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{borderBottom :'1px solid black'}}>
+                                            <div className='d-flex col-10 align-items-center justfiy-content-between flex-wrap p-0 m-0'>
                                             {extra.extraId.map((extraid) => {
                                               const extradata = allProducts.find(pro => pro._id === extraid);
                                               return (
-                                                <p className="badge badge-secondary mr-2" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
                                               );
                                             })}
                                               </div>
-                                            <p className="d-flex col-4 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
+                                            <p className="d-flex col-2 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
                                           </div>
                                         ))}
                                       </div>
