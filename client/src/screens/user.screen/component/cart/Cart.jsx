@@ -186,7 +186,7 @@ const Cart = (props) => {
                         <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
                           <thead className="thead-dark">
                             <tr>
-                              <th scope="col" className="col-md-3">الصنف</th>
+                              <th scope="col" className="col-md-4">الصنف</th>
                               <th scope="col" className="col-md-2">السعر</th>
                               <th scope="col" className="col-md-2">الكمية</th>
                               <th scope="col" className="col-md-2">الاجمالي</th>
@@ -195,17 +195,22 @@ const Cart = (props) => {
                           <tbody>
                             {listProductsOrder && listProductsOrder.map((item, i) => (
                               <tr key={i}>
-                                <td className="col-md-3 text-truncate">
+                                <td className="col-md-4 text-truncate">
                                   <p>{item.name}</p>
                                   {item.extras && item.extras.length > 0 && (
-                                    <div className="mt-2">
+                                    <div className="d-flex flex-column w-100 mt-2" style={{borderBottom:'1px solid black'}}> 
                                       {item.extras.map((extra, i) => (
-                                        extra && extra.extraId &&extra.extraId.map((extraid) => {
-                                          const extradata = allProducts.find(pro => pro._id === extraid);
-                                          return (
-                                            <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
-                                          );
-                                        })
+                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between'>
+                                          {
+                                            extra && extra.extraId &&extra.extraId.map((extraid) => {
+                                              const extradata = allProducts.find(pro => pro._id === extraid);
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                              );
+                                            })
+
+                                          }
+                                        </div>
                                       ))}
                                     </div>
                                   )}
@@ -213,7 +218,7 @@ const Cart = (props) => {
                                 <td className="col-md-2 text-nowrap">
                                   <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                   {item.extras && item.extras.length > 0 && (
-                                    <div className="mt-2">
+                                    <div className="d-flex flex-wrap flex-column align-items-center justify-content-between  mt-2">
                                       {item.extras.map((extra, i) => (
                                         extra&&<p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
                                       ))}
