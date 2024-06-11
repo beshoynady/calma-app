@@ -215,11 +215,7 @@ const Cart = (props) => {
                                   {item.extras && item.extras.length > 0 && (
                                     <div className="mt-2">
                                       {item.extras.map((extra, i) => (
-                                        extra && extra.extraId &&extra.extraId.map((extraid) => {
-                                          const extradata = allProducts.find(pro => pro._id === extraid);
-                                          return null; // Only show the total price of extras below
-                                        }),
-                                        <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
+                                        extra&&<p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
                                       ))}
                                     </div>
                                   )}
