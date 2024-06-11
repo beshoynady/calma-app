@@ -35,7 +35,7 @@ const createOrder = async (req, res) => {
         } = req.body;
 
         // Validate required fields
-        if (!serial || !products || !subTotal || !total || !status || !orderType || !isActive || !payment_status) {
+        if (!serial || !products || !subTotal || !total) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
