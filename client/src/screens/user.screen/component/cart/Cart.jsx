@@ -99,13 +99,13 @@ const Cart = (props) => {
                                   <img src={defaultsImage} className="card-img" alt={item.name} />
                                 </div>
                                 <div className="col-md-9">
-                                  <div className="card-body d-flex flex-column align-items-stretch justfiy-content-start">
-                                    <div className="d-flex justfiy-content-between w-100">
+                                  <div className="card-body d-flex flex-column align-items-stretch     justify-content-start">
+                                    <div className="d-flex     justify-content-between w-100">
                                       <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
-                                    <div className="d-flex justfiy-content-between mt-2">
-                                      <div className="d-flex justfiy-content-between w-50">
+                                    <div className="d-flex     justify-content-between mt-2">
+                                      <div className="d-flex     justify-content-between w-50">
                                         <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                         <p className="card-text">×{item.quantity}</p>
                                       </div>
@@ -115,7 +115,7 @@ const Cart = (props) => {
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
                                           extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                            <div className='d-flex col-10 align-items-center justfiy-content-between flex-wrap p-0 m-0'>
+                                            <div className='d-flex col-10 align-items-center     justify-content-between flex-wrap p-0 m-0'>
                                               {extra.extraId.map((extraid) => {
                                                 const extradata = allProducts.find(pro => pro._id === extraid);
                                                 return (
@@ -123,7 +123,7 @@ const Cart = (props) => {
                                                 );
                                               })}
                                             </div>
-                                            <p className="d-flex col-2 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
+                                            <p className="d-flex col-2 align-items-center     justify-content-center badge badge-info">{extra.priceExtras} ج</p>
                                           </div>
                                         ))}
                                       </div>
@@ -207,40 +207,39 @@ const Cart = (props) => {
                                 </tr>
 
                                 {item.extras && item.extras.length > 0 && (
-                                  item.extras.map((extra, i) => (
-                                    <tr>
-                                      <td className="col-md-4 text-truncate">
-                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
-                                          {extra && extra.extraId && extra.extraId.map((extraid) => {
-                                            const extradata = allProducts.find(pro => pro._id === extraid);
-                                            return (
-                                              <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name}`}</p>
-                                            );
-                                          })
-
-                                          }
-                                        </div>
-                                      </td>
-                                      <td className="col-md-2 text-nowrap">
-                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
-                                          {extra && extra.extraId && extra.extraId.map((extraid) => {
-                                            const extradata = allProducts.find(pro => pro._id === extraid);
-                                            return (
-                                              <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.price}`}</p>
-                                            );
-                                          })
-
-                                          }
-                                        </div>
-
-                                      </td>
-                                      <td className="col-md-2 text-nowrap">1</td>
-                                      <td className="col-md-2 text-nowrap">
-                                        {extra && (
-                                          <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
-                                        )}</td>
-                                    </tr>
-                                  )))}
+                                  item.extras.map((extra, j) => (
+                                    extra && (
+                                      <tr key={`${i}-${j}`}>
+                                        <td className="col-md-3 text-truncate">
+                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between" style={{ borderBottom: '1px solid black' }}>
+                                            {extra.extraId && extra.extraId.map((extraid) => {
+                                              const extradata = allProducts.find(pro => pro._id === extraid);
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={extraid}>{extradata.name}</p>
+                                              );
+                                            })}
+                                          </div>
+                                        </td>
+                                        <td className="col-md-2 text-nowrap">
+                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
+                                            {extra.extraId && extra.extraId.map((extraid) => {
+                                              const extradata = allProducts.find(pro => pro._id === extraid);
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={extraid}>{extradata.price}</p>
+                                              );
+                                            })}
+                                          </div>
+                                        </td>
+                                        <td className="col-md-2 text-nowrap">1</td>
+                                        <td className="col-md-2 text-nowrap">
+                                          {extra && (
+                                            <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
+                                          )}
+                                        </td>
+                                      </tr>
+                                    )
+                                  ))
+                                )}
                               </>
                             ))}
                             {/* {listProductsOrder && listProductsOrder.map((item, i) => (
@@ -251,7 +250,7 @@ const Cart = (props) => {
                                   {item.extras && item.extras.length > 0 && (
                                     <div className="d-flex flex-column w-100 mt-2"> 
                                       {item.extras.map((extra, i) => (
-                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{borderBottom:'1px solid black'}}>
+                                        <div className='d-flex flex-wrap w-100 align-items-center     justify-content-between' style={{borderBottom:'1px solid black'}}>
                                           {
                                             extra && extra.extraId &&extra.extraId.map((extraid) => {
                                               const extradata = allProducts.find(pro => pro._id === extraid);
@@ -269,7 +268,7 @@ const Cart = (props) => {
                                 <td className="col-md-2 text-nowrap">
                                   <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                   {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
+                                    <div className="d-flex flex-wrap flex-column align-items-center     justify-content-between  mt-2">
                                       {item.extras.map((extra, i) => (
                                         extra&&<p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
                                       ))}
@@ -324,7 +323,7 @@ const Cart = (props) => {
                         </div>
 
                       </div>
-                      <div className="total-order p-1 d-flex align-items-center justfiy-content-between mt-3">
+                      <div className="total-order p-1 d-flex align-items-center     justify-content-between mt-3">
                         {id ? (
                           <button className='total-order-btn btn btn-success' onClick={checkout}>طلب الحساب</button>
                         ) : null}
