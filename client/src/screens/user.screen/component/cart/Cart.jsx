@@ -200,7 +200,7 @@ const Cart = (props) => {
                                   {item.extras && item.extras.length > 0 && (
                                     <div className="mt-2">
                                       {item.extras.map((extra, i) => (
-                                        extra.extraId.map((extraid) => {
+                                        extra && extra.extraId &&extra.extraId.map((extraid) => {
                                           const extradata = allProducts.find(pro => pro._id === extraid);
                                           return (
                                             <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
