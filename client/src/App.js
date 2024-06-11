@@ -821,6 +821,7 @@ function App() {
   
         item.totalprice = itemTotalPrice + totalExtras;
         totalCost += item.totalprice;
+        totalExtras = 0
       });
   
       console.log({ totalCost });
