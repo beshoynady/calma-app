@@ -86,7 +86,6 @@ const createOrder = async (req, res) => {
     }
 };
 
-module.exports = createOrder;
 
 
 // Get an order by ID
