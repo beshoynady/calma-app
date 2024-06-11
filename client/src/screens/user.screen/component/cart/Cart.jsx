@@ -173,7 +173,7 @@ const Cart = (props) => {
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
                             <p>العنوان: {myOrder.address}</p>
-                            <p>الديليفري: {myOrder.deliveryMan.fullname}</p>
+                            <p>الديليفري: {myOrder.deliveryMan&&myOrder.deliveryMan.fullname}</p>
                           </div> : myOrder.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
