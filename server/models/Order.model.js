@@ -75,7 +75,7 @@ const OrderSchema = new mongoose.Schema({
           extraId: [
             {
               type: ObjectId,
-              ref: 'Extra',
+              ref: 'Product',
             }
           ],
           priceExtras: {
