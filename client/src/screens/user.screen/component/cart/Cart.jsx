@@ -222,7 +222,7 @@ const Cart = (props) => {
                                         </div>
                                       </td>
                                       <td className="col-md-2 text-nowrap">
-                                      <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
+                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
                                           {extra && extra.extraId && extra.extraId.map((extraid) => {
                                             const extradata = allProducts.find(pro => pro._id === extraid);
                                             return (
@@ -232,14 +232,12 @@ const Cart = (props) => {
 
                                           }
                                         </div>
-                                        
+
                                       </td>
                                       <td className="col-md-2 text-nowrap">1</td>
                                       <td className="col-md-2 text-nowrap">
-                                        {item.extras && item.extras.length > 0 && (
-                                          <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
-                                            <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
-                                          </div>
+                                        {extra && (
+                                          <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
                                         )}</td>
                                     </tr>
                                   )))}
