@@ -259,7 +259,7 @@ function App() {
           'authorization': `Bearer ${token}`,
         },
       });
-
+      console.log({order:response})
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch orders.');

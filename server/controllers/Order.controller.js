@@ -105,7 +105,7 @@ const getOrder = async (req, res) => {
 // Get all orders
 const getOrders = async (req, res) => {
     try {
-        // Fetch orders from the database
+        // Fetch orders from the database with population of references
         const orders = await OrderModel.find()
             .populate('products.productid')
             .populate('products.sizeId')
@@ -125,12 +125,15 @@ const getOrders = async (req, res) => {
         // Respond with success and the orders data
         res.status(200).json(orders);
     } catch (err) {
+        // Log the error for debugging purposes
+        console.error('Error fetching orders:', err);
+
         // Check the type of error and respond with appropriate message
         if (err.name === 'ValidationError') {
-            res.status(422).json({ error: 'Invalid data format' });
+            res.status(422).json({ error: 'Invalid data format', details: err.errors });
         } else {
             // Respond with a general error message for unexpected errors
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500).json({ error: 'Internal server error', details: err.message });
         }
     }
 };
