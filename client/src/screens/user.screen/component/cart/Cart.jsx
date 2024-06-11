@@ -92,20 +92,20 @@ const Cart = (props) => {
                           return (
                             item.quantity > 0 &&
                             <div className="card mb-3 w-100" key={index}>
-                              <div className="row no-gutters w-100">
+                              <div className="row no-gutters w-100 m-0 p-0">
                                 <div className="col-md-3">
 
                                   {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
-                                  <img src={defaultsImage} className="card-img" alt={item.name} />
+                                  <img src={defaultsImage} className="card-img w-100 h-100" alt={item.name} />
                                 </div>
                                 <div className="col-md-9">
-                                  <div className="card-body d-flex flex-column align-items-stretch     justify-content-start">
-                                    <div className="d-flex     justify-content-between w-100">
+                                  <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{padding:'4px'}}>
+                                    <div className="d-flex  justify-content-between w-100">
                                       <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
-                                    <div className="d-flex     justify-content-between mt-2">
-                                      <div className="d-flex     justify-content-between w-50">
+                                    <div className="d-flex justify-content-between mt-2">
+                                      <div className="d-flex justify-content-between w-50">
                                         <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                         <p className="card-text">×{item.quantity}</p>
                                       </div>

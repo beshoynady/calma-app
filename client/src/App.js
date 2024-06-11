@@ -802,22 +802,28 @@ function App() {
   const calculateOrderCost = () => {
     try {
       let totalCost = 0;
-      let totalExtras = 0 
+  
       // Determine which list to operate on based on the presence of items in itemsInCart or productOrderToUpdate
       const itemsList = itemsInCart.length > 0 ? itemsInCart : productOrderToUpdate;
-
+  
       // Calculate total cost based on the items in the list
       itemsList.forEach(item => {
+        let totalExtras = 0;  // Reset totalExtras for each item
         const itemTotalPrice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
-        
-        if(item.extras.length>0){
-          item.extras.map((extra, i)=>{
-             if(extra){totalExtras += extra.priceExtras}})
+  
+        if (item.extras.length > 0) {
+          item.extras.forEach(extra => {
+            if (extra) {
+              totalExtras += extra.priceExtras;
+            }
+          });
         }
-        item.totalprice = (itemTotalPrice + totalExtras);
-        totalCost += (itemTotalPrice+totalExtras);
+  
+        item.totalprice = itemTotalPrice + totalExtras;
+        totalCost += item.totalprice;
       });
-      console.log({totalCost, totalExtras})
+  
+      console.log({ totalCost });
       // Update the state with the total cost
       setcostOrder(totalCost);
     } catch (error) {
@@ -825,6 +831,7 @@ function App() {
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
+  
 
 
   const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
