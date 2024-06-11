@@ -195,74 +195,81 @@ const Cart = (props) => {
                           <tbody>
                             {listProductsOrder && listProductsOrder.map((item, i) => (
                               <>
-                              <tr key={i}>
-                                <td className="col-md-4 text-truncate">
-                                  <p>{item.name}</p>
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-column w-100 mt-2">
-                                      {item.extras.map((extra, i) => (
+                                <tr key={i}>
+                                  <td className="col-md-4 text-truncate">
+                                    <p>{item.name}</p>
+                                    {item.extras && item.extras.length > 0 && (
+                                      <div className="d-flex flex-column w-100 mt-2">
+                                        {item.extras.map((extra, i) => (
+                                          <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
+                                            {
+                                              extra && extra.extraId && extra.extraId.map((extraid) => {
+                                                const extradata = allProducts.find(pro => pro._id === extraid);
+                                                return (
+                                                  <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                                );
+                                              })
+
+                                            }
+                                          </div>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </td>
+                                  <td className="col-md-2 text-nowrap">
+                                    <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
+                                    {item.extras && item.extras.length > 0 && (
+                                      <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
+                                        {item.extras.map((extra, i) => (
+                                          extra && <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </td>
+                                  <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                  <td className="col-md-2 text-nowrap">{item.totalprice} ج</td>
+                                </tr>
+
+                                {item.extras && item.extras.length > 0 && (
+                                  item.extras.map((extra, i) => (
+                                    <tr>
+                                      <td className="col-md-4 text-truncate">
                                         <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
-                                          {
-                                            extra && extra.extraId && extra.extraId.map((extraid) => {
-                                              const extradata = allProducts.find(pro => pro._id === extraid);
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
-                                              );
-                                            })
+                                          {extra && extra.extraId && extra.extraId.map((extraid) => {
+                                            const extradata = allProducts.find(pro => pro._id === extraid);
+                                            return (
+                                              <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name}`}</p>
+                                            );
+                                          })
 
                                           }
                                         </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">
-                                  <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
-                                      {item.extras.map((extra, i) => (
-                                        extra && <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                <td className="col-md-2 text-nowrap">{item.totalprice} ج</td>
-                              </tr>
-                              {item.extras && item.extras.length > 0 && 
-                              <tr>
-                                <td className="col-md-4 text-truncate">
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-column w-100 mt-2">
-                                      {item.extras.map((extra, i) => (
-                                        <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
-                                          {
-                                            extra && extra.extraId && extra.extraId.map((extraid) => {
-                                              const extradata = allProducts.find(pro => pro._id === extraid);
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
-                                              );
-                                            })
+                                        )
+                                      </td>
+                                      <td className="col-md-2 text-nowrap">
+                                      <div className='d-flex flex-wrap w-100 align-items-center justfiy-content-between' style={{ borderBottom: '1px solid black' }}>
+                                          {extra && extra.extraId && extra.extraId.map((extraid) => {
+                                            const extradata = allProducts.find(pro => pro._id === extraid);
+                                            return (
+                                              <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.price}`}</p>
+                                            );
+                                          })
 
                                           }
                                         </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
-                                      {item.extras.map((extra, i) => (
-                                        extra && <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">1</td>
-                                <td className="col-md-2 text-nowrap">-</td>
-                              </tr>
-                              }
+                                        
+                                      </td>
+                                      <td className="col-md-2 text-nowrap">1</td>
+                                      <td className="col-md-2 text-nowrap">
+                                        {item.extras && item.extras.length > 0 && (
+                                          <div className="d-flex flex-wrap flex-column align-items-center justfiy-content-between  mt-2">
+                                            {item.extras.map((extra, i) => (
+                                              extra && <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
+                                            ))}
+                                          </div>
+                                        )}</td>
+                                    </tr>
+                                  )))}
                               </>
                             ))}
                             {/* {listProductsOrder && listProductsOrder.map((item, i) => (
