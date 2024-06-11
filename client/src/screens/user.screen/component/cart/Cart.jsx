@@ -193,59 +193,56 @@ const Cart = (props) => {
                             </tr>
                           </thead>
                           <tbody>
-                            {/* Replace this with your dynamic data */}
                             {listProductsOrder && listProductsOrder.map((item, i) => (
                               <tr key={i}>
-                                <td className="col-md-3 text-truncate d-flex flex-column">
-                                  <p className='w-100'>{item.name}</p>
-                                  {item.extras && (
-                                    <div className="d-flex flex-columen flex-wrap mt-2">
+                                <td className="col-md-3 text-truncate">
+                                  <p>{item.name}</p>
+                                  {item.extras && item.extras.length > 0 && (
+                                    <div className="mt-2">
                                       {item.extras.map((extra, i) => (
-                                        extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                          <div className='d-flex col-12 align-items-center justfiy-content-between flex-wrap p-0 m-0'>
-                                            {extra.extraId.map((extraid) => {
-                                              const extradata = allProducts.find(pro => pro._id === extraid);
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
-                                              );
-                                            })}
-                                          </div>
-                                          
-                                        </div>
+                                        extra.extraId.map((extraid) => {
+                                          const extradata = allProducts.find(pro => pro._id === extraid);
+                                          return (
+                                            <p className="badge badge-secondary m-1" key={extraid}>{`${extradata.name} ${extradata.price} ج`}</p>
+                                          );
+                                        })
                                       ))}
                                     </div>
-                                  )}</td>
+                                  )}
+                                </td>
                                 <td className="col-md-2 text-nowrap">
-                                  <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</p>
-                                {item.extras && (
-                                    <div className="d-flex flex-columen flex-wrap mt-2">
+                                  <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
+                                  {item.extras && item.extras.length > 0 && (
+                                    <div className="mt-2">
                                       {item.extras.map((extra, i) => (
-                                        extra && extra.extraId && <div key={i} className="d-flex w-100 m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                          <p className="d-flex col-12 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
-                                        </div>
+                                        extra.extraId.map((extraid) => {
+                                          const extradata = allProducts.find(pro => pro._id === extraid);
+                                          return null; // Only show the total price of extras below
+                                        }),
+                                        <p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
                                       ))}
                                     </div>
                                   )}
                                 </td>
                                 <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                <td className="col-md-2 text-nowrap">{item.totalprice} ج</td>
                               </tr>
                             ))}
                           </tbody>
                           <tfoot>
                             <tr>
                               <td colSpan="3">المجموع</td>
-                              <td>{orderSubtotal > 0 ? orderSubtotal : 0}</td>
+                              <td>{orderSubtotal > 0 ? orderSubtotal : 0} ج</td>
                             </tr>
                             {myOrder.deliveryCost > 0 && (
                               <tr>
                                 <td colSpan="3">خدمة التوصيل</td>
-                                <td>{myOrder.deliveryCost}</td>
+                                <td>{myOrder.deliveryCost} ج</td>
                               </tr>
                             )}
                             <tr>
                               <td colSpan="3">الاجمالي</td>
-                              <td>{orderTotal > 0 ? orderTotal : 0}</td>
+                              <td>{orderTotal > 0 ? orderTotal : 0} ج</td>
                             </tr>
                           </tfoot>
                         </table>
