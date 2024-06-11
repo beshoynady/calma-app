@@ -163,7 +163,7 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير: {usertitle(myOrder.casher)} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {myOrder.casher.fullname} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
@@ -173,7 +173,7 @@ const Cart = (props) => {
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
                             <p>العنوان: {myOrder.address}</p>
-                            <p>الديليفري: {usertitle(myOrder.deliveryMan)}</p>
+                            <p>الديليفري: {myOrder.deliveryMan.fullname}</p>
                           </div> : myOrder.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>

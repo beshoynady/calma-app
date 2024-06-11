@@ -936,8 +936,6 @@ function App() {
   };
 
 
-
-
   const createOrderForTableByClient = async (tableId) => {
     try {
       // Find orders for the specified table
