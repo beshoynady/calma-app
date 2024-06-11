@@ -210,12 +210,13 @@ const Cart = (props) => {
                                               );
                                             })}
                                           </div>
-                                          <p className="d-flex col-2 align-items-center justfiy-content-center badge badge-info">{extra.priceExtras} ج</p>
+                                          
                                         </div>
                                       ))}
                                     </div>
                                   )}</td>
-                                <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}
+                                <td className="col-md-2 text-nowrap">
+                                  <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</p>
                                 {item.extras && (
                                     <div className="d-flex flex-columen flex-wrap mt-2">
                                       {item.extras.map((extra, i) => (
