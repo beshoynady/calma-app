@@ -92,7 +92,16 @@ const createOrder = async (req, res) => {
 const getOrder = async (req, res) => {
     try {
         const orderId = req.params.id;
-        const order = await OrderModel.findById(orderId);
+        const order = await OrderModel.findById(orderId)
+            .populate('products.productid')
+            .populate('products.sizeId')
+            .populate('products.extras.extraId')
+            .populate('table')
+            .populate('user')
+            .populate('createBy')
+            .populate('casher')
+            .populate('waiter')
+            .populate('deliveryMan');
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
