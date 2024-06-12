@@ -917,9 +917,9 @@ const ManagerDash = () => {
                                               <td className="col-md-3 text-truncate">
                                                 <div className="d-flex flex-wrap w-100 align-items-center justify-content-between" style={{ borderBottom: '1px solid black' }}>
                                                   {extra.extraId && extra.extraId.map((extraid) => {
-                                                    const extradata = allProducts.find(pro => pro._id === extraid);
+                                                   
                                                     return (
-                                                      <p className="badge badge-secondary m-1" key={extraid}>{extradata.name}</p>
+                                                      <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
                                                     );
                                                   })}
                                                 </div>
@@ -927,9 +927,9 @@ const ManagerDash = () => {
                                               <td className="col-md-2 text-nowrap">
                                                 <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
                                                   {extra.extraId && extra.extraId.map((extraid) => {
-                                                    const extradata = allProducts.find(pro => pro._id === extraid);
+                                                   
                                                     return (
-                                                      <p className="badge badge-secondary m-1" key={extraid}>{extradata.price}</p>
+                                                      <p className="badge badge-secondary m-1" key={extraid}>{extraid.price}</p>
                                                     );
                                                   })}
                                                 </div>
