@@ -922,7 +922,6 @@ const ManagerDash = () => {
                                               <td className="col-md-3 text-truncate">
                                                 <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
                                                   {extra.extraId && extra.extraId.map((extraid) => {
-                                                   
                                                     return (
                                                       <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
                                                     );
