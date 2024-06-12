@@ -195,6 +195,7 @@ const Cart = (props) => {
                           <tbody>
                             {listProductsOrder.map((item, i) => (
                               <>
+                              {console.log({item})}
                                 <tr key={i}>
                                   <td className="col-md-3 text-truncate">{item.name}</td>
                                   <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -205,7 +206,6 @@ const Cart = (props) => {
                                   item.extras.map((extra, j) => (
                                     extra && (
                                       <tr key={`${i}-${j}`}>
-                                        {console.log({extra})}
                                         <td className="col-md-3 text-truncate">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraId && extra.extraId.map((extraid) => {
