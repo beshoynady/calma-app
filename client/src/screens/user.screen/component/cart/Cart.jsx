@@ -195,7 +195,6 @@ const Cart = (props) => {
                           <tbody>
                             {listProductsOrder.map((item, i) => (
                               <>
-                              {console.log({item})}
                                 <tr key={i}>
                                   <td className="col-md-3 text-truncate">{item.name}</td>
                                   <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
