@@ -839,7 +839,7 @@ function App() {
     try {
       console.log({ itemsInCart })
       // Find the user's orders
-      const userOrders = allOrders.filter((order) => order.user === userId);
+      const userOrders = allOrders.filter((order) => order.user._id === userId);
       const lastUserOrder = userOrders.length > 0 ? userOrders[userOrders.length - 1] : null;
 
       // Check if the last user order is active
@@ -939,7 +939,7 @@ function App() {
   const createOrderForTableByClient = async (tableId) => {
     try {
       // Find orders for the specified table
-      const tableOrders = allOrders.filter((order) => order.table === tableId);
+      const tableOrders = allOrders.filter((order) => order.table._id === tableId);
       const lastTableOrder = tableOrders.length > 0 ? tableOrders[tableOrders.length - 1] : {};
       const lastTableOrderActive = lastTableOrder.isActive;
 
@@ -1044,11 +1044,11 @@ function App() {
       try {
         console.log(clientId);
 
-        const tableOrder = allOrders.filter((order) => order.table == clientId);
+        const tableOrder = allOrders.filter((order) => order.table._id == clientId);
         const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : {};
         const lastTableOrderActive = lastTableOrder.isActive;
 
-        const userOrder = allOrders.filter((order) => order.user == clientId);
+        const userOrder = allOrders.filter((order) => order.user._id == clientId);
         const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : {};
         const lastUserOrderActive = lastUserOrder.isActive;
 
@@ -1123,7 +1123,7 @@ function App() {
   const createWaiterOrderForTable = async (tableId, waiterId) => {
     try {
       // Check for active orders for the table
-      const tableOrder = allOrders.filter((order) => order.table === tableId);
+      const tableOrder = allOrders.filter((order) => order.table._id === tableId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
 
