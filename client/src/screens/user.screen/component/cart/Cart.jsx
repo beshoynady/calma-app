@@ -99,7 +99,7 @@ const Cart = (props) => {
                                   <img src={defaultsImage} className="card-img w-100 h-100" alt={item.name} />
                                 </div>
                                 <div className="col-md-9">
-                                  <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{padding:'4px'}}>
+                                  <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{ padding: '4px' }}>
                                     <div className="d-flex  justify-content-between w-100">
                                       <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
@@ -117,7 +117,7 @@ const Cart = (props) => {
                                           extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                             <div className='d-flex col-10 align-items-center     justify-content-between flex-wrap p-0 m-0'>
                                               {extra.extraId.map((extraid) => {
-                                              
+
                                                 return (
                                                   <p className="badge badge-secondary m-1" key={extraid}>{`${extraid.name} ${extraid.price} ج`}</p>
                                                 );
@@ -163,7 +163,7 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير: {myOrder.casher&&myOrder.casher.fullname} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${myOrder.table&&myOrder.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {myOrder.casher && myOrder.casher.fullname} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${myOrder.table && myOrder.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
@@ -173,7 +173,7 @@ const Cart = (props) => {
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
                             <p>العنوان: {myOrder.address}</p>
-                            <p>الديليفري: {myOrder.deliveryMan&&myOrder.deliveryMan.fullname}</p>
+                            <p>الديليفري: {myOrder.deliveryMan && myOrder.deliveryMan.fullname}</p>
                           </div> : myOrder.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
@@ -211,9 +211,9 @@ const Cart = (props) => {
                                     extra && (
                                       <tr key={`${i}-${j}`}>
                                         <td className="col-md-3 text-truncate">
-                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between" style={{ borderBottom: '1px solid black' }}>
+                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraId && extra.extraId.map((extraid) => {
-                                            
+
                                               return (
                                                 <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
                                               );
@@ -223,7 +223,7 @@ const Cart = (props) => {
                                         <td className="col-md-2 text-nowrap">
                                           <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraId && extra.extraId.map((extraid) => {
-                                            
+
                                               return (
                                                 <p className="badge badge-secondary m-1" key={extraid}>{extraid.price}</p>
                                               );
