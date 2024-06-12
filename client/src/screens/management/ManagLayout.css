@@ -43,7 +43,6 @@
   color: var(--light) !important;
   flex-direction: column;
   height: 100%;
-  margin-right: 10px;
   overflow: auto;
   display: flex;
   justify-content: flex-start;

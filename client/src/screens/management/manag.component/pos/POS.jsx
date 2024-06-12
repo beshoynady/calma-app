@@ -4,6 +4,8 @@ import { useReactToPrint } from 'react-to-print';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+import defaultsImage from '../../.././../image/menu/soup.jpg'
+
 import './POS.css'
 import { number } from 'joi';
 
@@ -93,7 +95,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,itemId,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -106,8 +108,10 @@ const POS = () => {
                       {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
 
-                          <div className="pos-card" key={index} onClick={() =>{ addItemToCart(product._id, sizeId)}}>
-                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
+                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
+
+                            {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
                             <div className="pos-card-detalis">
                               <div className='card-name'>
                                 <div className='product-name'>{product.name}</div>
@@ -418,9 +422,9 @@ const POS = () => {
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
-                  <div className="row" style={{ padding: '0', margin: '0' }}>
-                    <div className="col-12">
-                      <div className="btn btn-group btn btn-block">
+                  <div className="row w-100 p-0 m-0">
+                    <div className="col-12 w-100 p-0 m-0">
+                      <div className="btn btn-group btn btn-block w-100 p-0 m-0">
                         <a href="#typeOrderModal" type="button" className="btn btn-47 btn-primary" data-toggle="modal" onClick={(e) => { setordertype('Internal') }}>الصالة</a>
                         <a type="button" className="btn btn-47 btn-success" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Takeaway') }}>التيك أوي</a>
                         <a type="button" className="btn btn-47 btn-danger" href="#typeOrderModal" data-toggle="modal" onClick={(e) => { setordertype('Delivery') }}>التوصيل</a>
@@ -428,8 +432,8 @@ const POS = () => {
                     </div>
                   </div>
 
-                  <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflow: 'auto' }}>
-                    <div className="col-12 col-md-8 overflow-auto" style={{ width: '100%' }}>
+                  <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflowY: 'auto' }}>
+                    <div className="col-12 col-md-8 overflowY-auto" style={{ width: '100%' }}>
                       {
                         itemsInCart.length > 0 ? itemsInCart.map((i, index) => (
                           <div className="card mb-3" key={index}>
