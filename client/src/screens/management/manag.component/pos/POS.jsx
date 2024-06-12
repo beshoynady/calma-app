@@ -109,7 +109,7 @@ const POS = () => {
                         return (
 
                           <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
-                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
+                            <img src={defaultsImage} className="card-img w-100" style={{heitgh: '100%' }} />
 
                             {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
                             <div className="pos-card-detalis">
