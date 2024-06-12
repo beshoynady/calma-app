@@ -161,7 +161,7 @@ const Cart = (props) => {
 
 
                     <div className="invoice side" >
-                      <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', height: "80%", textAlign: 'center' }}>
+                      <div ref={printContainer} className="max-w-400px p-1 mb-7 printpage" style={{ Width: '100%', height: "80%", textAlign: 'center',overflowY:'auto', overflowX:'hidden' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>

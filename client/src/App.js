@@ -906,13 +906,12 @@ function App() {
       itemsList.forEach(item => {
         let totalExtras = 0; // Reset totalExtras for each item
         const itemTotalPrice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
-  
-        if (item.extras && item.extras.length > 0) {
+
+
+        if (item.extras.length > 0) {
           item.extras.forEach(extra => {
-            if (extra && extra.extraDetails && extra.extraDetails.length > 0) { // Check if extra has extraDetails array
-              extra.extraDetails.forEach(detail => {
-                totalExtras += detail.price;
-              });
+            if (extra) {
+              totalExtras += extra.totalExtrasPrice;
             }
           });
         }
