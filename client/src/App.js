@@ -1040,57 +1040,63 @@ function App() {
 
 
   const invoice = async (clientId) => {
-    if (clientId) {
-      try {
-        console.log(clientId);
-
-        const tableOrder = order.table&& allOrders.filter((order) => order.table._id === clientId);
-        const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : {};
-        const lastTableOrderActive = lastTableOrder.isActive;
-
-        const userOrder = order.user&& allOrders.filter((order) => order.user._id === clientId);
-        const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : {};
-        const lastUserOrderActive = lastUserOrder.isActive;
-
-        if (lastTableOrderActive) {
-          const orderId = lastTableOrder._id;
-          const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
-          const data = myOrder.data;
-          console.log(data);
-          console.log(data._id);
-          settablenum(data.tableNumber)
-          setmyOrder(data);
-          setmyOrderId(data._id);
-          setlistProductsOrder(data.products);
-          setorderUpdateDate(data.updatedAt);
-          setorderTotal(data.total);
-          setorderSubtotal(data.subTotal);
-          // setOrderTax(data.tax);
-          setitemsInCart([]);
-        } else if (lastUserOrderActive) {
-          const orderId = lastUserOrder._id;
-          const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
-          const data = myOrder.data;
-          console.log(data);
-          setmyOrder(data);
-          setmyOrderId(data._id);
-          setlistProductsOrder(data.products);
-          setorderUpdateDate(data.updatedAt);
-          setorderTotal(data.total);
-          setorderSubtotal(data.subTotal);
-          // setOrderTax(data.tax);
-          setorderDeliveryCost(data.deliveryCost);
-          setitemsInCart([]);
-        }
-      } catch (error) {
-        console.error(error);
-        window.alert("حدث خطأ أثناء جلب الفاتورة");
-      }
-    } else {
-      window.alert("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
+    if (!clientId) {
+        window.alert("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
+        return;
     }
 
-  };
+    try {
+        // Log client ID for debugging
+        console.log(clientId);
+
+        // Filter orders related to the client's table
+        const tableOrder = allOrders.filter((order) => order.table && order.table._id === clientId);
+        const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
+        const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
+
+        // Filter orders related to the user
+        const userOrder = allOrders.filter((order) => order.user && order.user._id === clientId);
+        const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
+        const lastUserOrderActive = lastUserOrder ? lastUserOrder.isActive : false;
+
+        // Fetch and set order details based on the active order found
+        if (lastTableOrderActive) {
+            const orderId = lastTableOrder._id;
+            const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
+            const data = myOrder.data;
+
+            // Update state with the order details
+            settablenum(data.tableNumber);
+            setmyOrder(data);
+            setmyOrderId(data._id);
+            setlistProductsOrder(data.products);
+            setorderUpdateDate(data.updatedAt);
+            setorderTotal(data.total);
+            setorderSubtotal(data.subTotal);
+            setitemsInCart([]);
+        } else if (lastUserOrderActive) {
+            const orderId = lastUserOrder._id;
+            const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
+            const data = myOrder.data;
+
+            // Update state with the order details
+            setmyOrder(data);
+            setmyOrderId(data._id);
+            setlistProductsOrder(data.products);
+            setorderUpdateDate(data.updatedAt);
+            setorderTotal(data.total);
+            setorderSubtotal(data.subTotal);
+            setorderDeliveryCost(data.deliveryCost);
+            setitemsInCart([]);
+        } else {
+            window.alert("لا توجد طلبات نشطة لهذا العميل");
+        }
+    } catch (error) {
+        console.error("Error fetching the invoice:", error);
+        window.alert("حدث خطأ أثناء جلب الفاتورة");
+    }
+};
+
 
   const checkout = async () => {
     try {
