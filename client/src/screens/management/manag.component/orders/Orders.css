@@ -72,6 +72,11 @@
 	width: 60px;
 	margin: 0 5px;
 }
+.show-entries span {
+    color: #000;
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: 10px;}
 
 .table-filter .filter-group {
 	float: right;

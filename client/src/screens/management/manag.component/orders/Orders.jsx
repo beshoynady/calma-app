@@ -190,7 +190,7 @@ const Orders = () => {
                     </div>
                   </div>
                   <div class="table-filter">
-                    <div class="row">
+                    <div class="row text-dark">
                       <div class="col">
                         <div class="show-entries">
                           <span>عرض</span>
