@@ -111,41 +111,25 @@ const Cart = (props) => {
                                       </div>
                                       <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</p>
                                     </div>
+
+
                                     {item.extras && (
-                                      <div className="d-flex flex-column flex-wrap mt-2">
-                                        {item.extras.map((extra, i) => (
-                                          extra && extra.extraDetails && (
-                                            <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                              <div className='d-flex col-10 align-items-center justify-content-between flex-wrap p-0 m-0'>
-                                                {extra.extraDetails.map((detail, j) => (
-                                                  <p className="badge badge-secondary m-1" key={j}>{`${detail.name} ${detail.price} ج`}</p>
-                                                ))}
-                                              </div>
-                                              <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
-                                            </div>
-                                          )
-                                        ))}
-                                      </div>
-                                    )}
-
-
-                                    {/* {item.extras && (
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                          extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                          extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                             <div className='d-flex col-10 align-items-center     justify-content-between flex-wrap p-0 m-0'>
-                                              {extra.extraId.map((extraid) => {
+                                              {extra.extraDetails.map((detail) => {
 
                                                 return (
-                                                  <p className="badge badge-secondary m-1" key={extraid}>{`${extraid.name} ${extraid.price} ج`}</p>
+                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
                                                 );
                                               })}
                                             </div>
-                                            <p className="d-flex col-2 align-items-center     justify-content-center badge badge-info">{extra.priceExtras} ج</p>
+                                            <p className="d-flex col-2 align-items-center     justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
                                           </div>
                                         ))}
                                       </div>
-                                    )} */}
+                                    )}
                                     {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
                                   </div>
                                 </div>
@@ -219,95 +203,37 @@ const Cart = (props) => {
                                   <td className="col-md-2 text-nowrap">{item.quantity}</td>
                                   <td className="col-md-2 text-nowrap">{item.totalprice}</td>
                                 </tr>
-                                {item.extras && (
-                                  <div className="d-flex flex-column flex-wrap mt-2">
-                                    {item.extras.map((extra, i) => (
-                                      extra && extra.extraDetails && (
-                                        <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                          <div className='d-flex col-10 align-items-center justify-content-between flex-wrap p-0 m-0'>
-                                            {extra.extraDetails.map((detail, j) => (
-                                              <p className="badge badge-secondary m-1" key={j}>{`${detail.name} ${detail.price} ج`}</p>
-                                            ))}
-                                          </div>
-                                          <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
-                                        </div>
-                                      )
-                                    ))}
-                                  </div>
-                                )}
 
-                                {/* {item.extras && item.extras.length > 0 && (
+                                {item.extras && item.extras.length > 0 && (
                                   item.extras.map((extra, j) => (
                                     extra && (
                                       <tr key={`${i}-${j}`}>
                                         <td className="col-md-3 text-truncate">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraId && extra.extraId.map((extraid) => {
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
-                                              );
+                                            {extra.extraDetails && extra.extraDetails.map((detail) => {
+                                                <p className="badge badge-secondary m-1" key={detail.extraId}>{detail.name}</p>
                                             })}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">
                                           <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraId && extra.extraId.map((extraid) => {
-
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{extraid.price}</p>
-                                              );
+                                            {extra.extraDetails && extra.extraDetails.map((detail) => {
+                                                <p className="badge badge-secondary m-1" key={detail.extraId}>{detail.price}</p>
                                             })}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">1</td>
                                         <td className="col-md-2 text-nowrap">
                                           {extra && (
-                                            <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
+                                            <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
                                           )}
                                         </td>
                                       </tr>
                                     )
                                   ))
-                                )} */}
+                                )}
                               </>
                             ))}
-                            {/* {listProductsOrder && listProductsOrder.map((item, i) => (
-
-                              <tr key={i}>
-                                <td className="col-md-4 text-truncate">
-                                  <p>{item.name}</p>
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-column w-100 mt-2"> 
-                                      {item.extras.map((extra, i) => (
-                                        <div className='d-flex flex-wrap w-100 align-items-center     justify-content-between' style={{borderBottom:'1px solid black'}}>
-                                          {
-                                            extra && extra.extraId &&extra.extraId.map((extraid) => {
-                                            
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={extraid}>{`${extraid.name} ${extraid.price} ج`}</p>
-                                              );
-                                            })
-
-                                          }
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">
-                                  <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
-                                  {item.extras && item.extras.length > 0 && (
-                                    <div className="d-flex flex-wrap flex-column align-items-center     justify-content-between  mt-2">
-                                      {item.extras.map((extra, i) => (
-                                        extra&&<p className="badge badge-info m-1" key={i}>{extra.priceExtras} ج</p>
-                                      ))}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                <td className="col-md-2 text-nowrap">{item.totalprice} ج</td>
-                              </tr>
-                            ))} */}
                           </tbody>
                           <tfoot>
                             <tr>
