@@ -259,19 +259,20 @@ const MenuCard = () => {
                                     <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "scroll" }}>
                                       {product.extras.map((extra, i) => (
                                         <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', height: '20px', paddingLeft: '5px' }}>
+                                          {console.log({extra})}
                                           <input
                                             type="checkbox"
                                             className="form-check-input "
                                             value={extra._id}
                                             checked={
-                                              (productExtras && productExtras[ind] && productExtras[ind].extraId.includes(extra._id)) ||
+                                              (productExtras && productExtras[ind] && productExtras[ind].extraDetails.extraId.includes(extra._id)) ||
                                               (product.extrasSelected &&
                                                 product.extrasSelected[ind] &&
-                                                product.extrasSelected[ind].extraId.includes(extra._id))
+                                                product.extrasSelected[ind].extraDetails.extraId.includes(extra._id))
                                             }
                                             onChange={(e) => handleAddProductExtras(extra, ind)}
                                           />
-                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
+                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.extraDetails.name} - ${extra.extraDetails.price} ج`} </label>
                                         </div>
                                       ))}
                                     </div>
