@@ -99,7 +99,7 @@ const getOrder = async (req, res) => {
             .populate('createdBy')
             .populate('cashier')
             .populate('waiter')
-            .populate('deliveryPerson');
+            .populate('deliveryMan');
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
@@ -122,7 +122,7 @@ const getOrders = async (req, res) => {
             .populate('createdBy')
             .populate('cashier')
             .populate('waiter')
-            .populate('deliveryPerson');
+            .populate('deliveryMan');
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ error: 'No orders found' });
