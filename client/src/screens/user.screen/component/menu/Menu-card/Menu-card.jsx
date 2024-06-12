@@ -96,11 +96,12 @@ const MenuCard = () => {
                                               className="form-check-input "
                                               value={extra._id}
                                               checked={
-                                                (productExtras && productExtras[ind] && productExtras[ind].extraId.includes(extra._id)) ||
+                                                (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
                                                 (product.sizes.filter(size => size._id === sizeId)[0].extrasSelected &&
                                                   product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
-                                                  product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraId.includes(extra._id))
+                                                  product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
                                               }
+                                             
                                               onChange={(e) => handleAddProductExtras(extra, ind)}
                                             />
                                             <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
