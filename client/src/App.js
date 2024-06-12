@@ -563,88 +563,184 @@ function App() {
 
 
   const [productExtras, setproductExtras] = useState([])
-  
+
   const handleAddProductExtras = (extra, ind) => {
     const newExtras = [...productExtras];
-    
+  
     if (newExtras.length > 0) {
       if (newExtras[ind]) {
         const existingExtra = newExtras[ind];
-        
-        if (existingExtra.extraId.includes(extra._id)) {
-          existingExtra.extraId = existingExtra.extraId.filter(id => id !== extra._id);
-          existingExtra.priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
+  
+        const filteredExtraDetails = existingExtra.extraDetails.filter(detail => detail.extraId !== extra._id);
+        if (filteredExtraDetails.length !== existingExtra.extraDetails.length) {
+          // إذا كانت الإضافة موجودة وتمت إزالتها
+          existingExtra.extraDetails = filteredExtraDetails;
+          existingExtra.totalExtrasPrice -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
         } else {
           // إذا لم تكن الإضافة موجودة، قم بإضافتها
-          existingExtra.extraId.push(extra._id);
-          existingExtra.priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
+          existingExtra.extraDetails.push({
+            extraId: extra._id,
+            name: extra.name,
+            price: extra.price
+          });
+          existingExtra.totalExtrasPrice += extra.price; // زيادة السعر بسعر الإضافة المضافة
         }
       } else {
         // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
         newExtras[ind] = {
-          extraId: [extra._id],
-          priceExtras: extra.price
+          extraDetails: [{
+            extraId: extra._id,
+            name: extra.name,
+            price: extra.price
+          }],
+          totalExtrasPrice: extra.price
         };
       }
     } else {
       // إذا كانت المصفوفة فارغة بالكامل، قم بإنشاء إدخال جديد
       newExtras[ind] = {
-        extraId: [extra._id],
-        priceExtras: extra.price
+        extraDetails: [{
+          extraId: extra._id,
+          name: extra.name,
+          price: extra.price
+        }],
+        totalExtrasPrice: extra.price
       };
     }
-    
+  
     setproductExtras(newExtras);
   };
   
-
-
+  
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
-    console.log({ productId, sizeId , productExtras})
-    if (productExtras.length<1) {
-      return
+    console.log({ productId, sizeId, productExtras });
+    if (productExtras.length < 1) {
+      return;
     }
     try {
       // Find the product either in the order or in all products
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
         allProducts.find(product => product._id === productId);
-
+  
       if (!findProduct) {
         throw new Error('Product not found.');
       }
-
+  
       if (sizeId) {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
-            // incrementProductQuantity the quantity of the found product
+            // Update the extras for the found product size
             size.extrasSelected = productExtras;
           }
-        })
+        });
         itemsInCart.map(item => {
-          if (item.productid === productId && item.sizeId === sizeId) {
+          if (item.productId === productId && item.sizeId === sizeId) {
             item.extrasSelected = productExtras;
           }
-        })
+        });
       } else {
-        // incrementProductQuantity the quantity of the found product
+        // Update the extras for the found product
         findProduct.extrasSelected = productExtras;
         itemsInCart.map(item => {
-          if (item.productid === productId) {
+          if (item.productId === productId) {
             item.extrasSelected = productExtras;
           }
-        })
+        });
       }
-
+  
       console.log(findProduct);
       console.log(itemsInCart);
-      setproductExtras([])
+      setproductExtras([]);
     } catch (error) {
-      console.error('Error incrementing product quantity:', error.message);
+      console.error('Error updating product extras:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
+  
+  
+  // const handleAddProductExtras = (extra, ind) => {
+  //   const newExtras = [...productExtras];
+    
+  //   if (newExtras.length > 0) {
+  //     if (newExtras[ind]) {
+  //       const existingExtra = newExtras[ind];
+        
+  //       if (existingExtra.extraId.includes(extra._id)) {
+  //         existingExtra.extraId = existingExtra.extraId.filter(id => id !== extra._id);
+  //         existingExtra.priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
+  //       } else {
+  //         // إذا لم تكن الإضافة موجودة، قم بإضافتها
+  //         existingExtra.extraId.push(extra._id);
+  //         existingExtra.priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
+  //       }
+  //     } else {
+  //       // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
+  //       newExtras[ind] = {
+  //         extraId: [extra._id],
+  //         priceExtras: extra.price
+  //       };
+  //     }
+  //   } else {
+  //     // إذا كانت المصفوفة فارغة بالكامل، قم بإنشاء إدخال جديد
+  //     newExtras[ind] = {
+  //       extraId: [extra._id],
+  //       priceExtras: extra.price
+  //     };
+  //   }
+    
+  //   setproductExtras(newExtras);
+  // };
+  
+
+
+  // const addExtrasToProduct = (e, productId, sizeId) => {
+  //   e.preventDefault();
+  //   console.log({ productId, sizeId , productExtras})
+  //   if (productExtras.length<1) {
+  //     return
+  //   }
+  //   try {
+  //     // Find the product either in the order or in all products
+  //     const findProduct = productOrderToUpdate.length > 0 ?
+  //       productOrderToUpdate.find(product => product._id === productId) :
+  //       allProducts.find(product => product._id === productId);
+
+  //     if (!findProduct) {
+  //       throw new Error('Product not found.');
+  //     }
+
+  //     if (sizeId) {
+  //       findProduct.sizes.map(size => {
+  //         if (size._id === sizeId) {
+  //           // incrementProductQuantity the quantity of the found product
+  //           size.extrasSelected = productExtras;
+  //         }
+  //       })
+  //       itemsInCart.map(item => {
+  //         if (item.productid === productId && item.sizeId === sizeId) {
+  //           item.extrasSelected = productExtras;
+  //         }
+  //       })
+  //     } else {
+  //       // incrementProductQuantity the quantity of the found product
+  //       findProduct.extrasSelected = productExtras;
+  //       itemsInCart.map(item => {
+  //         if (item.productid === productId) {
+  //           item.extrasSelected = productExtras;
+  //         }
+  //       })
+  //     }
+
+  //     console.log(findProduct);
+  //     console.log(itemsInCart);
+  //     setproductExtras([])
+  //   } catch (error) {
+  //     console.error('Error incrementing product quantity:', error.message);
+  //     // You can handle the error appropriately, such as displaying an error message to the user.
+  //   }
+  // };
 
 
   const [itemId, setitemId] = useState([]);

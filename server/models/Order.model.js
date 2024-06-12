@@ -70,21 +70,57 @@ const OrderSchema = new mongoose.Schema({
         default: "",
         trim: true
       },
+      // extras: [
+      //   {
+      //     extraId: [
+      //       {
+      //         type: ObjectId,
+      //         ref: 'Product',
+      //       }
+      //     ],
+      //     priceExtras: {
+      //       ...defaultOptions,
+      //       validate: {
+      //         validator: function (v) {
+      //           return v >= 1 && v <= 100000;
+      //         },
+      //         message: '{VALUE} is not a valid price',
+      //       },
+      //     },
+      //   }
+      // ],
+
       extras: [
         {
-          extraId: [
+          extraDetails: [
             {
-              type: ObjectId,
-              ref: 'Product',
+              extraId: {
+                type: ObjectId,
+                ref: 'Product',
+              },
+              name: {
+                type: String,
+                required: true,
+                trim: true,
+              },
+              price: {
+                ...defaultOptions,
+                validate: {
+                  validator: function (v) {
+                    return v >= 1 && v <= 100000;
+                  },
+                  message: '{VALUE} is not a valid price',
+                },
+              },
             }
           ],
-          priceExtras: {
+          totalExtrasPrice: {
             ...defaultOptions,
             validate: {
               validator: function (v) {
                 return v >= 1 && v <= 100000;
               },
-              message: '{VALUE} is not a valid price',
+              message: '{VALUE} is not a valid total price for extras',
             },
           },
         }

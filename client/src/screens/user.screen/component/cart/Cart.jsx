@@ -112,6 +112,24 @@ const Cart = (props) => {
                                       <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</p>
                                     </div>
                                     {item.extras && (
+                                      <div className="d-flex flex-column flex-wrap mt-2">
+                                        {item.extras.map((extra, i) => (
+                                          extra && extra.extraDetails && (
+                                            <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                              <div className='d-flex col-10 align-items-center justify-content-between flex-wrap p-0 m-0'>
+                                                {extra.extraDetails.map((detail, j) => (
+                                                  <p className="badge badge-secondary m-1" key={j}>{`${detail.name} ${detail.price} ج`}</p>
+                                                ))}
+                                              </div>
+                                              <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                            </div>
+                                          )
+                                        ))}
+                                      </div>
+                                    )}
+
+
+                                    {/* {item.extras && (
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
                                           extra && extra.extraId && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
@@ -127,7 +145,7 @@ const Cart = (props) => {
                                           </div>
                                         ))}
                                       </div>
-                                    )}
+                                    )} */}
                                     {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
                                   </div>
                                 </div>
@@ -201,7 +219,24 @@ const Cart = (props) => {
                                   <td className="col-md-2 text-nowrap">{item.quantity}</td>
                                   <td className="col-md-2 text-nowrap">{item.totalprice}</td>
                                 </tr>
-                                {item.extras && item.extras.length > 0 && (
+                                {item.extras && (
+                                  <div className="d-flex flex-column flex-wrap mt-2">
+                                    {item.extras.map((extra, i) => (
+                                      extra && extra.extraDetails && (
+                                        <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                          <div className='d-flex col-10 align-items-center justify-content-between flex-wrap p-0 m-0'>
+                                            {extra.extraDetails.map((detail, j) => (
+                                              <p className="badge badge-secondary m-1" key={j}>{`${detail.name} ${detail.price} ج`}</p>
+                                            ))}
+                                          </div>
+                                          <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                        </div>
+                                      )
+                                    ))}
+                                  </div>
+                                )}
+
+                                {/* {item.extras && item.extras.length > 0 && (
                                   item.extras.map((extra, j) => (
                                     extra && (
                                       <tr key={`${i}-${j}`}>
@@ -233,7 +268,7 @@ const Cart = (props) => {
                                       </tr>
                                     )
                                   ))
-                                )}
+                                )} */}
                               </>
                             ))}
                             {/* {listProductsOrder && listProductsOrder.map((item, i) => (
