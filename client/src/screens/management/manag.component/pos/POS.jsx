@@ -85,6 +85,7 @@ const POS = () => {
       setsizePriceAfterDescount(size.sizePriceAfterDiscount);
     }
   };
+  const [showExtras, setShowExtras] = useState(false);
 
   const handleToggleExtras = () => {
     setShowExtras(!showExtras);
@@ -115,20 +116,20 @@ const POS = () => {
                           <div className="card-body">
                             <h5 className="card-title">{product.name}</h5>
                             <p className="card-text">{product.description}</p>
-                            {product.discountPrice ? (
+                            {product.discount ? (
                               <div>
-                                <span className="text-muted" style={{ textDecoration: 'line-through' }}>{product.originalPrice} ج</span>
-                                <span className="ml-2">{product.discountPrice} ج</span>
+                                <span className="text-muted" style={{ textDecoration: 'line-through' }}>{product.price} ج</span>
+                                <span className="ml-2">{product.price - product.discount} ج</span>
                               </div>
                             ) : (
                               <div>
-                                <span>{product.originalPrice} ج</span>
+                                <span>{product.price} ج</span>
                               </div>
                             )}
                             <div className="d-flex justify-content-between mt-3">
                               {product.sizes.map((size, index) => (
                                 <button key={index} className="btn btn-outline-primary btn-sm" onClick={() => addItemToCart(product._id, size)}>
-                                  {size}
+                                  {size.sizeName}
                                 </button>
                               ))}
                             </div>
