@@ -1044,11 +1044,11 @@ function App() {
       try {
         console.log(clientId);
 
-        const tableOrder = allOrders.filter((order) => order.table._id == clientId);
+        const tableOrder = order.table&& allOrders.filter((order) => order.table._id === clientId);
         const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : {};
         const lastTableOrderActive = lastTableOrder.isActive;
 
-        const userOrder = allOrders.filter((order) => order.user._id == clientId);
+        const userOrder = order.user&& allOrders.filter((order) => order.user._id === clientId);
         const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : {};
         const lastUserOrderActive = lastUserOrder.isActive;
 
