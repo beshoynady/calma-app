@@ -93,12 +93,11 @@ const Cart = (props) => {
                             item.quantity > 0 &&
                             <div className="card mb-3 w-100" key={index}>
                               <div className="row no-gutters w-100 m-0 p-0">
-                                <div className="col-md-3">
-
+                                <div className="col-3">
                                   {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
                                   <img src={defaultsImage} className="card-img w-100 h-100" alt={item.name} />
                                 </div>
-                                <div className="col-md-9">
+                                <div className="col-9">
                                   <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{ padding: '4px' }}>
                                     <div className="d-flex  justify-content-between w-100">
                                       <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
@@ -117,7 +116,7 @@ const Cart = (props) => {
                                       <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
                                           extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                            <div className='d-flex col-10 align-items-center     justify-content-between flex-wrap p-0 m-0'>
+                                            <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
                                               {extra.extraDetails.map((detail) => {
 
                                                 return (
@@ -125,7 +124,7 @@ const Cart = (props) => {
                                                 );
                                               })}
                                             </div>
-                                            <p className="d-flex col-2 align-items-center     justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                            <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
                                           </div>
                                         ))}
                                       </div>

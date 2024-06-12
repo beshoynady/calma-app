@@ -276,24 +276,6 @@ const MenuCard = () => {
                                             <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
                                           </div>
                                         ))}
-
-                                        {/* {product.extras.map((extra, i) => (
-                                        <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', height: '20px', paddingLeft: '5px' }}>
-                                          <input
-                                            type="checkbox"
-                                            className="form-check-input "
-                                            value={extra._id}
-                                            checked={
-                                              (productExtras && productExtras[ind] && productExtras[ind].extraId.includes(extra._id)) ||
-                                              (product.extrasSelected &&
-                                                product.extrasSelected[ind] &&
-                                                product.extrasSelected[ind].extraId.includes(extra._id))
-                                            }
-                                            onChange={(e) => handleAddProductExtras(extra, ind)}
-                                          />
-                                          <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
-                                        </div>
-                                      ))} */}
                                       </div>
                                     )
                                   ))}
