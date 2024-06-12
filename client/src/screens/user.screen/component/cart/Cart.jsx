@@ -193,54 +193,39 @@ const Cart = (props) => {
                             </tr>
                           </thead>
                           <tbody>
-                            {listProductsOrder && listProductsOrder.map((item, i) => (
+                            {listProductsOrder.map((item, i) => (
                               <>
                                 <tr key={i}>
-                                  <td className="col-md-4 text-truncate">
-                                    <p>{item.name}</p>
-                                  </td>
-                                  <td className="col-md-2 text-nowrap">
-                                    <p>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
-                                  </td>
+                                  <td className="col-md-3 text-truncate">{item.name}</td>
+                                  <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                   <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                  <td className="col-md-2 text-nowrap">{item.totalprice} ج</td>
+                                  <td className="col-md-2 text-nowrap">{item.totalprice}</td>
                                 </tr>
-
                                 {item.extras && item.extras.length > 0 && (
                                   item.extras.map((extra, j) => (
                                     extra && (
                                       <tr key={`${i}-${j}`}>
-                                        {/* Column for extra names */}
+                                        {console.log({extra})}
                                         <td className="col-md-3 text-truncate">
-                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
+                                          <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraId && extra.extraId.map((extraid) => {
-                                              console.log({ extraid });
                                               return (
-                                                <p className="badge badge-secondary m-1" key={extraid._id}>
-                                                  {extraid && extraid.name}
-                                                </p>
+                                                <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
                                               );
                                             })}
                                           </div>
                                         </td>
-
-                                        {/* Column for extra prices */}
                                         <td className="col-md-2 text-nowrap">
-                                          <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
+                                          <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraId && extra.extraId.map((extraid) => {
+
                                               return (
-                                                <p className="badge badge-secondary m-1" key={extraid._id}>
-                                                  {extraid && extraid.price}
-                                                </p>
+                                                <p className="badge badge-secondary m-1" key={extraid}>{extraid.price}</p>
                                               );
                                             })}
                                           </div>
                                         </td>
-
-                                        {/* Quantity column */}
                                         <td className="col-md-2 text-nowrap">1</td>
-
-                                        {/* Extra price column */}
                                         <td className="col-md-2 text-nowrap">
                                           {extra && (
                                             <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
@@ -250,7 +235,6 @@ const Cart = (props) => {
                                     )
                                   ))
                                 )}
-
                               </>
                             ))}
                             {/* {listProductsOrder && listProductsOrder.map((item, i) => (
