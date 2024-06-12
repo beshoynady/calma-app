@@ -8,6 +8,7 @@ import defaultsImage from '../../.././../image/menu/soup.jpg'
 
 import './POS.css'
 import { number } from 'joi';
+import POSCard from './POS-Card';
 
 const POS = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -105,13 +106,14 @@ const POS = () => {
                 <div className='pos-content'>
                   <div className='categ-menu'>
                     <div className='pos-menu'>
-                      {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
+                      <POSCard/>
+                      {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
 
                           <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
                             <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
 
-                            {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
+                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
                             <div className="pos-card-detalis">
                               <div className='card-name'>
                                 <div className='product-name'>{product.name}</div>
@@ -127,7 +129,7 @@ const POS = () => {
                           </div>
                         )
                       }
-                      )}
+                      )} */}
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
