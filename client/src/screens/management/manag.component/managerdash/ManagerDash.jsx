@@ -323,11 +323,16 @@ const ManagerDash = () => {
 
   const [ivocedate, setivocedate] = useState(new Date())
 
+
+  const [orderdata, setorderdata] = useState({})
+
+  
   // Fetch orders from API
   const getOrderDetalis = async (serial) => {
     try {
       const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
+      setorderdata(order)
       setlistProductsOrder(order.products)
       setorderTotal(order.total)
       setsubtotalSplitOrder(order.subtotalSplitOrder)
@@ -446,8 +451,8 @@ const ManagerDash = () => {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch order data by ID
-      const orderData = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`, config);
-      const products = await orderData.data.products;
+      const order = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`, config);
+      const products = await order.data.products;
       const aproveorder = "Approved"
 
       // Loop through each product in the order
@@ -872,7 +877,7 @@ const ManagerDash = () => {
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>{restaurantData.name}</h2>
-                                <p>كاشير {usertitle(casher)} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                                <p>كاشير:{orderdata.casher.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
                               {/* Customer Information */}
