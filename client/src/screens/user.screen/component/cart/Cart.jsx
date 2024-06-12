@@ -95,7 +95,7 @@ const Cart = (props) => {
                               <div className="row no-gutters w-100 m-0 p-0">
                                 <div className="col-3">
                                   {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
-                                  <img src={defaultsImage} className="card-img w-100 h-100" alt={item.name} />
+                                  <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{maxHeight:'80px', heitgh:'100%'}} />
                                 </div>
                                 <div className="col-9">
                                   <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{ padding: '4px' }}>
