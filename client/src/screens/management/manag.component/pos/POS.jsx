@@ -86,6 +86,9 @@ const POS = () => {
     }
   };
 
+  const handleToggleExtras = () => {
+    setShowExtras(!showExtras);
+  };
 
   useEffect(() => {
     getAllDeliveryAreas()
@@ -107,24 +110,63 @@ const POS = () => {
                     <div className='pos-menu'>
                       {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
-
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
-                            <img src={defaultsImage} className="card-img w-100" style={{heitgh: '100%' }} />
-
-                            {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
-                            <div className="pos-card-detalis">
-                              <div className='card-name'>
-                                <div className='product-name'>{product.name}</div>
-                                <div className='product-price'>{product.discount > 0 ?
-                                  <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
-                                  : <p>{product.price}ج</p>}</div>
+                          <div className="card m-2" style={{ width: '18rem' }}>
+                          <img src={defaultsImage} className="card-img-top" alt={product.name} style={{ height: '150px', objectFit: 'cover' }} />
+                          <div className="card-body">
+                            <h5 className="card-title">{product.name}</h5>
+                            <p className="card-text">{product.description}</p>
+                            {product.discountPrice ? (
+                              <div>
+                                <span className="text-muted" style={{ textDecoration: 'line-through' }}>{product.originalPrice} ج</span>
+                                <span className="ml-2">{product.discountPrice} ج</span>
                               </div>
-                              <div className='card-discription'>{product.description}</div>
-
-                              <div className='pos-btn btn-47'>
+                            ) : (
+                              <div>
+                                <span>{product.originalPrice} ج</span>
                               </div>
+                            )}
+                            <div className="d-flex justify-content-between mt-3">
+                              {product.sizes.map((size, index) => (
+                                <button key={index} className="btn btn-outline-primary btn-sm" onClick={() => addItemToCart(product._id, size)}>
+                                  {size}
+                                </button>
+                              ))}
                             </div>
+                            <button className="btn btn-primary mt-3 w-100" onClick={handleToggleExtras}>
+                              إضافة إضافات
+                            </button>
+                            {showExtras && (
+                              <div className="mt-2">
+                                <h6>اختر الإضافات:</h6>
+                                {product.extras.map((extra, index) => (
+                                  <div key={index} className="form-check">
+                                    <input className="form-check-input" type="checkbox" value={extra.id} id={`extra${index}`} />
+                                    <label className="form-check-label" htmlFor={`extra${index}`}>
+                                      {extra.name} - {extra.price} ج
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
+                        </div>
+                          // <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                          //   <img src={defaultsImage} className="card-img w-100" style={{heitgh: '100%' }} />
+
+                          //   {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
+                          //   <div className="pos-card-detalis">
+                          //     <div className='card-name'>
+                          //       <div className='product-name'>{product.name}</div>
+                          //       <div className='product-price'>{product.discount > 0 ?
+                          //         <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
+                          //         : <p>{product.price}ج</p>}</div>
+                          //     </div>
+                          //     <div className='card-discription'>{product.description}</div>
+
+                          //     <div className='pos-btn btn-47'>
+                          //     </div>
+                          //   </div>
+                          // </div>
                         )
                       }
                       )}
