@@ -188,9 +188,8 @@ const LoginRegistr = (props) => {
                       {/* <div className="pass-link">
                         <a href="#">نسيت الباسورد?</a>
                       </div> */}
-                      <div className="field btn btn-47">
-                        <div className="btn btn-layer"></div>
-                        <input type="submit" value="Login" onClick={closeform} />
+                      <div className="field w-100 d-flex align-items-center justify-content-center">
+                        <input className='btn btn-sucsses w-50 ' type="submit" value="Login" onClick={closeform} />
                       </div>
                     </form>
                     <form className="signup" style={{overflow: "scroll", scrollbarWidth: "none"}}  onSubmit={(e) => signup(e, username, phone, deliveryArea, address, email, password, passconfirm)}>
@@ -225,9 +224,8 @@ const LoginRegistr = (props) => {
                       <div className="field">
                         <input type="password" placeholder="تاكيد الباسورد" required onChange={(e) => setpassconfirm(e.target.value)} />
                       </div>
-                      <div className="field btn btn-47">
-                        <div className="btn btn-layer"></div>
-                        <input type="submit" value="Signup" />
+                      <div className="field w-100 d-flex align-items-center justify-content-center">
+                        <input className='btn btn-sucsses w-50 ' type="submit" value="Signup" />
                       </div>
                     </form>
                   </div>
