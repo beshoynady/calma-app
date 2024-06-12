@@ -904,13 +904,15 @@ function App() {
   
       // Calculate total cost based on the items in the list
       itemsList.forEach(item => {
-        let totalExtras = 0;  // Reset totalExtras for each item
+        let totalExtras = 0; // Reset totalExtras for each item
         const itemTotalPrice = item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity;
   
-        if (item.extras.length > 0) {
+        if (item.extras && item.extras.length > 0) {
           item.extras.forEach(extra => {
-            if (extra) {
-              totalExtras += extra.priceExtras;
+            if (extra && extra.extraDetails && extra.extraDetails.length > 0) { // Check if extra has extraDetails array
+              extra.extraDetails.forEach(detail => {
+                totalExtras += detail.price;
+              });
             }
           });
         }
@@ -928,6 +930,7 @@ function App() {
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
+  
   
 
 
