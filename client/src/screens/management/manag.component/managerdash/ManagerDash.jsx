@@ -42,7 +42,7 @@ const ManagerDash = () => {
     try {
       if (!token) {
         // Handle case where token is not available
-        throw new Error('توكن غير متاح');
+        throw new Error('الرجاء تسجيل الدخول ');
       }
       const res = await axios.get(apiUrl + '/api/order', config);
       const orders = res.data;
@@ -75,12 +75,12 @@ const ManagerDash = () => {
   const status = ['Pending', 'Approved', 'Cancelled']
   const [update, setupdate] = useState(false)
 
-  const changeorderstauts = async (e, id) => {
+  const changeorderstauts = async (e, orderId, casher) => {
     try {
       const status = e.target.value;
       const isActive = status === 'Cancelled' ? false : true;
 
-      await axios.put(`${apiUrl}/api/order/${id}`, { status, isActive });
+      await axios.put(`${apiUrl}/api/order/${orderId}`, { status, isActive, casher });
 
       fetchOrdersData();
 
@@ -214,14 +214,14 @@ const ManagerDash = () => {
     try {
       // جلب بيانات جميع السجلات النقدية
       const response = await axios.get(`${apiUrl}/api/cashregister`, config);
-      if(response){
+      if (response) {
         // تحديث حالة جميع السجلات النقدية بالبيانات الجديدة وعكس ترتيبها
         setAllCashRegisters(response.data.reverse());
         const data = response.data;
-        
+
         // البحث عن السجل النقدي المرتبط بمعرّف الموظّف
         const CashRegister = data ? data.find((cash) => cash.employee === id) : {};
-        
+
         if (CashRegister) {
           // تحديث حالة السجل النقدي المحدد
           setcashRegister(CashRegister._id);
@@ -236,21 +236,21 @@ const ManagerDash = () => {
       return toast.error('لا يوجد لك حساب خزينه ليتم تسجيل بها الايراد ')
     }
   };
-  
+
 
 
   const RevenueRecording = async (id, amount, description) => {
     // تأكد من معالجة السجل النقدي للمعرف المحدد
     handleCashRegister(id);
-  
+
     try {
       if (cashRegister) {
         // احسب الرصيد المحدث
         const updatedBalance = balance + amount;
-  
+
         // إنشاء سجل حركة نقدية
         const cashMovement = await axios.post(
-          `${apiUrl}/api/cashMovement/`, 
+          `${apiUrl}/api/cashMovement/`,
           {
             registerId: cashRegister,
             createBy,
@@ -260,16 +260,16 @@ const ManagerDash = () => {
           },
           config
         );
-  
+
         // تحديث رصيد السجل النقدي
         const updateCashRegister = await axios.put(
-          `${apiUrl}/api/cashregister/${cashRegister}`, 
+          `${apiUrl}/api/cashregister/${cashRegister}`,
           {
             balance: updatedBalance,
-          }, 
+          },
           config
         );
-  
+
         if (updateCashRegister) {
           // تحديث حالة الرصيد المحلية
           setbalance(updatedBalance);
@@ -288,7 +288,7 @@ const ManagerDash = () => {
       toast.error('فشل في تسجيل الإيراد');
     }
   };
-  
+
 
 
   // const [employeeLoginInfo, setemployeeLoginInfo] = useState(null)
@@ -540,7 +540,7 @@ const ManagerDash = () => {
   return (
     <detacontext.Consumer>
       {
-        ({restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <section className='dashboard'>
               <div className='container'>
@@ -681,8 +681,8 @@ const ManagerDash = () => {
                           <th>دفع جزء</th>
                           <th>حالة الاوردر</th>
                           <th>الاوردر</th>
-                          {/* <th>الويتر</th>
-                          <th>الديلفري</th> */}
+                          <th>الويتر</th>
+                          <th>الديلفري</th>
                           <th>مكان الاوردر</th>
                           <th>حاله الدفع</th>
                         </tr>
@@ -707,7 +707,7 @@ const ManagerDash = () => {
                                   </a> : "كاملة"
                                   : "ملغاه"}</td>
                                 <td>
-                                  <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id) }}>
+                                  <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
                                     <option value={recent.status}>{recent.status}</option>
                                     {status.map((state, i) => {
                                       return (
@@ -724,7 +724,7 @@ const ManagerDash = () => {
                                     جديد
                                   </a>
                                 </td>
-                                {/* <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
+                                <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                 <td>
                                   {recent.orderType == 'Delivery' ?
                                     <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
@@ -737,12 +737,12 @@ const ManagerDash = () => {
                                       }
                                     </select>
                                     : ''}
-                                </td> */}
+                                </td>
                                 <td>{recent.orderType}</td>
                                 <td>
                                   <button
                                     className="btn btn-47 btn-primary"
-                                    onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                    onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.employeeinfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                   >
                                     دفع
                                   </button>
@@ -777,7 +777,7 @@ const ManagerDash = () => {
                                     </a> : "كاملة"
                                     : "ملغاه"}</td>
                                   <td>
-                                    <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id) }}>
+                                    <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
                                       <option value={recent.status}>{recent.status}</option>
                                       {status.map((state, i) => {
                                         return (
@@ -794,7 +794,7 @@ const ManagerDash = () => {
                                       جديد
                                     </a>
                                   </td>
-                                  {/* <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
+                                  <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                   <td>
                                     {recent.orderType == 'Delivery' ?
                                       <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
@@ -807,7 +807,7 @@ const ManagerDash = () => {
                                         }
                                       </select>
                                       : ''}
-                                  </td> */}
+                                  </td>
                                   <td>{recent.orderType}</td>
                                   <td>
                                     <button
@@ -903,12 +903,48 @@ const ManagerDash = () => {
                                 <tbody>
                                   {/* Replace this with your dynamic data */}
                                   {listProductsOrder.map((item, i) => (
-                                    <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{item.name}</td>
-                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                      <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                      <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                    </tr>
+                                    <>
+                                      <tr key={i}>
+                                        <td className="col-md-3 text-truncate">{item.name}</td>
+                                        <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                        <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                        <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                      </tr>
+                                      {item.extras && item.extras.length > 0 && (
+                                        item.extras.map((extra, j) => (
+                                          extra && (
+                                            <tr key={`${i}-${j}`}>
+                                              <td className="col-md-3 text-truncate">
+                                                <div className="d-flex flex-wrap w-100 align-items-center justify-content-between" style={{ borderBottom: '1px solid black' }}>
+                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                    const extradata = allProducts.find(pro => pro._id === extraid);
+                                                    return (
+                                                      <p className="badge badge-secondary m-1" key={extraid}>{extradata.name}</p>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">
+                                                <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                    const extradata = allProducts.find(pro => pro._id === extraid);
+                                                    return (
+                                                      <p className="badge badge-secondary m-1" key={extraid}>{extradata.price}</p>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">1</td>
+                                              <td className="col-md-2 text-nowrap">
+                                                {extra && (
+                                                  <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
+                                                )}
+                                              </td>
+                                            </tr>
+                                          )
+                                        ))
+                                      )}
+                                    </>
                                   ))}
                                 </tbody>
                                 <tfoot>
@@ -971,6 +1007,8 @@ const ManagerDash = () => {
                         </div>
                       </div>
                     </div>
+
+
                     <div id="invoiceSplitModal" className="modal fade">
                       <div className="modal-dialog">
                         <div className="modal-content">
@@ -1075,6 +1113,8 @@ const ManagerDash = () => {
                         </div>
                       </div>
                     </div>
+
+
                     <div id="kitchenorderModal" className="modal fade">
                       <div className="modal-dialog">
                         <div className="modal-content">
@@ -1126,6 +1166,8 @@ const ManagerDash = () => {
                         </div>
                       </div>
                     </div>
+
+
                   </div>
 
                 </div>
