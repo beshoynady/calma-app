@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 // import './Menu-card.css';
-import { detacontext } from '../../../../../App';
+import { detacontext } from '../../../../App';
 
 
-import defaultsImage from '../../../../../image/menu/soup.jpg'
+import defaultsImage from '../../../../image/menu/soup.jpg'
 
 const POSCard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
