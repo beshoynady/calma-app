@@ -206,7 +206,7 @@ const ManagerDash = () => {
   const [cashRegister, setcashRegister] = useState('');
   const [cashRegistername, setcashRegistername] = useState('');
   const [balance, setbalance] = useState();
-  const [createBy, setcreateBy] = useState('');
+  const [createdBy, setcreatedBy] = useState('');
 
   const [AllCashRegisters, setAllCashRegisters] = useState([]);
 
@@ -227,7 +227,7 @@ const ManagerDash = () => {
           setcashRegister(CashRegister._id);
           setcashRegistername(CashRegister.name);
           setbalance(CashRegister.balance);
-          setcreateBy(id);
+          setcreatedBy(id);
         }
       }
     } catch (error) {
@@ -253,7 +253,7 @@ const ManagerDash = () => {
           `${apiUrl}/api/cashMovement/`,
           {
             registerId: cashRegister,
-            createBy,
+            createdBy,
             amount,
             type: 'Revenue',
             description,

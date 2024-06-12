@@ -13,12 +13,12 @@ exports.createCashMovement = async (req, res) => {
       movementId,
       status 
     } = req.body;
-    const createBy = req.employee.id
+    const createdBy = req.employee.id
 
     // Create a new cash movement
     const newCashMovement = await CashMovement.create({
       registerId,
-      createBy,
+      createdBy,
       amount,
       type,
       description,
@@ -67,7 +67,7 @@ exports.getCashMovementById = async (req, res) => {
 // Controller function to update a cash movement by ID
 exports.updateCashMovement = async (req, res) => {
   try {
-    const { registerId, createBy, amount, status, type, description,transferFrom } = req.body;
+    const { registerId, createdBy, amount, status, type, description,transferFrom } = req.body;
 
     const cashMovement = await CashMovement.findById(req.params.id);
     if (!cashMovement) {
@@ -78,7 +78,7 @@ exports.updateCashMovement = async (req, res) => {
       {
         $set: {
           registerId,
-          createBy,
+          createdBy,
           amount,
           type,
           description,
@@ -122,7 +122,7 @@ exports.transferCashBetweenRegisters = async (req, res) => {
     // Create cash movements for both registers (one for outgoing, one for incoming)
     const outgoingMovement = new CashMovement({
       registerId: fromRegisterId,
-      createBy: req.user._id, // Assuming user information is included in the request after authentication
+      createdBy: req.user._id, // Assuming user information is included in the request after authentication
       amount: -amount, // Negative amount for outgoing movement
       type: 'Transfer',
       description: description || 'Transfer to another register',
@@ -130,7 +130,7 @@ exports.transferCashBetweenRegisters = async (req, res) => {
 
     const incomingMovement = new CashMovement({
       registerId: toRegisterId,
-      createBy: req.user._id,
+      createdBy: req.user._id,
       amount,
       type: 'income',
       description: description || 'Transfer from another register',

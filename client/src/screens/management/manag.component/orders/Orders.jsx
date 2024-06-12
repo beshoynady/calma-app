@@ -282,7 +282,7 @@ const Orders = () => {
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
                                 <td>{order.table != null ? usertitle(order.table)
                                   : order.user ? usertitle(order.user)
-                                    : order.createBy ? usertitle(order.createBy) : '--'}</td>
+                                    : order.createdBy ? usertitle(order.createdBy) : '--'}</td>
 
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>
@@ -320,7 +320,7 @@ const Orders = () => {
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
                                 <td>{order.table != null ? usertitle(order.table)
                                   : order.user ? usertitle(order.user)
-                                    : order.createBy ? usertitle(order.createBy) : '--'}</td>
+                                    : order.createdBy ? usertitle(order.createdBy) : '--'}</td>
 
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>

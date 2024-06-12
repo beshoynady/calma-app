@@ -96,7 +96,7 @@ const ReservationTables = () => {
         ({ setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination, createReservations, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation, employeeLoginInfo, allusers, allTable, getAvailableTables, availableTableIds,
           formatDate, formatTime }) => {
 
-          const createBy = employeeLoginInfo?.employeeinfo?.id;
+          const createdBy = employeeLoginInfo?.employeeinfo?.id;
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -251,7 +251,7 @@ const ReservationTables = () => {
               <div id="createreservationModal" className="modal fade">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
-                    <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
+                    <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -383,7 +383,7 @@ const ReservationTables = () => {
               <div id="updatereservationModal" className="modal fade">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
-                    <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createBy)}>
+                    <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>

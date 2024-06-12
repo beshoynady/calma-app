@@ -610,7 +610,7 @@ function App() {
   
     setproductExtras(newExtras);
   };
-  
+
   
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
@@ -1486,7 +1486,7 @@ function App() {
   const lastInvoiceByCasher = async (checkid) => {
     try {
       // Filter orders created by the employee
-      const employeeOrders = allOrders.filter((o, i) => o.createBy == checkid);
+      const employeeOrders = allOrders.filter((o, i) => o.createdBy == checkid);
 
       // Get the last order created by the employee
       const lastEmployeeOrder = employeeOrders.length > 0 ? employeeOrders[employeeOrders.length - 1] : null;

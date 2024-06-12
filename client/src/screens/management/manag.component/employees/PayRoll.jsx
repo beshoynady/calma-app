@@ -415,7 +415,7 @@ const PayRoll = () => {
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
-        createBy: paidBy,
+        createdBy: paidBy,
         amount,
         type: 'Withdraw',
         description: expenseDescription,

@@ -63,7 +63,7 @@ const DailyExpense = () => {
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
-        createBy: paidBy,
+        createdBy: paidBy,
         amount,
         type: 'Withdraw',
         description: expenseDescription,
@@ -138,7 +138,7 @@ const DailyExpense = () => {
 
         const cashMovement = await axios.put(`${apiUrl}/api/cashMovement/${cashMovementId}`, {
           registerId: cashRegister,
-          createBy: paidBy,
+          createdBy: paidBy,
           amount,
           type: 'Withdraw',
           description: expenseDescription,

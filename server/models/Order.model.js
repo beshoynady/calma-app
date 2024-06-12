@@ -251,7 +251,7 @@ const OrderSchema = new mongoose.Schema({
     default: null
   },
   // Created by employee
-  createBy: {
+  createdBy: {
     type: ObjectId,
     ref: 'Employee',
     default: null

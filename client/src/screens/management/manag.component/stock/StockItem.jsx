@@ -30,7 +30,7 @@ const StockItem = () => {
   // Function to create a stock item
   const createItem = async (e, userId) => {
     e.preventDefault();
-    const createBy = userId;
+    const createdBy = userId;
     try {
       const response = await axios.post(apiUrl + '/api/stockitem/', {
         itemName,
@@ -42,7 +42,7 @@ const StockItem = () => {
         currentBalance,
         minThreshold,
         price,
-        createBy,
+        createdBy,
       }, config);
       console.log(response.data);
       getStockItems(); // Update the list of stock items after creating a new one
@@ -76,7 +76,7 @@ const StockItem = () => {
   // Function to edit a stock item
   const editStockItem = async (e, userId) => {
     e.preventDefault();
-    const createBy = userId;
+    const createdBy = userId;
     try {
       const response = await axios.put(`${apiUrl}/api/stockitem/${stockItemId}`, {
         itemName,
@@ -88,7 +88,7 @@ const StockItem = () => {
         currentBalance,
         minThreshold,
         price,
-        createBy,
+        createdBy,
       }, config);
       console.log(response.data);
       console.log({costOfPart, oldCostOfPart})
@@ -335,7 +335,7 @@ const StockItem = () => {
                               <td>{item.parts}</td>
                               <td>{item.smallUnit}</td>
                               <td>{item.costOfPart}</td>
-                              <td>{item.createBy.fullname}</td>
+                              <td>{item.createdBy.fullname}</td>
                               <td>{formatDateTime(new Date(item.createdAt))}</td>
                               <td>
                                 <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { handelEditStockItemModal(item) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

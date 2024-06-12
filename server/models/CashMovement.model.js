@@ -7,7 +7,7 @@ const cashMovementSchema = new mongoose.Schema({
     ref: 'CashRegister',
     required: true,
   },
-  createBy: {
+  createdBy: {
     type: ObjectId,
     ref: 'Employee',
     required: true,

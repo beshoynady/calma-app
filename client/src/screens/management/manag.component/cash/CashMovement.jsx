@@ -73,7 +73,7 @@ const CashMovement = () => {
 
 
   const [registerId, setRegisterId] = useState('');
-  const [createBy, setCreateBy] = useState('');
+  const [createdBy, setcreatedBy] = useState('');
   const [amount, setAmount] = useState();
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
@@ -85,7 +85,7 @@ const CashMovement = () => {
       // Send cash movement data to the API
       const cashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId,
-        createBy,
+        createdBy,
         amount,
         type,
         description,
@@ -134,7 +134,7 @@ const CashMovement = () => {
     setbalance(Number(CashRegister.balance))
     setType(Type)
     console.log(CashRegister.balance)
-    setCreateBy(id)
+    setcreatedBy(id)
   }
 
 
@@ -165,7 +165,7 @@ const CashMovement = () => {
       // Send cash movement data to the API
       const sendCashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId: sendRegister,
-        createBy,
+        createdBy,
         amount,
         type: "Transfer",
         description,
@@ -179,7 +179,7 @@ const CashMovement = () => {
       // Send receiving cash movement data to the API
       const receivCashMovementResponse = await axios.post(apiUrl + '/api/cashmovement/', {
         registerId: receivRegister,
-        createBy,
+        createdBy,
         amount,
         type: "Transfer",
         description,
@@ -474,7 +474,7 @@ const CashMovement = () => {
                                     : 'No register found'
                                 }</td>
                                 <td>{movement.type}</td>
-                                <td>{usertitle(movement.createBy)}</td>
+                                <td>{usertitle(movement.createdBy)}</td>
                                 <td>{movement.amount}</td>
                                 <td>{movement.description}</td>
                                 <td>{movement.status == 'Pending' && movement.transferFrom ?

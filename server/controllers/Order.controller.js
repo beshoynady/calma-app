@@ -17,7 +17,7 @@ const createOrder = async (req, res) => {
             total,
             table,
             user,
-            createBy,
+            createdBy,
             casher,
             name,
             address,
@@ -52,7 +52,7 @@ const createOrder = async (req, res) => {
             total,
             table,
             user,
-            createBy,
+            createdBy,
             casher,
             name,
             address,
@@ -151,7 +151,7 @@ const getOrders = async (req, res) => {
 //             .populate('products.extras.extraId')
 //             .populate('table')
 //             .populate('user')
-//             .populate('createBy')
+//             .populate('createdBy')
 //             .populate('casher')
 //             .populate('waiter')
 //             .populate('deliveryMan');
@@ -174,7 +174,7 @@ const getOrders = async (req, res) => {
 //             .populate('products.extras.extraId')
 //             .populate('table')
 //             .populate('user')
-//             .populate('createBy')
+//             .populate('createdBy')
 //             .populate('casher')
 //             .populate('waiter')
 //             .populate('deliveryMan');
