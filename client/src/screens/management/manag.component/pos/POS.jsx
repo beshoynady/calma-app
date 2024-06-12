@@ -85,11 +85,7 @@ const POS = () => {
       setsizePriceAfterDescount(size.sizePriceAfterDiscount);
     }
   };
-  const [showExtras, setShowExtras] = useState(false);
 
-  const handleToggleExtras = () => {
-    setShowExtras(!showExtras);
-  };
 
   useEffect(() => {
     getAllDeliveryAreas()
@@ -111,63 +107,24 @@ const POS = () => {
                     <div className='pos-menu'>
                       {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
-                          <div className="card m-2" style={{ width: '18rem' }}>
-                          <img src={defaultsImage} className="card-img-top" alt={product.name} style={{ height: '150px', objectFit: 'cover' }} />
-                          <div className="card-body">
-                            <h5 className="card-title">{product.name}</h5>
-                            <p className="card-text">{product.description}</p>
-                            {product.discount ? (
-                              <div>
-                                <span className="text-muted" style={{ textDecoration: 'line-through' }}>{product.price} ج</span>
-                                <span className="ml-2">{product.price - product.discount} ج</span>
+
+                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
+
+                            {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
+                            <div className="pos-card-detalis">
+                              <div className='card-name'>
+                                <div className='product-name'>{product.name}</div>
+                                <div className='product-price'>{product.discount > 0 ?
+                                  <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
+                                  : <p>{product.price}ج</p>}</div>
                               </div>
-                            ) : (
-                              <div>
-                                <span>{product.price} ج</span>
+                              <div className='card-discription'>{product.description}</div>
+
+                              <div className='pos-btn btn-47'>
                               </div>
-                            )}
-                            <div className="d-flex justify-content-between mt-3">
-                              {product.sizes.map((size, index) => (
-                                <button key={index} className="btn btn-outline-primary btn-sm" onClick={() => addItemToCart(product._id, size)}>
-                                  {size.sizeName}
-                                </button>
-                              ))}
                             </div>
-                            <button className="btn btn-primary mt-3 w-100" onClick={handleToggleExtras}>
-                              إضافة إضافات
-                            </button>
-                            {showExtras && (
-                              <div className="mt-2">
-                                <h6>اختر الإضافات:</h6>
-                                {product.extras.map((extra, index) => (
-                                  <div key={index} className="form-check">
-                                    <input className="form-check-input" type="checkbox" value={extra.id} id={`extra${index}`} />
-                                    <label className="form-check-label" htmlFor={`extra${index}`}>
-                                      {extra.name} - {extra.price} ج
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
                           </div>
-                        </div>
-                          // <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
-                          //   <img src={defaultsImage} className="card-img w-100" style={{heitgh: '100%' }} />
-
-                          //   {/* <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" /> */}
-                          //   <div className="pos-card-detalis">
-                          //     <div className='card-name'>
-                          //       <div className='product-name'>{product.name}</div>
-                          //       <div className='product-price'>{product.discount > 0 ?
-                          //         <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
-                          //         : <p>{product.price}ج</p>}</div>
-                          //     </div>
-                          //     <div className='card-discription'>{product.description}</div>
-
-                          //     <div className='pos-btn btn-47'>
-                          //     </div>
-                          //   </div>
-                          // </div>
                         )
                       }
                       )}
@@ -476,7 +433,7 @@ const POS = () => {
                   </div>
 
                   <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflowY: 'auto' }}>
-                    <div className="col-12 col-md-8 overflowY-auto" style={{ width: '100%' }}>
+                    <div className="col-12 col-md-8 overflow=-auto" style={{ width: '100%' }}>
                       {
                         itemsInCart.length > 0 ? itemsInCart.map((i, index) => (
                           <div className="card mb-3" key={index}>
