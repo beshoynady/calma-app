@@ -77,7 +77,7 @@ const Employees = () => {
   //     phone: Joi.string().length(11),
   //     password: Joi.string().min(3),
   //     basicSalary: Joi.number().min(0),
-  //     sectionNumber: Joi.string().valid('manager', 'casher', 'waiter', 'deliveryman', 'Chef'),
+  //     sectionNumber: Joi.string().valid('manager', 'cashier', 'waiter', 'deliveryman', 'Chef'),
   //     isActive: Joi.boolean(),
   // });
   const createEmployee = async (e) => {
@@ -302,7 +302,7 @@ const Employees = () => {
                           <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
                             <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
+                            <option value="cashier">كاشير</option>
                             <option value="waiter">ويتر</option>
                             <option value="Chef">شيف</option>
                           </select>
@@ -505,7 +505,7 @@ const Employees = () => {
                           <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
                             <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
+                            <option value="cashier">كاشير</option>
                             <option value="deliveryman">الديلفري</option>
                             <option value="waiter">ويتر</option>
                             <option value="chef">شيف</option>
@@ -595,7 +595,7 @@ const Employees = () => {
                           <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
                             <option>{role}</option>
                             <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
+                            <option value="cashier">كاشير</option>
                             <option value="deliveryman">الديلفري</option>
                             <option value="waiter">ويتر</option>
                             <option value="chef">شيف</option>

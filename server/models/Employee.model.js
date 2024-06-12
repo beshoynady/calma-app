@@ -67,7 +67,7 @@ const employeeSchema = new mongoose.Schema({
   role: {
     type: String,
     trim: true,
-    enum: ['owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef'], // Enumerated values for the role
+    enum: ['owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef'], // Enumerated values for the role
     required: [true, 'Role is required'],
   },
   sectionNumber: {

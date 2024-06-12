@@ -257,7 +257,7 @@ const OrderSchema = new mongoose.Schema({
     default: null
   },
   // Cashier employee
-  casher: {
+  cashier: {
     type: ObjectId,
     ref: 'Employee',
     default: null

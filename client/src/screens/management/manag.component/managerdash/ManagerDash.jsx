@@ -75,12 +75,12 @@ const ManagerDash = () => {
   const status = ['Pending', 'Approved', 'Cancelled']
   const [update, setupdate] = useState(false)
 
-  const changeorderstauts = async (e, orderId, casher) => {
+  const changeorderstauts = async (e, orderId, cashier) => {
     try {
       const status = e.target.value;
       const isActive = status === 'Cancelled' ? false : true;
 
-      await axios.put(`${apiUrl}/api/order/${orderId}`, { status, isActive, casher });
+      await axios.put(`${apiUrl}/api/order/${orderId}`, { status, isActive, cashier });
 
       fetchOrdersData();
 
@@ -94,7 +94,7 @@ const ManagerDash = () => {
   };
 
   const paymentstatus = ['Pending', 'Paid']
-  const changePaymentorderstauts = async (e, id, casher) => {
+  const changePaymentorderstauts = async (e, id, cashier) => {
     try {
       const payment_status = e.target.value;
       const isActive = payment_status === 'Paid' ? false : true;
@@ -103,7 +103,7 @@ const ManagerDash = () => {
       await axios.put(`${apiUrl}/api/order/${id}`, {
         payment_status,
         isActive,
-        casher,
+        cashier,
       });
 
       // إعادة جلب البيانات بعد تغيير حالة الطلب
@@ -317,7 +317,7 @@ const ManagerDash = () => {
   const [deliveryMan, setdeliveryMan] = useState()
   const [ordernum, setordernum] = useState()
   const [table, settable] = useState()
-  const [casher, setcasher] = useState()
+  const [cashier, setcashier] = useState()
   const [discount, setdiscount] = useState(0)
   const [addition, setaddition] = useState(0)
 
@@ -343,7 +343,7 @@ const ManagerDash = () => {
       setaddition(order.addition)
       setdiscount(order.discount)
       // setivocedate(order.createdAt)
-      setcasher(order.casher)
+      setcashier(order.cashier)
       settable(order.orderType == 'Internal' ? order.table : '')
       setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
       setordertype(order.orderType)
@@ -445,7 +445,7 @@ const ManagerDash = () => {
 
   const [isPrint, setisPrint] = useState(false)
 
-  const aproveOrder = async (e, casher) => {
+  const aproveOrder = async (e, cashier) => {
     e.preventDefault()
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
@@ -521,7 +521,7 @@ const ManagerDash = () => {
       // Update order status or perform other tasks
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      const updateorder = await axios.put(`${apiUrl}/api/order/${kitchenOrder._id}`, { products: updateproducts, status: aproveorder, casher }, config);
+      const updateorder = await axios.put(`${apiUrl}/api/order/${kitchenOrder._id}`, { products: updateproducts, status: aproveorder, cashier }, config);
       if (updateorder.status === 200) {
         toast.success('تم ارسال الاوردر'); // Notifies success in completing order
         setkitchenOrder("")
@@ -877,7 +877,7 @@ const ManagerDash = () => {
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>{restaurantData.name}</h2>
-                                <p>كاشير:{orderdata.casher&&orderdata.casher.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                                <p>كاشير:{orderdata.cashier&&orderdata.cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
                               {/* Customer Information */}
@@ -1025,7 +1025,7 @@ const ManagerDash = () => {
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>{restaurantData.name}</h2>
-                                <p>كاشير {usertitle(casher)} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                                <p>كاشير {usertitle(cashier)} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
                               {/* Customer Information */}

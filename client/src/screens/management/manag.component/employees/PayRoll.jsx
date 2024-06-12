@@ -570,7 +570,7 @@ const PayRoll = () => {
                           <select class="form-control" onChange={(e) => filterEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
                             <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
+                            <option value="cashier">كاشير</option>
                             <option value="waiter">ويتر</option>
                             <option value="Chef">شيف</option>
                             <option value="deliveryman">ديليفري</option>

@@ -98,7 +98,7 @@ const SideBar = () => {
                 </div>
                 <ul className="nav-links">
                   {/* Dashboard */}
-                  {(role === 'casher' || role === 'manager') && (
+                  {(role === 'cashier' || role === 'manager') && (
                     <li>
                       <Link to="/management">
                         <span className="material-symbols-outlined icon">dashboard</span>
@@ -111,7 +111,7 @@ const SideBar = () => {
                   )}
 
                   {/* POS */}
-                  {(role === 'casher' || role === 'waiter' || role === 'manager') && (
+                  {(role === 'cashier' || role === 'waiter' || role === 'manager') && (
                     <li>
                       <Link to="pos">
                         <span className="material-symbols-outlined icon">point_of_sale</span>

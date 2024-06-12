@@ -46,7 +46,7 @@ const Orders = () => {
   const [deliveryMan, setdeliveryMan] = useState()
   const [ordernum, setordernum] = useState()
   const [table, settable] = useState()
-  const [casher, setcasher] = useState()
+  const [cashier, setcashier] = useState()
   const [discount, setdiscount] = useState(0)
   const [addition, setaddition] = useState(0)
 
@@ -69,7 +69,7 @@ const Orders = () => {
         setaddition(order.addition)
         setdiscount(order.discount)
         // setivocedate(order.createdAt)
-        setcasher(order.casher)
+        setcashier(order.cashier)
         settable(order.orderType == 'Internal' ? order.table : '')
         setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
         setordertype(order.orderType)
@@ -287,7 +287,7 @@ const Orders = () => {
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>
                                 <td>{order.status}</td>
-                                <td>{usertitle(order.casher)}</td>
+                                <td>{usertitle(order.cashier)}</td>
                                 <td>{order.payment_status}</td>
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
@@ -325,7 +325,7 @@ const Orders = () => {
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>
                                 <td>{order.status}</td>
-                                <td>{usertitle(order.casher)}</td>
+                                <td>{usertitle(order.cashier)}</td>
                                 <td>{order.payment_status}</td>
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
 
@@ -367,7 +367,7 @@ const Orders = () => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير {usertitle(casher)} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${usertitle(table)}` : ''} | التاريخ: {formatdate(new Date())}</p>
+                          <p>كاشير {usertitle(cashier)} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${usertitle(table)}` : ''} | التاريخ: {formatdate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}

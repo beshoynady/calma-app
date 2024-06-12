@@ -16,7 +16,7 @@ const createEmployeeSchema = Joi.object({
     password: Joi.string().min(3).required(),
     basicSalary: Joi.number().min(0).required(),
     sectionNumber: Joi.number().min(1),
-    role: Joi.string().valid('owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef').required(),
+    role: Joi.string().valid('owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef').required(),
     isActive: Joi.boolean().required(),
     shift: Joi.string().required()
 });
@@ -85,7 +85,7 @@ const updateEmployeeSchema = Joi.object({
     password: Joi.string().min(3),
     basicSalary: Joi.number().min(0),
     sectionNumber: Joi.number().min(1),
-    role: Joi.string().valid('owner', 'manager', 'casher', 'waiter', 'deliveryman', 'chef'),
+    role: Joi.string().valid('owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef'),
     isActive: Joi.boolean(),
     shift: Joi.string().required()
 });

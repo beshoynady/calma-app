@@ -1294,7 +1294,7 @@ function App() {
 
   const [posOrderId, setposOrderId] = useState('')
 
-  const createCasherOrder = async (casherId, clientName, clientPhone, clientAddress, orderType, deliveryCost, discount, addition) => {
+  const createcashierOrder = async (cashierId, clientName, clientPhone, clientAddress, orderType, deliveryCost, discount, addition) => {
     // console.log({ discount });
     // console.log({ addition });
     try {
@@ -1311,9 +1311,9 @@ function App() {
       const name = clientName;
       const phone = clientPhone;
       const address = clientAddress;
-      const createdBy = casherId;
+      const createdBy = cashierId;
       const orderType = orderType;
-      const casher = casherId;
+      const cashier = cashierId;
       const status = 'Approved';
 
       const newOrder = await axios.post(`${apiUrl}/api/order`, {
@@ -1327,7 +1327,7 @@ function App() {
         total,
         orderType,
         createdBy,
-        casher,
+        cashier,
         name,
         phone,
         address,
@@ -1483,7 +1483,7 @@ function App() {
 
 
 
-  const lastInvoiceByCasher = async (checkid) => {
+  const lastInvoiceBycashier = async (checkid) => {
     try {
       // Filter orders created by the employee
       const employeeOrders = allOrders.filter((o, i) => o.createdBy == checkid);
@@ -2054,7 +2054,7 @@ function App() {
 
         // Functions related to creating different types of orders
         checkout,
-        createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher,
+        createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier,
 
         // Functions related to pagination
         setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination,

@@ -371,7 +371,7 @@ const Users = () => {
                           <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
                             <option value="manager">مدير</option>
-                            <option value="casher">كاشير</option>
+                            <option value="cashier">كاشير</option>
                             <option value="deliveryman">الديلفري</option>
                             <option value="waiter">ويتر</option>
                             <option value="chef">شيف</option>

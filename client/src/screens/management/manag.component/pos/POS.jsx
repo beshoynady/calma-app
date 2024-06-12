@@ -93,7 +93,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createCasherOrder, lastInvoiceByCasher, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,itemId,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable,itemId,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -324,7 +324,7 @@ const POS = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>الكاشير: {usertitle(myOrder.casher)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <p>الكاشير: {usertitle(myOrder.cashier)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
                           {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
@@ -567,14 +567,14 @@ const POS = () => {
                             <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
-                              <button type="button" className="btn btn-47 btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                              <button type="button" className="btn btn-47 btn-primary" onClick={() => { createcashierOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                               : ordertype === 'Takeaway' ?
-                                <button type="button" className="btn btn-47 btn-primary" onClick={() => { createCasherOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                                <button type="button" className="btn btn-47 btn-primary" onClick={() => { createcashierOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                                 : <button type="button" className="btn btn-47 btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          <a type="button" className="btn btn-47 btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceByCasher(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                          <a type="button" className="btn btn-47 btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceBycashier(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
 
                         </div>
                       </div>
