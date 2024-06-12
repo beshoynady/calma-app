@@ -930,7 +930,7 @@ const ManagerDash = () => {
                                                 </div>
                                               </td>
                                               <td className="col-md-2 text-nowrap">
-                                                <div className="d-flex flex-wrap w-100 align-items-center justify-content-between">
+                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
                                                   {extra.extraId && extra.extraId.map((extraid) => {
                                                    
                                                     return (
