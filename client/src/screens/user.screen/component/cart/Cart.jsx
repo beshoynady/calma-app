@@ -210,15 +210,20 @@ const Cart = (props) => {
                                       <tr key={`${i}-${j}`}>
                                         <td className="col-md-3 text-truncate">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraDetails && extra.extraDetails.map((detail) => {
-                                                <p className="badge badge-secondary m-1" key={detail.extraId}>{detail.name}</p>
+                                            {extra.extraDetails.map((detail) => {
+
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                              );
                                             })}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">
                                           <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraDetails && extra.extraDetails.map((detail) => {
-                                                <p className="badge badge-secondary m-1" key={detail.extraId}>{detail.price}</p>
+                                            {extra.extraDetails.map((detail) => {
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                              );
                                             })}
                                           </div>
                                         </td>
