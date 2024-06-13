@@ -87,6 +87,16 @@ const POS = () => {
     }
   };
 
+  const handleSelectSize = (size) => {
+    setsize(size)
+    setsizeId(size._id)
+    setsizeQuantity(size.sizeQuantity)
+    setsizePrice(size.sizePrice);
+    if (size.sizeDiscount > 0) {
+      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
+    }
+  };
+
 
   useEffect(() => {
     getAllDeliveryAreas()
@@ -106,11 +116,11 @@ const POS = () => {
                 <div className='pos-content'>
                   <div className='categ-menu'>
                     <div className='pos-menu'>
-                      <POSCard/>
+                      <POSCard handleSelectSize={handleSelectSize}/>
                       {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
 
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                          <div className="pos-card" key={index} handleSelectSize>
                             <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
 
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />

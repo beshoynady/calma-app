@@ -5,28 +5,30 @@ import { detacontext } from '../../../../App';
 
 import defaultsImage from '../../../../image/menu/soup.jpg'
 
-const POSCard = () => {
+const POSCard = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const [noteArea, setnoteArea] = useState(false)
-  const [extraArea, setextraArea] = useState(false)
-  const [productid, setproductid] = useState('')
-  const [size, setsize] = useState('')
-  const [sizeId, setsizeId] = useState('')
-  const [sizeQuantity, setsizeQuantity] = useState(0)
-  const [sizePrice, setsizePrice] = useState()
-  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
+const {handleSelectSize}= props
+
+  // const [noteArea, setnoteArea] = useState(false)
+  // const [extraArea, setextraArea] = useState(false)
+  // const [productid, setproductid] = useState('')
+  // const [size, setsize] = useState('')
+  // const [sizeId, setsizeId] = useState('')
+  // const [sizeQuantity, setsizeQuantity] = useState(0)
+  // const [sizePrice, setsizePrice] = useState()
+  // const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
 
 
-  const handleSelectSize = (size) => {
-    setsize(size)
-    setsizeId(size._id)
-    setsizeQuantity(size.sizeQuantity)
-    setsizePrice(size.sizePrice);
-    if (size.sizeDiscount > 0) {
-      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
-    }
-  };
+  // const handleSelectSize = (size) => {
+  //   setsize(size)
+  //   setsizeId(size._id)
+  //   setsizeQuantity(size.sizeQuantity)
+  //   setsizePrice(size.sizePrice);
+  //   if (size.sizeDiscount > 0) {
+  //     setsizePriceAfterDescount(size.sizePriceAfterDiscount);
+  //   }
+  // };
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
 
@@ -42,9 +44,9 @@ const POSCard = () => {
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ width: '180px', height: '150px' }}>
+                      <div className="card mx-auto" key={index} style={{ width: '180px', height: '150px' }} onClick={() => { addItemToCart(product._id, sizeId) }}>
 
-                        {product._id === productid && noteArea === true ?
+                        {/* {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}
@@ -66,15 +68,15 @@ const POSCard = () => {
                               >الغاء</button>
                             </div>
                           </form>
-                          : ''}
+                          : ''} */}
 
-                        {product._id === productid && extraArea === true ?
+                        {/* {product._id === productid && extraArea === true ?
                           sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
                             (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                               style={{ zIndex: 10 }}>
                               <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                 className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
-                                {/* أزرار الأصناف */}
+
                                 <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
                                   {Array.from({ length: product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
                                     <div key={ind} style={{ margin: '5px' }}>
@@ -124,7 +126,7 @@ const POSCard = () => {
                                 <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
                               </div>
                             </div>
-                          : ''}
+                          : ''} */}
 
                         <div className="d-flex flex-column g-0 h-100" >
                           <div className="d-flex flex-nowrap flex-column justify-content-between" style={{ width: '100%', height: '40%' }}>
@@ -151,8 +153,8 @@ const POSCard = () => {
                           <div className="d-flex flex-column justify-content-between align-items-stretch p-0">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
-                                onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                              {/* <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
+                                onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span> */}
                             </div>
                             
                             {/* <div className="d-flex justify-content-between align-items-center mb-2">
@@ -207,7 +209,7 @@ const POSCard = () => {
                     return (
                       <div className="card mx-auto" key={index} style={{ width: '180px', height: '150px' }}>
 
-                        {product._id === productid && noteArea === true ?
+                        {/* {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
                             className="position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                             style={{ zIndex: 10 }}
@@ -229,15 +231,15 @@ const POSCard = () => {
                               >الغاء</button>
                             </div>
                           </form>
-                          : ''}
+                          : ''} */}
 
-                        {product._id === productid && extraArea === true ?
+                        {/* {product._id === productid && extraArea === true ?
                           product.quantity > 0 ? (
                             <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                               style={{ zIndex: 10 }}>
                               <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                 className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
-                                {/* أزرار الأصناف */}
+
                                 <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
                                   {Array.from({ length: product.quantity }).map((_, ind) => (
                                     <div key={ind} style={{ margin: '5px' }}>
@@ -288,7 +290,7 @@ const POSCard = () => {
                               <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
                             </div>
                           </div>
-                          : ''}
+                          : ''} */}
 
 
                         <div className="d-flex flex-column g-0 h-100">
@@ -314,8 +316,8 @@ const POSCard = () => {
                           <div className="d-flex flex-column justify-content-between align-items-stretch p-0">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
-                                onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
+                              {/* <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
+                                onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span> */}
                             </div>
                             {/* <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
