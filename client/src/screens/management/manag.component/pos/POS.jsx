@@ -33,11 +33,7 @@ const POS = () => {
   const [tableID, settableID] = useState('')
   // const [itemId, setitemId] = useState([])
   const [noteArea, setnoteArea] = useState(false)
-  const [extraArea, setextraArea] = useState(false)
   const [productid, setproductid] = useState('')
-
-  const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
-
 
   const [clientname, setclientname] = useState('')
   const [clientphone, setclientphone] = useState('')
@@ -102,6 +98,13 @@ const POS = () => {
   };
 
 
+  const [product, setproduct] = useState()
+  const getProductDitalis = (allproducts, productID) => {
+    const filter = allproducts.filter(product => product._id === productID)[0]
+    setproduct(filter)
+  }
+
+
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
@@ -110,7 +113,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId,addExtrasToProduct, handleAddProductExtras, productExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -120,11 +123,11 @@ const POS = () => {
                 <div className='pos-content'>
                   <div className='categ-menu'>
                     <div className='pos-menu'>
-                      <POSCard/>
+                      <POSCard />
                       {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
 
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(item._id, sizeId) }}>
+                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
                             <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
 
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
@@ -453,24 +456,17 @@ const POS = () => {
                       {
                         itemsInCart.length > 0 ? itemsInCart.map((item, index) => (
                           <div className="card mb-3" key={index}>
-                            {item.productid === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid); setnoteArea(!noteArea) }}>
-                                <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
-                                <div className="d-flex justify-content-center">
-                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
-                                </div>
-                              </form>
-                            ) 
-                            :item._id === productid && extraArea === true ?
-                              sizeId && item.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
+
+
+                            {product._id === productid && extraArea === true ?
+                              sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
                                 (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
-                                  <form onSubmit={(e) => { if (item.extras.length > 0) { addExtrasToProduct(e, item._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
+                                  <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                     className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                                     {/* أزرار الأصناف */}
                                     <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
-                                      {Array.from({ length: item.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
+                                      {Array.from({ length: product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
                                         <div key={ind} style={{ margin: '5px' }}>
                                           <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                             {ind + 1}
@@ -478,12 +474,12 @@ const POS = () => {
                                         </div>
                                       ))}
                                     </div>
-    
+
                                     <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', padding: '0', margin: '0' }}>
-                                      {Array.from({ length: item.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
+                                      {Array.from({ length: product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
                                         selectedButtonIndex === ind + 1 && (
                                           <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "auto" }}>
-                                            {item.extras.map((extra, i) => (
+                                            {product.extras.map((extra, i) => (
                                               <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', paddingLeft: '5px' }}>
                                                 <input
                                                   type="checkbox"
@@ -491,11 +487,11 @@ const POS = () => {
                                                   value={extra._id}
                                                   checked={
                                                     (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
-                                                    (item.sizes.filter(size => size._id === sizeId)[0].extrasSelected &&
-                                                      item.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
-                                                      item.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
+                                                    (product.sizes.filter(size => size._id === sizeId)[0].extrasSelected &&
+                                                      product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
+                                                      product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
                                                   }
-                                                 
+
                                                   onChange={(e) => handleAddProductExtras(extra, ind)}
                                                 />
                                                 <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
@@ -518,52 +514,60 @@ const POS = () => {
                                     <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
                                   </div>
                                 </div>
-                            : (
-                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
-                                  {item.hasExtras &&
-                                <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(item._id) }}>add_circle</span>
-                              }
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
+                              : ''}
+
+                            {item.productid === productid && noteArea ? (
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid); setnoteArea(!noteArea) }}>
+                                <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
+                                <div className="d-flex justify-content-center">
+                                  <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                  <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                 </div>
-                                <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount : item.price} ج</div>
-                                  <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => decrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">-</button>
-                                    <span>{item.quantity > 0 ? item.quantity : 0}</span>
-                                    <button onClick={() => incrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">+</button>
+                              </form>
+                            )
+                              : (
+                                <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                                  <div className="d-flex justify-content-between align-items-center py-2">
+                                    <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
+                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+
+                                    {/* {product.hasExtras && */}
+                                    <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
+                                      onClick={() => { setextraArea(!extraArea); getProductDitalis(product._id); setproductid(product._id) }}>add_circle</span>
+                                    {/* } */}
+
+                                    <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
-                                </div>
+                                  <div className="d-flex justify-content-between align-items-center py-2">
+                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount : item.price} ج</div>
+                                    <div className="d-flex justify-content-between" style={{ width: '50%' }}>
+                                      <button onClick={() => decrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">-</button>
+                                      <span>{item.quantity > 0 ? item.quantity : 0}</span>
+                                      <button onClick={() => incrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">+</button>
+                                    </div>
+                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
+                                  </div>
 
-                                {item.extras && (
-                                      <div className="d-flex flex-columen flex-wrap mt-2">
-                                        {item.extras.map((extra, i) => (
-                                          extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
-                                            <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
-                                              {extra.extraDetails.map((detail) => {
+                                  {item.extras && (
+                                    <div className="d-flex flex-columen flex-wrap mt-2">
+                                      {item.extras.map((extra, i) => (
+                                        extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                          <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
+                                            {extra.extraDetails.map((detail) => {
 
-                                                return (
-                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
-                                                );
-                                              })}
-                                            </div>
-                                            <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
+                                              );
+                                            })}
                                           </div>
-                                        ))}
-                                      </div>
-                                    )}
-                                    {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
-                                {/* {item.notes && (
-                                  <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                    {item.notes}
-                                  </div>
-                                )} */}
-                              </div>
-                            )}
+                                          <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
+                                </div>
+                              )}
                           </div>
                         ))
                           :
