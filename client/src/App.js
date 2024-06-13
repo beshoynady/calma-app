@@ -804,6 +804,7 @@ function App() {
           setitemId([sizeId ? sizeId : productId]);
         }
       }
+      console.log({itemsInCart})
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
     }

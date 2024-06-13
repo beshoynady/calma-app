@@ -473,11 +473,30 @@ const POS = () => {
                                   </div>
                                   <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
                                 </div>
-                                {item.notes && (
+
+                                {item.extras && (
+                                      <div className="d-flex flex-columen flex-wrap mt-2">
+                                        {item.extras.map((extra, i) => (
+                                          extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                            <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
+                                              {extra.extraDetails.map((detail) => {
+
+                                                return (
+                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
+                                                );
+                                              })}
+                                            </div>
+                                            <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    )}
+                                    {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
+                                {/* {item.notes && (
                                   <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
                                     {item.notes}
                                   </div>
-                                )}
+                                )} */}
                               </div>
                             )}
                           </div>
