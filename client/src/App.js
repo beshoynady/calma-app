@@ -1227,7 +1227,7 @@ function App() {
   const createWaiterOrderForTable = async (tableId, waiterId) => {
     try {
       // Check for active orders for the table
-      const tableOrder = allOrders.filter((order) => order.table._id === tableId);
+      const tableOrder = allOrders.filter((order) => order.table&&order.table._id === tableId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
 
