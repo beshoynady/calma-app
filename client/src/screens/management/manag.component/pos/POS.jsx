@@ -531,10 +531,10 @@ const POS = () => {
                                     <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
                                     <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
-                                    {/* {product.hasExtras && */}
+                                    {product.hasExtras &&
                                     <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
                                       onClick={() => { setextraArea(!extraArea); getProductDitalis(product._id); setproductid(product._id) }}>add_circle</span>
-                                    {/* } */}
+                                     } 
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
