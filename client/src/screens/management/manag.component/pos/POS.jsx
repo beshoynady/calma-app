@@ -447,11 +447,11 @@ const POS = () => {
                   <div className="row" style={{ height: '60%', width: '100%', padding: '0', margin: '0', overflowY: 'auto' }}>
                     <div className="col-12 col-md-8 overflow=-auto" style={{ width: '100%' }}>
                       {
-                        itemsInCart.length > 0 ? itemsInCart.map((i, index) => (
+                        itemsInCart.length > 0 ? itemsInCart.map((item, index) => (
                           <div className="card mb-3" key={index}>
-                            {i.productid === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, i.productid); setnoteArea(!noteArea) }}>
-                                <textarea className="form-control mb-2" defaultValue={i.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
+                            {item.productid === productid && noteArea ? (
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid); setnoteArea(!noteArea) }}>
+                                <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
                                   <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
                                   <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
@@ -460,22 +460,22 @@ const POS = () => {
                             ) : (
                               <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                 <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
-                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
-                                  <button onClick={() => deleteItemFromCart(i.productid)} className="btn btn-47 btn-danger">حذف</button>
+                                  <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
+                                  <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                  <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center py-2">
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount : i.price} ج</div>
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount : item.price} ج</div>
                                   <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                    <button onClick={() => decrementProductQuantity(i.productid)} className="btn btn-47 btn-light">-</button>
-                                    <span>{i.quantity > 0 ? i.quantity : 0}</span>
-                                    <button onClick={() => incrementProductQuantity(i.productid)} className="btn btn-47 btn-light">+</button>
+                                    <button onClick={() => decrementProductQuantity(item.productid)} className="btn btn-47 btn-light">-</button>
+                                    <span>{item.quantity > 0 ? item.quantity : 0}</span>
+                                    <button onClick={() => incrementProductQuantity(item.productid)} className="btn btn-47 btn-light">+</button>
                                   </div>
-                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.discount ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                                  <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.discount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
                                 </div>
-                                {i.notes && (
+                                {item.notes && (
                                   <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                    {i.notes}
+                                    {item.notes}
                                   </div>
                                 )}
                               </div>
@@ -483,9 +483,9 @@ const POS = () => {
                           </div>
                         ))
                           :
-                          productOrderToUpdate.length > 0 ? productOrderToUpdate.map((i, index) => (
+                          productOrderToUpdate.length > 0 ? productOrderToUpdate.map((item, index) => (
                             <div className="card mb-3" key={index}>
-                              {i.productid === productid && noteArea ? (
+                              {item.productid === productid && noteArea ? (
                                 <form className="card-body" style={{ padding: '5px', margin: '0' }}>
                                   <textarea className="form-control mb-2" placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                   <div className="d-flex justify-content-center">
@@ -496,25 +496,25 @@ const POS = () => {
                               ) : (
                                 <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                   <div className="d-flex justify-content-between align-items-center py-2">
-                                    <div className="fw-bold" style={{ width: '50%' }}>{i.name}</div>
+                                    <div className="fw-bold" style={{ width: '50%' }}>{item.name}</div>
 
-                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(i.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
-                                    <button onClick={() => deleteItemFromCart(i.productid)} className="btn btn-47 btn-danger">حذف</button>
+                                    <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
 
                                   <div className="d-flex justify-content-between align-items-center py-2">
-                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.priceAfterDiscount > 0 ? i.priceAfterDiscount : i.price} ج</div>
+                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount : item.price} ج</div>
                                     <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                      <button onClick={() => decrementProductQuantity(i.productid)} className="btn btn-47 btn-light">-</button>
-                                      <span>{i.quantity > 0 ? i.quantity : 0}</span>
-                                      <button onClick={() => incrementProductQuantity(i.productid)} className="btn btn-47 btn-light">+</button>
+                                      <button onClick={() => decrementProductQuantity(item.productid)} className="btn btn-47 btn-light">-</button>
+                                      <span>{item.quantity > 0 ? item.quantity : 0}</span>
+                                      <button onClick={() => incrementProductQuantity(item.productid)} className="btn btn-47 btn-light">+</button>
                                     </div>
-                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{i.priceAfterDiscount > 0 ? i.priceAfterDiscount * i.quantity : i.price * i.quantity} ج</div>
+                                    <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
                                   </div>
-                                  {i.notes && (
+                                  {item.notes && (
                                     <div style={{ fontSize: '14px', fontWeight: '700', color: 'rgb(29, 29, 255)' }}>
-                                      {i.notes}
+                                      {item.notes}
                                     </div>
                                   )}
                                 </div>
