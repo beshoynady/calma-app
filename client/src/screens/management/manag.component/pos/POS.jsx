@@ -462,14 +462,14 @@ const POS = () => {
 
 
                             {product&&product._id&&product._id === productid && extraArea === true ?
-                              sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ?
+                              sizeId && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                                 (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
                                   <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                     className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                                     {/* أزرار الأصناف */}
                                     <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
-                                      {Array.from({ length: product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
+                                      {Array.from({ length: product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity }).map((_, ind) => (
                                         <div key={ind} style={{ margin: '5px' }}>
                                           <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                             {ind + 1}
@@ -536,7 +536,7 @@ const POS = () => {
 
                                     {item.hasExtras &&
                                     <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
-                                      onClick={() => { setextraArea(!extraArea); getProductDitalis(product._id); setproductid(product._id) }}>add_circle</span>
+                                      onClick={() => { setextraArea(!extraArea); getProductDitalis(item.productid); setproductid(item.productid) }}>add_circle</span>
                                      } 
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
