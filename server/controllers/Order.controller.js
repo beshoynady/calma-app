@@ -91,15 +91,15 @@ const getOrder = async (req, res) => {
     try {
         const orderId = req.params.id;
         const order = await OrderModel.findById(orderId)
-            .populate('products.productid', 'name price ')
-            .populate('products.sizeId', 'name price')
-            .populate('products.extras.extraDetails.extraId', 'name price')
-            .populate('table', 'tableNumber')
-            .populate('user', 'username address deliveryArea phone')
-            .populate('createdBy', 'fullname role shift sectionNumber')
-            .populate('cashier', 'fullname role shift sectionNumber')
-            .populate('waiter', 'fullname role shift sectionNumber')
-            .populate('deliveryMan', 'fullname role shift ');
+            .populate('products.productid', '_id name price ')
+            .populate('products.sizeId', '_id name price')
+            .populate('products.extras.extraDetails.extraId', '_id name price')
+            .populate('table', '_id tableNumber')
+            .populate('user', '_id username address deliveryArea phone')
+            .populate('createdBy', '_id fullname role shift sectionNumber')
+            .populate('cashier', '_id fullname role shift sectionNumber')
+            .populate('waiter', '_id fullname role shift sectionNumber')
+            .populate('deliveryMan', '_id fullname role shift ');
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
@@ -114,15 +114,15 @@ const getOrder = async (req, res) => {
 const getOrders = async (req, res) => {
     try {
         const orders = await OrderModel.find()
-            .populate('products.productid', 'name price ')
-            .populate('products.sizeId', 'name price')
-            .populate('products.extras.extraDetails.extraId', 'name price')
-            .populate('table', 'tableNumber')
-            .populate('user', 'username address deliveryArea phone')
-            .populate('createdBy', 'fullname role shift sectionNumber')
-            .populate('cashier', 'fullname role shift sectionNumber')
-            .populate('waiter', 'fullname role shift sectionNumber')
-            .populate('deliveryMan', 'fullname role shift ');
+            .populate('products.productid', '_id name price ')
+            .populate('products.sizeId', '_id name price')
+            .populate('products.extras.extraDetails.extraId', '_id name price')
+            .populate('table', '_id tableNumber')
+            .populate('user', '_id username address deliveryArea phone')
+            .populate('createdBy', '_id fullname role shift sectionNumber')
+            .populate('cashier', '_id fullname role shift sectionNumber')
+            .populate('waiter', '_id fullname role shift sectionNumber')
+            .populate('deliveryMan', '_id fullname role shift ');
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ error: 'No orders found' });
