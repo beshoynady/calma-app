@@ -5,30 +5,29 @@ import { detacontext } from '../../../../App';
 
 import defaultsImage from '../../../../image/menu/soup.jpg'
 
-const POSCard = (props) => {
+const POSCard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
-const {handleSelectSize}= props
 
-  // const [noteArea, setnoteArea] = useState(false)
-  // const [extraArea, setextraArea] = useState(false)
-  // const [productid, setproductid] = useState('')
-  // const [size, setsize] = useState('')
-  // const [sizeId, setsizeId] = useState('')
-  // const [sizeQuantity, setsizeQuantity] = useState(0)
-  // const [sizePrice, setsizePrice] = useState()
-  // const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
+  const [noteArea, setnoteArea] = useState(false)
+  const [extraArea, setextraArea] = useState(false)
+  const [productid, setproductid] = useState('')
+  const [size, setsize] = useState('')
+  const [sizeId, setsizeId] = useState('')
+  const [sizeQuantity, setsizeQuantity] = useState(0)
+  const [sizePrice, setsizePrice] = useState()
+  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
 
 
-  // const handleSelectSize = (size) => {
-  //   setsize(size)
-  //   setsizeId(size._id)
-  //   setsizeQuantity(size.sizeQuantity)
-  //   setsizePrice(size.sizePrice);
-  //   if (size.sizeDiscount > 0) {
-  //     setsizePriceAfterDescount(size.sizePriceAfterDiscount);
-  //   }
-  // };
+  const handleSelectSize = (size) => {
+    setsize(size)
+    setsizeId(size._id)
+    setsizeQuantity(size.sizeQuantity)
+    setsizePrice(size.sizePrice);
+    if (size.sizeDiscount > 0) {
+      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
+    }
+  };
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
 
