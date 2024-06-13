@@ -479,7 +479,7 @@ const POS = () => {
                                     </div>
 
                                     <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', padding: '0', margin: '0' }}>
-                                      {Array.from({ length: product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity }).map((_, ind) => (
+                                      {Array.from({ length: product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity }).map((_, ind) => (
                                         selectedButtonIndex === ind + 1 && (
                                           <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "auto" }}>
                                             {product.extras.map((extra, i) => (
@@ -490,9 +490,9 @@ const POS = () => {
                                                   value={extra._id}
                                                   checked={
                                                     (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
-                                                    (product.sizes.filter(size => size._id === sizeId)[0].extrasSelected &&
-                                                      product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
-                                                      product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
+                                                    (product.sizes.filter(size => size._id === item.sizeId)[0].extrasSelected &&
+                                                      product.sizes.filter(size => size._id === item.sizeId)[0].extrasSelected[ind] &&
+                                                      product.sizes.filter(size => size._id === item.sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
                                                   }
 
                                                   onChange={(e) => handleAddProductExtras(extra, ind)}
