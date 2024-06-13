@@ -216,10 +216,10 @@ const POSCard = () => {
                             {product.discount > 0 ? (
                               <>
                                 <sup><small className="text-muted"><s>{product.price}ج</s></small></sup>
-                                <span className="text-danger fw-bold">{product.priceAfterDiscount}ج</span>
+                                <span className="text-light .bg-secondary fw-bold">{product.priceAfterDiscount}ج</span>
                               </>
                             ) : (
-                              <span className="text-danger fw-bold">{product.price}ج</span>
+                              <span className="text-light .bg-secondary fw-bold">{product.price}ج</span>
                             )}
                           </div>
                         </div>
