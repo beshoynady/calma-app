@@ -34,6 +34,8 @@ const POS = () => {
   // const [itemId, setitemId] = useState([])
   const [noteArea, setnoteArea] = useState(false)
   const [productid, setproductid] = useState('')
+  const [areas, setAreas] = useState([]);
+  const [extraArea, setextraArea] = useState(false)
 
   const [clientname, setclientname] = useState('')
   const [clientphone, setclientphone] = useState('')
@@ -53,8 +55,6 @@ const POS = () => {
     setaddaddition(false)
     setadddiscount(false)
   }
-
-  const [areas, setAreas] = useState([]);
 
 
   const getAllDeliveryAreas = async () => {
@@ -105,6 +105,9 @@ const POS = () => {
   }
 
 
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
+
+
   useEffect(() => {
     getAllDeliveryAreas()
   }, [])
@@ -113,7 +116,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId,addExtrasToProduct, handleAddProductExtras, productExtras,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
