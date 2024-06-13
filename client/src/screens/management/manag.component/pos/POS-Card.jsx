@@ -206,20 +206,20 @@ const POSCard = () => {
 
                   } else {
                     return (
-                      <div className="card mx-auto m-1" key={index} style={{ width: '180px', height: '150px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                      <div className="card mx-auto m-1 .bg-secondary" key={index} style={{ width: '180px', height: '150px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} onClick={() => { addItemToCart(product._id, sizeId) }}>
                         <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '60%' }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
                         <div className="d-flex .bg-secondary justify-content-between align-items-center p-2">
                           <h5 className="card-title text-light mb-0 text-truncate" style={{ width: '60%' }}>{product.name}</h5>
-                          <div className="text-end">
+                          <div className="text-end ">
                             {product.discount > 0 ? (
                               <>
-                                <span className="text-light .bg-secondary fw-bold">{product.priceAfterDiscount}ج</span>
+                                <span className="text-light fw-bold">{product.priceAfterDiscount}ج</span>
                                 <sup><small className="text-muted text-light">{product.price}ج</small></sup>
                               </>
                             ) : (
-                              <span className="text-light .bg-secondary fw-bold">{product.price}ج</span>
+                              <span className="text-light fw-bold">{product.price}ج</span>
                             )}
                           </div>
                         </div>
