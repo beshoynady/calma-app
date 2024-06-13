@@ -211,12 +211,13 @@ const POSCard = () => {
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
                         <div className="d-flex bg-secondary justify-content-between align-items-center p-2">
-                          <h5 className="card-title text-light mb-0 text-truncate" style={{ width: '60%' }}>{product.name}</h5>
+                          <h5 className="card-title text-light mb-0 text-truncate" style={{ width: '60%' ,fontSize:'18px', fontWeight:'900'}}>{product.name}</h5>
                           <div className="text-end ">
                             {product.discount > 0 ? (
                               <>
                                 <span className="text-light fw-bold">{product.priceAfterDiscount}ج</span>
-                                <sup><small className="text-muted text-light">{product.price}ج</small></sup>
+                                <sup><del className="text-muted text-light" style={{fontSize:'10px', fontWeight:'900'}}>{product.price}ج</del></sup>
+
                               </>
                             ) : (
                               <span className="text-light fw-bold">{product.price}ج</span>
