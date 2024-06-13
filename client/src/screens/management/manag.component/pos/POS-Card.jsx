@@ -42,7 +42,7 @@ const POSCard = () => {
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '300px', width: "100%", height: '215px', margin: '0 0 10px 10px' }}>
+                      <div className="card mx-auto" key={index} style={{ width: '180px', height: '150px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -126,8 +126,8 @@ const POSCard = () => {
                             </div>
                           : ''}
 
-                        <div className="d-flex flex-column g-0 h-100" style={{ width: '150px', height: '150px' }}>
-                          <div className="d-flex flex-nowrap flex-column justify-content-between" style={{ width: '100%', height: '60%' }}>
+                        <div className="d-flex flex-column g-0 h-100" >
+                          <div className="d-flex flex-nowrap flex-column justify-content-between" style={{ width: '100%', height: '40%' }}>
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {/* {product.available === true ? (
                               <>
@@ -148,16 +148,16 @@ const POSCard = () => {
                             )} */}
 
                           </div>
-                          <div className="d-flex flex-column justify-content-between align-items-stretch p-2">
+                          <div className="d-flex flex-column justify-content-between align-items-stretch p-0">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
+                                <span className="material-icons" style={{ color: "green", fontSize: "35px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
@@ -210,7 +210,7 @@ const POSCard = () => {
 
                   } else {
                     return (
-                      <div className="card mx-auto" key={index} style={{ maxWidth: "320px", minWidth: '270px', width: "100%", height: '200px', margin: '0 0 10px 10px' }}>
+                      <div className="card mx-auto" key={index} style={{ width: '180px', height: '150px' }}>
 
                         {product._id === productid && noteArea === true ?
                           <form onSubmit={(e) => { addNoteToProduct(e, product._id, sizeId); setnoteArea(!noteArea); }}
@@ -254,7 +254,7 @@ const POSCard = () => {
                                 </div>
 
 
-                                <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', padding: '0', margin: '0' }}>
+                                <div className="form-group d-flex flex-wrap mt-1">
                                   {Array.from({ length: product.quantity }).map((_, ind) => (
                                     selectedButtonIndex === ind + 1 && (
                                       <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "scroll" }}>
@@ -296,8 +296,8 @@ const POSCard = () => {
                           : ''}
 
 
-                        <div className="d-flex flex-column g-0 h-100" style={{ width: '150px', height: '150px' }}>
-                          <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '60%' }}>
+                        <div className="d-flex flex-column g-0 h-100">
+                          <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '40%' }}>
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {/* {product.available === true ? (
                               itemId.filter((i) => i === product._id).length > 0 && product.quantity > 0 ?
@@ -316,16 +316,16 @@ const POSCard = () => {
                               </button>
                             )} */}
                           </div>
-                          <div className="d-flex flex-column justify-content-between align-items-stretch p-2">
+                          <div className="d-flex flex-column justify-content-between align-items-stretch p-0">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "35px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
+                                <span className="material-icons" style={{ color: "green", fontSize: "35px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
