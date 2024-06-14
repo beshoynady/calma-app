@@ -33,7 +33,7 @@ const MenuCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
+        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, setproductExtras,decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
           return (
 
             <div className="d-flex flex-wrap flex-md-row">
@@ -94,7 +94,7 @@ const MenuCard = () => {
                                               type="checkbox"
                                               className="form-check-input "
                                               value={extra._id}
-                                              checked={
+                                              defaultChecked={
                                                 (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
                                                 (product.sizes.filter(size => size._id === sizeId)[0].extrasSelected &&
                                                   product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
@@ -157,7 +157,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                  onClick={() => {setproductExtras(product.sizes.filter(size => size._id === sizeId)[0].extrasSelected); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
 
@@ -264,7 +264,7 @@ const MenuCard = () => {
                                               type="checkbox"
                                               className="form-check-input "
                                               value={extra._id}
-                                              checked={
+                                              defaultChecked={
                                                 (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
                                                 (product.extrasSelected &&
                                                   product.extrasSelected[ind] &&
@@ -325,7 +325,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                  onClick={() => {setproductExtras(product.extrasSelected); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
