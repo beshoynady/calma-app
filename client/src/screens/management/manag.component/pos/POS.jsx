@@ -529,7 +529,7 @@ const POS = () => {
                                                   type="checkbox"
                                                   className="form-check-input "
                                                   value={extra._id}
-                                                  checked={
+                                                  defaultChecked={
                                                     (productExtras && productExtras[ind] && productExtras[ind].extraDetails.some(detail => detail.extraId === extra._id)) ||
                                                     (product.extrasSelected &&
                                                       product.extrasSelected[ind] &&
