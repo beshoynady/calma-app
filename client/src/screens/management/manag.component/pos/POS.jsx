@@ -443,7 +443,7 @@ const POS = () => {
                 </div>
 
                 {/* cart section */}
-                <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '400px', height: '96%', padding: '0', margin: '0' }}>
+                <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0 0 10px 0', margin: '0' }}>
                   <div className="row w-100 p-0 m-0">
                     <div className="col-12 w-100 p-0 m-0">
                       <div className="btn btn-group btn btn-block w-100 p-0 m-0">
