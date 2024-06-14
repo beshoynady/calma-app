@@ -463,7 +463,7 @@ const POS = () => {
 
                             {product && product._id && product._id === productid && extraArea === true ?
                               item.sizeId && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
-                                (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                                (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
                                   <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, item.sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                     className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
@@ -481,7 +481,7 @@ const POS = () => {
                                     <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', padding: '0', margin: '0' }}>
                                       {Array.from({ length: product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity }).map((_, ind) => (
                                         selectedButtonIndex === ind + 1 && (
-                                          <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "auto" }}>
+                                          <div key={ind} className="form-group w-100 h-100 d-flex align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "auto" }}>
                                             {product.extras.map((extra, i) => (
                                               <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', paddingLeft: '5px' }}>
                                                 <input
@@ -511,8 +511,8 @@ const POS = () => {
                                   </form>
                                 </div>
                                 )
-                              : product.quantity > 0 ?
-                                  (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+                                : product.quantity > 0 ?
+                                  (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                     style={{ zIndex: 10 }}>
                                     <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                       className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
@@ -531,7 +531,7 @@ const POS = () => {
                                       <div className="form-group d-flex flex-wrap mt-1" style={{ width: '100%', height: '50%', padding: '0', margin: '0' }}>
                                         {Array.from({ length: product.quantity }).map((_, ind) => (
                                           selectedButtonIndex === ind + 1 && (
-                                            <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "scroll" }}>
+                                            <div key={ind} className="form-group w-100 h-100 d-flex align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "scroll" }}>
                                               {product.extras && product.extras.map((extra, i) => (
                                                 <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', height: '20px', paddingLeft: '5px' }}>
                                                   {console.log({ productExtras })}
@@ -561,14 +561,14 @@ const POS = () => {
                                     </form>
                                   </div>
                                   )
-                                : <div className='position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between overflow-hidden'
+                                  : <div className='position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between overflow-hidden'
                                     style={{ zIndex: 10 }}>
                                     <p className='d-flex align-items-center justify-content-center w-100 h-75' style={{ fontSize: '18px', fontWeight: '900', textAlign: "center" }}>اختر اولا  الكمية</p>
                                     <div className="note-btn d-flex align-items-center justify-content-center w-100 mt-2" style={{ height: '40px', button: '0' }}>
                                       <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
                                     </div>
                                   </div>
-                            : ''}
+                              : ''}
 
 
 

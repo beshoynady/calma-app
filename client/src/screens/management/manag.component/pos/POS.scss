@@ -8,7 +8,7 @@
     flex-direction: row-reverse;
 
     .container-fluid {
-        width: 400px;
+        width: 4500px;
         height: 96%;
         padding: 0;
         margin: 0
@@ -244,8 +244,9 @@
         }
 
     }
-
 }
+
+
 
 @media (max-width: 768px) {
     .pos-section {
@@ -257,7 +258,7 @@
         justify-content: flex-start;
 
         .container-fluid {
-            width: 100%;
+            width: 100% !important;
             height: 100vh;
         }
 
