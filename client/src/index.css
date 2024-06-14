@@ -19,6 +19,13 @@ body {
   background-size: cover;
   background-repeat: no-repeat; */
 }
+body, p, span {
+  caret-color: transparent;
+}
+
+input, textarea {
+  caret-color: auto;
+}
 
 .bx {
   font-size: 1.7rem;
@@ -42,28 +49,3 @@ option{
   font-weight: 700;
   text-align: center;
 }
-
-/* .container {
-  width: 95% !important;
-  height: 100% !important;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.section-title{
-  width: 200px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: capitalize;
-  border: 4px solid var(--u-dark);
-  border-radius: 10px;
-  background-color: #4f3131bf;
-}
-.section-title > h2{
-  font-size: 30px;
-  font-weight: 700;
-  font-family: Marhey,sans-serif;
-  color: var(--u-light);
-} */
