@@ -611,6 +611,8 @@ function App() {
     setproductExtras(newExtras);
   };
 
+
+
   
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
@@ -940,7 +942,7 @@ function App() {
     try {
       console.log({ itemsInCart })
       // Find the user's orders
-      const userOrders = allOrders.filter((order) => order.user._id === userId);
+      const userOrders = allOrders.filter((order) => order.user&&order.user._id === userId);
       const lastUserOrder = userOrders.length > 0 ? userOrders[userOrders.length - 1] : null;
 
       // Check if the last user order is active
