@@ -565,25 +565,27 @@ function App() {
   const [productExtras, setproductExtras] = useState([])
 
   const handleAddProductExtras = (extra, ind) => {
+    console.log({productExtras, extra, ind})
     const newExtras = [...productExtras];
-  
+    
     if (newExtras.length > 0) {
       if (newExtras[ind]) {
-        const existingExtra = newExtras[ind];
   
-        const filteredExtraDetails = existingExtra.extraDetails.filter(detail => detail.extraId !== extra._id);
-        if (filteredExtraDetails.length !== existingExtra.extraDetails.length) {
+        const filteredExtraDetails = newExtras[ind].extraDetails.filter(detail => detail.extraId !== extra._id);
+        console.log({filteredExtraDetails})
+
+        if (filteredExtraDetails.length >0) {
           // إذا كانت الإضافة موجودة وتمت إزالتها
-          existingExtra.extraDetails = filteredExtraDetails;
-          existingExtra.totalExtrasPrice -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
+          newExtras[ind].extraDetails = filteredExtraDetails;
+          newExtras[ind].totalExtrasPrice -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
         } else {
           // إذا لم تكن الإضافة موجودة، قم بإضافتها
-          existingExtra.extraDetails.push({
+          newExtras[ind].extraDetails.push({
             extraId: extra._id,
             name: extra.name,
             price: extra.price
           });
-          existingExtra.totalExtrasPrice += extra.price; // زيادة السعر بسعر الإضافة المضافة
+          newExtras[ind].totalExtrasPrice += extra.price; // زيادة السعر بسعر الإضافة المضافة
         }
       } else {
         // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
@@ -667,15 +669,15 @@ function App() {
     
   //   if (newExtras.length > 0) {
   //     if (newExtras[ind]) {
-  //       const existingExtra = newExtras[ind];
+  //       const newExtras[ind] = newExtras[ind];
         
-  //       if (existingExtra.extraId.includes(extra._id)) {
-  //         existingExtra.extraId = existingExtra.extraId.filter(id => id !== extra._id);
-  //         existingExtra.priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
+  //       if (newExtras[ind].extraId.includes(extra._id)) {
+  //         newExtras[ind].extraId = newExtras[ind].extraId.filter(id => id !== extra._id);
+  //         newExtras[ind].priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
   //       } else {
   //         // إذا لم تكن الإضافة موجودة، قم بإضافتها
-  //         existingExtra.extraId.push(extra._id);
-  //         existingExtra.priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
+  //         newExtras[ind].extraId.push(extra._id);
+  //         newExtras[ind].priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
   //       }
   //     } else {
   //       // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
