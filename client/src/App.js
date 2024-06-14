@@ -574,7 +574,7 @@ function App() {
         const filteredExtraDetails = newExtras[ind].extraDetails.filter(detail => detail.extraId !== extra._id);
         console.log({filteredExtraDetails})
 
-        if (filteredExtraDetails.length >0) {
+        if (filteredExtraDetails.length !== newExtras.length) {
           // إذا كانت الإضافة موجودة وتمت إزالتها
           newExtras[ind].extraDetails = filteredExtraDetails;
           newExtras[ind].totalExtrasPrice -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
