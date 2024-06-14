@@ -130,7 +130,7 @@ const POS = () => {
                       {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                         return (
 
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id,item.sizeId) }}>
                             <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
 
                             <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
@@ -465,7 +465,7 @@ const POS = () => {
                               item.sizeId && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                                 (<div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
-                                  <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
+                                  <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, item.sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
                                     className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                                     {/* أزرار الأصناف */}
                                     <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
