@@ -536,7 +536,7 @@ const POS = () => {
 
                                     {item.hasExtras &&
                                     <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
-                                      onClick={() => { setextraArea(!extraArea); getProductDitalis(item.productid); setproductid(item.productid) }}>add_circle</span>
+                                      onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); setproductid(item.productid) }}>add_circle</span>
                                      } 
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
