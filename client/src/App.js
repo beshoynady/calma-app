@@ -2026,11 +2026,6 @@ function App() {
   useEffect(() => {
     calculateOrderCost()
     getAllOrders()
-    // getAllUsers();
-    // getAllTable();
-    // getUserInfoFromToken()
-    // calcsubtotalSplitOrder()
-    // Payment_pending_orders()
 
   }, [count, itemsInCart, productOrderToUpdate, isLogin])
 
