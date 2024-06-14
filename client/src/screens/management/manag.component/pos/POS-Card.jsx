@@ -44,7 +44,7 @@ const POSCard = () => {
                   if (product.hasSizes) {
                     return (
                       <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '200px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} >
-                        <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                        <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }} onClick={() => {sizeId&&addItemToCart(product._id, sizeId) }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
                         <div className="d-flex row justify-content-between align-items-center mb-2">
