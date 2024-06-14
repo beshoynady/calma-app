@@ -143,8 +143,8 @@ const CategoryStock = () => {
                         <h2>إدارة <b>المخازن</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addCategoryStockModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        {/* <a href="#deleteCategoryStockModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a> */}
+                        <a href="#addCategoryStockModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        {/* <a href="#deleteCategoryStockModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -227,9 +227,9 @@ const CategoryStock = () => {
                               <td>{categoryStock.name}</td>
                               <td>{AllStockItems ? AllStockItems.filter((Item) => Item.categoryId._id === categoryStock._id).length : 0}</td>
                               <td>
-                                <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )
@@ -249,9 +249,9 @@ const CategoryStock = () => {
                                 <td>{categoryStock.name}</td>
                                 <td>{AllStockItems ? AllStockItems.filter((Item) => Item.categoryId._id === categoryStock._id).length : 0}</td>
                                 <td>
-                                  <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                  <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )

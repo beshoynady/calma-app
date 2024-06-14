@@ -107,8 +107,8 @@ const ReservationTables = () => {
                         <h2>ادارة <b>حجز الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#createreservationModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>انشاء حجز جديد</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#createreservationModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>انشاء حجز جديد</span></a>
+                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -193,9 +193,9 @@ const ReservationTables = () => {
                         //           <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                         //         </a></td>
                         //         <td>
-                        //           <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settableNumber(reservation.tableNumber); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        //           <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(reservation._id); settableNumber(reservation.tableNumber); setchairs(reservation.chairs); settabledesc(reservation.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                        //           <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        //           <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(reservation._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         //         </td>
                         //       </tr>
                         //     )
@@ -225,7 +225,7 @@ const ReservationTables = () => {
                                 </td>
                                 <td>
                                   <a href="#updatereservationModal" className="edit" data-toggle="modal" onClick={(e) => { setReservationId(reservation._id); setCustomerName(reservation.customerName); setCustomerPhone(reservation.customerPhone); setNumberOfGuests(reservation.numberOfGuests); setEndTime(reservation.endTime); setStartTime(reservation.startTime); setReservationDate(reservation.reservationDate); setReservationNote(reservation.reservationNotes); setTableInfo({ id: reservation.tableId, tableNumber: reservation.tableNumber }) }}
-                                  ><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  ><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 </td>
                               </tr>
                             )

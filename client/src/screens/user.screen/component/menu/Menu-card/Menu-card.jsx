@@ -150,13 +150,13 @@ const MenuCard = () => {
                           <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons cursor-pointer" style={{ color: "red", fontSize: "45px" }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons cursor-pointer" style={{ color: "green", fontSize: "45px" }}
+                                <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
@@ -318,13 +318,13 @@ const MenuCard = () => {
                           <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons cursor-pointer" style={{ color: "red", fontSize: "45px" }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "45px" }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons cursor-pointer" style={{ color: "green", fontSize: "45px" }}
+                                <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
                                   onClick={() => { setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>

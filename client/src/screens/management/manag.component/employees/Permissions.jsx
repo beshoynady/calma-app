@@ -266,8 +266,8 @@ const PermissionsComponent = () => {
                         <h2>ادارة <b>صلاحيات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a className="btn btn-47 btn-success" onClick={addPermissions}><i className="material-icons cursor-pointer">&#xE147;</i> <span>حفظ</span></a>
-                        <a className="btn btn-47 btn-danger" onClick={getPermissions}><i className="material-icons cursor-pointer">&#xE15C;</i> <span>الغاء</span></a>
+                        <a className="btn btn-47 btn-success" onClick={addPermissions}><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
+                        <a className="btn btn-47 btn-danger" onClick={getPermissions}><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
                       </div>
                     </div>
                   </div>

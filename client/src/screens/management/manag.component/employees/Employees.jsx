@@ -270,8 +270,8 @@ const Employees = () => {
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addEmployeeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addEmployeeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deleteListEmployeeModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -379,10 +379,10 @@ const Employees = () => {
                               <td>{emp.shift&&emp.shift.shiftType}</td>
                               <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
-                                <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit" onClick={() => {
+                                <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                   setemployeeid(emp._id); setnumberID(emp.numberID); setusername(emp.username); setaddress(emp.address); setemail(emp.email); setisActive(emp.isActive); setphone(emp.phone); setrole(emp.role); setbasicSalary(emp.basicSalary)
                                 }}>&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(emp._id)}>&#xE872;</i></a>
+                                <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(emp._id)}>&#xE872;</i></a>
                               </td>
                             </tr>
                           )
@@ -417,10 +417,10 @@ const Employees = () => {
                                 <td>{emp.shift&&emp.shift.shiftType}</td>
                                 <td>{new Date(emp.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit" onClick={() => {
+                                  <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setemployeeid(emp._id); setfullname(emp.fullname); setnumberID(emp.numberID); setusername(emp.username); setaddress(emp.address); setemail(emp.email); setisActive(emp.isActive); setphone(emp.phone); setrole(emp.role); setbasicSalary(emp.basicSalary)
                                   }}>&#xE254;</i></a>
-                                  <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(emp._id)}>&#xE872;</i></a>
+                                  <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(emp._id)}>&#xE872;</i></a>
                                 </td>
                               </tr>
                             )

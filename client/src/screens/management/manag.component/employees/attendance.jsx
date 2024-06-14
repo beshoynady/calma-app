@@ -254,8 +254,8 @@ const AttendanceManagement = () => {
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecordModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addRecordModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
+                        <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -338,9 +338,9 @@ const AttendanceManagement = () => {
                               <td>{Record.updatedBy && Record.updatedBy.fullname}</td>
                               <td>{Record.notes}</td>
                               <td>
-                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )

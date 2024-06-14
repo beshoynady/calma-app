@@ -569,9 +569,9 @@ const Purchase = () => {
                         <h2>ادارة <b>المشتريات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
+                        <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
 
-                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <label>حذف</label></a>
+                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
                       </div>
                     </div>
                   </div>
@@ -697,8 +697,8 @@ const Purchase = () => {
                               <td>{formatDateTime(invoice.createdAt)}</td>
                               <td>{invoice.notes}</td>
                               <td>
-                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
                               </td>
                             </tr>
                           )

@@ -590,7 +590,7 @@ const POS = () => {
                                     <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
                                     {item.hasExtras &&
-                                      <span className="material-icons cursor-pointer" style={{ color: "green", fontSize: "45px" }}
+                                      <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
                                         onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); setproductid(item.productid) }}>add_circle</span>
                                     }
 

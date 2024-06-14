@@ -289,9 +289,9 @@ const Suppliers = () => {
                         <h2>ادارة <b>الموردين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSupplierModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addSupplierModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#deleteStockItemModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a> */}
+                        {/* <a href="#deleteStockItemModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -390,8 +390,8 @@ const Suppliers = () => {
                               <td>{supplier.createdBy.fullname}</td>
                               <td>{supplier.createdAt}</td>
                               <td>
-                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )

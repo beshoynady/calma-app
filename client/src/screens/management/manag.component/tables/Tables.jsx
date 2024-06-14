@@ -243,8 +243,8 @@ const deleteTable = async (e) => {
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#qrwebModal" className="btn btn-47 btn-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                           <span>انشاء qr للسايت</span></a>
-                        <a href="#addTableModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addTableModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
+                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -334,9 +334,9 @@ const deleteTable = async (e) => {
                                   <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                 </a></td>
                                 <td>
-                                  <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                  <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )
@@ -370,9 +370,9 @@ const deleteTable = async (e) => {
                                     <span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                                   </a></td>
                                   <td>
-                                    <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#editTableModal" className="edit" data-toggle="modal" onClick={() => { settableid(table._id); settableNumber(table.tableNumber); setchairs(table.chairs); settabledesc(table.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                    <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <a href="#deleteTableModal" className="delete" data-toggle="modal" onClick={() => settableid(table._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                   </td>
                                 </tr>
                               )

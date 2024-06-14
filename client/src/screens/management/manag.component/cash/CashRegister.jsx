@@ -177,8 +177,8 @@ const CashRegister = () => {
                       <h2>ادارة <b>الخزينه</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addCashRegisterModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه خزنه</span></a>
-                      <a href="#deleteListCashRegisterModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#addCashRegisterModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
+                      <a href="#deleteListCashRegisterModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -269,8 +269,8 @@ const CashRegister = () => {
                             <td>{usertitle(cash.employee)}</td>
                             <td>{cash.balance}</td>
                             <td>
-                              <a href="#editCashRegisterModal" className="edit" data-toggle="modal" onClick={() => { setcashID(cash._id); setname(cash.name); setemployee(cash.employee); setbalance(cash.balance) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                              <a href="#deleteCashRegisterModal" className="delete" data-toggle="modal" onClick={() => setcashID(cash._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                              <a href="#editCashRegisterModal" className="edit" data-toggle="modal" onClick={() => { setcashID(cash._id); setname(cash.name); setemployee(cash.employee); setbalance(cash.balance) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                              <a href="#deleteCashRegisterModal" className="delete" data-toggle="modal" onClick={() => setcashID(cash._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
                           </tr>
                         )

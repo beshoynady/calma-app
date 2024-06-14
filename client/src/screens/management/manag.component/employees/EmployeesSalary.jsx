@@ -214,8 +214,8 @@ const EmployeesSalary = () => {
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSalaryMovementModal" onClick={() => { setactionBy(employeeLoginInfo ? employeeLoginInfo.employeeinfo.id : '') }} className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافة حركة</span></a>
-                        <a href="#deleteSalaryMovementModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addSalaryMovementModal" onClick={() => { setactionBy(employeeLoginInfo ? employeeLoginInfo.employeeinfo.id : '') }} className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
+                        <a href="#deleteSalaryMovementModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -309,10 +309,10 @@ const EmployeesSalary = () => {
                               <td>{usertitle(mov.actionBy)}</td>
                               <td>{new Date(mov.actionAt).toLocaleString()}</td>
                               <td>
-                                <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit" onClick={() => {
+                                <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                   setsalarymovementId(mov._id); setEmployeeName(mov.EmployeeName); setAmount(mov.Amount); setactionBy(mov.actionBy); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); setactionAt(mov.actionAt); setmovement(mov.movement)
                                 }}>&#xE254;</i></a>
-                                <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
+                                <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
                               </td>
 
                             </tr>
@@ -340,10 +340,10 @@ const EmployeesSalary = () => {
                                 <td>{usertitle(mov.actionBy)}</td>
                                 <td>{new Date(mov.actionAt).toLocaleString()}</td>
                                 <td>
-                                  <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit" onClick={() => {
+                                  <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setsalarymovementId(mov._id); setEmployeeName(mov.EmployeeName); setAmount(mov.Amount); setactionBy(mov.actionBy); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); setactionAt(mov.actionAt); setmovement(mov.movement)
                                   }}>&#xE254;</i></a>
-                                  <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
+                                  <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
                                 </td>
                               </tr>
                             )

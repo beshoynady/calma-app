@@ -74,8 +74,8 @@ const CustomerMessage = () => {
                         <h2>ادارة <b>رسائل العملاء</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addmessageModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deletemessageModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addmessageModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deletemessageModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -153,9 +153,9 @@ const CustomerMessage = () => {
                                 <td>
                                 <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{
                                       setName(message.name);setPhone(message.phone);setMessage(message.message); setEmail(message.email);setmessageId(message._id);
-                                    }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit"
+                                    }}><i className="material-icons" data-toggle="tooltip" title="Edit"
                                     >&#xE254;</i></a>
-                                    <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete"
+                                    <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons" data-toggle="tooltip" title="Delete"
                                     >&#xE872;</i></a>
                                 </td>
 
@@ -183,9 +183,9 @@ const CustomerMessage = () => {
                                   <td>
                                     <a href="#editmessageModal" className="edit" data-toggle="modal"onClick={()=>{
                                       setName(message.name);setPhone(message.phone);setMessage(message.message); setEmail(message.email);setmessageId(message._id);
-                                    }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit"
+                                    }}><i className="material-icons" data-toggle="tooltip" title="Edit"
                                     >&#xE254;</i></a>
-                                    <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete"
+                                    <a href="#deletemessageModal" className="delete" data-toggle="modal" onClick={()=>setmessageId(message._id)}><i className="material-icons" data-toggle="tooltip" title="Delete"
                                     >&#xE872;</i></a>
                                   </td>
                                 </tr>

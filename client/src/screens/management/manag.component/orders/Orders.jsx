@@ -184,8 +184,8 @@ const Orders = () => {
                         <h2>ادارة <b>الاوردرات</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addOrderModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
-                        <a href="#deleteListOrderModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addOrderModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
+                        <a href="#deleteListOrderModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -291,8 +291,8 @@ const Orders = () => {
                                 <td>{order.payment_status}</td>
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-                                  <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
+                                  <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )
@@ -330,8 +330,8 @@ const Orders = () => {
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
 
                                 <td>
-                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-                                  <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
+                                  <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )
