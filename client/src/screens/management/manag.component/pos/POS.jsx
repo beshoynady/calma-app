@@ -107,7 +107,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,setproductExtras,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -581,7 +581,7 @@ const POS = () => {
 
                                     {item.hasExtras &&
                                       <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
-                                        onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid);item.sizeId?setsizeId(item.sizeId) :setproductid(item.productid) }}>add_circle</span>
+                                        onClick={() => {setproductExtras(item.extras); setextraArea(!extraArea); getProductDitalis(allProducts, item.productid);item.sizeId?setsizeId(item.sizeId) :setproductid(item.productid)  }}>add_circle</span>
                                     }
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
