@@ -157,7 +157,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => {setproductExtras(product.sizes.filter(size => size._id === sizeId)[0].extrasSelected); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                  onClick={() => {setproductExtras(product.sizes.filter(size => size._id === sizeId)[0].extrasSelected?product.sizes.filter(size => size._id === sizeId)[0].extrasSelected:[]); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
 
@@ -325,7 +325,7 @@ const MenuCard = () => {
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
                                 <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => {setproductExtras(product.extrasSelected); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                  onClick={() => {setproductExtras(product.extrasSelected?product.extrasSelected:[]); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
