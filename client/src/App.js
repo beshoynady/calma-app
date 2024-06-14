@@ -578,6 +578,8 @@ function App() {
           // إذا كانت الإضافة موجودة وتمت إزالتها
           newExtras[ind].extraDetails = filteredExtraDetails;
           newExtras[ind].totalExtrasPrice -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
+          setproductExtras(newExtras);
+
         } else {
           // إذا لم تكن الإضافة موجودة، قم بإضافتها
           newExtras[ind].extraDetails.push({
@@ -586,6 +588,8 @@ function App() {
             price: extra.price
           });
           newExtras[ind].totalExtrasPrice += extra.price; // زيادة السعر بسعر الإضافة المضافة
+          setproductExtras(newExtras);
+
         }
       } else {
         // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
@@ -596,7 +600,10 @@ function App() {
             price: extra.price
           }],
           totalExtrasPrice: extra.price
+          
         };
+        setproductExtras(newExtras);
+
       }
     } else {
       // إذا كانت المصفوفة فارغة بالكامل، قم بإنشاء إدخال جديد
@@ -608,9 +615,10 @@ function App() {
         }],
         totalExtrasPrice: extra.price
       };
+      setproductExtras(newExtras);
+
     }
     calculateOrderCost()
-    setproductExtras(newExtras);
   };
 
   
