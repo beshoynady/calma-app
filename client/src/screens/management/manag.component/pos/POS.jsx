@@ -587,10 +587,10 @@ const POS = () => {
                                 <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
-                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px',cursor:'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
                                     {item.hasExtras &&
-                                      <span className="material-icons" style={{ color: "green", fontSize: "45px" }}
+                                      <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
                                         onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); setproductid(item.productid) }}>add_circle</span>
                                     }
 
@@ -644,7 +644,7 @@ const POS = () => {
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '50%' }}>{item.name}</div>
 
-                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                    <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px',cursor:'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
