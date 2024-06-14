@@ -653,6 +653,7 @@ function App() {
   
       console.log({findProduct});
       console.log({itemsInCart});
+      calculateOrderCost()
       setproductExtras([]);
     } catch (error) {
       console.error('Error updating product extras:', error.message);
