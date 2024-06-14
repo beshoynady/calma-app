@@ -648,7 +648,7 @@ function App() {
         itemsInCart.map(item => {
           if (item.productId === productId) {
             item.extras = productExtras;
-            item.extrasSelected = productExtras;
+            // item.extrasSelected = productExtras;
           }
         });
       }
