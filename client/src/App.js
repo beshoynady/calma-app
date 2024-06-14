@@ -607,7 +607,7 @@ function App() {
         totalExtrasPrice: extra.price
       };
     }
-  
+    calculateOrderCost()
     setproductExtras(newExtras);
   };
 
@@ -637,7 +637,7 @@ function App() {
         });
         itemsInCart.map(item => {
           if (item.productId === productId && item.sizeId === sizeId) {
-            item.extrasSelected = productExtras;
+            item.extras = productExtras;
           }
         });
       } else {
@@ -645,13 +645,14 @@ function App() {
         findProduct.extrasSelected = productExtras;
         itemsInCart.map(item => {
           if (item.productId === productId) {
+            item.extras = productExtras;
             item.extrasSelected = productExtras;
           }
         });
       }
   
-      console.log(findProduct);
-      console.log(itemsInCart);
+      console.log({findProduct});
+      console.log({itemsInCart});
       setproductExtras([]);
     } catch (error) {
       console.error('Error updating product extras:', error.message);
