@@ -618,8 +618,8 @@ const POS = () => {
                   </div>
                   <div>
                     <div className="row d-flex align-items-start rounded-10 p-0 m-0" style={{ padding: '0', margin: '0', direction: 'rtl' }}>
-                      <div className="col">
-                        <div className="order-details bg-white border" >
+                      <div className="col p-0 m-0">
+                        <div className="order-details bg-white border p-0 m-0" >
                           <p className="order-item mb-0 d-flex justify-content-between align-items-center text-black">
                             <span className="font-weight-bold">قيمة الأوردر:</span>
                             <span>{costOrder > 0 ? costOrder : 0}ج</span>
@@ -651,16 +651,16 @@ const POS = () => {
                     </div>
 
 
-                    <div className="row w-100 mt-auto" style={{ padding: '0', margin: '0' }}>
-                      <div className="col-12">
-                        <div className="btn btn-group btn btn-block">
+                    <div className="row w-100 p-0 m-0">
+                      <div className="col-12 p-0 m-0">
+                        <div className="btn btn-group btn btn-block p-0 m-0">
                           <button type="button" className="btn btn-47 btn-secondary" onClick={() => setaddaddition(!addaddition)}>رسوم</button>
                           <button type="button" className="btn btn-47 btn-secondary" onClick={() => setadddiscount(!adddiscount)}>خصم</button>
                           <button type="button" className="btn btn-47 btn-danger" onClick={() => { setitemsInCart([]); deleteOrderdetalis() }}>إلغاء الطلب</button>
                         </div>
                       </div>
-                      <div className="col-12">
-                        <div className="btn btn-group btn btn-block">
+                      <div className="col-12 p-0 m-0">
+                        <div className="btn btn-group btn btn-block p-0 m-0">
                           {productOrderToUpdate.length > 0 ?
                             <button type="button" className="btn btn-47 btn-secondary" onClick={() => updateOrder()}>تاكيد التعديل</button>
                             : <a type="button" className="btn btn-47 btn-secondary" href="#getOrderDetalisModal" data-toggle="modal">تعديل</a>
@@ -668,8 +668,8 @@ const POS = () => {
                           <a type="button" className="btn btn-47 btn-warning" href="#getOrderTableModal" data-toggle="modal">دفع جزء</a>
                         </div>
                       </div>
-                      <div className="col-12">
-                        <div className="btn btn-group btn btn-block">
+                      <div className="col-12 p-0 m-0">
+                        <div className="btn btn-group btn btn-block p-0 m-0">
                           {ordertype === 'Internal' ?
                             <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
