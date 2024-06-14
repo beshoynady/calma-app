@@ -77,15 +77,6 @@ const POS = () => {
   const [sizeQuantity, setsizeQuantity] = useState(0)
   const [sizePrice, setsizePrice] = useState()
   const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
-  const handleSizeClick = (size) => {
-    setsize(size)
-    setsizeId(size._id)
-    setsizeQuantity(size.sizeQuantity)
-    setsizePrice(size.sizePrice);
-    if (size.sizeDiscount > 0) {
-      setsizePriceAfterDescount(size.sizePriceAfterDiscount);
-    }
-  };
 
   const handleSelectSize = (size) => {
     setsize(size)
@@ -461,7 +452,7 @@ const POS = () => {
                           <div className="card mb-3" key={index}>
 
 
-                            {product && product._id && product._id === item.productid && extraArea === true && item.sizeId && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
+                            {product &&item.sizeId &&  sizeId === item.sizeId && extraArea === true && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                               (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                 style={{ zIndex: 10 }}>
                                 <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, item.sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
@@ -590,7 +581,7 @@ const POS = () => {
 
                                     {item.hasExtras &&
                                       <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
-                                        onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); setproductid(item.productid) }}>add_circle</span>
+                                        onClick={() => { setextraArea(!extraArea); getProductDitalis(allProducts, item.productid);item.hasSizes?setsizeId(item.sizeId) :setproductid(item.productid) }}>add_circle</span>
                                     }
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
