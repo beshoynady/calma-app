@@ -638,7 +638,7 @@ function App() {
           }
         });
         itemsInCart.map(item => {
-          if (item.productId === productId && item.sizeId === sizeId) {
+          if (item.productid === productId && item.sizeId === sizeId) {
             item.extras = productExtras;
           }
         });
@@ -646,7 +646,7 @@ function App() {
         // Update the extras for the found product
         findProduct.extrasSelected = productExtras;
         itemsInCart.map(item => {
-          if (item.productId === productId) {
+          if (item.productid === productId) {
             item.extras = productExtras;
             // item.extrasSelected = productExtras;
           }
