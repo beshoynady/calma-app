@@ -326,9 +326,9 @@ const KitchenConsumption = () => {
                         <h2>ادارة <b>الاستهلاك</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addItemModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addItemModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#updateItemModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+                        {/* <a href="#updateItemModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -433,8 +433,8 @@ const KitchenConsumption = () => {
                                 <td>{item.createdBy ? usertitle(item.createdBy) : '--'}</td>
                                 <td>{item.createdAt}</td>
                                 <td>
-                                  <a href="#updateKitchenItemModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                  <a href="#deleteStockItemModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#updateKitchenItemModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#deleteStockItemModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             );
@@ -464,8 +464,8 @@ const KitchenConsumption = () => {
                                       setcreatedBy(employeeLoginInfo.employeeinfo.id); setKitchenItemId(item._id);
                                       setstockItemId(item.stockItemId); setstockItemName(item.stockItemName); setquantityTransferredToKitchen(item.quantityTransferredToKitchen); setbookBalance(item.bookBalance); setunit(item.unit);
                                       setconsumptionQuantity(item.consumptionQuantity);
-                                    }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteStockItemModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#deleteStockItemModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                   </td>
                                 </tr>
                               );

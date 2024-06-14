@@ -267,7 +267,7 @@ const Category = () => {
                       <div className="col-sm-8 d-flex flex-column flex-sm-row justify-content-between align-items-center">
                         <div className="d-flex flex-column flex-sm-row align-items-center mb-3 mb-sm-0">
                           <a href="#orderCategoryModal" className="btn btn-info mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
-                            <i className="material-icons">&#xE164;</i><span>ترتيب</span>
+                            <i className="material-icons cursor-pointer">&#xE164;</i><span>ترتيب</span>
                           </a>
                           <div className="d-flex align-items-center">
                             <label htmlFor="categorySelect" className="mb-0 mr-2" style={{ width: '55%' }}>اختر التصنيف الرئيسي:</label>
@@ -282,10 +282,10 @@ const Category = () => {
                         </div>
                         <div className="d-flex flex-column flex-sm-row align-items-center">
                           <a href="#addCategoryModal" className="btn btn-success mb-2 mb-sm-0 mr-0 mr-sm-2" data-toggle="modal">
-                            <i className="material-icons">&#xE147;</i><span>اضافه تصنيف</span>
+                            <i className="material-icons cursor-pointer">&#xE147;</i><span>اضافه تصنيف</span>
                           </a>
                           <a href="#deleteCategoryModal" className="btn btn-danger" data-toggle="modal">
-                            <i className="material-icons">&#xE15C;</i><span>حذف</span>
+                            <i className="material-icons cursor-pointer">&#xE15C;</i><span>حذف</span>
                           </a>
                         </div>
                       </div>
@@ -356,9 +356,9 @@ const Category = () => {
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
-                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )
@@ -381,9 +381,9 @@ const Category = () => {
                                 <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
                                 <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
-                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )

@@ -357,9 +357,9 @@ const Products = () => {
                         <h2>ادارة <b>المنتجات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addProductModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addProductModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -476,11 +476,11 @@ const Products = () => {
                       //           <td>{p.sales}</td>
                       //           <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                       //           <td>
-                      //             <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                      //             <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                      //             {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
+                      //             {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
 
-                      //             <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      //             <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       //           </td>
                       //         </tr>
                       //       )
@@ -511,8 +511,8 @@ const Products = () => {
                                 <td>{p.sales}</td>
                                 <td>{p.available ? 'متاح' : 'غير متاح'}</td>
                                 <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                  <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                               </tr>
                             )

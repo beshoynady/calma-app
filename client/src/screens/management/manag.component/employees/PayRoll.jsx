@@ -539,7 +539,7 @@ const PayRoll = () => {
                         <h2>ادارة <b>الرواتب</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a className="btn btn-47 btn-success" onClick={addPayRoll}><i className="material-icons">&#xE147;</i> <span>تحديث كشف المرتبات</span></a>
+                        <a className="btn btn-47 btn-success" onClick={addPayRoll}><i className="material-icons cursor-pointer">&#xE147;</i> <span>تحديث كشف المرتبات</span></a>
                       </div>
                     </div>
                   </div>

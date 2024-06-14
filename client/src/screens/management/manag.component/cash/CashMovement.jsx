@@ -336,9 +336,9 @@ const CashMovement = () => {
                         <h2>ادارة <b>حركه النقدية</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#DepositModal" className="btn btn-47 btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
-                        <a href="#WithdrawModal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
-                        <a href="#Transferodal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
+                        <a href="#DepositModal" className="btn btn-47 btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}><i className="material-icons cursor-pointer">&#xE147;</i> <span>ايداع</span></a>
+                        <a href="#WithdrawModal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}><i className="material-icons cursor-pointer">&#xE15C;</i> <span>سحب</span></a>
+                        <a href="#Transferodal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}><i className="material-icons cursor-pointer">&#xE15C;</i> <span>تحويل</span></a>
                       </div>
                     </div>
                   </div>
@@ -444,8 +444,8 @@ const CashMovement = () => {
                         //         <td>{Date(action.actionAt).toLocaleString}</td>
                         //         <td>{usertitle(action.actionBy)}</td>
                         //         <td>
-                        //           <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        //           <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        //           <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        //           <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         //         </td>
                         //       </tr>
                         //     )
@@ -487,8 +487,8 @@ const CashMovement = () => {
                                   : movement.status}</td>
                                 <td>{new Date(movement.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 {/* <td>
-                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                  <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); setoldBalance(action.oldBalance); setoldCost(action.oldCost); setprice(action.price) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                  <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => setactionId(action._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td> */}
                               </tr>
                             )

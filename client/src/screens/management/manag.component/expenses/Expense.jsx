@@ -108,9 +108,9 @@ const ExpenseItem = () => {
                       <h2>ادارة <b>المصروفات</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addExpensesModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
+                      <a href="#addExpensesModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
 
-                      <a href="#deleteExpensesModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#deleteExpensesModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -173,8 +173,8 @@ const ExpenseItem = () => {
                             <td>
                               <a href="#editExpensesModal" className="edit" data-toggle="modal" onClick={() => {
                                 setexpenseId(expense._id); setDescription(expense.description)
-                              }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                              <a href="#deleteExpensesModal" className="delete" data-toggle="modal" onClick={() => setexpenseId(expense._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                              }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                              <a href="#deleteExpensesModal" className="delete" data-toggle="modal" onClick={() => setexpenseId(expense._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
                           </tr>
                         )
@@ -195,8 +195,8 @@ const ExpenseItem = () => {
                               <td>{expense.amount}</td>
                               <td>{new Date(expense.date).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
-                                <a href="#editExpensesModal" className="edit" data-toggle="modal" onClick={() => { setexpenseId(expense._id); setDescription(expense.description) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteExpensesModal" className="delete" data-toggle="modal" onClick={() => setexpenseId(expense._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#editExpensesModal" className="edit" data-toggle="modal" onClick={() => { setexpenseId(expense._id); setDescription(expense.description) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteExpensesModal" className="delete" data-toggle="modal" onClick={() => setexpenseId(expense._id)}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )

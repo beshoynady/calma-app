@@ -352,9 +352,9 @@ const ProductRecipe = () => {
                         <h2>ادارة <b>تكاليف الانتاج</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecipeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addRecipeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteAllProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#deleteAllProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -468,9 +468,9 @@ const ProductRecipe = () => {
                                   setunit(rec.unit)
                                   setcostofitem(rec.costofitem);
                                   settotalcostofitem(rec.settotalcostofitem)
-                                }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => { setitemId(rec.itemId) }}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => { setitemId(rec.itemId) }}><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )

@@ -169,8 +169,8 @@ const Users = () => {
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#adduserModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deleteuserModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#adduserModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deleteuserModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons cursor-pointer">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -245,10 +245,10 @@ const Users = () => {
                                 </td>
                                 <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                 <td>
-                                  <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
+                                  <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit"
                                     onClick={() => { handelEditUser(user) }}
                                   >&#xE254;</i></a>
-                                  <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
+                                  <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete"
                                   //    onClick={() => setuserloyeeid(user._id)}
                                   >&#xE872;</i></a>
                                 </td>
@@ -290,10 +290,10 @@ const Users = () => {
                                   </td>
                                   <td>{new Date(user.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                                   <td>
-                                    <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"
+                                    <a href="#edituserModal" className="edit" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Edit"
                                       onClick={() => { handelEditUser(user) }}
                                     >&#xE254;</i></a>
-                                    <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"
+                                    <a href="#deleteuserModal" className="delete" data-toggle="modal"><i className="material-icons cursor-pointer" data-toggle="tooltip" title="Delete"
                                     //    onClick={() => setuserloyeeid(user._id)}
                                     >&#xE872;</i></a>
                                   </td>
