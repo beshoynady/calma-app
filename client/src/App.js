@@ -611,8 +611,6 @@ function App() {
     setproductExtras(newExtras);
   };
 
-
-
   
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
