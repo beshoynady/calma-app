@@ -461,7 +461,7 @@ const POS = () => {
                           <div className="card mb-3" key={index}>
 
 
-                            {product && product._id && productid._id === item.productid && extraArea === true ?
+                            {product && product._id && product._id === item.productid && extraArea === true ?
                               item.sizeId && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                                 (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
