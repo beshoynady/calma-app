@@ -159,7 +159,7 @@ const POS = () => {
                 <div id="getOrderDetalisModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e)=>{e.preventDefault();getOrderDetailsBySerial(e,serial)}}>
+                      <form onSubmit={(e)=>{e.preventDefault();getOrderDetailsBySerial(e, serial)}}>
                         <div className="modal-header">
                           <h4 className="modal-title">رقم الفاتورة</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -172,7 +172,7 @@ const POS = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="modal-footer">
+                        <div className="modal-footer d-flex align-item-center justify-content-between">
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                           <input type="submit" className="btn w-50 btn-success" value="تم" />
                         </div>

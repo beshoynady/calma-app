@@ -173,7 +173,7 @@ const Orders = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination ,getorderDetailsBySerial, orderDetalisBySerial}) => {
+        ({ restaurantData, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination ,getOrderDetailsBySerial, orderDetalisBySerial}) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">

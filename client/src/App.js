@@ -1696,7 +1696,7 @@ function App() {
   const [orderDetalisBySerial, setorderDetalisBySerial] = useState({})
   const [productOrderToUpdate, setproductOrderToUpdate] = useState([])
   // Fetch orders from API
-  const getorderDetailsBySerial = async (e, serial) => {
+  const getOrderDetailsBySerial = async (e, serial) => {
     e.preventDefault();
     try {
       // Fetch all orders
@@ -1704,11 +1704,16 @@ function App() {
       const data = res.data
       // Find the order with the provided serial number
       const order = data.find(order => order.serial === serial);
-      if(order){
+      if(!order){
+        toast.error('لا يوجد اوردر بهذا السيريال ');
+        return
+      }
+      if(order.isActive){
         // Set order details and update states
         setorderDetalisBySerial(order);
+        setproductOrderToUpdate(order.products)
       }else{
-        toast.error('لا يوجد اوردر بهذا السيريال ');
+        toast.error('هذه الفاتوره تم تقفيلها و لا يمكن تعديلها');
       }
     } catch (error) {
       // Handle error
@@ -2068,7 +2073,7 @@ function App() {
         orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
         createOrderForTableByClient, createDeliveryOrderByClient,
 
-        orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
+        orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate,
         putNumOfPaid, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
         , isLoadiog, setisLoadiog
