@@ -2,19 +2,19 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { detacontext } from '../../../../App';
 
 function InvoiceComponent(props) {
-  const { order, handlePrint } = props;
-  const { restaurantData, formatdate, usertitle } = useContext(detacontext);
-  const printContainer = useRef(null);
+    const { order, handlePrint } = props;
+    const { restaurantData, formatdate, usertitle } = useContext(detacontext);
+    const printContainer = useRef(null);
 
-  const { cashier, serial, ordertype: orderType, table, name, phone, address, ordernum, listProductsOrder: products, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal } = order;
+    const { cashier, serial, ordertype: orderType, table, name, phone, address, ordernum, listProductsOrder: products, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal } = order;
 
-  useEffect(() => {
-    console.log({ order, cashier, serial, orderType, table, name, phone, address, ordernum, products, orderSubtotal, orderdeliveryCost, addition, discount, orderTotal });
-  }, []);
+    useEffect(() => {
+        console.log({ order, cashier, serial, orderType, table, name, phone, address, ordernum, products, orderSubtotal, orderdeliveryCost, addition, discount, orderTotal });
+    }, []);
 
-  return (
-    <div id="invoiceOrderModal" className="modal fade">
-      <div className="modal-dialog">
+    return (
+        <div id="invoiceOrderModal" className="modal fade">
+            {/* <div className="modal-dialog">
         <div className="modal-content">
           <form>
             <div className="modal-header">
@@ -22,13 +22,12 @@ function InvoiceComponent(props) {
               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
-              {/* Invoice Header */}
-              <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
+
+<div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                 <h2>{restaurantData.name}</h2>
                 <p>كاشير {cashier && cashier.fullname} | فاتورة #{serial} | {orderType === 'Internal' ? `طاولة ${table && table.tableNumber}` : ''} | التاريخ: </p>
               </div>
 
-              {/* Customer Information */}
               {orderType === 'Delivery' && (
                 <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                   <h4>بيانات العميل</h4>
@@ -46,7 +45,6 @@ function InvoiceComponent(props) {
                 </div>
               )}
 
-              {/* Order Details Table */}
               <table className="table table-bordered">
                 <thead className="thead-dark">
                   <tr>
@@ -96,7 +94,6 @@ function InvoiceComponent(props) {
                 </tfoot>
               </table>
 
-              {/* Restaurant Information */}
               <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
                 {restaurantData && (
                   <>
@@ -107,7 +104,6 @@ function InvoiceComponent(props) {
                 )}
               </div>
 
-              {/* Footer */}
               <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
                 <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
                 <p>موبايل: <span style={{ color: '#5a6268' }}>01122455010</span></p>
@@ -119,9 +115,9 @@ function InvoiceComponent(props) {
             </div>
           </form>
         </div>
-      </div>
-    </div>
-  );
+      </div> */}
+        </div>
+    );
 }
 
 export default InvoiceComponent;
