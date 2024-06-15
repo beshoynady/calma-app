@@ -26,7 +26,7 @@ useEffect(() => {
               {/* Invoice Header */}
               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                 <h2>{restaurantData.name}</h2>
-                <p>كاشير {cashier&&cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${table&&table.tableNumber}` : ''} | التاريخ: {formatdate(new Date())}</p>
+                <p>كاشير {cashier&&cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${table&&table.tableNumber}` : ''} | التاريخ: </p>
               </div>
 
               {/* Customer Information */}
