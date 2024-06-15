@@ -1129,75 +1129,50 @@ function App() {
 
 
   const [myOrder, setmyOrder] = useState({})
-  const [listProductsOrder, setlistProductsOrder] = useState([])
-  const [orderUpdateDate, setorderUpdateDate] = useState('')
-  const [myOrderId, setmyOrderId] = useState()
-  const [tablenum, settablenum] = useState()
-  const [ordertax, setordertax] = useState()
-  const [orderTotal, setorderTotal] = useState()
-  const [orderSubtotal, setorderSubtotal] = useState()
-  const [orderDeliveryCost, setorderDeliveryCost] = useState()
-  const [orderdiscount, setorderdiscount] = useState(0)
-  const [orderaddition, setorderaddition] = useState(0)
-  const [discount, setdiscount] = useState(0)
-  const [addition, setaddition] = useState(0)
-
-
+  
   const invoice = async (clientId) => {
     if (!clientId) {
-      window.alert("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
+      toast.error("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
       return;
     }
-
+  
     try {
       // Log client ID for debugging
       console.log(clientId);
-
+  
       // Filter orders related to the client's table
       const tableOrder = allOrders.filter((order) => order.table && order.table._id === clientId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
-
+  
       // Filter orders related to the user
       const userOrder = allOrders.filter((order) => order.user && order.user._id === clientId);
       const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
       const lastUserOrderActive = lastUserOrder ? lastUserOrder.isActive : false;
-
+  
       // Fetch and set order details based on the active order found
       if (lastTableOrderActive) {
         const orderId = lastTableOrder._id;
         const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
         const data = myOrder.data;
-
+  
         // Update state with the order details
-        settablenum(data.tableNumber);
         setmyOrder(data);
-        setmyOrderId(data._id);
-        setlistProductsOrder(data.products);
-        setorderUpdateDate(data.updatedAt);
-        setorderTotal(data.total);
-        setorderSubtotal(data.subTotal);
         setitemsInCart([]);
       } else if (lastUserOrderActive) {
         const orderId = lastUserOrder._id;
         const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
         const data = myOrder.data;
-
+  
         // Update state with the order details
         setmyOrder(data);
-        setmyOrderId(data._id);
-        setlistProductsOrder(data.products);
-        setorderUpdateDate(data.updatedAt);
-        setorderTotal(data.total);
-        setorderSubtotal(data.subTotal);
-        setorderDeliveryCost(data.deliveryCost);
         setitemsInCart([]);
       } else {
-        window.alert("لا توجد طلبات نشطة لهذا العميل");
+        toast.info("لا توجد طلبات نشطة لهذا العميل");
       }
     } catch (error) {
       console.error("Error fetching the invoice:", error);
-      window.alert("حدث خطأ أثناء جلب الفاتورة");
+      toast.error("حدث خطأ أثناء جلب الفاتورة");
     }
   };
 
@@ -1491,45 +1466,52 @@ function App() {
 
 
 
-  const lastInvoiceByCashier = async (checkId) => {
+
+  const lastInvoiceByCashier = async (CashierId) => {
     try {
       // Filter orders created by the employee
-      const employeeOrders = allOrders?.filter(order => order.createdBy?._id === checkId) || [];
-
-      // Get the last order created by the employee
-      const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
-
-      if (lastEmployeeOrder) {
-        // Check if the last employee order is active
-        const lastEmployeeOrderActive = await lastEmployeeOrder.isActive;
-
-        if (lastEmployeeOrderActive) {
-          // If the order is active, fetch its details
-          const { _id: orderId } = lastEmployeeOrder;
-          const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
-          const orderData = response.data;
-
-          // Update states with order details
-          setmyOrder(orderData);
-          setmyOrderId(orderData._id);
-          setlistProductsOrder(orderData.products);
-          setorderUpdateDate(orderData.updatedAt);
-          setorderTotal(orderData.total);
-          setorderaddition(orderData.addition);
-          setorderdiscount(orderData.discount);
-          setorderSubtotal(orderData.subTotal);
-          setorderDeliveryCost(orderData.deliveryCost);
-          setitemsInCart([]);
+      const employeeOrders = allOrders?.filter(order => order.createdBy?._id === CashierId) || [];
+      if(employeeOrders){
+        // Get the last order created by the employee
+        const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
+    
+        if (lastEmployeeOrder) {
+          // Check if the last employee order is active
+          const lastEmployeeOrderActive = lastEmployeeOrder.isActive;
+    
+          if (lastEmployeeOrderActive) {
+            // If the order is active, fetch its details
+            const { _id: orderId } = lastEmployeeOrder;
+            const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
+            const orderData = response.data;
+    
+            // Update states with order details
+            setmyOrder(orderData);
+            setitemsInCart([]);
+    
+            // Inform the user about the successful fetch
+            toast.success('تم جلب الفاتورة بنجاح.');
+          } else {
+            // If the order is not active, inform the user
+            toast.warn('هذه الفاتورة غير نشطة ولا يمكن استعراضها الآن.');
+          }
+        } else {
+          // If no order found for the employee
+          toast.info('لا توجد فواتير لهذا الموظف.');
         }
+      }else {
+        // If no order found for the employee
+        toast.info('لا توجد فواتير لهذا الموظف.');
       }
     } catch (error) {
       // Log any errors that occur during the process
-      console.error(error);
-
+      console.error('Error fetching the invoice:', error);
+  
       // Display an error toast message
-      toast.error('An error occurred while fetching the invoice.');
+      toast.error('حدث خطأ أثناء جلب الفاتورة.');
     }
   };
+  
 
 
 

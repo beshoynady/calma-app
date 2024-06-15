@@ -119,29 +119,6 @@ const POS = () => {
                   <div className='categ-menu'>
                     <div className='pos-menu'>
                       <POSCard />
-                      {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
-                        return (
-
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id,item.sizeId) }}>
-                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
-
-                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
-                            <div className="pos-card-detalis">
-                              <div className='card-name'>
-                                <div className='product-name'>{product.name}</div>
-                                <div className='product-price'>{product.discount > 0 ?
-                                  <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
-                                  : <p>{product.price}ج</p>}</div>
-                              </div>
-                              <div className='card-discription'>{product.description}</div>
-
-                              <div className='pos-btn btn-47'>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      }
-                      )} */}
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
@@ -166,7 +143,7 @@ const POS = () => {
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
-                            <div className="form-group w-100">
+                            <div className="form-group w-100 d-flex align-item-center justify-content-between">
                               <label htmlFor="serial" className="w-50">رقم الفاتورة:</label>
                               <input type="text" id="serial" className="form-control w-50" value={serial} onChange={(e) => setserial(e.target.value)} />
                             </div>
@@ -339,7 +316,7 @@ const POS = () => {
 
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>الكاشير: {usertitle(myOrder.cashier)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <p>الكاشير: {myOrder.cashier&&myOrder.cashier.fullname} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${myOrder.table,tableNumber}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
                           {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
@@ -366,42 +343,78 @@ const POS = () => {
                             </tr>
                           </thead>
                             <tbody>
-                              {listProductsOrder.map((item, i) => (
+                              {myOrder.products&&myOrder.products.map((item, i) => (
+                                <>
                                 <tr key={i}>
                                   <td className="col-md-3 text-truncate">{item.name}</td>
                                   <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                   <td className="col-md-2 text-nowrap">{item.quantity}</td>
                                   <td className="col-md-2 text-nowrap">{item.totalprice}</td>
                                 </tr>
+                                {item.extras && item.extras.length > 0 && (
+                                  item.extras.map((extra, j) => (
+                                    extra && (
+                                      <tr key={`${i}-${j}`}>
+                                        <td className="col-md-3 text-truncate">
+                                          <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                            {extra.extraDetails.map((detail) => {
+
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                              );
+                                            })}
+                                          </div>
+                                        </td>
+                                        <td className="col-md-2 text-nowrap">
+                                          <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                            {extra.extraDetails.map((detail) => {
+                                              return (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                              );
+                                            })}
+                                          </div>
+                                        </td>
+                                        <td className="col-md-2 text-nowrap">1</td>
+                                        <td className="col-md-2 text-nowrap">
+                                          {extra && (
+                                            <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                          )}
+                                        </td>
+                                      </tr>
+                                    )
+                                  ))
+                                )}
+                                </>
+                                
                               ))}
                             </tbody>
                             <tfoot>
                               <tr>
                                 <td colSpan="3">المجموع</td>
-                                <td>{orderSubtotal}</td>
+                                <td>{myOrder.subTotal}</td>
                               </tr>
-                              {orderdeliveryCost > 0 ?
+                              {myOrder.deliveryCost > 0 ?
                                 <tr>
                                   <td colSpan="3">خدمة التوصيل</td>
-                                  <td>{orderdeliveryCost}</td>
+                                  <td>{myOrder.deliveryCost}</td>
                                 </tr>
                                 : ''}
-                              {orderaddition > 0 ?
+                              {myOrder.addition > 0 ?
                                 <tr>
                                   <td colSpan="3">رسوم اضافيه</td>
-                                  <td>{orderaddition}</td>
+                                  <td>{myOrder.addition}</td>
                                 </tr>
                                 : ''
                               }
-                              {orderdiscount > 0 ?
+                              {myOrder.discount > 0 ?
                                 <tr>
                                   <td colSpan="3">رسوم اضافيه</td>
-                                  <td>{orderdiscount}</td>
+                                  <td>{myOrder.discount}</td>
                                 </tr> : ''
                               }
                               <tr>
                                 <td colSpan="3">الاجمالي</td>
-                                <td>{orderTotal}</td>
+                                <td>{myOrder.total}</td>
                               </tr>
                             </tfoot>
                           </table>
