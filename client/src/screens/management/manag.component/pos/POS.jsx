@@ -156,28 +156,25 @@ const POS = () => {
                   </div>
                 </div>
                 {/* تعديل اوردر */}
-                <div id="getOrderDetalisModal" className="modal fade">
+                <div id="getOrderDetailsModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => { getOrderDetailsBySerial(e, serial) }}>
+                      <form onSubmit={(e)=>{e.preventDefault();getOrderDetailsBySerial(e,serial)}}>
                         <div className="modal-header">
-                          <h4 className="modal-title">رقم الفاتوره</h4>
+                          <h4 className="modal-title">رقم الفاتورة</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
-                            <div className="form-group form-group-47 w-100">
-                              <label htmlFor='table' className='w-40'>رقم الفاتورة:</label>
-                              <input type="text" min={0} className="font-weight-bold w-25 " onChange={(e) => setserial(e.target.value)} />
-
+                            <div className="form-group w-100">
+                              <label htmlFor="serial" className="w-50">رقم الفاتورة:</label>
+                              <input type="text" id="serial" className="form-control w-50" value={serial} onChange={(e) => setserial(e.target.value)} />
                             </div>
                           </div>
                         </div>
                         <div className="modal-footer">
-                          <div className="modal-footer">
-                            <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                            <input type="submit" className="btn btn-47 btn-success" value="تم" />
-                          </div>
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                          <input type="submit" className="btn w-50 btn-success" value="تم" />
                         </div>
                       </form>
                     </div>
@@ -328,10 +325,8 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                  {
-                    orderDetalisBySerial && <InvoiceComponent order={orderDetalisBySerial} handlePrint={handlePrint} />
-                  }
-                {/* <div id="invoiceModal" className="modal fade">
+
+                <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -433,7 +428,7 @@ const POS = () => {
                       </div>
                     </div>
                   </div>
-                </div> */}
+                </div>
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>

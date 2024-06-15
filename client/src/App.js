@@ -1702,20 +1702,17 @@ function App() {
       // Fetch all orders
       const res = await axios.get(apiUrl + '/api/order');
       const data = res.data
-      // Filter active orders
-      // const activeOrders = res.data.filter(o => o.isActive === true);
-
       // Find the order with the provided serial number
-      const order = data.find(o => o.serial === serial);
-
-      // Set order details and update states
-      setorderDetalisBySerial(order);
-      setproductOrderToUpdate(order.products);
-      setaddition(order.addition);
-      setdiscount(order.discount);
+      const order = data.find(order => order.serial === serial);
+      if(order){
+        // Set order details and update states
+        setorderDetalisBySerial(order);
+      }else{
+        toast.error('لا يوجد اوردر بهذا السيريال ');
+      }
     } catch (error) {
       // Handle error
-      console.error('Error fetching order details:', error);
+      console.error('حدث خطأ أثناء جلب أو معالجة تفاصيل الطلب:', error);
       // Display a notification to the user about the error
       toast('حدث خطأ أثناء جلب تفاصيل الطلب. يرجى المحاولة مرة أخرى.');
     }
