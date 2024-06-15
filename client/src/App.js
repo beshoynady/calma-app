@@ -1491,45 +1491,46 @@ function App() {
 
 
 
-  const lastInvoiceBycashier = async (checkid) => {
+  const lastInvoiceByCashier = async (checkId) => {
     try {
-      
       // Filter orders created by the employee
-      const employeeOrders = allOrders&&allOrders.filter((order, i) => order.createdBy._id === checkid);
-
+      const employeeOrders = allOrders?.filter(order => order.createdBy?._id === checkId) || [];
+  
       // Get the last order created by the employee
-      const lastEmployeeOrder = employeeOrders.length > 0 ? employeeOrders[employeeOrders.length - 1] : null;
-
-      // Check if the last employee order is active
-      const lastEmployeeOrderActive = lastEmployeeOrder ? await lastEmployeeOrder.isActive : false;
-
-      if (lastEmployeeOrderActive) {
-        // If the order is active, fetch its details
-        const orderId = lastEmployeeOrder._id;
-        const response = await axios.get(apiUrl + '/api/order/' + orderId);
-        const orderData = response.data;
-
-        // Update states with order details
-        setmyOrder(orderData);
-        setmyOrderId(orderData._id);
-        setlistProductsOrder(orderData.products);
-        setorderUpdateDate(orderData.updatedAt);
-        setorderTotal(orderData.total);
-        setorderaddition(orderData.addition);
-        setorderdiscount(orderData.discount);
-        setorderSubtotal(orderData.subTotal);
-        setorderDeliveryCost(orderData.deliveryCost);
-        setitemsInCart([]);
+      const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
+  
+      if (lastEmployeeOrder) {
+        // Check if the last employee order is active
+        const lastEmployeeOrderActive = await lastEmployeeOrder.isActive;
+  
+        if (lastEmployeeOrderActive) {
+          // If the order is active, fetch its details
+          const { _id: orderId } = lastEmployeeOrder;
+          const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
+          const orderData = response.data;
+  
+          // Update states with order details
+          setMyOrder(orderData);
+          setMyOrderId(orderData._id);
+          setListProductsOrder(orderData.products);
+          setOrderUpdateDate(orderData.updatedAt);
+          setOrderTotal(orderData.total);
+          setOrderAddition(orderData.addition);
+          setOrderDiscount(orderData.discount);
+          setOrderSubtotal(orderData.subTotal);
+          setOrderDeliveryCost(orderData.deliveryCost);
+          setItemsInCart([]);
+        }
       }
     } catch (error) {
       // Log any errors that occur during the process
       console.error(error);
-
+  
       // Display an error toast message
       toast.error('An error occurred while fetching the invoice.');
     }
   };
-
+  
 
 
 
