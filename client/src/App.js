@@ -1494,7 +1494,7 @@ function App() {
   const lastInvoiceBycashier = async (checkid) => {
     try {
       // Filter orders created by the employee
-      const employeeOrders = allOrders.filter((o, i) => o.createdBy == checkid);
+      const employeeOrders = allOrders.filter((o, i) => o.createdBy._id == checkid);
 
       // Get the last order created by the employee
       const lastEmployeeOrder = employeeOrders.length > 0 ? employeeOrders[employeeOrders.length - 1] : null;

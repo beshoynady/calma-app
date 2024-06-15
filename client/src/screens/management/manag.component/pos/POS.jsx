@@ -604,7 +604,7 @@ const POS = () => {
                                             {extra.extraDetails.map((detail) => {
 
                                               return (
-                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
+                                                detail.name&&<p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
                                               );
                                             })}
                                           </div>
