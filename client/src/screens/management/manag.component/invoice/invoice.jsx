@@ -1,9 +1,9 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext,useEffect, useRef } from 'react';
 import { detacontext } from '../../../../App';
 
 function InvoiceComponent(props) {
   const { order, handlePrint } = props;
-  const { restaurantData, formatdate} = useContext(detacontext);
+  const { restaurantData, formatdate, usertitle} = useContext(detacontext);
   const printContainer = useRef(null);
 
   const {cashier, serial, orderType: ordertype, table, name, phone, address, ordernum, products: listProductsOrder, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal} = order;
