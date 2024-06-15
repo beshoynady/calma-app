@@ -259,7 +259,7 @@ function App() {
           'authorization': `Bearer ${token}`,
         },
       });
-      console.log({order:response})
+      console.log({ order: response })
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch orders.');
@@ -567,11 +567,11 @@ function App() {
   const handleAddProductExtras = (extra, ind) => {
     // console.log({productExtras, extra, ind})
     const newExtras = [...productExtras];
-    console.log({newExtras1:newExtras})
-  
+    console.log({ newExtras1: newExtras })
+
     if (newExtras.length > 0) {
       if (newExtras[ind]) {
-  
+
         const filteredExtraDetails = newExtras[ind].extraDetails.filter(detail => detail.extraId !== extra._id);
         if (filteredExtraDetails.length !== newExtras[ind].extraDetails.length) {
           // إذا كانت الإضافة موجودة وتمت إزالتها
@@ -608,12 +608,12 @@ function App() {
         totalExtrasPrice: extra.price
       };
     }
-    console.log({newExtras2:newExtras})
+    console.log({ newExtras2: newExtras })
     calculateOrderCost()
     setproductExtras(newExtras);
   };
 
-  
+
   const addExtrasToProduct = (e, productId, sizeId) => {
     e.preventDefault();
     console.log({ productId, sizeId, productExtras });
@@ -625,11 +625,11 @@ function App() {
       const findProduct = productOrderToUpdate.length > 0 ?
         productOrderToUpdate.find(product => product._id === productId) :
         allProducts.find(product => product._id === productId);
-  
+
       if (!findProduct) {
         throw new Error('Product not found.');
       }
-  
+
       if (sizeId) {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
@@ -652,9 +652,9 @@ function App() {
           }
         });
       }
-  
-      console.log({findProduct});
-      console.log({itemsInCart});
+
+      console.log({ findProduct });
+      console.log({ itemsInCart });
       calculateOrderCost()
       setproductExtras([]);
     } catch (error) {
@@ -662,15 +662,15 @@ function App() {
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
-  
-  
+
+
   // const handleAddProductExtras = (extra, ind) => {
   //   const newExtras = [...productExtras];
-    
+
   //   if (newExtras.length > 0) {
   //     if (newExtras[ind]) {
   //       const newExtras[ind] = newExtras[ind];
-        
+
   //       if (newExtras[ind].extraId.includes(extra._id)) {
   //         newExtras[ind].extraId = newExtras[ind].extraId.filter(id => id !== extra._id);
   //         newExtras[ind].priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
@@ -693,10 +693,10 @@ function App() {
   //       priceExtras: extra.price
   //     };
   //   }
-    
+
   //   setproductExtras(newExtras);
   // };
-  
+
 
 
   // const addExtrasToProduct = (e, productId, sizeId) => {
@@ -764,7 +764,7 @@ function App() {
           notes: '',
           price: 0,
           priceAfterDiscount: 0,
-          hasExtras:cartItem.hasExtras
+          hasExtras: cartItem.hasExtras
         };
 
         if (sizeId && cartItem.sizes && cartItem.sizes.length > 0) {
@@ -776,15 +776,15 @@ function App() {
             newItem.price = size.sizePrice;
             newItem.quantity = size.sizeQuantity;
             newItem.priceAfterDiscount = size.sizePriceAfterDiscount;
-            newItem.notes = size.notes?size.notes:''
-            newItem.extras = size.extrasSelected?size.extrasSelected:[]
+            newItem.notes = size.notes ? size.notes : ''
+            newItem.extras = size.extrasSelected ? size.extrasSelected : []
           }
         } else {
           newItem.quantity = cartItem.quantity; // Set default quantity for products without sizes
           newItem.price = cartItem.price;
           newItem.priceAfterDiscount = cartItem.priceAfterDiscount;
-          newItem.notes = cartItem.notes?cartItem.notes :''             
-          newItem.extras = cartItem.extrasSelected?cartItem.extrasSelected:[]             
+          newItem.notes = cartItem.notes ? cartItem.notes : ''
+          newItem.extras = cartItem.extrasSelected ? cartItem.extrasSelected : []
 
 
         }
@@ -809,7 +809,7 @@ function App() {
           setitemId([sizeId ? sizeId : productId]);
         }
       }
-      console.log({itemsInCart})
+      console.log({ itemsInCart })
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
     }
@@ -904,10 +904,10 @@ function App() {
   const calculateOrderCost = () => {
     try {
       let totalCost = 0;
-  
+
       // Determine which list to operate on based on the presence of items in itemsInCart or productOrderToUpdate
       const itemsList = itemsInCart.length > 0 ? itemsInCart : productOrderToUpdate;
-  
+
       // Calculate total cost based on the items in the list
       itemsList.forEach(item => {
         let totalExtras = 0; // Reset totalExtras for each item
@@ -921,12 +921,12 @@ function App() {
             }
           });
         }
-  
+
         item.totalprice = itemTotalPrice + totalExtras;
         totalCost += item.totalprice;
         totalExtras = 0
       });
-  
+
       console.log({ totalCost });
       // Update the state with the total cost
       setcostOrder(totalCost);
@@ -935,15 +935,15 @@ function App() {
       // You can handle the error appropriately, such as displaying an error message to the user.
     }
   };
-  
-  
+
+
 
 
   const createDeliveryOrderByClient = async (userId, currentAddress, delivery_fee) => {
     try {
       console.log({ itemsInCart })
       // Find the user's orders
-      const userOrders = allOrders.filter((order) => order.user&&order.user._id === userId);
+      const userOrders = allOrders.filter((order) => order.user && order.user._id === userId);
       const lastUserOrder = userOrders.length > 0 ? userOrders[userOrders.length - 1] : null;
 
       // Check if the last user order is active
@@ -1145,61 +1145,61 @@ function App() {
 
   const invoice = async (clientId) => {
     if (!clientId) {
-        window.alert("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
-        return;
+      window.alert("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
+      return;
     }
 
     try {
-        // Log client ID for debugging
-        console.log(clientId);
+      // Log client ID for debugging
+      console.log(clientId);
 
-        // Filter orders related to the client's table
-        const tableOrder = allOrders.filter((order) => order.table && order.table._id === clientId);
-        const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
-        const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
+      // Filter orders related to the client's table
+      const tableOrder = allOrders.filter((order) => order.table && order.table._id === clientId);
+      const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
+      const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
 
-        // Filter orders related to the user
-        const userOrder = allOrders.filter((order) => order.user && order.user._id === clientId);
-        const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
-        const lastUserOrderActive = lastUserOrder ? lastUserOrder.isActive : false;
+      // Filter orders related to the user
+      const userOrder = allOrders.filter((order) => order.user && order.user._id === clientId);
+      const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
+      const lastUserOrderActive = lastUserOrder ? lastUserOrder.isActive : false;
 
-        // Fetch and set order details based on the active order found
-        if (lastTableOrderActive) {
-            const orderId = lastTableOrder._id;
-            const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
-            const data = myOrder.data;
+      // Fetch and set order details based on the active order found
+      if (lastTableOrderActive) {
+        const orderId = lastTableOrder._id;
+        const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
+        const data = myOrder.data;
 
-            // Update state with the order details
-            settablenum(data.tableNumber);
-            setmyOrder(data);
-            setmyOrderId(data._id);
-            setlistProductsOrder(data.products);
-            setorderUpdateDate(data.updatedAt);
-            setorderTotal(data.total);
-            setorderSubtotal(data.subTotal);
-            setitemsInCart([]);
-        } else if (lastUserOrderActive) {
-            const orderId = lastUserOrder._id;
-            const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
-            const data = myOrder.data;
+        // Update state with the order details
+        settablenum(data.tableNumber);
+        setmyOrder(data);
+        setmyOrderId(data._id);
+        setlistProductsOrder(data.products);
+        setorderUpdateDate(data.updatedAt);
+        setorderTotal(data.total);
+        setorderSubtotal(data.subTotal);
+        setitemsInCart([]);
+      } else if (lastUserOrderActive) {
+        const orderId = lastUserOrder._id;
+        const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
+        const data = myOrder.data;
 
-            // Update state with the order details
-            setmyOrder(data);
-            setmyOrderId(data._id);
-            setlistProductsOrder(data.products);
-            setorderUpdateDate(data.updatedAt);
-            setorderTotal(data.total);
-            setorderSubtotal(data.subTotal);
-            setorderDeliveryCost(data.deliveryCost);
-            setitemsInCart([]);
-        } else {
-            window.alert("لا توجد طلبات نشطة لهذا العميل");
-        }
+        // Update state with the order details
+        setmyOrder(data);
+        setmyOrderId(data._id);
+        setlistProductsOrder(data.products);
+        setorderUpdateDate(data.updatedAt);
+        setorderTotal(data.total);
+        setorderSubtotal(data.subTotal);
+        setorderDeliveryCost(data.deliveryCost);
+        setitemsInCart([]);
+      } else {
+        window.alert("لا توجد طلبات نشطة لهذا العميل");
+      }
     } catch (error) {
-        console.error("Error fetching the invoice:", error);
-        window.alert("حدث خطأ أثناء جلب الفاتورة");
+      console.error("Error fetching the invoice:", error);
+      window.alert("حدث خطأ أثناء جلب الفاتورة");
     }
-};
+  };
 
 
   const checkout = async () => {
@@ -1233,7 +1233,7 @@ function App() {
   const createWaiterOrderForTable = async (tableId, waiterId) => {
     try {
       // Check for active orders for the table
-      const tableOrder = allOrders.filter((order) => order.table&&order.table._id === tableId);
+      const tableOrder = allOrders.filter((order) => order.table && order.table._id === tableId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
 
@@ -1495,42 +1495,42 @@ function App() {
     try {
       // Filter orders created by the employee
       const employeeOrders = allOrders?.filter(order => order.createdBy?._id === checkId) || [];
-  
+
       // Get the last order created by the employee
       const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
-  
+
       if (lastEmployeeOrder) {
         // Check if the last employee order is active
         const lastEmployeeOrderActive = await lastEmployeeOrder.isActive;
-  
+
         if (lastEmployeeOrderActive) {
           // If the order is active, fetch its details
           const { _id: orderId } = lastEmployeeOrder;
           const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
           const orderData = response.data;
-  
+
           // Update states with order details
-          setMyOrder(orderData);
-          setMyOrderId(orderData._id);
-          setListProductsOrder(orderData.products);
-          setOrderUpdateDate(orderData.updatedAt);
-          setOrderTotal(orderData.total);
-          setOrderAddition(orderData.addition);
-          setOrderDiscount(orderData.discount);
-          setOrderSubtotal(orderData.subTotal);
-          setOrderDeliveryCost(orderData.deliveryCost);
-          setItemsInCart([]);
+          setmyOrder(orderData);
+          setmyOrderId(orderData._id);
+          setlistProductsOrder(orderData.products);
+          setorderUpdateDate(orderData.updatedAt);
+          setorderTotal(orderData.total);
+          setorderaddition(orderData.addition);
+          setorderdiscount(orderData.discount);
+          setorderSubtotal(orderData.subTotal);
+          setorderDeliveryCost(orderData.deliveryCost);
+          setitemsInCart([]);
         }
       }
     } catch (error) {
       // Log any errors that occur during the process
       console.error(error);
-  
+
       // Display an error toast message
       toast.error('An error occurred while fetching the invoice.');
     }
   };
-  
+
 
 
 
@@ -2049,7 +2049,7 @@ function App() {
         allUsers, allTable, usertitle, allOrders, askingForHelp,
 
         // Functions related to manipulating product details
-        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras,setproductExtras, productExtras,
+        setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, setproductExtras, productExtras,
 
         // Functions related to order processing and calculations
         invoice, listProductsOrder, orderUpdateDate, myOrder,
@@ -2059,7 +2059,7 @@ function App() {
 
         // Functions related to creating different types of orders
         checkout,
-        createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier,
+        createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier,
 
         // Functions related to pagination
         setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination,

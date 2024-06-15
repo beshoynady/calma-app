@@ -107,7 +107,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceBycashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,setproductExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,setproductExtras,
           OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -597,7 +597,7 @@ const POS = () => {
                                   </div>
 
                                   {item.extras && (
-                                    <div className="d-flex flex-columen flex-wrap mt-lastInvoiceBycashier">
+                                    <div className="d-flex flex-columen flex-wrap mt-2">
                                       {item.extras.map((extra, i) => (
                                         extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                           <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
@@ -726,7 +726,7 @@ const POS = () => {
 
                                 : <button type="button" className="btn btn-47 btn-primary" onClick={() => alert('اختر نوع الاوردر و اكتب جميع البيانات')}>تأكيد</button>
                           }
-                          <a type="button" className="btn btn-47 btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceBycashier(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
+                          <a type="button" className="btn btn-47 btn-success" href="#invoiceModal" data-toggle="modal" onClick={() => { lastInvoiceByCashier(employeeLoginInfo.employeeinfo.id); setinvoiceModal(!invoiceModal) }}>طباعة</a>
 
                         </div>
                       </div>
