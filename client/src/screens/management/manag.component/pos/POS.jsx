@@ -9,6 +9,7 @@ import defaultsImage from '../../.././../image/menu/soup.jpg'
 import './POS.css'
 import { number } from 'joi';
 import POSCard from './POS-Card';
+import InvoiceComponent from '../invoice/invoice';
 
 const POS = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -108,7 +109,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,setproductExtras,
-          OrderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
+          orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -327,7 +328,8 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                <div id="invoiceModal" className="modal fade">
+                <InvoiceComponent order={orderDetalisBySerial} handlePrint={handlePrint}/>
+                {/* <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -338,7 +340,6 @@ const POS = () => {
                       <div className="invoice side" style={{ height: "100%" }} >
                         <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
 
-                          {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
                             <p>الكاشير: {usertitle(myOrder.cashier)} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${usertitle(myOrder.table)}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
@@ -368,7 +369,6 @@ const POS = () => {
                             </tr>
                           </thead>
                             <tbody>
-                              {/* Replace this with your dynamic data */}
                               {listProductsOrder.map((item, i) => (
                                 <tr key={i}>
                                   <td className="col-md-3 text-truncate">{item.name}</td>
@@ -431,7 +431,7 @@ const POS = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>

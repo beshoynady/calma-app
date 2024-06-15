@@ -1701,12 +1701,12 @@ function App() {
     try {
       // Fetch all orders
       const res = await axios.get(apiUrl + '/api/order');
-
+      const data = res.data
       // Filter active orders
-      const activeOrders = res.data.filter(o => o.isActive === true);
+      // const activeOrders = res.data.filter(o => o.isActive === true);
 
       // Find the order with the provided serial number
-      const order = activeOrders.find(o => o.serial === serial);
+      const order = data.find(o => o.serial === serial);
 
       // Set order details and update states
       setorderDetalisBySerial(order);
