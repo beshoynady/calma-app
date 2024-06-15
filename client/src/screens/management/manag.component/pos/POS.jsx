@@ -156,7 +156,7 @@ const POS = () => {
                   </div>
                 </div>
                 {/* تعديل اوردر */}
-                <div id="getOrderDetailsModal" className="modal fade">
+                <div id="getOrderDetalisModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form onSubmit={(e)=>{e.preventDefault();getOrderDetailsBySerial(e,serial)}}>
