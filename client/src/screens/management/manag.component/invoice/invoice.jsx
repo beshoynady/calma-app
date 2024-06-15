@@ -1,17 +1,16 @@
-import React, { useContext,useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { detacontext } from '../../../../App';
 
 function InvoiceComponent(props) {
   const { order, handlePrint } = props;
-  const { restaurantData, formatdate, usertitle} = useContext(detacontext);
+  const { restaurantData, formatdate, usertitle } = useContext(detacontext);
   const printContainer = useRef(null);
 
-  const {cashier, serial, orderType: ordertype, table, name, phone, address, ordernum, products: listProductsOrder, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal} = order;
+  const { cashier, serial, ordertype: orderType, table, name, phone, address, ordernum, listProductsOrder: products, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal } = order;
 
-
-useEffect(() => {
-  console.log({order, cashier, serial, orderType: ordertype, table, name, phone, address, ordernum, products: listProductsOrder, subTotal: orderSubtotal, deliveryCost: orderdeliveryCost, addition, discount, total: orderTotal})
-}, [])
+  useEffect(() => {
+    console.log({ order, cashier, serial, orderType, table, name, phone, address, ordernum, products, orderSubtotal, orderdeliveryCost, addition, discount, orderTotal });
+  }, []);
 
   return (
     <div id="invoiceOrderModal" className="modal fade">
@@ -26,11 +25,11 @@ useEffect(() => {
               {/* Invoice Header */}
               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                 <h2>{restaurantData.name}</h2>
-                <p>كاشير {cashier&&cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${table&&table.tableNumber}` : ''} | التاريخ: </p>
+                <p>كاشير {cashier && cashier.fullname} | فاتورة #{serial} | {orderType === 'Internal' ? `طاولة ${table && table.tableNumber}` : ''} | التاريخ: </p>
               </div>
 
               {/* Customer Information */}
-              {ordertype === 'Delivery' && (
+              {orderType === 'Delivery' && (
                 <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                   <h4>بيانات العميل</h4>
                   <p>الاسم: {name}</p>
@@ -38,7 +37,7 @@ useEffect(() => {
                   <p>العنوان: {address}</p>
                 </div>
               )}
-              {ordertype === 'Takeaway' && (
+              {orderType === 'Takeaway' && (
                 <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                   <h4>بيانات العميل</h4>
                   <p>الاسم: {name}</p>
@@ -58,7 +57,7 @@ useEffect(() => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listProductsOrder.map((item, i) => (
+                  {products.map((item, i) => (
                     <tr key={i}>
                       <td className="text-truncate" style={{ maxWidth: '200px', fontSize: '18px' }}>{item.name}</td>
                       <td className="text-nowrap" style={{ fontSize: '18px' }}>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -102,7 +101,7 @@ useEffect(() => {
                 {restaurantData && (
                   <>
                     <p>{restaurantData.name}</p>
-                    <p>موبايل: {restaurantData.contact?.phone?.[0]}</p>
+                    <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
                     <p>العنوان: {restaurantData.address && `${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}</p>
                   </>
                 )}
