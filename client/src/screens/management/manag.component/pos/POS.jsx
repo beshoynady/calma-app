@@ -108,7 +108,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras,setproductExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
           orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -328,7 +328,9 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-                <InvoiceComponent order={orderDetalisBySerial} handlePrint={handlePrint}/>
+                  {
+                    orderDetalisBySerial && <InvoiceComponent order={orderDetalisBySerial} handlePrint={handlePrint} />
+                  }
                 {/* <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -452,7 +454,7 @@ const POS = () => {
                           <div className="card mb-3" key={index}>
 
 
-                            {product &&item.sizeId &&  sizeId === item.sizeId && extraArea === true && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
+                            {product && item.sizeId && sizeId === item.sizeId && extraArea === true && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                               (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                 style={{ zIndex: 10 }}>
                                 <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, item.sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
@@ -558,7 +560,7 @@ const POS = () => {
                                 //     <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
                                 //   </div>
                                 // </div>
-                              : ''}
+                                : ''}
 
 
 
@@ -581,7 +583,7 @@ const POS = () => {
 
                                     {item.hasExtras &&
                                       <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
-                                        onClick={() => {setproductExtras(item.extras); setextraArea(!extraArea); getProductDitalis(allProducts, item.productid);item.sizeId?setsizeId(item.sizeId) :setproductid(item.productid)  }}>add_circle</span>
+                                        onClick={() => { setproductExtras(item.extras); setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); item.sizeId ? setsizeId(item.sizeId) : setproductid(item.productid) }}>add_circle</span>
                                     }
 
                                     <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
@@ -601,7 +603,7 @@ const POS = () => {
                                       {item.extras.map((extra, i) => (
                                         extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                           <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
-                                            {extra.extraDetails&&extra.extraDetails.map((detail) => {
+                                            {extra.extraDetails && extra.extraDetails.map((detail) => {
 
                                               return (
                                                 <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
