@@ -216,15 +216,50 @@ const POS = () => {
                               <tbody>
                                 {/* Replace this with your dynamic data */}
                                 {listProductsOrder.map((item, i) => (
-                                  <tr key={i}>
-                                    <td className="col-md-3 text-truncate">{item.name}</td>
-                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                    <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
-                                    <td className="col-md-1 text-nowrap">{item.totalprice}</td>
-                                    <td className="col-md-2 text-nowrap">
-                                      <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} />
-                                    </td>
-                                  </tr>
+                                  <>
+                                    <tr key={i}>
+                                      <td className="col-md-3 text-truncate">{item.name}</td>
+                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                      <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
+                                      <td className="col-md-1 text-nowrap">{item.totalprice}</td>
+                                      <td className="col-md-2 text-nowrap">
+                                        <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} />
+                                      </td>
+                                    </tr>
+                                    {item.extras && item.extras.length > 0 && (
+                                      item.extras.map((extra, j) => (
+                                        extra && (
+                                          <tr key={`${i}-${j}`}>
+                                            <td className="col-md-3 text-truncate">
+                                              <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                {extra.extraDetails.map((detail) => {
+
+                                                  return (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                  );
+                                                })}
+                                              </div>
+                                            </td>
+                                            <td className="col-md-2 text-nowrap">
+                                              <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                {extra.extraDetails.map((detail) => {
+                                                  return (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                                  );
+                                                })}
+                                              </div>
+                                            </td>
+                                            <td className="col-md-2 text-nowrap">1</td>
+                                            <td className="col-md-2 text-nowrap">
+                                              {extra && (
+                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                              )}
+                                            </td>
+                                          </tr>
+                                        )
+                                      ))
+                                    )}
+                                  </>
                                 ))}
 
                               </tbody>
@@ -250,7 +285,6 @@ const POS = () => {
                   </div>
                 </div>
                 {/* اختيار نوع الاوردر */}
-                {/* {typeOrderModal ? ( */}
                 <div id="typeOrderModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -317,17 +351,16 @@ const POS = () => {
                               </div>
                             </div>
                           ) : null : ''}
-                        <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                          <input type="save" className="btn btn-47 btn-success" value="تم" data-dismiss="modal" />
+                        <div className="modal-footer d-flex align-items-center justify-content-between">
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
+                          <input type="save" className="btn w-50 btn-success" value="تم" data-dismiss="modal" />
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                {/* ) : ""}  */}
-                {/* الفاتوره */}
 
+                {/* الفاتوره */}
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -456,7 +489,7 @@ const POS = () => {
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>

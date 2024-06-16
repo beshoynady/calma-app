@@ -1363,7 +1363,7 @@ function App() {
   const getOrderProductForTable = async (e, tableId) => {
     try {
       e.preventDefault();
-      const tableorder = allOrders.filter((o, i) => o.table == tableId);
+      const tableorder = allOrders.filter((o, i) => o.table._id == tableId);
       const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
       const lasttableorderactive = lasttableorder.isActive;
       console.log({ lasttableorder });
