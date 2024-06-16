@@ -1401,8 +1401,8 @@ function App() {
       console.log({ newlistofproductorder });
 
       newlistofproductorder.map((product) => {
-        if (product.productid === id) {
-          const oldProduct = listProductsOrder.find(pro => pro.productid === id);
+        if (product.productid._id === id) {
+          const oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
           console.log({ oldProduct });
           console.log({ old_numOfPaid: oldProduct.numOfPaid });
           product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
@@ -1430,7 +1430,7 @@ function App() {
       console.log({ newlistofproductorder })
       newlistofproductorder.map((product) => {
         // Find the corresponding product in the original order list
-        const oldProduct = listProductsOrder.find(pro => pro.productid === product.productid);
+        const oldProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
         console.log({ oldProduct })
         // Calculate subtotal only if the number of paid items has changed
         if (oldProduct.numOfPaid !== product.numOfPaid) {
