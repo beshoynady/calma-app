@@ -1412,7 +1412,7 @@ function App() {
       });
 
       console.log({ newlistofproductorder });
-      calcsubtotalSplitOrder();
+      calcSubtotalSplitOrder();
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
@@ -1423,42 +1423,46 @@ function App() {
 
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
 
-  const calcsubtotalSplitOrder = () => {
+
+  const calcSubtotalSplitOrder = () => {
     try {
       let total = 0;
-
+  
       // Iterate over each product in the split order list
-      console.log({ newlistofproductorder })
-      newlistofproductorder.map((product) => {
+      console.log({ newlistofproductorder });
+  
+      newlistofproductorder.forEach(product => {
         // Find the corresponding product in the original order list
-        const oldProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
-        console.log({ oldProduct })
+        const originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
+        console.log({ originalProduct });
+        
         // Calculate subtotal only if the number of paid items has changed
-        if (oldProduct.numOfPaid !== product.numOfPaid) {
+        if (originalProduct && originalProduct.numOfPaid !== product.numOfPaid) {
           // Calculate the difference in the number of paid items
-          const newNumOfPaid = Math.abs(oldProduct.numOfPaid - product.numOfPaid);
-
+          const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
+          console.log({ numOfPaidDifference });
+  
           // Calculate the subtotal based on the number of paid items and the product price
-          const subTotal = product.priceAfterDiscount > 0 ? newNumOfPaid * product.priceAfterDiscount : oldProduct.price * newNumOfPaid;
-          console.log({ subTotal })
-
+          const subTotal = product.priceAfterDiscount > 0 ? numOfPaidDifference * product.priceAfterDiscount : numOfPaidDifference * product.price;
+          console.log({ subTotal });
+  
           // Accumulate the subtotal to the total
           total += subTotal;
         }
       });
-
+  
       // Set the calculated total as the subtotal for the split order
-
-      console.log({ total })
+      console.log({ total });
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
       console.error(error);
-
+  
       // Display an error toast message
       toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
+  
 
 
   // Function to split the invoice and pay a portion of it
