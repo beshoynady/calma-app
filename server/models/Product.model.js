@@ -100,11 +100,6 @@ const productSchema = new mongoose.Schema(
         message: props => `${props.value} is not a valid value for discount`,
       },
     },
-    quantity: {
-      type: Number,
-      default: 0,
-      required: true
-    },
     priceAfterDiscount: {
       type: Number,
       min: [0, 'Price after discount cannot be negative'],
