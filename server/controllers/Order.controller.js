@@ -92,6 +92,7 @@ const getOrder = async (req, res) => {
         const orderId = req.params.id;
         const order = await OrderModel.findById(orderId)
             .populate('products.productid', '_id name price ')
+            .populate('products.sizeId', 'sizes._id sizes.sizeName sizes.sizeCost sizes.sizePrice sizes.sizeDiscount')
             .populate('products.extras.extraDetails.extraId', '_id name price')
             .populate('table', '_id tableNumber')
             .populate('user', '_id username address deliveryArea phone')
@@ -114,6 +115,7 @@ const getOrders = async (req, res) => {
     try {
         const orders = await OrderModel.find()
             .populate('products.productid', '_id name price ')
+            .populate('products.sizeId', 'sizes._id sizes.sizeName sizes.sizeCost sizes.sizePrice sizes.sizeDiscount')
             .populate('products.extras.extraDetails.extraId', '_id name price')
             .populate('table', '_id tableNumber')
             .populate('user', '_id username address deliveryArea phone')
