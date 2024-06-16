@@ -1129,43 +1129,68 @@ function App() {
 
 
   const [myOrder, setmyOrder] = useState({})
-  
+  const [listProductsOrder, setlistProductsOrder] = useState([])
+  const [orderUpdateDate, setorderUpdateDate] = useState('')
+  const [myOrderId, setmyOrderId] = useState()
+  const [tablenum, settablenum] = useState()
+  const [ordertax, setordertax] = useState()
+  const [orderTotal, setorderTotal] = useState()
+  const [orderSubtotal, setorderSubtotal] = useState()
+  const [orderDeliveryCost, setorderDeliveryCost] = useState()
+  const [orderdiscount, setorderdiscount] = useState(0)
+  const [orderaddition, setorderaddition] = useState(0)
+  const [discount, setdiscount] = useState(0)
+  const [addition, setaddition] = useState(0)
+
+
   const invoice = async (clientId) => {
     if (!clientId) {
       toast.error("يرجى تسجيل الدخول أو مسح رمز الاستجابة السريعة");
       return;
     }
-  
+
     try {
       // Log client ID for debugging
       console.log(clientId);
-  
+
       // Filter orders related to the client's table
       const tableOrder = allOrders.filter((order) => order.table && order.table._id === clientId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
-  
+
       // Filter orders related to the user
       const userOrder = allOrders.filter((order) => order.user && order.user._id === clientId);
       const lastUserOrder = userOrder.length > 0 ? userOrder[userOrder.length - 1] : null;
       const lastUserOrderActive = lastUserOrder ? lastUserOrder.isActive : false;
-  
+
       // Fetch and set order details based on the active order found
       if (lastTableOrderActive) {
         const orderId = lastTableOrder._id;
         const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
         const data = myOrder.data;
-  
+
         // Update state with the order details
+        settablenum(data.tableNumber);
         setmyOrder(data);
+        setmyOrderId(data._id);
+        setlistProductsOrder(data.products);
+        setorderUpdateDate(data.updatedAt);
+        setorderTotal(data.total);
+        setorderSubtotal(data.subTotal);
         setitemsInCart([]);
       } else if (lastUserOrderActive) {
         const orderId = lastUserOrder._id;
         const myOrder = await axios.get(`${apiUrl}/api/order/${orderId}`);
         const data = myOrder.data;
-  
+
         // Update state with the order details
         setmyOrder(data);
+        setmyOrderId(data._id);
+        setlistProductsOrder(data.products);
+        setorderUpdateDate(data.updatedAt);
+        setorderTotal(data.total);
+        setorderSubtotal(data.subTotal);
+        setorderDeliveryCost(data.deliveryCost);
         setitemsInCart([]);
       } else {
         toast.info("لا توجد طلبات نشطة لهذا العميل");
@@ -1177,9 +1202,9 @@ function App() {
   };
 
 
-  const checkout = async (orderId) => {
+  const checkout = async () => {
     try {
-      const id = orderId;
+      const id = myOrderId;
       const isActive = false;
       const help = 'Requesting the bill';
 
@@ -1205,28 +1230,28 @@ function App() {
   };
 
 
-  const createWaiterOrderForTable = async (tableId, waiterId, addition = 0, discount = 0) => {
+  const createWaiterOrderForTable = async (tableId, waiterId) => {
     try {
-      // Check for active orders for the specified table
-      const tableOrder = allOrders.filter(order => order.table && order.table._id === tableId);
+      // Check for active orders for the table
+      const tableOrder = allOrders.filter((order) => order.table && order.table._id === tableId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
-  
+
       if (lastTableOrderActive) {
         // Update the existing order
         const orderId = lastTableOrder._id;
-        const orderData = allOrders.find(order => order._id === orderId);
+        const orderData = allOrders.find((order) => order._id === orderId);
         const oldProducts = orderData.products;
         const oldTotal = orderData.total;
         const newAddition = orderData.addition + addition;
         const newDiscount = orderData.discount + discount;
         const products = [...itemsInCart, ...oldProducts];
         const subTotal = costOrder + oldTotal;
-        const total = subTotal + newAddition - newDiscount;
+        const total = subTotal + addition - discount;
         const status = 'Pending';
         const createdBy = waiterId;
-  
-        await axios.put(`${apiUrl}/api/order/${orderId}`, {
+
+        const updatedOrder = await axios.put(`${apiUrl}/api/order/${orderId}`, {
           products,
           subTotal,
           total,
@@ -1235,19 +1260,22 @@ function App() {
           status,
           createdBy
         }, config);
-  
+
         toast.success('تم تحديث الطلب بنجاح!');
+        setitemId([]);
+        setaddition(0);
+        setdiscount(0);
+        setitemsInCart([]);
+        getAllProducts();
       } else {
         // Create a new order
-        const serial = allOrders.length > 0
-          ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0')
-          : '000001';
+        const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
         const products = [...itemsInCart];
         const subTotal = costOrder;
         const total = subTotal + addition - discount;
         const orderType = 'Internal';
-  
-        await axios.post(`${apiUrl}/api/order`, {
+
+        const newOrder = await axios.post(`${apiUrl}/api/order`, {
           serial,
           table: tableId,
           products,
@@ -1258,20 +1286,18 @@ function App() {
           orderType,
           createdBy: waiterId
         }, config);
-  
+
         toast.success('تم إنشاء طلب جديد بنجاح!');
+        setitemId([]);
+        setaddition(0);
+        setdiscount(0);
+        setitemsInCart([]);
       }
-  
-      // Clear cart and reset states
-      setitemId([]);
-      setitemsInCart([]);
-      getAllProducts();
     } catch (error) {
       console.error(error);
       toast.error('حدث خطأ. يرجى المحاولة مرة أخرى.');
     }
   };
-  
 
 
   const [posOrderId, setposOrderId] = useState('')
@@ -1321,7 +1347,8 @@ function App() {
         toast.success('تم إنشاء الطلب بنجاح');
         setitemsInCart([]);
         setitemId([]);
-  
+        setaddition(0);
+        setdiscount(0);
       } else {
         throw new Error('هناك خطأ في إنشاء الطلب');
       }
@@ -1331,6 +1358,8 @@ function App() {
     }
   };
 
+
+  const [newlistofproductorder, setnewlistofproductorder] = useState([])
   const getOrderProductForTable = async (e, tableId) => {
     try {
       e.preventDefault();
@@ -1344,7 +1373,18 @@ function App() {
         const myOrder = await axios.get(apiUrl + '/api/order/' + id);
         const data = myOrder.data;
         console.log(data);
+        console.log(data._id);
+        console.log({ listProductsOrder: data.products });
         setmyOrder(data);
+        setmyOrderId(data._id);
+        setorderTotal(data.total);
+        setorderaddition(data.addition);
+        setorderdiscount(data.discount);
+        setorderSubtotal(data.subTotal);
+        setlistProductsOrder(data.products);
+        setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
+        // console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
+
       }
     } catch (error) {
       console.error(error);
@@ -1357,8 +1397,10 @@ function App() {
     try {
       console.log({ id });
       console.log({ numOfPaid });
+      console.log({ list_products: listProductsOrder });
+      console.log({ newlistofproductorder });
 
-      myOrder.prducts.map((product) => {
+      newlistofproductorder.map((product) => {
         if (product.productid === id) {
           const oldProduct = listProductsOrder.find(pro => pro.productid === id);
           console.log({ oldProduct });
@@ -1449,52 +1491,45 @@ function App() {
 
 
 
-
-  const lastInvoiceByCashier = async (CashierId) => {
+  const lastInvoiceByCashier = async (checkId) => {
     try {
       // Filter orders created by the employee
-      const employeeOrders = allOrders?.filter(order => order.createdBy?._id === CashierId) || [];
-      if(employeeOrders){
-        // Get the last order created by the employee
-        const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
-    
-        if (lastEmployeeOrder) {
-          // Check if the last employee order is active
-          const lastEmployeeOrderActive = lastEmployeeOrder.isActive;
-    
-          if (lastEmployeeOrderActive) {
-            // If the order is active, fetch its details
-            const { _id: orderId } = lastEmployeeOrder;
-            const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
-            const orderData = response.data;
-            
-            // Update states with order details
-            setmyOrder(orderData);
-            setitemsInCart([]);
-    
-            // Inform the user about the successful fetch
-            toast.success('تم جلب الفاتورة بنجاح.');
-          } else {
-            // If the order is not active, inform the user
-            toast.warn('هذه الفاتورة غير نشطة ولا يمكن استعراضها الآن.');
-          }
-        } else {
-          // If no order found for the employee
-          toast.info('لا توجد فواتير لهذا الموظف.');
+      const employeeOrders = allOrders?.filter(order => order.createdBy?._id === checkId) || [];
+
+      // Get the last order created by the employee
+      const lastEmployeeOrder = employeeOrders[employeeOrders.length - 1] || null;
+
+      if (lastEmployeeOrder) {
+        // Check if the last employee order is active
+        const lastEmployeeOrderActive = await lastEmployeeOrder.isActive;
+
+        if (lastEmployeeOrderActive) {
+          // If the order is active, fetch its details
+          const { _id: orderId } = lastEmployeeOrder;
+          const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
+          const orderData = response.data;
+
+          // Update states with order details
+          setmyOrder(orderData);
+          setmyOrderId(orderData._id);
+          setlistProductsOrder(orderData.products);
+          setorderUpdateDate(orderData.updatedAt);
+          setorderTotal(orderData.total);
+          setorderaddition(orderData.addition);
+          setorderdiscount(orderData.discount);
+          setorderSubtotal(orderData.subTotal);
+          setorderDeliveryCost(orderData.deliveryCost);
+          setitemsInCart([]);
         }
-      }else {
-        // If no order found for the employee
-        toast.info('لا توجد فواتير لهذا الموظف.');
       }
     } catch (error) {
       // Log any errors that occur during the process
-      console.error('Error fetching the invoice:', error);
-  
+      console.error(error);
+
       // Display an error toast message
-      toast.error('حدث خطأ أثناء جلب الفاتورة.');
+      toast.error('An error occurred while fetching the invoice.');
     }
   };
-  
 
 
 
@@ -1661,28 +1696,26 @@ function App() {
   const [orderDetalisBySerial, setorderDetalisBySerial] = useState({})
   const [productOrderToUpdate, setproductOrderToUpdate] = useState([])
   // Fetch orders from API
-  const getOrderDetailsBySerial = async (e, serial) => {
+  const getorderDetailsBySerial = async (e, serial) => {
     e.preventDefault();
     try {
       // Fetch all orders
       const res = await axios.get(apiUrl + '/api/order');
       const data = res.data
+      // Filter active orders
+      // const activeOrders = res.data.filter(o => o.isActive === true);
+
       // Find the order with the provided serial number
-      const order = data.find(order => order.serial === serial);
-      if(!order){
-        toast.error('لا يوجد اوردر بهذا السيريال ');
-        return
-      }
-      if(order.isActive){
-        // Set order details and update states
-        setorderDetalisBySerial(order);
-        setproductOrderToUpdate(order.products)
-      }else{
-        toast.error('هذه الفاتوره تم تقفيلها و لا يمكن تعديلها');
-      }
+      const order = data.find(o => o.serial === serial);
+
+      // Set order details and update states
+      setorderDetalisBySerial(order);
+      setproductOrderToUpdate(order.products);
+      setaddition(order.addition);
+      setdiscount(order.discount);
     } catch (error) {
       // Handle error
-      console.error('حدث خطأ أثناء جلب أو معالجة تفاصيل الطلب:', error);
+      console.error('Error fetching order details:', error);
       // Display a notification to the user about the error
       toast('حدث خطأ أثناء جلب تفاصيل الطلب. يرجى المحاولة مرة أخرى.');
     }
@@ -1711,6 +1744,8 @@ function App() {
       if (updatedOrder) {
         setorderDetalisBySerial({})
         setproductOrderToUpdate([])
+        setaddition(0)
+        setdiscount(0)
         toast.success('تم تعديل الاوردر');
 
       } else {
@@ -2020,7 +2055,7 @@ function App() {
         invoice, listProductsOrder, orderUpdateDate, myOrder,
         categoryid, itemsInCart, costOrder,
         addItemToCart, setitemsInCart, incrementProductQuantity, decrementProductQuantity,
-        getOrderProductFoount, addition, orderaddition, orderdiscount,
+        getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
 
         // Functions related to creating different types of orders
         checkout,
@@ -2033,10 +2068,11 @@ function App() {
         itemId, setitemId,
 
         formatDateTime, formatDate, formatTime,
+        orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
         createOrderForTableByClient, createDeliveryOrderByClient,
 
-        orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate,
-        getOrderProductForTable,putNumOfPaid, splitInvoice, subtotalSplitOrder,
+        orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
+        putNumOfPaid, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
         , isLoadiog, setisLoadiog
       }}>
