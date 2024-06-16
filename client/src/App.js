@@ -1317,7 +1317,7 @@ function App() {
       console.log({ listProductsOrder });
       console.log({ newlistofproductorder });
   
-      newlistofproductorder.forEach((product) => {
+      newlistofproductorder.map((product) => {
 
   
           if (sizeid &&product.productid._id === id && product.sizeId === sizeid) {
@@ -1325,7 +1325,7 @@ function App() {
             console.log({oldProductsize: oldProduct ,product});
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
 
-          } if (!sizeid && product.productid._id === id && product.sizeId === null) {
+          }else if (!sizeid && product.productid._id === id && !product.sizeId) {
             const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === null);
             console.log({ oldProduct ,product});
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
