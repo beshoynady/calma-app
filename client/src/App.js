@@ -755,7 +755,7 @@ function App() {
       // Find the product to add to the cart
       const cartItem = allProducts.find(item => item._id === productId);
 
-      console.log({ cartItem });
+      console.log({ sizeId });
       if (cartItem) {
         let newItem = {
           productid: cartItem._id,
