@@ -1177,9 +1177,9 @@ function App() {
   };
 
 
-  const checkout = async () => {
+  const checkout = async (orderId) => {
     try {
-      const id = myOrderId;
+      const id = orderId;
       const isActive = false;
       const help = 'Requesting the bill';
 
@@ -1205,28 +1205,28 @@ function App() {
   };
 
 
-  const createWaiterOrderForTable = async (tableId, waiterId) => {
+  const createWaiterOrderForTable = async (tableId, waiterId, addition = 0, discount = 0) => {
     try {
-      // Check for active orders for the table
-      const tableOrder = allOrders.filter((order) => order.table && order.table._id === tableId);
+      // Check for active orders for the specified table
+      const tableOrder = allOrders.filter(order => order.table && order.table._id === tableId);
       const lastTableOrder = tableOrder.length > 0 ? tableOrder[tableOrder.length - 1] : null;
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
-
+  
       if (lastTableOrderActive) {
         // Update the existing order
         const orderId = lastTableOrder._id;
-        const orderData = allOrders.find((order) => order._id === orderId);
+        const orderData = allOrders.find(order => order._id === orderId);
         const oldProducts = orderData.products;
         const oldTotal = orderData.total;
         const newAddition = orderData.addition + addition;
         const newDiscount = orderData.discount + discount;
         const products = [...itemsInCart, ...oldProducts];
         const subTotal = costOrder + oldTotal;
-        const total = subTotal + addition - discount;
+        const total = subTotal + newAddition - newDiscount;
         const status = 'Pending';
         const createdBy = waiterId;
-
-        const updatedOrder = await axios.put(`${apiUrl}/api/order/${orderId}`, {
+  
+        await axios.put(`${apiUrl}/api/order/${orderId}`, {
           products,
           subTotal,
           total,
@@ -1235,22 +1235,19 @@ function App() {
           status,
           createdBy
         }, config);
-
+  
         toast.success('تم تحديث الطلب بنجاح!');
-        setitemId([]);
-        setaddition(0);
-        setdiscount(0);
-        setitemsInCart([]);
-        getAllProducts();
       } else {
         // Create a new order
-        const serial = allOrders.length > 0 ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0') : '000001';
+        const serial = allOrders.length > 0
+          ? String(Number(allOrders[allOrders.length - 1].serial) + 1).padStart(6, '0')
+          : '000001';
         const products = [...itemsInCart];
         const subTotal = costOrder;
         const total = subTotal + addition - discount;
         const orderType = 'Internal';
-
-        const newOrder = await axios.post(`${apiUrl}/api/order`, {
+  
+        await axios.post(`${apiUrl}/api/order`, {
           serial,
           table: tableId,
           products,
@@ -1261,18 +1258,20 @@ function App() {
           orderType,
           createdBy: waiterId
         }, config);
-
+  
         toast.success('تم إنشاء طلب جديد بنجاح!');
-        setitemId([]);
-        setaddition(0);
-        setdiscount(0);
-        setitemsInCart([]);
       }
+  
+      // Clear cart and reset states
+      setitemId([]);
+      setitemsInCart([]);
+      getAllProducts();
     } catch (error) {
       console.error(error);
       toast.error('حدث خطأ. يرجى المحاولة مرة أخرى.');
     }
   };
+  
 
 
   const [posOrderId, setposOrderId] = useState('')
@@ -1322,8 +1321,7 @@ function App() {
         toast.success('تم إنشاء الطلب بنجاح');
         setitemsInCart([]);
         setitemId([]);
-        setaddition(0);
-        setdiscount(0);
+  
       } else {
         throw new Error('هناك خطأ في إنشاء الطلب');
       }
@@ -1333,8 +1331,6 @@ function App() {
     }
   };
 
-
-  const [newlistofproductorder, setnewlistofproductorder] = useState([])
   const getOrderProductForTable = async (e, tableId) => {
     try {
       e.preventDefault();
@@ -1348,18 +1344,7 @@ function App() {
         const myOrder = await axios.get(apiUrl + '/api/order/' + id);
         const data = myOrder.data;
         console.log(data);
-        console.log(data._id);
-        console.log({ listProductsOrder: data.products });
         setmyOrder(data);
-        setmyOrderId(data._id);
-        setorderTotal(data.total);
-        setorderaddition(data.addition);
-        setorderdiscount(data.discount);
-        setorderSubtotal(data.subTotal);
-        setlistProductsOrder(data.products);
-        setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
-        // console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
-
       }
     } catch (error) {
       console.error(error);
@@ -1372,10 +1357,8 @@ function App() {
     try {
       console.log({ id });
       console.log({ numOfPaid });
-      console.log({ list_products: listProductsOrder });
-      console.log({ newlistofproductorder });
 
-      newlistofproductorder.map((product) => {
+      myOrder.prducts.map((product) => {
         if (product.productid === id) {
           const oldProduct = listProductsOrder.find(pro => pro.productid === id);
           console.log({ oldProduct });
@@ -1484,7 +1467,7 @@ function App() {
             const { _id: orderId } = lastEmployeeOrder;
             const response = await axios.get(`${apiUrl}/api/order/${orderId}`);
             const orderData = response.data;
-    
+            
             // Update states with order details
             setmyOrder(orderData);
             setitemsInCart([]);
@@ -1728,8 +1711,6 @@ function App() {
       if (updatedOrder) {
         setorderDetalisBySerial({})
         setproductOrderToUpdate([])
-        setaddition(0)
-        setdiscount(0)
         toast.success('تم تعديل الاوردر');
 
       } else {
@@ -2039,7 +2020,7 @@ function App() {
         invoice, listProductsOrder, orderUpdateDate, myOrder,
         categoryid, itemsInCart, costOrder,
         addItemToCart, setitemsInCart, incrementProductQuantity, decrementProductQuantity,
-        getOrderProductForTable, setdiscount, setaddition, discount, addition, orderaddition, orderdiscount,
+        getOrderProductFoount, addition, orderaddition, orderdiscount,
 
         // Functions related to creating different types of orders
         checkout,
@@ -2052,11 +2033,10 @@ function App() {
         itemId, setitemId,
 
         formatDateTime, formatDate, formatTime,
-        orderTotal, orderSubtotal, ordertax, orderDeliveryCost, setorderDeliveryCost,
         createOrderForTableByClient, createDeliveryOrderByClient,
 
         orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate,
-        putNumOfPaid, splitInvoice, subtotalSplitOrder,
+        getOrderProductForTable,putNumOfPaid, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
         , isLoadiog, setisLoadiog
       }}>

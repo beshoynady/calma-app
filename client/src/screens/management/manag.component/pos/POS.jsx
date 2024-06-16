@@ -108,7 +108,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
           orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -190,7 +190,7 @@ const POS = () => {
                               </thead>
                               <tbody>
                                 {/* Replace this with your dynamic data */}
-                                {listProductsOrder.map((item, i) => (
+                                {myOrder.products.map((item, i) => (
                                   <tr key={i}>
                                     <td className="col-md-3 text-truncate">{item.name}</td>
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -206,11 +206,11 @@ const POS = () => {
                               <tfoot>
                                 <tr>
                                   <td colSpan="4">المجموع</td>
-                                  <td>{subtotalSplitOrder}</td>
+                                  <td>{myOrder.subtotalSplitOrder}</td>
                                 </tr>
                                 <tr>
                                   <td colSpan="4">الاجمالي</td>
-                                  <td>{orderTotal}</td>
+                                  <td>{myOrder.total}</td>
                                 </tr>
                               </tfoot>
                             </table>
@@ -715,7 +715,7 @@ const POS = () => {
                       <div className="col-12 p-0 m-0">
                         <div className="btn btn-group btn btn-block p-0 m-0">
                           {ordertype === 'Internal' ?
-                            <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                            <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id, addaddition, discount); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
                               <button type="button" className="btn btn-47 btn-primary" onClick={() => { createcashierOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>

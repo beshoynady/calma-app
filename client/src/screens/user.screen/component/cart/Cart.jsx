@@ -284,7 +284,7 @@ const Cart = (props) => {
                       </div>
                       <div className="total-order p-1 d-flex align-items-center     justify-content-between mt-3">
                         {id ? (
-                          <button className='total-order-btn btn btn-success' onClick={checkout}>طلب الحساب</button>
+                          <button className='total-order-btn btn btn-success' onClick={(e)=>checkout(e, myOrder._id)}>طلب الحساب</button>
                         ) : null}
                         <button className='total-order-btn btn btn-info' onClick={handlePrint}>طباعه</button>
                       </div>
