@@ -1318,17 +1318,10 @@ function App() {
   
       if(id , sizeid){
         const originalProduct = listProductsOrder.filter(product => product.productid === id && product.sizeId === sizeid)
-        const updatedProduct = newlistofproductorder.filter(product => product.productid === id && product.sizeId === sizeid)
-        if(originalProduct, updatedProduct){
-          updatedProduct.numOfPaid = originalProduct.numOfPaid + numOfPaid
-        }
+        newlistofproductorder.filter(product => product.productid === id && product.sizeId === sizeid)[0]?.numOfPaid = originalProduct.numOfPaid + numOfPaid
       }else if(id ,!sizeid){
         const originalProduct = listProductsOrder.filter(product => product.productid === id && !product.sizeId)
-        const updatedProduct = newlistofproductorder.filter(product => product.productid === id && !product.sizeId)
-        if(originalProduct, updatedProduct){
-          updatedProduct.numOfPaid = originalProduct.numOfPaid + numOfPaid
-        }
-
+         newlistofproductorder.filter(product => product.productid === id && !product.sizeId)[0].numOfPaid = originalProduct.numOfPaid + numOfPaid
       }
       console.log({ listProductsOrder , newlistofproductorder });
 
