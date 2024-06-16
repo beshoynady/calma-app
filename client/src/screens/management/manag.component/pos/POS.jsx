@@ -174,7 +174,7 @@ const POS = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="modal-footer d-flex align-item-center justify-content-between">
+                        <div className="modal-footer d-flex flex-row align-item-center justify-content-between">
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                           <input type="submit" className="btn w-50 btn-success" value="تم" />
                         </div>
@@ -276,7 +276,7 @@ const POS = () => {
                             </table>
                           </div>
                         </div>
-                        <div className="modal-footer d-flex">
+                        <div className="modal-footer d-flex flex-row">
                           <input type="submit" className="btn w-50 btn-success" value="تم" />
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                         </div>
