@@ -70,25 +70,6 @@ const OrderSchema = new mongoose.Schema({
         default: "",
         trim: true
       },
-      // extras: [
-      //   {
-      //     extraId: [
-      //       {
-      //         type: ObjectId,
-      //         ref: 'Product',
-      //       }
-      //     ],
-      //     priceExtras: {
-      //       ...defaultOptions,
-      //       validate: {
-      //         validator: function (v) {
-      //           return v >= 1 && v <= 100000;
-      //         },
-      //         message: '{VALUE} is not a valid price',
-      //       },
-      //     },
-      //   }
-      // ],
 
       extras: [
         {

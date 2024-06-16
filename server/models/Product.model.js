@@ -25,10 +25,6 @@ const productSchema = new mongoose.Schema(
     },
     sizes: [
       {
-        _id: {
-          type: ObjectId,
-          default: new mongoose.Types.ObjectId(),
-        },
         sizeName: {
           type: String,
           trim: true,
