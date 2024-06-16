@@ -1401,6 +1401,7 @@ function App() {
       console.log({ newlistofproductorder });
 
       newlistofproductorder.map((product) => {
+        console.log({ productid: product.productid._id});
         if (product.productid._id === id) {
           const oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
           console.log({ oldProduct });
