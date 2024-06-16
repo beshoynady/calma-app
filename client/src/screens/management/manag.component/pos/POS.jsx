@@ -218,7 +218,7 @@ const POS = () => {
                                 {listProductsOrder.map((item, i) => (
                                   <>
                                     <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?item.size:''}`}</td>
+                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?-item.size:''}`}</td>
                                       <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                       <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                       <td className="col-md-1 text-nowrap">{item.totalprice}</td>

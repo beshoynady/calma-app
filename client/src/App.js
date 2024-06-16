@@ -1318,27 +1318,25 @@ function App() {
       console.log({ newlistofproductorder });
   
       newlistofproductorder.forEach((product) => {
-        console.log({ productid: product.productid._id });
   
-        if (product.productid._id === id) {
-          let oldProduct;
+
+        let oldProduct;
   
-          if (sizeid) {
+          if (product.sizeid) {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
           } else {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
           }
   
           if (oldProduct) {
-            console.log({ oldProduct });
-            console.log({ old_numOfPaid: oldProduct.numOfPaid });
+            // console.log({ oldProduct });
+            // console.log({ old_numOfPaid: oldProduct.numOfPaid });
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-            console.log({ new_numOfPaid: product.numOfPaid });
+            // console.log({ new_numOfPaid: product.numOfPaid });
           } else {
             console.warn(`Product with id ${id} and sizeid ${sizeid} not found in listProductsOrder`);
           }
-        }
-      });
+        });
   
       console.log({ newlistofproductorder });
       calcSubtotalSplitOrder();
