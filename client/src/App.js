@@ -1313,24 +1313,34 @@ function App() {
 
   const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
-      // console.log({ id, sizeid, numOfPaid });
-      console.log({ listProductsOrder , newlistofproductorder });
+      console.log({ listProductsOrder, newlistofproductorder });
   
-      if(id , sizeid){
-        const originalProduct = listProductsOrder.filter(product => product.productid === id && product.sizeId === sizeid)
-        newlistofproductorder.filter(product => product.productid === id && product.sizeId === sizeid)[0]?.numOfPaid = originalProduct.numOfPaid + numOfPaid
-      }else if(id ,!sizeid){
-        const originalProduct = listProductsOrder.filter(product => product.productid === id && !product.sizeId)
-         newlistofproductorder.filter(product => product.productid === id && !product.sizeId)[0].numOfPaid = originalProduct.numOfPaid + numOfPaid
-      }
-      console.log({ listProductsOrder , newlistofproductorder });
-
+      const updatedProducts = newlistofproductorder.map(product => {
+        if ((sizeid && product.productid._id === id && product.sizeId === sizeid) || 
+            (!sizeid && product.productid._id === id && !product.sizeId)) {
+          
+          const originalProduct = listProductsOrder.find(pro => 
+            (sizeid && pro.productid._id === id && pro.sizeId === sizeid) || 
+            (!sizeid && pro.productid._id === id && !pro.sizeId)
+          );
+  
+          if (originalProduct) {
+            return { ...product, numOfPaid: originalProduct.numOfPaid + numOfPaid };
+          }
+        }
+        return product;
+      });
+  
+      setnewlistofproductorder(updatedProducts);
+      console.log({ listProductsOrder, updatedProducts });
+  
       // calcSubtotalSplitOrder();
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
     }
   };
+  
   
 
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
