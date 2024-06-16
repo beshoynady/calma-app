@@ -1314,27 +1314,22 @@ function App() {
   const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
       // console.log({ id, sizeid, numOfPaid });
-      // console.log({ list_products: listProductsOrder });
+      console.log({ listProductsOrder });
       console.log({ newlistofproductorder });
   
       newlistofproductorder.forEach((product) => {
 
-        let oldProduct;
   
-          if (sizeid && product.sizeId) {
-            oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
-          } else {
-            oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId===null);
-          }
-  
-          if (oldProduct) {
-            // console.log({ oldProduct });
-            // console.log({ old_numOfPaid: oldProduct.numOfPaid });
+          if (sizeid && product.sizeId === sizeid) {
+            const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-            console.log({ oldProduct });
+
           } else {
-            console.warn(`Product with id ${id} and sizeid ${sizeid} not found in listProductsOrder`);
+            const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === null);
+            product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
+
           }
+            
         });
   
       console.log({ newlistofproductorder });
