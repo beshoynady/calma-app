@@ -174,7 +174,7 @@ const POS = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="modal-footer d-flex flex-row align-item-center justify-content-between">
+                        <div className="modal-footer w-100 d-flex flex-row flex-nowrap align-item-center justify-content-between">
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                           <input type="submit" className="btn w-50 btn-success" value="تم" />
                         </div>
@@ -218,7 +218,7 @@ const POS = () => {
                                 {listProductsOrder.map((item, i) => (
                                   <>
                                     <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?-item.size:''}`}</td>
+                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?item.size:''}`}</td>
                                       <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                       <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                       <td className="col-md-1 text-nowrap">{item.totalprice}</td>
@@ -276,7 +276,7 @@ const POS = () => {
                             </table>
                           </div>
                         </div>
-                        <div className="modal-footer d-flex flex-row">
+                        <div className="modal-footer w-100 d-flex flex-row flex-nowrap align-item-center justify-content-between">
                           <input type="submit" className="btn w-50 btn-success" value="تم" />
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                         </div>

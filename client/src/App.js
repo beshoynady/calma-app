@@ -1322,7 +1322,7 @@ function App() {
 
         let oldProduct;
   
-          if (product.sizeid) {
+          if (product.sizeId) {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
           } else {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
