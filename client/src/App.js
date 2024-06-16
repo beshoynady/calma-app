@@ -1334,7 +1334,7 @@ function App() {
       setnewlistofproductorder(updatedProducts);
       console.log({ listProductsOrder, updatedProducts });
   
-      // calcSubtotalSplitOrder();
+      calcSubtotalSplitOrder();
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
@@ -1349,46 +1349,35 @@ function App() {
     try {
       let total = 0;
   
-      // Iterate over each product in the split order list
-      // console.log({ newlistofproductorder });
-  
-      newlistofproductorder.forEach(product => {
-        // Find the corresponding product in the original order list
+      const updatedProducts = newlistofproductorder.map(product => {
         let originalProduct;
+  
         if (product.sizeId) {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id && pro.sizeId === product.sizeId);
         } else {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
         }
-        // console.log({ originalProduct, product});
-        
+  
         if (originalProduct) {
-          // Calculate the difference in the number of paid items
           const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
           console.log({ numOfPaidDifference });
-          // Determine which price to use for calculating subtotal
+          
           const priceToUse = originalProduct.priceAfterDiscount > 0 ? originalProduct.priceAfterDiscount : originalProduct.price;
-  
-          // Calculate the subtotal based on the number of paid items and the product price
           const subTotal = numOfPaidDifference * priceToUse;
-          // console.log({ subTotal });
   
-          // Accumulate the subtotal to the total
           total += subTotal;
         }
+        return product;
       });
   
-      // Set the calculated total as the subtotal for the split order
-      // console.log({ total });
       setsubtotalSplitOrder(total);
+      console.log({ total, updatedProducts });
     } catch (error) {
-      // Log any errors that occur during the calculation
       console.error(error);
-  
-      // Display an error toast message
       toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
+  
   
   
 
