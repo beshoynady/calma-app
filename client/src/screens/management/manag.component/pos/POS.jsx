@@ -223,7 +223,7 @@ const POS = () => {
                                       <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                       <td className="col-md-1 text-nowrap">{item.totalprice}</td>
                                       <td className="col-md-2 text-nowrap">
-                                        <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid, Number(e.target.value)) }} style={{ width: "50px" }} />
+                                        <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid._id, Number(e.target.value)) }} style={{ width: "50px" }} />
                                       </td>
                                     </tr>
                                     {item.extras && item.extras.length > 0 && (
