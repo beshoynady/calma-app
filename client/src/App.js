@@ -1314,27 +1314,24 @@ function App() {
   const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
       // console.log({ id, sizeid, numOfPaid });
-      console.log({ listProductsOrder });
-      console.log({ newlistofproductorder });
+      console.log({ listProductsOrder , newlistofproductorder });
   
-      newlistofproductorder.map((product) => {
+      if(id , sizeid){
+        const originalProduct = listProductsOrder.filter(product => product.productid === id && product.sizeId === sizeid)
+        const updatedProduct = newlistofproductorder.filter(product => product.productid === id && product.sizeId === sizeid)
+        if(originalProduct, updatedProduct){
+          updatedProduct.numOfPaid = originalProduct.numOfPaid + numOfPaid
+        }
+      }else if(id ,!sizeid){
+        const originalProduct = listProductsOrder.filter(product => product.productid === id && !product.sizeId)
+        const updatedProduct = newlistofproductorder.filter(product => product.productid === id && !product.sizeId)
+        if(originalProduct, updatedProduct){
+          updatedProduct.numOfPaid = originalProduct.numOfPaid + numOfPaid
+        }
 
-  
-          if (sizeid &&product.productid._id === id && product.sizeId === sizeid) {
-            const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
-            console.log({oldProductsize: oldProduct ,product});
-            product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
+      }
+      console.log({ listProductsOrder , newlistofproductorder });
 
-          }else if (!sizeid && product.productid._id === id && !product.sizeId) {
-            const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === null);
-            console.log({ oldProduct ,product});
-            product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-
-          }
-            
-        });
-  
-      console.log({ newlistofproductorder });
       // calcSubtotalSplitOrder();
     } catch (error) {
       console.error(error);
