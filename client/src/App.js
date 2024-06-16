@@ -1284,15 +1284,15 @@ function App() {
       const tableorder = allOrders.filter((order, i) => order.table&&order.table._id == tableId);
       const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
       const lasttableorderactive = lasttableorder.isActive;
-      console.log({ lasttableorder });
-      console.log({ lasttableorderactive });
+      // console.log({ lasttableorder });
+      // console.log({ lasttableorderactive });
       if (lasttableorderactive) {
         const id = await lasttableorder._id;
         const myOrder = await axios.get(apiUrl + '/api/order/' + id);
         const data = myOrder.data;
-        console.log(data);
-        console.log(data._id);
-        console.log({ listProductsOrder: data.products });
+        // console.log(data);
+        // console.log(data._id);
+        // console.log({ listProductsOrder: data.products });
         setmyOrder(data);
         setmyOrderId(data._id);
         setorderTotal(data.total);
@@ -1313,16 +1313,16 @@ function App() {
 
   const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
-      console.log({ id, sizeid, numOfPaid });
-      console.log({ list_products: listProductsOrder });
-      console.log({ newlistofproductorder });
+      // console.log({ id, sizeid, numOfPaid });
+      // console.log({ list_products: listProductsOrder });
+      // console.log({ newlistofproductorder });
   
       newlistofproductorder.forEach((product) => {
   
 
         let oldProduct;
   
-          if (product.sizeId) {
+          if (sizeid) {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
           } else {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
@@ -1367,7 +1367,7 @@ function App() {
         } else {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
         }
-        console.log({ originalProduct });
+        console.log({ originalProduct, product});
         
         if (originalProduct) {
           // Calculate the difference in the number of paid items
@@ -1375,7 +1375,7 @@ function App() {
           console.log({ numOfPaidDifference });
   
           // Determine which price to use for calculating subtotal
-          const priceToUse = product.priceAfterDiscount > 0 ? product.priceAfterDiscount : product.price;
+          const priceToUse = originalProduct.priceAfterDiscount > 0 ? originalProduct.priceAfterDiscount : originalProduct.price;
   
           // Calculate the subtotal based on the number of paid items and the product price
           const subTotal = numOfPaidDifference * priceToUse;
