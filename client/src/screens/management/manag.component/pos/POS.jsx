@@ -136,7 +136,7 @@ const POS = () => {
                 <div id="getOrderDetalisModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e)=>{e.preventDefault();getOrderDetailsBySerial(e, serial)}}>
+                      <form onSubmit={(e) => { e.preventDefault(); getOrderDetailsBySerial(e, serial) }}>
                         <div className="modal-header">
                           <h4 className="modal-title">رقم الفاتورة</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -302,90 +302,83 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
-
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <button className='btn btn-47 btn-success m-0' onClick={handlePrint}>طباعه</button>
+                        <button className='btn btn-success m-0' onClick={handlePrint}>طباعة</button>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
-
-                      <div className="invoice side" style={{ height: "100%" }} >
-                        <div ref={printContainer} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ Width: '100%', textAlign: 'center' }}>
-
+                      <div className="modal-body p-4" style={{ direction: 'rtl' }}>
+                        <div ref={printContainer} className="max-w-400px p-3 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>الكاشير: {myOrder.cashier&&myOrder.cashier.fullname} |Invoice #{myOrder.serial} |{myOrder.ordertype == 'Internal' ? `Table ${myOrder.table,tableNumber}` : ''} |التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <p>الكاشير: {myOrder.cashier?.fullname} | فاتورة #{myOrder.serial} | {myOrder.ordertype === 'Internal' ? `الطاولة ${myOrder.table.tableNumber}` : ''} | التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
-                          {myOrder.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                            <h4>بيانات العميل</h4>
-                            <p>الاسم: {myOrder.name}</p>
-                            <p>الموبايل: {myOrder.phone}</p>
-                            <p>العنوان: {myOrder.address}</p>
-                            <p>الديلفري مان: {usertitle(myOrder.deliveryMan)}</p>
-                          </div> : myOrder.ordertype == 'Takeaway' ?
-                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                          {myOrder.ordertype === 'Delivery' && (
+                            <div className="customer-info text-dark my-3">
                               <h4>بيانات العميل</h4>
                               <p>الاسم: {myOrder.name}</p>
                               <p>الموبايل: {myOrder.phone}</p>
-                              <p>رقم الاوردر: {myOrder.ordernum}</p>
+                              <p>العنوان: {myOrder.address}</p>
+                              <p>الديلفري مان: {myOrder.deliveryMan&&myOrder.deliveryMan.fullname}</p>
                             </div>
-                            : ''}
+                          )}
+                          {myOrder.ordertype === 'Takeaway' && (
+                            <div className="customer-info text-dark my-3">
+                              <h4>بيانات العميل</h4>
+                              <p>الاسم: {myOrder.name}</p>
+                              <p>الموبايل: {myOrder.phone}</p>
+                              <p>رقم الطلب: {myOrder.ordernum}</p>
+                            </div>
+                          )}
 
-                          <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>                              <thead className="thead-dark">
-                            <tr>
-                              <th scope="col" className="col-md-3">الصنف</th>
-                              <th scope="col" className="col-md-2">السعر</th>
-                              <th scope="col" className="col-md-2">الكمية</th>
-                              <th scope="col" className="col-md-2">الاجمالي</th>
-                            </tr>
-                          </thead>
+                          <table className="table table-bordered table-responsive-md text-center" style={{ direction: 'rtl' }}>
+                            <thead className="thead-dark">
+                              <tr>
+                                <th scope="col" className="col-md-3">الصنف</th>
+                                <th scope="col" className="col-md-2">السعر</th>
+                                <th scope="col" className="col-md-2">الكمية</th>
+                                <th scope="col" className="col-md-2">الإجمالي</th>
+                              </tr>
+                            </thead>
                             <tbody>
-                              {myOrder.products&&myOrder.products.map((item, i) => (
-                                <>
-                                <tr key={i}>
-                                  <td className="col-md-3 text-truncate">{item.name}</td>
-                                  <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                  <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                  <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                </tr>
-                                {item.extras && item.extras.length > 0 && (
-                                  item.extras.map((extra, j) => (
+                              {myOrder.products && myOrder.products.map((item, i) => (
+                                <React.Fragment key={i}>
+                                  <tr>
+                                    <td className="col-md-3 text-truncate">{item.name}</td>
+                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount || item.price}</td>
+                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
+                                  </tr>
+                                  {item.extras && item.extras.length > 0 && item.extras.map((extra, j) => (
                                     extra && (
                                       <tr key={`${i}-${j}`}>
                                         <td className="col-md-3 text-truncate">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraDetails.map((detail) => {
-
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                              );
-                                            })}
+                                            {extra.extraDetails.map(detail => (
+                                              <p className="badge badge-secondary m-1" key={detail.extraid._id}>{detail.name}</p>
+                                            ))}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">
-                                          <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                            {extra.extraDetails.map((detail) => {
-                                              return (
-                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
-                                              );
-                                            })}
+                                          <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                            {extra.extraDetails.map(detail => (
+                                              <p className="badge badge-secondary m-1" key={detail.extraid._id}>{`${detail.price} ج`}</p>
+                                            ))}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">1</td>
                                         <td className="col-md-2 text-nowrap">
                                           {extra && (
-                                            <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                            <p className="badge badge-info m-1">{`${extra.totalExtrasPrice} ج`}</p>
                                           )}
                                         </td>
                                       </tr>
                                     )
-                                  ))
-                                )}
-                                </>
-                                
+                                  ))}
+                                </React.Fragment>
                               ))}
                             </tbody>
                             <tfoot>
@@ -393,55 +386,51 @@ const POS = () => {
                                 <td colSpan="3">المجموع</td>
                                 <td>{myOrder.subTotal}</td>
                               </tr>
-                              {myOrder.deliveryCost > 0 ?
+                              {myOrder.deliveryCost > 0 && (
                                 <tr>
                                   <td colSpan="3">خدمة التوصيل</td>
                                   <td>{myOrder.deliveryCost}</td>
                                 </tr>
-                                : ''}
-                              {myOrder.addition > 0 ?
+                              )}
+                              {myOrder.addition > 0 && (
                                 <tr>
-                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td colSpan="3">رسوم إضافية</td>
                                   <td>{myOrder.addition}</td>
                                 </tr>
-                                : ''
-                              }
-                              {myOrder.discount > 0 ?
+                              )}
+                              {myOrder.discount > 0 && (
                                 <tr>
-                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td colSpan="3">الخصم</td>
                                   <td>{myOrder.discount}</td>
-                                </tr> : ''
-                              }
+                                </tr>
+                              )}
                               <tr>
-                                <td colSpan="3">الاجمالي</td>
+                                <td colSpan="3">الإجمالي</td>
                                 <td>{myOrder.total}</td>
                               </tr>
                             </tfoot>
                           </table>
 
-                          <div className="text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
+                          <div className="text-dark my-3">
                             {restaurantData && (
                               <>
                                 <p>{restaurantData.name}</p>
-                                <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
-                                <p>العنوان: {restaurantData.address &&
-                                  <>
-                                    {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
-                                  </>}
-                                </p>
+                                <p>موبايل: {restaurantData.contact?.phone?.[0]}</p>
+                                <p>العنوان: {restaurantData.address?.state} {restaurantData.address?.city} {restaurantData.address?.street}</p>
                               </>
                             )}
                           </div>
 
-                          <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                            <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
-                            <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
+                          <div className="footer mt-4 text-center" style={{ color: '#828282' }}>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
+                            <p>Mobile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>
