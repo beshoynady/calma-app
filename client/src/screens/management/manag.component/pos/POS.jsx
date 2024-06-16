@@ -108,7 +108,7 @@ const POS = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
+        ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
           orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
@@ -119,6 +119,29 @@ const POS = () => {
                   <div className='categ-menu'>
                     <div className='pos-menu'>
                       <POSCard />
+                      {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
+                        return (
+
+                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id,item.sizeId) }}>
+                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
+
+                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
+                            <div className="pos-card-detalis">
+                              <div className='card-name'>
+                                <div className='product-name'>{product.name}</div>
+                                <div className='product-price'>{product.discount > 0 ?
+                                  <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
+                                  : <p>{product.price}ج</p>}</div>
+                              </div>
+                              <div className='card-discription'>{product.description}</div>
+
+                              <div className='pos-btn btn-47'>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      }
+                      )} */}
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
@@ -136,9 +159,9 @@ const POS = () => {
                 <div id="getOrderDetalisModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <form onSubmit={(e) => { e.preventDefault(); getOrderDetailsBySerial(e, serial) }}>
+                      <form onSubmit={(e) => { getOrderDetailsBySerial(e, serial) }}>
                         <div className="modal-header">
-                          <h4 className="modal-title">رقم الفاتورة</h4>
+                          <h4 className="modal-title">رقم الفاتوره</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
@@ -146,6 +169,8 @@ const POS = () => {
                             <div className="form-group w-100 d-flex align-item-center justify-content-between">
                               <label htmlFor="serial" className="w-50">رقم الفاتورة:</label>
                               <input type="text" id="serial" className="form-control w-50" value={serial} onChange={(e) => setserial(e.target.value)} />
+
+
                             </div>
                           </div>
                         </div>
@@ -190,7 +215,7 @@ const POS = () => {
                               </thead>
                               <tbody>
                                 {/* Replace this with your dynamic data */}
-                                {myOrder.products.map((item, i) => (
+                                {listProductsOrder.map((item, i) => (
                                   <tr key={i}>
                                     <td className="col-md-3 text-truncate">{item.name}</td>
                                     <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
@@ -206,11 +231,11 @@ const POS = () => {
                               <tfoot>
                                 <tr>
                                   <td colSpan="4">المجموع</td>
-                                  <td>{myOrder.subtotalSplitOrder}</td>
+                                  <td>{subtotalSplitOrder}</td>
                                 </tr>
                                 <tr>
                                   <td colSpan="4">الاجمالي</td>
-                                  <td>{myOrder.total}</td>
+                                  <td>{orderTotal}</td>
                                 </tr>
                               </tfoot>
                             </table>
@@ -302,6 +327,7 @@ const POS = () => {
                 </div>
                 {/* ) : ""}  */}
                 {/* الفاتوره */}
+
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
@@ -322,7 +348,7 @@ const POS = () => {
                               <p>الاسم: {myOrder.name}</p>
                               <p>الموبايل: {myOrder.phone}</p>
                               <p>العنوان: {myOrder.address}</p>
-                              <p>الديلفري مان: {myOrder.deliveryMan&&myOrder.deliveryMan.fullname}</p>
+                              <p>الديلفري مان: {myOrder.deliveryMan && myOrder.deliveryMan.fullname}</p>
                             </div>
                           )}
                           {myOrder.ordertype === 'Takeaway' && (
@@ -417,20 +443,20 @@ const POS = () => {
                                 <p>{restaurantData.name}</p>
                                 <p>موبايل: {restaurantData.contact?.phone?.[0]}</p>
                                 <p>العنوان: {restaurantData.address?.state} {restaurantData.address?.city} {restaurantData.address?.street}</p>
+
                               </>
                             )}
                           </div>
 
-                          <div className="footer mt-4 text-center" style={{ color: '#828282' }}>
-                            <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
-                            <p>Mobile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
+                          <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                            <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
+                </div> 
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>
@@ -715,7 +741,7 @@ const POS = () => {
                       <div className="col-12 p-0 m-0">
                         <div className="btn btn-group btn btn-block p-0 m-0">
                           {ordertype === 'Internal' ?
-                            <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id, addaddition, discount); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
+                            <button type="button" className="btn btn-47 btn-primary" onClick={() => { createWaiterOrderForTable(tableID, employeeLoginInfo.employeeinfo.id); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
 
                             : ordertype === 'Delivery' ?
                               <button type="button" className="btn btn-47 btn-primary" onClick={() => { createcashierOrder(employeeLoginInfo.employeeinfo.id, clientname, clientphone, clientaddress, ordertype, deliverycost, discount, addition); setaddaddition(false); setadddiscount(false) }}>تأكيد</button>
