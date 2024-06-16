@@ -1300,7 +1300,7 @@ function App() {
         setorderdiscount(data.discount);
         setorderSubtotal(data.subTotal);
         setlistProductsOrder(data.products);
-        setnewlistofproductorder(JSON.parse(JSON.stringify(data.products)));
+        setnewlistofproductorder(data.products);
         // console.log({ JSONlistProductsOrder: JSON.parse(JSON.stringify(data.products)) });
 
       }
@@ -1315,31 +1315,30 @@ function App() {
     try {
       // console.log({ id, sizeid, numOfPaid });
       // console.log({ list_products: listProductsOrder });
-      // console.log({ newlistofproductorder });
+      console.log({ newlistofproductorder });
   
       newlistofproductorder.forEach((product) => {
-  
 
         let oldProduct;
   
-          if (sizeid) {
+          if (sizeid && product.sizeId) {
             oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
           } else {
-            oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
+            oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId===null);
           }
   
           if (oldProduct) {
             // console.log({ oldProduct });
             // console.log({ old_numOfPaid: oldProduct.numOfPaid });
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-            // console.log({ new_numOfPaid: product.numOfPaid });
+            console.log({ oldProduct });
           } else {
             console.warn(`Product with id ${id} and sizeid ${sizeid} not found in listProductsOrder`);
           }
         });
   
       console.log({ newlistofproductorder });
-      calcSubtotalSplitOrder();
+      // calcSubtotalSplitOrder();
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
@@ -1347,17 +1346,14 @@ function App() {
   };
   
 
-
-
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
-
 
   const calcSubtotalSplitOrder = () => {
     try {
       let total = 0;
   
       // Iterate over each product in the split order list
-      console.log({ newlistofproductorder });
+      // console.log({ newlistofproductorder });
   
       newlistofproductorder.forEach(product => {
         // Find the corresponding product in the original order list
@@ -1367,19 +1363,18 @@ function App() {
         } else {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
         }
-        console.log({ originalProduct, product});
+        // console.log({ originalProduct, product});
         
         if (originalProduct) {
           // Calculate the difference in the number of paid items
           const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
           console.log({ numOfPaidDifference });
-  
           // Determine which price to use for calculating subtotal
           const priceToUse = originalProduct.priceAfterDiscount > 0 ? originalProduct.priceAfterDiscount : originalProduct.price;
   
           // Calculate the subtotal based on the number of paid items and the product price
           const subTotal = numOfPaidDifference * priceToUse;
-          console.log({ subTotal });
+          // console.log({ subTotal });
   
           // Accumulate the subtotal to the total
           total += subTotal;
@@ -1387,7 +1382,7 @@ function App() {
       });
   
       // Set the calculated total as the subtotal for the split order
-      console.log({ total });
+      // console.log({ total });
       setsubtotalSplitOrder(total);
     } catch (error) {
       // Log any errors that occur during the calculation
