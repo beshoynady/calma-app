@@ -218,12 +218,12 @@ const POS = () => {
                                 {listProductsOrder.map((item, i) => (
                                   <>
                                     <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{item.name}</td>
+                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?item.size:''}`}</td>
                                       <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                       <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                       <td className="col-md-1 text-nowrap">{item.totalprice}</td>
                                       <td className="col-md-2 text-nowrap">
-                                        <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid._id, Number(e.target.value)) }} style={{ width: "50px" }} />
+                                        <input type='number' min={0} max={item.quantity - item.numOfPaid} defaultValue={0} onChange={(e) => { putNumOfPaid(item.productid._id, item.sizeId, Number(e.target.value)) }} style={{ width: "50px" }} />
                                       </td>
                                     </tr>
                                     {item.extras && item.extras.length > 0 && (
@@ -276,9 +276,9 @@ const POS = () => {
                             </table>
                           </div>
                         </div>
-                        <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn btn-47 btn-success" value="تم" />
+                        <div className="modal-footer d-flex">
+                          <input type="submit" className="btn w-50 btn-success" value="تم" />
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                         </div>
                       </form>
                     </div>

@@ -664,88 +664,6 @@ function App() {
   };
 
 
-  // const handleAddProductExtras = (extra, ind) => {
-  //   const newExtras = [...productExtras];
-
-  //   if (newExtras.length > 0) {
-  //     if (newExtras[ind]) {
-  //       const newExtras[ind] = newExtras[ind];
-
-  //       if (newExtras[ind].extraId.includes(extra._id)) {
-  //         newExtras[ind].extraId = newExtras[ind].extraId.filter(id => id !== extra._id);
-  //         newExtras[ind].priceExtras -= extra.price; // تخفيض السعر بسعر الإضافة المزيلة
-  //       } else {
-  //         // إذا لم تكن الإضافة موجودة، قم بإضافتها
-  //         newExtras[ind].extraId.push(extra._id);
-  //         newExtras[ind].priceExtras += extra.price; // زيادة السعر بسعر الإضافة المضافة
-  //       }
-  //     } else {
-  //       // إذا لم يكن هناك إضافات للمنتج بعد، قم بإنشاء إدخال جديد
-  //       newExtras[ind] = {
-  //         extraId: [extra._id],
-  //         priceExtras: extra.price
-  //       };
-  //     }
-  //   } else {
-  //     // إذا كانت المصفوفة فارغة بالكامل، قم بإنشاء إدخال جديد
-  //     newExtras[ind] = {
-  //       extraId: [extra._id],
-  //       priceExtras: extra.price
-  //     };
-  //   }
-
-  //   setproductExtras(newExtras);
-  // };
-
-
-
-  // const addExtrasToProduct = (e, productId, sizeId) => {
-  //   e.preventDefault();
-  //   console.log({ productId, sizeId , productExtras})
-  //   if (productExtras.length<1) {
-  //     return
-  //   }
-  //   try {
-  //     // Find the product either in the order or in all products
-  //     const findProduct = productOrderToUpdate.length > 0 ?
-  //       productOrderToUpdate.find(product => product._id === productId) :
-  //       allProducts.find(product => product._id === productId);
-
-  //     if (!findProduct) {
-  //       throw new Error('Product not found.');
-  //     }
-
-  //     if (sizeId) {
-  //       findProduct.sizes.map(size => {
-  //         if (size._id === sizeId) {
-  //           // incrementProductQuantity the quantity of the found product
-  //           size.extrasSelected = productExtras;
-  //         }
-  //       })
-  //       itemsInCart.map(item => {
-  //         if (item.productid === productId && item.sizeId === sizeId) {
-  //           item.extrasSelected = productExtras;
-  //         }
-  //       })
-  //     } else {
-  //       // incrementProductQuantity the quantity of the found product
-  //       findProduct.extrasSelected = productExtras;
-  //       itemsInCart.map(item => {
-  //         if (item.productid === productId) {
-  //           item.extrasSelected = productExtras;
-  //         }
-  //       })
-  //     }
-
-  //     console.log(findProduct);
-  //     console.log(itemsInCart);
-  //     setproductExtras([])
-  //   } catch (error) {
-  //     console.error('Error incrementing product quantity:', error.message);
-  //     // You can handle the error appropriately, such as displaying an error message to the user.
-  //   }
-  // };
-
 
   const [itemId, setitemId] = useState([]);
   const [itemsInCart, setitemsInCart] = useState([]);
@@ -1393,24 +1311,35 @@ function App() {
   };
 
 
-  const putNumOfPaid = (id, numOfPaid) => {
+  const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
-      console.log({ id });
-      console.log({ numOfPaid });
+      console.log({ id, sizeid, numOfPaid });
       console.log({ list_products: listProductsOrder });
       console.log({ newlistofproductorder });
-
-      newlistofproductorder.map((product) => {
-        console.log({ productid: product.productid._id});
+  
+      newlistofproductorder.forEach((product) => {
+        console.log({ productid: product.productid._id });
+  
         if (product.productid._id === id) {
-          const oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
-          console.log({ oldProduct });
-          console.log({ old_numOfPaid: oldProduct.numOfPaid });
-          product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
-          console.log({ new_numOfPaid: product.numOfPaid });
+          let oldProduct;
+  
+          if (sizeid) {
+            oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
+          } else {
+            oldProduct = listProductsOrder.find(pro => pro.productid._id === id);
+          }
+  
+          if (oldProduct) {
+            console.log({ oldProduct });
+            console.log({ old_numOfPaid: oldProduct.numOfPaid });
+            product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
+            console.log({ new_numOfPaid: product.numOfPaid });
+          } else {
+            console.warn(`Product with id ${id} and sizeid ${sizeid} not found in listProductsOrder`);
+          }
         }
       });
-
+  
       console.log({ newlistofproductorder });
       calcSubtotalSplitOrder();
     } catch (error) {
@@ -1418,6 +1347,7 @@ function App() {
       toast.error('An error occurred while updating the number of paid products.');
     }
   };
+  
 
 
 
@@ -1433,17 +1363,24 @@ function App() {
   
       newlistofproductorder.forEach(product => {
         // Find the corresponding product in the original order list
-        const originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
+        let originalProduct;
+        if (product.sizeId) {
+          originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id && pro.sizeId === product.sizeId);
+        } else {
+          originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
+        }
         console.log({ originalProduct });
         
-        // Calculate subtotal only if the number of paid items has changed
-        if (originalProduct && originalProduct.numOfPaid !== product.numOfPaid) {
+        if (originalProduct) {
           // Calculate the difference in the number of paid items
           const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
           console.log({ numOfPaidDifference });
   
+          // Determine which price to use for calculating subtotal
+          const priceToUse = product.priceAfterDiscount > 0 ? product.priceAfterDiscount : product.price;
+  
           // Calculate the subtotal based on the number of paid items and the product price
-          const subTotal = product.priceAfterDiscount > 0 ? numOfPaidDifference * product.priceAfterDiscount : numOfPaidDifference * product.price;
+          const subTotal = numOfPaidDifference * priceToUse;
           console.log({ subTotal });
   
           // Accumulate the subtotal to the total
@@ -1462,6 +1399,7 @@ function App() {
       toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
+  
   
 
 
