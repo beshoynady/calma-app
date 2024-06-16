@@ -384,14 +384,14 @@ const POS = () => {
                                         <td className="col-md-3 text-truncate">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraDetails.map(detail => (
-                                              <p className="badge badge-secondary m-1" key={detail.extraid._id}>{detail.name}</p>
+                                              <p className="badge badge-secondary m-1" key={detail.extraid}>{detail.name}</p>
                                             ))}
                                           </div>
                                         </td>
                                         <td className="col-md-2 text-nowrap">
                                           <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
                                             {extra.extraDetails.map(detail => (
-                                              <p className="badge badge-secondary m-1" key={detail.extraid._id}>{`${detail.price} ج`}</p>
+                                              <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
                                             ))}
                                           </div>
                                         </td>
