@@ -1320,12 +1320,14 @@ function App() {
       newlistofproductorder.forEach((product) => {
 
   
-          if (sizeid && product.sizeId === sizeid) {
+          if (sizeid &&product.productid._id === id && product.sizeId === sizeid) {
             const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === sizeid);
+            console.log({oldProductsize: oldProduct ,product});
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
 
-          } else {
+          } if (!sizeid && product.productid._id === id && product.sizeId === null) {
             const oldProduct = listProductsOrder.find(pro => pro.productid._id === id && pro.sizeId === null);
+            console.log({ oldProduct ,product});
             product.numOfPaid = oldProduct.numOfPaid + numOfPaid;
 
           }
