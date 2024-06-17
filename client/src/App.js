@@ -1375,13 +1375,13 @@ function App() {
     }
   };
   
-  const handlePayExtras = (productIndex, extraIndex) => {
+  const handlePayExtras = (productIndex, extraId) => {
     const updatedProducts = newlistofproductorder.map((product, i) => {
       if (i === productIndex) {
         return {
           ...product,
           extras: product.extras.map((extra, j) => {
-            if (j === extraIndex) {
+            if (extra._id === extraId) {
               return {
                 ...extra,
                 isPaid: true
