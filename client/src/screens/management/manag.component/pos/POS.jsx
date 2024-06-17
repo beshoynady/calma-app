@@ -235,7 +235,7 @@ const POS = () => {
                                             </td>
                                             <td className="col-md-2 text-nowrap">
                                               {!extra.isPaid && (
-                                                <button onClick={() => handlePayExtras(i, j)} className="btn btn-primary btn-sm">دفع الإضافات</button>
+                                                <button type="button"  onClick={() => handlePayExtras(i, j)} className="btn btn-primary btn-sm">دفع</button>
                                               )}
                                             </td>
                                           </tr>
