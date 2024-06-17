@@ -11,7 +11,7 @@ import { useReactToPrint } from 'react-to-print';
 
 const ManagerDash = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const token = localStorage.getItem('token_e');
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -548,7 +548,7 @@ const ManagerDash = () => {
         ({ restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <section className='dashboard'>
-              <div className='container'>
+              <div className='container w-100 p-0 mx-1'>
                 <div className="header">
                   <a href={`http://${window.location.hostname}`} className="website">
                     <i className='bx bx-cloud-download'></i>
