@@ -416,7 +416,7 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      if (sizeId) {
+      if (findProduct.hasSizes) {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
@@ -428,7 +428,7 @@ function App() {
             item.quantity += 1;
           }
         })
-      } else {
+      } else if(!findProduct.hasSizes){
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
         itemsInCart.map(item => {
@@ -462,7 +462,7 @@ function App() {
         throw new Error('Product not found.');
       }
 
-      if (sizeId) {
+      if (findProduct.hasSizes) {
         findProduct.sizes.map(size => {
           if (size._id === sizeId) {
             // incrementProductQuantity the quantity of the found product
@@ -488,7 +488,7 @@ function App() {
             }
           }
         })
-      } else {
+      } else if(!findProduct.hasSizes){
         // incrementProductQuantity the quantity of the found product
         if (findProduct.quantity < 2) {
           findProduct.quantity = 0;
@@ -1386,7 +1386,7 @@ function App() {
                 isPaid?setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice):setsubtotalSplitOrder(subtotalSplitOrder - extra.totalExtrasPrice)
                 return {
                   ...extra,
-                  isPaid: true
+                  isPaid: isPaid
                 };
   
               }
