@@ -1375,7 +1375,44 @@ function App() {
     }
   };
   
+  const handlePayExtras = (productIndex, extraIndex) => {
+    const updatedProducts = newlistofproductorder.map((product, i) => {
+      if (i === productIndex) {
+        return {
+          ...product,
+          extras: product.extras.map((extra, j) => {
+            if (j === extraIndex) {
+              return {
+                ...extra,
+                isPaid: true
+              };
+            }
+            setsubtotalSplitOrder(subtotalSplitOrder+extra.totalExtrasPrice)
+            return extra;
+          })
+        };
+      }
+      return product;
+    });
   
+    setnewlistofproductorder(updatedProducts);
+    // calculateExtrasSubtotal(updatedProducts);
+  };
+  
+  // Function to calculate the subtotal for paid extras
+  const calculateExtrasSubtotal = (products) => {
+    let total = subtotalSplitOrder;
+  
+    products.forEach(product => {
+      product.extras && product.extras.forEach(extra => {
+        if (extra.isPaid) {
+          total += extra.totalExtrasPrice;
+        }
+      });
+    });
+  
+    setsubtotalSplitOrder(total);
+  };
   
   
 
@@ -1992,7 +2029,7 @@ function App() {
         createOrderForTableByClient, createDeliveryOrderByClient,
 
         orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
-        putNumOfPaid, splitInvoice, subtotalSplitOrder,
+        putNumOfPaid,handlePayExtras, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
         , isLoadiog, setisLoadiog
       }}>

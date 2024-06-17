@@ -109,7 +109,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
-          orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, splitInvoice, subtotalSplitOrder, restaurantData
+          orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid,handlePayExtras, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -218,7 +218,7 @@ const POS = () => {
                                 {listProductsOrder.map((item, i) => (
                                   <>
                                     <tr key={i}>
-                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size?item.size:''}`}</td>
+                                      <td className="col-md-3 text-truncate">{`${item.name} ${item.size ? item.size : ''}`}</td>
                                       <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                       <td className="col-md-1 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                       <td className="col-md-1 text-nowrap">{item.totalprice}</td>
@@ -253,6 +253,11 @@ const POS = () => {
                                             <td className="col-md-2 text-nowrap">
                                               {extra && (
                                                 <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                              )}
+                                            </td>
+                                            <td className="col-md-2 text-nowrap">
+                                              {!extra.isPaid && (
+                                                <button onClick={() => handlePayExtras(i, j)} className="btn btn-primary btn-sm">دفع الإضافات</button>
                                               )}
                                             </td>
                                           </tr>
