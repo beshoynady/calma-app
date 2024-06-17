@@ -28,6 +28,7 @@ const POS = () => {
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
   // const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
+  const [ExtrasIsPaid, setExtrasIsPaid] = useState(false)
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
 
@@ -109,7 +110,7 @@ const POS = () => {
     <detacontext.Consumer>
       {
         ({ allProducts, allcategories, allTable, employeeLoginInfo, setcategoryid, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, usertitle, setitemsInCart, itemsInCart, costOrder, createWaiterOrderForTable, createcashierOrder, lastInvoiceByCashier, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost, setdiscount, setaddition, orderdiscount, orderaddition, discount, addition, getOrderProductForTable, itemId, addExtrasToProduct, handleAddProductExtras, productExtras, setproductExtras,
-          orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid,handlePayExtras, splitInvoice, subtotalSplitOrder, restaurantData
+          orderDetalisBySerial, getOrderDetailsBySerial, updateOrder, productOrderToUpdate, putNumOfPaid, handlePayExtras, splitInvoice, subtotalSplitOrder, restaurantData
         }) => {
           if (employeeLoginInfo) {
             return (
@@ -119,7 +120,7 @@ const POS = () => {
                   <div className='categ-menu'>
                     <div className='pos-menu'>
                       <POSCard />
-                      
+
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
@@ -233,14 +234,13 @@ const POS = () => {
                                                 <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
                                               )}
                                             </td>
-                                            <td className="col-md-2 text-nowrap">
-                                              {!extra.isPaid && (
-                                                <button type="button"  onClick={() => handlePayExtras(i, extra._id, true)} className="btn btn-primary btn-sm">دفع</button>
-                                              )}
-                                              {extra.isPaid && (
-                                                <button type="button"  onClick={() => handlePayExtras(i, j, false)} className="btn btn-primary btn-sm">دفع</button>
-                                              )}
-                                            </td>
+                                            {extra.isPaid ?
+                                              <p className="badge badge-info m-1">تم</p>
+
+                                              : <td className="col-md-2 text-nowrap">
+                                                <button type="button" onClick={() => { handlePayExtras(i, extra._id, true) }} className="btn btn-primary btn-sm">دفع</button>
+                                              </td>
+                                            }
                                           </tr>
                                         )
                                       ))

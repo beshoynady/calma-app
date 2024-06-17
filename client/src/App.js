@@ -1375,7 +1375,7 @@ function App() {
     }
   };
   
-  const handlePayExtras = (productIndex, extraId) => {
+  const handlePayExtras = (productIndex, extraId, isPaid) => {
     const updatedProducts = newlistofproductorder.map((product, i) => {
       if (i === productIndex) {
         return {
@@ -1383,14 +1383,13 @@ function App() {
           extras: product.extras.map((extra, j) => {
             if(extra){              
               if (extra._id === extraId) {
+                isPaid?setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice):setsubtotalSplitOrder(subtotalSplitOrder - extra.totalExtrasPrice)
                 return {
                   ...extra,
                   isPaid: true
                 };
   
               }
-              console.log({extra})
-              setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice)
               return extra;
             }
           })
