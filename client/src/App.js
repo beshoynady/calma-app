@@ -1367,7 +1367,7 @@ function App() {
         }
       });
   
-      setsubtotalSplitOrder(total);
+      setsubtotalSplitOrder(subtotalSplitOrder + total);
       console.log({ total, products });
     } catch (error) {
       console.error(error);
