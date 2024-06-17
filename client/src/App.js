@@ -1375,7 +1375,7 @@ function App() {
     }
   };
   
-  const handlePayExtras = (productIndex, extraIndex, isPaid) => {
+  const handlePayExtras = (productIndex, extraIndex) => {
     const updatedProducts = newlistofproductorder.map((product, i) => {
       if (i === productIndex) {
         return {
@@ -1386,7 +1386,7 @@ function App() {
                 ...extra,
                 isPaid: true
               };
-              
+
             }
             console.log({extra})
             setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice)
