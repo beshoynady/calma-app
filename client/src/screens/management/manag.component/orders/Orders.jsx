@@ -298,7 +298,7 @@ const Orders = () => {
                             )
                           }
                         })
-                        : listOfOrders.map((order, i) => {
+                        : listOfOrders&&listOfOrders.map((order, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>

@@ -236,7 +236,7 @@ const POS = () => {
                                             </td>
                                             <td className="col-md-2 text-nowrap">
                                               {extra.isPaid ? (
-                                                <input className="btn btn-info m-1">تم</input>
+                                                <p className="badge badge-info m-1">تم</p>
                                               ) : (
                                                 ExtrasIsPaid.includes(extra._id) ? (
                                                   <button
