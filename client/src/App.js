@@ -1334,22 +1334,20 @@ function App() {
       setnewlistofproductorder(updatedProducts);
       console.log({ listProductsOrder, updatedProducts });
   
-      calcSubtotalSplitOrder();
+      calcSubtotalSplitOrder(updatedProducts);
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
     }
   };
   
-  
-
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
-
-  const calcSubtotalSplitOrder = () => {
+  
+  const calcSubtotalSplitOrder = (products = newlistofproductorder) => {
     try {
       let total = 0;
   
-      const updatedProducts = newlistofproductorder.map(product => {
+      products.forEach(product => {
         let originalProduct;
   
         if (product.sizeId) {
@@ -1361,22 +1359,22 @@ function App() {
         if (originalProduct) {
           const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
           console.log({ numOfPaidDifference });
-          
+  
           const priceToUse = originalProduct.priceAfterDiscount > 0 ? originalProduct.priceAfterDiscount : originalProduct.price;
           const subTotal = numOfPaidDifference * priceToUse;
   
           total += subTotal;
         }
-        return product;
       });
   
       setsubtotalSplitOrder(total);
-      console.log({ total, updatedProducts });
+      console.log({ total, products });
     } catch (error) {
       console.error(error);
       toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
+  
   
   
   
