@@ -1424,6 +1424,7 @@ function App() {
     try {
       e.preventDefault();
 
+      console.log({ newlistofproductorder })
       // Send a PUT request to update the order with split details
       const updateOrder = await axios.put(`${apiUrl}/api/order/${myOrderId}`, {
         products: newlistofproductorder,
