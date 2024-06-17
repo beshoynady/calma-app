@@ -28,7 +28,7 @@ const POS = () => {
   // const [getOrderTableModal, setgetOrderTableModal] = useState(false)
   // const [typeOrderModal, settypeOrderModal] = useState(false)
   const [invoiceModal, setinvoiceModal] = useState(false)
-  const [ExtrasIsPaid, setExtrasIsPaid] = useState(false)
+  const [ExtrasIsPaid, setExtrasIsPaid] = useState([])
   // const [getOrderDetalisModal, setgetOrderDetalisModal] = useState(false)
   const [serial, setserial] = useState('')
 
@@ -234,13 +234,35 @@ const POS = () => {
                                                 <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
                                               )}
                                             </td>
-                                            {extra.isPaid ?
-                                              <p className="badge badge-info m-1">تم</p>
-
-                                              : <td className="col-md-2 text-nowrap">
-                                                <button type="button" onClick={() => { handlePayExtras(i, extra._id, true) }} className="btn btn-primary btn-sm">دفع</button>
-                                              </td>
-                                            }
+                                            <td className="col-md-2 text-nowrap">
+                                              {extra.isPaid ? (
+                                                <p className="badge badge-info m-1">تم</p>
+                                              ) : (
+                                                ExtrasIsPaid.includes(extra._id) ? (
+                                                  <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                      setExtrasIsPaid(ExtrasIsPaid.filter(id => id !== extra._id));
+                                                      handlePayExtras(i, extra._id, true);
+                                                    }}
+                                                    className="btn btn-primary btn-sm"
+                                                  >
+                                                    تراجع
+                                                  </button>
+                                                ) : (
+                                                  <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                      setExtrasIsPaid([...ExtrasIsPaid, extra._id]);
+                                                      handlePayExtras(i, extra._id, true);
+                                                    }}
+                                                    className="btn btn-primary btn-sm"
+                                                  >
+                                                    دفع
+                                                  </button>
+                                                )
+                                              )}
+                                            </td>
                                           </tr>
                                         )
                                       ))
