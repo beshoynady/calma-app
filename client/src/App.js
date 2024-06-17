@@ -477,7 +477,7 @@ function App() {
           }
         })
         itemsInCart.map(item => {
-          if (item.productid === productId) {
+          if (item.productid === productId && item.sizeId === sizeId) {
             // incrementProductQuantity the quantity of the found product
             if (item.quantity < 2) {
               item.quantity = 0;
