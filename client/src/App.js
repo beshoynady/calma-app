@@ -1381,16 +1381,18 @@ function App() {
         return {
           ...product,
           extras: product.extras.map((extra, j) => {
-            if (extra._id === extraId) {
-              return {
-                ...extra,
-                isPaid: true
-              };
-
+            if(extra){              
+              if (extra._id === extraId) {
+                return {
+                  ...extra,
+                  isPaid: true
+                };
+  
+              }
+              console.log({extra})
+              setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice)
+              return extra;
             }
-            console.log({extra})
-            setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice)
-            return extra;
           })
         };
       }
