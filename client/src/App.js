@@ -1387,7 +1387,7 @@ function App() {
                 isPaid: true
               };
             }
-            setsubtotalSplitOrder(subtotalSplitOrder+extra.totalExtrasPrice)
+            setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice)
             return extra;
           })
         };

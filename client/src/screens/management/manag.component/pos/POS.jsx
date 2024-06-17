@@ -119,29 +119,7 @@ const POS = () => {
                   <div className='categ-menu'>
                     <div className='pos-menu'>
                       <POSCard />
-                      {/* {allProducts && allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
-                        return (
-
-                          <div className="pos-card" key={index} onClick={() => { addItemToCart(product._id,item.sizeId) }}>
-                            <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{heitgh: '100%' }} />
-
-                            <img className='pos-img-card' src={`${apiUrl}/images/${product.image}`} alt="" />
-                            <div className="pos-card-detalis">
-                              <div className='card-name'>
-                                <div className='product-name'>{product.name}</div>
-                                <div className='product-price'>{product.discount > 0 ?
-                                  <p><sup><del>{product.price}</del></sup>{product.price - product.discount}ج</p>
-                                  : <p>{product.price}ج</p>}</div>
-                              </div>
-                              <div className='card-discription'>{product.description}</div>
-
-                              <div className='pos-btn btn-47'>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      }
-                      )} */}
+                      
                     </div>
                     <nav className='pos-category'>
                       <ul className='category-ul'>
