@@ -95,10 +95,10 @@ const OrderSchema = new mongoose.Schema({
               },
             }
           ],
-          isPaid:{
+          isPaid: {
             type: Boolean,
             required: true,
-            default:false
+            default: false
           },
           totalExtrasPrice: {
             ...defaultOptions,
