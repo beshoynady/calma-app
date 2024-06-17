@@ -73,6 +73,7 @@ const ManagerDash = () => {
 
 
   const status = ['Pending', 'Approved', 'Cancelled']
+  const statusAR = ['انتظار', 'موافق', 'ملغي']
   const [update, setupdate] = useState(false)
 
   const changeorderstauts = async (e, orderId, cashier) => {
@@ -716,7 +717,7 @@ const ManagerDash = () => {
                                     <option value={recent.status}>{recent.status}</option>
                                     {status.map((state, i) => {
                                       return (
-                                        <option value={state} key={i}>{state}</option>
+                                        <option value={state} key={i}>{statusAR[i]}</option>
                                       )
                                     })
                                     }
