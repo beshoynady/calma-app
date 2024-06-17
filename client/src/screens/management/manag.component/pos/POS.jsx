@@ -172,7 +172,7 @@ const POS = () => {
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
-                            <div className="form-group form-group-47 w-100">
+                            <div className="form-group d-flex flex-nowrap  w-100">
                               <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
                               <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProductForTable(e, e.target.value)}>
                                 <option>اختر رقم الطاولة</option>
@@ -334,7 +334,7 @@ const POS = () => {
                               </div>
                             </div>
                           ) : null : ''}
-                        <div className="modal-footer d-flex align-items-center justify-content-between">
+                        <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
                           <input type="save" className="btn w-50 btn-success" value="تم" data-dismiss="modal" />
                         </div>
