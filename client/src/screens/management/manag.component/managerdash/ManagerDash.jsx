@@ -932,7 +932,7 @@ const ManagerDash = () => {
                           <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                        <div ref={printContainerInvoice} className="p-1 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
@@ -1080,7 +1080,7 @@ const ManagerDash = () => {
                           <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                        <div ref={printContainerInvoiceSplit} className="p-1 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
