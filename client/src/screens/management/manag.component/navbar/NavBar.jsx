@@ -8,7 +8,9 @@ import './NavBar.css';
 //   reconnection: true,
 // });
 
-ؤ
+
+
+
 const NavBar = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
