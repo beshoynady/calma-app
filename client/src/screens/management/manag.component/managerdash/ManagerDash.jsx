@@ -73,54 +73,54 @@ const ManagerDash = () => {
 
 
   // State initialization
-const [pendingOrder, setPendingOrder] = useState([]);
-const [pendingPayment, setPendingPayment] = useState([]);
-const [allOrders, setAllOrders] = useState([]);
-const [listDayOrder, setListDayOrder] = useState([]);
-const [totalDaySales, setTotalDaySales] = useState(0);
+  const [pendingOrder, setPendingOrder] = useState([]);
+  const [pendingPayment, setPendingPayment] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
+  const [listDayOrder, setListDayOrder] = useState([]);
+  const [totalDaySales, setTotalDaySales] = useState(0);
 
-// Helper function to get today's date as a string
-const getTodayDateString = () => {
-  return new Date().toDateString();
-};
+  // Helper function to get today's date as a string
+  const getTodayDateString = () => {
+    return new Date().toDateString();
+  };
 
-const fetchOrdersData = async () => {
-  try {
-    // Check if token is available
-    if (!token) {
-      throw new Error('الرجاء تسجيل الدخول');
+  const fetchOrdersData = async () => {
+    try {
+      // Check if token is available
+      if (!token) {
+        throw new Error('الرجاء تسجيل الدخول');
+      }
+
+      // Fetch orders from API
+      const res = await axios.get(apiUrl + '/api/order', config);
+      const orders = res.data;
+
+      // Update all orders state
+      setAllOrders(orders);
+
+      // Filter pending orders
+      const pendingOrders = orders.filter(order => order.status === 'Pending');
+      setPendingOrder(pendingOrders);
+
+      // Filter pending payments (excluding cancelled orders)
+      const pendingPayments = orders.filter(order => order.payment_status === 'Pending' && order.status !== 'Cancelled');
+      setPendingPayment(pendingPayments.reverse());
+
+      // Filter today's orders
+      const today = getTodayDateString();
+      const dayOrders = orders.filter(order => new Date(order.createdAt).toDateString() === today);
+      setListDayOrder(dayOrders);
+
+      // Calculate total sales for paid orders of today
+      const paidDayOrders = dayOrders.filter(order => order.payment_status === 'Paid');
+      const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
+      setTotalDaySales(totalDaySales);
+
+    } catch (error) {
+      // Handle and log error
+      console.error('Error fetching orders data:', error.message);
     }
-
-    // Fetch orders from API
-    const res = await axios.get(apiUrl + '/api/order', config);
-    const orders = res.data;
-
-    // Update all orders state
-    setAllOrders(orders);
-
-    // Filter pending orders
-    const pendingOrders = orders.filter(order => order.status === 'Pending');
-    setPendingOrder(pendingOrders);
-
-    // Filter pending payments (excluding cancelled orders)
-    const pendingPayments = orders.filter(order => order.payment_status === 'Pending' && order.status !== 'Cancelled');
-    setPendingPayment(pendingPayments.reverse());
-
-    // Filter today's orders
-    const today = getTodayDateString();
-    const dayOrders = orders.filter(order => new Date(order.createdAt).toDateString() === today);
-    setListDayOrder(dayOrders);
-
-    // Calculate total sales for paid orders of today
-    const paidDayOrders = dayOrders.filter(order => order.payment_status === 'Paid');
-    const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
-    setTotalDaySales(totalDaySales);
-
-  } catch (error) {
-    // Handle and log error
-    console.error('Error fetching orders data:', error.message);
-  }
-};
+  };
 
 
   const status = ['Pending', 'Approved', 'Cancelled']
@@ -384,7 +384,7 @@ const fetchOrdersData = async () => {
     try {
       const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
-      if(order){
+      if (order) {
 
         setorderdata(order)
         setlistProductsOrder(order.products)
@@ -1126,42 +1126,43 @@ const fetchOrdersData = async () => {
                                     {item.extras && item.extras.length > 0 && (
                                       item.extras.map((extra, j) => {
                                         if (extra && extra.isPaid === false) {
-                                          <tr key={`${i}-${j}`}>
-                                            <td className="col-md-3 text-truncate">
-                                              <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-                                                  return (
+                                          return (
+                                            <tr key={`${i}-${j}`}>
+                                              <td className="col-md-3 text-truncate">
+                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraDetails.map((detail) => (
                                                     <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                                  );
-                                                })}
-                                              </div>
-                                            </td>
-                                            <td className="col-md-2 text-nowrap">
-                                              <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-
-                                                  return (
-                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
-                                                  );
-                                                })}
-                                              </div>
-                                            </td>
-                                            <td className="col-md-2 text-nowrap">1</td>
-                                            <td className="col-md-2 text-nowrap">
-                                              {extra && (
-                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
-                                              )}
-                                            </td>
-                                          </tr>
+                                                  ))}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">
+                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraDetails.map((detail) => (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
+                                                  ))}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">1</td>
+                                              <td className="col-md-2 text-nowrap">
+                                                {extra && (
+                                                  <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                                )}
+                                              </td>
+                                            </tr>
+                                          );
+                                        } else {
+                                          return null; // Return null if extra.isPaid !== false
                                         }
-                                      }
-                                      ))}
+                                      })
+                                    )}
+
 
                                   </>
                                   : ''
                               ))}
                             </tbody>
                             <tfoot>
+                              {console.log({orderSubtotal, subtotalSplitOrder, orderTotal})}
                               <tr>
                                 <td colSpan="3">المجموع</td>
                                 <td>{orderSubtotal - subtotalSplitOrder}</td>
