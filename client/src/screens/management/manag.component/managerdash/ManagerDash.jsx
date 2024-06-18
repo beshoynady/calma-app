@@ -36,7 +36,7 @@ const ManagerDash = () => {
   // const [pendingPayment, setpendingPayment] = useState([]);
   // const [allOrders, setallOrders] = useState([]);
   // const [listDayOrder, setlistDayOrder] = useState([]);
-  // const [tototalDaySales, settototalDaySales] = useState(0);
+  // const [totalDaySales, settotalDaySales] = useState(0);
 
   // const fetchOrdersData = async () => {
   //   try {
@@ -61,9 +61,9 @@ const ManagerDash = () => {
   //     const paidDayOrders = dayOrders.filter((order) => order.payment_status === 'Paid');
   //     if (paidDayOrders.length > 0) {
   //       const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
-  //       settototalDaySales(totalDaySales);
+  //       settotalDaySales(totalDaySales);
   //     } else {
-  //       settototalDaySales(0);
+  //       settotalDaySales(0);
   //     }
   //   } catch (error) {
   //     console.log(error);
@@ -645,7 +645,7 @@ const ManagerDash = () => {
                     <span className="info">
                       <p>ايراد اليوم</p>
                       <h3>
-                        {tototalDaySales ? Math.round(tototalDaySales / 10) * 10 : 0}
+                        {totalDaySales ? Math.round(totalDaySales / 10) * 10 : 0}
                       </h3>
                     </span>
                     <i className='bx bx-dollar-circle'></i>
