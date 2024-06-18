@@ -8,6 +8,7 @@ import './NavBar.css';
 //   reconnection: true,
 // });
 
+ؤ
 const NavBar = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -16,6 +17,25 @@ const NavBar = () => {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
+
+  const toggleDir =()=>{
+    // document.getElementById('toggleButton').addEventListener('click', function() {
+      var html = document.documentElement;
+      var text = document.getElementById('text');
+  
+      if (html.getAttribute('dir') === 'ltr') {
+          html.setAttribute('dir', 'rtl');
+          html.setAttribute('lang', 'ar');
+          text.textContent = 'هذا نص باللغة العربية.';
+          this.textContent = 'Change Direction and Language';
+      } else {
+          html.setAttribute('dir', 'ltr');
+          html.setAttribute('lang', 'en');
+          text.textContent = 'This is a text in English.';
+          this.textContent = 'تغيير الاتجاه واللغة';
+      }
+  // });
+  }
 
   const [notifications, setNotifications] = useState([]);
 
@@ -44,7 +64,8 @@ const NavBar = () => {
           <div className="dropdown">
             <a href="#" className="dropdown-toggle"
               id="dropdownMenuButton"
-              onClick={() => toggleNotifications()}
+              onClick={() => toggleDir()}
+              // onClick={() => toggleNotifications()}
               aria-haspopup="true"
               aria-expanded={showNotifications ? "true" : "false"}>
               <i className="bx bx-bell" style={{ color: "--light" }}></i>

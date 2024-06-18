@@ -27,11 +27,11 @@ const ManagLayout = () => {
                 return (
                   <div className='manag-body '>
                     <ToastContainer />
-                    <SideBar />
                     <main className='content'>
                       <NavBar />
                       <Outlet></Outlet>
                     </main>
+                    <SideBar />
                   </div>)
               } else {
                 return (
