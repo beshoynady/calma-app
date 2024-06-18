@@ -1070,8 +1070,8 @@ const ManagerDash = () => {
                                         <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount * (item.quantity - item.numOfPaid) : item.price * (item.quantity - item.numOfPaid)}</td>
                                       </tr>
                                       {item.extras && item.extras.length > 0 && (
-                                        item.extras.map((extra, j) => (
-                                          extra && extra.isPaid ===false(
+                                        item.extras.map((extra, j) => {
+                                          if(extra && extra.isPaid ===false){
                                             <tr key={`${i}-${j}`}>
                                               <td className="col-md-3 text-truncate">
                                                 <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
@@ -1099,9 +1099,9 @@ const ManagerDash = () => {
                                               )}
                                               </td>
                                             </tr>
-                                          )
-                                        ))
-                                      )}
+                                          }}
+                                        ))}
+                                      
                                     </>
                                     :''
                                   ))}
