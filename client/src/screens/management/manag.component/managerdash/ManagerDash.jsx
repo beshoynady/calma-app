@@ -1226,7 +1226,7 @@ const ManagerDash = () => {
                           <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
                         </div>
                         <div ref={printContainerKitchen} className="w-100 p-1 mb-7 overflow-auto printpage" style={{ textAlign: 'center' }}>
-                          <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
+                          <div className="mb-4" style={{ direction: 'rtl' }}>
                             <div className="card text-white bg-success" style={{ width: "265px" }}>
                               <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                                 <div style={{ maxWidth: "50%" }}>
