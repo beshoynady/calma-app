@@ -935,7 +935,7 @@ const ManagerDash = () => {
                                               </td>
                                               <td className="col-md-2 text-nowrap">
                                                 <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                {extra.extraDetails.map((detail) => {
                                                    
                                                     return (
                                                       <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
@@ -1084,7 +1084,7 @@ const ManagerDash = () => {
                                               </td>
                                               <td className="col-md-2 text-nowrap">
                                                 <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                {extra.extraDetails.map((detail) => {
                                                    
                                                     return (
                                                       <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
