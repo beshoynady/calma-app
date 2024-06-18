@@ -1071,7 +1071,7 @@ const ManagerDash = () => {
                                       </tr>
                                       {item.extras && item.extras.length > 0 && (
                                         item.extras.map((extra, j) => (
-                                          extra && !extra.isPaid(
+                                          extra && extra.isPaid ===false(
                                             <tr key={`${i}-${j}`}>
                                               <td className="col-md-3 text-truncate">
                                                 <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
