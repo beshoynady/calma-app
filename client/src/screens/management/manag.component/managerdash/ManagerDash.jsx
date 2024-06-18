@@ -866,7 +866,11 @@ const ManagerDash = () => {
                         </div>
                         : ''}
 
-                    <div id="invoiceOrderModal" className="modal fade">
+                  </div>
+
+                </div>
+
+                <div id="invoiceOrderModal" className="modal fade">
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <form>
@@ -922,9 +926,9 @@ const ManagerDash = () => {
                                             <tr key={`${i}-${j}`}>
                                               <td className="col-md-3 text-truncate">
                                                 <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                {extra.extraDetails.map((detail) => {
                                                     return (
-                                                      <p className="badge badge-secondary m-1" key={extraid}>{extraid.name}</p>
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
                                                     );
                                                   })}
                                                 </div>
@@ -934,7 +938,7 @@ const ManagerDash = () => {
                                                   {extra.extraId && extra.extraId.map((extraid) => {
                                                    
                                                     return (
-                                                      <p className="badge badge-secondary m-1" key={extraid}>{extraid.price}</p>
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
                                                     );
                                                   })}
                                                 </div>
@@ -942,8 +946,8 @@ const ManagerDash = () => {
                                               <td className="col-md-2 text-nowrap">1</td>
                                               <td className="col-md-2 text-nowrap">
                                                 {extra && (
-                                                  <p className="badge badge-info m-1">{extra.priceExtras} ج</p>
-                                                )}
+                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                              )}
                                               </td>
                                             </tr>
                                           )
@@ -1026,7 +1030,7 @@ const ManagerDash = () => {
                               {/* Invoice Header */}
                               <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                                 <h2>{restaurantData.name}</h2>
-                                <p>كاشير {usertitle(cashier)} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                                <p>كاشير {cashier&&cashier.fullname} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                               </div>
 
                               {/* Customer Information */}
@@ -1058,12 +1062,48 @@ const ManagerDash = () => {
                                   {/* Replace this with your dynamic data */}
                                   {listProductsOrder.map((item, i) => (
                                     item.quantity - item.numOfPaid > 0 ?
+                                    <>
                                       <tr key={i}>
                                         <td className="col-md-3 text-truncate">{item.name}</td>
                                         <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
                                         <td className="col-md-2 text-nowrap">{item.quantity - item.numOfPaid}</td>
                                         <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount * (item.quantity - item.numOfPaid) : item.price * (item.quantity - item.numOfPaid)}</td>
-                                      </tr> : null
+                                      </tr>
+                                      {item.extras && item.extras.length > 0 && (
+                                        item.extras.map((extra, j) => (
+                                          extra && !extra.isPaid(
+                                            <tr key={`${i}-${j}`}>
+                                              <td className="col-md-3 text-truncate">
+                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                {extra.extraDetails.map((detail) => {
+                                                    return (
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">
+                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraId && extra.extraId.map((extraid) => {
+                                                   
+                                                    return (
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">1</td>
+                                              <td className="col-md-2 text-nowrap">
+                                                {extra && (
+                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                              )}
+                                              </td>
+                                            </tr>
+                                          )
+                                        ))
+                                      )}
+                                    </>
+                                    :''
                                   ))}
                                 </tbody>
                                 <tfoot>
@@ -1171,11 +1211,6 @@ const ManagerDash = () => {
                         </div>
                       </div>
                     </div>
-
-
-                  </div>
-
-                </div>
               </div>
             </section>
           )
