@@ -327,7 +327,7 @@ const ManagerDash = () => {
 
   const [orderdata, setorderdata] = useState({})
 
-  
+
   // Fetch orders from API
   const getOrderDetalis = async (serial) => {
     try {
@@ -696,77 +696,7 @@ const ManagerDash = () => {
                       <tbody>
 
                         {
-                        filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
-                              <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
-                                <td>{i + 1}</td>
-                                <td>
-                                  <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                    {recent.serial}
-                                  </a>
-                                </td>
-                                <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
-                                <td>{recent.total}</td>
-                                <td>{recent.status !== "Cancelled" ?
-                                  recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                    "باقي الفاتوره"
-                                  </a> : "كاملة"
-                                  : "ملغاه"}</td>
-                                <td>
-                                  <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
-                                    <option value={recent.status}>{recent.status}</option>
-                                    {status.map((state, i) => {
-                                      return (
-                                        <option value={state} key={i}>{statusAR[i]}</option>
-                                      )
-                                    })
-                                    }
-                                  </select>
-                                </td>
-                                <td onClick={() => getKitchenCard(recent._id)}>
-                                  <a href='#kitchenorderModal' data-toggle="modal"
-                                    className="btn btn-47 .bg-info"
-                                  >
-                                    جديد
-                                  </a>
-                                </td>
-                                <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
-                                <td>
-                                  {recent.orderType == 'Delivery' ?
-                                    <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
-                                      <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
-                                      {deliverymen.map((man, i) => {
-                                        return (
-                                          <option value={man} key={i}>{usertitle(man)}</option>
-                                        )
-                                      })
-                                      }
-                                    </select>
-                                    : ''}
-                                </td>
-                                <td>{recent.orderType}</td>
-                                <td>
-                                  <button
-                                    className="btn btn-47 btn-primary"
-                                    onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.employeeinfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
-                                  >
-                                    دفع
-                                  </button>
-                                </td>
-                                {/* <td>
-                                  <select name="status" id="status" form="carform" onChange={(e) => { changePaymentorderstauts(e, recent._id) }}>
-                                    {paymentstatus.map((state, i) => {
-                                      return <option value={state} key={i}>{state}</option>
-                                    })
-                                    }
-                                  </select>
-                                </td> */}
-                              </tr>
-                            )
-                          }
-                        })
-                          : pending_payment.length > 0 ? pending_payment.map((recent, i) => {
+                          filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
@@ -779,16 +709,16 @@ const ManagerDash = () => {
                                   <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
                                   <td>{recent.status !== "Cancelled" ?
-                                    recent.isSplit&& subtotalSplitOrder < total ? <a href="#invoiceSplitModal" type='button' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                     باقي 
-                                    </a> : كاملة 
-                                    : ملغاه }</td>
+                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                      "باقي الفاتوره"
+                                    </a> : "كاملة"
+                                    : "ملغاه"}</td>
                                   <td>
                                     <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
                                       <option value={recent.status}>{recent.status}</option>
                                       {status.map((state, i) => {
                                         return (
-                                          <option value={state} key={i}>{state}</option>
+                                          <option value={state} key={i}>{statusAR[i]}</option>
                                         )
                                       })
                                       }
@@ -818,17 +748,95 @@ const ManagerDash = () => {
                                   <td>{recent.orderType}</td>
                                   <td>
                                     <button
-                                      className="btn btn-primary"
-                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                      className="btn btn-47 btn-primary"
+                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.employeeinfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                     >
                                       دفع
                                     </button>
                                   </td>
+                                  {/* <td>
+                                  <select name="status" id="status" form="carform" onChange={(e) => { changePaymentorderstauts(e, recent._id) }}>
+                                    {paymentstatus.map((state, i) => {
+                                      return <option value={state} key={i}>{state}</option>
+                                    })
+                                    }
+                                  </select>
+                                </td> */}
                                 </tr>
                               )
                             }
                           })
-                            : ''}
+                            : pending_payment.length > 0 ? pending_payment.map((recent, i) => {
+                              if (i >= startpagination & i < endpagination) {
+                                return (
+                                  <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
+                                    <td>{i + 1}</td>
+                                    <td>
+                                      <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                        {recent.serial}
+                                      </a>
+                                    </td>
+                                    <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
+                                    <td>{recent.total}</td>
+                                    <td>
+                                      {recent.status !== "Cancelled" ? (
+                                        recent.isSplit && recent.subtotalSplitOrder < recent.total ? (
+                                          <a href="#invoiceSplitModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                            باقي
+                                          </a>
+                                        ) : (
+                                          "كاملة"
+                                        )
+                                      ) : (
+                                        "ملغاه"
+                                      )}
+                                    </td>
+                                    <td>
+                                      <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
+                                        <option value={recent.status}>{recent.status}</option>
+                                        {status.map((state, i) => {
+                                          return (
+                                            <option value={state} key={i}>{state}</option>
+                                          )
+                                        })
+                                        }
+                                      </select>
+                                    </td>
+                                    <td onClick={() => getKitchenCard(recent._id)}>
+                                      <a href='#kitchenorderModal' data-toggle="modal"
+                                        className="btn btn-47 .bg-info"
+                                      >
+                                        جديد
+                                      </a>
+                                    </td>
+                                    <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
+                                    <td>
+                                      {recent.orderType == 'Delivery' ?
+                                        <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
+                                          <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
+                                          {deliverymen.map((man, i) => {
+                                            return (
+                                              <option value={man} key={i}>{usertitle(man)}</option>
+                                            )
+                                          })
+                                          }
+                                        </select>
+                                        : ''}
+                                    </td>
+                                    <td>{recent.orderType}</td>
+                                    <td>
+                                      <button
+                                        className="btn btn-primary"
+                                        onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                      >
+                                        دفع
+                                      </button>
+                                    </td>
+                                  </tr>
+                                )
+                              }
+                            })
+                              : ''}
                       </tbody>
                     </table>
                     {filteredOrders.length > 0 ?
@@ -864,346 +872,347 @@ const ManagerDash = () => {
                 </div>
 
                 <div id="invoiceOrderModal" className="modal fade">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <form>
-                            <div className="modal-header">
-                              <h4 className="modal-title"></h4>
-                              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
-                              {/* Invoice Header */}
-                              <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                                <h2>{restaurantData.name}</h2>
-                                <p>كاشير:{orderdata.cashier&&orderdata.cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
-                              </div>
-
-                              {/* Customer Information */}
-                              {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                                <h4>بيانات العميل</h4>
-                                <p>الاسم: {name}</p>
-                                <p>الموبايل: {phone}</p>
-                                <p>العنوان: {address}</p>
-                                {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                              </div> : ordertype == 'Takeaway' ?
-                                <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                                  <h4>بيانات العميل</h4>
-                                  <p>الاسم: {name}</p>
-                                  <p>الموبايل: {phone}</p>
-                                  <p>رقم الاوردر: {ordernum}</p>
-                                </div>
-                                : ''}
-                              {/* Order Details Table */}
-                              <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
-                                <thead className="thead-dark">
-                                  <tr>
-                                    <th scope="col" className="col-md-3">الصنف</th>
-                                    <th scope="col" className="col-md-2">السعر</th>
-                                    <th scope="col" className="col-md-2">الكمية</th>
-                                    <th scope="col" className="col-md-2">الاجمالي</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {/* Replace this with your dynamic data */}
-                                  {listProductsOrder.map((item, i) => (
-                                    <>
-                                      <tr key={i}>
-                                        <td className="col-md-3 text-truncate">{item.name}</td>
-                                        <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                        <td className="col-md-2 text-nowrap">{item.quantity}</td>
-                                        <td className="col-md-2 text-nowrap">{item.totalprice}</td>
-                                      </tr>
-                                      {item.extras && item.extras.length > 0 && (
-                                        item.extras.map((extra, j) => (
-                                          extra && (
-                                            <tr key={`${i}-${j}`}>
-                                              <td className="col-md-3 text-truncate">
-                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-                                                    return (
-                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                                    );
-                                                  })}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">
-                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-                                                   
-                                                    return (
-                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
-                                                    );
-                                                  })}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">1</td>
-                                              <td className="col-md-2 text-nowrap">
-                                                {extra && (
-                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
-                                              )}
-                                              </td>
-                                            </tr>
-                                          )
-                                        ))
-                                      )}
-                                    </>
-                                  ))}
-                                </tbody>
-                                <tfoot>
-                                  <tr>
-                                    <td colSpan="3">المجموع</td>
-                                    <td>{orderSubtotal}</td>
-                                  </tr>
-                                  {orderdeliveryCost > 0 && (
-                                    <tr>
-                                      <td colSpan="3">خدمة التوصيل</td>
-                                      <td>{orderdeliveryCost}</td>
-                                    </tr>
-                                  )}
-                                  {addition > 0 ?
-                                    <tr>
-                                      <td colSpan="3">رسوم اضافيه</td>
-                                      <td>{addition}</td>
-                                    </tr>
-                                    : ''
-                                  }
-                                  {discount > 0 ?
-                                    <tr>
-                                      <td colSpan="3">خصم</td>
-                                      <td>{discount}</td>
-                                    </tr> : ''
-                                  }
-                                  <tr>
-                                    <td colSpan="3">الاجمالي</td>
-                                    <td>{orderTotal}</td>
-                                  </tr>
-                                </tfoot>
-                              </table>
-
-
-                              {/* Restaurant Information */}
-                              <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                {restaurantData && (
-                                  <>
-                                    <p>{restaurantData.name}</p>
-                                    <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
-                                    <p>العنوان: {restaurantData.address &&
-                                      <>
-                                        {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
-                                      </>}
-                                    </p>
-                                  </>
-                                )}
-                              </div>
-                              {/* Footer */}
-                              <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                                <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
-                                <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
-                              </div>
-                            </div>
-                            <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoice} />
-                            </div>
-                          </form>
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <form>
+                        <div className="modal-header">
+                          <h4 className="modal-title"></h4>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                      </div>
-                    </div>
+                        <div ref={printContainerInvoice} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                          {/* Invoice Header */}
+                          <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
+                            <h2>{restaurantData.name}</h2>
+                            <p>كاشير:{orderdata.cashier && orderdata.cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          </div>
 
-
-                    <div id="invoiceSplitModal" className="modal fade">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <form>
-                            <div className="modal-header">
-                              <h4 className="modal-title"></h4>
-                              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          {/* Customer Information */}
+                          {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                            <h4>بيانات العميل</h4>
+                            <p>الاسم: {name}</p>
+                            <p>الموبايل: {phone}</p>
+                            <p>العنوان: {address}</p>
+                            {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
+                          </div> : ordertype == 'Takeaway' ?
+                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                              <h4>بيانات العميل</h4>
+                              <p>الاسم: {name}</p>
+                              <p>الموبايل: {phone}</p>
+                              <p>رقم الاوردر: {ordernum}</p>
                             </div>
-                            <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
-                              {/* Invoice Header */}
-                              <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                                <h2>{restaurantData.name}</h2>
-                                <p>كاشير {cashier&&cashier.fullname} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
-                              </div>
-
-                              {/* Customer Information */}
-                              {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
-                                <h4>بيانات العميل</h4>
-                                <p>الاسم: {name}</p>
-                                <p>الموبايل: {phone}</p>
-                                <p>العنوان: {address}</p>
-                                {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                              </div> : ordertype == 'Takeaway' ?
-                                <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                                  <h4>بيانات العميل</h4>
-                                  <p>الاسم: {name}</p>
-                                  <p>الموبايل: {phone}</p>
-                                  <p>رقم الاوردر: {ordernum}</p>
-                                </div>
-                                : ''}
-                              {/* Order Details Table */}
-                              <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
-                                <thead className="thead-dark">
-                                  <tr>
-                                    <th scope="col" className="col-md-3">الصنف</th>
-                                    <th scope="col" className="col-md-2">السعر</th>
-                                    <th scope="col" className="col-md-2">الكمية</th>
-                                    <th scope="col" className="col-md-2">الاجمالي</th>
+                            : ''}
+                          {/* Order Details Table */}
+                          <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
+                            <thead className="thead-dark">
+                              <tr>
+                                <th scope="col" className="col-md-3">الصنف</th>
+                                <th scope="col" className="col-md-2">السعر</th>
+                                <th scope="col" className="col-md-2">الكمية</th>
+                                <th scope="col" className="col-md-2">الاجمالي</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {/* Replace this with your dynamic data */}
+                              {listProductsOrder.map((item, i) => (
+                                <>
+                                  <tr key={i}>
+                                    <td className="col-md-3 text-truncate">{item.name}</td>
+                                    <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                    <td className="col-md-2 text-nowrap">{item.quantity}</td>
+                                    <td className="col-md-2 text-nowrap">{item.totalprice}</td>
                                   </tr>
-                                </thead>
-                                <tbody>
-                                  {/* Replace this with your dynamic data */}
-                                  {listProductsOrder.map((item, i) => (
-                                    item.quantity - item.numOfPaid > 0 ?
-                                    <>
-                                      <tr key={i}>
-                                        <td className="col-md-3 text-truncate">{item.name}</td>
-                                        <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
-                                        <td className="col-md-2 text-nowrap">{item.quantity - item.numOfPaid}</td>
-                                        <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount * (item.quantity - item.numOfPaid) : item.price * (item.quantity - item.numOfPaid)}</td>
-                                      </tr>
-                                      {item.extras && item.extras.length > 0 && (
-                                        item.extras.map((extra, j) => {
-                                          if(extra && extra.isPaid ===false){
-                                            <tr key={`${i}-${j}`}>
-                                              <td className="col-md-3 text-truncate">
-                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-                                                    return (
-                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                                    );
-                                                  })}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">
-                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => {
-                                                   
-                                                    return (
-                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
-                                                    );
-                                                  })}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">1</td>
-                                              <td className="col-md-2 text-nowrap">
-                                                {extra && (
-                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
-                                              )}
-                                              </td>
-                                            </tr>
-                                          }}
-                                        ))}
-                                      
-                                    </>
-                                    :''
-                                  ))}
-                                </tbody>
-                                <tfoot>
-                                  <tr>
-                                    <td colSpan="3">المجموع</td>
-                                    <td>{orderSubtotal - subtotalSplitOrder}</td>
-                                  </tr>
-                                  {orderdeliveryCost > 0 && (
-                                    <tr>
-                                      <td colSpan="3">خدمة التوصيل</td>
-                                      <td>{orderdeliveryCost}</td>
-                                    </tr>
-                                  )}
-                                  {addition > 0 ?
-                                    <tr>
-                                      <td colSpan="3">رسوم اضافيه</td>
-                                      <td>{addition}</td>
-                                    </tr>
-                                    : ''
-                                  }
-                                  {discount > 0 ?
-                                    <tr>
-                                      <td colSpan="3">خصم</td>
-                                      <td>{discount}</td>
-                                    </tr> : ''
-                                  }
-                                  <tr>
-                                    <td colSpan="3">الاجمالي</td>
-                                    <td>{orderTotal - subtotalSplitOrder}</td>
-                                  </tr>
-                                </tfoot>
-                              </table>
+                                  {item.extras && item.extras.length > 0 && (
+                                    item.extras.map((extra, j) => (
+                                      extra && (
+                                        <tr key={`${i}-${j}`}>
+                                          <td className="col-md-3 text-truncate">
+                                            <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                              {extra.extraDetails.map((detail) => {
+                                                return (
+                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                );
+                                              })}
+                                            </div>
+                                          </td>
+                                          <td className="col-md-2 text-nowrap">
+                                            <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                              {extra.extraDetails.map((detail) => {
 
-
-                              {/* Restaurant Information */}
-                              <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
-                                <p>{restaurantData.name}</p>
-                                <p>موبايل: 01144001433</p>
-                                <p>العنوان: بني سويف - الفشن -أخر شارع البحر الأعظم بجوار ماركت طيبة </p>
-                              </div>
-                              {/* Footer */}
-                              <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
-                                <p>webapp: <span style={{ color: '#5a6268' }}>Smart Menu</span></p>
-                                <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
-                              </div>
-                            </div>
-                            <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                              <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div id="kitchenorderModal" className="modal fade">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <form>
-                            <div className="modal-header">
-                              <h4 className="modal-title"></h4>
-                              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <button type="button" className="btn btn-47 btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
-                            </div>
-                            <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
-                              <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
-                                <div className="card text-white bg-success" style={{ width: "265px" }}>
-                                  <div className="card-body text-right d-flex justify-content-between p-0 m-1">
-                                    <div style={{ maxWidth: "50%" }}>
-                                      <p className="card-text"> {kitchenOrder.table != null ? `طاولة: ${usertitle(kitchenOrder.table)}` : (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
-                                      <p className="card-text">نوع الطلب: {kitchenOrder.orderType}</p>
-                                      {kitchenOrder.ordernum ? `<p className="card-text"> رقم الطلب:  ${kitchenOrder.ordernum} </p>` : ''}
-                                    </div>
-
-                                    <div style={{ maxWidth: "50%" }}>
-                                      <p className="card-text">الفاتورة: {kitchenOrder.serial}</p>
-                                      <p className="card-text">الكاشير: {employeeLoginInfo && employeeLoginInfo.employeeinfo ? usertitle(employeeLoginInfo.employeeinfo.id) : ''}</p>
-                                      {kitchenOrder.waiter ? <p className="card-text">الويتر: {usertitle(kitchenOrder.waiter)}</p> : ""}
-                                      <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                      <p className="card-text">الانتظار: {55} دقيقه</p>
-                                    </div>
-                                  </div>
-                                  <ul className='list-group list-group-flush'>
-                                    {kitchenProducts.map((product, i) => {
-                                      return (
-                                        <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
-                                          <div className="d-flex justify-content-between align-items-center w-100">
-                                            <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
-                                            <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
-                                          </div>
-                                          <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
-                                        </li>
+                                                return (
+                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                                );
+                                              })}
+                                            </div>
+                                          </td>
+                                          <td className="col-md-2 text-nowrap">1</td>
+                                          <td className="col-md-2 text-nowrap">
+                                            {extra && (
+                                              <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                            )}
+                                          </td>
+                                        </tr>
                                       )
-                                    })}
-                                  </ul>
+                                    ))
+                                  )}
+                                </>
+                              ))}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colSpan="3">المجموع</td>
+                                <td>{orderSubtotal}</td>
+                              </tr>
+                              {orderdeliveryCost > 0 && (
+                                <tr>
+                                  <td colSpan="3">خدمة التوصيل</td>
+                                  <td>{orderdeliveryCost}</td>
+                                </tr>
+                              )}
+                              {addition > 0 ?
+                                <tr>
+                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td>{addition}</td>
+                                </tr>
+                                : ''
+                              }
+                              {discount > 0 ?
+                                <tr>
+                                  <td colSpan="3">خصم</td>
+                                  <td>{discount}</td>
+                                </tr> : ''
+                              }
+                              <tr>
+                                <td colSpan="3">الاجمالي</td>
+                                <td>{orderTotal}</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+
+
+                          {/* Restaurant Information */}
+                          <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
+                            {restaurantData && (
+                              <>
+                                <p>{restaurantData.name}</p>
+                                <p>موبايل: {restaurantData.contact && restaurantData.contact.phone && restaurantData.contact.phone[0]}</p>
+                                <p>العنوان: {restaurantData.address &&
+                                  <>
+                                    {`${restaurantData.address.state} ${restaurantData.address.city} ${restaurantData.address.street}`}
+                                  </>}
+                                </p>
+                              </>
+                            )}
+                          </div>
+                          {/* Footer */}
+                          <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>beshoy Nady</span></p>
+                            <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
+                          </div>
+                        </div>
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
+                          <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoice} />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div id="invoiceSplitModal" className="modal fade">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <form>
+                        <div className="modal-header">
+                          <h4 className="modal-title"></h4>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div ref={printContainerInvoiceSplit} className="max-w-400px p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                          {/* Invoice Header */}
+                          <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
+                            <h2>{restaurantData.name}</h2>
+                            <p>كاشير {cashier && cashier.fullname} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          </div>
+
+                          {/* Customer Information */}
+                          {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                            <h4>بيانات العميل</h4>
+                            <p>الاسم: {name}</p>
+                            <p>الموبايل: {phone}</p>
+                            <p>العنوان: {address}</p>
+                            {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
+                          </div> : ordertype == 'Takeaway' ?
+                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                              <h4>بيانات العميل</h4>
+                              <p>الاسم: {name}</p>
+                              <p>الموبايل: {phone}</p>
+                              <p>رقم الاوردر: {ordernum}</p>
+                            </div>
+                            : ''}
+                          {/* Order Details Table */}
+                          <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
+                            <thead className="thead-dark">
+                              <tr>
+                                <th scope="col" className="col-md-3">الصنف</th>
+                                <th scope="col" className="col-md-2">السعر</th>
+                                <th scope="col" className="col-md-2">الكمية</th>
+                                <th scope="col" className="col-md-2">الاجمالي</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {/* Replace this with your dynamic data */}
+                              {listProductsOrder.map((item, i) => (
+                                item.quantity - item.numOfPaid > 0 ?
+                                  <>
+                                    <tr key={i}>
+                                      <td className="col-md-3 text-truncate">{item.name}</td>
+                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
+                                      <td className="col-md-2 text-nowrap">{item.quantity - item.numOfPaid}</td>
+                                      <td className="col-md-2 text-nowrap">{item.priceAfterDiscount ? item.priceAfterDiscount * (item.quantity - item.numOfPaid) : item.price * (item.quantity - item.numOfPaid)}</td>
+                                    </tr>
+                                    {item.extras && item.extras.length > 0 && (
+                                      item.extras.map((extra, j) => {
+                                        if (extra && extra.isPaid === false) {
+                                          <tr key={`${i}-${j}`}>
+                                            <td className="col-md-3 text-truncate">
+                                              <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                {extra.extraDetails.map((detail) => {
+                                                  return (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                  );
+                                                })}
+                                              </div>
+                                            </td>
+                                            <td className="col-md-2 text-nowrap">
+                                              <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                {extra.extraDetails.map((detail) => {
+
+                                                  return (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{` ${detail.price} ج`}</p>
+                                                  );
+                                                })}
+                                              </div>
+                                            </td>
+                                            <td className="col-md-2 text-nowrap">1</td>
+                                            <td className="col-md-2 text-nowrap">
+                                              {extra && (
+                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                              )}
+                                            </td>
+                                          </tr>
+                                        }
+                                      }
+                                      ))}
+
+                                  </>
+                                  : ''
+                              ))}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colSpan="3">المجموع</td>
+                                <td>{orderSubtotal - subtotalSplitOrder}</td>
+                              </tr>
+                              {orderdeliveryCost > 0 && (
+                                <tr>
+                                  <td colSpan="3">خدمة التوصيل</td>
+                                  <td>{orderdeliveryCost}</td>
+                                </tr>
+                              )}
+                              {addition > 0 ?
+                                <tr>
+                                  <td colSpan="3">رسوم اضافيه</td>
+                                  <td>{addition}</td>
+                                </tr>
+                                : ''
+                              }
+                              {discount > 0 ?
+                                <tr>
+                                  <td colSpan="3">خصم</td>
+                                  <td>{discount}</td>
+                                </tr> : ''
+                              }
+                              <tr>
+                                <td colSpan="3">الاجمالي</td>
+                                <td>{orderTotal - subtotalSplitOrder}</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+
+
+                          {/* Restaurant Information */}
+                          <div className="restaurant-info text-dark" style={{ marginTop: '20px', textAlign: 'center' }}>
+                            <p>{restaurantData.name}</p>
+                            <p>موبايل: 01144001433</p>
+                            <p>العنوان: بني سويف - الفشن -أخر شارع البحر الأعظم بجوار ماركت طيبة </p>
+                          </div>
+                          {/* Footer */}
+                          <div className="footer" style={{ marginTop: '30px', textAlign: 'center', color: '#828282' }}>
+                            <p>webapp: <span style={{ color: '#5a6268' }}>Smart Menu</span></p>
+                            <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
+                          </div>
+                        </div>
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
+                          <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div id="kitchenorderModal" className="modal fade">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <form>
+                        <div className="modal-header">
+                          <h4 className="modal-title"></h4>
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <button type="button" className="btn btn-47 btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
+                        </div>
+                        <div ref={printContainerKitchen} className="max-w-400px w-100 p-1 mb-7 overflow-auto printpage" style={{ maxWidth: '400px', textAlign: 'center' }}>
+                          <div className="col-md-4 mb-4" style={{ direction: 'rtl' }}>
+                            <div className="card text-white bg-success" style={{ width: "265px" }}>
+                              <div className="card-body text-right d-flex justify-content-between p-0 m-1">
+                                <div style={{ maxWidth: "50%" }}>
+                                  <p className="card-text"> {kitchenOrder.table != null ? `طاولة: ${usertitle(kitchenOrder.table)}` : (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
+                                  <p className="card-text">نوع الطلب: {kitchenOrder.orderType}</p>
+                                  {kitchenOrder.ordernum ? `<p className="card-text"> رقم الطلب:  ${kitchenOrder.ordernum} </p>` : ''}
+                                </div>
+
+                                <div style={{ maxWidth: "50%" }}>
+                                  <p className="card-text">الفاتورة: {kitchenOrder.serial}</p>
+                                  <p className="card-text">الكاشير: {employeeLoginInfo && employeeLoginInfo.employeeinfo ? usertitle(employeeLoginInfo.employeeinfo.id) : ''}</p>
+                                  {kitchenOrder.waiter ? <p className="card-text">الويتر: {usertitle(kitchenOrder.waiter)}</p> : ""}
+                                  <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                  <p className="card-text">الانتظار: {55} دقيقه</p>
                                 </div>
                               </div>
+                              <ul className='list-group list-group-flush'>
+                                {kitchenProducts.map((product, i) => {
+                                  return (
+                                    <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                      <div className="d-flex justify-content-between align-items-center w-100">
+                                        <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
+                                        <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
+                                      </div>
+                                      <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
+                                    </li>
+                                  )
+                                })}
+                              </ul>
                             </div>
-                            <div className="modal-footer">
-                              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                              <input type="button" className="btn btn-47 btn-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
-                            </div>
-                          </form>
+                          </div>
                         </div>
-                      </div>
+                        <div className="modal-footer">
+                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <input type="button" className="btn btn-47 btn-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
+                        </div>
+                      </form>
                     </div>
+                  </div>
+                </div>
               </div>
             </section>
           )
