@@ -32,44 +32,95 @@ const ManagerDash = () => {
   // }, []);
 
 
-  const [pending_order, setpending_order] = useState([]);
-  const [pending_payment, setpending_payment] = useState([]);
-  const [allOrders, setallOrders] = useState([]);
-  const [list_day_order, setlist_day_order] = useState([]);
-  const [total_day_salse, settotal_day_salse] = useState(0);
+  // const [pendingOrder, setpendingOrder] = useState([]);
+  // const [pendingPayment, setpendingPayment] = useState([]);
+  // const [allOrders, setallOrders] = useState([]);
+  // const [listDayOrder, setlistDayOrder] = useState([]);
+  // const [tototalDaySales, settototalDaySales] = useState(0);
 
-  const fetchOrdersData = async () => {
-    try {
-      if (!token) {
-        // Handle case where token is not available
-        throw new Error('الرجاء تسجيل الدخول ');
-      }
-      const res = await axios.get(apiUrl + '/api/order', config);
-      const orders = res.data;
-      setallOrders(orders);
+  // const fetchOrdersData = async () => {
+  //   try {
+  //     if (!token) {
+  //       // Handle case where token is not available
+  //       throw new Error('الرجاء تسجيل الدخول ');
+  //     }
+  //     const res = await axios.get(apiUrl + '/api/order', config);
+  //     const orders = res.data;
+  //     setallOrders(orders);
 
-      const pendingOrders = orders.filter((order) => order.status === 'Pending');
-      setpending_order(pendingOrders);
+  //     const pendingOrders = orders.filter((order) => order.status === 'Pending');
+  //     setpendingOrder(pendingOrders);
 
-      const pendingPayments = orders.filter((order) => order.payment_status === 'Pending' && order.status !== "Cancelled");
-      setpending_payment(pendingPayments.reverse());
+  //     const pendingPayments = orders.filter((order) => order.payment_status === 'Pending' && order.status !== "Cancelled");
+  //     setpendingPayment(pendingPayments.reverse());
 
-      const today = new Date().toDateString();
-      const dayOrders = orders.filter((order) => new Date(order.createdAt).toDateString() === today);
-      setlist_day_order(dayOrders);
+  //     const today = new Date().toDateString();
+  //     const dayOrders = orders.filter((order) => new Date(order.createdAt).toDateString() === today);
+  //     setlistDayOrder(dayOrders);
 
-      const paidDayOrders = dayOrders.filter((order) => order.payment_status === 'Paid');
-      if (paidDayOrders.length > 0) {
-        const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
-        settotal_day_salse(totalDaySales);
-      } else {
-        settotal_day_salse(0);
-      }
-    } catch (error) {
-      console.log(error);
+  //     const paidDayOrders = dayOrders.filter((order) => order.payment_status === 'Paid');
+  //     if (paidDayOrders.length > 0) {
+  //       const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
+  //       settototalDaySales(totalDaySales);
+  //     } else {
+  //       settototalDaySales(0);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+
+
+  // State initialization
+const [pendingOrder, setPendingOrder] = useState([]);
+const [pendingPayment, setPendingPayment] = useState([]);
+const [allOrders, setAllOrders] = useState([]);
+const [listDayOrder, setListDayOrder] = useState([]);
+const [totalDaySales, setTotalDaySales] = useState(0);
+
+// Helper function to get today's date as a string
+const getTodayDateString = () => {
+  return new Date().toDateString();
+};
+
+const fetchOrdersData = async () => {
+  try {
+    // Check if token is available
+    if (!token) {
+      throw new Error('الرجاء تسجيل الدخول');
     }
-  };
 
+    // Fetch orders from API
+    const res = await axios.get(apiUrl + '/api/order', config);
+    const orders = res.data;
+
+    // Update all orders state
+    setAllOrders(orders);
+
+    // Filter pending orders
+    const pendingOrders = orders.filter(order => order.status === 'Pending');
+    setPendingOrder(pendingOrders);
+
+    // Filter pending payments (excluding cancelled orders)
+    const pendingPayments = orders.filter(order => order.payment_status === 'Pending' && order.status !== 'Cancelled');
+    setPendingPayment(pendingPayments.reverse());
+
+    // Filter today's orders
+    const today = getTodayDateString();
+    const dayOrders = orders.filter(order => new Date(order.createdAt).toDateString() === today);
+    setListDayOrder(dayOrders);
+
+    // Calculate total sales for paid orders of today
+    const paidDayOrders = dayOrders.filter(order => order.payment_status === 'Paid');
+    const totalDaySales = paidDayOrders.reduce((total, order) => total + order.total, 0);
+    setTotalDaySales(totalDaySales);
+
+  } catch (error) {
+    // Handle and log error
+    console.error('Error fetching orders data:', error.message);
+  }
+};
 
 
   const status = ['Pending', 'Approved', 'Cancelled']
@@ -333,28 +384,30 @@ const ManagerDash = () => {
     try {
       const res = await axios.get(apiUrl + '/api/order', config);
       const order = res.data.find(o => o.serial == serial)
-      setorderdata(order)
-      setlistProductsOrder(order.products)
-      setorderTotal(order.total)
-      setsubtotalSplitOrder(order.subtotalSplitOrder)
-      setorderSubtotal(order.subTotal)
-      setordertax(order.tax)
-      setorderdeliveryCost(order.deliveryCost)
-      setserial(order.serial)
-      setaddition(order.addition)
-      setdiscount(order.discount)
-      // setivocedate(order.createdAt)
-      setcashier(order.cashier)
-      settable(order.orderType == 'Internal' ? order.table : '')
-      setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-      setordertype(order.orderType)
-      setaddress(order.orderType == 'Delivery' ? order.address : "")
-      setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
-      if (order.orderType != 'Internal') {
-        setname(order.name)
-        setphone(order.phone)
-      }
+      if(order){
 
+        setorderdata(order)
+        setlistProductsOrder(order.products)
+        setorderTotal(order.total)
+        setsubtotalSplitOrder(order.subtotalSplitOrder)
+        setorderSubtotal(order.subTotal)
+        setordertax(order.tax)
+        setorderdeliveryCost(order.deliveryCost)
+        setserial(order.serial)
+        setaddition(order.addition)
+        setdiscount(order.discount)
+        // setivocedate(order.createdAt)
+        setcashier(order.cashier)
+        settable(order.orderType == 'Internal' ? order.table : '')
+        setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
+        setordertype(order.orderType)
+        setaddress(order.orderType == 'Delivery' ? order.address : "")
+        setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
+        if (order.orderType != 'Internal') {
+          setname(order.name)
+          setphone(order.phone)
+        }
+      }
     } catch (error) {
       console.log(error);
       // Display toast or handle error
@@ -422,13 +475,13 @@ const ManagerDash = () => {
 
   // Filter orders by serial number
   const searchBySerial = (serial) => {
-    const orders = pending_payment.filter((order) => order.serial.toString().startsWith(serial));
+    const orders = pendingPayment.filter((order) => order.serial.toString().startsWith(serial));
     setFilteredOrders(orders);
   };
 
   // Filter orders by order type
   const getOrdersByType = (type) => {
-    const orders = pending_payment.filter((order) => order.orderType === type);
+    const orders = pendingPayment.filter((order) => order.orderType === type);
     setFilteredOrders(orders);
   };
 
@@ -436,7 +489,7 @@ const ManagerDash = () => {
   const [kitchenOrder, setkitchenOrder] = useState({})
   const [kitchenProducts, setkitchenProducts] = useState([])
   const getKitchenCard = (id) => {
-    const neworder = pending_payment.find((order) => order._id === id);
+    const neworder = pendingPayment.find((order) => order._id === id);
     setkitchenOrder(neworder);
     const orderproducts = neworder.products
     const newproducts = orderproducts.filter((product) => product.isDone === false)
@@ -565,7 +618,7 @@ const ManagerDash = () => {
                     <span className="info">
                       <p>اوردرات اليوم</p>
                       <h3>
-                        {list_day_order ? list_day_order.length : 0}
+                        {listDayOrder ? listDayOrder.length : 0}
                       </h3>
                     </span>
                     <i className='bx bx-calendar-check'></i>
@@ -574,7 +627,7 @@ const ManagerDash = () => {
                     <span className="info">
                       <p>في الانتظار</p>
                       <h3>
-                        {pending_order ? pending_order.length : 0}
+                        {pendingOrder ? pendingOrder.length : 0}
                       </h3>
                     </span>
                     <i className='bx bx-show-alt'></i>
@@ -583,7 +636,7 @@ const ManagerDash = () => {
                     <span className="info">
                       <p> انتظار الدفع</p>
                       <h3>
-                        {pending_payment ? pending_payment.length : 0}
+                        {pendingPayment ? pendingPayment.length : 0}
                       </h3>
                     </span>
                     <i className='bx bx-line-chart'></i>
@@ -592,7 +645,7 @@ const ManagerDash = () => {
                     <span className="info">
                       <p>ايراد اليوم</p>
                       <h3>
-                        {total_day_salse ? Math.round(total_day_salse / 10) * 10 : 0}
+                        {tototalDaySales ? Math.round(tototalDaySales / 10) * 10 : 0}
                       </h3>
                     </span>
                     <i className='bx bx-dollar-circle'></i>
@@ -616,7 +669,7 @@ const ManagerDash = () => {
                       <i className='bx bx-filter'></i>
                     </div>
                     <ul className="task-list">
-                      {pending_payment.filter((order) => order.payment_status == 'Pending' && order.status !== "Cancelled" && order.orderType == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
+                      {pendingPayment.filter((order) => order.payment_status == 'Pending' && order.status !== "Cancelled" && order.orderType == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
@@ -766,7 +819,7 @@ const ManagerDash = () => {
                               )
                             }
                           })
-                            : pending_payment.length > 0 ? pending_payment.map((recent, i) => {
+                            : pendingPayment.length > 0 ? pendingPayment.map((recent, i) => {
                               if (i >= startpagination & i < endpagination) {
                                 return (
                                   <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
@@ -852,9 +905,9 @@ const ManagerDash = () => {
                           <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
                         </ul>
                       </div>
-                      : pending_payment.length > 0 ?
+                      : pendingPayment.length > 0 ?
                         <div className="clearfix">
-                          <div className="hint-text text-dark">عرض <b>{pending_payment.length > startpagination ? startpagination : pending_payment.length}</b> من <b>{pending_payment.length}</b> عنصر</div>
+                          <div className="hint-text text-dark">عرض <b>{pendingPayment.length > startpagination ? startpagination : pendingPayment.length}</b> من <b>{pendingPayment.length}</b> عنصر</div>
                           <ul className="pagination">
                             <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                             <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
