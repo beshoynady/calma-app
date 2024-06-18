@@ -695,7 +695,8 @@ const ManagerDash = () => {
                       </thead>
                       <tbody>
 
-                        {filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
+                        {
+                        filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
@@ -778,10 +779,10 @@ const ManagerDash = () => {
                                   <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
                                   <td>{recent.status !== "Cancelled" ?
-                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                      "باقي الفاتوره"
-                                    </a> : "كاملة"
-                                    : "ملغاه"}</td>
+                                    recent.isSplit&& subtotalSplitOrder < total ? <a href="#invoiceSplitModal" type='button' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                     باقي 
+                                    </a> : كاملة 
+                                    : ملغاه }</td>
                                   <td>
                                     <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
                                       <option value={recent.status}>{recent.status}</option>
@@ -817,20 +818,12 @@ const ManagerDash = () => {
                                   <td>{recent.orderType}</td>
                                   <td>
                                     <button
-                                      className="btn btn-47 btn-primary"
+                                      className="btn btn-primary"
                                       onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                     >
                                       دفع
                                     </button>
                                   </td>
-                                  {/* <td>
-                                  <select name="status" id="status" form="carform" onChange={(e) => { changePaymentorderstauts(e, recent._id) }}>
-                                    {paymentstatus.map((state, i) => {
-                                      return <option value={state} key={i}>{state}</option>
-                                    })
-                                    }
-                                  </select>
-                                </td> */}
                                 </tr>
                               )
                             }
