@@ -86,7 +86,7 @@ const NavBar = () => {
                     <span className="badge badge-pill badge-danger">{messages.length}</span>
                   </a>
                   {showMessages && (
-                    <div className="dropdown-menu dropdown-menu-right flex-column show absolute" aria-labelledby="messagesDropdown">
+                    <div className="dropdown-menu dropdown-menu-right flex-column show" aria-labelledby="messagesDropdown" style={{position:'absolute'}}>
                       {messages.length > 0 ? messages.map((message, index) => (
                         <a key={index} className="dropdown-item" href="#" onClick={() => handleMessageClick(index)}>
                           {message}
@@ -96,7 +96,7 @@ const NavBar = () => {
                   )}
                 </div>
                 <div className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="notificationsDropdown" onClick={toggleNotifications} aria-haspopup="true" aria-expanded={showNotifications ? "true" : "false"}>
+                  <a className="nav-link dropdown-toggle" href="#" id="notificationsDropdown" onClick={toggleNotifications} aria-haspopup="true" aria-expanded={showNotifications ? "true" : "false"} style={{position:'absolute'}}>
                     <i className="bx bx-bell"></i>
                     <span className="badge badge-pill badge-danger">{notifications.length}</span>
                   </a>
