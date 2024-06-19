@@ -80,9 +80,9 @@ const NavBar = () => {
               <div className="navbar-nav ms-auto">
                 <div className="nav-item d-flex align-items-center">
                   <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', fontSize: '18px' }}>
-                    {employeeLoginInfo.employeeinfo.username.charAt(0)}
+                    {employeeLoginInfo.employeeinfo&&employeeLoginInfo.employeeinfo.username.charAt(0)}
                   </div>
-                  <span className="text-dark ms-2">{employeeLoginInfo.employeeinfo.role}</span>
+                  <span className="text-dark ms-2">{employeeLoginInfo.employeeinfo&&employeeLoginInfo.employeeinfo.role}</span>
                 </div>
                 <div className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" onClick={toggleMessages} aria-haspopup="true" aria-expanded={showMessages ? "true" : "false"}>
