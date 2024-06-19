@@ -70,56 +70,108 @@ const NavBar = () => {
   return (
     <detacontext.Consumer>
       {({ employeeLoginInfo, employeelogout }) => (
-            <nav className="navbar w-100 navbar-expand-lg navbar-light bg-light flex-row pr-1 " style={{ height: '60px' }}>
-              {/* <input type="checkbox" id="theme-toggle" hidden />
-              <label htmlFor="theme-toggle" className="theme-toggle" onClick={toggleDir}></label> */}
-              <div className="navbar-nav ms-auto flex-row">
-                <div className="nav-item d-flex align-items-center">
-                  <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', fontSize: '18px' }}>
-                    {employeeLoginInfo?.employeeinfo&&employeeLoginInfo.employeeinfo.username?.charAt(0)}
-                  </div>
-                  <span className="text-dark ms-2">{employeeLoginInfo?.employeeinfo&&employeeLoginInfo.employeeinfo?.role}</span>
-                </div>
-                <div className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" onClick={toggleMessages} aria-haspopup="true" aria-expanded={showMessages ? "true" : "false"}>
-                    <i className="bx bx-envelope"></i>
-                    <span className="badge badge-pill badge-danger">{messages.length}</span>
-                  </a>
-                  {showMessages && (
-                    <div className="dropdown-menu dropdown-menu-right flex-column show" aria-labelledby="messagesDropdown" style={{position:'absolute'}}>
-                      {messages.length > 0 ? messages.map((message, index) => (
-                        <a key={index} className="dropdown-item" href="#" onClick={() => handleMessageClick(index)}>
-                          {message}
-                        </a>
-                      )) : <a className="dropdown-item" href="#">No new messages</a>}
-                    </div>
-                  )}
-                </div>
-                <div className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" id="notificationsDropdown" onClick={toggleNotifications} aria-haspopup="true" aria-expanded={showNotifications ? "true" : "false"} style={{position:'absolute'}}>
-                    <i className="bx bx-bell"></i>
-                    <span className="badge badge-pill badge-danger">{notifications.length}</span>
-                  </a>
-                  {showNotifications && (
-                    <div className="dropdown-menu dropdown-menu-right flex-column absolute show" aria-labelledby="notificationsDropdown">
-                      {notifications.length > 0 ? notifications.map((notification, index) => (
-                        <a key={index} className="dropdown-item" href="#" onClick={() => handleNotificationClick(index)}>
-                          {notification}
-                        </a>
-                      )) : <a className="dropdown-item" href="#">No new notifications</a>}
-                    </div>
-                  )}
-                </div>
-                {/* <form className="form-inline my-2 my-lg-0 me-auto">
-            <div className="input-group">
-              <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
-              <div className="input-group-append">
-                <button className="btn btn-primary" type="submit">Search</button>
+        <nav className="navbar w-100 navbar-expand-lg navbar-light bg-light pr-1" style={{ height: '60px' }}>
+      <div className="container-fluid">
+        {/* <input type="checkbox" id="theme-toggle" hidden />
+        <label htmlFor="theme-toggle" className="theme-toggle" onClick={toggleDir}></label> */}
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item d-flex align-items-center">
+              <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', fontSize: '18px' }}>
+                {employeeLoginInfo?.employeeinfo && employeeLoginInfo.employeeinfo.username?.charAt(0)}
               </div>
-            </div>
-          </form> */}
-              </div>
-            </nav>
+              <span className="text-dark ms-2">{employeeLoginInfo?.employeeinfo && employeeLoginInfo.employeeinfo?.role}</span>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" onClick={toggleMessages} aria-haspopup="true" aria-expanded={showMessages ? "true" : "false"}>
+                <i className="bx bx-envelope"></i>
+                <span className="badge bg-danger">{messages.length}</span>
+              </a>
+              {showMessages && (
+                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="messagesDropdown" style={{ position: 'absolute' }}>
+                  {messages.length > 0 ? messages.map((message, index) => (
+                    <a key={index} className="dropdown-item" href="#" onClick={() => handleMessageClick(index)}>
+                      {message}
+                    </a>
+                  )) : <a className="dropdown-item" href="#">No new messages</a>}
+                </div>
+              )}
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="notificationsDropdown" onClick={toggleNotifications} aria-haspopup="true" aria-expanded={showNotifications ? "true" : "false"}>
+                <i className="bx bx-bell"></i>
+                <span className="badge bg-danger">{notifications.length}</span>
+              </a>
+              {showNotifications && (
+                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown" style={{ position: 'absolute' }}>
+                  {notifications.length > 0 ? notifications.map((notification, index) => (
+                    <a key={index} className="dropdown-item" href="#" onClick={() => handleNotificationClick(index)}>
+                      {notification}
+                    </a>
+                  )) : <a className="dropdown-item" href="#">No new notifications</a>}
+                </div>
+              )}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+        // <nav className="navbar w-100 navbar-expand-lg navbar-light bg-light flex-row pr-1 " style={{ height: '60px' }}>
+        //   {/* <input type="checkbox" id="theme-toggle" hidden />
+        //       <label htmlFor="theme-toggle" className="theme-toggle" onClick={toggleDir}></label> */}
+        //   <div className="navbar-nav ms-auto flex-row">
+        //     <div className="nav-item d-flex align-items-center">
+        //       <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', fontSize: '18px' }}>
+        //         {employeeLoginInfo?.employeeinfo && employeeLoginInfo.employeeinfo.username?.charAt(0)}
+        //       </div>
+        //       <span className="text-dark ms-2">{employeeLoginInfo?.employeeinfo && employeeLoginInfo.employeeinfo?.role}</span>
+        //     </div>
+        //     <div className="nav-item dropdown">
+        //       <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" onClick={toggleMessages} aria-haspopup="true" aria-expanded={showMessages ? "true" : "false"}>
+        //         <i className="bx bx-envelope"></i>
+        //         <span className="badge badge-pill badge-danger">{messages.length}</span>
+        //       </a>
+        //       {showMessages && (
+        //         <div className="dropdown-menu dropdown-menu-right flex-column show" aria-labelledby="messagesDropdown" style={{ position: 'absolute' }}>
+        //           {messages.length > 0 ? messages.map((message, index) => (
+        //             <a key={index} className="dropdown-item" href="#" onClick={() => handleMessageClick(index)}>
+        //               {message}
+        //             </a>
+        //           )) : <a className="dropdown-item" href="#">No new messages</a>}
+        //         </div>
+        //       )}
+        //     </div>
+        //     <div className="nav-item dropdown">
+        //       <a className="nav-link dropdown-toggle" href="#" id="notificationsDropdown" onClick={toggleNotifications} aria-haspopup="true" aria-expanded={showNotifications ? "true" : "false"} >
+        //         <i className="bx bx-bell"></i>
+        //         <span className="badge badge-pill badge-danger">{notifications.length}</span>
+        //       </a>
+        //       {showNotifications && (
+        //         <div className="dropdown-menu dropdown-menu-right flex-column absolute show" aria-labelledby="notificationsDropdown" style={{ position: 'absolute' }}>
+        //           {notifications.length > 0 ? notifications.map((notification, index) => (
+        //             <a key={index} className="dropdown-item" href="#" onClick={() => handleNotificationClick(index)}>
+        //               {notification}
+        //             </a>
+        //           )) : <a className="dropdown-item" href="#">No new notifications</a>}
+        //         </div>
+        //       )}
+        //     </div>
+        //     {/* <form className="form-inline my-2 my-lg-0 me-auto">
+        //     <div className="input-group">
+        //       <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+        //       <div className="input-group-append">
+        //         <button className="btn btn-primary" type="submit">Search</button>
+        //       </div>
+        //     </div>
+        //   </form> */}
+        //   </div>
+        // </nav>
         // <nav className="navbar navbar-expand-lg navbar-light bg-light">
         //   <input type="checkbox" id="theme-toggle" hidden />
         //   <label htmlFor="theme-toggle" className="theme-toggle"></label>
