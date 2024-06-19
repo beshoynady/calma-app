@@ -91,7 +91,7 @@ const SideBar = () => {
           const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>
-              <div ref={sidebarRef} className="sidebar close">
+              <div ref={sidebarRef} className="sidebar close" style={{scrollbarWidth:'thin'}}>
                 <div className="logo-details">
                   <i className='bx bxl-c-plus-plus'></i>
                   <span className="logo_name">{restaurantData.name}</span>

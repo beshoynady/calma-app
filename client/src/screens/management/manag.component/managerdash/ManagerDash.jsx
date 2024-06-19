@@ -601,7 +601,7 @@ const ManagerDash = () => {
       {
         ({ restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            <section className='dashboard'>
+            <section className='dashboard ' style={{scrollbarWidth:'none'}}>
               <div className='container w-100 mw-100 p-2 m-0'>
                 <div className="header">
                   <a href={`http://${window.location.hostname}`} className="website">

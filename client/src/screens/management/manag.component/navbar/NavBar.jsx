@@ -13,8 +13,8 @@ const NavBar = () => {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
-  const [notifications, setNotifications] = useState(['Notification 1', 'Notification 2']); // Example notifications
-  const [messages, setMessages] = useState(['Message 1', 'Message 2']); // Example messages
+  const [notifications, setNotifications] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
@@ -50,10 +50,6 @@ const NavBar = () => {
     updatedMessages.splice(index, 1);
     setMessages(updatedMessages);
   };
-
-
-  const userName = "John Doe"; // Example user name
-  const userJob = "Developer"; // Example user job
 
   // useEffect(() => {
   //   // Listen for new order notifications
