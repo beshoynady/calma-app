@@ -50,7 +50,7 @@ const Kitchen = () => {
 
       // Filter active orders based on certain conditions
       const activeOrders = kitchenOrders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing' || order.status === 'Prepared'));
-
+      console.log({activeOrders})
       // Set active orders state
       setOrderActive(activeOrders);
 
@@ -456,18 +456,18 @@ const Kitchen = () => {
                           </ul>
                           <div className="card-footer text-center w-100 d-flex flex-row">
                             {order.status === 'Preparing' ?
-                              <button className="btn w-100 btn-warning btn btn-lg"
+                              (<button className="btn w-100 btn-warning btn btn-lg"
                                 onClick={() => {
                                   updateOrderDone(order._id, order.orderType);
-                                  updatecountofsales(order._id)
-                                }}>تم التنفيذ</button>
+                                }}>تم التنفيذ</button>)
 
-                              : order.status === 'Approved' ? <button className="btn w-100 btn-primary btn btn-lg"
+                              : order.status === 'Approved' ? 
+                              (<button className="btn w-100 btn-primary btn btn-lg"
                                 onClick={() => orderInProgress(order._id)}
-                              >بدء التنفيذ</button>
+                              >بدء التنفيذ</button>)
 
-                                : <button className="btn w-100 btn-info btn btn-lg"
-                                >انتظار الاستلام</button>
+                                : (<button className="btn w-100 btn-info btn btn-lg"
+                                >انتظار الاستلام</button>)
                             }
                           </div>
                         </div>
