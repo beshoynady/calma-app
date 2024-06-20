@@ -201,7 +201,7 @@ const Kitchen = () => {
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
 
         console.log({lastWaiterId,lastWaiterIndex});
-          waiterId = lastWaiterIndex !==  - 1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
+          waiterId = lastWaiterIndex === (sectionWaiters.length + 1)? sectionWaiters[0]._id: sectionWaiters[lastWaiterIndex + 1]._id
        
           
       } else {
