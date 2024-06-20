@@ -232,39 +232,38 @@ const Kitchen = () => {
   // Updates an order status to 'Preparing'
 
   const orderInProgress = async (id, type) => {
-    specifiedWaiter(id)
-//     try {
-// console.log({id, type})
-//       const status = 'Preparing';
-//       let waiter = '';
+    try {
+console.log({id, type})
+      const status = 'Preparing';
+      let waiter = '';
 
-//       if (type === 'Internal') {
-//         waiter = await specifiedWaiter(id);
-//       }
-//       const orderData = { status };
-//       if (waiter) {
-//         orderData.waiter = waiter;
-//       }
-//       console.log({orderData, waiter})
-//       const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
-//       if (response.status === 200) {
-//         // Fetch orders from the API
-//         getAllOrders()
-//         // Filter active orders based on certain conditions
-//         const activeOrders = allOrders&&allOrders.filter(
-//           (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-//         );
-//         console.log({ activeOrders });
-//         // Set active orders state
-//         setOrderActive(activeOrders);
-//         toast.success('Order is in progress!');
-//       } else {
-//         toast.error('Failed to start order!');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       toast.error('Failed to start order!');
-//     }
+      if (type === 'Internal') {
+        waiter = await specifiedWaiter(id);
+      }
+      const orderData = { status };
+      if (waiter) {
+        orderData.waiter = waiter;
+      }
+      console.log({orderData, waiter})
+      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
+      if (response.status === 200) {
+        // Fetch orders from the API
+        getAllOrders()
+        // Filter active orders based on certain conditions
+        const activeOrders = allOrders&&allOrders.filter(
+          (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+        );
+        console.log({ activeOrders });
+        // Set active orders state
+        setOrderActive(activeOrders);
+        toast.success('Order is in progress!');
+      } else {
+        toast.error('Failed to start order!');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to start order!');
+    }
   };
 
 
