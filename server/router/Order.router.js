@@ -16,5 +16,5 @@ const {
 
 router.route("/").post(createOrder).get(getOrders);
 router.route("/:id").get(getOrder).put(updateOrder).delete(deleteOrder);
-router.route("/limit/:limit").get(getLimitOrders)
+router.route("/limit").get(getLimitOrders)
 module.exports = router;

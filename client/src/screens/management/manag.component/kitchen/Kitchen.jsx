@@ -42,7 +42,7 @@ const Kitchen = () => {
     try {
 
       // Fetch orders from the API
-      const ordersResponse = await axios.get(`${apiUrl}/api/order/limit/20`);
+      const ordersResponse = await axios.get(`${apiUrl}/api/order/limit?limit=20`);
       const kitchenOrders = ordersResponse.data;
       console.log({kitchenOrders})
       // Set all orders state
