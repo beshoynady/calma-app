@@ -50,7 +50,7 @@ const Kitchen = () => {
 
       // Filter active orders based on certain conditions
       const activeOrders = kitchenOrders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing' || order.status === 'Prepared'));
-      console.log({activeOrders})
+
       // Set active orders state
       setOrderActive(activeOrders);
 
@@ -254,7 +254,7 @@ const Kitchen = () => {
 
 
 
-  const updateOrderDone = async (id,type) => {
+  const updateOrderDone = async (id, type) => {
     try {
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
@@ -327,7 +327,7 @@ const Kitchen = () => {
       // Perform other operations if needed after the loop completes
       // Update order status or perform other tasks
       let waiter = '';
-      
+
       if (type === 'Internal') {
         waiter = await specifiedWaiter(id);
       }
@@ -461,20 +461,77 @@ const Kitchen = () => {
                                   updateOrderDone(order._id, order.orderType);
                                 }}>تم التنفيذ</button>)
 
-                              : order.status === 'Approved' ? 
-                              (<button className="btn w-100 btn-primary btn btn-lg"
-                                onClick={() => orderInProgress(order._id)}
-                              >بدء التنفيذ</button>)
+                              : order.status === 'Approved' ?
+                                (<button className="btn w-100 btn-primary btn btn-lg"
+                                  onClick={() => orderInProgress(order._id)}
+                                >بدء التنفيذ</button>)
 
-                                : (<button className="btn w-100 btn-info btn btn-lg"
-                                >انتظار الاستلام</button>)
+                                : ""
                             }
                           </div>
                         </div>
                       </div>
                     )
                   } else {
-                    return null;
+                    return (
+                      <div className="col-md-4 mb-4" key={i}>
+                        <div className="card text-white bg-success" style={{ width: "265px" }}>
+                          <div className="card-body text-right d-flex justify-content-between p-0 m-1">
+                            <div style={{ maxWidth: "50%" }}>
+                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.fullname}` : '')}</p>
+                              <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
+                              <p className="card-text">الفاتورة: {order.serial}</p>
+                              <p className="card-text">نوع الطلب: {order.orderType}</p>
+                            </div>
+
+                            <div style={{ maxWidth: "50%" }}>
+                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.fullname}</p> : ""}
+                              <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                              <p className="card-text">الانتظار: {waitingTime(order.createdAt)} دقيقه</p>
+                            </div>
+                          </div>
+                          <ul className='list-group list-group-flush'>
+                            {order.products.filter((pr) => pr.isDone === false).map((product, i) => {
+                              return (
+                                <>
+                                  <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i}
+                                    style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                      <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
+                                      <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
+                                    </div>
+                                    <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
+                                  </li>
+                                  {product.extras && product.extras.length > 0 && (
+                                    product.extras.map((extra, j) => {
+                                      if (extra && extra.isDone === false) {
+                                        return (
+                                          <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={`${i}-${j}`}
+                                            style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                              {extra.extraDetails.map((detail) => (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                              ))}
+                                            </div>
+                                          </li>
+                                        );
+                                      } else {
+                                        return null;
+                                      }
+                                    })
+                                  )}
+                                </>
+
+                              )
+                            })}
+                          </ul>
+                          <div className="card-footer text-center w-100 d-flex flex-row">
+                            (<button className="btn w-100 btn-info btn btn-lg"
+                            >انتظار الاستلام</button>)
+                          </div>
+                        </div>
+                      </div>
+                    )
                   }
                 })}
               </div>
