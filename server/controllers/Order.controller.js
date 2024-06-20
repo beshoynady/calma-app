@@ -140,7 +140,7 @@ const getOrders = async (req, res) => {
 
 const getLimitOrders = async (req, res) => {
     try {
-        const limit = parseInt(req.query.limit, 10) || 10;
+        const limit = parseInt(req.params.limit, 10) || 10;
 
         const orders = await OrderModel.find()
             .sort({ createdAt: -1 })
