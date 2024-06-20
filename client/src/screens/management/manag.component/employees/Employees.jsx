@@ -505,7 +505,7 @@ const Employees = () => {
                     </form>
                   </div>
                 </div>) : (
-                  <p>ليس لك صلاحية لانشاء بيانات الموظفين</p>
+                  toast.info('ليس لك صلاحية لانشاء بيانات الموظفين')
                 )}
               </div>
 
@@ -598,7 +598,7 @@ const Employees = () => {
                     </div>
                   </div>
                 ) : (
-                  <p>ليس لك صلاحية لتعديل بيانات الموظفين</p>
+                  toast.info('ليس لك صلاحية لتعديل بيانات الموظفين')
                 )}
               </div>
 
@@ -624,7 +624,7 @@ const Employees = () => {
                   </div>
                 </div>)
                 : (
-                  <p>ليس لك صلاحية لحذف بيانات الموظفين</p>
+                  toast.info('ليس لك صلاحية لحذف بيانات الموظفين')
                 )}
               </div>
               {/* <div id="deleteListEmployeeModal" className="modal fade">
