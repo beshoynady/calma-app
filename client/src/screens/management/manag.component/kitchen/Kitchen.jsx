@@ -42,9 +42,9 @@ const Kitchen = () => {
     try {
 
       // Fetch orders from the API
-      const ordersResponse = await axios.get(`${apiUrl}/api/order`);
-      const orders = ordersResponse.data;
-
+      const ordersResponse = await axios.get(`${apiUrl}/api/order/limit/20`);
+      const kitchenOrders = ordersResponse.data;
+      console.log({kitchenOrders})
       // Set all orders state
       setAllOrders(orders);
 
@@ -171,7 +171,7 @@ const Kitchen = () => {
       const allEmployees = await axios.get(apiUrl + '/api/employee', config);
 
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
-      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive) : [];
+      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true ) : [];
       setAllWaiters(waiterActive);
 
       const waiterIds = waiterActive.length > 0 ? waiterActive.map((waiter) => waiter._id) : [];
@@ -199,7 +199,7 @@ const Kitchen = () => {
 
       console.log({ AllWaiters: AllWaiters });
 
-      const findwaiter = AllWaiters ? AllWaiters.find((waiter) => waiter.sectionNumber == tablesectionNumber) : "";
+      const findwaiter = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
       console.log({ findwaiter: findwaiter });
 
       const waiterId = findwaiter ? findwaiter._id : '';

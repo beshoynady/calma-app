@@ -138,6 +138,39 @@ const getOrders = async (req, res) => {
 };
 
 
+const getLimitOrders = async (req, res) => {
+    try {
+        // تحويل limit إلى عدد صحيح واستخدام 10 كقيمة افتراضية إذا لم يكن limit موجودًا أو غير صالح
+        const limit = parseInt(req.query.limit, 10) || 10;
+
+        const orders = await OrderModel.find()
+            .sort({ createdAt: -1 })  // ترتيب الأوامر بترتيب تنازلي حسب تاريخ الإنشاء
+            .limit(limit)  // تحديد عدد الأوامر بناءً على المعامل
+            .populate('products.productid', '_id name price')
+            .populate('products.extras.extraDetails.extraId', '_id name price')
+            .populate('table', '_id tableNumber')
+            .populate('user', '_id username address deliveryArea phone')
+            .populate('createdBy', '_id fullname role shift sectionNumber')
+            .populate('cashier', '_id fullname role shift sectionNumber')
+            .populate('waiter', '_id fullname role shift sectionNumber')
+            .populate('deliveryMan', '_id fullname role shift');
+
+        if (!orders || orders.length === 0) {
+            return res.status(404).json({ error: 'No orders found' });
+        }
+
+        res.status(200).json(orders);
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        if (err.name === 'ValidationError') {
+            res.status(422).json({ error: 'Invalid data format', details: err.errors });
+        } else {
+            res.status(500).json({ error: 'Internal server error', details: err.message });
+        }
+    }
+};
+
+
 
 // Get an order by ID
 // const getOrder = async (req, res) => {
@@ -232,6 +265,7 @@ module.exports = {
     createOrder,
     getOrder,
     getOrders,
+    getLimitOrders,
     updateOrder,
     deleteOrder
 };

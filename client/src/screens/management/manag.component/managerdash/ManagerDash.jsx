@@ -242,9 +242,9 @@ const ManagerDash = () => {
     }
   };
 
-  const putdeliveryman = async (e, orderid) => {
+  const putdeliveryman = async (id, orderid) => {
     try {
-      const deliveryMan = await e.target.value
+      const deliveryMan = id
       const order = await axios.put(apiUrl + '/api/order/' + orderid, {
         deliveryMan
       });
@@ -742,7 +742,7 @@ const ManagerDash = () => {
                                   <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
                                   <td>{recent.status !== "Cancelled" ?
-                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-47 btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
                                       "باقي الفاتوره"
                                     </a> : "كاملة"
                                     : "ملغاه"}</td>
@@ -781,7 +781,7 @@ const ManagerDash = () => {
                                   <td>{recent.orderType}</td>
                                   <td>
                                     <button
-                                      className="btn btn-47 btn-primary"
+                                      className="btn btn-primary"
                                       onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.employeeinfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                     >
                                       دفع
@@ -845,7 +845,7 @@ const ManagerDash = () => {
                                     <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                     <td>
                                       {recent.orderType == 'Delivery' ?
-                                        <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
+                                        <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
                                           <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
                                           {deliverymen.map((man, i) => {
                                             return (
