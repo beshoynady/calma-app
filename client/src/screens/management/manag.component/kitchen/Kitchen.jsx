@@ -198,12 +198,12 @@ const Kitchen = () => {
       let waiterId = '';
 
       if (OrderSection.length > 0) {
-        const lastWaiterId = OrderSection[OrderSection.length - 1].waiter._id;
+        const lastWaiterId = OrderSection[OrderSection.length - 1].waiter?._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
         console.log({lastWaiterIndex})
         waiterId = lastWaiterIndex !==  sectionWaiters.length -1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
       } else {
-        waiterId = waitersId[0]; 
+        waiterId = sectionWaiters[0]; 
         }
       console.log({ waiterId });
 
