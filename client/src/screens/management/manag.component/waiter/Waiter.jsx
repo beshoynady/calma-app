@@ -173,7 +173,7 @@ const Waiter = () => {
                           <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">الويتر: {usertitle(order.waiter)}</p>
+                          <p className="card-text">الويتر: {order.waiter.fullname}</p>
                           <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                           <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>
@@ -181,10 +181,34 @@ const Waiter = () => {
                       <ul className="list-group list-group-flush">
                         {order.products.filter((pr) => pr.isDone === true && pr.isDeleverd === false).map((product, i) => {
                           return (
-                            <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={i}>
-                              <span style={{ fontSize: "18px" }}>{i + 1}- {product.name}</span>
-                              <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>× {product.quantity}</span>
-                            </li>
+                            <>
+                              <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i}
+                                style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                <div className="d-flex justify-content-between align-items-center w-100">
+                                  <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
+                                  <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
+                                </div>
+                                <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
+                              </li>
+                              {product.extras && product.extras.length > 0 && (
+                                product.extras.map((extra, j) => {
+                                  if (extra && extra.isDone === false) {
+                                    return (
+                                      <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={`${i}-${j}`}
+                                        style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                          {extra.extraDetails.map((detail) => (
+                                            <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                          ))}
+                                        </div>
+                                      </li>
+                                    );
+                                  } else {
+                                    return null;
+                                  }
+                                })
+                              )}
+                            </>
                           )
                         })}
                       </ul>

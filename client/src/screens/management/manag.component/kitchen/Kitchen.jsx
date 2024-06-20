@@ -282,11 +282,7 @@ const Kitchen = () => {
         if (!product.isDone) {
           // Fetch kitchen consumption data
           // await getKitchenConsumption();
-          const getKitchenConsumption = await axios.get(apiUrl + '/api/kitchenconsumption', {
-            headers: {
-              'authorization': `Bearer ${token}`, // Send the token in the authorization header
-            },
-          });
+          const getKitchenConsumption = await axios.get(apiUrl + '/api/kitchenconsumption', config);
           const Allkitchenconsumption = await getKitchenConsumption.data.data
           const quantity = product.quantity;
           const productId = product.productid;
@@ -459,31 +455,17 @@ const Kitchen = () => {
                                     product.extras.map((extra, j) => {
                                       if (extra && extra.isDone === false) {
                                         return (
-                                          <tr key={`${i}-${j}`}>
-                                            <td className="col-md-3 text-truncate">
-                                              <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => (
-                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                                ))}
-                                              </div>
-                                            </td>
-                                            <td className="col-md-2 text-nowrap">
-                                              <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                {extra.extraDetails.map((detail) => (
-                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
-                                                ))}
-                                              </div>
-                                            </td>
-                                            <td className="col-md-2 text-nowrap">1</td>
-                                            <td className="col-md-2 text-nowrap">
-                                              {extra && (
-                                                <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
-                                              )}
-                                            </td>
-                                          </tr>
+                                          <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={`${i}-${j}`}
+                                            style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                              {extra.extraDetails.map((detail) => (
+                                                <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                              ))}
+                                            </div>
+                                          </li>
                                         );
                                       } else {
-                                        return null; // Return null if extra.isPaid !== false
+                                        return null;
                                       }
                                     })
                                   )}
@@ -504,6 +486,8 @@ const Kitchen = () => {
                         </div>
                       </div>
                     )
+                  } else {
+                    return null;
                   }
                 })}
               </div>
