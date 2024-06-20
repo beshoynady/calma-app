@@ -202,7 +202,7 @@ const Employees = () => {
 
     if (status === 'true') {
       const filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
-      setListOfEmployeesconst (filteredEmployees);
+      setListOfEmployees (filteredEmployees);
 
     } else if (status === 'false') {
       const filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
