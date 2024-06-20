@@ -49,7 +49,7 @@ const Kitchen = () => {
       setAllOrders(kitchenOrders);
 
       // Filter active orders based on certain conditions
-      const activeOrders = kitchenOrders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
+      const activeOrders = kitchenOrders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing' || order.status === 'Prepared'));
 
       // Set active orders state
       setOrderActive(activeOrders);
@@ -185,67 +185,49 @@ const Kitchen = () => {
   // Determines the next available waiter to take an order
   const specifiedWaiter = async (id) => {
     try {
-        // البحث عن الطلب بالمعرف المحدد
-        const getorder = allOrders.find((order) => order._id == id);
-        if (!getorder) {
-            throw new Error('Order not found');
-        }
+      // البحث عن الطلب بالمعرف المحدد
+      const getorder = allOrders.find((order) => order._id == id);
+      if (!getorder) {
+        throw new Error('Order not found');
+      }
 
-        // استخراج رقم القسم من بيانات الطاولة المرتبطة بالطلب
-        const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
-        if (!tablesectionNumber) {
-            throw new Error('Table section number not found');
-        }
+      // استخراج رقم القسم من بيانات الطاولة المرتبطة بالطلب
+      const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
+      if (!tablesectionNumber) {
+        throw new Error('Table section number not found');
+      }
 
-        // البحث عن النوادل في القسم المحدد
-        const sectionWaiters = AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber);
-        if (sectionWaiters.length === 0) {
-            throw new Error('No waiters found in the specified section');
-        }
+      // البحث عن النوادل في القسم المحدد
+      const sectionWaiters = AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber);
+      if (sectionWaiters.length === 0) {
+        throw new Error('No waiters found in the specified section');
+      }
 
-        // استخراج الطلبات السابقة في نفس القسم وترتيبها حسب updatedAt
-        const OrderSection = allOrders
-            .filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
-            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        console.log({ OrderSection });
+      const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
-        let waiterId = '';
+      let waiterId = '';
 
-        if (OrderSection.length > 0) {
-            const lastWaiterId = OrderSection[0]?.waiter?._id;
-            const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
-            console.log({ lastWaiterId, lastWaiterIndex });
+      if (OrderSection.length > 0) {
+        const lastWaiterId = OrderSection[0]?.waiter?._id;
+        const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
+        console.log({ lastWaiterId, lastWaiterIndex });
 
-            waiterId = (lastWaiterIndex !== -1 && lastWaiterIndex < sectionWaiters.length - 1) 
-                ? sectionWaiters[lastWaiterIndex + 1]._id 
-                : sectionWaiters[0]._id;
-        } else {
-            console.log('لا توجد طلبات سابقة لهذه الطاولة');
-            waiterId = sectionWaiters[0]._id;
-        }
+        waiterId = (lastWaiterIndex !== -1 && lastWaiterIndex < sectionWaiters.length - 1)
+          ? sectionWaiters[lastWaiterIndex + 1]._id
+          : sectionWaiters[0]._id;
+      } else {
+        console.log('لا توجد طلبات سابقة لهذه الطاولة');
+        waiterId = sectionWaiters[0]._id;
+      }
 
-        console.log({ waiterId });
+      console.log({ waiterId });
 
-        return waiterId;
+      return waiterId;
     } catch (error) {
-        console.error('Error fetching table or waiter data:', error);
-        return ''; // التعامل مع حالة الخطأ هنا، وإرجاع سلسلة فارغة كقيمة افتراضية لمعرف النادل
+      console.error('Error fetching table or waiter data:', error);
+      return ''; // التعامل مع حالة الخطأ هنا، وإرجاع سلسلة فارغة كقيمة افتراضية لمعرف النادل
     }
-};
-
-
-  // const specifiedWaiter = () => {
-  //   const orderTakeWaiter = allOrders.filter((order) => order.waiter !== null);
-  //   const lastWaiter = orderTakeWaiter.length > 0 ? orderTakeWaiter[orderTakeWaiter.length - 1].waiter : '';
-
-  //   const indexLastWaiter = lastWaiter ? waiters.indexOf(lastWaiter) : 0;
-
-  //   if (waiters.length === indexLastWaiter + 1) {
-  //     return waiters[0];
-  //   } else {
-  //     return waiters[indexLastWaiter + 1];
-  //   }
-  // };
+  };
 
 
 
@@ -253,37 +235,21 @@ const Kitchen = () => {
 
   const orderInProgress = async (id, type) => {
     try {
-      console.log({ id, type })
       const status = 'Preparing';
-      let waiter = '';
+      const orderData = { status };
 
-      if (type === 'Internal') {
-        waiter = await specifiedWaiter(id);
-      }
-      const orderData = {};
-      // orderData.status = status
-      if (waiter) {
-        orderData.waiter = waiter;
-      }
       console.log({ orderData, waiter })
       const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
       if (response.status === 200) {
         // Fetch orders from the API
-        getAllOrders()
-        // Filter active orders based on certain conditions
-        // const activeOrders = allOrders && allOrders.filter(
-        //   (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        // );
-        // console.log({ activeOrders });
-        // // Set active orders state
-        // setOrderActive(activeOrders);
-        toast.success('Order is in progress!');
+        await getAllOrders()
+        toast.success('الاوردر يجهز!');
       } else {
-        toast.error('Failed to start order!');
+        toast.error('حدث خطأ اثناء قبول الاوردر ! حاول مره اهري');
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to start order!');
+      toast.error('فش بدء الاوردر ! اعد تحميل الصفحة ');
     }
   };
 
@@ -292,6 +258,11 @@ const Kitchen = () => {
 
   const updateOrderDone = async (id) => {
     try {
+      let waiter = '';
+
+      if (type === 'Internal') {
+        waiter = await specifiedWaiter(id);
+      }
 
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
@@ -365,26 +336,18 @@ const Kitchen = () => {
       // Update order status or perform other tasks
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status });
+      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status, waiter });
 
       // Fetch orders from the API
       const orders = await axios.get(apiUrl + '/api/order');
       // Set all orders state
-      setAllOrders(orders.data);
-
-      // Filter active orders based on certain conditions
-      const activeOrders = orders.data.filter(
-        (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-      );
-      console.log({ activeOrders });
-      // Set active orders state
-      setOrderActive(activeOrders);
+      getAllOrders()
       getKitchenConsumption()
-      toast.success('Order is prepared!'); // Notifies success in completing order
+      toast.success('تم تجهيز الاوردر !'); // Notifies success in completing order
 
     } catch (error) {
       console.log(error);
-      toast.error('Failed to complete order!');
+      toast.error('حدث خطأ اثناء تعديل حاله الاودر !اعد تحميل الصفحة و حاول مره اخري ');
     }
   };
 
@@ -447,7 +410,7 @@ const Kitchen = () => {
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
                           <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                             <div style={{ maxWidth: "50%" }}>
-                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${usertitle(order.user)}` : '')}</p>
+                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.fullname}` : '')}</p>
                               <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
                               <p className="card-text">الفاتورة: {order.serial}</p>
                               <p className="card-text">نوع الطلب: {order.orderType}</p>
@@ -496,12 +459,18 @@ const Kitchen = () => {
                           </ul>
                           <div className="card-footer text-center w-100 d-flex flex-row">
                             {order.status === 'Preparing' ?
-                              <button className="btn w-50 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => {
-                                updateOrderDone(order._id);
-                                updatecountofsales(order._id)
-                              }}>تم التنفيذ</button>
-                              : <button className="btn w-100 btn-primary btn btn-lg" style={{ width: "100%" }} onClick={() => orderInProgress(order._id, order.orderType)}
+                              <button className="btn w-100 btn-warning btn btn-lg"
+                                onClick={() => {
+                                  updateOrderDone(order._id);
+                                  updatecountofsales(order._id)
+                                }}>تم التنفيذ</button>
+
+                              : order.status === 'Approved' ? <button className="btn w-100 btn-primary btn btn-lg"
+                                onClick={() => orderInProgress(order._id, order.orderType)}
                               >بدء التنفيذ</button>
+
+                                : <button className="btn w-100 btn-info btn btn-lg"
+                                >انتظار الاستلام</button>
                             }
                           </div>
                         </div>
