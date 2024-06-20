@@ -140,12 +140,11 @@ const getOrders = async (req, res) => {
 
 const getLimitOrders = async (req, res) => {
     try {
-        // تحويل limit إلى عدد صحيح واستخدام 10 كقيمة افتراضية إذا لم يكن limit موجودًا أو غير صالح
         const limit = parseInt(req.query.limit, 10) || 10;
 
         const orders = await OrderModel.find()
-            .sort({ createdAt: -1 })  // ترتيب الأوامر بترتيب تنازلي حسب تاريخ الإنشاء
-            .limit(limit)  // تحديد عدد الأوامر بناءً على المعامل
+            .sort({ createdAt: -1 })
+            .limit(limit)
             .populate('products.productid', '_id name price')
             .populate('products.extras.extraDetails.extraId', '_id name price')
             .populate('table', '_id tableNumber')
