@@ -397,7 +397,7 @@ const handleEditEmployeee=(employee)=>{
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => { handleEditEmployeee(employee) }}>&#xE254;</i></a>)
                                   : permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true ? (
                                     <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(employee._id)}>&#xE872;</i></a>)
-                                    : null}
+                                    : '--'}
                               </td>
                             </tr>
                           )
