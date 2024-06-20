@@ -425,14 +425,14 @@ console.log({id, type})
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
                           <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                             <div style={{ maxWidth: "50%" }}>
-                              <p className="card-text"> {order.table != null ? `طاولة: ${usertitle(order.table)}` : (order.user ? `العميل: ${usertitle(order.user)}` : '')}</p>
+                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${usertitle(order.user)}` : '')}</p>
                               <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
                               <p className="card-text">الفاتورة: {order.serial}</p>
                               <p className="card-text">نوع الطلب: {order.orderType}</p>
                             </div>
 
                             <div style={{ maxWidth: "50%" }}>
-                              {order.waiter ? <p className="card-text">الويتر: {usertitle(order.waiter)}</p> : ""}
+                              {order.waiter ? <p className="card-text">الويتر: {order.waiter&&order.waiter.fullname}</p> : ""}
                               <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                               <p className="card-text">الانتظار: {waitingTime(order.createdAt)} دقيقه</p>
                             </div>
