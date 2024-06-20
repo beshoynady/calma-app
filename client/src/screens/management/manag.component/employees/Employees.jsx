@@ -129,16 +129,7 @@ const Employees = () => {
 
   const editEmployee = async (e) => {
     e.preventDefault()
-    console.log(fullname)
-    console.log(username)
-    console.log(password)
-    console.log(address)
-    console.log(phone)
-    console.log(email)
-    console.log(shift)
-    console.log(isActive)
-    console.log(role)
-    console.log(basicSalary)
+   
     try {
 
       // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
@@ -167,37 +158,59 @@ const Employees = () => {
 
 
   const getEmployeesByJob = (role) => {
+    if(role === 'all'){
+      getEmployees()
+      return
+    }
     if (listOfEmployees.length > 0) {
-      const FilterEmployees = listOfEmployees.filter(employee => employee.role == role)
-      setListOfEmployees(FilterEmployees)
+      const filteredEmployees = listOfEmployees.filter(employee => employee.role == role)
+      if(filteredEmployees){
+        setListOfEmployees(filteredEmployees)
+      }else{
+        setListOfEmployees([])
+      }
     }
   }
   const getEmployeesByShift = (shift) => {
-    if (listOfEmployees.length > 0) {
+    if(shift === 'all'){
+      getEmployees()
+      return
+    }
+    if (listOfEmployees.length > 0 && shift) {
       const FilterEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
-      setListOfEmployees(FilterEmployees)
+      if(FilterEmployees){
+        setListOfEmployees(FilterEmployees)
+      }else{
+        setListOfEmployees([])
+      }
     }
   }
   const getEmployeesByName = (name) => {
-    if (listOfEmployees.length > 0) {
+    
+    if (listOfEmployees.length > 0 && name) {
       const employee = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      setListOfEmployees(employee)
+      if(employee){
+        setListOfEmployees(employee)
+      }else{
+        setListOfEmployees([])
+      }
+    }else {
+      getEmployees(); 
     }
   }
   const filterEmpByStatus = (status) => {
-    console.log(status);
-    let filteredEmployees;
 
     if (status === 'true') {
-      filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
-    } else if (status === 'false') {
-      filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
-    } else {
-      filteredEmployees = listOfEmployees; // If status is not 'true' or 'false', show all employees
-    }
+      const filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
+      setListOfEmployeesconst (filteredEmployees);
 
-    console.log(filteredEmployees);
-    setListOfEmployees(filteredEmployees);
+    } else if (status === 'false') {
+      const filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
+      setListOfEmployees(filteredEmployees);
+
+    }else if(status === 'all'){
+      getEmployees()
+    }
   };
 
   const deleteEmployee = async (e) => {
@@ -231,14 +244,9 @@ const Employees = () => {
     e.preventDefault();
     console.log(selectedIds)
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       for (const Id of selectedIds) {
-        await axios.delete(`${apiUrl}/api/order/${Id}`, {
-          headers: {
-            'authorization': `Bearer ${token}`,
-          },
-        });
+        await axios.delete(`${apiUrl}/api/order/${Id}`, config);
       }
       getEmployees()
       toast.success('Selected orders deleted successfully');
@@ -258,7 +266,7 @@ const Employees = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData,permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -299,7 +307,7 @@ const Employees = () => {
                         <div class="filter-group">
                           <label>الوظيفة</label>
                           <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
-                            <option>الكل</option>
+                            <option value="all">الكل</option>
                             <option value="manager">مدير</option>
                             <option value="cashier">كاشير</option>
                             <option value="waiter">ويتر</option>
@@ -309,8 +317,8 @@ const Employees = () => {
                         <div class="filter-group">
                           <label>الشيفت</label>
                           <select class="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
-                            <option >اختر</option>
-                            {shifts ? shifts.map((shift, i) =>
+                          <option value="all">الكل</option>
+                          {shifts ? shifts.map((shift, i) =>
                               <option value={shift._id} key={i}>{shift.shiftType}</option>
                             ) : <option>لم يتم انشاء شفتات</option>}
 
@@ -319,8 +327,8 @@ const Employees = () => {
                         <div class="filter-group">
                           <label>الحالة</label>
                           <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
-                            <option >الكل</option>
-                            <option value={true}>متاح</option>
+                          <option value="all">الكل</option>
+                          <option value={true}>متاح</option>
                             <option value={false}>غير متاح</option>
                           </select>
                         </div>
