@@ -62,24 +62,9 @@ const Employees = () => {
   const [sectionNumber, setsectionNumber] = useState()
 
   const notify = (message, type) => {
-    toast[type](message, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000, // Close after 3 seconds
-    });
+    toast[type](message);
   };
-
-  //   const EmployeeSchema = Joi.object({
-  //     fullname: Joi.string().min(3).max(100),
-  //     numberID: Joi.string().length(14),
-  //     username: Joi.string().min(3).max(100),
-  //     email: Joi.string().email(),
-  //     address: Joi.string().min(3).max(150),
-  //     phone: Joi.string().length(11),
-  //     password: Joi.string().min(3),
-  //     basicSalary: Joi.number().min(0),
-  //     sectionNumber: Joi.string().valid('manager', 'cashier', 'waiter', 'deliveryman', 'Chef'),
-  //     isActive: Joi.boolean(),
-  // });
+  
   const createEmployee = async (e, permissionsList) => {
     e.preventDefault();
   
@@ -90,7 +75,6 @@ const Employees = () => {
       notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
       return;
     }
-  
     // Validate that all required fields are filled
     if (
       !fullname ||
@@ -295,12 +279,12 @@ const Employees = () => {
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        {/* {
-                          permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? ( */}
+                        {
+                          permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
                             <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                          {/* )
+                           )
                             : null
-                        } */}
+                        } 
                         {/* <a href="#deleteListEmployeeModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
