@@ -258,11 +258,7 @@ const Kitchen = () => {
 
   const updateOrderDone = async (id) => {
     try {
-      let waiter = '';
 
-      if (type === 'Internal') {
-        waiter = await specifiedWaiter(id);
-      }
 
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
@@ -334,6 +330,11 @@ const Kitchen = () => {
 
       // Perform other operations if needed after the loop completes
       // Update order status or perform other tasks
+      let waiter = '';
+      
+      if (type === 'Internal') {
+        waiter = await specifiedWaiter(id);
+      }
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
       await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status, waiter });
