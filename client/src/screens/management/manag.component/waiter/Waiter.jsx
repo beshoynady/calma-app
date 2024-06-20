@@ -168,7 +168,7 @@ const Waiter = () => {
                     <div className="card text-white bg-success" style={{ width: "265px" }}>
                       <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">الطاولة: {order.table&&order.table.tableNumber)}</p>
+                          <p className="card-text">الطاولة: {order.table&&order.table.tableNumber}</p>
                           <p className="card-text">رقم الفاتورة: {order.serial}</p>
                           <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
