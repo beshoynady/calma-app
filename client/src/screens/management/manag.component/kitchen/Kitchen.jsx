@@ -185,38 +185,56 @@ const Kitchen = () => {
   // Determines the next available waiter to take an order
   const specifiedWaiter = async (id) => {
     try {
-      const getorder = allOrders.find((order) => order._id == id);
-      const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
+        // البحث عن الطلب بالمعرف المحدد
+        const getorder = allOrders.find((order) => order._id == id);
+        if (!getorder) {
+            throw new Error('Order not found');
+        }
 
-      console.log({ AllWaiters: AllWaiters });
+        // استخراج رقم القسم من بيانات الطاولة المرتبطة بالطلب
+        const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
+        if (!tablesectionNumber) {
+            throw new Error('Table section number not found');
+        }
 
-      const sectionWaiters = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
-      
-      const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
-      console.log({OrderSection});
-      let waiterId = '';
+        // البحث عن النوادل في القسم المحدد
+        const sectionWaiters = AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber);
+        if (sectionWaiters.length === 0) {
+            throw new Error('No waiters found in the specified section');
+        }
 
-      if (OrderSection.length > 0) {
-        const lastWaiterId = OrderSection[OrderSection.length - 1]?.waiter?._id;
-        const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
+        // استخراج الطلبات السابقة في نفس القسم وترتيبها حسب updatedAt
+        const OrderSection = allOrders
+            .filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
+            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        console.log({ OrderSection });
 
-        console.log({lastWaiterId,lastWaiterIndex});
-          waiterId = lastWaiterIndex === (sectionWaiters.length - 1)? sectionWaiters[0]._id: sectionWaiters[lastWaiterIndex + 1]._id
-       
-          
-      } else {
-        console.log('لا توجد طلبات سابقة لهذه الطاولة');
-        waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
-      }
+        let waiterId = '';
 
-      console.log({ waiterId });
+        if (OrderSection.length > 0) {
+            // تحديد آخر نادل خدم الطلب
+            const lastWaiterId = OrderSection[0]?.waiter?._id;
+            const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
+            console.log({ lastWaiterId, lastWaiterIndex });
 
-      return waiterId;
+            // تحديد النادل التالي بناءً على آخر نادل خدم الطلب
+            waiterId = (lastWaiterIndex !== -1 && lastWaiterIndex < sectionWaiters.length - 1) 
+                ? sectionWaiters[lastWaiterIndex + 1]._id 
+                : sectionWaiters[0]._id;
+        } else {
+            console.log('لا توجد طلبات سابقة لهذه الطاولة');
+            waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
+        }
+
+        console.log({ waiterId });
+
+        return waiterId;
     } catch (error) {
-      console.error('Error fetching table or waiter data:', error);
-      return ''; // Handle the error case here, returning an empty string for waiterId
+        console.error('Error fetching table or waiter data:', error);
+        return ''; // التعامل مع حالة الخطأ هنا، وإرجاع سلسلة فارغة كقيمة افتراضية لمعرف النادل
     }
-  };
+};
+
 
   // const specifiedWaiter = () => {
   //   const orderTakeWaiter = allOrders.filter((order) => order.waiter !== null);
