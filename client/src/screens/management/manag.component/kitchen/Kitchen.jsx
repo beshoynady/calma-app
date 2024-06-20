@@ -188,7 +188,7 @@ const Kitchen = () => {
       const getorder = allOrders.find((order) => order._id == id);
       console.log({ getorder: getorder });
       const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
-      console.log({tablesectionNumber });
+      console.log({ tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
 
@@ -200,11 +200,20 @@ const Kitchen = () => {
       if (OrderSection.length > 0) {
         const lastWaiterId = OrderSection[OrderSection.length - 1].waiter?._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
-        console.log({lastWaiterIndex})
-        waiterId = lastWaiterIndex !==  sectionWaiters.length -1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
-      } else {
-        waiterId = sectionWaiters[0]; 
+
+        // التحقق مما إذا كان النادل الأخير موجودًا في قائمة sectionWaiters
+        if (lastWaiterIndex !== -1) {
+          // استخدام lastWaiterIndex للعثور على النادل التالي في قائمة sectionWaiters
+          waiterId = lastWaiterIndex !== sectionWaiters.length - 1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
+        } else {
+          console.error('لم يتم العثور على النادل في قائمة sectionWaiters');
+          waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
         }
+      } else {
+        console.log('لا توجد طلبات سابقة لهذه الطاولة');
+        waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
+      }
+
       console.log({ waiterId });
 
       return waiterId;
@@ -233,7 +242,7 @@ const Kitchen = () => {
 
   const orderInProgress = async (id, type) => {
     try {
-console.log({id, type})
+      console.log({ id, type })
       const status = 'Preparing';
       let waiter = '';
 
@@ -244,13 +253,13 @@ console.log({id, type})
       if (waiter) {
         orderData.waiter = waiter;
       }
-      console.log({orderData, waiter})
+      console.log({ orderData, waiter })
       const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
       if (response.status === 200) {
         // Fetch orders from the API
         getAllOrders()
         // Filter active orders based on certain conditions
-        const activeOrders = allOrders&&allOrders.filter(
+        const activeOrders = allOrders && allOrders.filter(
           (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
         );
         console.log({ activeOrders });
@@ -433,7 +442,7 @@ console.log({id, type})
                             </div>
 
                             <div style={{ maxWidth: "50%" }}>
-                              {order.waiter ? <p className="card-text">الويتر: {order.waiter&&order.waiter.fullname}</p> : ""}
+                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.fullname}</p> : ""}
                               <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                               <p className="card-text">الانتظار: {waitingTime(order.createdAt)} دقيقه</p>
                             </div>
