@@ -191,7 +191,7 @@ const Kitchen = () => {
       console.log({ AllWaiters: AllWaiters });
 
       const sectionWaiters = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
-
+      
       const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
       console.log({OrderSection});
       let waiterId = '';
