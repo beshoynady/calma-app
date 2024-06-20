@@ -46,10 +46,10 @@ const Kitchen = () => {
       const kitchenOrders = ordersResponse.data;
       console.log({kitchenOrders})
       // Set all orders state
-      setAllOrders(orders);
+      setAllOrders(kitchenOrders);
 
       // Filter active orders based on certain conditions
-      const activeOrders = orders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
+      const activeOrders = kitchenOrders.filter(order => order.isActive && (order.status === 'Approved' || order.status === 'Preparing'));
 
       // Set active orders state
       setOrderActive(activeOrders);
