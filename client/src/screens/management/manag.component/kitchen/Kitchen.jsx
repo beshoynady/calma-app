@@ -201,7 +201,7 @@ const Kitchen = () => {
         const lastWaiterId = OrderSection[OrderSection.length - 1].waiter._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
         console.log({lastWaiterIndex})
-        waiterId = lastWaiterIndex !==  sectionWaiters.length -1 ? waitersId[lastWaiterIndex + 1] : waitersId[0];
+        waiterId = lastWaiterIndex !==  sectionWaiters.length -1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
       } else {
         waiterId = waitersId[0]; 
         }
