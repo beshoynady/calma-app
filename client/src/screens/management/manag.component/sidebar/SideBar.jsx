@@ -96,7 +96,7 @@ const SideBar = () => {
                   <i className='bx bxl-c-plus-plus'></i>
                   <span className="logo_name">{restaurantData.name}</span>
                 </div>
-                <ul className="nav-links">
+                <ul className="nav-links overflowX-hidden">
                   {/* Dashboard */}
                   {(role === 'cashier' || role === 'manager') && (
                     <li>
