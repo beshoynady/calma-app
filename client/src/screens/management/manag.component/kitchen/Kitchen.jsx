@@ -231,41 +231,42 @@ const Kitchen = () => {
   // Updates an order status to 'Preparing'
 
   const orderInProgress = async (id, type) => {
-    try {
+  specifiedWaiter(id)
+    // try {
 
-      const status = 'Preparing';
-      let waiter = '';
+    //   const status = 'Preparing';
+    //   let waiter = '';
 
-      if (type === 'Internal') {
-        waiter = await specifiedWaiter(id);
-      }
-      const orderData = { status };
-      if (waiter) {
-        orderData.waiter = waiter;
-      }
+    //   if (type === 'Internal') {
+    //     waiter = await specifiedWaiter(id);
+    //   }
+    //   const orderData = { status };
+    //   if (waiter) {
+    //     orderData.waiter = waiter;
+    //   }
+    //   console.log({waiter})
+    //   const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
+    //   if (response.status === 200) {
+    //     // Fetch orders from the API
+    //     const orders = await axios.get(apiUrl + '/api/order');
+    //     // Set all orders state
+    //     setAllOrders(orders.data);
 
-      const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
-      if (response.status === 200) {
-        // Fetch orders from the API
-        const orders = await axios.get(apiUrl + '/api/order');
-        // Set all orders state
-        setAllOrders(orders.data);
-
-        // Filter active orders based on certain conditions
-        const activeOrders = orders.length > 0 ? orders.data.filter(
-          (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        ) : "";
-        console.log({ activeOrders });
-        // Set active orders state
-        setOrderActive(activeOrders);
-        toast.success('Order is in progress!');
-      } else {
-        toast.error('Failed to start order!');
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to start order!');
-    }
+    //     // Filter active orders based on certain conditions
+    //     const activeOrders = orders.length > 0 ? orders.data.filter(
+    //       (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+    //     ) : "";
+    //     console.log({ activeOrders });
+    //     // Set active orders state
+    //     setOrderActive(activeOrders);
+    //     toast.success('Order is in progress!');
+    //   } else {
+    //     toast.error('Failed to start order!');
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error('Failed to start order!');
+    // }
   };
 
 
@@ -475,13 +476,14 @@ const Kitchen = () => {
                               )
                             })}
                           </ul>
-                          <div className="card-footer text-center">
+                          <div className="card-footer text-center w-100 d-flex flex-row">
                             {order.status === 'Preparing' ?
-                              <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => {
+                              <button className="btn w-50 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => {
                                 updateOrderDone(order._id);
                                 updatecountofsales(order._id)
                               }}>تم التنفيذ</button>
-                              : <button className="btn btn-47 btn-primary btn btn-lg" style={{ width: "100%" }} onClick={() => orderInProgress(order._id, order.orderType)}>بدء التنفيذ</button>
+                              : <button className="btn w-50 btn-primary btn btn-lg" style={{ width: "100%" }} onClick={() => orderInProgress(order._id, order.orderType)}
+                              >بدء التنفيذ</button>
                             }
                           </div>
                         </div>
