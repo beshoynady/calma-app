@@ -81,12 +81,17 @@ const Employees = () => {
   //     isActive: Joi.boolean(),
   // });
   const createEmployee = async (e, permissionsList) => {
-    e.preventDefault()
-    // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
-    // if (error) {
-    //     notify(error.details[0].message, 'error');
-    //     return;
-    // }
+    e.preventDefault();
+  
+    // Check if the user has the permission to create an employee
+    const canCreate = permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true;
+  
+    if (!canCreate) {
+      notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
+      return;
+    }
+  
+    // Validate that all required fields are filled
     if (
       !fullname ||
       !basicSalary ||
@@ -96,29 +101,38 @@ const Employees = () => {
       !address ||
       !phone ||
       !email ||
-      !isActive ||
+      typeof isActive !== 'boolean' || // Ensure isActive is explicitly checked
       !role
     ) {
-      // Notify the user that some fields are missing
       notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
       return;
     }
+  
     try {
-      if (permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true) {
-        const newemployee = await axios.post(apiUrl + '/api/employee', { fullname, basicSalary, numberID, username, password, address, shift, phone, email, isActive, role, sectionNumber }, config)
-        notify('تم انشاء حساب الموظف بنجاح', 'success');
-        console.log(newemployee)
-        getEmployees();
-
-      } else {
-        notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
-
-      }
+      const newEmployee = await axios.post(apiUrl + '/api/employee', {
+        fullname,
+        basicSalary,
+        numberID,
+        username,
+        password,
+        address,
+        shift,
+        phone,
+        email,
+        isActive,
+        role,
+        sectionNumber
+      }, config);
+  
+      notify('تم انشاء حساب الموظف بنجاح', 'success');
+      console.log(newEmployee);
+      getEmployees();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
     }
   };
+  
 
 
   const editEmployee = async (e, permissionsList) => {
