@@ -186,9 +186,7 @@ const Kitchen = () => {
   const specifiedWaiter = async (id) => {
     try {
       const getorder = allOrders.find((order) => order._id == id);
-      console.log({ getorder: getorder });
       const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
-      console.log({ tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
 
@@ -201,14 +199,10 @@ const Kitchen = () => {
         const lastWaiterId = OrderSection[OrderSection.length - 1].waiter?._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
 
-        // التحقق مما إذا كان النادل الأخير موجودًا في قائمة sectionWaiters
-        if (lastWaiterIndex !== -1) {
-          // استخدام lastWaiterIndex للعثور على النادل التالي في قائمة sectionWaiters
-          waiterId = lastWaiterIndex !== sectionWaiters.length - 1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
-        } else {
-          console.error('لم يتم العثور على النادل في قائمة sectionWaiters');
-          waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
-        }
+        console.log({lastWaiterId,lastWaiterIndex});
+          waiterId = lastWaiterIndex !==  - 1 ? sectionWaiters[lastWaiterIndex + 1]._id : sectionWaiters[0]._id;
+       
+          
       } else {
         console.log('لا توجد طلبات سابقة لهذه الطاولة');
         waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
