@@ -193,9 +193,11 @@ const Kitchen = () => {
       const sectionWaiters = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
 
       const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
+      console.log({OrderSection});
       let waiterId = '';
 
       if (OrderSection.length > 0) {
+        console({lastorder:OrderSection[OrderSection.length - 1]})
         const lastWaiterId = OrderSection[OrderSection.length - 1].waiter?._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
 
