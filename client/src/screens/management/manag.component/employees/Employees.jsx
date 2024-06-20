@@ -80,7 +80,7 @@ const Employees = () => {
   //     sectionNumber: Joi.string().valid('manager', 'cashier', 'waiter', 'deliveryman', 'Chef'),
   //     isActive: Joi.boolean(),
   // });
-  const createEmployee = async (e,) => {
+  const createEmployee = async (e, permissionsList) => {
     e.preventDefault()
     // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
     // if (error) {
@@ -104,22 +104,16 @@ const Employees = () => {
       return;
     }
     try {
-      console.log(fullname)
-      console.log(username)
-      console.log(password)
-      console.log(address)
-      console.log(phone)
-      console.log(email)
-      console.log(shift)
-      console.log(isActive)
-      console.log(role)
-      console.log(basicSalary)
+      if (permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true) {
+        const newemployee = await axios.post(apiUrl + '/api/employee', { fullname, basicSalary, numberID, username, password, address, shift, phone, email, isActive, role, sectionNumber }, config)
+        notify('تم انشاء حساب الموظف بنجاح', 'success');
+        console.log(newemployee)
+        getEmployees();
 
+      } else {
+        notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
 
-      const newemployee = await axios.post(apiUrl + '/api/employee', { fullname, basicSalary, numberID, username, password, address, shift, phone, email, isActive, role, sectionNumber }, config)
-      console.log(newemployee)
-      notify('تم انشاء حساب الموظف بنجاح', 'success');
-      getEmployees();
+      }
     } catch (error) {
       console.log(error);
       notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
@@ -127,7 +121,7 @@ const Employees = () => {
   };
 
 
-  const editEmployee = async (e) => {
+  const editEmployee = async (e, permissionsList) => {
     e.preventDefault()
 
     try {
@@ -137,16 +131,19 @@ const Employees = () => {
       //     notify(error.details[0].message, 'error');
       //     return;
       // }
+      if (permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true) {
+        const updateData = password
+          ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
+          : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
 
-      const updateData = password
-        ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
-        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
-
-      const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
-      if (update.status === 200) {
-        getEmployees()
-        notify('تم تحديث بيانات الموظف', 'success');
-        // Additional logic if needed after successful update
+        const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
+        if (update.status === 200) {
+          getEmployees()
+          notify('تم تحديث بيانات الموظف', 'success');
+          // Additional logic if needed after successful update
+        }
+      } else {
+        notify('ليس لك صلاحية لتعديل حساب موظف', 'info');
       }
 
     } catch (error) {
@@ -156,9 +153,9 @@ const Employees = () => {
     }
   };
 
-const handleEditEmployeee=(employee)=>{
-  setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); setusername(employee.username); setaddress(employee.address); setemail(employee.email); setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); setbasicSalary(employee.basicSalary)
-}
+  const handleEditEmployeee = (employee) => {
+    setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); setusername(employee.username); setaddress(employee.address); setemail(employee.email); setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); setbasicSalary(employee.basicSalary)
+  }
   const getEmployeesByJob = (role) => {
     if (role === 'all') {
       getEmployees()
@@ -215,14 +212,19 @@ const handleEditEmployeee=(employee)=>{
     }
   };
 
-  const deleteEmployee = async (e) => {
+  const deleteEmployee = async (e, permissionsList) => {
     e.preventDefault();
     try {
+      if(permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true){
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, config);
       notify('تم حذف سجل الموظف بنجاح', 'success');
       getEmployees();
+    }else{
+      
+      notify('ليس لك صلاحية لحذف حساب الموظف', 'info');
+      }
     } catch (error) {
       console.log(error);
       notify('فشل حذف سجل الموظف !حاول مره اخري', 'error');
@@ -279,11 +281,12 @@ const handleEditEmployeee=(employee)=>{
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        {
-                          permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
-                            <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>)
+                        {/* {
+                          permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? ( */}
+                            <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                          {/* )
                             : null
-                        }
+                        } */}
                         {/* <a href="#deleteListEmployeeModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
@@ -427,7 +430,7 @@ const handleEditEmployeee=(employee)=>{
                   permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
                     <div className="modal-dialog">
                       <div className="modal-content">
-                        <form onSubmit={createEmployee}>
+                        <form onSubmit={(e) => createEmployee(e, permissionsList)}>
                           <div className="modal-header">
                             <h4 className="modal-title">اضافه موظف</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -519,7 +522,7 @@ const handleEditEmployeee=(employee)=>{
                   permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
                     <div className="modal-dialog">
                       <div className="modal-content">
-                        <form onSubmit={editEmployee}>
+                        <form onSubmit={(e) => editEmployee(e, permissionsList)}>
                           <div className="modal-header">
                             <h4 className="modal-title">تعديل بيانات الموظفين</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -610,7 +613,7 @@ const handleEditEmployeee=(employee)=>{
                   permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true ? (
                     <div className="modal-dialog">
                       <div className="modal-content">
-                        <form onSubmit={deleteEmployee}>
+                        <form onSubmit={(e)=>deleteEmployee(e, permissionsList)}>
                           <div className="modal-header">
                             <h4 className="modal-title">حذف موظف</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
