@@ -237,8 +237,6 @@ const Kitchen = () => {
     try {
       const status = 'Preparing';
       const orderData = { status };
-
-      console.log({ orderData, waiter })
       const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
       if (response.status === 200) {
         // Fetch orders from the API
@@ -258,8 +256,6 @@ const Kitchen = () => {
 
   const updateOrderDone = async (id,type) => {
     try {
-
-
       // Fetch order data by ID
       const orderData = await axios.get(`${apiUrl}/api/order/${id}`);
       const products = await orderData.data.products;
