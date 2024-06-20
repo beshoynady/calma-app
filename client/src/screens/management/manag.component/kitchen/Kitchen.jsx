@@ -187,7 +187,7 @@ const Kitchen = () => {
     try {
       const getorder = allOrders.find((order) => order._id == id);
       console.log({ getorder: getorder });
-      const tablesectionNumber = await getorder.table && getorder.table.sectionNumber;
+      const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
       console.log({tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
@@ -232,7 +232,7 @@ const Kitchen = () => {
   // Updates an order status to 'Preparing'
 
   const orderInProgress = async (id, type) => {
-    specifiedWaiter()
+    specifiedWaiter(id)
 //     try {
 // console.log({id, type})
 //       const status = 'Preparing';
