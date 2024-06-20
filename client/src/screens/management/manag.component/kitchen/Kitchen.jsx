@@ -212,18 +212,16 @@ const Kitchen = () => {
         let waiterId = '';
 
         if (OrderSection.length > 0) {
-            // تحديد آخر نادل خدم الطلب
             const lastWaiterId = OrderSection[0]?.waiter?._id;
             const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
             console.log({ lastWaiterId, lastWaiterIndex });
 
-            // تحديد النادل التالي بناءً على آخر نادل خدم الطلب
             waiterId = (lastWaiterIndex !== -1 && lastWaiterIndex < sectionWaiters.length - 1) 
                 ? sectionWaiters[lastWaiterIndex + 1]._id 
                 : sectionWaiters[0]._id;
         } else {
             console.log('لا توجد طلبات سابقة لهذه الطاولة');
-            waiterId = sectionWaiters[0]._id; // اختيار أول نادل كبديل
+            waiterId = sectionWaiters[0]._id;
         }
 
         console.log({ waiterId });
