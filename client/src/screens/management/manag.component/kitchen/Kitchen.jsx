@@ -233,7 +233,7 @@ const Kitchen = () => {
 
   // Updates an order status to 'Preparing'
 
-  const orderInProgress = async (id, type) => {
+  const orderInProgress = async (id) => {
     try {
       const status = 'Preparing';
       const orderData = { status };
@@ -256,7 +256,7 @@ const Kitchen = () => {
 
 
 
-  const updateOrderDone = async (id) => {
+  const updateOrderDone = async (id,type) => {
     try {
 
 
@@ -462,12 +462,12 @@ const Kitchen = () => {
                             {order.status === 'Preparing' ?
                               <button className="btn w-100 btn-warning btn btn-lg"
                                 onClick={() => {
-                                  updateOrderDone(order._id);
+                                  updateOrderDone(order._id, order.orderType);
                                   updatecountofsales(order._id)
                                 }}>تم التنفيذ</button>
 
                               : order.status === 'Approved' ? <button className="btn w-100 btn-primary btn btn-lg"
-                                onClick={() => orderInProgress(order._id, order.orderType)}
+                                onClick={() => orderInProgress(order._id)}
                               >بدء التنفيذ</button>
 
                                 : <button className="btn w-100 btn-info btn btn-lg"
