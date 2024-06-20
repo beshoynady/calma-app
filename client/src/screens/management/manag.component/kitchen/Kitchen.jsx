@@ -472,7 +472,8 @@ const Kitchen = () => {
                         </div>
                       </div>
                     )
-                  } else if (order.status==='Prepared'&& order.products.filter((pr) => pr.isDone === true).length > 0){
+                  } else if (order.status==='Prepared'&& order.products.filter((pr) => pr.
+                  isDeleverd === false).length > 0){
                     return (
                       <div className="col-md-4 mb-4" key={i}>
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
