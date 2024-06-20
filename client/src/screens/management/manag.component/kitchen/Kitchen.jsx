@@ -197,7 +197,7 @@ const Kitchen = () => {
       let waiterId = '';
 
       if (OrderSection.length > 0) {
-        const lastWaiterId = OrderSection[OrderSection.length - 1].waiter?._id;
+        const lastWaiterId = OrderSection[OrderSection.length - 1]?.waiter?._id;
         const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
 
         console.log({lastWaiterId,lastWaiterIndex});
@@ -244,7 +244,8 @@ const Kitchen = () => {
       if (type === 'Internal') {
         waiter = await specifiedWaiter(id);
       }
-      const orderData = { status };
+      const orderData = {};
+      // orderData.status = status
       if (waiter) {
         orderData.waiter = waiter;
       }
@@ -254,12 +255,12 @@ const Kitchen = () => {
         // Fetch orders from the API
         getAllOrders()
         // Filter active orders based on certain conditions
-        const activeOrders = allOrders && allOrders.filter(
-          (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        );
-        console.log({ activeOrders });
-        // Set active orders state
-        setOrderActive(activeOrders);
+        // const activeOrders = allOrders && allOrders.filter(
+        //   (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
+        // );
+        // console.log({ activeOrders });
+        // // Set active orders state
+        // setOrderActive(activeOrders);
         toast.success('Order is in progress!');
       } else {
         toast.error('Failed to start order!');
