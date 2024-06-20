@@ -80,7 +80,7 @@ const Employees = () => {
   //     sectionNumber: Joi.string().valid('manager', 'cashier', 'waiter', 'deliveryman', 'Chef'),
   //     isActive: Joi.boolean(),
   // });
-  const createEmployee = async (e) => {
+  const createEmployee = async (e,) => {
     e.preventDefault()
     // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
     // if (error) {
@@ -129,7 +129,7 @@ const Employees = () => {
 
   const editEmployee = async (e) => {
     e.preventDefault()
-   
+
     try {
 
       // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
@@ -156,59 +156,61 @@ const Employees = () => {
     }
   };
 
-
+const handleEditEmployeee=(employee)=>{
+  setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); setusername(employee.username); setaddress(employee.address); setemail(employee.email); setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); setbasicSalary(employee.basicSalary)
+}
   const getEmployeesByJob = (role) => {
-    if(role === 'all'){
+    if (role === 'all') {
       getEmployees()
       return
     }
     if (listOfEmployees.length > 0) {
       const filteredEmployees = listOfEmployees.filter(employee => employee.role == role)
-      if(filteredEmployees){
+      if (filteredEmployees) {
         setListOfEmployees(filteredEmployees)
-      }else{
+      } else {
         setListOfEmployees([])
       }
     }
   }
   const getEmployeesByShift = (shift) => {
-    if(shift === 'all'){
+    if (shift === 'all') {
       getEmployees()
       return
     }
     if (listOfEmployees.length > 0 && shift) {
       const FilterEmployees = listOfEmployees.filter(employee => employee.shift._id == shift)
-      if(FilterEmployees){
+      if (FilterEmployees) {
         setListOfEmployees(FilterEmployees)
-      }else{
+      } else {
         setListOfEmployees([])
       }
     }
   }
   const getEmployeesByName = (name) => {
-    
+
     if (listOfEmployees.length > 0 && name) {
       const employee = listOfEmployees.filter((employee) => employee.fullname.startsWith(name) == true)
-      if(employee){
+      if (employee) {
         setListOfEmployees(employee)
-      }else{
+      } else {
         setListOfEmployees([])
       }
-    }else {
-      getEmployees(); 
+    } else {
+      getEmployees();
     }
   }
   const filterEmpByStatus = (status) => {
 
     if (status === 'true') {
       const filteredEmployees = listOfEmployees.length > 0 ? listOfEmployees.filter((employee) => employee.isActive === true) : '';
-      setListOfEmployees (filteredEmployees);
+      setListOfEmployees(filteredEmployees);
 
     } else if (status === 'false') {
       const filteredEmployees = listOfEmployees ? listOfEmployees.filter((employee) => employee.isActive === false) : "";
       setListOfEmployees(filteredEmployees);
 
-    }else if(status === 'all'){
+    } else if (status === 'all') {
       getEmployees()
     }
   };
@@ -266,7 +268,7 @@ const Employees = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData,permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ restaurantData, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -277,7 +279,11 @@ const Employees = () => {
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        {
+                          permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
+                            <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>)
+                            : null
+                        }
                         {/* <a href="#deleteListEmployeeModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
@@ -317,8 +323,8 @@ const Employees = () => {
                         <div class="filter-group">
                           <label>الشيفت</label>
                           <select class="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
-                          <option value="all">الكل</option>
-                          {shifts ? shifts.map((shift, i) =>
+                            <option value="all">الكل</option>
+                            {shifts ? shifts.map((shift, i) =>
                               <option value={shift._id} key={i}>{shift.shiftType}</option>
                             ) : <option>لم يتم انشاء شفتات</option>}
 
@@ -327,8 +333,8 @@ const Employees = () => {
                         <div class="filter-group">
                           <label>الحالة</label>
                           <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
-                          <option value="all">الكل</option>
-                          <option value={true}>متاح</option>
+                            <option value="all">الكل</option>
+                            <option value={true}>متاح</option>
                             <option value={false}>غير متاح</option>
                           </select>
                         </div>
@@ -387,10 +393,11 @@ const Employees = () => {
                               <td>{employee.shift && employee.shift.shiftType}</td>
                               <td>{new Date(employee.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
                               <td>
-                                <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
-                                  setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); setusername(employee.username); setaddress(employee.address); setemail(employee.email); setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); setbasicSalary(employee.basicSalary)
-                                }}>&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(employee._id)}>&#xE872;</i></a>
+                                {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
+                                  <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => { handleEditEmployeee(employee) }}>&#xE254;</i></a>)
+                                  : permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true ? (
+                                    <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(employee._id)}>&#xE872;</i></a>)
+                                    : null}
                               </td>
                             </tr>
                           )
@@ -416,216 +423,210 @@ const Employees = () => {
 
 
               <div id="addEmployeeModal" className="modal fade">
-              {
-                permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true? (
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={createEmployee}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">اضافه موظف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group form-group-47">
-                          <label>الاسم</label>
-                          <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
-                          <div className="invalid-feedback">ادخل اسما صحيحا.</div>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>اسم المستخدم</label>
-                          <input type="text" className="form-control" required onChange={(e) => setusername(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الموبايل</label>
-                          <input type="text" className="form-control" required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
-                          <div className="invalid-feedback">Please enter a valid phone number (11 digits).</div>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الباسورد</label>
-                          <input type="text" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الرقم القومي</label>
-                          <input type="text" className="form-control" required onChange={(e) => setnumberID(e.target.value)} />
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الايميل</label>
-                          <input type="email" className="form-control" required onChange={(e) => setemail(e.target.value)} />
-                          <div className="invalid-feedback">Please enter a valid email address.</div>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>العنوان</label>
-                          <textarea className="form-control" required onChange={(e) => setaddress(e.target.value)}></textarea>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الحالة</label>
-                          <select form="carform" required onChange={(e) => setisActive(e.target.value)}>
-                            <option >اختر</option>
-                            <option value={true}>متاح</option>
-                            <option value={false}>ليس متاح</option>
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الشيفت</label>
-                          <select form="carform" required onChange={(e) => setshift(e.target.value)}>
-                            <option >اختر</option>
-                            {shifts ? shifts.map((shift, i) =>
-                              <option value={shift._id} key={i}>{shift.shiftType}</option>
-                            ) : <option>لم يتم انشاء شفتات</option>}
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>الوظيفه</label>
-                          <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
-                            <option>اختار وظيفة</option>
-                            <option value="manager">مدير</option>
-                            <option value="cashier">كاشير</option>
-                            <option value="deliveryman">الديلفري</option>
-                            <option value="waiter">ويتر</option>
-                            <option value="chef">شيف</option>
-                          </select>
-                        </div>
-                        <div className="form-group form-group-47">
-                          <label>المرتب الاساسي</label>
-                          <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
-                          <div className="invalid-feedback">Please enter a valid salary.</div>
-                        </div>
-                        {role == 'waiter' ?
-                          <div className="form-group form-group-47">
-                            <label>رقم السكشن</label>
-                            <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                {
+                  permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <form onSubmit={createEmployee}>
+                          <div className="modal-header">
+                            <h4 className="modal-title">اضافه موظف</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           </div>
-                          : ''}
+                          <div className="modal-body">
+                            <div className="form-group form-group-47">
+                              <label>الاسم</label>
+                              <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
+                              <div className="invalid-feedback">ادخل اسما صحيحا.</div>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>اسم المستخدم</label>
+                              <input type="text" className="form-control" required onChange={(e) => setusername(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الموبايل</label>
+                              <input type="text" className="form-control" required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
+                              <div className="invalid-feedback">Please enter a valid phone number (11 digits).</div>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الباسورد</label>
+                              <input type="text" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الرقم القومي</label>
+                              <input type="text" className="form-control" required onChange={(e) => setnumberID(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الايميل</label>
+                              <input type="email" className="form-control" required onChange={(e) => setemail(e.target.value)} />
+                              <div className="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>العنوان</label>
+                              <textarea className="form-control" required onChange={(e) => setaddress(e.target.value)}></textarea>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الحالة</label>
+                              <select form="carform" required onChange={(e) => setisActive(e.target.value)}>
+                                <option >اختر</option>
+                                <option value={true}>متاح</option>
+                                <option value={false}>ليس متاح</option>
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الشيفت</label>
+                              <select form="carform" required onChange={(e) => setshift(e.target.value)}>
+                                <option >اختر</option>
+                                {shifts ? shifts.map((shift, i) =>
+                                  <option value={shift._id} key={i}>{shift.shiftType}</option>
+                                ) : <option>لم يتم انشاء شفتات</option>}
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الوظيفه</label>
+                              <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
+                                <option>اختار وظيفة</option>
+                                <option value="manager">مدير</option>
+                                <option value="cashier">كاشير</option>
+                                <option value="deliveryman">الديلفري</option>
+                                <option value="waiter">ويتر</option>
+                                <option value="chef">شيف</option>
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>المرتب الاساسي</label>
+                              <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
+                              <div className="invalid-feedback">Please enter a valid salary.</div>
+                            </div>
+                            {role == 'waiter' ?
+                              <div className="form-group form-group-47">
+                                <label>رقم السكشن</label>
+                                <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                              </div>
+                              : ''}
 
+                          </div>
+                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                            <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                          </div>
+                        </form>
                       </div>
-                      <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
-                      </div>
-                    </form>
-                  </div>
-                </div>) : (
-                      alert('ليس لك صلاحية لانشاء بيانات الموظفين')
-                )}
+                    </div>) : null}
               </div>
 
               <div id="editEmployeeModal" className="modal fade">
                 {
-                permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true? (
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <form onSubmit={editEmployee}>
-                        <div className="modal-header">
-                          <h4 className="modal-title">تعديل بيانات الموظفين</h4>
-                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div className="modal-body">
-                          <div className="form-group form-group-47">
-                            <label>الاسم</label>
-                            <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
-                            <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
+                  permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <form onSubmit={editEmployee}>
+                          <div className="modal-header">
+                            <h4 className="modal-title">تعديل بيانات الموظفين</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           </div>
-                          <div className="form-group form-group-47">
-                            <label>اسم المستخدم</label>
-                            <input type="text" className="form-control" defaultValue={username} required onChange={(e) => setusername(e.target.value)} />
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الموبايل</label>
-                            <input type="text" className="form-control" defaultValue={phone} required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
-                            <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الباسورد</label>
-                            <input type="password" className="form-control" onChange={(e) => setpassword(e.target.value)} />
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الرقم القومي</label>
-                            <input type="text" className="form-control" defaultValue={numberID} required onChange={(e) => setnumberID(e.target.value)} />
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الايميل</label>
-                            <input type="email" className="form-control" defaultValue={email} required onChange={(e) => setemail(e.target.value)} />
-                            <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>العنوان</label>
-                            <textarea className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الحالة</label>
-                            <select form="carform" required defaultValue={isActive} onChange={(e) => setisActive(e.target.value)}>
-                              <option>{isActive ? 'متاح' : 'ليس متاح'}</option>
-                              <option value={true}>متاح</option>
-                              <option value={false}>ليس متاح</option>
-                            </select>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الشيفت</label>
-                            <select form="carform" required onChange={(e) => setshift(e.target.value)}>
-                              <option>{shift.shiftType}</option>
-                              {shifts ? shifts.map((shift, i) =>
-                                <option value={shift._id} key={i}>{shift.shiftType}</option>
-                              ) : <option>لم يتم انشاء شفتات</option>}
-                            </select>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>الوظيفة</label>
-                            <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
-                              <option>{role}</option>
-                              <option value="manager">مدير</option>
-                              <option value="cashier">كاشير</option>
-                              <option value="deliveryman">الديلفري</option>
-                              <option value="waiter">ويتر</option>
-                              <option value="chef">شيف</option>
-                            </select>
-                          </div>
-                          <div className="form-group form-group-47">
-                            <label>المرتب الاساسي</label>
-                            <input type="Number" min={0} className="form-control" defaultValue={basicSalary} required onChange={(e) => setbasicSalary(e.target.value)} />
-                          </div>
-                          {role === 'waiter' && (
+                          <div className="modal-body">
                             <div className="form-group form-group-47">
-                              <label>رقم السكشن</label>
-                              <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                              <label>الاسم</label>
+                              <input type="text" className="form-control" defaultValue={fullname} required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setfullname(e.target.value)} />
+                              <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                             </div>
-                          )}
-                        </div>
-                        <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="submit" className="btn w-50 btn-info" value="حفظ" />
-                        </div>
-                      </form>
+                            <div className="form-group form-group-47">
+                              <label>اسم المستخدم</label>
+                              <input type="text" className="form-control" defaultValue={username} required onChange={(e) => setusername(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الموبايل</label>
+                              <input type="text" className="form-control" defaultValue={phone} required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
+                              <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الباسورد</label>
+                              <input type="password" className="form-control" onChange={(e) => setpassword(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الرقم القومي</label>
+                              <input type="text" className="form-control" defaultValue={numberID} required onChange={(e) => setnumberID(e.target.value)} />
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الايميل</label>
+                              <input type="email" className="form-control" defaultValue={email} required onChange={(e) => setemail(e.target.value)} />
+                              <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>العنوان</label>
+                              <textarea className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الحالة</label>
+                              <select form="carform" required defaultValue={isActive} onChange={(e) => setisActive(e.target.value)}>
+                                <option>{isActive ? 'متاح' : 'ليس متاح'}</option>
+                                <option value={true}>متاح</option>
+                                <option value={false}>ليس متاح</option>
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الشيفت</label>
+                              <select form="carform" required onChange={(e) => setshift(e.target.value)}>
+                                <option>{shift.shiftType}</option>
+                                {shifts ? shifts.map((shift, i) =>
+                                  <option value={shift._id} key={i}>{shift.shiftType}</option>
+                                ) : <option>لم يتم انشاء شفتات</option>}
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>الوظيفة</label>
+                              <select name={role} form="carform" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
+                                <option>{role}</option>
+                                <option value="manager">مدير</option>
+                                <option value="cashier">كاشير</option>
+                                <option value="deliveryman">الديلفري</option>
+                                <option value="waiter">ويتر</option>
+                                <option value="chef">شيف</option>
+                              </select>
+                            </div>
+                            <div className="form-group form-group-47">
+                              <label>المرتب الاساسي</label>
+                              <input type="Number" min={0} className="form-control" defaultValue={basicSalary} required onChange={(e) => setbasicSalary(e.target.value)} />
+                            </div>
+                            {role === 'waiter' && (
+                              <div className="form-group form-group-47">
+                                <label>رقم السكشن</label>
+                                <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                            <input type="submit" className="btn w-50 btn-info" value="حفظ" />
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  toast.info('ليس لك صلاحية لتعديل بيانات الموظفين')
-                )}
+                  ) : null}
               </div>
 
               <div id="deleteEmployeeModal" className="modal fade">
-              {
-                permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true? (
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={deleteEmployee}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">حذف موظف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                {
+                  permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true ? (
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <form onSubmit={deleteEmployee}>
+                          <div className="modal-header">
+                            <h4 className="modal-title">حذف موظف</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          </div>
+                          <div className="modal-body">
+                            <p>هل انت متاكد من حذف هذا السجل؟?</p>
+                            <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
+                          </div>
+                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                            <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                          </div>
+                        </form>
                       </div>
-                      <div className="modal-body">
-                        <p>هل انت متاكد من حذف هذا السجل؟?</p>
-                        <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
-                      </div>
-                      <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
-                      </div>
-                    </form>
-                  </div>
-                </div>)
-                : (
-                  toast.info('ليس لك صلاحية لحذف بيانات الموظفين')
-                )}
+                    </div>)
+                    : null}
               </div>
               {/* <div id="deleteListEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
