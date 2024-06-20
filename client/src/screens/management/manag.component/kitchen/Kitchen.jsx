@@ -44,7 +44,7 @@ const Kitchen = () => {
       // Fetch orders from the API
       const ordersResponse = await axios.get(`${apiUrl}/api/order/limit/20`);
       const kitchenOrders = ordersResponse.data;
-      console.log({kitchenOrders})
+      console.log({ kitchenOrders })
       // Set all orders state
       setAllOrders(kitchenOrders);
 
@@ -163,7 +163,7 @@ const Kitchen = () => {
   }
   // Fetches all active waiters from the API
   const [AllWaiters, setAllWaiters] = useState([]); // State for active waiters
-  const [waiters, setWaiters] = useState([]); // State for active waiters ID
+  const [waitersId, setWaitersId] = useState([]); // State for active waiters ID
 
   const getAllWaiters = async () => {
     try {
@@ -171,11 +171,11 @@ const Kitchen = () => {
       const allEmployees = await axios.get(apiUrl + '/api/employee', config);
 
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
-      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true ) : [];
+      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
       setAllWaiters(waiterActive);
 
       const waiterIds = waiterActive.length > 0 ? waiterActive.map((waiter) => waiter._id) : [];
-      setWaiters(waiterIds);
+      setWaitersId(waiterIds);
     } catch (error) {
       console.log(error);
     }
@@ -184,26 +184,27 @@ const Kitchen = () => {
 
   // Determines the next available waiter to take an order
   const specifiedWaiter = async (id) => {
-    const getorder = allOrders.find((order) => order._id == id);
-    console.log({ getorder: getorder });
-
-    const tableId = getorder.table;
-    console.log({ tableId: tableId });
-
     try {
-      const getTable = await axios.get(`${apiUrl}/api/table/${tableId}`);
-      console.log({ getTable: getTable });
-
-      const tablesectionNumber = await getTable.data.sectionNumber;
+      const getorder = allOrders.find((order) => order._id == id);
+      console.log({ getorder: getorder });
+      const tablesectionNumber = await getorder.table && getorder.table.sectionNumber;
       console.log({ tablesectionNumber: tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
 
       const findwaiter = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
       console.log({ findwaiter: findwaiter });
+      const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
+      let waiterId = '';
 
-      const waiterId = findwaiter ? findwaiter._id : '';
-      console.log({ waiterId: waiterId });
+      if (OrderSection.length > 0) {
+        const lastWaiterId = OrderSection[OrderSection.length - 1].waiter._id;
+        const lastWaiterIndex = waitersId.findIndex(id => id === lastWaiterId);
+        waiterId = lastWaiterIndex !== -1 ? waitersId[lastWaiterIndex + 1] : waitersId[0];
+      } else {
+        waiterId = waitersId[0]; 
+        }
+      console.log({ waiterId });
 
       return waiterId;
     } catch (error) {
