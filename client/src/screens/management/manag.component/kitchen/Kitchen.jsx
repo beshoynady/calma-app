@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 // import './Kitchen.css'
 import axios from 'axios';
 import { detacontext } from '../../../../App'
-import { toast } from 'react-toastify'; // Importing toast from 'react-toastify' for notifications
+import { toast } from 'react-toastify';
 
 const Kitchen = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const token = localStorage.getItem('token_e'); 
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -472,8 +472,7 @@ const Kitchen = () => {
                         </div>
                       </div>
                     )
-                  } else if (order.status==='Prepared'&& order.products.filter((pr) => pr.
-                  isDeleverd === false).length > 0){
+                  } else if (order.status==='Prepared'&& order.products.filter((pr) =>  pr.isDone === true && pr.isDeleverd === false).length > 0){
                     return (
                       <div className="col-md-4 mb-4" key={i}>
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
@@ -492,7 +491,7 @@ const Kitchen = () => {
                             </div>
                           </div>
                           <ul className='list-group list-group-flush'>
-                            {order.products.filter((pr) => pr.isDone === false).map((product, i) => {
+                            {order.products.filter((pr) => pr.isDone === true && pr.isDeleverd === false).map((product, i) => {
                               return (
                                 <>
                                   <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i}
