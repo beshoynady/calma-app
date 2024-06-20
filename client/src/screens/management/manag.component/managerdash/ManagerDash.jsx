@@ -488,11 +488,14 @@ const ManagerDash = () => {
 
   const [kitchenOrder, setkitchenOrder] = useState({})
   const [kitchenProducts, setkitchenProducts] = useState([])
+  const [kitchenExtras, setkitchenExtras] = useState([])
   const getKitchenCard = (id) => {
     const neworder = pendingPayment.find((order) => order._id === id);
     setkitchenOrder(neworder);
     const orderproducts = neworder.products
     const newproducts = orderproducts.filter((product) => product.isDone === false)
+    const newExreas = orderproducts.filter((extra) => extra.isDone === false)
+    setkitchenExtras(newExreas)
     setkitchenProducts(newproducts)
 
   }
@@ -604,13 +607,13 @@ const ManagerDash = () => {
             <section className='dashboard ' style={{scrollbarWidth:'none'}}>
               <div className='container w-100 mw-100 p-2 m-0'>
                 <div className="header">
+                  <div className="titel-dashbord">
+                    <h1>الصفحة الرئيسيه</h1>
+                  </div>
                   <a href={`http://${window.location.hostname}`} className="website">
                     <i className='bx bx-cloud-download'></i>
                     <span>الموقع</span>
                   </a>
-                  <div className="titel-dashbord">
-                    <h1>الصفحة الرئيسيه</h1>
-                  </div>
                 </div>
 
                 <ul className="insights">
@@ -1247,6 +1250,7 @@ const ManagerDash = () => {
                               <ul className='list-group list-group-flush'>
                                 {kitchenProducts.map((product, i) => {
                                   return (
+                                    <>
                                     <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                       <div className="d-flex justify-content-between align-items-center w-100">
                                         <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
@@ -1254,6 +1258,39 @@ const ManagerDash = () => {
                                       </div>
                                       <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
                                     </li>
+                                    {product.extras && product.extras.length > 0 && (
+                                      product.extras.map((extra, j) => {
+                                        if (extra && extra.isDone === false) {
+                                          return (
+                                            <tr key={`${i}-${j}`}>
+                                              <td className="col-md-3 text-truncate">
+                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraDetails.map((detail) => (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                  ))}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">
+                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                  {extra.extraDetails.map((detail) => (
+                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
+                                                  ))}
+                                                </div>
+                                              </td>
+                                              <td className="col-md-2 text-nowrap">1</td>
+                                              <td className="col-md-2 text-nowrap">
+                                                {extra && (
+                                                  <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                                )}
+                                              </td>
+                                            </tr>
+                                          );
+                                        } else {
+                                          return null; // Return null if extra.isPaid !== false
+                                        }
+                                      })
+                                    )}
+                                    </>
                                   )
                                 })}
                               </ul>

@@ -95,6 +95,11 @@ const OrderSchema = new mongoose.Schema({
               },
             }
           ],
+          isDone: {
+            type: Boolean,
+            default: false,
+            required: true,
+          },
           isPaid: {
             type: Boolean,
             required: true,
