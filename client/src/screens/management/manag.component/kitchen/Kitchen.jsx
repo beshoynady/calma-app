@@ -42,7 +42,7 @@ const Kitchen = () => {
     try {
 
       // Fetch orders from the API
-      const ordersResponse = await axios.get(`${apiUrl}/api/order/limit/20`);
+      const ordersResponse = await axios.get(`${apiUrl}/api/order/limit/50`);
       const kitchenOrders = ordersResponse.data;
       console.log({ kitchenOrders })
       // Set all orders state
@@ -188,18 +188,18 @@ const Kitchen = () => {
       const getorder = allOrders.find((order) => order._id == id);
       console.log({ getorder: getorder });
       const tablesectionNumber = await getorder.table && getorder.table.sectionNumber;
-      console.log({ tablesectionNumber: tablesectionNumber });
+      console.log({tablesectionNumber });
 
       console.log({ AllWaiters: AllWaiters });
 
-      const findwaiter = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
-      console.log({ findwaiter: findwaiter });
+      const sectionWaiters = AllWaiters ? AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber) : null;
+
       const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber)
       let waiterId = '';
 
       if (OrderSection.length > 0) {
         const lastWaiterId = OrderSection[OrderSection.length - 1].waiter._id;
-        const lastWaiterIndex = waitersId.findIndex(id => id === lastWaiterId);
+        const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
         waiterId = lastWaiterIndex !== -1 ? waitersId[lastWaiterIndex + 1] : waitersId[0];
       } else {
         waiterId = waitersId[0]; 
@@ -247,14 +247,11 @@ console.log({id, type})
       const response = await axios.put(`${apiUrl}/api/order/${id}`, orderData, config);
       if (response.status === 200) {
         // Fetch orders from the API
-        const orders = await axios.get(apiUrl + '/api/order');
-        // Set all orders state
-        setAllOrders(orders.data);
-
+        getAllOrders()
         // Filter active orders based on certain conditions
-        const activeOrders = orders.length > 0 ? orders.data.filter(
+        const activeOrders = allOrders&&allOrders.data.filter(
           (order) => order.isActive && (order.status === 'Approved' || order.status === 'Preparing')
-        ) : "";
+        );
         console.log({ activeOrders });
         // Set active orders state
         setOrderActive(activeOrders);
