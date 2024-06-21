@@ -550,7 +550,6 @@ const ManagerDash = () => {
   const aproveOrder = async (e, cashier) => {
     e.preventDefault()
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch order data by ID
       const order = await axios.get(`${apiUrl}/api/order/${kitchenOrder._id}`, config);
