@@ -860,33 +860,33 @@ const ManagerDash = () => {
                         order.isActive === true &&
                         order.help !== 'Not requested'
                       ).map((order, i) => (
-                        <li className={`card list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning' :order.helpStatus === 'Assistance done' ? 'bg-success' : 'bg-info'} mb-2`}
+                        <li className={`card list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning text-dark' : order.helpStatus === 'Assistance done' ? 'bg-success' : 'bg-info'} mb-2`}
                           key={i}
                         >
                           <div className="task-title card-body d-flex justify-content-between align-items-center p-0 m-0">
                             <div className='d-flex w-50 justify-content-between align-items-center'>
-                            <p className='w-50' style={{fontSize:'16px', fontWeight:"900"}}>طاوله : {order.table && order.table.tableNumber}</p>
-                            <p className='w-50'style={{fontSize:'16px', fontWeight:"900"}}>
-                              {order.help === 'Requests assistance'
-                                ? 'يحتاج المساعدة'
-                                : order.help === 'Requests bill'
-                                  ? 'يحتاج الفاتورة'
-                                  : ''}
-                            </p>
+                              <p className='w-50 text-dark' style={{ fontSize: '16px', fontWeight: "900" }}>طاوله : {order.table && order.table.tableNumber}</p>
+                              <p className='w-50 text-dark' style={{ fontSize: '16px', fontWeight: "900" }}>
+                                {order.help === 'Requests assistance'
+                                  ? 'يحتاج المساعدة'
+                                  : order.help === 'Requests bill'
+                                    ? 'يحتاج الفاتورة'
+                                    : ''}
+                              </p>
                             </div>
 
                             {order.helpStatus === 'Not send' ? (
                               <button
                                 type="button"
-                                className="btn w-25 btn-primary"
+                                className="btn w-50 text-dark btn-primary"
                                 onClick={() => sendWaiter(order._id)}
                               >
                                 ارسال ويتر
                               </button>
                             ) : (
-                              <div className='d-flex flex-nowrap w-50 justify-content-between align-items-center'>
-                                <p className='w-50 text-center'style={{fontSize:'16px', fontWeight:"900"}}> {order.waiter?.fullname}</p>
-                                <p className='w-50 text-center'style={{fontSize:'16px', fontWeight:"900"}}>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
+                              <div className='d-flex flex-nowrap w-50 text-dark justify-content-between align-items-center'>
+                                <p className='w-50 text-dark text-center' style={{ fontSize: '16px', fontWeight: "900" }}> {order.waiter?.fullname}</p>
+                                <p className='w-50 text-dark text-center' style={{ fontSize: '16px', fontWeight: "900" }}>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
                                   : order.helpStatus === 'On the way' ? 'في الطريق'
                                     : order.helpStatus === 'Assistance done' ? 'تمت'
                                       : ''
@@ -923,7 +923,7 @@ const ManagerDash = () => {
                             <p>الاسم: {orderdata.name}</p>
                             <p>الموبايل: {orderdata.phone}</p>
                             <p>العنوان: {orderdata.address}</p>
-                            {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
+                            <p>Delivery Man: {orderdata.deliveryMan?.fullname}</p>
                           </div>
                             : orderdata.orderType == 'Takeaway' ?
                               <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
