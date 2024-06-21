@@ -357,7 +357,7 @@ const ManagerDash = () => {
 
   const [listProductsOrder, setlistProductsOrder] = useState([])
   const [serial, setserial] = useState('')
-  const [ordertype, setordertype] = useState('')
+  const [orderType, setorderType] = useState('')
   const [name, setname] = useState('')
   const [address, setaddress] = useState('')
   const [phone, setphone] = useState('')
@@ -400,7 +400,7 @@ const ManagerDash = () => {
         setcashier(order.cashier)
         settable(order.orderType == 'Internal' ? order.table : '')
         setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-        setordertype(order.orderType)
+        setorderType(order.orderType)
         setaddress(order.orderType == 'Delivery' ? order.address : "")
         setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
         if (order.orderType != 'Internal') {
@@ -857,17 +857,18 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير:{orderdata.cashier && orderdata.cashier.fullname} | فاتورة #{serial} | {orderdata.ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير:{orderdata.cashier?.fullname} | فاتورة #{serial} | {orderdata.orderType === 'Internal' ? `طاولة' ${orderdata.table?.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
-                          {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                          {orderdata.orderType == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
                             <p>الاسم: {orderdata.name}</p>
                             <p>الموبايل: {orderdata.phone}</p>
                             <p>العنوان: {orderdata.address}</p>
                             {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                          </div> : ordertype == 'Takeaway' ?
+                          </div> 
+                          : orderdata.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
                               <p>الاسم: {orderdata.name}</p>
@@ -1005,17 +1006,17 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير {orderdata.cashier && orderdata.cashier.fullname} | فاتورة باقي #{serial} | {orderdata.ordertype === 'Internal' ? `Table ${orderdata.table && orderdata.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير {orderdata.cashier && orderdata.cashier.fullname} | فاتورة باقي #{serial} | {orderdata.orderType === 'Internal' ? `Table ${orderdata.table && orderdata.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
-                          {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
+                          {orderType == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
                             <p>الاسم: {orderdata.name}</p>
                             <p>الموبايل: {orderdata.phone}</p>
                             <p>العنوان: {orderdata.address}</p>
                             {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                          </div> : ordertype == 'Takeaway' ?
+                          </div> : orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
                               <p>الاسم: {orderdata.name}</p>

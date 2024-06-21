@@ -307,20 +307,20 @@ const Orders = () => {
                           <h2>{restaurantData.name}</h2>
                           <p>
                             كاشير {orderData.cashier?.fullname} | فاتورة #{orderData.serial} |
-                            {orderData.ordertype === 'Internal' && `طاولة ${orderData.table?.tableNumber}`} |
+                            {orderData.orderType === 'Internal' && `طاولة ${orderData.table?.tableNumber}`} |
                             التاريخ: {formatdate(new Date())}
                           </p>
                         </div>
 
                         {/* Customer Information */}
-                        {orderData.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                        {orderData.orderType == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                           <h4>بيانات العميل</h4>
                           <p>الاسم: {orderData.name && orderData.name}</p>
                           <p>الموبايل: {orderData.phone && orderData.phone}</p>
                           <p>العنوان: {orderData.ordernum && orderData.address}</p>
                           <p>Delivery Man: {orderData.deliveryMan && orderData.deliveryMan.fullname}</p>
                         </div>
-                          : orderData.ordertype == 'Takeaway' ?
+                          : orderData.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
                               <p>الاسم: {orderData.name && orderData.name}</p>
