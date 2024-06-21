@@ -1968,7 +1968,7 @@ function App() {
         allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
 
         // Functions related to users, tables, and orders
-        allUsers, allTable, usertitle, allOrders, askingForHelp,
+        allUsers, allTable, usertitle, allOrders,
 
         // Functions related to manipulating product details
         setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, setproductExtras, productExtras,

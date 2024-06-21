@@ -58,6 +58,8 @@ const Home = () => {
     }
   };
 
+
+  
   return (
     <detacontext.Consumer>
       {
