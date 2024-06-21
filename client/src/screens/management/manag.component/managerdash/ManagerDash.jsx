@@ -873,14 +873,16 @@ const ManagerDash = () => {
                       <i className='bx bx-filter'></i>
                     </div>
                     <ul className="task-list">
-                      {pendingPayment.filter((order) => order.orderType == 'Internal' && order.payment_status == 'Pending' && order.status !== "Cancelled" && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
+                      {pendingPayment.filter((order) => order.orderType == 'Internal' && 
+                      order.payment_status == 'Pending' && order.status !== "Cancelled" && order.isActive == false ||
+                       order.help !== 'Not requested').map((order, i) => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
                               <p>طاوله :  {order.table && order.table.tableNumber}</p>
                               <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
-                              {order.helpStatus == 'Not send' ?
-                                <button type="button" className="btn btn-47 btn-primary"
+                              {order.helpStatus == 'Not send' || order.helpStatus == 'Assistance done' ?
+                                <button type="button" className="btn w-25 btn-primary"
                                   onClick={() => sendWaiter(order._id)}>ارسال ويتر</button>
                                 : <p>تم ارسال {order.waiter && order.waiter.fullname}</p>}
                             </div>
