@@ -604,7 +604,7 @@ const ManagerDash = () => {
       {
         ({ restaurantData, employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            <section className='dashboard ' style={{scrollbarWidth:'none'}}>
+            <section className='dashboard ' style={{ scrollbarWidth: 'none' }}>
               <div className='container w-100 mw-100 p-2 m-0'>
                 <div className="header">
                   <div className="titel-dashbord">
@@ -901,7 +901,7 @@ const ManagerDash = () => {
                         : ''}
 
                   </div>
-                  
+
                   <div className="reminders">
                     <div className="header">
                       {/* <i className='bx bx-note'></i> */}
@@ -909,14 +909,16 @@ const ManagerDash = () => {
                       <i className='bx bx-filter'></i>
                     </div>
                     <ul className="task-list">
-                      {pendingPayment.filter((order) => order.payment_status == 'Pending' && order.status !== "Cancelled" && order.orderType == 'Internal' && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
+                      {pendingPayment.filter((order) => order.orderType == 'Internal' && order.payment_status == 'Pending' && order.status !== "Cancelled" && order.isActive == false || order.help !== 'Not requested').map((order, i) => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
-                              <p>طاوله :  {usertitle(order.table)}</p>
+                              <p>طاوله :  {order.table.tableNumber}</p>
                               <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
-                              {order.helpStatus == 'Not send' ? <button type="button" className="btn btn-47 btn-primary" onClick={() => sendWaiter(order._id)}>ارسال ويتر</button> :
-                                <p>تم ارسال {usertitle(order.waiter)}</p>}
+                              {order.helpStatus == 'Not send' ?
+                                <button type="button" className="btn btn-47 btn-primary"
+                                  onClick={() => sendWaiter(order._id)}>ارسال ويتر</button>
+                                : <p>تم ارسال {order.waiter.fullname}</p>}
                             </div>
                           </li>
                         )
@@ -1234,7 +1236,7 @@ const ManagerDash = () => {
                             <div className="card text-white bg-success" style={{ width: "265px" }}>
                               <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                                 <div style={{ maxWidth: "50%" }}>
-                                  <p className="card-text"> {kitchenOrder.table ? (`طاولة: ${kitchenOrder.table.tableNumber}` ): (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
+                                  <p className="card-text"> {kitchenOrder.table ? (`طاولة: ${kitchenOrder.table.tableNumber}`) : (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
                                   <p className="card-text">نوع الطلب: {kitchenOrder.orderType}</p>
                                   {kitchenOrder.ordernum ? `<p className="card-text"> رقم الطلب:  ${kitchenOrder.ordernum} </p>` : ''}
                                 </div>
@@ -1251,45 +1253,45 @@ const ManagerDash = () => {
                                 {kitchenProducts.map((product, i) => {
                                   return (
                                     <>
-                                    <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
-                                      <div className="d-flex justify-content-between align-items-center w-100">
-                                        <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
-                                        <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
-                                      </div>
-                                      <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
-                                    </li>
-                                    {product.extras && product.extras.length > 0 && (
-                                      product.extras.map((extra, j) => {
-                                        if (extra && extra.isDone === false) {
-                                          return (
-                                            <tr key={`${i}-${j}`}>
-                                              <td className="col-md-3 text-truncate">
-                                                <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                  {extra.extraDetails.map((detail) => (
-                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
-                                                  ))}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">
-                                                <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
-                                                  {extra.extraDetails.map((detail) => (
-                                                    <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
-                                                  ))}
-                                                </div>
-                                              </td>
-                                              <td className="col-md-2 text-nowrap">1</td>
-                                              <td className="col-md-2 text-nowrap">
-                                                {extra && (
-                                                  <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
-                                                )}
-                                              </td>
-                                            </tr>
-                                          );
-                                        } else {
-                                          return null; // Return null if extra.isPaid !== false
-                                        }
-                                      })
-                                    )}
+                                      <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i} style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                          <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
+                                          <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
+                                        </div>
+                                        <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
+                                      </li>
+                                      {product.extras && product.extras.length > 0 && (
+                                        product.extras.map((extra, j) => {
+                                          if (extra && extra.isDone === false) {
+                                            return (
+                                              <tr key={`${i}-${j}`}>
+                                                <td className="col-md-3 text-truncate">
+                                                  <div className="d-flex flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                    {extra.extraDetails.map((detail) => (
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                                    ))}
+                                                  </div>
+                                                </td>
+                                                <td className="col-md-2 text-nowrap">
+                                                  <div className="d-flex  flex-column flex-wrap w-100 align-items-center justify-content-between">
+                                                    {extra.extraDetails.map((detail) => (
+                                                      <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.price} ج`}</p>
+                                                    ))}
+                                                  </div>
+                                                </td>
+                                                <td className="col-md-2 text-nowrap">1</td>
+                                                <td className="col-md-2 text-nowrap">
+                                                  {extra && (
+                                                    <p className="badge badge-info m-1">{extra.totalExtrasPrice} ج</p>
+                                                  )}
+                                                </td>
+                                              </tr>
+                                            );
+                                          } else {
+                                            return null; // Return null if extra.isPaid !== false
+                                          }
+                                        })
+                                      )}
                                     </>
                                   )
                                 })}
