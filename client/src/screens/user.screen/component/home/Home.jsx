@@ -19,7 +19,7 @@ const Home = () => {
 
   const askingForHelp = async (tableId) => {
     try {
-      const allOrders = await axios.get(apiUrl+'/api/order/limit/30' ,config)
+      const allOrders = await axios.get(apiUrl+'/api/order/limit/30' ,config).data
       // Filter orders for the specified table
       const tableOrders = allOrders.filter(order => order.table && order.table._id == tableId);
   
@@ -42,14 +42,19 @@ const Home = () => {
   
         // Create a new order with the help request
         const newOrder = await axios.post(`${apiUrl}/api/order/`, { serial, table, help });
-        console.log(newOrder);
+        if(newOrder){
+          toast.info('تم طلب الويتر للمساعدة ')
+        }
+
       } else {
         // If the last table order is active, update the existing order with the help request
         const id = lastTableOrder._id;
         const help = 'Requests assistance';
-        const helpStatus = 'Ns'
+        const helpStatus = 'Not send'
         const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, { help, helpStatus});
-        console.log(updatedOrder);
+        if(updatedOrder){
+          toast.info('تم طلب الويتر للمساعدة ')
+        }
       }
     } catch (error) {
       // Log any errors that occur during the process
