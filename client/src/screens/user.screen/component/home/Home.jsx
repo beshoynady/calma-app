@@ -27,7 +27,7 @@ const Home = () => {
       const tableOrders = allOrders.filter(order => order.table && order.table._id === tableId);
 
       // Get the last order for the table
-      const lastTableOrder = tableOrders.length > 0 ? tableOrders[tableOrders.length - 1] : null;
+      const lastTableOrder = tableOrders.length > 0 ? tableOrders[0] : null;
 
       // Check if the last table order is active
       const lastTableOrderActive = lastTableOrder ? lastTableOrder.isActive : false;
