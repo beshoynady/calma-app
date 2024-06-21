@@ -118,7 +118,7 @@
 .dashboard .container .bottom-data > div {
   border-radius: 20px;
   background: var(--light);
-  padding: 24px;
+  padding: 10px;
   overflow-x: auto;
 }
 .dashboard .container .bottom-data .header {
@@ -162,7 +162,7 @@
   justify-content: space-between;
   color: var(--light);
 }
-.dashboard .container .bottom-data .reminders .task-list li .task-title p {
+.dashboard .container .bottom-data .reminders .task-list li .task-title > p {
   font-size: 18px;
   font-weight: 600;
   margin-left: 6px;

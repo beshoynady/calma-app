@@ -859,16 +859,14 @@ const ManagerDash = () => {
                         order.status !== 'Cancelled' &&
                         order.isActive === true &&
                         order.help !== 'Not requested'
-                        // &&
-                        // order.helpStatus !== 'Assistance done'
                       ).map((order, i) => (
-                        <li className={`card list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning' :'bg-success'} mb-2`}
+                        <li className={`card list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning' :order.helpStatus === 'Assistance done' ? 'bg-success' : 'bg-info'} mb-2`}
                           key={i}
                         >
                           <div className="task-title card-body d-flex justify-content-between align-items-center p-0 m-0">
                             <div className='d-flex w-50 justify-content-between align-items-center'>
-                            <p className='w-50' style={{fontSize:'14px', fontWeight:"600"}}>طاوله : {order.table && order.table.tableNumber}</p>
-                            <p className='w-50'style={{fontSize:'14px', fontWeight:"600"}}>
+                            <p className='w-50' style={{fontSize:'16px', fontWeight:"900"}}>طاوله : {order.table && order.table.tableNumber}</p>
+                            <p className='w-50'style={{fontSize:'16px', fontWeight:"900"}}>
                               {order.help === 'Requests assistance'
                                 ? 'يحتاج المساعدة'
                                 : order.help === 'Requests bill'
@@ -887,8 +885,8 @@ const ManagerDash = () => {
                               </button>
                             ) : (
                               <div className='d-flex flex-nowrap w-50 justify-content-between align-items-center'>
-                                <p className='w-50 text-center'style={{fontSize:'14px', fontWeight:"600"}}> {order.waiter?.fullname}</p>
-                                <p className='w-50 text-center'style={{fontSize:'14px', fontWeight:"600"}}>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
+                                <p className='w-50 text-center'style={{fontSize:'16px', fontWeight:"900"}}> {order.waiter?.fullname}</p>
+                                <p className='w-50 text-center'style={{fontSize:'16px', fontWeight:"900"}}>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
                                   : order.helpStatus === 'On the way' ? 'في الطريق'
                                     : order.helpStatus === 'Assistance done' ? 'تمت'
                                       : ''

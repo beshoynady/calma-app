@@ -157,7 +157,7 @@ $color_7: var(--danger);
 			>div {
 				border-radius: 20px;
 				background: var(--light);
-				padding: 24px;
+				padding: 10px;
 				overflow-x: auto;
 			}
 
@@ -204,7 +204,7 @@ $color_7: var(--danger);
 							justify-content: space-between;
 							color: var(--light);
 
-							p {
+							>p{
 								font-size: 18px;
 								font-weight: 600;
 								margin-left: 6px;
