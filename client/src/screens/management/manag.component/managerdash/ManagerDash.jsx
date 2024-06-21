@@ -852,63 +852,7 @@ const ManagerDash = () => {
                       <h3>متابعه الطاولة</h3>
                       <i className='bx bx-filter'></i>
                     </div>
-                    <ul className="list-group">
-                      {pendingPayment.filter(order =>
-                        order.orderType === 'Internal' &&
-                        order.payment_status === 'Pending' &&
-                        order.status !== 'Cancelled' &&
-                        order.isActive === true &&
-                        order.help !== 'Not requested' &&
-                        order.helpStatus !== 'Assistance done'
-                      ).map((order, i) => (
-                        <li
-                          className={`list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning' : 'bg-success'} mb-2`}
-                          key={i}
-                        >
-                          <div className="card">
-                            <div className="card-body">
-                              <div className="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <p className="mb-1">طاوله : {order.table && order.table.tableNumber}</p>
-                                  <p className="mb-1">
-                                    {order.help === 'Requests assistance'
-                                      ? 'يحتاج المساعدة'
-                                      : order.help === 'Requests bill'
-                                        ? 'يحتاج الفاتورة'
-                                        : ''}
-                                  </p>
-                                </div>
-                                <div>
-                                  {order.helpStatus === 'Not send' ? (
-                                    <button
-                                      type="button"
-                                      className="btn btn-primary"
-                                      onClick={() => sendWaiter(order._id)}
-                                    >
-                                      ارسال ويتر
-                                    </button>
-                                  ) : (
-                                    <div>
-                                      <p className="mb-1">
-                                        {order.helpStatus === 'Send waiter'
-                                          ? 'تم ارسال'
-                                          : order.helpStatus === 'On the way'
-                                            ? 'في الطريق'
-                                            : order.helpStatus === 'Assistance done'
-                                              ? 'تمت'
-                                              : ''}
-                                      </p>
-                                      <p className="mb-1">{order.waiter?.fullname}</p>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                    {/* <ul className="task-list">
+                    <ul className="task-list list-group">
                       {pendingPayment.filter(order =>
                         order.orderType === 'Internal' &&
                         order.payment_status === 'Pending' &&
@@ -919,18 +863,22 @@ const ManagerDash = () => {
                         // order.helpStatus !== 'Assistance done'
                       ).map((order, i) => (
                         <li
-                          className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'}
+                          className={`card list-group-item ${order.helpStatus === 'Not send' ? 'bg-warning' :
+                            'bg-success'} mb-2`}
                           key={i}
                         >
-                          <div className="task-title">
-                            <p>طاوله : {order.table && order.table.tableNumber}</p>
-                            <p>
+                          <div className="task-title card-body d-flex justify-content-between align-items-center">
+                            <div className='d-flex w-50 justify-content-between align-items-center'>
+                            <p className='w-50'>طاوله : {order.table && order.table.tableNumber}</p>
+                            <p className='w-50'>
                               {order.help === 'Requests assistance'
                                 ? 'يحتاج المساعدة'
                                 : order.help === 'Requests bill'
                                   ? 'يحتاج الفاتورة'
                                   : ''}
                             </p>
+                            </div>
+
                             {order.helpStatus === 'Not send' ? (
                               <button
                                 type="button"
@@ -940,17 +888,20 @@ const ManagerDash = () => {
                                 ارسال ويتر
                               </button>
                             ) : (
-                              <p className=''>{order.helpStatus === 'Send waiter'?'تم ارسال'
-                                :order.helpStatus ==='On the way'? 'في الطريق'
-                                :order.helpStatus ==='Assistance done'? 'تمت'
-                                :''
+                              <div className='d-flex flex-nowrap w-50 justify-content-between align-items-center'>
+                                <p className='w-50'>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
+                                  : order.helpStatus === 'On the way' ? 'في الطريق'
+                                    : order.helpStatus === 'Assistance done' ? 'تمت'
+                                      : ''
                                 } {order.waiter?.fullname}
-                              </p>
+                                </p>
+                                <p className='w-50'> {order.waiter?.fullname}</p>
+                              </div>
                             )}
                           </div>
                         </li>
                       ))}
-                    </ul> */}
+                    </ul>
                   </div>
 
                 </div>
