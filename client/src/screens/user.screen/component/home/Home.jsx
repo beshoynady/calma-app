@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import './Home.css'
 import { detacontext } from '../../../../App'
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import axios from 'axios';
 
 const Home = () => {
@@ -59,7 +61,7 @@ const Home = () => {
   };
 
 
-  
+
   return (
     <detacontext.Consumer>
       {
