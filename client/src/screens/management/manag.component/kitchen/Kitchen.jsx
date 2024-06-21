@@ -526,8 +526,8 @@ const Kitchen = () => {
                             })}
                           </ul>
                           <div className="card-footer text-center w-100 d-flex flex-row">
-                            (<button className="btn w-100 btn-info btn btn-lg"
-                            >انتظار الاستلام</button>)
+                            <button className="btn w-100 btn-info btn btn-lg"
+                            >انتظار الاستلام</button>
                           </div>
                         </div>
                       </div>
