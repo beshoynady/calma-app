@@ -809,6 +809,7 @@ const ManagerDash = () => {
                                         onChange={(e) => putdeliveryman(e.target.value, recent._id)}
                                       >
                                         <option value={recent.deliveryMan?._id}>
+                                          {console.log({deliveryMan})}
                                           {recent.deliveryMan ? recent.deliveryMan.fullname : "لم يحدد"}
                                         </option>
                                         {deliverymen.map((man, i) => (
