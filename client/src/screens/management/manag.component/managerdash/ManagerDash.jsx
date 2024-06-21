@@ -178,8 +178,7 @@ const ManagerDash = () => {
 
   const fetchActiveEmployees = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/employee', config);
-      const activeEmployees = response.data.filter((employee) => employee.isActive === true);
+      const allEmployees = await axios.get(apiUrl + '/api/employee', config);
 
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
       const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
