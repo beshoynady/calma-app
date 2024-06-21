@@ -1125,21 +1125,24 @@ function App() {
       const id = myOrderId;
       const isActive = false;
       const help = 'Requesting the bill';
+      const helpStatus = 'Not send'
 
       // Update order to mark it for checkout
       const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, {
         isActive,
-        help
+        help,
+        helpStatus
       });
-
-      // Show success toast after successfully marking order for checkout
-      toast.success('تم طلب الحساب');
-      // socket.emit("sendorder", `  طاولة${tablenum} تطلب الحساب`);
-
-      // Redirect after 10 minutes
-      setTimeout(() => {
-        window.location.href = `https://${window.location.hostname}`;
-      }, 60000 * 10);
+      if(updatedOrder){        
+        // Show success toast after successfully marking order for checkout
+        toast.success('تم طلب الحساب');
+        // socket.emit("sendorder", `  طاولة${tablenum} تطلب الحساب`);
+  
+        // Redirect after 10 minutes
+        setTimeout(() => {
+          window.location.href = `https://${window.location.hostname}`;
+        }, 60000 * 10);
+      }
     } catch (error) {
       console.log(error);
       // Show error toast if there's an issue with marking the order for checkout
@@ -1547,7 +1550,8 @@ function App() {
         // If the last table order is active, update the existing order with the help request
         const id = lastTableOrder._id;
         const help = 'Requests assistance';
-        const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, { help });
+        const helpStatus = 'Ns'
+        const updatedOrder = await axios.put(`${apiUrl}/api/order/${id}`, { help, helpStatus});
         console.log(updatedOrder);
       }
     } catch (error) {

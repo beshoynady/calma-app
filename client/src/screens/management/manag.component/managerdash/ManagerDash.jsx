@@ -875,8 +875,9 @@ const ManagerDash = () => {
                         order.payment_status === 'Pending' &&
                         order.status !== 'Cancelled' &&
                         order.isActive === true &&
-                        order.help !== 'Not requested' &&
-                        order.helpStatus !== 'Assistance done'
+                        order.help !== 'Not requested' 
+                        // &&
+                        // order.helpStatus !== 'Assistance done'
                       ).map((order, i) => (
                         <li
                           className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'}
@@ -891,7 +892,7 @@ const ManagerDash = () => {
                                   ? 'يحتاج الفاتورة'
                                   : ''}
                             </p>
-                            {order.helpStatus === 'Not send' || order.helpStatus !== 'Assistance done' ? (
+                            {order.helpStatus === 'Not send'? (
                               <button
                                 type="button"
                                 className="btn w-25 btn-primary"
