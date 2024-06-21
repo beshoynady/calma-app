@@ -6,67 +6,17 @@ const createOrder = async (req, res) => {
     try {
         // Destructure the request body
         const {
-            serial,
-            ordernum,
-            products,
-            subTotal,
-            tax,
-            addition,
-            discount,
-            deliveryCost,
-            total,
-            table,
-            user,
-            createdBy,
-            cashier,
-            name,
-            address,
-            phone,
-            waiter,
-            deliveryMan,
-            help,
-            helpStatus,
-            status,
-            orderType,
-            isActive,
-            payment_status,
-            payment_method,
-            payment_date
+            serial, ordernum, products, subTotal, tax, addition, discount, deliveryCost, total, table, user, createdBy, cashier, name, address, phone, waiter, deliveryMan, help, helpStatus, status, orderType, isActive, payment_status, payment_method, payment_date
         } = req.body;
 
         // Validate required fields
-        if (!serial || !products || !subTotal || !total) {
+        if (!serial && ( (!products || !subTotal || !total) || (help && table )) ){
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
         // Create a new order
         const newOrder = await OrderModel.create({
-            serial,
-            ordernum,
-            products,
-            subTotal,
-            tax,
-            addition,
-            discount,
-            deliveryCost,
-            total,
-            table,
-            user,
-            createdBy,
-            cashier,
-            name,
-            address,
-            phone,
-            waiter,
-            deliveryMan,
-            help,
-            helpStatus,
-            status,
-            orderType,
-            isActive,
-            payment_status,
-            payment_method,
-            payment_date
+            serial, ordernum, products, subTotal, tax, addition, discount, deliveryCost, total, table, user, createdBy, cashier, name, address, phone, waiter, deliveryMan, help, helpStatus, status, orderType, isActive, payment_status, payment_method, payment_date
         });
 
         // Check if the order was created successfully
