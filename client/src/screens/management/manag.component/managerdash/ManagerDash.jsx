@@ -189,7 +189,7 @@ const ManagerDash = () => {
         toast.warning('لم يتم العثور على ويتر نشط الان.');
       }
 
-      const alldeliverymens = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'deliverymen') : [];
+      const alldeliverymens = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'deliveryman') : [];
       const deliverymenActive = allWaiters.length > 0 ? alldeliverymens.filter((deliverymen) => deliverymen.isActive === true) : [];
       if (deliverymenActive) {
         setDeliverymen(deliverymenActive);
@@ -801,17 +801,24 @@ const ManagerDash = () => {
                                   </td>
                                   <td>{recent.waiter ? recent.waiter.fullname : ''}</td>
                                   <td>
-                                    {recent.orderType == 'Delivery' ?
-                                      <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
-                                        <option value={recent.deliveryMan}>{recent.deliveryMan ? recent.deliveryMan.fullname : "لم يحدد"}</option>
-                                        {deliverymen.map((man, i) => {
-                                          return (
-                                            <option value={man._id} key={i}>{man.fullname}</option>
-                                          )
-                                        })
-                                        }
+                                    {recent.orderType === 'Delivery' && (
+                                      <select
+                                        name="status"
+                                        id="status"
+                                        form="carform"
+                                        onChange={(e) => putdeliveryman(e.target.value, recent._id)}
+                                      >
+                                        <option value={recent.deliveryMan._id}>
+                                          {recent.deliveryMan ? recent.deliveryMan.fullname : "لم يحدد"}
+                                        </option>
+                                        {deliverymen.map((man, i) => (
+                                          <option value={man._id} key={i}>
+                                            {man.fullname}
+                                          </option>
+                                        ))}
                                       </select>
-                                      : ''}
+                                    )}
+
                                   </td>
                                   <td>{recent.orderType}</td>
                                   <td>
