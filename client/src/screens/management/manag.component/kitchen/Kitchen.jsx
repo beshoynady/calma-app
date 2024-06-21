@@ -407,7 +407,7 @@ const Kitchen = () => {
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
                           <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                             <div style={{ maxWidth: "50%" }}>
-                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.fullname}` : '')}</p>
+                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.username}` : '')}</p>
                               <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
                               <p className="card-text">الفاتورة: {order.serial}</p>
                               <p className="card-text">نوع الطلب: {order.orderType}</p>
@@ -478,7 +478,7 @@ const Kitchen = () => {
                         <div className="card text-white bg-success" style={{ width: "265px" }}>
                           <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                             <div style={{ maxWidth: "50%" }}>
-                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.fullname}` : '')}</p>
+                              <p className="card-text"> {order.table != null ? `طاولة: ${order.table.tableNumber}` : (order.user ? `العميل: ${order.user.username}` : '')}</p>
                               <p className="card-text">رقم الطلب: {order.ordernum ? order.ordernum : ''}</p>
                               <p className="card-text">الفاتورة: {order.serial}</p>
                               <p className="card-text">نوع الطلب: {order.orderType}</p>

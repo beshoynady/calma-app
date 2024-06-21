@@ -470,19 +470,17 @@ const ManagerDash = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  // State for filtered orders
-  const [filteredOrders, setFilteredOrders] = useState([]);
 
   // Filter orders by serial number
   const searchBySerial = (serial) => {
     const orders = pendingPayment.filter((order) => order.serial.toString().startsWith(serial));
-    setFilteredOrders(orders);
+    setPendingPayment(orders);
   };
 
   // Filter orders by order type
   const getOrdersByType = (type) => {
-    const orders = pendingPayment.filter((order) => order.orderType === type);
-    setFilteredOrders(orders);
+    const orders = pendingPayment.filter((order) => order.orderdata.orderType === type);
+    setPendingPayment(orders);
   };
 
 
@@ -729,7 +727,7 @@ const ManagerDash = () => {
                       <tbody>
 
                         {
-                          filteredOrders.length > 0 ? filteredOrders.map((recent, i) => {
+                          pendingPayment.length > 0 ? pendingPayment.map((recent, i) => {
                             if (i >= startpagination & i < endpagination) {
                               return (
                                 <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
@@ -739,19 +737,27 @@ const ManagerDash = () => {
                                       {recent.serial}
                                     </a>
                                   </td>
-                                  <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
+                                  <td>{recent.orderType == 'Internal' ? `${recent.table.tableNumber}` : recent.orderType == 'Delivery' ? `${recent.user.username}` : `num ${recent.ordernum}`}</td>
                                   <td>{recent.total}</td>
-                                  <td>{recent.status !== "Cancelled" ?
-                                    recent.isSplit ? <a href="#invoiceSplitModal" type='botton' className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                      "باقي الفاتوره"
-                                    </a> : "كاملة"
-                                    : "ملغاه"}</td>
+                                  <td>
+                                    {recent.status !== "Cancelled" ? (
+                                      recent.isSplit && recent.subtotalSplitOrder < recent.total ? (
+                                        <a href="#invoiceSplitModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
+                                          باقي
+                                        </a>
+                                      ) : (
+                                        "كاملة"
+                                      )
+                                    ) : (
+                                      "ملغاه"
+                                    )}
+                                  </td>
                                   <td>
                                     <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
                                       <option value={recent.status}>{recent.status}</option>
                                       {status.map((state, i) => {
                                         return (
-                                          <option value={state} key={i}>{statusAR[i]}</option>
+                                          <option value={state} key={i}>{state}</option>
                                         )
                                       })
                                       }
@@ -767,7 +773,7 @@ const ManagerDash = () => {
                                   <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
                                   <td>
                                     {recent.orderType == 'Delivery' ?
-                                      <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e, recent._id) }}>
+                                      <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
                                         <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
                                         {deliverymen.map((man, i) => {
                                           return (
@@ -782,110 +788,20 @@ const ManagerDash = () => {
                                   <td>
                                     <button
                                       className="btn btn-primary"
-                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.employeeinfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
                                     >
                                       دفع
                                     </button>
                                   </td>
-                                  {/* <td>
-                                  <select name="status" id="status" form="carform" onChange={(e) => { changePaymentorderstauts(e, recent._id) }}>
-                                    {paymentstatus.map((state, i) => {
-                                      return <option value={state} key={i}>{state}</option>
-                                    })
-                                    }
-                                  </select>
-                                </td> */}
                                 </tr>
                               )
                             }
                           })
-                            : pendingPayment.length > 0 ? pendingPayment.map((recent, i) => {
-                              if (i >= startpagination & i < endpagination) {
-                                return (
-                                  <tr key={i} className={recent.status === "Pending" ? "bg-warning" : recent.status === "Approved" ? "bg-success" : recent.status === "Cancelled" ? "bg-danger" : "bg-secondary"}>
-                                    <td>{i + 1}</td>
-                                    <td>
-                                      <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                        {recent.serial}
-                                      </a>
-                                    </td>
-                                    <td>{recent.orderType == 'Internal' ? usertitle(recent.table) : recent.orderType == 'Delivery' ? usertitle(recent.user) : `num ${recent.ordernum}`}</td>
-                                    <td>{recent.total}</td>
-                                    <td>
-                                      {recent.status !== "Cancelled" ? (
-                                        recent.isSplit && recent.subtotalSplitOrder < recent.total ? (
-                                          <a href="#invoiceSplitModal" type="button" className="btn btn-primary" data-toggle="modal" onClick={() => getOrderDetalis(recent.serial)}>
-                                            باقي
-                                          </a>
-                                        ) : (
-                                          "كاملة"
-                                        )
-                                      ) : (
-                                        "ملغاه"
-                                      )}
-                                    </td>
-                                    <td>
-                                      <select name="status" id="status" form="carform" onChange={(e) => { changeorderstauts(e, recent._id, employeeLoginInfo.employeeinfo.id) }}>
-                                        <option value={recent.status}>{recent.status}</option>
-                                        {status.map((state, i) => {
-                                          return (
-                                            <option value={state} key={i}>{state}</option>
-                                          )
-                                        })
-                                        }
-                                      </select>
-                                    </td>
-                                    <td onClick={() => getKitchenCard(recent._id)}>
-                                      <a href='#kitchenorderModal' data-toggle="modal"
-                                        className="btn btn-47 .bg-info"
-                                      >
-                                        جديد
-                                      </a>
-                                    </td>
-                                    <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
-                                    <td>
-                                      {recent.orderType == 'Delivery' ?
-                                        <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
-                                          <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
-                                          {deliverymen.map((man, i) => {
-                                            return (
-                                              <option value={man} key={i}>{usertitle(man)}</option>
-                                            )
-                                          })
-                                          }
-                                        </select>
-                                        : ''}
-                                    </td>
-                                    <td>{recent.orderType}</td>
-                                    <td>
-                                      <button
-                                        className="btn btn-primary"
-                                        onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
-                                      >
-                                        دفع
-                                      </button>
-                                    </td>
-                                  </tr>
-                                )
-                              }
-                            })
-                              : ''}
+                            : ''}
                       </tbody>
                     </table>
-                    {filteredOrders.length > 0 ?
-                      <div className="clearfix">
-                        <div className="hint-text text-dark">عرض <b>{filteredOrders.length > startpagination ? startpagination : filteredOrders.length}</b> من <b>{filteredOrders.length}</b> عنصر</div>
-                        <ul className="pagination">
-                          <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                          <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                        </ul>
-                      </div>
-                      : pendingPayment.length > 0 ?
+                    {
+                    pendingPayment.length > 0 ?
                         <div className="clearfix">
                           <div className="hint-text text-dark">عرض <b>{pendingPayment.length > startpagination ? startpagination : pendingPayment.length}</b> من <b>{pendingPayment.length}</b> عنصر</div>
                           <ul className="pagination">
@@ -899,7 +815,6 @@ const ManagerDash = () => {
                           </ul>
                         </div>
                         : ''}
-
                   </div>
 
                   <div className="reminders">
@@ -913,12 +828,12 @@ const ManagerDash = () => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
-                              <p>طاوله :  {order.table.tableNumber}</p>
+                              <p>طاوله :  {order.table && order.table.tableNumber}</p>
                               <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
                               {order.helpStatus == 'Not send' ?
                                 <button type="button" className="btn btn-47 btn-primary"
                                   onClick={() => sendWaiter(order._id)}>ارسال ويتر</button>
-                                : <p>تم ارسال {order.waiter.fullname}</p>}
+                                : <p>تم ارسال {order.waiter && order.waiter.fullname}</p>}
                             </div>
                           </li>
                         )
@@ -942,22 +857,22 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير:{orderdata.cashier && orderdata.cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير:{orderdata.cashier && orderdata.cashier.fullname} | فاتورة #{serial} | {orderdata.ordertype === 'Internal' ? `طاولة' ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
                           {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
-                            <p>الاسم: {name}</p>
-                            <p>الموبايل: {phone}</p>
-                            <p>العنوان: {address}</p>
+                            <p>الاسم: {orderdata.name}</p>
+                            <p>الموبايل: {orderdata.phone}</p>
+                            <p>العنوان: {orderdata.address}</p>
                             {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
                           </div> : ordertype == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
-                              <p>الاسم: {name}</p>
-                              <p>الموبايل: {phone}</p>
-                              <p>رقم الاوردر: {ordernum}</p>
+                              <p>الاسم: {orderdata.name}</p>
+                              <p>الموبايل: {orderdata.phone}</p>
+                              <p>رقم الاوردر: {orderdata.ordernum}</p>
                             </div>
                             : ''}
                           {/* Order Details Table */}
@@ -1090,22 +1005,22 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير {cashier && cashier.fullname} | فاتورة باقي #{serial} | {ordertype === 'Internal' ? `Table ${usertitle(table)}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير {orderdata.cashier && orderdata.cashier.fullname} | فاتورة باقي #{serial} | {orderdata.ordertype === 'Internal' ? `Table ${orderdata.table && orderdata.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
                           {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ margin: '20px' }}>
                             <h4>بيانات العميل</h4>
-                            <p>الاسم: {name}</p>
-                            <p>الموبايل: {phone}</p>
-                            <p>العنوان: {address}</p>
+                            <p>الاسم: {orderdata.name}</p>
+                            <p>الموبايل: {orderdata.phone}</p>
+                            <p>العنوان: {orderdata.address}</p>
                             {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
                           </div> : ordertype == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>
-                              <p>الاسم: {name}</p>
-                              <p>الموبايل: {phone}</p>
-                              <p>رقم الاوردر: {ordernum}</p>
+                              <p>الاسم: {orderdata.name}</p>
+                              <p>الموبايل: {orderdata.phone}</p>
+                              <p>رقم الاوردر: {orderdata.ordernum}</p>
                             </div>
                             : ''}
                           {/* Order Details Table */}
@@ -1168,7 +1083,6 @@ const ManagerDash = () => {
                               ))}
                             </tbody>
                             <tfoot>
-                              {console.log({ orderSubtotal, subtotalSplitOrder, orderTotal })}
                               <tr>
                                 <td colSpan="3">المجموع</td>
                                 <td>{orderSubtotal - subtotalSplitOrder}</td>
@@ -1236,7 +1150,7 @@ const ManagerDash = () => {
                             <div className="card text-white bg-success" style={{ width: "265px" }}>
                               <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                                 <div style={{ maxWidth: "50%" }}>
-                                  <p className="card-text"> {kitchenOrder.table ? (`طاولة: ${kitchenOrder.table.tableNumber}`) : (kitchenOrder.user ? `العميل: ${usertitle(kitchenOrder.user)}` : '')}</p>
+                                  <p className="card-text"> {kitchenOrder.table ? (`طاولة: ${kitchenOrder.table.tableNumber}`) : (kitchenOrder.user ? `العميل: ${kitchenOrder.user.username}` : '')}</p>
                                   <p className="card-text">نوع الطلب: {kitchenOrder.orderType}</p>
                                   {kitchenOrder.ordernum ? `<p className="card-text"> رقم الطلب:  ${kitchenOrder.ordernum} </p>` : ''}
                                 </div>
@@ -1244,7 +1158,7 @@ const ManagerDash = () => {
                                 <div style={{ maxWidth: "50%" }}>
                                   <p className="card-text">الفاتورة: {kitchenOrder.serial}</p>
                                   <p className="card-text">الكاشير: {employeeLoginInfo && employeeLoginInfo.employeeinfo ? usertitle(employeeLoginInfo.employeeinfo.id) : ''}</p>
-                                  {kitchenOrder.waiter ? <p className="card-text">الويتر: {usertitle(kitchenOrder.waiter)}</p> : ""}
+                                  {kitchenOrder.waiter ? <p className="card-text">الويتر: {kitchenOrder.waiter.fullname}</p> : ""}
                                   <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                                   <p className="card-text">الانتظار: {55} دقيقه</p>
                                 </div>
