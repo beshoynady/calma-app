@@ -33,52 +33,17 @@ const Orders = () => {
     }
   };
   const [listProductsOrder, setlistProductsOrder] = useState([])
-  const [serial, setserial] = useState('')
-  const [ordertype, setordertype] = useState('')
-  const [name, setname] = useState('')
-  const [address, setaddress] = useState('')
-  const [phone, setphone] = useState('')
-  const [ordertax, setordertax] = useState()
-  const [orderTotal, setorderTotal] = useState()
-  const [orderSubtotal, setorderSubtotal] = useState()
-  const [subtotalSplitOrder, setsubtotalSplitOrder] = useState()
-  const [orderdeliveryCost, setorderdeliveryCost] = useState()
-  const [deliveryMan, setdeliveryMan] = useState()
-  const [ordernum, setordernum] = useState()
-  const [table, settable] = useState()
-  const [cashier, setcashier] = useState()
-  const [discount, setdiscount] = useState(0)
-  const [addition, setaddition] = useState(0)
-
+  const [orderData, setorderData] = useState('')
   const [ivocedate, setivocedate] = useState(new Date())
 
   // Fetch orders from API
-  const getProductsOrder = async (serial) => {
+  const getOrderDataBySerial = async (serial) => {
     try {
       const res = await axios.get(apiUrl + '/api/order', config);
-      const order = res.data.find(o => o.serial == serial)
+      const order = res.data.find(order => order.serial == serial)
       if (order) {
-
+        setorderData(order)
         setlistProductsOrder(order.products)
-        setorderTotal(order.total)
-        setsubtotalSplitOrder(order.subtotalSplitOrder)
-        setorderSubtotal(order.subTotal)
-        setordertax(order.tax)
-        setorderdeliveryCost(order.deliveryCost)
-        setserial(order.serial)
-        setaddition(order.addition)
-        setdiscount(order.discount)
-        // setivocedate(order.createdAt)
-        setcashier(order.cashier)
-        settable(order.orderType == 'Internal' ? order.table : '')
-        setordernum(order.orderType == 'Takeaway' ? order.ordernum : '')
-        setordertype(order.orderType)
-        setaddress(order.orderType == 'Delivery' ? order.address : "")
-        setdeliveryMan(order.orderType == 'Delivery' ? order.deliveryMan : "")
-        if (order.orderType != 'Internal') {
-          setname(order.name)
-          setphone(order.phone)
-        }
       }
 
     } catch (error) {
@@ -109,7 +74,7 @@ const Orders = () => {
     e.preventDefault();
     try {
       const id = orderId;
-      await axios.delete(`${apiUrl}/api/order/${id}`,config);
+      await axios.delete(`${apiUrl}/api/order/${id}`, config);
       getOrders();
       toast.success('Order deleted successfully');
     } catch (error) {
@@ -148,19 +113,25 @@ const Orders = () => {
     }
   };
 
-  // State for filtered orders
-  const [filteredOrders, setFilteredOrders] = useState([]);
 
   // Filter orders by serial number
   const searchBySerial = (serial) => {
-    const orders = listOfOrders.filter((order) => order.serial.toString().startsWith(serial));
-    setFilteredOrders(orders);
+    if(serial){
+      const orders = listOfOrders.filter((order) => order.serial.toString().startsWith(serial));
+      setlistOfOrders(orders);
+    }else{
+      getOrders()
+    }
   };
 
   // Filter orders by order type
   const getOrdersByType = (type) => {
-    const orders = listOfOrders.filter((order) => order.orderType === type);
-    setFilteredOrders(orders.reverse());
+    if(!type){
+      getOrders()
+    }else{
+      const orders = listOfOrders.filter((order) => order.orderType === type);
+      setlistOfOrders(orders.reverse());
+    }
   };
 
 
@@ -173,7 +144,7 @@ const Orders = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination ,getOrderDetailsBySerial, orderDetalisBySerial}) => {
+        ({ restaurantData, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination, getOrderDetailsBySerial, orderDetalisBySerial }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -260,45 +231,8 @@ const Orders = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredOrders.length > 0 ?
-                        filteredOrders.map((order, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
-                              <tr key={i}>
-                                {/* <td>
-                                  <span className="custom-checkbox">
-                                    <input
-                                      type="checkbox"
-                                      id={`checkbox${i}`}
-                                      name="options[]"
-                                      value={order._id}
-                                      onChange={handleCheckboxChange}
-                                    />                                    
-                                    <label htmlFor={`checkbox${i}`}></label>
-                                  </span>
-                                </td> */}
-                                <td>{i + 1}</td>
-                                <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getProductsOrder(order.serial)}>{order.serial}</a></td>
-                                <td>{order.ordernum ? order.ordernum : '--'}</td>
-                                <td>{order.table != null ? usertitle(order.table)
-                                  : order.user ? usertitle(order.user)
-                                    : order.createdBy ? usertitle(order.createdBy) : '--'}</td>
-
-                                <td>{order.orderType}</td>
-                                <td>{order.total}</td>
-                                <td>{order.status}</td>
-                                <td>{usertitle(order.cashier)}</td>
-                                <td>{order.payment_status}</td>
-                                <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
-                                <td>
-                                  {/* <a href="#editOrderModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-                                  <a href="#deleteOrderModal" className="delete" data-toggle="modal" onClick={() => setOrderId(order._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                              </tr>
-                            )
-                          }
-                        })
-                        : listOfOrders&&listOfOrders.map((order, i) => {
+                      {
+                        listOfOrders && listOfOrders.map((order, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -315,7 +249,7 @@ const Orders = () => {
                                 </td> */}
 
                                 <td>{i + 1}</td>
-                                <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getProductsOrder(order.serial)}>{order.serial} </a></td>
+                                <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDataBySerial(order.serial)}>{order.serial} </a></td>
 
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
                                 <td>{order.table != null ? order.table.tableNumber
@@ -367,22 +301,22 @@ const Orders = () => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير {cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${table.tableNumber}` : ''} | التاريخ: {formatdate(new Date())}</p>
+                          <p>كاشير {orderData.cashier.fullname} | فاتورة #{orderData.serial} | {orderData.ordertype === 'Internal' ? `طاولة ${orderData.table.tableNumber}` : ''} | التاريخ: {formatdate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
                         {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                           <h4>بيانات العميل</h4>
-                          <p>الاسم: {name}</p>
-                          <p>الموبايل: {phone}</p>
-                          <p>العنوان: {address}</p>
+                          <p>الاسم: {orderData.name}</p>
+                          <p>الموبايل: {orderData.phone}</p>
+                          <p>العنوان: {orderDataaddress}</p>
                           {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
                         </div> : ordertype == 'Takeaway' ?
                           <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                             <h4>بيانات العميل</h4>
-                            <p>الاسم: {name}</p>
-                            <p>الموبايل: {phone}</p>
-                            <p>رقم الاوردر: {ordernum}</p>
+                            <p>الاسم: {orderData.name}</p>
+                            <p>الموبايل: {orderData.phone}</p>
+                            <p>رقم الاوردر: {orderData.ordernum}</p>
                           </div>
                           : ''}
 
@@ -410,25 +344,25 @@ const Orders = () => {
                           <tfoot>
                             <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">المجموع</td>
-                              <td>{orderSubtotal}</td>
+                              <td>{orderData.subTotal}</td>
                             </tr>
-                            {orderdeliveryCost > 0 && (
+                            {orderData.deliveryCost > 0 && (
                               <tr>
                                 <td colSpan="3">خدمة التوصيل</td>
-                                <td>{orderdeliveryCost}</td>
+                                <td>{orderData.deliveryCost}</td>
                               </tr>
                             )}
-                            {addition > 0 ?
+                            {orderData.addition > 0 ?
                               <tr>
                                 <td colSpan="3">رسوم اضافيه</td>
-                                <td>{addition}</td>
+                                <td>{orderData.addition}</td>
                               </tr>
                               : ''
                             }
-                            {discount > 0 ?
+                            {orderData.discount > 0 ?
                               <tr>
                                 <td colSpan="3">خصم</td>
-                                <td>{discount}</td>
+                                <td>{orderData.discount}</td>
                               </tr> : ''
                             }
                             {/* <tr style={{ fontSize: '20px' }}>
@@ -437,7 +371,7 @@ const Orders = () => {
                             </tr> */}
                             <tr style={{ fontSize: '20px' }}>
                               <td colSpan="3">الاجمالي</td>
-                              <td>{orderTotal}</td>
+                              <td>{orderData.total}</td>
                             </tr>
                           </tfoot>
                         </table>
