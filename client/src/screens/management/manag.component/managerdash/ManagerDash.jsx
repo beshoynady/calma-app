@@ -182,7 +182,7 @@ const ManagerDash = () => {
 
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
       const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
-      if(waiterActive){
+      if (waiterActive) {
         setAllWaiters(waiterActive);
       } else {
         // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
@@ -191,7 +191,7 @@ const ManagerDash = () => {
 
       const alldeliverymens = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'deliverymen') : [];
       const deliverymenActive = allWaiters.length > 0 ? alldeliverymens.filter((deliverymen) => deliverymen.isActive === true) : [];
-      if(deliverymenActive){
+      if (deliverymenActive) {
         setDeliverymen(deliverymenActive);
       } else {
         // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
@@ -288,7 +288,7 @@ const ManagerDash = () => {
   };
 
 
-  
+
   const putdeliveryman = async (id, orderid) => {
     try {
       const deliveryMan = id
@@ -817,7 +817,7 @@ const ManagerDash = () => {
                                       جديد
                                     </a>
                                   </td>
-                                  <td>{recent.waiter ?recent.waiter.fullname : ''}</td>
+                                  <td>{recent.waiter ? recent.waiter.fullname : ''}</td>
                                   <td>
                                     {recent.orderType == 'Delivery' ?
                                       <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
@@ -848,7 +848,7 @@ const ManagerDash = () => {
                       </tbody>
                     </table>
                     {
-                    pendingPayment.length > 0 ?
+                      pendingPayment.length > 0 ?
                         <div className="clearfix">
                           <div className="hint-text text-dark">عرض <b>{pendingPayment.length > startpagination ? startpagination : pendingPayment.length}</b> من <b>{pendingPayment.length}</b> عنصر</div>
                           <ul className="pagination">
@@ -871,24 +871,41 @@ const ManagerDash = () => {
                       <i className='bx bx-filter'></i>
                     </div>
                     <ul className="task-list">
-                      {pendingPayment.filter((order) => order.orderType == 'Internal' && 
-                      order.payment_status == 'Pending' && order.status !== "Cancelled" && order.isActive == false ||
-                      order.help !== 'Not requested').map((order, i) => {
-                        return (
-                          <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
-                            <div className="task-title">
-                              <p>طاوله :  {order.table && order.table.tableNumber}</p>
-                              <p>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</p>
-                              {order.helpStatus == 'Not send' || order.helpStatus == 'Assistance done' ?
-                                <button type="button" className="btn w-25 btn-primary"
-                                  onClick={() => sendWaiter(order._id)}>ارسال ويتر</button>
-                                : <p>تم ارسال {order.waiter && order.waiter.fullname}</p>}
-                            </div>
-                          </li>
-                        )
-
-                      })}
-
+                      {pendingPayment.filter(order =>
+                        order.orderType === 'Internal' &&
+                        order.payment_status === 'Pending' &&
+                        order.status !== 'Cancelled' &&
+                        order.isActive === true &&
+                        order.help !== 'Not requested' &&
+                        order.helpStatus !== 'Assistance done'
+                      ).map((order, i) => (
+                        <li
+                          className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'}
+                          key={i}
+                        >
+                          <div className="task-title">
+                            <p>طاوله : {order.table && order.table.tableNumber}</p>
+                            <p>
+                              {order.help === 'Requests assistance'
+                                ? 'يحتاج المساعدة'
+                                : order.help === 'Requests bill'
+                                  ? 'يحتاج الفاتورة'
+                                  : ''}
+                            </p>
+                            {order.helpStatus === 'Not send' || order.helpStatus !== 'Assistance done' ? (
+                              <button
+                                type="button"
+                                className="btn w-25 btn-primary"
+                                onClick={() => sendWaiter(order._id)}
+                              >
+                                ارسال ويتر
+                              </button>
+                            ) : (
+                              <p>تم ارسال {order.waiter && order.waiter.fullname}</p>
+                            )}
+                          </div>
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
@@ -916,15 +933,15 @@ const ManagerDash = () => {
                             <p>الموبايل: {orderdata.phone}</p>
                             <p>العنوان: {orderdata.address}</p>
                             {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                          </div> 
-                          : orderdata.orderType == 'Takeaway' ?
-                            <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
-                              <h4>بيانات العميل</h4>
-                              <p>الاسم: {orderdata.name}</p>
-                              <p>الموبايل: {orderdata.phone}</p>
-                              <p>رقم الاوردر: {orderdata.ordernum}</p>
-                            </div>
-                            : ''}
+                          </div>
+                            : orderdata.orderType == 'Takeaway' ?
+                              <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                                <h4>بيانات العميل</h4>
+                                <p>الاسم: {orderdata.name}</p>
+                                <p>الموبايل: {orderdata.phone}</p>
+                                <p>رقم الاوردر: {orderdata.ordernum}</p>
+                              </div>
+                              : ''}
                           {/* Order Details Table */}
                           <table className="table table-bordered table-responsive-md" style={{ direction: 'rtl' }}>
                             <thead className="thead-dark">

@@ -103,6 +103,7 @@ const Waiter = () => {
 
   const helpDone = async (id) => {
     try {
+      const help = 'Assistance done';
       const helpStatus = 'Assistance done';
       await axios.put(`${apiUrl}/api/order/${id}`, { helpStatus });
       fetchPendingData();
