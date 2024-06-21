@@ -817,14 +817,14 @@ const ManagerDash = () => {
                                       جديد
                                     </a>
                                   </td>
-                                  <td>{recent.waiter ? usertitle(recent.waiter) : ''}</td>
+                                  <td>{recent.waiter ?recent.waiter.fullname : ''}</td>
                                   <td>
                                     {recent.orderType == 'Delivery' ?
                                       <select name="status" id="status" form="carform" onChange={(e) => { putdeliveryman(e.target.value, recent._id) }}>
-                                        <option value={recent.deliveryMan}>{recent.deliveryMan ? usertitle(recent.deliveryMan) : "لم يحدد"}</option>
+                                        <option value={recent.deliveryMan}>{recent.deliveryMan ? recent.deliveryMan.fullname : "لم يحدد"}</option>
                                         {deliverymen.map((man, i) => {
                                           return (
-                                            <option value={man} key={i}>{usertitle(man)}</option>
+                                            <option value={man_id} key={i}>{man.fullname}</option>
                                           )
                                         })
                                         }
@@ -835,7 +835,7 @@ const ManagerDash = () => {
                                   <td>
                                     <button
                                       className="btn btn-primary"
-                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? usertitle(recent.table) : usertitle(recent.user)}`) }}
+                                      onClick={() => { changePaymentorderstauts({ target: { value: 'Paid' } }, recent._id, employeeLoginInfo.employeeinfo.id); RevenueRecording(employeeLoginInfo.id, recent.total, `${recent.serial} ${recent.table != null ? recent.table.tableNumber : recent.user.username}`) }}
                                     >
                                       دفع
                                     </button>
