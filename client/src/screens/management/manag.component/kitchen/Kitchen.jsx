@@ -173,9 +173,6 @@ const Kitchen = () => {
       const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
       const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
       setAllWaiters(waiterActive);
-
-      const waiterIds = waiterActive.length > 0 ? waiterActive.map((waiter) => waiter._id) : [];
-      setWaitersId(waiterIds);
     } catch (error) {
       console.log(error);
     }

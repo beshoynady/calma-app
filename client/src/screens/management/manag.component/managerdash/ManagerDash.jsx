@@ -173,7 +173,7 @@ const ManagerDash = () => {
     }
   };
 
-  const [waiters, setWaiters] = useState([]);
+  const [AllWaiters, setAllWaiters] = useState([]);
   const [deliverymen, setDeliverymen] = useState([]);
 
   const fetchActiveEmployees = async () => {
@@ -181,14 +181,13 @@ const ManagerDash = () => {
       const response = await axios.get(apiUrl + '/api/employee', config);
       const activeEmployees = response.data.filter((employee) => employee.isActive === true);
 
-      const waiters = activeEmployees.filter((employee) => employee.role === 'waiter');
-      const waiterIds = waiters.map((waiter) => waiter._id);
-      if (waiterIds.length > 0) {
-        console.log(waiterIds);
-        setWaiters(waiterIds);
+      const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
+      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
+      if(waiterActive){
+        setAllWaiters(waiterActive);
       } else {
         // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
-        toast.warning('لم يتم العثور على نوادل.');
+        toast.warning('لم يتم العثور على ويتر نشط الان.');
       }
 
       const deliverymen = activeEmployees.filter((employee) => employee.role === 'deliveryman');
@@ -875,7 +874,7 @@ const ManagerDash = () => {
                     <ul className="task-list">
                       {pendingPayment.filter((order) => order.orderType == 'Internal' && 
                       order.payment_status == 'Pending' && order.status !== "Cancelled" && order.isActive == false ||
-                       order.help !== 'Not requested').map((order, i) => {
+                      order.help !== 'Not requested').map((order, i) => {
                         return (
                           <li className={order.helpStatus === 'Not send' ? 'not-completed' : 'completed'} key={i}>
                             <div className="task-title">
