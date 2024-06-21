@@ -189,15 +189,15 @@ const ManagerDash = () => {
         toast.warning('لم يتم العثور على ويتر نشط الان.');
       }
 
-      const deliverymen = activeEmployees.filter((employee) => employee.role === 'deliveryman');
-      const deliverymenIds = deliverymen.map((deliveryman) => deliveryman._id);
-      if (deliverymenIds.length > 0) {
-        console.log(deliverymenIds);
-        setDeliverymen(deliverymenIds);
+      const alldeliverymens = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'deliverymen') : [];
+      const deliverymenActive = allWaiters.length > 0 ? alldeliverymens.filter((deliverymen) => deliverymen.isActive === true) : [];
+      if(deliverymenActive){
+        setDeliverymen(deliverymenActive);
       } else {
-        // إذا لم يتم العثور على مندوبي توصيل، قد يكون من الجيد إخطار المستخدم
-        toast.warning('لم يتم العثور على مندوبي توصيل.');
+        // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
+        toast.warning('لم يتم العثور على مندوبي توصيل نشططين الان.');
       }
+
     } catch (error) {
       // معالجة الخطأ وعرض رسالة خطأ
       console.error('خطأ في جلب بيانات الموظفين:', error);
