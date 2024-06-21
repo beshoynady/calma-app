@@ -318,9 +318,9 @@ const Orders = () => {
                                 <td><a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getProductsOrder(order.serial)}>{order.serial} </a></td>
 
                                 <td>{order.ordernum ? order.ordernum : '--'}</td>
-                                <td>{order.table != null ? usertitle(order.table)
-                                  : order.user ? usertitle(order.user)
-                                    : order.createdBy ? usertitle(order.createdBy) : '--'}</td>
+                                <td>{order.table != null ? order.table.tableNumber
+                                  : order.user ? order.user.username
+                                    : order.createdBy ? order.createdBy.fullname : '--'}</td>
 
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>
@@ -367,7 +367,7 @@ const Orders = () => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير {usertitle(cashier)} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${usertitle(table)}` : ''} | التاريخ: {formatdate(new Date())}</p>
+                          <p>كاشير {cashier.fullname} | فاتورة #{serial} | {ordertype === 'Internal' ? `طاولة ${table.tableNumber}` : ''} | التاريخ: {formatdate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
