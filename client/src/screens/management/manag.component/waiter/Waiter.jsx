@@ -36,7 +36,7 @@ const Waiter = () => {
   // Function to fetch internal orders
   const fetchInternalOrders = async () => {
     try {
-      const orders = await axios.get(apiUrl + '/api/order');
+      const orders = await axios.get(apiUrl + '/api/order/limit/20');
       const activeOrders = orders.data.filter((order) => order.isActive === true);
       const internalOrdersData = activeOrders.filter(order => order.orderType === 'Internal');
 
@@ -132,12 +132,12 @@ const Waiter = () => {
                   <div className="card text-white bg-success" style={{ width: "265px" }}>
                     <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                       <div style={{ maxWidth: "50%" }}>
-                        <p className="card-text">الطاولة: {usertitle(order.table)}</p>
-                        <p className="card-text">الفاتورة: {order.serial}</p>
+                        <p className="card-text">الطاولة: {order.table?.tableNumber}</p>
+                        <p className="card-text">رقم الفاتورة: {order.serial}</p>
                         <p className="card-text">نوع الطلب: {order.orderType}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
-                        <p className="card-text">الويتر: {usertitle(order.waiter)}</p>
+                        <p className="card-text">الويتر: {order.waiter?.fullname}</p>
                         <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
@@ -145,16 +145,18 @@ const Waiter = () => {
                     <ul className="list-group list-group-flush">
 
                       <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={i}>
-                        <span style={{ fontSize: "18px" }}>{i + 1}- {usertitle(order.table)}</span>
+                        <span style={{ fontSize: "18px" }}>{i + 1}- {order.table?.tableNumber}</span>
                         <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</span>
                       </li>
 
                     </ul>
                     <div className="card-footer text-center">
                       {order.helpStatus === 'On the way' ?
-                        <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() => helpDone(order._id)}>تم</button>
+                        <button className="btn w-100 btn-success btn btn-lg"
+                          onClick={() => helpDone(order._id)}>تم</button>
                         :
-                        <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { helpOnWay(order._id) }}>متجة للعميل</button>
+                        <button className="btn w-100 btn-warning btn btn-lg"
+                          onClick={() => { helpOnWay(order._id) }}>متجة للعميل</button>
                       }
                     </div>
                   </div>
@@ -168,12 +170,12 @@ const Waiter = () => {
                     <div className="card text-white bg-success" style={{ width: "265px" }}>
                       <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">الطاولة: {order.table&&order.table.tableNumber}</p>
+                          <p className="card-text">الطاولة: {order.table?.tableNumber}</p>
                           <p className="card-text">رقم الفاتورة: {order.serial}</p>
                           <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">الويتر: {order.waiter&&order.waiter.fullname}</p>
+                          <p className="card-text">الويتر: {order.waiter?.fullname}</p>
                           <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                           <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>
@@ -214,8 +216,10 @@ const Waiter = () => {
                       </ul>
                       <div className="card-footer text-center">
                         {order.status === 'Prepared' ?
-                          <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(order._id) }}>استلام الطلب</button>
-                          : <button className="btn btn-47 btn-success btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(order._id) }}>تم التسليم</button>
+                          <button className="btn w-100 btn-warning btn btn-lg"
+                            onClick={() => { updateOrderOnWay(order._id) }}>استلام الطلب</button>
+                          : <button className="btn w-100 btn-success btn btn-lg"
+                            onClick={() => { updateOrderDelivered(order._id) }}>تم التسليم</button>
                         }
                       </div>
                     </div>
