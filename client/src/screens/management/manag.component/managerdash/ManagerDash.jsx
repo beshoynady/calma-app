@@ -207,30 +207,77 @@ const ManagerDash = () => {
     }
   };
 
-  // const [waiter, setwaiter] = useState()
-  const specifiedWaiter = () => {
-    const ordertakewaiter = allOrders.filter((order) => order.waiter != null)
-    console.log(ordertakewaiter)
-    const lastwaiter = ordertakewaiter.length > 0 ? ordertakewaiter[ordertakewaiter.length - 1].waiter : ''
-    console.log(lastwaiter)
 
-    const indexoflastwaiter = lastwaiter != '' ? waiters.indexOf(lastwaiter) : 0
+  const specifiedWaiter = async (id) => {
+    try {
+      // البحث عن الطلب بالمعرف المحدد
+      const getorder = allOrders.find((order) => order._id == id);
+      if (!getorder) {
+        throw new Error('Order not found');
+      }
 
-    if (waiters.length == indexoflastwaiter + 1) {
-      const waiter = waiters[0]
-      return waiter
-    } else {
-      const waiter = waiters[indexoflastwaiter + 1]
-      return waiter
+      // استخراج رقم القسم من بيانات الطاولة المرتبطة بالطلب
+      const tablesectionNumber = getorder.table && getorder.table.sectionNumber;
+      if (!tablesectionNumber) {
+        throw new Error('Table section number not found');
+      }
+
+      // البحث عن النوادل في القسم المحدد
+      const sectionWaiters = AllWaiters.filter((waiter) => waiter.sectionNumber == tablesectionNumber);
+      if (sectionWaiters.length === 0) {
+        throw new Error('No waiters found in the specified section');
+      }
+
+      const OrderSection = allOrders.filter(order => order.waiter && order.waiter.sectionNumber === tablesectionNumber).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+      let waiterId = '';
+
+      if (OrderSection.length > 0) {
+        const lastWaiterId = OrderSection[0]?.waiter?._id;
+        const lastWaiterIndex = sectionWaiters.findIndex(waiter => waiter._id === lastWaiterId);
+        console.log({ lastWaiterId, lastWaiterIndex });
+
+        waiterId = (lastWaiterIndex !== -1 && lastWaiterIndex < sectionWaiters.length - 1)
+          ? sectionWaiters[lastWaiterIndex + 1]._id
+          : sectionWaiters[0]._id;
+      } else {
+        console.log('لا توجد طلبات سابقة لهذه الطاولة');
+        waiterId = sectionWaiters[0]._id;
+      }
+
+      console.log({ waiterId });
+
+      return waiterId;
+    } catch (error) {
+      console.error('Error fetching table or waiter data:', error);
+      return ''; // التعامل مع حالة الخطأ هنا، وإرجاع سلسلة فارغة كقيمة افتراضية لمعرف النادل
     }
-  }
+  };
+
+  // const [waiter, setwaiter] = useState()
+  // const specifiedWaiter = () => {
+  //   const ordertakewaiter = allOrders.filter((order) => order.waiter != null)
+  //   console.log(ordertakewaiter)
+  //   const lastwaiter = ordertakewaiter.length > 0 ? ordertakewaiter[ordertakewaiter.length - 1].waiter : ''
+  //   console.log(lastwaiter)
+
+  //   const indexoflastwaiter = lastwaiter != '' ? waiters.indexOf(lastwaiter) : 0
+
+  //   if (waiters.length == indexoflastwaiter + 1) {
+  //     const waiter = waiters[0]
+  //     return waiter
+  //   } else {
+  //     const waiter = waiters[indexoflastwaiter + 1]
+  //     return waiter
+  //   }
+  // }
 
 
 
   const sendWaiter = async (id) => {
-    const helpStatus = 'Send waiter';
-    const waiter = specifiedWaiter();
     try {
+      const helpStatus = 'Send waiter';
+      const waiter = await specifiedWaiter(id);
       const order = await axios.put(apiUrl + '/api/order/' + id, {
         waiter,
         helpStatus,
@@ -242,6 +289,8 @@ const ManagerDash = () => {
     }
   };
 
+
+  
   const putdeliveryman = async (id, orderid) => {
     try {
       const deliveryMan = id
