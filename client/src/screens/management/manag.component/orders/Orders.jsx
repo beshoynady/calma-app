@@ -259,7 +259,7 @@ const Orders = () => {
                                 <td>{order.orderType}</td>
                                 <td>{order.total}</td>
                                 <td>{order.status}</td>
-                                <td>{usertitle(order.cashier)}</td>
+                                <td>{order.cashier&&order.cashier.fullname}</td>
                                 <td>{order.payment_status}</td>
                                 <td>{new Date(order.payment_date).toLocaleString('en-GB', { hour12: true })}</td>
 
@@ -289,6 +289,10 @@ const Orders = () => {
                   </div>
                 </div>
               </div>
+
+
+
+              
               <div id="invoiceOrderModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -300,23 +304,23 @@ const Orders = () => {
                       <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
-                          <h2>{restaurantData.name}</h2>
+                          <h2>{restaurantData.name&&restaurantData.name}</h2>
                           <p>كاشير {orderData.cashier&&orderData.cashier.fullname} | فاتورة #{orderData.serial} | {orderData.ordertype === 'Internal' ? `طاولة ${orderData.table&&orderData.table.tableNumber}` : ''} | التاريخ: {formatdate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
-                        {ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
+                        {orderData.ordertype == 'Delivery' ? <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                           <h4>بيانات العميل</h4>
-                          <p>الاسم: {orderData.name}</p>
-                          <p>الموبايل: {orderData.phone}</p>
-                          <p>العنوان: {orderDataaddress}</p>
-                          {/* <p>Delivery Man: {usertitle(deliveryMan)}</p> */}
-                        </div> : ordertype == 'Takeaway' ?
+                          <p>الاسم: {orderData.name&&orderData.name}</p>
+                          <p>الموبايل: {orderData.phone&&orderData.phone}</p>
+                          <p>العنوان: {orderData.ordernum&&orderData.address}</p>
+                          <p>Delivery Man: {orderData.deliveryMan&&orderData.deliveryMan.fullname}</p>
+                        </div> : orderData.ordertype == 'Takeaway' ?
                           <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                             <h4>بيانات العميل</h4>
-                            <p>الاسم: {orderData.name}</p>
-                            <p>الموبايل: {orderData.phone}</p>
-                            <p>رقم الاوردر: {orderData.ordernum}</p>
+                            <p>الاسم: {orderData.name&&orderData.name}</p>
+                            <p>الموبايل: {orderData.phone&&orderData.phone}</p>
+                            <p>رقم الاوردر: {orderData.ordernum&&orderData.ordernum}</p>
                           </div>
                           : ''}
 
@@ -332,7 +336,7 @@ const Orders = () => {
                           </thead>
                           <tbody>
                             {/* Example rows, replace with dynamic data */}
-                            {listProductsOrder.map((item, i) => (
+                            {listProductsOrder&&listProductsOrder.map((item, i) => (
                               <tr key={i}>
                                 <td className="text-truncate" style={{ maxWidth: '200px', fontSize: '18px' }}>{item.name}</td>
                                 <td className="text-nowrap" style={{ fontSize: '18px' }}>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price}</td>
