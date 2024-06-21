@@ -179,20 +179,18 @@ const ManagerDash = () => {
   const fetchActiveEmployees = async () => {
     try {
       const allEmployees = await axios.get(apiUrl + '/api/employee', config);
-
-      const allWaiters = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'waiter') : [];
-      const waiterActive = allWaiters.length > 0 ? allWaiters.filter((waiter) => waiter.isActive === true) : [];
-      if (waiterActive) {
-        setAllWaiters(waiterActive);
+      const activeEmployees = allEmployees.data.filter((employee) => employee.isActive === true)
+      const allWaiters = activeEmployees.data.length > 0 ? activeEmployees.data.filter((employee) => employee.role === 'waiter') : [];
+      if (allWaiters) {
+        setAllWaiters(allWaiters);
       } else {
         // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
         toast.warning('لم يتم العثور على ويتر نشط الان.');
       }
 
-      const alldeliverymens = allEmployees.data.length > 0 ? allEmployees.data.filter((employee) => employee.role === 'deliveryman') : [];
-      const deliverymenActive = allWaiters.length > 0 ? alldeliverymens.filter((deliverymen) => deliverymen.isActive === true) : [];
-      if (deliverymenActive) {
-        setDeliverymen(deliverymenActive);
+      const alldeliverymens = activeEmployees.data.length > 0 ? activeEmployees.data.filter((employee) => employee.role === 'deliveryman') : [];
+      if (alldeliverymens) {
+        setDeliverymen(alldeliverymens);
       } else {
         // إذا لم يتم العثور على نوادل، قد يكون من الجيد إخطار المستخدم
         toast.warning('لم يتم العثور على مندوبي توصيل نشططين الان.');
