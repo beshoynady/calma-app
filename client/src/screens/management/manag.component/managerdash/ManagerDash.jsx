@@ -252,23 +252,6 @@ const ManagerDash = () => {
     }
   };
 
-  // const [waiter, setwaiter] = useState()
-  // const specifiedWaiter = () => {
-  //   const ordertakewaiter = allOrders.filter((order) => order.waiter != null)
-  //   console.log(ordertakewaiter)
-  //   const lastwaiter = ordertakewaiter.length > 0 ? ordertakewaiter[ordertakewaiter.length - 1].waiter : ''
-  //   console.log(lastwaiter)
-
-  //   const indexoflastwaiter = lastwaiter != '' ? waiters.indexOf(lastwaiter) : 0
-
-  //   if (waiters.length == indexoflastwaiter + 1) {
-  //     const waiter = waiters[0]
-  //     return waiter
-  //   } else {
-  //     const waiter = waiters[indexoflastwaiter + 1]
-  //     return waiter
-  //   }
-  // }
 
 
 
@@ -875,7 +858,7 @@ const ManagerDash = () => {
                         order.payment_status === 'Pending' &&
                         order.status !== 'Cancelled' &&
                         order.isActive === true &&
-                        order.help !== 'Not requested' 
+                        order.help !== 'Not requested'
                         // &&
                         // order.helpStatus !== 'Assistance done'
                       ).map((order, i) => (
@@ -892,7 +875,7 @@ const ManagerDash = () => {
                                   ? 'يحتاج الفاتورة'
                                   : ''}
                             </p>
-                            {order.helpStatus === 'Not send'? (
+                            {order.helpStatus === 'Not send' ? (
                               <button
                                 type="button"
                                 className="btn w-25 btn-primary"
@@ -901,7 +884,12 @@ const ManagerDash = () => {
                                 ارسال ويتر
                               </button>
                             ) : (
-                              <p>تم ارسال {order.waiter && order.waiter.fullname}</p>
+                              <p>{order.helpStatus === 'Send waiter'?'تم ارسال'
+                                :order.helpStatus ==='On the way'? 'في الطريق'
+                                :order.helpStatus ==='Assistance done'? 'تمت'
+                                :''
+                                } {order.waiter?.fullname}
+                              </p>
                             )}
                           </div>
                         </li>
