@@ -628,7 +628,7 @@ const POS = () => {
                                product && item.sizeId && sizeId === item.sizeId && noteArea ? (
                                 <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
-                                  <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
+                                  <form className="card-body w-100 p-1 m-0" onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
                                   <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                   <div className="d-flex justify-content-center">
                                     <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
@@ -640,7 +640,7 @@ const POS = () => {
                               : product && !item.sizeId && product._id && product._id === item.productid && noteArea ? (
                                   <div className="position-absolute w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                     style={{ zIndex: 10 }}>
-                                  <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
+                                  <form className="card-body w-100 p-1 m-0" onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
                                     <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                     <div className="d-flex justify-content-center">
                                       <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
@@ -655,7 +655,7 @@ const POS = () => {
                             <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                               <div className="d-flex justify-content-between align-items-center py-2">
                                 <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
-                                <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', cursor: 'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
+                                <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); getProductDitalis(allProducts, item.productid); item.sizeId ? setsizeId(item.sizeId) : setproductid(item.productid) }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', cursor: 'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
                                 {item.hasExtras &&
                                   <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
