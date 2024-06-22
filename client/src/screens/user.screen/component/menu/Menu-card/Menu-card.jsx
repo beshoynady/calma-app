@@ -135,7 +135,7 @@ const MenuCard = () => {
                                     حذف من الطلبات
                                   </button>
                                 ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (size.sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
                                     أضف الى طلباتي
                                   </button>
                                 )}
@@ -196,7 +196,7 @@ const MenuCard = () => {
                             </div>
                             <div className="form-row align-items-center">
                               <div className="col-4">
-                                <button className="btn btn-outline-secondary w-100" type="button" onClick={() => { incrementProductQuantity(product._id, sizeId) }}>+</button>
+                                <button className="btn btn-outline-secondary w-100" type="button" onClick={() => { incrementProductQuantity(product._id, sizeId); setsizeQuantity(sizeQuantity + 1) }}>+</button>
                               </div>
                               <div className="col-4">
                                 <input type="text" className="form-control text-center w-100" readonly value={sizeId ? product.sizes.filter(size => size._id === sizeId)[0]?.sizeQuantity : 0} />
