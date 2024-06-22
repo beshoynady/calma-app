@@ -185,7 +185,7 @@ const DeliveryMan = () => {
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">العميل: {user ? user.username : name}</p>
                         <p className="card-text">رقم الفاتورة: 
-                          <a href="#invoiceOrderModal"  data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
+                          <a href="#invoiceOrderModal" className='btn btn-primary' data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
                           {serial} </a>
                         </p>
                         <p className="card-text">العنوان: {address}</p>
