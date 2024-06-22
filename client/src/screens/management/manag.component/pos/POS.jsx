@@ -708,9 +708,9 @@ const POS = () => {
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount : item.price} ج</div>
                                     <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                      <button onClick={() => decrementProductQuantity(item.productid)} className="btn btn-47 btn-light">-</button>
+                                      <button onClick={() => decrementProductQuantity(item.productid , item.sizeId)} className="btn btn-47 btn-light">-</button>
                                       <span>{item.quantity > 0 ? item.quantity : 0}</span>
-                                      <button onClick={() => incrementProductQuantity(item.productid)} className="btn btn-47 btn-light">+</button>
+                                      <button onClick={() => incrementProductQuantity(item.productid , item.sizeId)} className="btn btn-47 btn-light">+</button>
                                     </div>
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
                                   </div>
