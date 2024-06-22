@@ -623,7 +623,8 @@ const POS = () => {
 
 
 
-                            {item.productid === productid && noteArea ? (
+                            {
+                            item.productid === productid && !item.sizeId &&noteArea ? (
                               <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
                                 <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
@@ -632,8 +633,16 @@ const POS = () => {
                                 </div>
                               </form>
                             )
-                              : (
-                                <div className="card-body" style={{ padding: '5px', margin: '0' }}>
+                              : item.productid === productid && item.sizeId === sizeId&& noteArea ? (
+                                  <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
+                                    <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
+                                    <div className="d-flex justify-content-center">
+                                      <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
+                                      <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
+                                    </div>
+                                  </form>
+                              ):''}
+                              <div className="card-body" style={{ padding: '5px', margin: '0' }}>
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
                                     <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', cursor: 'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
@@ -675,7 +684,6 @@ const POS = () => {
                                   )}
                                   {item.notes && <div className="card-text mt-2 text-muted">{item.notes}</div>}
                                 </div>
-                              )}
                           </div>
                         ))
                           
