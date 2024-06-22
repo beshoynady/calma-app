@@ -130,12 +130,12 @@ const MenuCard = () => {
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {product.available === true ? (
                               <>
-                                {itemId.includes(sizeId) && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
+                                {/* {itemId.includes(sizeId) && sizeId && product.sizes.filter(size => size._id === sizeId)[0].sizeQuantity > 0 ? (
                                   <button type="button" className="btn btn-danger btn-block" style={{ fontSize: "14px" }} onClick={() => { deleteItemFromCart(product._id, sizeId) }}>
                                     حذف من الطلبات
                                   </button>
-                                ) : (
-                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (sizeQuantity > 0) { addItemToCart(product._id, size._id) } }}>
+                                ) : ( */}
+                                  <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (sizeQuantity > 0) { addItemToCart(product._id, size._id) }; console.log(product.sizes.filter(size => size._id === sizeId)) }}>
                                     أضف الى طلباتي
                                   </button>
                                 )}
