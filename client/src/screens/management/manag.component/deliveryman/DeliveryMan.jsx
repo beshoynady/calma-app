@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { detacontext } from '../../../../App'
 // import './Waiter.css'
 import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { useReactToPrint } from 'react-to-print';
 
 
 const DeliveryMan = () => {
@@ -158,7 +159,6 @@ const DeliveryMan = () => {
   const handlePrintInvoice = (e) => {
     e.preventDefault();
     PrintInvoice();
-    setisPrint(true);
   };
 
   // Fetch initial data on component mount
