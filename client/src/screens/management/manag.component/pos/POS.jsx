@@ -631,7 +631,7 @@ const POS = () => {
 
 
                             {item.productid === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid); setnoteArea(!noteArea) }}>
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid ,item.sizeId); setnoteArea(!noteArea) }}>
                                 <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
                                   <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
