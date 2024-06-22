@@ -632,7 +632,7 @@ const POS = () => {
                                   <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                   <div className="d-flex justify-content-center">
                                     <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                    <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
+                                    <button type="button" onClick={() =>{setnoteArea(!noteArea);setproductNote('')}} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                   </div>
                                 </form>
                                   </div>
@@ -644,7 +644,7 @@ const POS = () => {
                                     <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                     <div className="d-flex justify-content-center">
                                       <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
-                                      <button type="button" onClick={() => setnoteArea(!noteArea)} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
+                                      <button type="button" onClick={() => {setnoteArea(!noteArea);setproductNote('')}} className="btn btn-47 btn-secondary" style={{ height: '35px' }}>اغلاق</button>
                                     </div>
                                   </form>
                                     </div>
