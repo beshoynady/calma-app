@@ -112,18 +112,44 @@ const DeliveryMan = () => {
                       </div>
                     </div>
                     <ul className="list-group list-group-flush">
-                      {products.length>0?products.map((product, j) => (
-                        <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={j}>
-                          <span style={{ fontSize: "18px" }}>{j + 1}- {product.name}</span>
-                          <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>× {product.quantity}</span>
-                        </li>
-                      )):''}
+                      {products.length > 0 ? products.map((product, j) => (
+                        <>
+                          <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i}
+                            style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                            <div className="d-flex justify-content-between align-items-center w-100">
+                              <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
+                                {i + 1}- {product.name}</p>
+                              <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
+                            </div>
+                            <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
+                          </li>
+                          {product.extras && product.extras.length > 0 && (
+                            product.extras.map((extra, j) => {
+                              if (extra && extra.isDone === false) {
+                                return (
+                                  <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={`${i}-${j}`}
+                                    style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                      {extra.extraDetails.map((detail) => (
+                                        <p className="badge badge-secondary m-1" key={detail.extraid}>
+                                          {`${detail.name}`}</p>
+                                      ))}
+                                    </div>
+                                  </li>
+                                );
+                              } else {
+                                return null;
+                              }
+                            })
+                          )}
+                        </>
+                      )) : ''}
                     </ul>
                     <p>الاجمالي : {total}</p>
                     <div className="card-footer text-center">
                       {status === 'Prepared' ?
-                        <button className="btn btn-47 btn-primary btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
-                        <button className="btn btn-47 btn-warning btn btn-lg" style={{ width: "100%" }} onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
+                        <button className="btn w-100 btn-primary btn btn-lg" onClick={() => { updateOrderOnWay(_id) }}>استلام الطلب</button> :
+                        <button className="btn w-100 btn-warning btn btn-lg" onClick={() => { updateOrderDelivered(_id) }}>تم التسليم</button>
                       }
                     </div>
                   </div>
@@ -132,7 +158,7 @@ const DeliveryMan = () => {
 
                 return null; // لا تقم بعرض شيء إذا كانت جميع المنتجات تم تسليمها
               })}
-
+                    
             </div>
           )
         }
