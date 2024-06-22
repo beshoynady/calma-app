@@ -135,7 +135,6 @@ const Waiter = () => {
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">الطاولة: {order.table?.tableNumber}</p>
                         <p className="card-text">رقم الفاتورة: {order.serial}</p>
-                        <p className="card-text">نوع الطلب: {order.orderType}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">الويتر: {order.waiter?.fullname}</p>
@@ -144,10 +143,9 @@ const Waiter = () => {
                       </div>
                     </div>
                     <ul className="list-group list-group-flush">
-
                       <li className="list-group-item bg-light text-dark d-flex justify-content-between align-items-center" key={i}>
-                        <span style={{ fontSize: "18px" }}>{i + 1}- {order.table?.tableNumber}</span>
-                        <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يحتاج الفاتورة' : ''}</span>
+                        <span style={{ fontSize: "18px" }}>طاولة : {order.table?.tableNumber}</span>
+                        <span className="badge bg-secondary rounded-pill" style={{ fontSize: "16px" }}>{order.help == 'Requests assistance' ? 'يحتاج المساعدة' : order.help == 'Requests bill' ? 'يطلب الحساب' : ''}</span>
                       </li>
 
                     </ul>
@@ -188,7 +186,8 @@ const Waiter = () => {
                               <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={i}
                                 style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                 <div className="d-flex justify-content-between align-items-center w-100">
-                                  <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{i + 1}- {product.name}</p>
+                                  <p style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
+                                    {i + 1}- {product.name}</p>
                                   <span style={{ fontSize: '1.2em', fontWeight: 'bold' }}> × {product.quantity}</span>
                                 </div>
                                 <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{product.notes}</div>
@@ -201,7 +200,8 @@ const Waiter = () => {
                                         style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                         <div className="d-flex justify-content-between align-items-center w-100">
                                           {extra.extraDetails.map((detail) => (
-                                            <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name}`}</p>
+                                            <p className="badge badge-secondary m-1" key={detail.extraid}>
+                                              {`${detail.name}`}</p>
                                           ))}
                                         </div>
                                       </li>
