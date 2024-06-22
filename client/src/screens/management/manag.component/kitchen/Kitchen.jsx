@@ -323,15 +323,14 @@ const Kitchen = () => {
 
       // Perform other operations if needed after the loop completes
       // Update order status or perform other tasks
-      let waiter = '';
-
-      if (type === 'Internal') {
-        waiter = await specifiedWaiter(id);
-      }
+      
       const status = 'Prepared';
       const updateproducts = products.map((prod) => ({ ...prod, isDone: true }));
-      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status, waiter });
-
+      if (type === 'Internal') {
+        const waiter = await specifiedWaiter(id);
+        await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status, waiter });
+      }
+      await axios.put(`${apiUrl}/api/order/${id}`, { products: updateproducts, status });
       // Fetch orders from the API
       const orders = await axios.get(apiUrl + '/api/order');
       // Set all orders state
