@@ -184,8 +184,8 @@ const DeliveryMan = () => {
                     <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">العميل: {user ? user.username : name}</p>
-                        <p className="card-text btn btn-info">رقم الفاتورة: 
-                          <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
+                        <p className="card-text">رقم الفاتورة: 
+                          <a href="#invoiceOrderModal"  data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
                           {serial} </a>
                         </p>
                         <p className="card-text">العنوان: {address}</p>
@@ -212,7 +212,7 @@ const DeliveryMan = () => {
                             product.extras.map((extra, j) => {
                               if (extra && extra.isDone === false) {
                                 return (
-                                  <li className='list-group-item d-flex flex-column justify-content-between align-items-center' key={`${i}-${j}`}
+                                  <li className='list-group-item d-flex flex-column justify-content-start align-items-center' key={`${i}-${j}`}
                                     style={product.isAdd ? { backgroundColor: 'red', color: 'white' } : { color: 'black' }}>
                                     <div className="d-flex justify-content-between align-items-center w-100">
                                       {extra.extraDetails.map((detail) => (
