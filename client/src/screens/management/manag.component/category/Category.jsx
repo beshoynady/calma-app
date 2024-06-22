@@ -115,10 +115,13 @@ const Category = () => {
     }
   };
 
-  const [CategoryFilterd, setCategoryFilterd] = useState([])
   const searchByCategory = (category) => {
-    const categories = allCategory ? allCategory.filter((Category) => Category.name.startsWith(category) == true) : []
-    setCategoryFilterd(categories)
+    if(category){
+      const categories = allCategory ? allCategory.filter((Category) => Category.name.startsWith(category) == true) : []
+      setallCategory(categories)
+    }else{
+      getallCategory()
+    }
   }
 
   const handleDragStart = (e, index) => {
@@ -338,47 +341,21 @@ const Category = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {CategoryFilterd.length > 0 ?
-                        CategoryFilterd.map((category, i) => {
+                      {allCategory && allCategory.map((category, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
+                                {/* <td>
                                   <span className="custom-checkbox">
                                     <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                     <label htmlFor="checkbox1"></label>
                                   </span>
-                                </td>
+                                </td> */}
                                 <td>{i + 1}</td>
                                 <td>{category.name}</td>
                                 <td>{category.order}</td>
                                 <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
-                                <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
-                                <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
-                                <td>
-                                  <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-
-                                  <a href="#deleteCategoryModal" className="delete" data-toggle="modal" onClick={() => setcategoryId(category._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                              </tr>
-                            )
-                          }
-                        })
-                        : allCategory && allCategory.map((category, i) => {
-                          if (i >= startpagination & i < endpagination) {
-                            return (
-                              <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
-                                <td>{i + 1}</td>
-                                <td>{category.name}</td>
-                                <td>{category.order}</td>
-                                <td>{category.status ? "متاحة" : "ليست متاحة"}</td>
-                                <td>{allProducts ? allProducts.filter((pro) => pro.category == category._id).length : 0}</td>
+                                <td>{allProducts ? allProducts.filter((product) => product.category._id == category._id).length : 0}</td>
                                 <td>{category.createdBy ? category.createdBy.username : 'غير معروف'}</td>
                                 <td>
                                   <a href="#editCategoryModal" className="edit" data-toggle="modal" onClick={() => handleCategoryData(category)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -407,6 +384,8 @@ const Category = () => {
                   </div>
                 </div>
               </div>
+
+
               <div id="addCategoryModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
