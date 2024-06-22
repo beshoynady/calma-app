@@ -744,17 +744,20 @@ function App() {
         productOrderToUpdate.find(product => product._id === productId) :
         allProducts.find(product => product._id === productId);
 
-      if (!productToUpdate) {
-        throw new Error('Product not found.');
-      }
+        console.log({ productToUpdate })
+        if (!productToUpdate) {
+          throw new Error('Product not found.');
+        }
 
-      if (sizeId) {
-        productToUpdate.sizes.filter(size => size._id === sizeId)[0].sizeQuantity = 0
+      if (productToUpdate.hasSizes) {
+        productToUpdate.sizes.filter(size => size._id === sizeId)[0]?.quantity = 0
+      }else{
+        // Reset the quantity and notes of the found product to zero
+        productToUpdate.quantity = 0;
+        productToUpdate.notes = '';
+
       }
       console.log({ productToUpdate })
-      // Reset the quantity and notes of the found product to zero
-      productToUpdate.quantity = 0;
-      productToUpdate.notes = '';
     } catch (error) {
       console.error('Error resetting product quantity and notes:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.
@@ -766,7 +769,7 @@ function App() {
     try {
       if (sizeId) {
 
-        console.log({ itemsInCart })
+        // console.log({ itemsInCart })
         // Determine which list to operate on based on the presence of items in productOrderToUpdate
         const updatedList = productOrderToUpdate.length > 0 ?
           productOrderToUpdate.filter(product => product.sizeId !== sizeId) :
@@ -775,8 +778,8 @@ function App() {
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
 
-        console.log({ updatedItemId })
-        console.log({ itemsInCart })
+        // console.log({ updatedItemId })
+        // console.log({ itemsInCart })
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
@@ -792,8 +795,8 @@ function App() {
         console.log({ itemsInCart })
         // Determine which list to operate on based on the presence of items in productOrderToUpdate
         const updatedList = productOrderToUpdate.length > 0 ?
-          productOrderToUpdate.filter(product => product.productid !== id) :
-          itemsInCart.filter(item => item.productid !== id);
+          productOrderToUpdate.filter(product => product.productid !== id && product.sizeId ===null) :
+          itemsInCart.filter(item => item.productid !== id && item.sizeId ===null);
 
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
