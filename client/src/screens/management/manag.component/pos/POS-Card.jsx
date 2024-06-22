@@ -25,7 +25,7 @@ const POSCard = () => {
     setsizeQuantity(size.sizeQuantity)
     setsizePrice(size.sizePrice);
     if (size.sizeDiscount > 0) {
-      setsizePriceAfterDescount(size.sizePrice-size.sizeDiscount);
+      setsizePriceAfterDescount(size.sizePrice - size.sizeDiscount);
     }
   };
 
@@ -44,7 +44,7 @@ const POSCard = () => {
                   if (product.hasSizes) {
                     return (
                       <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '200px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} >
-                        <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }} onClick={() => {sizeId&&addItemToCart(product._id, sizeId) }}>
+                        <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }} onClick={() => { sizeId && addItemToCart(product._id, sizeId) }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
                         <div className="d-flex row justify-content-between align-items-center mb-2">
@@ -63,15 +63,25 @@ const POSCard = () => {
                         <div className="d-flex bg-secondary justify-content-between align-items-center p-0 mx-1">
                           <h5 className="card-title text-light mb-0 text-truncate" style={{ width: '60%', fontSize: '18px', fontWeight: '900' }}>{product.name}</h5>
                           <div className="text-end ">
-                          {sizePriceAfterDescount > 0  ? (
-                              <>
-                                <span className="text-light fw-bold">{sizePriceAfterDescount}ج</span>
-                                <sup><del className="text-muted text-light" style={{ fontSize: '14px', fontWeight: '900' }}>{sizePrice}ج</del></sup>
+                            {product.sizes.length > 0 && product.sizes?.map((size, i) => {
+                              if (size._id === sizeId) {
+                                const { sizePrice, sizePriceAfterDescount } = size;
+                                return (
+                                  <React.Fragment key={i}>
+                                    {sizePriceAfterDescount > 0 ? (
+                                      <>
+                                        <span className="text-light fw-bold">{sizePriceAfterDescount}ج</span>
+                                        <sup><del className="text-muted text-light" style={{ fontSize: '14px', fontWeight: '900' }}>{sizePrice}ج</del></sup>
+                                      </>
+                                    ) : (
+                                      <span className="text-light fw-bold">{sizePrice}ج</span>
+                                    )}
+                                  </React.Fragment>
+                                );
+                              }
+                              return null;
+                            })}
 
-                              </>
-                            ) : (
-                              <span className="text-light fw-bold">{sizePrice}ج</span>
-                            )}
                           </div>
                         </div>
                         <div className="d-flex  w-100bg-secondary justify-content-between align-items-center p-0 mx-1">
