@@ -2,7 +2,7 @@ const RecipeModel = require('../models/Recipe.model');
 
 const createRecipe = async (req, res) => {
   try {
-    const { productId, productName,size, ingredients, totalcost } = req.body;
+    const { productId, productName, size, ingredients, totalcost } = req.body;
     
     // Check if all required fields are present in the request body
     if (!productId || !productName || !ingredients || !totalcost) {

@@ -525,7 +525,7 @@ const POS = () => {
                                   className="w-100 h-100 top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between m-0 p-0" >
                                   {/* أزرار الأصناف */}
                                   <div className='d-flex align-items-center justify-content-center flex-wrap' style={{ width: '100%', height: 'auto' }}>
-                                    {Array.from({ length: product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity }).map((_, ind) => (
+                                    {Array.from({ length: product.sizes.filter(size => size._id === item.sizeId)[0]?.sizeQuantity }).map((_, ind) => (
                                       <div key={ind} style={{ margin: '5px' }}>
                                         <button type="button" className='btn btn-info' onClick={() => setSelectedButtonIndex(ind + 1)}>
                                           {ind + 1}

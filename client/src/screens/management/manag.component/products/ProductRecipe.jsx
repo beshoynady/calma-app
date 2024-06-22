@@ -142,12 +142,17 @@ const ProductRecipe = () => {
       getProductRecipe(id, 'oneSize');
     }
   }
+
+
+
+  const [size, setsize] = useState("oneSize");
   const handleSelectedProductSize = (size) => {
     setsize(size)
     getProductRecipe(productId, size);
-
+    
   }
-  const [size, setsize] = useState("oneSize");
+
+
   const [itemId, setitemId] = useState("");
   const [name, setname] = useState("");
   const [amount, setamount] = useState();
