@@ -518,7 +518,7 @@ const POS = () => {
                           <div className="card mb-3" key={index}>
 
 
-                            {product.hasSizes && item.sizeId && sizeId === item.sizeId && extraArea === true && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
+                            {product && item.sizeId && sizeId === item.sizeId && extraArea === true && product.sizes.filter(size => size._id === item.sizeId)[0].sizeQuantity > 0 ?
                               (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                 style={{ zIndex: 10 }}>
                                 <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, item.sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
@@ -567,7 +567,7 @@ const POS = () => {
                                 </form>
                               </div>
                               )
-                              : !product.hasSizes && product._id && product._id === item.productid && extraArea === true && product.quantity > 0 ?
+                              : product &&!item.sizeId&& product._id && product._id === item.productid && extraArea === true && product.quantity > 0 ?
                                 (<div className="position-absolute w-100 h-auto top-0 start-0 bg-white rounded-3 d-flex flex-column align-items-center justify-content-center overflow-hidden"
                                   style={{ zIndex: 10 }}>
                                   <form onSubmit={(e) => { if (product.extras.length > 0) { addExtrasToProduct(e, product._id, sizeId); }; setSelectedButtonIndex(1); setextraArea(!extraArea); }}
