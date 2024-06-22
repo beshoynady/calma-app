@@ -51,7 +51,7 @@ const POSCard = () => {
                           <div className=" btn-group btn-group-toggle " style={{ direction: 'ltr' }} data-toggle="buttons">
                             {product.sizes.length > 0 && product.sizes?.map((size, i) => {
                               return (
-                                <label key={i} className={`d-flex justify-content-center align-items-center col-4 btn btn-primary ${size._id === sizeId ? "active" : ''}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id === sizeId ? true : i === 0 ? true : false} onClick={() => handleSelectSize(size)}>
+                                <label key={i} className={`d-flex justify-content-center align-items-center col-4 btn  ${size._id === sizeId ? "btn-info" : 'btn-primary'}`} style={{ height: "40px", fontSize: "24px", fontWeight: "600" }} defaultChecked={size._id === sizeId ? true : i === 0 ? true : false} onClick={() => handleSelectSize(size)}>
                                   <input type="radio" name="size" id={`sizeS${i}`} />
                                   {size.sizeName}
                                 </label>
@@ -65,16 +65,15 @@ const POSCard = () => {
                           <div className="text-end ">
                             {product.sizes.length > 0 && product.sizes?.map((size, i) => {
                               if (size._id === sizeId) {
-                                const { sizePrice, sizePriceAfterDescount } = size;
                                 return (
                                   <React.Fragment key={i}>
-                                    {sizePriceAfterDescount > 0 ? (
+                                    {size.sizePriceAfterDescount > 0 ? (
                                       <>
-                                        <span className="text-light fw-bold">{sizePriceAfterDescount}ج</span>
-                                        <sup><del className="text-muted text-light" style={{ fontSize: '14px', fontWeight: '900' }}>{sizePrice}ج</del></sup>
+                                        <span className="text-light fw-bold">{size.sizePriceAfterDescount}ج</span>
+                                        <sup><del className="text-muted text-light" style={{ fontSize: '14px', fontWeight: '900' }}>{size.sizePrice}ج</del></sup>
                                       </>
                                     ) : (
-                                      <span className="text-light fw-bold">{sizePrice}ج</span>
+                                      <span className="text-light fw-bold">{size.sizePrice}ج</span>
                                     )}
                                   </React.Fragment>
                                 );
