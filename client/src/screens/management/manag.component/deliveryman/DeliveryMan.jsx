@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { detacontext } from '../../../../App'
-// import './Waiter.css'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useReactToPrint } from 'react-to-print';
