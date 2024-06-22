@@ -33,7 +33,7 @@ const MenuCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, setproductExtras,decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
+        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, setproductExtras, decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
           return (
 
             <div className="d-flex flex-wrap flex-md-row">
@@ -100,7 +100,7 @@ const MenuCard = () => {
                                                   product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind] &&
                                                   product.sizes.filter(size => size._id === sizeId)[0].extrasSelected[ind].extraDetails.some(detail => detail.extraId === extra._id))
                                               }
-                                             
+
                                               onChange={(e) => handleAddProductExtras(extra, ind)}
                                             />
                                             <label className="form-check-label mr-4" style={{ fontSize: '14px', fontWeight: '900' }} onClick={(e) => handleAddProductExtras(extra, ind)}>{`${extra.name} - ${extra.price} ج`} </label>
@@ -150,14 +150,14 @@ const MenuCard = () => {
                           <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "45px", cursor:'pointer' }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "45px", cursor: 'pointer' }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => {setproductExtras(product.sizes.filter(size => size._id === sizeId)[0].extrasSelected?product.sizes.filter(size => size._id === sizeId)[0].extrasSelected:[]); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
+                                  onClick={() => { setproductExtras(product.sizes.filter(size => size._id === sizeId)[0].extrasSelected ? product.sizes.filter(size => size._id === sizeId)[0].extrasSelected : []); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
 
@@ -174,12 +174,24 @@ const MenuCard = () => {
                               </div>
 
                               <div className="col-4 d-flex flex-column align-items-end">
-                                {sizePriceAfterDescount > 0 ?
-                                  <>
-                                    <sup><small className="text-muted"><s>{sizePrice}ج</s></small></sup>
-                                    <span className="text-danger fw-bold">{sizePriceAfterDescount}ج</span>
-                                  </>
-                                  : <span className="text-danger fw-bold">{sizePrice}ج</span>}
+                                {product.sizes.length > 0 && product.sizes?.map((size, i) => {
+                                  if (size._id === sizeId) {
+                                    return (
+                                      <React.Fragment key={i}>
+                                        {size.sizePriceAfterDescount > 0 ? (
+                                          <>
+                                            <sup><small className="text-muted"><s>{size.sizePrice}ج</s></small></sup>
+                                            <span className="text-danger fw-bold">{size.sizePriceAfterDescount}ج</span>
+                                          </>
+                                        ) : (
+                                          <span className="text-danger fw-bold">{size.sizePrice}ج</span>
+                                        )}
+                                      </React.Fragment>
+                                    );
+                                  }
+                                  return null;
+                                })}
+
                               </div>
                             </div>
                             <div className="form-row align-items-center">
@@ -259,7 +271,7 @@ const MenuCard = () => {
                                       <div key={ind} className="form-group w-100 h-100 d-flex flex-column align-items-start justify-content-start flex-wrap" style={{ padding: '5px', overflowY: "scroll" }}>
                                         {product.extras && product.extras.map((extra, i) => (
                                           <div className="form-check form-check-flat mb-1 d-flex align-items-center" key={i} style={{ width: '47%', height: '20px', paddingLeft: '5px' }}>
-                                            {console.log({productExtras})}
+                                            {console.log({ productExtras })}
                                             <input
                                               type="checkbox"
                                               className="form-check-input "
@@ -318,14 +330,14 @@ const MenuCard = () => {
                           <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
-                              <span className="material-icons" style={{ color: "red", fontSize: "45px", cursor:'pointer' }}
+                              <span className="material-icons" style={{ color: "red", fontSize: "45px", cursor: 'pointer' }}
                                 onClick={() => { setnoteArea(!noteArea); setproductid(product._id) }}>note_alt</span>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <p className="card-text mb-2" style={{ fontSize: "12px", fontWeight: "700" }}>{product.description}</p>
                               {product.hasExtras &&
-                                <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor:'pointer' }}
-                                  onClick={() => {setproductExtras(product.extrasSelected?product.extrasSelected:[]); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
+                                <span className="material-icons" style={{ color: "green", fontSize: "45px", cursor: 'pointer' }}
+                                  onClick={() => { setproductExtras(product.extrasSelected ? product.extrasSelected : []); setextraArea(!extraArea); setproductid(product._id) }}>add_circle</span>
                               }
                             </div>
                             <div className="d-flex row justify-content-between align-items-center mb-2">
