@@ -7,7 +7,12 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const DeliveryMan = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); 
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   // // State for pending orders and payments
   // const [pendingOrders, setPendingOrders] = useState([]);
   // const [pendingPayments, setPendingPayments] = useState([]);
@@ -138,6 +143,24 @@ const DeliveryMan = () => {
     }
   };
 
+
+  const printContainerInvoice = useRef();
+
+  const PrintInvoice = useReactToPrint({
+    content: () => printContainerInvoice.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage',
+    printerName: 'cashier'
+  });
+
+
+  const handlePrintInvoice = (e) => {
+    e.preventDefault();
+    PrintInvoice();
+    setisPrint(true);
+  };
+
   // Fetch initial data on component mount
   useEffect(() => {
     //  fetchPendingData();
@@ -147,7 +170,7 @@ const DeliveryMan = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ usertitle, employeeLoginInfo }) => {
+        ({ restaurantData, formatDate }) => {
           return (
             <div className='container-fluid d-flex flex-wrap align-content-start justify-content-around align-items-start h-100 overflow-auto bg-transparent py-5 px-3'>
               <ToastContainer />
@@ -163,7 +186,8 @@ const DeliveryMan = () => {
                     <div className="card-body text-right d-flex justify-content-between p-0 m-1">
                       <div style={{ maxWidth: "50%" }}>
                         <p className="card-text">العميل: {user ? user.username : name}</p>
-                        <p className="card-text btn btn-info">رقم الفاتورة: <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
+                        <p className="card-text btn btn-info">رقم الفاتورة: 
+                          <a href="#invoiceOrderModal" data-toggle="modal" onClick={() => getOrderDetalis(serial)}>
                           {serial} </a>
                         </p>
                         <p className="card-text">العنوان: {address}</p>

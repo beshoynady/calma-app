@@ -8,7 +8,12 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const Waiter = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem('token_e'); 
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   // Refs for buttons
   const start = useRef();
   const ready = useRef();
