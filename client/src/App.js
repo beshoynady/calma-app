@@ -797,12 +797,13 @@ function App() {
         console.log({ itemsInCart })
         // Determine which list to operate on based on the presence of items in productOrderToUpdate
         const updatedList = productOrderToUpdate.length > 0 ?
-          productOrderToUpdate.filter(product => product.productid !== id && product.sizeId ===null) :
-          itemsInCart.filter(item => item.productid !== id && item.sizeId ===null);
-
+          productOrderToUpdate.filter(product => product.productid !== id) :
+          itemsInCart.filter(item => item.productid !== id);
+          
+          console.log({ updatedList })
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
-
+        
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
