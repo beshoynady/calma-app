@@ -750,7 +750,7 @@ function App() {
         }
 
       if (productToUpdate.hasSizes) {
-        productToUpdate.sizes.filter(size => size._id === sizeId)[0]?.quantity = 0
+        productToUpdate.sizes.filter(size => size._id === sizeId)[0].quantity = 0
       }else{
         // Reset the quantity and notes of the found product to zero
         productToUpdate.quantity = 0;

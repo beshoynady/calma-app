@@ -631,7 +631,7 @@ const POS = () => {
 
 
                             {item.productid === productid && noteArea ? (
-                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid ,item.sizeId); setnoteArea(!noteArea) }}>
+                              <form className="card-body" style={{ padding: '5px', margin: '0' }} onSubmit={(e) => { addNoteToProduct(e, item.productid, item.sizeId); setnoteArea(!noteArea) }}>
                                 <textarea className="form-control mb-2" defaultValue={item.notes} placeholder='اضف تعليماتك الخاصة بهذا الطبق' name='note' rows='3' onChange={(e) => { setproductNote(e.target.value); }}></textarea>
                                 <div className="d-flex justify-content-center">
                                   <button type="submit" className="btn btn-47 btn-primary me-2" style={{ height: '35px' }}>تاكيد</button>
@@ -708,9 +708,9 @@ const POS = () => {
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount : item.price} ج</div>
                                     <div className="d-flex justify-content-between" style={{ width: '50%' }}>
-                                      <button onClick={() => decrementProductQuantity(item.productid , item.sizeId)} className="btn btn-47 btn-light">-</button>
+                                      <button onClick={() => decrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">-</button>
                                       <span>{item.quantity > 0 ? item.quantity : 0}</span>
-                                      <button onClick={() => incrementProductQuantity(item.productid , item.sizeId)} className="btn btn-47 btn-light">+</button>
+                                      <button onClick={() => incrementProductQuantity(item.productid, item.sizeId)} className="btn btn-47 btn-light">+</button>
                                     </div>
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount > 0 ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</div>
                                   </div>
