@@ -617,13 +617,6 @@ const POS = () => {
                                   </form>
                                 </div>
                                 )
-                                // : <div className='position-absolute w-100 h-100 top-0 start-0 p-2 bg-white rounded-3 d-flex flex-column align-items-center justify-content-between overflow-hidden'
-                                //   style={{ zIndex: 10 }}>
-                                //   <p className='d-flex align-items-center justify-content-center w-100 h-75' style={{ fontSize: '18px', fontWeight: '900', textAlign: "center" }}>اختر اولا  الكمية</p>
-                                //   <div className="note-btn d-flex align-items-center justify-content-center w-100 mt-2" style={{ height: '40px', button: '0' }}>
-                                //     <button type="button" onClick={() => setextraArea(!extraArea)} className="btn btn-danger rounded-2" style={{ width: '100%' }}>اغلاق</button>
-                                //   </div>
-                                // </div>
                                 : ''}
 
 
@@ -665,7 +658,8 @@ const POS = () => {
                                   {item.extras && (
                                     <div className="d-flex flex-columen flex-wrap mt-2">
                                       {item.extras.map((extra, i) => (
-                                        extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                        extra && extra.totalExtrasPrice>0 && 
+                                        <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
                                           <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
                                             {extra.extraDetails && extra.extraDetails.map((detail) => {
 
@@ -684,7 +678,11 @@ const POS = () => {
                               )}
                           </div>
                         ))
-                          :
+                          
+                        
+                        
+                        
+                        :
                           productOrderToUpdate.length > 0 ? productOrderToUpdate.map((item, index) => (
                             <div className="card mb-3" key={index}>
                               {item.productid === productid && noteArea ? (
