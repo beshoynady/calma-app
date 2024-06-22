@@ -138,7 +138,7 @@ const MenuCard = () => {
                                   <button type="button" className="btn btn-success btn-block" style={{ fontSize: "14px" }} onClick={() => { if (sizeQuantity > 0) { addItemToCart(product._id, size._id) }; console.log(product.sizes.filter(size => size._id === sizeId)) }}>
                                     أضف الى طلباتي
                                   </button>
-                                )}
+                                )
                               </>
                             ) : (
                               <button type="button" className="btn btn-warning btn-block" style={{ fontSize: "14px" }}>
