@@ -196,7 +196,7 @@ const MenuCard = () => {
                             </div>
                             <div className="form-row align-items-center">
                               <div className="col-4">
-                                <button className="btn btn-outline-secondary w-100" type="button" onClick={() => { incrementProductQuantity(product._id, sizeId); setsizeQuantity(sizeQuantity + 1) }}>+</button>
+                                <button className="btn btn-outline-secondary w-100" type="button" onClick={() => { incrementProductQuantity(product._id, sizeId) }}>+</button>
                               </div>
                               <div className="col-4">
                                 <input type="text" className="form-control text-center w-100" readonly value={sizeId ? product.sizes.filter(size => size._id === sizeId)[0]?.sizeQuantity : 0} />
