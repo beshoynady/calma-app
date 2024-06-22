@@ -650,7 +650,7 @@ const POS = () => {
                                         onClick={() => { setproductExtras(item.extras); setextraArea(!extraArea); getProductDitalis(allProducts, item.productid); item.sizeId ? setsizeId(item.sizeId) : setproductid(item.productid) }}>add_circle</span>
                                     }
 
-                                    <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
+                                    <button onClick={() => deleteItemFromCart(item.productid, item.sizeId)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
                                   <div className="d-flex justify-content-between align-items-center py-2">
                                     <div className="fw-bold" style={{ width: '25%', textAlign: 'center' }}>{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</div>
@@ -702,7 +702,7 @@ const POS = () => {
 
                                     <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', cursor: 'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
 
-                                    <button onClick={() => deleteItemFromCart(item.productid)} className="btn btn-47 btn-danger">حذف</button>
+                                    <button onClick={() => deleteItemFromCart(item.productid, item.sizeId)} className="btn btn-47 btn-danger">حذف</button>
                                   </div>
 
                                   <div className="d-flex justify-content-between align-items-center py-2">
