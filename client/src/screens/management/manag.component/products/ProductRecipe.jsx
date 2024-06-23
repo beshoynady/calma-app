@@ -209,7 +209,17 @@ const ProductRecipe = () => {
         } else {
           throw new Error("Failed to update recipe");
         }
+        if(size && product.hasSizes){
+          sizes.map(si=>{
+            if(si._id === size._id){
+              size.sizeCost = totalCost
+            }
+          })          
+          const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {sizes}, config);
+        }else if(!size && !product.hasSizes){
+          const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {totalcost:totalCost}, config);
 
+        }
         getProductRecipe(productId , sizeId); // Refresh the product recipe
       } else {
         const sizeName = size ? size.sizeName : '';
@@ -227,7 +237,17 @@ const ProductRecipe = () => {
           { productId, productName, sizeName, sizeId, ingredients: newIngredients, totalcost: totalCost },
           config
         );
+        if(size && product.hasSizes){
+          sizes.map(si=>{
+            if(si._id === size._id){
+              size.sizeCost = totalCost
+            }
+          })          
+          const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {sizes}, config);
+        }else if(!size && !product.hasSizes){
+          const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {totalcost:totalCost}, config);
 
+        }
         console.log({ addRecipeToProduct }); // Log the response from the server
 
         if (addRecipeToProduct.status === 201) {
@@ -253,43 +273,7 @@ const ProductRecipe = () => {
 
   const [recipeid, setrecipeid] = useState('')
 
-  // const editRecipe = async (e) => {
-  //   e.preventDefault()
-  //   console.log({ingredients})
-  //   const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
-  //   const newingredients = ingredients.map((ingredient, i) =>{ 
-  //     if(ingredient.itemId == itemId){
-  //       ingredient = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-  //     }})
-  //   // console.log({getRecipe})
-  //   // const recipeIndex = productRecipe.findIndex(recipe => recipe === getRecipe)
-  //   // console.log(recipeIndex)
-  //   // getRecipe = { itemId: itemId, name: name, amount: amount, costofitem: costofitem, unit: unit, totalcostofitem: totalcostofitem }
-  //   console.log({newingredients})
-  //   let total = 0;
 
-  //   for (let i = 0; i < newingredients.length; i++) {
-  //     total += newingredients[i].totalcostofitem;
-  //   }
-
-  //   const totalcost = Math.round(total * 100) / 100;
-
-  //   console.log({ totalcost: total })
-  //   // productRecipe.map(rec=>totalcost = totalcost + rec.totalcostofitem)
-  //   const editRecipetoProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients:newingredients, totalcost },
-  //   {
-  //     headers: {
-  //       'authorization': `Bearer ${token}`,
-  //     },
-  //   }
-  //   )
-  //   getProductRecipe(productId)
-  //   setitemId('')
-  //   setname('')
-  //   setamount()
-  //   setunit('')
-  //   setcostofitem()
-  // }
 
   const editRecipe = async (e) => {
     try {
@@ -314,8 +298,20 @@ const ProductRecipe = () => {
 
       console.log({ totalcost });
 
-      const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost, size }, config
+      const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost }, config
       );
+      
+      if(size && product.hasSizes){
+        sizes.map(si=>{
+          if(si._id === size._id){
+            size.sizeCost = totalcost
+          }
+        })          
+        const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {sizes}, config);
+      }else if(!size && !product.hasSizes){
+        const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {totalcost}, config);
+
+      }
       if(editRecipeToProduct){
         console.log({ editRecipeToProduct });
         getProductRecipe(productId , sizeId);
