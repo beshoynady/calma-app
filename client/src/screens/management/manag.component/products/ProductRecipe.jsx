@@ -94,12 +94,14 @@ const ProductRecipe = () => {
       let recipeOfProduct;
 
       if (productId && sizeId) {
+        console.log({sizeId})
         recipeOfProduct = allRecipe.filter(recipe =>
           recipe.productId._id === productId && recipe.sizeId === sizeId
         );
       } else if (productId && !sizeId) {
+        console.log({sizeId, productId})
         recipeOfProduct = allRecipe.filter(recipe =>
-          recipe.productId._id === productId
+          recipe.productId._id === productId && recipe.sizeId === null
         );
       }
 
