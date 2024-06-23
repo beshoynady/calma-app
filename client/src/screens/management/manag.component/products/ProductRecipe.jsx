@@ -73,6 +73,7 @@ const ProductRecipe = () => {
 
 
 
+  const [product, setproduct] = useState({});
   const [productId, setproductId] = useState("");
   const [productName, setproductName] = useState("");
 
@@ -85,34 +86,34 @@ const ProductRecipe = () => {
       if (!productId) {
         toast.error("اختر الصنف اولا.");
       }
-  
+
       const allRecipeResponse = await axios.get(`${apiUrl}/api/recipe`, config);
       const allRecipe = allRecipeResponse.data;
-      console.log({allRecipe});
-  
+      console.log({ allRecipe });
+
       let recipeOfProduct;
-  
+
       if (productId && sizeId) {
-        recipeOfProduct = allRecipe.filter(recipe => 
+        recipeOfProduct = allRecipe.filter(recipe =>
           recipe.productId._id === productId && recipe.sizeId === sizeId
         );
       } else if (productId && !sizeId) {
-        recipeOfProduct = allRecipe.filter(recipe => 
+        recipeOfProduct = allRecipe.filter(recipe =>
           recipe.productId._id === productId
         );
       }
-  
+
       if (recipeOfProduct && recipeOfProduct.length > 0) {
         const selectedRecipe = recipeOfProduct[0];
         setrecipeOfProduct(selectedRecipe);
-  
+
         const ingredients = selectedRecipe.ingredients;
         // console.log("المكونات:", ingredients);
         if (ingredients) {
           setingredients([...ingredients].reverse());
           toast.success('تم جلب مكونات الوصفة بنجاح');
         }
-  
+
         const totalrecipeOfProduct = selectedRecipe.totalcost;
         // console.log("التكلفة الكلية للوصفة:", totalrecipeOfProduct);
         if (totalrecipeOfProduct) {
@@ -141,9 +142,10 @@ const ProductRecipe = () => {
     setproductId(id);
     const findProduct = listofProducts.find(product => product._id === id);
     setproductName(findProduct.name);
-    if(findProduct.hasSizes){
-    setsizes(findProduct.sizes)
-    }else{
+    setproduct(findProduct)
+    if (findProduct.hasSizes) {
+      setsizes(findProduct.sizes)
+    } else {
       getProductRecipe(id);
     }
   }
@@ -152,10 +154,9 @@ const ProductRecipe = () => {
 
   const [size, setsize] = useState({});
   const [sizeId, setsizeId] = useState('');
-  const handleSelectedProductSize = (size) => {
-    setsize(size)
-    console.log({sizeId:size._id})
-    setsizeId(size._id)
+  const handleSelectedProductSize = (sizeId) => {
+    setsize(product.sizes.find(size=>size._id === sizeId))
+    setsizeId(sizeId)
     getProductRecipe(productId, size._id);
   }
 
@@ -169,59 +170,59 @@ const ProductRecipe = () => {
 
   const createRecipe = async (e) => {
     e.preventDefault();
-  
+
     try {
       if (!itemId || !name || !amount || !costofitem || !unit || !totalcostofitem) {
         toast.error("يرجى تعبئة جميع الحقول بشكل صحيح");
         return;
       }
-  
+
       let newIngredients;
       let totalCost;
-  
+
       if (ingredients.length > 0) {
         // If there are existing ingredients, create a new array with the added ingredient
         newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
         // Calculate the total cost by adding the cost of the new ingredient
         totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
-  
+
         console.log({ newIngredients, totalCost }); // Log the response from the server
-  
+
         // Update the recipe by sending a PUT request
         const addRecipeToProduct = await axios.put(
-          `${apiUrl}/api/recipe/${recipeOfProduct._id}`, 
-          { ingredients: newIngredients, totalcost: totalCost }, 
+          `${apiUrl}/api/recipe/${recipeOfProduct._id}`,
+          { ingredients: newIngredients, totalcost: totalCost },
           config
         );
-  
+
         console.log({ addRecipeToProduct }); // Log the response from the server
-  
+
         if (addRecipeToProduct.status === 200) {
           toast.success("تم تحديث الوصفة بنجاح");
         } else {
           throw new Error("Failed to update recipe");
         }
-  
+
         getProductRecipe(productId); // Refresh the product recipe
       } else {
         const sizeName = size ? size.sizeName : '';
         const sizeId = size ? size._id : '';
-  
+
         // If there are no existing ingredients, create a new array with the single ingredient
         newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
         totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
-  
+
         console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
-  
+
         // Add the new recipe to the product by sending a POST request
         const addRecipeToProduct = await axios.post(
           `${apiUrl}/api/recipe`,
           { productId, productName, sizeName, sizeId, ingredients: newIngredients, totalcost: totalCost },
           config
         );
-  
+
         console.log({ addRecipeToProduct }); // Log the response from the server
-  
+
         if (addRecipeToProduct.status === 201) {
           getProductRecipe(productId, sizeId); // Refresh the product recipe
           setitemId(''); // Clear the input fields
@@ -354,7 +355,7 @@ const ProductRecipe = () => {
         const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config);
 
         console.log(deleteRecipeToProduct);
-        getProductRecipe(productId , sizeId);
+        getProductRecipe(productId, sizeId);
 
         deleteRecipeToProduct.status === 200 ? toast.success('تم حذف الوصفة بنجاح') : toast.error('حدث خطأ أثناء الحذف');
         getProductRecipe(productId, sizeId)
@@ -434,14 +435,13 @@ const ProductRecipe = () => {
                           </select>
                         </div>
                         {sizes.length > 0 ?
-                          <div class="filter-group">
+                          <div className="filter-group">
                             <label>الحجم</label>
-                            <select class="form-control" onChange={(e) => handleSelectedProductSize(e.target.value)} >
-                              <option value={""}>اختر حجم</option>
+                            <select className="form-control" onChange={(e) => handleSelectedProductSize(e.target.value)} >
+                              <option value="">اختر حجم</option>
                               {sizes.map((size, i) => {
-                                return <option value={size} key={i} >{size.sizeName}</option>
-                              })
-                              }
+                                return <option value={size._id} key={i} >{size.sizeName}</option>
+                              })}
                             </select>
                           </div>
                           : ""}
