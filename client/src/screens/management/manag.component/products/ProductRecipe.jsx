@@ -316,14 +316,18 @@ const ProductRecipe = () => {
 
       const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost, size }, config
       );
-
-      console.log({ editRecipeToProduct });
-      getProductRecipe(productId , sizeId);
-      setitemId('');
-      setname('');
-      setamount('');
-      setunit('');
-      setcostofitem('');
+      if(editRecipeToProduct){
+        console.log({ editRecipeToProduct });
+        getProductRecipe(productId , sizeId);
+        setitemId('');
+        setname('');
+        setamount('');
+        setunit('');
+        setcostofitem('');
+        toast.success('تم تعديل المكون بنجاح')
+      }else{
+        toast.error('حدث خطأ اثناء تعديل المكون ! حاول مره اخري')
+      }
     } catch (error) {
       console.error("Error editing recipe:", error.message);
       toast.error("حدث خطأ أثناء تعديل الوصفة");
