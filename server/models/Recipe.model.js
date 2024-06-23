@@ -15,7 +15,8 @@ const recipeSchema = new mongoose.Schema({
   sizeId: {
     type: ObjectId,
     ref: 'Product',
-    default: null
+    default: null,
+    unique: [true, 'sizeId must be unique']
   },
   sizeName: {
     type: String,

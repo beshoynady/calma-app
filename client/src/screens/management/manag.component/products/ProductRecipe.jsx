@@ -156,9 +156,9 @@ const ProductRecipe = () => {
 
   const [size, setsize] = useState({});
   const [sizeId, setsizeId] = useState('');
-  const handleSelectedProductSize = (sizeId) => {
-    setsize(product.sizes.find(size=>size._id === sizeId))
-    setsizeId(sizeId)
+  const handleSelectedProductSize = (sizeid) => {
+    setsize(product.sizes.find(size=>size._id === sizeid))
+    setsizeId(sizeid)
     getProductRecipe(productId, size._id);
   }
 
@@ -207,8 +207,8 @@ const ProductRecipe = () => {
 
         getProductRecipe(productId , sizeId); // Refresh the product recipe
       } else {
-        const sizeName = size ? size.sizeName : '';
-        const sizeId = size ? size._id : '';
+        const sizeName = size ? sizeName : '';
+        const sizeId = size ? sizeId : '';
 
         // If there are no existing ingredients, create a new array with the single ingredient
         newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
