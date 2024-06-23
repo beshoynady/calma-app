@@ -154,6 +154,7 @@ const ProductRecipe = () => {
   const [sizeId, setsizeId] = useState('');
   const handleSelectedProductSize = (size) => {
     setsize(size)
+    console.log({size})
     setsizeId(size._id)
     getProductRecipe(productId, sizeId);
   }
