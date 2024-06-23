@@ -168,40 +168,61 @@ const ProductRecipe = () => {
 
   const createRecipe = async (e) => {
     e.preventDefault();
-    console.log({ingredients})
+  
     try {
-      if (ingredients.length>0) {
-        
+      if (!itemId || !name || !amount || !costofitem || !unit || !totalcostofitem) {
+        toast.error("يرجى تعبئة جميع الحقول بشكل صحيح");
+        return;
+      }
+  
+      let newIngredients;
+      let totalCost;
+  
+      if (ingredients.length > 0) {
         // If there are existing ingredients, create a new array with the added ingredient
-        const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
+        newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
         // Calculate the total cost by adding the cost of the new ingredient
-        const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
-
-        console.log({newIngredients, totalCost }); // Log the response from the server
-        
+        totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
+  
+        console.log({ newIngredients, totalCost }); // Log the response from the server
+  
         // Update the recipe by sending a PUT request
-        const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, config);
-
+        const addRecipeToProduct = await axios.put(
+          `${apiUrl}/api/recipe/${recipeOfProduct._id}`, 
+          { ingredients: newIngredients, totalcost: totalCost }, 
+          config
+        );
+  
         console.log({ addRecipeToProduct }); // Log the response from the server
-
+  
+        if (addRecipeToProduct.status === 200) {
+          toast.success("تم تحديث الوصفة بنجاح");
+        } else {
+          throw new Error("Failed to update recipe");
+        }
+  
         getProductRecipe(productId); // Refresh the product recipe
       } else {
-        const sizeName = size?size.sizeName:'';
-        const sizeId = size?sizeId:''
+        const sizeName = size ? size.sizeName : '';
+        const sizeId = size ? size._id : '';
+  
         // If there are no existing ingredients, create a new array with the single ingredient
-        const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
-        const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
-        
+        newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
+        totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
+  
         console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
-
+  
         // Add the new recipe to the product by sending a POST request
-        const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`,
-          { productId, productName, sizeName, sizeId, ingredients: newIngredients, totalcost: totalCost }
-          , config);
-        console.log({addRecipeToProduct})
+        const addRecipeToProduct = await axios.post(
+          `${apiUrl}/api/recipe`,
+          { productId, productName, sizeName, sizeId, ingredients: newIngredients, totalcost: totalCost },
+          config
+        );
+  
+        console.log({ addRecipeToProduct }); // Log the response from the server
+  
         if (addRecipeToProduct.status === 201) {
-          console.log({ addRecipeToProduct }); // Log the response from the server
-          getProductRecipe(productId , sizeId); // Refresh the product recipe
+          getProductRecipe(productId, sizeId); // Refresh the product recipe
           setitemId(''); // Clear the input fields
           setname('');
           setamount('');
@@ -209,6 +230,8 @@ const ProductRecipe = () => {
           setcostofitem('');
           settotalcostofitem('');
           toast.success("تم إضافة المكون بنجاح"); // Notify success in adding ingredient
+        } else {
+          throw new Error("Failed to add recipe");
         }
       }
     } catch (error) {
@@ -509,6 +532,7 @@ const ProductRecipe = () => {
                   </div>
                 </div>
               </div>
+
               <div id="addRecipeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
