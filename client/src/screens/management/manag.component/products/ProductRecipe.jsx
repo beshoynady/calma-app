@@ -164,7 +164,7 @@ const ProductRecipe = () => {
   const handleSelectedProductSize = (sizeid) => {
     setsize(product.sizes.find(size=>size._id === sizeid))
     setsizeId(sizeid)
-    getProductRecipe(productId, size._id);
+    getProductRecipe(productId, sizeid);
   }
 
 
