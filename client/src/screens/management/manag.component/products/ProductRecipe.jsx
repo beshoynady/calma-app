@@ -82,52 +82,58 @@ const ProductRecipe = () => {
 
   const getProductRecipe = async (productId, sizeId) => {
     try {
-      const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
-      console.log({ allRecipe });
-      
-      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === productId);
-      console.log({ recipeOfProduct });
-
-      if (recipeOfProduct.sizeId) {
-        const recipeSize = recipeOfProduct.filter(recipe => recipe.sizeId === sizeId)
-        console.log({ recipeSize })
-
-        setrecipeOfProduct(recipeSize[0]);
-
-        const ingredients = await recipeSize[0].ingredients;
-        console.log({ ingredients });
+      if (!productId) {
+        toast.error("اختر الصنف اولا.");
+      }
+  
+      const allRecipeResponse = await axios.get(`${apiUrl}/api/recipe`, config);
+      const allRecipe = allRecipeResponse.data;
+      console.log({allRecipe});
+  
+      let recipeOfProduct;
+  
+      if (productId && sizeId) {
+        recipeOfProduct = allRecipe.filter(recipe => 
+          recipe.productId._id === productId && recipe.sizeId === sizeId
+        );
+      } else if (productId && !sizeId) {
+        recipeOfProduct = allRecipe.filter(recipe => 
+          recipe.productId._id === productId
+        );
+      }
+  
+      if (recipeOfProduct && recipeOfProduct.length > 0) {
+        const selectedRecipe = recipeOfProduct[0];
+        setrecipeOfProduct(selectedRecipe);
+  
+        const ingredients = selectedRecipe.ingredients;
+        // console.log("المكونات:", ingredients);
         if (ingredients) {
-          setingredients(ingredients.reverse());
+          setingredients([...ingredients].reverse());
+          toast.success('تم جلب مكونات الوصفة بنجاح');
         }
-        const totalrecipeOfProduct = await recipeSize[0].totalcost;
-
-        console.log({ totalrecipeOfProduct });
-        if (totalrecipeOfProduct) {
-          setproducttotalcost(totalrecipeOfProduct);
-        }
-
-
-      } else if (recipeOfProduct.length == 1) {
-        console.log({ recipeOfProduct });
-        setrecipeOfProduct(recipeOfProduct[0]);
-        const ingredients = await recipeOfProduct[0].ingredients;
-        console.log({ ingredients });
-        if (ingredients) {
-          setingredients(ingredients.reverse());
-        }
-        const totalrecipeOfProduct = await recipeOfProduct[0].totalcost;
-        console.log({ totalrecipeOfProduct });
+  
+        const totalrecipeOfProduct = selectedRecipe.totalcost;
+        // console.log("التكلفة الكلية للوصفة:", totalrecipeOfProduct);
         if (totalrecipeOfProduct) {
           setproducttotalcost(totalrecipeOfProduct);
         }
       } else {
+        console.warn("لم يتم العثور على وصفة مطابقة للمنتج وحجم المعرفات المقدمة.");
         setrecipeOfProduct({});
         setingredients([]);
+        setproducttotalcost(null); // Reset the total cost if no recipe is found
+        toast.warn('لم يتم العثور على وصفة مطابقة.');
       }
     } catch (error) {
-      console.error("Error fetching product recipe:", error);
+      console.error("خطأ في جلب وصفة المنتج:", error);
+      toast.error('حدث خطأ أثناء جلب وصفة المنتج. يرجى المحاولة لاحقًا.');
+      // Optional: Display a user-friendly message
+      // alert("حدث خطأ أثناء جلب وصفة المنتج. يرجى المحاولة لاحقًا.");
     }
   };
+
+
 
   const [sizes, setsizes] = useState([]);
 
@@ -150,7 +156,6 @@ const ProductRecipe = () => {
     setsize(size)
     setsizeId(size._id)
     getProductRecipe(productId, sizeId);
-    
   }
 
 
@@ -165,13 +170,15 @@ const ProductRecipe = () => {
     e.preventDefault();
     console.log({ingredients})
     try {
-      if (ingredients) {
+      if (ingredients.length>0) {
         
         // If there are existing ingredients, create a new array with the added ingredient
         const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
         // Calculate the total cost by adding the cost of the new ingredient
         const totalCost = Math.round((producttotalcost + totalcostofitem) * 100) / 100;
 
+        console.log({newIngredients, totalCost }); // Log the response from the server
+        
         // Update the recipe by sending a PUT request
         const addRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost: totalCost }, config);
 

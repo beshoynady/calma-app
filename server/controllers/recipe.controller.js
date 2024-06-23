@@ -56,7 +56,7 @@ const updateRecipe = async (req, res) => {
     // Update the recipe by ID
     const updatedRecipe = await RecipeModel.findByIdAndUpdate(
       id,
-      { ingredients, totalcost,  sizeName,sizeId },
+      { ingredients, totalcost, sizeName,sizeId },
       { new: true }
     );
     
