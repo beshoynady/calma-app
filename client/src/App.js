@@ -760,7 +760,7 @@ function App() {
         productToUpdate.notes = '';
 
       }
-      console.log({ productToUpdate })
+      // console.log({ productToUpdate })
     } catch (error) {
       console.error('Error resetting product quantity and notes:', error.message);
       // You can handle the error appropriately, such as displaying an error message to the user.

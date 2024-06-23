@@ -12,7 +12,13 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  size: {
+  sizeId: {
+    type: ObjectId,
+    ref: 'Product',
+    required: true,
+    default: null
+  },
+  sizeName: {
     type: String,
     required: true,
     default: 'oneSize'

@@ -80,18 +80,18 @@ const ProductRecipe = () => {
   const [ingredients, setingredients] = useState([]);
   const [producttotalcost, setproducttotalcost] = useState();
 
-  const getProductRecipe = async (id, size) => {
+  const getProductRecipe = async (productId, sizeid) => {
     try {
 
       console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
       
-      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === id);
+      const recipeOfProduct = allRecipe.data && allRecipe.data.filter(recipe => recipe.productId._id === productId);
       console.log({ recipeOfProduct });
 
-      if (recipeOfProduct.length > 1) {
-        const recipeSize = recipeOfProduct.filter(recipe => recipe.size === size)
+      if (recipeOfProduct.sizeId) {
+        const recipeSize = recipeOfProduct.filter(recipe => recipe.sizeId === sizeid)
         console.log({ recipeSize })
 
         setrecipeOfProduct(recipeSize[0]);
@@ -137,18 +137,21 @@ const ProductRecipe = () => {
     setproductId(id);
     const findProduct = listofProducts.find(product => product._id === id);
     setproductName(findProduct.name);
+    if(findProduct.hasSizes){
     setsizes(findProduct.sizes)
-    if (findProduct.sizes.length == 0) {
-      getProductRecipe(id, 'oneSize');
+    }else{
+      getProductRecipe(id);
     }
   }
 
 
 
-  const [size, setsize] = useState("oneSize");
+  const [size, setsize] = useState({});
+  const [sizeId, setsizeId] = useState('');
   const handleSelectedProductSize = (size) => {
     setsize(size)
-    getProductRecipe(productId, size);
+    setsizeId(size._id)
+    getProductRecipe(productId, sizeId);
     
   }
 
@@ -164,7 +167,8 @@ const ProductRecipe = () => {
     e.preventDefault();
     console.log({ingredients})
     try {
-      if (ingredients.length > 0) {
+      if (ingredients) {
+        
         // If there are existing ingredients, create a new array with the added ingredient
         const newIngredients = [...ingredients, { itemId, name, amount, costofitem, unit, totalcostofitem }];
         // Calculate the total cost by adding the cost of the new ingredient
@@ -177,20 +181,22 @@ const ProductRecipe = () => {
 
         getProductRecipe(productId); // Refresh the product recipe
       } else {
+        const sizeName = size?size.sizeName:'';
+        const sizeId = size?sizeId:''
         // If there are no existing ingredients, create a new array with the single ingredient
         const newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
         const totalCost = totalcostofitem; // Total cost is the cost of the single ingredient
-
+        
         console.log({ productId, productName, newIngredients }); // Log the product ID, name, and ingredients
 
         // Add the new recipe to the product by sending a POST request
         const addRecipeToProduct = await axios.post(`${apiUrl}/api/recipe`,
-          { productId, productName, size, ingredients: newIngredients, totalcost: totalCost }
+          { productId, productName, sizeName, sizeId, ingredients: newIngredients, totalcost: totalCost }
           , config);
         console.log({addRecipeToProduct})
         if (addRecipeToProduct.status === 201) {
           console.log({ addRecipeToProduct }); // Log the response from the server
-          getProductRecipe(productId); // Refresh the product recipe
+          getProductRecipe(productId , sizeId); // Refresh the product recipe
           setitemId(''); // Clear the input fields
           setname('');
           setamount('');
@@ -319,10 +325,10 @@ const ProductRecipe = () => {
         const deleteRecipeToProduct = await axios.delete(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, config);
 
         console.log(deleteRecipeToProduct);
-        getProductRecipe(productId);
+        getProductRecipe(productId , sizeId);
 
         deleteRecipeToProduct.status === 200 ? toast.success('تم حذف الوصفة بنجاح') : toast.error('حدث خطأ أثناء الحذف');
-        getProductRecipe(productId)
+        getProductRecipe(productId, sizeId)
 
       } else {
         toast.error('يرجى اختيار الصفنف والمنتج أولاً');
@@ -330,7 +336,7 @@ const ProductRecipe = () => {
     } catch (error) {
       console.error("Error deleting recipe:", error.message);
       toast.error('فشل عملية الحذف! يرجى المحاولة مرة أخرى');
-      getProductRecipe(productId)
+      getProductRecipe(productId, sizeId)
     }
   };
 
@@ -404,7 +410,7 @@ const ProductRecipe = () => {
                             <select class="form-control" onChange={(e) => handleSelectedProductSize(e.target.value)} >
                               <option value={""}>اختر حجم</option>
                               {sizes.map((size, i) => {
-                                return <option value={size.sizeName} key={i} >{size.sizeName}</option>
+                                return <option value={size} key={i} >{size.sizeName}</option>
                               })
                               }
                             </select>

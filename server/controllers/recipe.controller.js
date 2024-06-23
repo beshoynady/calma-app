@@ -2,7 +2,7 @@ const RecipeModel = require('../models/Recipe.model');
 
 const createRecipe = async (req, res) => {
   try {
-    const { productId, productName, size, ingredients, totalcost } = req.body;
+    const { productId, productName, sizeName,sizeId, ingredients, totalcost } = req.body;
     
     // Check if all required fields are present in the request body
     if (!productId || !productName || !ingredients || !totalcost) {
@@ -25,7 +25,8 @@ const createRecipe = async (req, res) => {
     const newRecipe = await RecipeModel.create({
       productId,
       productName,
-      size,
+      sizeName,
+      sizeId,
       ingredients,
       totalcost
     });
@@ -40,7 +41,7 @@ const createRecipe = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { ingredients, totalcost, size } = req.body;
+    const { ingredients, totalcost,  sizeName, sizeId} = req.body;
     
     // Check if recipe ID is provided
     if (!id) {
@@ -55,7 +56,7 @@ const updateRecipe = async (req, res) => {
     // Update the recipe by ID
     const updatedRecipe = await RecipeModel.findByIdAndUpdate(
       id,
-      { ingredients, totalcost, size },
+      { ingredients, totalcost,  sizeName,sizeId },
       { new: true }
     );
     
@@ -76,7 +77,7 @@ const updateRecipe = async (req, res) => {
 const getOneRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const recipe = await RecipeModel.findById(id).populate('productId');
+    const recipe = await RecipeModel.findById(id).populate('productId' , '_id name price');
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
@@ -88,7 +89,7 @@ const getOneRecipe = async (req, res) => {
 
 const getAllRecipe = async (req, res) => {
   try {
-    const recipes = await RecipeModel.find().populate('productId');
+    const recipes = await RecipeModel.find().populate('productId')
     res.status(200).json(recipes);
   } catch (error) {
     res.status(400).json({ message: error.message });
