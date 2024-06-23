@@ -338,7 +338,6 @@ const ProductRecipe = () => {
 
   const deleteRecipe = async (e) => {
     e.preventDefault()
-    const token = localStorage.getItem('token_e'); // Assuming the token is stored in localStorage
 
     if (ingredients.length > 2) {
       const newingredients = ingredients.filter(ingredient => ingredient.itemId != itemId)
