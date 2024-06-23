@@ -318,7 +318,7 @@ const ProductRecipe = () => {
       );
 
       console.log({ editRecipeToProduct });
-      getProductRecipe(productId);
+      getProductRecipe(productId , sizeId);
       setitemId('');
       setname('');
       setamount('');
