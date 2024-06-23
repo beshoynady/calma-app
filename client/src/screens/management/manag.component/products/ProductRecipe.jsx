@@ -205,7 +205,7 @@ const ProductRecipe = () => {
           throw new Error("Failed to update recipe");
         }
 
-        getProductRecipe(productId); // Refresh the product recipe
+        getProductRecipe(productId , sizeId); // Refresh the product recipe
       } else {
         const sizeName = size ? size.sizeName : '';
         const sizeId = size ? size._id : '';
