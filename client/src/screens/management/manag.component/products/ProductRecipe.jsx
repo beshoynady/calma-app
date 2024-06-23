@@ -80,10 +80,8 @@ const ProductRecipe = () => {
   const [ingredients, setingredients] = useState([]);
   const [producttotalcost, setproducttotalcost] = useState();
 
-  const getProductRecipe = async (productId, sizeid) => {
+  const getProductRecipe = async (productId, sizeId) => {
     try {
-
-      console.log(id);
       const allRecipe = await axios.get(`${apiUrl}/api/recipe`, config);
       console.log({ allRecipe });
       
@@ -91,7 +89,7 @@ const ProductRecipe = () => {
       console.log({ recipeOfProduct });
 
       if (recipeOfProduct.sizeId) {
-        const recipeSize = recipeOfProduct.filter(recipe => recipe.sizeId === sizeid)
+        const recipeSize = recipeOfProduct.filter(recipe => recipe.sizeId === sizeId)
         console.log({ recipeSize })
 
         setrecipeOfProduct(recipeSize[0]);
