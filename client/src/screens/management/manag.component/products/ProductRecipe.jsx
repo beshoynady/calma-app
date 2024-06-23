@@ -156,7 +156,7 @@ const ProductRecipe = () => {
     setsize(size)
     console.log({size})
     setsizeId(size._id)
-    getProductRecipe(productId, sizeId);
+    getProductRecipe(productId, size._id);
   }
 
 
