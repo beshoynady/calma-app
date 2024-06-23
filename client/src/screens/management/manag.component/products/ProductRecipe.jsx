@@ -147,7 +147,12 @@ const ProductRecipe = () => {
     setproduct(findProduct)
     if (findProduct.hasSizes) {
       setsizes(findProduct.sizes)
+      setsize({});
+      setsizeId('');
     } else {
+      setsizes([]);
+      setsize({});
+      setsizeId('');
       getProductRecipe(id);
     }
   }
@@ -208,7 +213,7 @@ const ProductRecipe = () => {
         getProductRecipe(productId , sizeId); // Refresh the product recipe
       } else {
         const sizeName = size ? size.sizeName : '';
-        const sizeId = size ? sizeId : '';
+        const sizeId = size ? size.sizeId : '';
 
         // If there are no existing ingredients, create a new array with the single ingredient
         newIngredients = [{ itemId, name, amount, costofitem, unit, totalcostofitem }];
