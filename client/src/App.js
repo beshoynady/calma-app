@@ -780,7 +780,10 @@ function App() {
 
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
-
+        if(updatedList.length===0){
+          getAllProducts()
+          return
+        }
         // console.log({ updatedItemId })
         // console.log({ itemsInCart })
         // Update the state based on the list being modified
@@ -804,7 +807,11 @@ function App() {
           console.log({ updatedList })
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
-        
+        if(updatedList.length === 0){
+          getAllProducts()
+          return
+        }
+
         // Update the state based on the list being modified
         if (productOrderToUpdate.length > 0) {
           setproductOrderToUpdate(updatedList);
