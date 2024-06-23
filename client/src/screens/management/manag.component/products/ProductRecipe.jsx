@@ -207,7 +207,7 @@ const ProductRecipe = () => {
 
         getProductRecipe(productId , sizeId); // Refresh the product recipe
       } else {
-        const sizeName = size ? sizeName : '';
+        const sizeName = size ? size.sizeName : '';
         const sizeId = size ? sizeId : '';
 
         // If there are no existing ingredients, create a new array with the single ingredient
