@@ -417,13 +417,13 @@ const Employees = () => {
                               <td>{employee.address}</td>
                               <td>{employee.phone}</td>
                               <td>{employee.role}</td>
-                              <td>{employee.username}</td>
+                              <td>{employee.username&&employee.username}</td>
                               <td>{employee.basicSalary}</td>
                               <td>{employee.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{employee.sectionNumber}</td>
                               <td>{employee.shift && employee.shift.shiftType}</td>
-                              <td>{FormDataTime(employee.creaedBy.username)}</td>
-                              <td>{FormDataTime(employee.updatedBy.username)}</td>
+                              <td>{FormDataTime(employee.creaedBy&&employee.creaedBy.username)}</td>
+                              <td>{FormDataTime(employee.updatedBy&&employee.updatedBy.username)}</td>
                               <td>{FormDataTime(employee.createdAt)}</td>
                               <td>
                                 {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (

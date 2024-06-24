@@ -123,7 +123,7 @@ const getoneEmployee = async (req, res) => {
         const employeeId = req.params.employeeId;
 
         // Find the employee by ID and populate the 'shift' field
-        const employee = await EmployeeModel.findById(employeeId).populate('shift').populate('createdBy').populate('updatedBy');
+        const employee = await EmployeeModel.findById(employeeId).populate('shift').populate('createdBy', '_id fullname username role').populate('updatedBy', '_id fullname username role');
 
         // If employee not found, return a 404 error
         if (!employee) {
@@ -190,7 +190,7 @@ const loginEmployee = async (req, res) => {
 const getAllemployees = async (req, res) => {
     try {
         // Fetch all employees and populate the 'shift' field
-        const allemployees = await EmployeeModel.find({}).populate('shift').populate('createdBy').populate('updatedBy');
+        const allemployees = await EmployeeModel.find({}).populate('shift').populate('createdBy', '_id fullname username role').populate('updatedBy', '_id fullname username role');
         
 
         // If no employees found, return a 404 error
