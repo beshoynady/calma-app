@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { ObjectId } = mongoose.Schema
+const { ObjectId } = mongoose.Schema;
 
 const recipeSchema = new mongoose.Schema({
   productId: {
@@ -28,6 +28,7 @@ const recipeSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'StockItem',
         required: true,
+        unique: [true ,' itemId must be unique']
       },
       name: {
         type: String,
@@ -59,9 +60,16 @@ const recipeSchema = new mongoose.Schema({
     default: 0,
   },
 },
-  {
-    timestamps: true,
-  });
+{
+  timestamps: true,
+});
+
+
+
+recipeSchema.index(
+  { sizeId: 1 },
+  { unique: true, partialFilterExpression: { sizeId: { $exists: true, $ne: null } } }
+);
 
 const RecipeModel = mongoose.model('Recipe', recipeSchema);
 
