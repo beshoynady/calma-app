@@ -241,7 +241,7 @@ const AttendanceManagement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ setisLoadiog,formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ setisLoadiog, formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -280,7 +280,7 @@ const AttendanceManagement = () => {
                           <label>اسم التصنيف</label>
                           {/* <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} /> */}
                         </div>
-                        
+
                       </div>
                     </div>
                   </div>
@@ -323,18 +323,21 @@ const AttendanceManagement = () => {
                                 </span>
                               </td> */}
                               <td>{i + 1}</td>
-                              <td className="text-nowrap text-truncate">{Record.currentDate&&formatDate(Record.currentDate)}</td>
+                              <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
                               <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
                               <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
-                              <td className="text-nowrap text-truncate">{Record.status&&Record.status}</td>
-                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&formatDate(Record.arrivalDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&formatTime(Record.arrivalDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.departureDate&&formatDate(Record.departureDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.departureDate&&formatTime(Record.departureDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.lateMinutes&&Record.lateMinutes}</td>
-                              <td className="text-nowrap text-truncate">{Record.overtimeMinutes&&Record.overtimeMinutes}</td>
-                              <td className="text-nowrap text-truncate">{Record.createdBy && Record.createdBy.fullname}</td>
-                              <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.fullname}</td>
+                              <td className="text-nowrap text-truncate">{Record.status && Record.status === 'Attendance' ? 'حضور'
+                                : Record.status === 'Absence' ? 'غياب'
+                                  : Record.status === 'Vacation' ? 'اجازة' : ''}
+                              </td>
+                              <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatDate(Record.arrivalDate) : '-'}</td>
+                              <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatTime(Record.arrivalDate) : "-"}</td>
+                              <td className="text-nowrap text-truncate">{Record.departureDate ? formatDate(Record.departureDate) : '-'}</td>
+                              <td className="text-nowrap text-truncate">{Record.departureDate ? formatTime(Record.departureDate) : '-'}</td>
+                              <td className="text-nowrap text-truncate">{Record.lateMinutes ? Record.lateMinutes : 0}</td>
+                              <td className="text-nowrap text-truncate">{Record.overtimeMinutes ? Record.overtimeMinutes : 0}</td>
+                              <td className="text-nowrap text-truncate">{Record.createdBy && Record.createdBy.username}</td>
+                              <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.username}</td>
                               <td className="text-nowrap text-truncate">{Record.notes}</td>
                               <td>
                                 <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}>
