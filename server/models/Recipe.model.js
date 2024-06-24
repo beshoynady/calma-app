@@ -65,11 +65,6 @@ const recipeSchema = new mongoose.Schema({
 
 
 
-recipeSchema.index(
-  { sizeId: 1 },
-  { unique: true, partialFilterExpression: { sizeId: { $exists: true, $ne: null } } }
-);
-
 const RecipeModel = mongoose.model('Recipe', recipeSchema);
 
 module.exports = RecipeModel;

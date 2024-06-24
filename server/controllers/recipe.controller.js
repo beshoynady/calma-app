@@ -33,7 +33,7 @@ const createRecipe = async (req, res) => {
 
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message , error});
   }
 };
 
@@ -41,7 +41,7 @@ const createRecipe = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { ingredients, totalcost,  sizeName, sizeId} = req.body;
+    const { ingredients, totalcost} = req.body;
     
     // Check if recipe ID is provided
     if (!id) {
@@ -56,7 +56,7 @@ const updateRecipe = async (req, res) => {
     // Update the recipe by ID
     const updatedRecipe = await RecipeModel.findByIdAndUpdate(
       id,
-      { ingredients, totalcost, sizeName,sizeId },
+      { ingredients, totalcost },
       { new: true }
     );
     
@@ -69,7 +69,7 @@ const updateRecipe = async (req, res) => {
     res.status(200).json(updatedRecipe);
   } catch (error) {
     // Handle any errors that occur during the update process
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message , error});
   }
 };
 
