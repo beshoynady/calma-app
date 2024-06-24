@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 const Joi = require('joi')
 
+import * as XLSX from 'xlsx';
 
 
 const Employees = () => {
