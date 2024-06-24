@@ -234,16 +234,58 @@ const AttendanceManagement = () => {
   }
 
 
-  const searchByStatus = (status)=>{
-    if(status){
-      const filter = allAttendanceRecords.filter(record=> record.status===status)
-      if(filter.length>0){
+  const searchByStatus = (status) => {
+    if (status) {
+      const filter = allAttendanceRecords.filter(record => record.status === status)
+      if (filter.length > 0) {
         setallAttendanceRecords(filter)
-      }else{
+      } else {
         setallAttendanceRecords([])
       }
-    }else{
+    } else {
       getallAttendanceRecords()
+    }
+  }
+
+  const getEmployeesByJob = (role) => {
+    if (role === 'all') {
+      getallAttendanceRecords()
+      return
+    }
+    if (allAttendanceRecords.length > 0) {
+      const filteredRecords = allAttendanceRecords.filter(record => record.employee.role == role)
+      if (filteredRecords) {
+        setallAttendanceRecords(filteredRecords)
+      } else {
+        getallAttendanceRecords([])
+      }
+    }
+  }
+  const getRecordsByShift = (shift) => {
+    if (shift === 'all') {
+      getallAttendanceRecords()
+      return
+    }
+    if (allAttendanceRecords.length > 0 && shift) {
+      const FilterEmployees = allAttendanceRecords.filter(record => record.shift._id == shift)
+      if (FilterEmployees) {
+        setallAttendanceRecords(FilterEmployees)
+      } else {
+        getallAttendanceRecords([])
+      }
+    }
+  }
+  const getEmployeesByName = (name) => {
+
+    if (allAttendanceRecords.length > 0 && name) {
+      const employee = allAttendanceRecords.filter((record) =>record.employee && record.employee.fullname.startsWith(name) == true|| record.employee.username.startsWith(name) == true)
+      if (employee) {
+        setallAttendanceRecords(employee)
+      } else {
+        setallAttendanceRecords([])
+      }
+    } else {
+      getallAttendanceRecords();
     }
   }
 
@@ -272,9 +314,9 @@ const AttendanceManagement = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
+                  <div class="table-filter w-100">
+                    <div class="w-100 d-flex flex-row flex-wrap text-dark">
+                      <div class="filter-group">
                         <div class="show-entries">
                           <span>عرض</span>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
@@ -288,8 +330,6 @@ const AttendanceManagement = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div class="col-sm-9">
-                        {/* <button type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button> */}
                         <div class="filter-group">
                           <label>نوع السجل</label>
                           <select class="form-control" onChange={(e) => searchByStatus(e.target.value)} >
@@ -299,10 +339,52 @@ const AttendanceManagement = () => {
                             <option value="Vacation">اجازة</option>
                           </select>
                         </div>
+                        <div class="filter-group">
+                          <label>الاسم</label>
+                          <input type="text" class="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                        </div>
+                        <div class="filter-group">
+                          <label>الوظيفة</label>
+                          <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                            <option value="all">الكل</option>
+                            <option value="manager">مدير</option>
+                            <option value="cashier">كاشير</option>
+                            <option value="waiter">ويتر</option>
+                            <option value="Chef">شيف</option>
+                          </select>
+                        </div>
+                        <div class="filter-group">
+                          <label>الشيفت</label>
+                          <select class="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
+                            <option value="all">الكل</option>
+                            {shifts ? shifts.map((shift, i) =>
+                              <option value={shift._id} key={i}>{shift.shiftType}</option>
+                            ) : <option>لم يتم انشاء شفتات</option>}
 
-                      </div>
+                          </select>
+                        </div>
+                        <div class="filter-group">
+                          <label>فلتر حسب الوقت</label>
+                          <select class="form-control" onChange={(e) => filterByTime(e.target.value)}>
+                            <option value="">اختر</option>
+                            <option value="today">اليوم</option>
+                            <option value="week">هذا الأسبوع</option>
+                            <option value="month">هذا الشهر</option>
+                            <option value="month">هذه السنه</option>
+                          </select>
+                        </div>
+
+                        <div class="filter-group">
+                          <label>فلتر مدة محددة</label>
+                          <label>بداية التاريخ</label>
+                          <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                          <label>نهاية التاريخ</label>
+                          <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                        </div>
+
                     </div>
                   </div>
+
 
                   <table className="table table-striped table-hover">
                     <thead>

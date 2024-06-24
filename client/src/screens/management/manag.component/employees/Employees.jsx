@@ -158,8 +158,13 @@ const Employees = () => {
   };
 
   const handleEditEmployeee = (employee) => {
-    setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); setusername(employee.username); setaddress(employee.address); setemail(employee.email); setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); setbasicSalary(employee.basicSalary)
+    setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID); 
+    setusername(employee.username); setaddress(employee.address); setemail(employee.email); 
+    setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role); 
+    setbasicSalary(employee.basicSalary)
   }
+
+
   const getEmployeesByJob = (role) => {
     if (role === 'all') {
       getEmployees()
