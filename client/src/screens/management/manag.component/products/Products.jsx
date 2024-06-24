@@ -432,12 +432,12 @@ const Products = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
+                        {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
-                        </th>
+                        </th> */}
                         <th>م</th>
                         <th>الصورة</th>
                         <th>الاسم</th>
