@@ -1587,6 +1587,7 @@ function App() {
       decodedToken = jwt_decode(employeeToken);
       setEmployeeLoginInfo(decodedToken);
       console.log(decodedToken.employeeinfo);
+      await getPermissions(decodedToken)
     }
 
     if (userToken) {
@@ -1611,21 +1612,32 @@ function App() {
   };
 
 
+  const [permissionsList, setpermissionsList] = useState([]);
 
+  const getPermissions = async (decodedToken) => {
+    try {
 
-  // const employeelogout = () => {
-  //   try {
-  //     // Remove admin token from local storage
+      // const employeeToken = localStorage.getItem('token_e');
+      // let decodedToken = null;
+      // let id = null
+      // if (employeeToken) {
+      //   decodedToken = jwt_decode(employeeToken);
+      //   console.log(decodedToken.employeeinfo);
+      // }
+        id = decodedToken.employeeinfo.id
 
-  //     localStorage.removeItem('token_e');
-  //     window.location.href = `https://${window.location.hostname}/login`;
-  //   } catch (error) {
-  //     // Handle any potential errors
-  //     console.error('Logout error:', error);
-  //     // Display a notification to the user about the error
-  //     alert('حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.');
-  //   }
-  // }
+      const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
+      if (response.status === 200) {
+        const data = response.data.Permissions;
+        console.log({ data });
+        setpermissionsList(data);
+      } else {
+        throw new Error('Failed to fetch permissions: Unexpected status code');
+      }
+    } catch (error) {
+      console.error('Error fetching permissions:', error.message);
+    }
+  };
 
 
   //######### get order ditalis by serial 
@@ -1974,7 +1986,7 @@ function App() {
       value={{
         restaurantData, clientInfo, apiUrl,
         // Functions related to authentication
-        userLoginInfo, employeeLoginInfo, getUserInfoFromToken,
+        userLoginInfo, employeeLoginInfo,permissionsList, getUserInfoFromToken,
         // login, signup, logout,
         //  adminLogin, employeelogout,
 

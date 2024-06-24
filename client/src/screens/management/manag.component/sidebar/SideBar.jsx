@@ -52,32 +52,7 @@ const SideBar = () => {
     }
   }
 
-  const [permissionsList, setpermissionsList] = useState([]);
 
-  const getPermissions = async () => {
-    try {
-
-      const employeeToken = localStorage.getItem('token_e');
-      let decodedToken = null;
-      let id = null
-      if (employeeToken) {
-        decodedToken = jwt_decode(employeeToken);
-        console.log(decodedToken.employeeinfo);
-        id = decodedToken.employeeinfo.id
-      }
-
-      const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
-      if (response.status === 200) {
-        const data = response.data.Permissions;
-        console.log({ data });
-        setpermissionsList(data);
-      } else {
-        throw new Error('Failed to fetch permissions: Unexpected status code');
-      }
-    } catch (error) {
-      console.error('Error fetching permissions:', error.message);
-    }
-  };
 
 
   useEffect(() => {
@@ -87,7 +62,7 @@ const SideBar = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, employeeLoginInfo }) => {
+        ({ restaurantData,permissionsList, employeeLoginInfo }) => {
           const role = employeeLoginInfo ? employeeLoginInfo.employeeinfo.role : '';
           return (
             <>
