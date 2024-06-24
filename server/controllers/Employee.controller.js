@@ -106,7 +106,7 @@ const updateEmployee = async (req, res) => {
 
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
-        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
+        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber,updatedBy } 
         : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber, updatedBy};
 
         const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, updateData, { new: true });
