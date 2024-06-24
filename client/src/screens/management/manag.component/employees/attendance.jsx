@@ -324,23 +324,25 @@ const AttendanceManagement = () => {
                                 </span>
                               </td>
                               <td>{i + 1}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.currentDate.split('T')[0]}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.employee && Record.employee.fullname}</td>
-                              <td>{Record.shift && Record.shift.shiftType}</td>
-                              <td>{Record.status}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.arrivalDate.split('T')[0]}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{new Date(Record.arrivalDate).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.departureDate.split('T')[0]}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{new Date(Record.departureDate).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.lateMinutes}</td>
-                              <td className="text-nowrap overflow-hidden text-truncate">{Record.overtimeMinutes}</td>
-                              <td>{Record.createdBy && Record.createdBy.fullname}</td>
-                              <td>{Record.updatedBy && Record.updatedBy.fullname}</td>
-                              <td>{Record.notes}</td>
+                              <td className="text-nowrap text-truncate">{Record.currentDate&&Record.currentDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
+                              <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
+                              <td className="text-nowrap text-truncate">{Record.status&&Record.status}</td>
+                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&Record.arrivalDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&formatTime(Record.arrivalDate)}</td>
+                              <td className="text-nowrap text-truncate">{Record.departureDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.departureDate&&formatTime(Record.departureDate)}</td>
+                              <td className="text-nowrap text-truncate">{Record.lateMinutes&&Record.lateMinutes}</td>
+                              <td className="text-nowrap text-truncate">{Record.overtimeMinutes&&Record.overtimeMinutes}</td>
+                              <td className="text-nowrap text-truncate">{Record.createdBy && Record.createdBy.fullname}</td>
+                              <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.fullname}</td>
+                              <td className="text-nowrap text-truncate">{Record.notes}</td>
                               <td>
-                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}>
+                                  <i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}>
+                                  <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>
                             </tr>
                           )

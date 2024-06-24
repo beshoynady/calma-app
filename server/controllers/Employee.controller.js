@@ -96,7 +96,7 @@ const updateEmployeeSchema = Joi.object({
 
 const updateEmployee = async (req, res) => {
     try {
-        const updatedBy = req.employee.id
+        const updatedBy = await req.employee.id
         const { error } = updateEmployeeSchema.validate(req.body);
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
