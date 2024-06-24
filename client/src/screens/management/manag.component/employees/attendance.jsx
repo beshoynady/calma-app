@@ -233,6 +233,20 @@ const AttendanceManagement = () => {
     }
   }
 
+
+  const searchByStatus = (status)=>{
+    if(status){
+      const filter = allAttendanceRecords.filter(record=> record.status===status)
+      if(filter.length>0){
+        setallAttendanceRecords(filter)
+      }else{
+        setallAttendanceRecords([])
+      }
+    }else{
+      getallAttendanceRecords()
+    }
+  }
+
   useEffect(() => {
     getEmployees()
     getallAttendanceRecords()
@@ -275,10 +289,15 @@ const AttendanceManagement = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        {/* <button type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button> */}
                         <div class="filter-group">
-                          <label>اسم التصنيف</label>
-                          {/* <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} /> */}
+                          <label>نوع السجل</label>
+                          <select class="form-control" onChange={(e) => searchByStatus(e.target.value)} >
+                            <option value="">الكل</option>
+                            <option value="Attendance">حضور</option>
+                            <option value="Absence">غياب</option>
+                            <option value="Vacation">اجازة</option>
+                          </select>
                         </div>
 
                       </div>
