@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect,useRef, useContext } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
@@ -219,8 +219,6 @@ const Employees = () => {
     e.preventDefault();
     try {
       if(permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true){
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, config);
       notify('تم حذف سجل الموظف بنجاح', 'success');
       getEmployees();
@@ -267,9 +265,10 @@ const Employees = () => {
 
 
   const exportToExcel = () => {
-    const data = listOfEmployees.map(employee => ({
-      'م': employee._id,
+    const data = listOfEmployees.map((employee, i) => ({
+      'م': i + 1 ,
       'الاسم': employee.fullname,
+      'اسم المستخدم': employee.username,
       'الرقم القومي': employee.numberID,
       'العنوان': employee.address,
       'الموبايل': employee.phone,
@@ -290,6 +289,14 @@ const Employees = () => {
 
 
 
+  const printContainer = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => printContainer.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage'
+  });
+
   useEffect(() => {
     getEmployees()
     getShifts()
@@ -297,21 +304,22 @@ const Employees = () => {
 
           return (
             <div className="container-xl mlr-auto">
-              <div className="table-responsive">
+              <div className="table-responsive" ref={printContainer}>
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
-                      <div className="col-sm-6">
+                      <div className="col-8">
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
+                      <div className="col-4 d-flex justify-content-end">
                         {
                           permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
                             <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
                            )
                             : null
                         } 
-                        <a href="#" className="btn w-50 btn-danger" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
+                        <a href="#" className="btn w-50 btn-info" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
+                        <a href="#" className="btn w-50 btn-primary" data-toggle="modal" onClick={handlePrint}><i className="material-icons">&#xE15C;</i> <span>'طباعه'</span></a>
                       </div>
                     </div>
                   </div>
