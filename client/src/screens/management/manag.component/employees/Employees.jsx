@@ -16,7 +16,7 @@ const Employees = () => {
     },
   };
 
-  const { restaurantData,FormDataTime, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
+  const { restaurantData,formatDateTime, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
 
 
@@ -424,7 +424,7 @@ const Employees = () => {
                               <td>{employee.shift && employee.shift.shiftType}</td>
                               <td>{employee.creaedBy&&employee.creaedBy.username}</td>
                               <td>{employee.updatedBy&&employee.updatedBy.username}</td>
-                              <td>{FormDataTime(employee.createdAt)}</td>
+                              <td>{employee.createdAt&&formatDateTime(employee.createdAt)}</td>
                               <td>
                                 {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => { handleEditEmployeee(employee) }}>&#xE254;</i></a>)
