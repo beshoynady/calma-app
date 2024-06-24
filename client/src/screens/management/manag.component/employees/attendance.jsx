@@ -14,9 +14,7 @@ const AttendanceManagement = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
-  const formattedDate = (date) => {
-    new Date(date).toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-  }
+
 
 
 
@@ -243,7 +241,7 @@ const AttendanceManagement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ allProducts, setisLoadiog,formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
