@@ -17,6 +17,10 @@ const Employees = () => {
     },
   };
 
+  const { restaurantData, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
+
+
+
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
@@ -263,14 +267,35 @@ const Employees = () => {
 
 
 
+  const exportToExcel = () => {
+    const data = listOfEmployees.map(employee => ({
+      'م': employee._id,
+      'الاسم': employee.fullname,
+      'الرقم القومي': employee.numberID,
+      'العنوان': employee.address,
+      'الموبايل': employee.phone,
+      'الوظيفة': employee.role,
+      'الراتب': employee.basicSalary,
+      'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
+      'السكشن': employee.sectionNumber,
+      'الشيفت': employee.shift ? employee.shift.shiftType : '',
+      'التاريخ': FormDataTime(employee.createdAt),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+
+    XLSX.writeFile(wb, 'employees.xlsx');
+  };
+
+
+
   useEffect(() => {
     getEmployees()
     getShifts()
   }, [])
-  return (
-    <detacontext.Consumer>
-      {
-        ({ restaurantData, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -287,7 +312,7 @@ const Employees = () => {
                            )
                             : null
                         } 
-                        {/* <a href="#deleteListEmployeeModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
+                        <a href="#" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
                       </div>
                     </div>
                   </div>
@@ -394,7 +419,7 @@ const Employees = () => {
                               <td>{employee.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{employee.sectionNumber}</td>
                               <td>{employee.shift && employee.shift.shiftType}</td>
-                              <td>{new Date(employee.createdAt).toLocaleString('en-GB', { hour12: true })}</td>
+                              <td>{FormDataTime(employee.createdAt)}</td>
                               <td>
                                 {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
                                   <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => { handleEditEmployeee(employee) }}>&#xE254;</i></a>)
@@ -508,9 +533,9 @@ const Employees = () => {
                               : ''}
 
                           </div>
-                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
                             <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                           </div>
                         </form>
                       </div>
@@ -598,9 +623,9 @@ const Employees = () => {
                               </div>
                             )}
                           </div>
-                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
                             <input type="submit" className="btn w-50 btn-info" value="حفظ" />
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                           </div>
                         </form>
                       </div>
@@ -622,9 +647,9 @@ const Employees = () => {
                             <p>هل انت متاكد من حذف هذا السجل؟?</p>
                             <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                           </div>
-                          <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
-                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
                             <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                            <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                           </div>
                         </form>
                       </div>
@@ -643,7 +668,7 @@ const Employees = () => {
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer d-flex flex-row align-items-center justify-content-between">
+                      <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
                         <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                         <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
@@ -653,10 +678,6 @@ const Employees = () => {
               </div> */}
             </div>
           )
-        }
-      }
-    </detacontext.Consumer>
-  )
 }
 
 export default Employees
