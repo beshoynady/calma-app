@@ -223,7 +223,7 @@ function App() {
       }
     } catch (error) {
       // Handle errors
-      console.error('Error fetching categories:', error.message);
+      console.error('Error fetching categories:', error);
       // You can add additional error handling logic here, such as displaying an error message to the user.
     }
   }
@@ -322,7 +322,7 @@ function App() {
         throw new Error('توكن غير متاح');
       }
       const response = await axios.get(`${apiUrl}/api/employee`, config);
-
+      
       if (response.status === 200) {
         setallemployees(response.data);
         console.log('Employees data fetched successfully:', response.data);

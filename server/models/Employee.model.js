@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const { ObjectId } = mongoose.Schema;
 // Define the schema for an employee
 const employeeSchema = new mongoose.Schema({
   fullname: {
@@ -30,7 +31,7 @@ const employeeSchema = new mongoose.Schema({
     minlength: 3,
   },
   shift: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Shift',
     required: true,
 },
