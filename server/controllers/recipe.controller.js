@@ -2,7 +2,7 @@ const RecipeModel = require('../models/Recipe.model');
 
 const createRecipe = async (req, res) => {
   try {
-    const { productId, productName, sizeName,sizeId, ingredients, totalcost } = req.body;
+    const { productId, productName, sizeName, sizeId, ingredients, totalcost } = req.body;
     
     // Check if all required fields are present in the request body
     if (!productId || !productName || !ingredients || !totalcost) {
@@ -33,9 +33,14 @@ const createRecipe = async (req, res) => {
 
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(400).json({ message: error.message , error});
+    if (error.code === 11000) {
+      res.status(400).json({ message: 'Duplicate sizeId value', error });
+    } else {
+      res.status(500).json({ message: error.message, error });
+    }
   }
 };
+
 
 
 const updateRecipe = async (req, res) => {
