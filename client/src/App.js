@@ -185,7 +185,7 @@ function App() {
     try {
       // Fetch products from the API
       const response = await axios.get(apiUrl + '/api/product');
-
+      console.log({employees:response})
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch products.');
@@ -195,7 +195,7 @@ function App() {
       setallProducts(response.data);
     } catch (error) {
       // Handle errors
-      console.error('Error fetching products:', error.message);
+      console.error('Error fetching products:', error);
       // You can add additional error handling logic here, such as displaying an error message to the user.
     }
   }
