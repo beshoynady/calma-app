@@ -159,6 +159,22 @@ const AttendanceManagement = () => {
     }
   };
 
+  const [shifts, setshifts] = useState([]);
+
+  const getShifts = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/shift`, config);
+      if (response.status === 200 && response.data) {
+        const { data } = response;
+        setshifts(data);
+        console.log({ Shifts: data });
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (error) {
+      console.error("Failed to fetch shifts:", error);
+    }
+  };
 
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
@@ -289,9 +305,10 @@ const AttendanceManagement = () => {
     }
   }
 
-  useEffect(() => {
-    getEmployees()
-    getallAttendanceRecords()
+  useEffect(async() => {
+    await getEmployees()
+    await getShifts()
+    await getallAttendanceRecords()
   }, [])
 
   return (
