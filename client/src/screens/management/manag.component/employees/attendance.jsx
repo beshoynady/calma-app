@@ -241,7 +241,7 @@ const AttendanceManagement = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, setisLoadiog,formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ setisLoadiog,formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -252,8 +252,9 @@ const AttendanceManagement = () => {
                         <h2>ادارة <b>التصنيفات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecordModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه تصنيف</span></a>
-                        <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addRecordModal" className="btn w-50 btn-success" data-toggle="modal">
+                          <i className="material-icons">&#xE147;</i> <span>اضافه سجل</span></a>
+                        {/* <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -287,12 +288,12 @@ const AttendanceManagement = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
+                        {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
-                        </th>
+                        </th> */}
                         <th>م</th>
                         <th>اليوم</th>
                         <th>الاسم</th>
@@ -315,20 +316,20 @@ const AttendanceManagement = () => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
-                              <td>
+                              {/* <td>
                                 <span className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
                                 </span>
-                              </td>
+                              </td> */}
                               <td>{i + 1}</td>
-                              <td className="text-nowrap text-truncate">{Record.currentDate&&Record.currentDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.currentDate&&formatDate(Record.currentDate)}</td>
                               <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
                               <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
                               <td className="text-nowrap text-truncate">{Record.status&&Record.status}</td>
-                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&Record.arrivalDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.arrivalDate&&formatDate(Record.arrivalDate)}</td>
                               <td className="text-nowrap text-truncate">{Record.arrivalDate&&formatTime(Record.arrivalDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.departureDate.split('T')[0]}</td>
+                              <td className="text-nowrap text-truncate">{Record.departureDate&&formatDate(Record.departureDate)}</td>
                               <td className="text-nowrap text-truncate">{Record.departureDate&&formatTime(Record.departureDate)}</td>
                               <td className="text-nowrap text-truncate">{Record.lateMinutes&&Record.lateMinutes}</td>
                               <td className="text-nowrap text-truncate">{Record.overtimeMinutes&&Record.overtimeMinutes}</td>
@@ -364,6 +365,10 @@ const AttendanceManagement = () => {
                   </div>
                 </div>
               </div>
+
+
+
+
               <div id="addRecordModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
