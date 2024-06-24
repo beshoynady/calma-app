@@ -216,8 +216,10 @@ const ProductRecipe = () => {
             }
           })          
           const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {sizes}, config);
-        }else if(!size && !product.hasSizes){
+          console.log({updateProduct})
+        }else if(!product.hasSizes){
           const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {totalcost:totalCost}, config);
+          console.log({updateProduct})
 
         }
         getProductRecipe(productId , sizeId); // Refresh the product recipe
@@ -300,7 +302,7 @@ const ProductRecipe = () => {
 
       const editRecipeToProduct = await axios.put(`${apiUrl}/api/recipe/${recipeOfProduct._id}`, { ingredients: newIngredients, totalcost }, config
       );
-      
+
       if(size && product.hasSizes){
         sizes.map(si=>{
           if(si._id === size._id){
