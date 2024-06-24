@@ -81,6 +81,16 @@ const employeeSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false, // Default value for isVerified is false
+  },
+  createdBy:{
+    type: ObjectId,
+    ref:'Employee',
+    required: true
+  },
+  updatedBy:{
+    type: ObjectId,
+    ref:'Employee',
+    required: true
   }
 },
   {

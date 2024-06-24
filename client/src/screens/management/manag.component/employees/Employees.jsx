@@ -383,10 +383,13 @@ const Employees = () => {
                         <th>العنوان</th>
                         <th>الموبايل</th>
                         <th>الوظيفه</th>
+                        <th>اسم المستخدم</th>
                         <th>الراتب</th>
                         <th>الحالة</th>
                         <th>السكشن</th>
                         <th>الشيفت</th>
+                        <th>اضيف بواسطه</th>
+                        <th>تعديل</th>
                         <th>التاريخ</th>
                         <th>اجراءات</th>
                       </tr>
@@ -415,10 +418,13 @@ const Employees = () => {
                               <td>{employee.address}</td>
                               <td>{employee.phone}</td>
                               <td>{employee.role}</td>
+                              <td>{employee.username}</td>
                               <td>{employee.basicSalary}</td>
                               <td>{employee.isActive ? 'متاح' : "غير متاح"}</td>
                               <td>{employee.sectionNumber}</td>
                               <td>{employee.shift && employee.shift.shiftType}</td>
+                              <td>{FormDataTime(employee.creaedBy.username)}</td>
+                              <td>{FormDataTime(employee.updatedBy.username)}</td>
                               <td>{FormDataTime(employee.createdAt)}</td>
                               <td>
                                 {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (

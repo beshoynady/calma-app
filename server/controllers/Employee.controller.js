@@ -23,6 +23,7 @@ const createEmployeeSchema = Joi.object({
 
 const createEmployee = async (req, res) => {
     try {
+        const createdBy = req.employee.id
         const { error } = createEmployeeSchema.validate(req.body);
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
@@ -56,6 +57,7 @@ const createEmployee = async (req, res) => {
             role,
             sectionNumber,
             isActive,
+            createdBy
         }, { new: true });
 
         // Generating JWT token
@@ -94,6 +96,7 @@ const updateEmployeeSchema = Joi.object({
 
 const updateEmployee = async (req, res) => {
     try {
+        const updatedBy = req.employee.id
         const { error } = updateEmployeeSchema.validate(req.body);
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
@@ -104,7 +107,7 @@ const updateEmployee = async (req, res) => {
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
         const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword, basicSalary, isActive, role, sectionNumber } 
-        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
+        : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber, updatedBy};
 
         const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, updateData, { new: true });
 
@@ -120,7 +123,7 @@ const getoneEmployee = async (req, res) => {
         const employeeId = req.params.employeeId;
 
         // Find the employee by ID and populate the 'shift' field
-        const employee = await EmployeeModel.findById(employeeId).populate('shift');
+        const employee = await EmployeeModel.findById(employeeId).populate('shift').populate('createdBy').populate('updatedBy');
 
         // If employee not found, return a 404 error
         if (!employee) {
@@ -187,7 +190,7 @@ const loginEmployee = async (req, res) => {
 const getAllemployees = async (req, res) => {
     try {
         // Fetch all employees and populate the 'shift' field
-        const allemployees = await EmployeeModel.find({}).populate('shift');
+        const allemployees = await EmployeeModel.find({}).populate('shift').populate('createdBy').populate('updatedBy');
         
 
         // If no employees found, return a 404 error
