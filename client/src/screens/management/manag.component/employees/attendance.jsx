@@ -278,7 +278,7 @@ const AttendanceManagement = () => {
   const getEmployeesByName = (name) => {
 
     if (allAttendanceRecords.length > 0 && name) {
-      const employee = allAttendanceRecords.filter((record) =>record.employee && record.employee.fullname.startsWith(name) == true|| record.employee.username.startsWith(name) == true)
+      const employee = allAttendanceRecords.filter((record) => record.employee && record.employee.fullname.startsWith(name) == true || record.employee.username.startsWith(name) == true)
       if (employee) {
         setallAttendanceRecords(employee)
       } else {
@@ -330,57 +330,57 @@ const AttendanceManagement = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                        <div class="filter-group">
-                          <label>نوع السجل</label>
-                          <select class="form-control" onChange={(e) => searchByStatus(e.target.value)} >
-                            <option value="">الكل</option>
-                            <option value="Attendance">حضور</option>
-                            <option value="Absence">غياب</option>
-                            <option value="Vacation">اجازة</option>
-                          </select>
-                        </div>
-                        <div class="filter-group">
-                          <label>الاسم</label>
-                          <input type="text" class="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
-                        </div>
-                        <div class="filter-group">
-                          <label>الوظيفة</label>
-                          <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
-                            <option value="all">الكل</option>
-                            <option value="manager">مدير</option>
-                            <option value="cashier">كاشير</option>
-                            <option value="waiter">ويتر</option>
-                            <option value="Chef">شيف</option>
-                          </select>
-                        </div>
-                        <div class="filter-group">
-                          <label>الشيفت</label>
-                          <select class="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
-                            <option value="all">الكل</option>
-                            {shifts ? shifts.map((shift, i) =>
-                              <option value={shift._id} key={i}>{shift.shiftType}</option>
-                            ) : <option>لم يتم انشاء شفتات</option>}
+                      <div class="filter-group">
+                        <label>نوع السجل</label>
+                        <select class="form-control" onChange={(e) => searchByStatus(e.target.value)} >
+                          <option value="">الكل</option>
+                          <option value="Attendance">حضور</option>
+                          <option value="Absence">غياب</option>
+                          <option value="Vacation">اجازة</option>
+                        </select>
+                      </div>
+                      <div class="filter-group">
+                        <label>الاسم</label>
+                        <input type="text" class="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                      </div>
+                      <div class="filter-group">
+                        <label>الوظيفة</label>
+                        <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                          <option value="all">الكل</option>
+                          <option value="manager">مدير</option>
+                          <option value="cashier">كاشير</option>
+                          <option value="waiter">ويتر</option>
+                          <option value="Chef">شيف</option>
+                        </select>
+                      </div>
+                      <div class="filter-group">
+                        <label>الشيفت</label>
+                        <select class="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
+                          <option value="all">الكل</option>
+                          {shifts ? shifts.map((shift, i) =>
+                            <option value={shift._id} key={i}>{shift.shiftType}</option>
+                          ) : <option>لم يتم انشاء شفتات</option>}
 
-                          </select>
-                        </div>
-                        <div class="filter-group">
-                          <label>فلتر حسب الوقت</label>
-                          <select class="form-control" onChange={(e) => filterByTime(e.target.value)}>
-                            <option value="">اختر</option>
-                            <option value="today">اليوم</option>
-                            <option value="week">هذا الأسبوع</option>
-                            <option value="month">هذا الشهر</option>
-                            <option value="month">هذه السنه</option>
-                          </select>
-                        </div>
+                        </select>
+                      </div>
+                      <div class="filter-group">
+                        <label>فلتر حسب الوقت</label>
+                        <select class="form-control" onChange={(e) => filterByTime(e.target.value)}>
+                          <option value="">اختر</option>
+                          <option value="today">اليوم</option>
+                          <option value="week">هذا الأسبوع</option>
+                          <option value="month">هذا الشهر</option>
+                          <option value="month">هذه السنه</option>
+                        </select>
+                      </div>
 
-                        <div class="filter-group">
-                          <label>فلتر مدة محددة</label>
-                          <label>بداية التاريخ</label>
-                          <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                          <label>نهاية التاريخ</label>
-                          <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                        </div>
+                      <div class="filter-group">
+                        <label>فلتر مدة محددة</label>
+                        <label>بداية التاريخ</label>
+                        <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                        <label>نهاية التاريخ</label>
+                        <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                      </div>
 
                     </div>
                   </div>
