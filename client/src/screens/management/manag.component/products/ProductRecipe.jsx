@@ -246,8 +246,11 @@ const ProductRecipe = () => {
             }
           })          
           const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {sizes}, config);
-        }else if(!size && !product.hasSizes){
+          console.log({updateProduct})
+
+        }else if(!product.hasSizes){
           const updateProduct = await axios.put(`${apiUrl}/api/product/withoutimage/${productId}`, {totalcost:totalCost}, config);
+          console.log({updateProduct})
 
         }
         console.log({ addRecipeToProduct }); // Log the response from the server
