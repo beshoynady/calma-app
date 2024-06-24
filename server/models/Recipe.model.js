@@ -14,7 +14,6 @@ const recipeSchema = new mongoose.Schema({
   sizeId: {
     type: ObjectId,
     ref: 'Product',
-    required: true,
     default: null,
   },
   sizeName: {
