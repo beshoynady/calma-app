@@ -309,10 +309,10 @@ const Employees = () => {
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
-                      <div className="col-8">
+                      <div className="col-6">
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
-                      <div className="col-4 d-flex justify-content-end">
+                      <div className="col-6 d-flex justify-content-end">
                         {
                           permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
                             <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
@@ -320,7 +320,7 @@ const Employees = () => {
                             : null
                         } 
                         <a href="#" className="btn w-50 btn-info" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
-                        <a href="#" className="btn w-50 btn-primary" data-toggle="modal" onClick={handlePrint}><i className="material-icons">&#xE15C;</i> <span>'طباعه'</span></a>
+                        <a href="#" className="btn w-50 btn-primary" data-toggle="modal" onClick={handlePrint}><i className="material-icons">&#xE15C;</i> <span>طباعه</span></a>
                       </div>
                     </div>
                   </div>
