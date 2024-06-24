@@ -278,7 +278,7 @@ const Employees = () => {
       'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
       'السكشن': employee.sectionNumber,
       'الشيفت': employee.shift ? employee.shift.shiftType : '',
-      'التاريخ': FormDataTime(employee.createdAt),
+      'التاريخ': formatDateTime(employee.createdAt),
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
