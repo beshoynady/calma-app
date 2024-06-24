@@ -53,12 +53,6 @@ const SideBar = () => {
   }
 
 
-
-
-  useEffect(() => {
-    getPermissions()
-  }, [])
-
   return (
     <detacontext.Consumer>
       {

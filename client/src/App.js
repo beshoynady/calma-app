@@ -1624,7 +1624,8 @@ function App() {
       //   decodedToken = jwt_decode(employeeToken);
       //   console.log(decodedToken.employeeinfo);
       // }
-        id = decodedToken.employeeinfo.id
+
+      const id = decodedToken.employeeinfo.id
 
       const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
       if (response.status === 200) {
