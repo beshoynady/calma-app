@@ -334,7 +334,7 @@ const Products = () => {
   }
 
 
-  
+
 
 
 
@@ -415,16 +415,16 @@ const Products = () => {
                           <label>نهاية التاريخ</label>
                           <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
                           <button type="button" className="btn btn-47 btn-primary" onClick={calcsalseofproducts}>
-                          <i className="fa fa-search"></i> فلتر
+                            <i className="fa fa-search"></i> فلتر
                           </button>
                           {/* </div> */}
                         </div>
                         <div className="col-md-8">
-                        <button type="button" className="btn btn-47 btn-primary" onClick={getallproducts}>
-                          حذف الفلتر
+                          <button type="button" className="btn btn-47 btn-primary" onClick={getallproducts}>
+                            حذف الفلتر
                           </button>
 
-                      </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -456,71 +456,70 @@ const Products = () => {
                     </thead>
                     <tbody>
                       {
-                      // productFilterd.length > 0 ?
-                      //   productFilterd.map((p, i) => {
-                      //     if (i >= startpagination & i < endpagination) {
-                      //       return (
-                      //         <tr key={i}>
-                      //           <td>
-                      //             <span className="custom-checkbox">
-                      //               <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                      //               <label htmlFor="checkbox1"></label>
-                      //             </span>
-                      //           </td>
-                      //           <td>{i + 1}</td>
-                      //           <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
-                      //           <td>{p.name}</td>
-                      //           <td>{p.description}</td>
-                      //           <td>{p.category.name}</td>
-                      //           <td>{p.totalcost}</td>
-                      //           <td>{p.price}</td>
-                      //           <td>{p.discount}</td>
-                      //           <td>{p.priceAfterDiscount}</td>
-                      //           <td>{p.sales}</td>
-                      //           <td>{p.available ? 'متاح' : 'غير متاح'}</td>
-                      //           <td>
-                      //             <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                      //             {/* <a href="#recipeProductModal" className="edit" data-toggle="modal" onClick={() => { setproductid(p._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-
-                      //             <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      //           </td>
-                      //         </tr>
-                      //       )
-                      //     }
-                      //   })
-                      //   : 
-                      listofProducts&&listofProducts.map((p, i) => {
-                          if (i >= startpagination & i < endpagination) {
+                        listofProducts && listofProducts.map((product, i) => {
+                          if (i >= startpagination && i < endpagination) {
                             return (
-                              <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
-                                <td>{i + 1}</td>
-                                <td><img src={`${apiUrl}/images/${p.image}`} style={{ "width": "60px", "height": "50px" }} /></td>
-                                <td>{p.name}</td>
-                                <td>{p.description}</td>
-                                <td>{p.category.name}</td>
-                                <td>{p.sizes.length}</td>
-                                <td>{p.extras.length}</td>
-                                <td>{p.totalcost}</td>
-                                <td>{p.price}</td>
-                                <td>{p.discount}</td>
-                                <td>{p.priceAfterDiscount}</td>
-                                <td>{p.sales}</td>
-                                <td>{p.available ? 'متاح' : 'غير متاح'}</td>
-                                <td>
-                                  <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(p) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                  <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(p._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                              </tr>
-                            )
+                              <React.Fragment key={i}>
+                                <tr>
+                                  {/* <td>
+            <span className="custom-checkbox">
+              <input type="checkbox" id={`checkbox${i}`} name="options[]" value="1" />
+              <label htmlFor={`checkbox${i}`}></label>
+            </span>
+          </td> */}
+                                  <td>{i + 1}</td>
+                                  <td><img src={`${apiUrl}/images/${product.image}`} style={{ width: "60px", height: "50px" }} /></td>
+                                  <td>{product.name}</td>
+                                  <td>{product.description}</td>
+                                  <td>{product.category.name}</td>
+                                  <td>{product.sizes.length}</td>
+                                  <td>{product.extras.length}</td>
+                                  <td>{product.totalcost}</td>
+                                  <td>{product.price}</td>
+                                  <td>{product.discount}</td>
+                                  <td>{product.priceAfterDiscount}</td>
+                                  <td>{product.sales?product.sales:0}</td>
+                                  <td>{product.available ? 'متاح' : 'غير متاح'}</td>
+                                  <td>
+                                    <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(product) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(product._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                  </td>
+                                </tr>
+                                {product.sizes.length > 0 && product.sizes.map((size, j) => (
+                                  <tr key={j + i}>
+                                    {/* <td>
+              <span className="custom-checkbox">
+                <input type="checkbox" id={`checkbox${j + i}`} name="options[]" value="1" />
+                <label htmlFor={`checkbox${j + i}`}></label>
+              </span>
+            </td> */}
+                                    <td>{i + 1}</td>
+                                    <td>
+                                      {/* <img src={`${apiUrl}/images/${product.image}`} style={{ width: "60px", height: "50px" }} /> */}
+                                    </td>
+                                    <td>{size.sizeName}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{size.extras.length}</td>
+                                    <td>{size.sizeCost}</td>
+                                    <td>{size.sizePrice}</td>
+                                    <td>{size.sizeDiscount}</td>
+                                    <td>{size.sizePriceAfterDiscount}</td>
+                                    <td>{size.sales?size.sales:0}</td>
+                                    <td></td>
+                                    <td>
+                                      {/* <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(product) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+              <a href="#deleteProductModal" className="delete" data-toggle="modal" onClick={() => setproductid(product._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </React.Fragment>
+                            );
                           }
                         })
+
                       }
                     </tbody>
                   </table>
@@ -656,7 +655,7 @@ const Products = () => {
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='number' className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
@@ -729,15 +728,15 @@ const Products = () => {
                       <div className="modal-body">
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الوصف</label>
-                          <textarea className="form-control" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
+                          <textarea className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                         </div>
                         <div className="form-group form-group-47">
                           <label>التصنيف</label>
-                          <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(p => p._id == productid).length > 0 ? listofProducts.filter(p => p._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
+                          <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
                             {listofcategories.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
                             })
