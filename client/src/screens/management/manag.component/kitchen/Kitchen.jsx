@@ -410,7 +410,7 @@ const Kitchen = () => {
                             </div>
 
                             <div style={{ maxWidth: "50%" }}>
-                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.fullname}</p> : ""}
+                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.username}</p> : ""}
                               <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                               <p className="card-text">الانتظار: {waitingTime(order.createdAt)} دقيقه</p>
                             </div>
@@ -481,7 +481,7 @@ const Kitchen = () => {
                             </div>
 
                             <div style={{ maxWidth: "50%" }}>
-                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.fullname}</p> : ""}
+                              {order.waiter ? <p className="card-text">الويتر: {order.waiter && order.waiter.username}</p> : ""}
                               <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                               <p className="card-text">الانتظار: {waitingTime(order.createdAt)} دقيقه</p>
                             </div>

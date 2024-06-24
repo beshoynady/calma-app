@@ -380,7 +380,7 @@ const POS = () => {
                         <div ref={printContainer} className="max-w-400px p-3 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>الكاشير: {myOrder.cashier?.fullname} | فاتورة #{myOrder.serial} | {myOrder.ordertype === 'Internal' ? `الطاولة ${myOrder.table.tableNumber}` : ''} | التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
+                            <p>الكاشير: {myOrder.cashier?.username} | فاتورة #{myOrder.serial} | {myOrder.ordertype === 'Internal' ? `الطاولة ${myOrder.table.tableNumber}` : ''} | التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
                           </div>
 
                           {myOrder.ordertype === 'Delivery' && (
@@ -389,7 +389,7 @@ const POS = () => {
                               <p>الاسم: {myOrder.name}</p>
                               <p>الموبايل: {myOrder.phone}</p>
                               <p>العنوان: {myOrder.address}</p>
-                              <p>الديلفري مان: {myOrder.deliveryMan && myOrder.deliveryMan.fullname}</p>
+                              <p>الديلفري مان: {myOrder.deliveryMan && myOrder.deliveryMan.username}</p>
                             </div>
                           )}
                           {myOrder.ordertype === 'Takeaway' && (

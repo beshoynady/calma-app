@@ -142,7 +142,7 @@ const Waiter = () => {
                         <p className="card-text">رقم الفاتورة: {order.serial}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
-                        <p className="card-text">الويتر: {order.waiter?.fullname}</p>
+                        <p className="card-text">الويتر: {order.waiter?.username}</p>
                         <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
@@ -179,7 +179,7 @@ const Waiter = () => {
                           <p className="card-text">نوع الطلب: {order.orderType}</p>
                         </div>
                         <div style={{ maxWidth: "50%" }}>
-                          <p className="card-text">الويتر: {order.waiter?.fullname}</p>
+                          <p className="card-text">الويتر: {order.waiter?.username}</p>
                           <p className="card-text">التنفيذ: {new Date(order.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                           <p className="card-text">الاستلام: {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>

@@ -797,7 +797,7 @@ const ManagerDash = () => {
                                       جديد
                                     </a>
                                   </td>
-                                  <td>{recent.waiter ? recent.waiter.fullname : ''}</td>
+                                  <td>{recent.waiter ? recent.waiter.username : ''}</td>
                                   <td>
                                     {recent.orderType === 'Delivery' && (
                                       <select
@@ -808,11 +808,11 @@ const ManagerDash = () => {
                                       >
                                         <option value={recent.deliveryMan?._id}>
                                           {console.log({deliveryMan})}
-                                          {recent.deliveryMan ? recent.deliveryMan.fullname : "لم يحدد"}
+                                          {recent.deliveryMan ? recent.deliveryMan.username : "لم يحدد"}
                                         </option>
                                         {deliverymen.map((man, i) => (
                                           <option value={man._id} key={i}>
-                                            {man.fullname}
+                                            {man.username}
                                           </option>
                                         ))}
                                       </select>
@@ -891,7 +891,7 @@ const ManagerDash = () => {
                               </button>
                             ) : (
                               <div className='d-flex flex-nowrap w-50 text-dark justify-content-between align-items-center'>
-                                <p className='w-50 text-dark text-center' style={{ fontSize: '18px', fontWeight: "900" }}> {order.waiter?.fullname}</p>
+                                <p className='w-50 text-dark text-center' style={{ fontSize: '18px', fontWeight: "900" }}> {order.waiter?.username}</p>
                                 <p className='w-50 text-dark text-center' style={{ fontSize: '18px', fontWeight: "900" }}>{order.helpStatus === 'Send waiter' ? 'تم ارسال'
                                   : order.helpStatus === 'On the way' ? 'في الطريق'
                                     : order.helpStatus === 'Assistance done' ? 'تمت'
@@ -920,7 +920,7 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير:{orderdata.cashier?.fullname} | فاتورة #{serial} | {orderdata.orderType === 'Internal' ? `طاولة' ${orderdata.table?.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير:{orderdata.cashier?.username} | فاتورة #{serial} | {orderdata.orderType === 'Internal' ? `طاولة' ${orderdata.table?.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
@@ -929,7 +929,7 @@ const ManagerDash = () => {
                             <p>الاسم: {orderdata.name}</p>
                             <p>الموبايل: {orderdata.phone}</p>
                             <p>العنوان: {orderdata.address}</p>
-                            <p>Delivery Man: {orderdata.deliveryMan?.fullname}</p>
+                            <p>Delivery Man: {orderdata.deliveryMan?.username}</p>
                           </div>
                             : orderdata.orderType == 'Takeaway' ?
                               <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
@@ -1069,7 +1069,7 @@ const ManagerDash = () => {
                           {/* Invoice Header */}
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
-                            <p>كاشير {orderdata.cashier && orderdata.cashier.fullname} | فاتورة باقي #{serial} | {orderdata.orderType === 'Internal' ? `Table ${orderdata.table && orderdata.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                            <p>كاشير {orderdata.cashier && orderdata.cashier.username} | فاتورة باقي #{serial} | {orderdata.orderType === 'Internal' ? `Table ${orderdata.table && orderdata.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                           </div>
 
                           {/* Customer Information */}
@@ -1222,7 +1222,7 @@ const ManagerDash = () => {
                                 <div style={{ maxWidth: "50%" }}>
                                   <p className="card-text">الفاتورة: {kitchenOrder.serial}</p>
                                   <p className="card-text">الكاشير: {employeeLoginInfo && employeeLoginInfo.employeeinfo ? usertitle(employeeLoginInfo.employeeinfo.id) : ''}</p>
-                                  {kitchenOrder.waiter ? <p className="card-text">الويتر: {kitchenOrder.waiter.fullname}</p> : ""}
+                                  {kitchenOrder.waiter ? <p className="card-text">الويتر: {kitchenOrder.waiter.username}</p> : ""}
                                   <p className="card-text">الاستلام: {new Date(kitchenOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                                   <p className="card-text">الانتظار: {55} دقيقه</p>
                                 </div>

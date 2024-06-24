@@ -33,11 +33,7 @@ const Cart = (props) => {
     html2pdf(element);
   };
 
-  // Function to format the date
-  const formatDate = (date) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
-    return new Date(date).toLocaleDateString('en-GB', options);
-  };
+
 
 
 
@@ -45,7 +41,7 @@ const Cart = (props) => {
   return (
     <detacontext.Consumer>
       {
-        ({ restaurantData, allProducts, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
+        ({ restaurantData, allProducts,formatDateTime, clientInfo, userLoginInfo, usertitle, itemsInCart, costOrder, deleteItemFromCart, invoice, myOrder, listProductsOrder, orderTotal, orderSubtotal, ordertax, orderdeliveryCost
           , createDeliveryOrderByClient, createOrderForTableByClient, checkout }) => {
           return (
             <div className='cart-section' style={open_cart ? { 'display': 'flex' } : { 'display': 'none' }}>
@@ -164,7 +160,7 @@ const Cart = (props) => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير: {myOrder.cashier && myOrder.cashier.fullname} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${myOrder.table && myOrder.table.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير: {myOrder.cashier && myOrder.cashier.username} |فاتوره #{myOrder.serial} |{myOrder.orderType == 'Internal' ? `Table ${myOrder.table && myOrder.table.tableNumber}` : ''} | التاريخ: {formatDateTime(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
@@ -174,7 +170,7 @@ const Cart = (props) => {
                             <p>الاسم: {myOrder.name}</p>
                             <p>الموبايل: {myOrder.phone}</p>
                             <p>العنوان: {myOrder.address}</p>
-                            <p>الديليفري: {myOrder.deliveryMan && myOrder.deliveryMan.fullname}</p>
+                            <p>الديليفري: {myOrder.deliveryMan && myOrder.deliveryMan.username}</p>
                           </div> : myOrder.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
                               <h4>بيانات العميل</h4>

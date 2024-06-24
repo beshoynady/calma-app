@@ -190,7 +190,7 @@ const DeliveryMan = () => {
                         <p className="card-text">العنوان: {address}</p>
                       </div>
                       <div style={{ maxWidth: "50%" }}>
-                        <p className="card-text"> الطيار: {deliveryMan.fullname}</p>
+                        <p className="card-text"> الطيار: {deliveryMan.username}</p>
                         <p className="card-text">الاستلام: {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         <p className="card-text">التنفيذ: {new Date(updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       </div>
@@ -256,7 +256,7 @@ const DeliveryMan = () => {
                         {/* Invoice Header */}
                         <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                           <h2>{restaurantData.name}</h2>
-                          <p>كاشير:{orderdata.cashier?.fullname} | فاتورة #{serial} | {orderdata.orderType === 'Internal' ? `طاولة' ${orderdata.table?.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
+                          <p>كاشير:{orderdata.cashier?.username} | فاتورة #{serial} | {orderdata.orderType === 'Internal' ? `طاولة' ${orderdata.table?.tableNumber}` : ''} | التاريخ: {formatDate(new Date())}</p>
                         </div>
 
                         {/* Customer Information */}
@@ -265,7 +265,7 @@ const DeliveryMan = () => {
                           <p>الاسم: {orderdata.name}</p>
                           <p>الموبايل: {orderdata.phone}</p>
                           <p>العنوان: {orderdata.address}</p>
-                          <p>Delivery Man: {orderdata.deliveryMan?.fullname}</p>
+                          <p>Delivery Man: {orderdata.deliveryMan?.username}</p>
                         </div>
                           : orderdata.orderType == 'Takeaway' ?
                             <div className="customer-info text-dark" style={{ marginBottom: '20px' }}>
