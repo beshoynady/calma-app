@@ -479,7 +479,7 @@ const Products = () => {
                                   <td>{product.price}</td>
                                   <td>{product.discount}</td>
                                   <td>{product.priceAfterDiscount}</td>
-                                  <td>{product.sales?product.sales:0}</td>
+                                  <td>{product.sales ? product.sales : 0}</td>
                                   <td>{product.available ? 'متاح' : 'غير متاح'}</td>
                                   <td>
                                     <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(product) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -502,12 +502,12 @@ const Products = () => {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{size.extras.length}</td>
+                                    <td></td>
                                     <td>{size.sizeCost}</td>
                                     <td>{size.sizePrice}</td>
                                     <td>{size.sizeDiscount}</td>
                                     <td>{size.sizePriceAfterDiscount}</td>
-                                    <td>{size.sales?size.sales:0}</td>
+                                    <td>{size.sales ? size.sales : 0}</td>
                                     <td></td>
                                     <td>
                                       {/* <a href="#editProductModal" className="edit" data-toggle="modal" onClick={() => { handelEditProductModal(product) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -655,7 +655,7 @@ const Products = () => {
                             </div>
                             <div className="form-group form-group-47">
                               <label>التخفيض</label>
-                              <input type='number' className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                              <input type='number' className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                             </div>
                           </>
                         )
@@ -728,15 +728,15 @@ const Products = () => {
                       <div className="modal-body">
                         <div className="form-group form-group-47">
                           <label>الاسم</label>
-                          <input type="text" className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
+                          <input type="text" className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
                         </div>
                         <div className="form-group form-group-47">
                           <label>الوصف</label>
-                          <textarea className="form-control" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
+                          <textarea className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                         </div>
                         <div className="form-group form-group-47">
                           <label>التصنيف</label>
-                          <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(p => product._id == productid).length > 0 ? listofProducts.filter(p => product._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
+                          <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
                             {listofcategories.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
                             })
