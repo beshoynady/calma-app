@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
-const Joi = require('joi')
-
 import * as XLSX from 'xlsx';
 
+const Joi = require('joi')
 
 const Employees = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
