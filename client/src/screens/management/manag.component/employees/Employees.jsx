@@ -3,6 +3,7 @@ import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
+import { useReactToPrint } from 'react-to-print';
 
 const Joi = require('joi')
 
@@ -289,9 +290,9 @@ const Employees = () => {
 
 
 
-  const printContainer = useRef()
+  const printEmployeeContainer = useRef()
   const handlePrint = useReactToPrint({
-    content: () => printContainer.current,
+    content: () => printEmployeeContainer.current,
     copyStyles: true,
     removeAfterPrint: true,
     bodyClass: 'printpage'
@@ -304,7 +305,7 @@ const Employees = () => {
 
           return (
             <div className="container-xl mlr-auto">
-              <div className="table-responsive" ref={printContainer}>
+              <div className="table-responsive" ref={printEmployeeContainer}>
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
