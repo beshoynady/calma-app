@@ -311,7 +311,7 @@ const Employees = () => {
                            )
                             : null
                         } 
-                        <a href="#" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
+                        <a href="#" className="btn w-50 btn-danger" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
                       </div>
                     </div>
                   </div>
