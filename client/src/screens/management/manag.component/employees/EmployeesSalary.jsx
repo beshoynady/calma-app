@@ -297,13 +297,13 @@ const EmployeesSalary = () => {
                             return (
                               <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>{mov.employeeId.username}</td>
+                                <td>{mov.employeeId&&mov.employeeId.username}</td>
                                 <td>{mov.movement}</td>
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
                                 <td>{mov.newAmount}</td>
-                                <td>{mov.actionBy.username}</td>
-                                <td>{formatDateTime(mov.createdAt)}</td>
+                                <td>{mov.actionBy&&mov.actionBy.username}</td>
+                                <td>{mov.createdAt&&formatDateTime(mov.createdAt)}</td>
                                 <td>
                                   <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setsalarymovementId(mov._id); setemployeeName(mov.employeeName); setAmount(mov.Amount); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); 
