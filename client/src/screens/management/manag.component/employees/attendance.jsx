@@ -450,15 +450,15 @@ const AttendanceManagement = () => {
                         </select>
                       </div>
 
-                      <div className="filter-group d-flex flex-nowrap w-50">
-                        <label className="form-label"><strong>فلتر مدة محددة:</strong></label>
+                      <div className="filter-group d-flex flex-nowrap w-75">
+                        <label className="form-label"><strong>مدة محددة:</strong></label>
 
-                        <div className="mr-1">
+                        <div className="d-flex flex-nowrap mr-1">
                           <label className="form-label">من</label>
                           <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
                         </div>
 
-                        <div className="mr-1">
+                        <div className="d-flex flex-nowrap mr-1">
                           <label className="form-label">إلى</label>
                           <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
                         </div>
