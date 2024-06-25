@@ -13,17 +13,6 @@ const EmployeeTransactions = () => {
     },
   };
 
-  // Existing state variables and useEffect
-  const [listofemployee, setlistofemployee] = useState([])
-  const getemployees = async () => {
-    try {
-      const response = await axios.get(apiUrl + '/api/employee', config)
-      const employee = await response.data
-      setlistofemployee(employee)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const [listofTransactions, setlistofTransactions] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("")
@@ -218,7 +207,7 @@ const EmployeeTransactions = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo,formatDateTime, usertitle,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo,formatDateTime, allEmployees,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -259,7 +248,7 @@ const EmployeeTransactions = () => {
                           <label>الموظف</label>
                           <select class="form-control" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)} >
                             <option>الكل</option>
-                            {listofemployee.map((em, i) => {
+                            {allEmployees.map((em, i) => {
                               return (
                                 <option value={em._id} key={i}>{em.fullname}</option>
                               )
@@ -384,11 +373,11 @@ const EmployeeTransactions = () => {
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
-                            setemployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setemployeeId(e.target.value);
+                            setemployeeName(allEmployees ? allEmployees.find(em => em._id == e.target.value).fullname : ""); setemployeeId(e.target.value);
                             filterEmployeeTransactions(e.target.value)
                           }}>
                             <option>اختار</option>
-                            {listofemployee.length > 0 ? listofemployee.map((employee, i) => {
+                            {allEmployees.length > 0 ? allEmployees.map((employee, i) => {
                               return (
                                 <option value={employee._id} key={i}>{employee.fullname}</option>
                               )
@@ -449,9 +438,9 @@ const EmployeeTransactions = () => {
                       <div className="modal-body">
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
-                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
+                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(allEmployees.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
                             <option>اختر</option>
-                            {listofemployee.length > 0 ? listofemployee.map(employee => {
+                            {allEmployees.length > 0 ? allEmployees.map(employee => {
                               return (
                                 <option value={employee._id}>{employee.fullname}</option>
                               )

@@ -372,8 +372,8 @@ function App() {
     }
   };
 
-  const [allemployees, setallemployees] = useState([])
-  const getAllemployees = async () => {
+  const [allEmployees, setallEmployees] = useState([])
+  const getAllEmployees = async () => {
     try {
       if (!token) {
         // Handle case where token is not available
@@ -382,7 +382,7 @@ function App() {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
       
       if (response.status === 200) {
-        setallemployees(response.data);
+        setallEmployees(response.data);
         console.log('Employees data fetched successfully:', response.data);
       } else {
         console.error('Failed to fetch employees data: Unexpected response status', response.status);
@@ -1610,7 +1610,7 @@ function App() {
     if (user) return user.username;
 
     // Check if id corresponds to an employee
-    const employee = allemployees ? allemployees.find((employee) => employee._id === id) : null;
+    const employee = allEmployees ? allEmployees.find((employee) => employee._id === id) : null;
     if (employee) return employee.username;
 
     return null; // Handle case where id doesn't match any entity
@@ -2023,7 +2023,7 @@ function App() {
     getAllOrders()
     getAllTable();
     getAllUsers();
-    getAllemployees()
+    getAllEmployees()
     getUserInfoFromToken()
     getAllReservations()
   }, [])
@@ -2053,7 +2053,7 @@ function App() {
         allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
 
         // Functions related to users, tables, and orders
-        allUsers, allTable, usertitle, allOrders,
+        allUsers, allTable, usertitle, allOrders, allEmployees,
 
         // Functions related to manipulating product details
         setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, setproductExtras, productExtras,
