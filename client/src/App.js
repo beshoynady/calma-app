@@ -178,6 +178,64 @@ function App() {
     return formattedDate + ' ' + formattedTime;
   };
 
+
+  const filterByTime = (timeRange, array) => {
+
+    let filtered = [];
+
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+    console.log({ now, startOfToday, startOfWeek, startOfMonth, startOfYear, day: new Date().getDay(), date: new Date().getDate(), month: new Date().getMonth(), year: new Date().getFullYear() })
+
+    switch (timeRange) {
+      case 'today':
+        filtered = array.filter(item =>
+          new Date(item.createdAt) >= startOfToday
+        );
+        break;
+      case 'week':
+        filtered = array.filter(item =>
+          new Date(item.createdAt) >= startOfWeek
+        );
+        break;
+      case 'month':
+        filtered = array.filter(item =>
+          new Date(item.createdAt) >= startOfMonth
+        );
+        break;
+      case 'year':
+        filtered = array.filter(item =>
+          new Date(item.createdAt) >= startOfYear
+        );
+        break;
+      default:
+        filtered = array;
+    }
+
+    return filtered
+  };
+
+  const [StartDate, setStartDate] = useState(new Date())
+  const [EndDate, setEndDate] = useState(new Date())
+
+  const filterByDateRange = (array) => {
+    const start = new Date(StartDate);
+    const end = new Date(EndDate);
+
+    const filtered = array.filter(item => {
+      const createdAt = new Date(item.createdAt);
+      return createdAt >= start && createdAt <= end;
+    });
+
+    return filtered
+  };
+
   //+++++++++++++++++ product ++++++++++++++++++++
   const [allProducts, setallProducts] = useState([])
 
@@ -2023,7 +2081,8 @@ function App() {
         orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
         putNumOfPaid,handlePayExtras, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
-        , isLoadiog, setisLoadiog
+        , isLoadiog, setisLoadiog,
+        setStartDate, setEndDate, filterByDateRange, filterByTime
       }}>
       <BrowserRouter>
         <Routes>

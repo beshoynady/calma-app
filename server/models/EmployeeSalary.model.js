@@ -44,9 +44,7 @@ const EmployeeSalarySchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    updatedAt: {
-      type: Date,
-    },
+    
   },
   {
     timestamps: true,

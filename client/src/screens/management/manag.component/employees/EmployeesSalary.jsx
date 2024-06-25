@@ -5,18 +5,19 @@ import { toast } from 'react-toastify';
 
 const EmployeesSalary = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
+  const token = localStorage.getItem('token_e');
 
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
   // Existing state variables and useEffect
   const [listofemployee, setlistofemployee] = useState([])
   const getemployees = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/employee', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      })
+      const response = await axios.get(apiUrl + '/api/employee', config)
       const employee = await response.data
       setlistofemployee(employee)
     } catch (error) {
@@ -30,11 +31,9 @@ const EmployeesSalary = () => {
   const [EmployeeName, setEmployeeName] = useState("")
   const [movement, setmovement] = useState("")
   const [Amount, setAmount] = useState()
-  const [totalDays, settotalDays] = useState(0)
   const [oldAmount, setoldAmount] = useState(0)
   const [newAmount, setnewAmount] = useState()
   const [actionBy, setactionBy] = useState("")
-  const [actionAt, setactionAt] = useState(Date())
 
 
   // Function to add new salary movement
@@ -44,7 +43,6 @@ const EmployeesSalary = () => {
       EmployeeId,
       EmployeeName,
       movement,
-      totalDays,
       Amount,
       oldAmount,
       newAmount,
@@ -52,15 +50,11 @@ const EmployeesSalary = () => {
     };
 
     try {
-      const response = await axios.post(apiUrl + '/api/salarymovement', data, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(apiUrl + '/api/salarymovement', data, config);
       console.log({ response })
       if (response) {
         getSalaryMovement();
-        toast.success('Movement added successfully');
+        toast.success('تم اضافه السجل بنجاح');
       }
 
     } catch (error) {
@@ -83,14 +77,10 @@ const EmployeesSalary = () => {
     };
 
     try {
-      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, config);
       
       getSalaryMovement();
-      toast.success('Movement updated successfully');
+      toast.success('تم تعديل السجل بنجاح');
     } catch (error) {
       console.log(error);
       toast.error('An error occurred while updating the movement');
@@ -101,13 +91,9 @@ const EmployeesSalary = () => {
   const deleteSalaryMovement = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, config);
       getSalaryMovement();
-      toast.success('Movement deleted successfully');
+      toast.success('تم حذف السجل بنجاح');
     } catch (error) {
       console.log(error);
       toast.error('An error occurred while deleting the movement');
@@ -116,19 +102,22 @@ const EmployeesSalary = () => {
 
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
-    const movement = await axios.get(apiUrl + '/api/salarymovement', {
-      headers: {
-        'authorization': `Bearer ${token}`,
-      },
-    })
-    console.log(movement)
-    setlistofsalarymovement(movement.data.reverse())
+    try {
+      const movement = await axios.get(apiUrl + '/api/salarymovement', config)
+      console.log(movement)
+      setlistofsalarymovement(movement.data.reverse())
+      
+    } catch (error) {
+      console.log({error})  
+    }
   }
 
   const [EmployeeSalaryMovement, setEmployeeSalaryMovement] = useState([])
 
   const filterEmployeeSalaryMovement = async (id) => {
-    console.log(listofsalarymovement)
+    if(!id){
+      getSalaryMovement()
+    }
     const filterSalaryMovement = listofsalarymovement.length > 0 ? listofsalarymovement.filter(move => move.EmployeeId == id) : []
     console.log(filterSalaryMovement)
     if (filterSalaryMovement.length > 0) {
@@ -170,29 +159,27 @@ const EmployeesSalary = () => {
   };
 
 
-  const [filterEmp, setfilterEmp] = useState([])
   const getSalaryMovementByemp = (id) => {
-    if (filterEmp.length > 0) {
-      const filterlist = filterEmp.filter(m => m.EmployeeId == id)
-      setfilterEmp(filterlist.reverse())
-
+    if(!id){
+      getSalaryMovement()
+      return
     } else {
-      const FilterByEmployees = listofsalarymovement.filter(m => m.EmployeeId == id)
-      setfilterEmp(FilterByEmployees.reverse())
+      const FilterByEmployees = listofsalarymovement.filter(m => m.EmployeeId._id  === id)
+      setlistofsalarymovement(FilterByEmployees.reverse())
     }
   }
 
   const filterEmpSalaryMovement = (mov) => {
-    console.log(mov)
-    console.log(filterEmp)
-    console.log(listofsalarymovement)
+    // console.log(mov)
+    // console.log(filterEmp)
+    // console.log(listofsalarymovement)
     if (filterEmp.length > 0) {
       const filterlist = filterEmp.filter(m => m.movement == mov)
-      setfilterEmp(filterlist.reverse())
+      setlistofsalarymovement(filterlist.reverse())
     } else {
       const filterlist = listofsalarymovement.filter(m => m.movement == mov)
       console.log(filterlist)
-      setfilterEmp(filterlist.reverse())
+      setlistofsalarymovement(filterlist.reverse())
     }
   }
 
@@ -203,7 +190,7 @@ const EmployeesSalary = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -221,7 +208,6 @@ const EmployeesSalary = () => {
                   </div>
                   <div class="table-filter">
                     <div class="row text-dark">
-                      <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
@@ -234,8 +220,6 @@ const EmployeesSalary = () => {
                           </select>
                           <span>عنصر</span>
                         </div>
-                      </div>
-                      <div class="col-sm-9">
                         <div class="filter-group">
                           <label>الاسم</label>
                           <input type="text" class="form-control" />
@@ -263,82 +247,71 @@ const EmployeesSalary = () => {
                             })}
                           </select>
                         </div>
-                        {/* <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+
+                        <div className="filter-group">
+                        <label>فلتر حسب الوقت</label>
+                        <select className="form-control" onChange={(e) => setlistofsalarymovement(filterByTime(e.target.value, listofsalarymovement))}>
+                          <option value="">اختر</option>
+                          <option value="today">اليوم</option>
+                          <option value="week">هذا الأسبوع</option>
+                          <option value="month">هذا الشهر</option>
+                          <option value="month">هذه السنه</option>
+                        </select>
                       </div>
+
+                      <div className="filter-group d-flex flex-nowrap w-75">
+                        <label className="form-label"><strong>مدة محددة:</strong></label>
+
+                        <div className="d-flex flex-nowrap mr-1">
+                          <label className="form-label">من</label>
+                          <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                        </div>
+
+                        <div className="d-flex flex-nowrap mr-1">
+                          <label className="form-label">إلى</label>
+                          <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                        </div>
+
+                        <div className="d-flex flex-nowrap justify-content-between w-25">
+                          <button type="button" className="btn btn-primary w-50" onClick={()=>setlistofsalarymovement(filterByDateRange(listofsalarymovement))}>
+                            <i className="fa fa-search"></i>
+                          </button>
+                          <button type="button" className="btn btn-warning w-50" onClick={getSalaryMovement}>
+                            استعادة
+                          </button>
+                        </div>
+                      </div>
+                        {/* <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
                     </div>
                   </div>
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th>
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الحركة</th>
                         <th>المبلغ</th>
                         <th>المبلغ السابق</th>
                         <th>الاجمالي</th>
-                        <th>الايام</th>
                         <th>بواسطه</th>
                         <th>اليوم</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {filterEmp.length > 0 ? filterEmp.map((mov, i) => {
-                        // if (i < pagination & i >= pagination - 5) {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td>
-                              <td>{i + 1}</td>
-                              <td>{mov.EmployeeName}</td>
-                              <td>{mov.movement}</td>
-                              <td>{mov.Amount}</td>
-                              <td>{mov.oldAmount}</td>
-                              <td>{mov.newAmount}</td>
-                              <td>{mov.totalDays}</td>
-                              <td>{usertitle(mov.actionBy)}</td>
-                              <td>{new Date(mov.actionAt).toLocaleString()}</td>
-                              <td>
-                                <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
-                                  setsalarymovementId(mov._id); setEmployeeName(mov.EmployeeName); setAmount(mov.Amount); setactionBy(mov.actionBy); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); setactionAt(mov.actionAt); setmovement(mov.movement)
-                                }}>&#xE254;</i></a>
-                                <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
-                              </td>
-
-                            </tr>
-                          )
-                        }
-                      })
-                        : listofsalarymovement.length ? listofsalarymovement.map((mov, i) => {
+                      {
+                      listofsalarymovement.length ? listofsalarymovement.map((mov, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
-                                <td>
-                                  <span className="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                    <label htmlFor="checkbox1"></label>
-                                  </span>
-                                </td>
                                 <td>{i + 1}</td>
                                 <td>{mov.EmployeeName}</td>
                                 <td>{mov.movement}</td>
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
                                 <td>{mov.newAmount}</td>
-                                <td>{mov.totalDays}</td>
-                                <td>{usertitle(mov.actionBy)}</td>
-                                <td>{new Date(mov.actionAt).toLocaleString()}</td>
+                                <td>{mov.actionBy.username}</td>
+                                <td>{formatDateTime(mov.createdAt)}</td>
                                 <td>
                                   <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setsalarymovementId(mov._id); setEmployeeName(mov.EmployeeName); setAmount(mov.Amount); setactionBy(mov.actionBy); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); setactionAt(mov.actionAt); setmovement(mov.movement)
@@ -366,6 +339,9 @@ const EmployeesSalary = () => {
                   </div>
                 </div>
               </div>
+
+
+
               <div id="addSalaryMovementModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
@@ -375,7 +351,7 @@ const EmployeesSalary = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
                             setEmployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setEmployeeId(e.target.value);
@@ -390,7 +366,7 @@ const EmployeesSalary = () => {
                               : ""}
                           </select>
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التعامل</label>
                           <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
@@ -401,31 +377,26 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        {['غياب', 'اضافي'].includes(movement) && (
-                          <div className="form-group form-group-47"> 
-                            <label>الايام</label>
-                            <input type="number" min={0} className="form-control" required onChange={(e) => { settotalDays(Number(e.target.value)) }} />
-                          </div>
-                        )}
-                        <div className="form-group form-group-47"> 
+                       
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>المبلغ</label>
                           <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الرصيد</label>
                           <input type="number" className="form-control" value={oldAmount > 0 ? oldAmount : 0} readOnly />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاجمالي</label>
                           <input type="number" className="form-control" readOnly defaultValue={newAmount} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>بواسطه</label>
                           <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التاريخ</label>
-                          <p className="form-control" readOnly>{new Date().toLocaleString()}</p>
+                          <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                         </div>
                       </div>
                       <div className="modal-footer">
@@ -446,7 +417,7 @@ const EmployeesSalary = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
                           <select form="carform" defaultValue={EmployeeName} required onChange={(e) => { setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
                             <option>اختر</option>
@@ -457,7 +428,7 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الحركه</label>
                           <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
@@ -468,25 +439,26 @@ const EmployeesSalary = () => {
                             }) : ""}
                           </select>
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>المبلغ</label>
                           <input type="Number" className="form-control" defaultValue={Amount} required onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>المبلغ السابق</label>
                           <input type="Number" className="form-control" Value={oldAmount > 0 ? oldAmount : 0} readOnly />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاجمالي</label>
                           <input type="Number" className="form-control" readOnly defaultValue={newAmount} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>بواسطة</label>
                           <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                         </div>
-                        <div className="form-group form-group-47"> 
+                        <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التاريخ</label>
-                          <p className="form-control" readOnly>{new Date(actionAt).toLocaleString()}</p>                        </div>
+                          <p className="form-control" readOnly>{formatDateTime(createdAt)}</p>                        
+                          </div>
                       </div>
                       <div className="modal-footer">
                         <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
