@@ -27,8 +27,8 @@ const EmployeesSalary = () => {
 
   const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
   const [salarymovementId, setsalarymovementId] = useState("")
-  const [EmployeeId, setEmployeeId] = useState("")
-  const [EmployeeName, setEmployeeName] = useState("")
+  const [employeeId, setemployeeId] = useState("")
+  const [employeeName, setemployeeName] = useState("")
   const [movement, setmovement] = useState("")
   const [Amount, setAmount] = useState()
   const [oldAmount, setoldAmount] = useState(0)
@@ -39,8 +39,8 @@ const EmployeesSalary = () => {
   const addSalaryMovement = async (e) => {
     e.preventDefault();
     const data = {
-      EmployeeId,
-      EmployeeName,
+      employeeId,
+      employeeName,
       movement,
       Amount,
       oldAmount,
@@ -65,8 +65,8 @@ const EmployeesSalary = () => {
   const updateSalaryMovement = async (e) => {
     e.preventDefault();
     const data = {
-      EmployeeId,
-      EmployeeName,
+      employeeId,
+      employeeName,
       movement,
       Amount,
       oldAmount,
@@ -115,7 +115,7 @@ const EmployeesSalary = () => {
     if(!id){
       getSalaryMovement()
     }
-    const filterSalaryMovement = listofsalarymovement.length > 0 ? listofsalarymovement.filter(move => move.EmployeeId == id) : []
+    const filterSalaryMovement = listofsalarymovement.length > 0 ? listofsalarymovement.filter(move => move.employeeId == id) : []
     console.log(filterSalaryMovement)
     if (filterSalaryMovement.length > 0) {
       setEmployeeSalaryMovement(filterSalaryMovement.reverse())
@@ -161,7 +161,7 @@ const EmployeesSalary = () => {
       getSalaryMovement()
       return
     } else {
-      const FilterByEmployees = listofsalarymovement.filter(m => m.EmployeeId._id  === id)
+      const FilterByEmployees = listofsalarymovement.filter(m => m.employeeId._id  === id)
       setlistofsalarymovement(FilterByEmployees.reverse())
     }
   }
@@ -302,7 +302,7 @@ const EmployeesSalary = () => {
                             return (
                               <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>{mov.EmployeeName}</td>
+                                <td>{mov.employeeId.username}</td>
                                 <td>{mov.movement}</td>
                                 <td>{mov.Amount}</td>
                                 <td>{mov.oldAmount}</td>
@@ -311,7 +311,8 @@ const EmployeesSalary = () => {
                                 <td>{formatDateTime(mov.createdAt)}</td>
                                 <td>
                                   <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
-                                    setsalarymovementId(mov._id); setEmployeeName(mov.EmployeeName); setAmount(mov.Amount); setactionBy(mov.actionBy); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); setactionAt(mov.actionAt); setmovement(mov.movement)
+                                    setsalarymovementId(mov._id); setemployeeName(mov.employeeName); setAmount(mov.Amount); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); 
+                                   setmovement(mov.movement)
                                   }}>&#xE254;</i></a>
                                   <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
                                 </td>
@@ -351,7 +352,7 @@ const EmployeesSalary = () => {
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
-                            setEmployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setEmployeeId(e.target.value);
+                            setemployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setemployeeId(e.target.value);
                             filterEmployeeSalaryMovement(e.target.value)
                           }}>
                             <option>اختار</option>
@@ -416,7 +417,7 @@ const EmployeesSalary = () => {
                       <div className="modal-body">
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
-                          <select form="carform" defaultValue={EmployeeName} required onChange={(e) => { setEmployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setEmployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
+                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
                             <option>اختر</option>
                             {listofemployee.length > 0 ? listofemployee.map(employee => {
                               return (
