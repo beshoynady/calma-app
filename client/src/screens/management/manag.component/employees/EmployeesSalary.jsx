@@ -167,15 +167,11 @@ const EmployeesSalary = () => {
   }
 
   const filterEmpSalaryMovement = (mov) => {
-    // console.log(mov)
-    // console.log(filterEmp)
-    // console.log(listofsalarymovement)
-    if (filterEmp.length > 0) {
-      const filterlist = filterEmp.filter(m => m.movement == mov)
-      setlistofsalarymovement(filterlist.reverse())
+
+    if (!mov) {
+      getSalaryMovement()
     } else {
       const filterlist = listofsalarymovement.filter(m => m.movement == mov)
-      console.log(filterlist)
       setlistofsalarymovement(filterlist.reverse())
     }
   }
@@ -187,7 +183,7 @@ const EmployeesSalary = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo,formatDateTime, usertitle,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="container-xl mlr-auto">
               <div className="table-responsive">
@@ -198,8 +194,8 @@ const EmployeesSalary = () => {
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSalaryMovementModal" onClick={() => { setactionBy(employeeLoginInfo ? employeeLoginInfo.employeeinfo.id : '') }} className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
-                        <a href="#deleteSalaryMovementModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addSalaryMovementModal" className="btn w-25 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
+                        {/* <a href="#deleteSalaryMovementModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -220,7 +216,6 @@ const EmployeesSalary = () => {
                         <div class="filter-group">
                           <label>الاسم</label>
                           <input type="text" class="form-control" />
-                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                         <div class="filter-group">
                           <label>الموظف</label>
@@ -397,9 +392,9 @@ const EmployeesSalary = () => {
                           <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Close" />
-                        <input type="submit" className="btn btn-47 btn-success" value="Add" />
+                      <div className="modal-footer w-100 d-flex flex-nowrap">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Close" />
+                        <input type="submit" className="btn w-50 btn-success" value="Add" />
                       </div>
                     </form>
                   </div>
@@ -458,9 +453,9 @@ const EmployeesSalary = () => {
                           <p className="form-control" readOnly>{formatDateTime(createdAt)}</p>                        
                           </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+                      <div className="modal-footer w-100 d-flex flex-nowrap">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -478,9 +473,9 @@ const EmployeesSalary = () => {
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer w-100 d-flex flex-nowrap">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
