@@ -464,10 +464,10 @@ const AttendanceManagement = () => {
                         </div>
 
                         <div className="d-flex flex-nowrap justify-content-between">
-                          <button type="button" className="btn btn-primary w-45" onClick={filterByDateRange}>
+                          <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
                             <i className="fa fa-search"></i> بحث
                           </button>
-                          <button type="button" className="btn btn-warning w-45" onClick={getallAttendanceRecords}>
+                          <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
                             حذف الفلتر
                           </button>
                         </div>
