@@ -450,7 +450,7 @@ const EmployeesSalary = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التاريخ</label>
-                          <p className="form-control" readOnly>{formatDateTime(createdAt)}</p>                        
+                          <p className="form-control" readOnly>{formatDateTime(new Date())}</p>                        
                           </div>
                       </div>
                       <div className="modal-footer w-100 d-flex flex-nowrap">
