@@ -8,11 +8,6 @@ const addSalaryMovement = async (req, res, next) => {
         if (!EmployeeId || !EmployeeName || !movement) {
             return res.status(400).json({ error: "جميع الحقول مطلوبة" });
         }
-
-        if (isNaN(Amount) || isNaN(oldAmount) || isNaN(newAmount)) {
-            return res.status(400).json({ error: "يجب أن تكون الحقول Amount و totalDays و oldAmount و newAmount أرقامًا صحيحة" });
-        }
-
         const actionBy = req.employee.id;
 
         // إنشاء سجل حركة الراتب
