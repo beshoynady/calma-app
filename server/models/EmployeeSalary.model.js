@@ -17,11 +17,6 @@ const EmployeeSalarySchema = new mongoose.Schema(
       enum: ['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'],
       required: true,
     },
-    totalDays: {
-      type: Number,
-      default: 0,
-      required: true,
-    },
     Amount: {
       type: Number,
       default: 0,
@@ -43,7 +38,6 @@ const EmployeeSalarySchema = new mongoose.Schema(
     updatedBy: {
       type: ObjectId,
       ref: 'Employee',
-      required: true,
     },
   },
   {

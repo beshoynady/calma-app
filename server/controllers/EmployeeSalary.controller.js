@@ -10,26 +10,21 @@ const addSalaryMovement = async (req, res, next) => {
         }
         const actionBy = req.employee.id;
 
-        // إنشاء سجل حركة الراتب
         const addEmployeeSalary = await EmployeeSalarymodel.create({
             EmployeeId,
             EmployeeName,
             movement,
-            totalDays,
             Amount,
             oldAmount,
             newAmount,
             actionBy
         });
 
-        // حفظ السجل في قاعدة البيانات
         await addEmployeeSalary.save();
 
-        // إرسال الاستجابة بنجاح
         res.status(200).json(addEmployeeSalary);
     } catch (error) {
-        // إرسال استجابة الخطأ مع رسالة مفصلة
-        res.status(500).json({ error: "حدث خطأ أثناء إضافة حركة الراتب", details: error.message });
+        res.status(500).json({ error: "An error occurred while adding salary movements", details: error.message });
         next(error);
     }
 };
@@ -38,7 +33,7 @@ const addSalaryMovement = async (req, res, next) => {
 const getallSalaryMovement = async (req, res) => {
     try {
         const allSalaryMovement = await EmployeeSalarymodel.find({})
-            .populate('EmployeeId', '_id fullname username')
+            .populate('EmployeeId', '_id fullname username role shift')
             .populate('actionBy', '_id fullname username')
             .populate('updatedBy', '_id fullname username')
         res.status(200).json(allSalaryMovement);

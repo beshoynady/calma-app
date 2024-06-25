@@ -33,7 +33,6 @@ const EmployeesSalary = () => {
   const [Amount, setAmount] = useState()
   const [oldAmount, setoldAmount] = useState(0)
   const [newAmount, setnewAmount] = useState()
-  const [actionBy, setactionBy] = useState("")
 
 
   // Function to add new salary movement
@@ -46,7 +45,6 @@ const EmployeesSalary = () => {
       Amount,
       oldAmount,
       newAmount,
-      actionBy,
     };
 
     try {
@@ -73,7 +71,6 @@ const EmployeesSalary = () => {
       Amount,
       oldAmount,
       newAmount,
-      actionBy,
     };
 
     try {
@@ -103,8 +100,8 @@ const EmployeesSalary = () => {
   const [listofsalarymovement, setlistofsalarymovement] = useState([])
   const getSalaryMovement = async () => {
     try {
-      const movement = await axios.get(apiUrl + '/api/salarymovement', config)
-      console.log(movement)
+      const SalaryMovement = await axios.get(apiUrl + '/api/salarymovement', config)
+      console.log({SalaryMovement})
       setlistofsalarymovement(movement.data.reverse())
       
     } catch (error) {
