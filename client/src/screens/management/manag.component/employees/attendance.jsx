@@ -305,13 +305,49 @@ const AttendanceManagement = () => {
     }
   }
 
-  const filterByTime=()=>{
+  const filterByTime = (timeRange) => {
+    let filteredRecords = [];
 
-  }
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+    switch (timeRange) {
+      case 'today':
+        filteredRecords = allAttendanceRecords.filter(record =>
+          new Date(record.createdAt) >= startOfToday
+        );
+        break;
+      case 'week':
+        filteredRecords = allAttendanceRecords.filter(record =>
+          new Date(record.createdAt) >= startOfWeek
+        );
+        break;
+      case 'month':
+        filteredRecords = allAttendanceRecords.filter(record =>
+          new Date(record.createdAt) >= startOfMonth
+        );
+        break;
+      case 'year':
+        filteredRecords = allAttendanceRecords.filter(record =>
+          new Date(record.createdAt) >= startOfYear
+        );
+        break;
+      default:
+        filteredRecords = allAttendanceRecords;
+    }
+
+    setallAttendanceRecords(filteredRecords)
+  };
+
   const [StartDate, setStartDate] = useState(new Date())
   const [EndDate, setEndDate] = useState(new Date())
 
-  useEffect(async() => {
+  useEffect(async () => {
     await getEmployees()
     await getShifts()
     await getallAttendanceRecords()
