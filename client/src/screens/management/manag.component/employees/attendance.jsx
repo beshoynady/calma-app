@@ -348,6 +348,18 @@ const AttendanceManagement = () => {
   const [StartDate, setStartDate] = useState(new Date())
   const [EndDate, setEndDate] = useState(new Date())
 
+  const filterByDateRange = () => {
+    const start = new Date(StartDate);
+    const end = new Date(EndDate);
+  
+    const filteredRecords = allAttendanceRecords.filter(record => {
+      const createdAt = new Date(record.createdAt);
+      return createdAt >= start && createdAt <= end;
+    });
+  
+    setallAttendanceRecords(filteredRecords)
+  };
+
   useEffect(async () => {
     await getEmployees()
     await getShifts()
@@ -440,6 +452,8 @@ const AttendanceManagement = () => {
                         <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
                         <label>نهاية التاريخ</label>
                         <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                        <button type="button" class="btn w-50 btn-primary" onClick={filterByDateRange}><i class="fa fa-search"></i></button>
+
                       </div>
 
                     </div>
