@@ -40,11 +40,11 @@ const EmployeeSalarySchema = new mongoose.Schema(
       ref: 'Employee',
       required: true,
     },
-    actionAt: {
-      type: Date,
-      default: Date.now,
+    updatedBy: {
+      type: ObjectId,
+      ref: 'Employee',
+      required: true,
     },
-    
   },
   {
     timestamps: true,
