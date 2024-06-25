@@ -306,6 +306,9 @@ const AttendanceManagement = () => {
   }
 
   const filterByTime = (timeRange) => {
+    if (!timeRange) {
+      getallAttendanceRecords()
+    }
     let filteredRecords = [];
 
     const now = new Date();
@@ -315,7 +318,8 @@ const AttendanceManagement = () => {
     startOfWeek.setHours(0, 0, 0, 0);
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const startOfYear = new Date(now.getFullYear(), 0, 1);
-    console.log({now, startOfToday, startOfWeek, startOfMonth , startOfYear, day: new Date().getDay(), date: new Date().getDate(), month:new Date().getMonth(), year: new Date().getFullYear()})
+
+    console.log({ now, startOfToday, startOfWeek, startOfMonth, startOfYear, day: new Date().getDay(), date: new Date().getDate(), month: new Date().getMonth(), year: new Date().getFullYear() })
 
     switch (timeRange) {
       case 'today':
@@ -351,12 +355,12 @@ const AttendanceManagement = () => {
   const filterByDateRange = () => {
     const start = new Date(StartDate);
     const end = new Date(EndDate);
-  
+
     const filteredRecords = allAttendanceRecords.filter(record => {
       const createdAt = new Date(record.createdAt);
       return createdAt >= start && createdAt <= end;
     });
-  
+
     setallAttendanceRecords(filteredRecords)
   };
 
@@ -447,13 +451,17 @@ const AttendanceManagement = () => {
                       </div>
 
                       <div class="filter-group">
-                        <label>فلتر مدة محددة</label>
-                        <label>بداية التاريخ</label>
+                        <label> : فلتر مدة محددة</label>
+                        <label>من</label>
                         <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                        <label>نهاية التاريخ</label>
+                        <label>الي</label>
                         <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                        <button type="button" class="btn w-50 btn-primary" onClick={filterByDateRange}><i class="fa fa-search"></i></button>
-
+                        <div className='d-flex flex-nowrap  w-25'>
+                          <button type="button" class="btn w-50 btn-primary" onClick={filterByDateRange}><i class="fa fa-search"></i></button>
+                          <button type="button" className="btn w-50 btn-wrrning" onClick={getallAttendanceRecords}>
+                            حذف الفلتر
+                          </button>
+                        </div>
                       </div>
 
                     </div>

@@ -358,10 +358,10 @@ const Products = () => {
               <div className="col-sm-6">
                 <h2>ادارة <b>المنتجات</b></h2>
               </div>
-              <div className="col-sm-6 d-flex justify-content-end">
-                <a href="#addProductModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+              <div className="col-5 d-flex flex-nowrap justify-content-end">
+                <a href="#addProductModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                <a href="#deleteProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                <a href="#deleteProductModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
               </div>
             </div>
           </div>
