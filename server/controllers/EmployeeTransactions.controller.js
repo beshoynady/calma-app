@@ -1,7 +1,7 @@
 const EmployeeTransactionsmodel = require('../models/EmployeeTransactions.model');
 
 
-const addSalaryMovement = async (req, res, next) => {
+const addEmployeeTransaction = async (req, res, next) => {
     try {
         const { employeeId, employeeName, movement, Amount, oldAmount, newAmount } = req.body;
 
@@ -30,19 +30,19 @@ const addSalaryMovement = async (req, res, next) => {
 };
 
 
-const getallSalaryMovement = async (req, res) => {
+const getallEmployeeTransaction = async (req, res) => {
     try {
-        const allSalaryMovement = await EmployeeTransactionsmodel.find({})
+        const allEmployeeTransaction = await EmployeeTransactionsmodel.find({})
             .populate('employeeId', '_id fullname username role shift')
             .populate('actionBy', '_id fullname username')
             .populate('updatedBy', '_id fullname username')
-        res.status(200).json(allSalaryMovement);
+        res.status(200).json(allEmployeeTransaction);
     } catch (error) {
         res.status(500).json({ error: "An error occurred while fetching salary movements", details: error.message });
     }
 };
 
-const getoneSalaryMovement = async (req, res) => {
+const getoneEmployeeTransaction = async (req, res) => {
     const salarymovementId = req.params.salarymovementId;
     try {
         const EmployeeTransactions = await EmployeeTransactionsmodel.findById(salarymovementId)
@@ -59,7 +59,7 @@ const getoneSalaryMovement = async (req, res) => {
     }
 };
 
-const editSalaryMovement = async (req, res) => {
+const editEmployeeTransaction = async (req, res) => {
     const salarymovementId = req.params.salarymovementId;
     const { employeeId, employeeName, movement, Amount, oldAmount, newAmount } = req.body;
     const updatedBy = req.employee.id
@@ -86,14 +86,14 @@ const editSalaryMovement = async (req, res) => {
     }
 };
 
-const deleteSalaryMovement = async (req, res) => {
+const deleteEmployeeTransaction = async (req, res) => {
     const salarymovementId = req.params.salarymovementId;
     try {
-        const SalaryMovementdeleted = await EmployeeTransactionsmodel.findByIdAndDelete(salarymovementId);
-        if (!SalaryMovementdeleted) {
+        const EmployeeTransactiondeleted = await EmployeeTransactionsmodel.findByIdAndDelete(salarymovementId);
+        if (!EmployeeTransactiondeleted) {
             return res.status(404).json({ error: "Salary movement not found" });
         }
-        res.status(200).json(SalaryMovementdeleted);
+        res.status(200).json(EmployeeTransactiondeleted);
     } catch (error) {
         res.status(500).json({ error: "An error occurred while deleting the salary movement", details: error.message });
     }
@@ -101,9 +101,9 @@ const deleteSalaryMovement = async (req, res) => {
 
 
 module.exports = {
-    addSalaryMovement,
-    getallSalaryMovement,
-    getoneSalaryMovement,
-    editSalaryMovement,
-    deleteSalaryMovement
+    addEmployeeTransaction,
+    getallEmployeeTransaction,
+    getoneEmployeeTransaction,
+    editEmployeeTransaction,
+    deleteEmployeeTransaction
 }
