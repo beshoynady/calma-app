@@ -463,12 +463,12 @@ const AttendanceManagement = () => {
                           <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
                         </div>
 
-                        <div className="d-flex flex-nowrap justify-content-between">
+                        <div className="d-flex flex-nowrap justify-content-between w-25">
                           <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
-                            <i className="fa fa-search"></i> بحث
+                            <i className="fa fa-search"></i>
                           </button>
                           <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
-                            حذف الفلتر
+                            استعادة
                           </button>
                         </div>
                       </div>
