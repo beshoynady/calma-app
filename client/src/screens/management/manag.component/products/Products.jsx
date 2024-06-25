@@ -365,7 +365,7 @@ const Products = () => {
               </div>
             </div>
           </div>
-          <div class="table-filter">
+          <div class="table-filter print-hide">
             <div className="container">
               <div className="row text-dark">
                 <div className="col-md-3">

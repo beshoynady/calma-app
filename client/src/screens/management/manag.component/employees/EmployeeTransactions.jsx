@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef,useContext } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
+import * as XLSX from 'xlsx';
+import { useReactToPrint } from 'react-to-print';
+
+import './Orders.css'
+
+
 
 const EmployeeTransactions = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -13,6 +19,7 @@ const EmployeeTransactions = () => {
     },
   };
 
+  const {employeeLoginInfo,formatDateTime, allEmployees,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination}= useContext(detacontext)
 
   const [listofTransactions, setlistofTransactions] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("")
@@ -168,33 +175,30 @@ const EmployeeTransactions = () => {
 
   
   const exportToExcel = () => {
-    const data = listOfEmployees.map((employee, i) => ({
-      'م': i + 1 ,
-      'الاسم': employee.fullname,
-      'اسم المستخدم': employee.username,
-      'الرقم القومي': employee.numberID,
-      'العنوان': employee.address,
-      'الموبايل': employee.phone,
-      'الوظيفة': employee.role,
-      'الراتب': employee.basicSalary,
-      'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
-      'السكشن': employee.sectionNumber,
-      'الشيفت': employee.shift ? employee.shift.shiftType : '',
-      'التاريخ': formatDateTime(employee.createdAt),
+    const data = listofEmployeeTransactions.map((transaction, i) => ({
+      'م': i + 1,
+      'الاسم': transaction.employeeId && transaction.employeeId.username,
+      'الحركة': transaction.movement,
+      'المبلغ': transaction.Amount,
+      'المبلغ السابق': transaction.oldAmount,
+      'الاجمالي': transaction.newAmount,
+      'بواسطه': transaction.actionBy && transaction.actionBy.username,
+      'اليوم': transaction.createdAt && formatDateTime(transaction.createdAt),
     }));
-
+  
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Employees');
-
-    XLSX.writeFile(wb, 'employees.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'EmployeeTransactions');
+  
+    XLSX.writeFile(wb, 'employee_transactions.xlsx');
   };
+  
 
 
 
-  const printEmployeeContainer = useRef()
+  const printEmployeeTransactionsContainer = useRef()
   const handlePrint = useReactToPrint({
-    content: () => printEmployeeContainer.current,
+    content: () => printEmployeeTransactionsContainer.current,
     copyStyles: true,
     removeAfterPrint: true,
     bodyClass: 'printpage'
@@ -202,22 +206,18 @@ const EmployeeTransactions = () => {
 
   useEffect(() => {
     getEmployeeTransactions()
-    getemployees()
   }, [])
-  return (
-    <detacontext.Consumer>
-      {
-        ({ employeeLoginInfo,formatDateTime, allEmployees,setStartDate, setEndDate, filterByDateRange, filterByTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+
           return (
             <div className="container-xl mlr-auto">
-              <div className="table-responsive">
+              <div className="table-responsive" ref={printEmployeeTransactionsContainer}>
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6">
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
-                      <div className="col-6 d-flex justify-content-end">
+                      <div className="col-6 d-flex justify-content-end print-hide">
                         <a href="#addEmployeeTransactionsModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
                         <a href="#" className="btn w-50 btn-info" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
                         <a href="#" className="btn w-50 btn-primary" data-toggle="modal" onClick={handlePrint}><i className="material-icons">&#xE15C;</i> <span>طباعه</span></a>
@@ -226,7 +226,7 @@ const EmployeeTransactions = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
+                  <div class="table-filter print-hide">
                     <div class="w-100 d-flex flex-wrap flex-row text-dark">
                         <div class="show-entries d-flex flex-nowrap">
                           <span>عرض</span>
@@ -509,10 +509,7 @@ const EmployeeTransactions = () => {
               </div>
             </div>
           )
-        }
-      }
-    </detacontext.Consumer>
-  )
+
 }
 
 export default EmployeeTransactions

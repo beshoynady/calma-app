@@ -575,7 +575,7 @@ const Purchase = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="table-filter">
+                  <div className="table-filter print-hide">
                     <div className="row text-dark">
                       <div className="col-sm-3">
                         <div className="show-entries">

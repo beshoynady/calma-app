@@ -396,3 +396,16 @@ table.table .avatar {
 	font-weight: 600;
 	width: 100%;
 }
+
+
+
+
+@media print {
+	.print-hide {
+	  display: none !important;
+	}
+	
+	.table-responsive {
+	  overflow: visible !important;
+	}
+  }

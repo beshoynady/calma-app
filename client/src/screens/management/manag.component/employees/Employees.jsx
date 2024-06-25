@@ -317,7 +317,7 @@ const Employees = () => {
                       <div className="col-6">
                         <h2>ادارة <b>الموظفين</b></h2>
                       </div>
-                      <div className="col-6 d-flex justify-content-end">
+                      <div className="col-6 d-flex justify-content-end print-hide">
                         {
                           permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true ? (
                             <a href="#addEmployeeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
@@ -329,12 +329,12 @@ const Employees = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
+                  <div className="table-filter print-hide">
+                    <div className="row text-dark">
+                      <div className="col-sm-3">
+                        <div className="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -345,15 +345,15 @@ const Employees = () => {
                           <span>عنصر</span>
                         </div>
                       </div>
-                      <div class="col-sm-9">
-                        <div class="filter-group">
+                      <div className="col-sm-9">
+                        <div className="filter-group">
                           <label>الاسم</label>
-                          <input type="text" class="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
-                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                          <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                          <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button>
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>الوظيفة</label>
-                          <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                          <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
                             <option value="all">الكل</option>
                             <option value="manager">مدير</option>
                             <option value="cashier">كاشير</option>
@@ -361,9 +361,9 @@ const Employees = () => {
                             <option value="Chef">شيف</option>
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>الشيفت</label>
-                          <select class="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
+                          <select className="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
                             <option value="all">الكل</option>
                             {shifts ? shifts.map((shift, i) =>
                               <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -371,15 +371,15 @@ const Employees = () => {
 
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div className="filter-group">
                           <label>الحالة</label>
-                          <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
+                          <select className="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
                             <option value="all">الكل</option>
                             <option value={true}>متاح</option>
                             <option value={false}>غير متاح</option>
                           </select>
                         </div>
-                        {/* <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
+                        {/* <span className="filter-icon"><i className="fa fa-filter"></i></span> */}
                       </div>
                     </div>
                   </div>

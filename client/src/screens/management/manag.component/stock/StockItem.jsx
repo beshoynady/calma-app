@@ -244,7 +244,7 @@ const StockItem = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter">
+                  <div class="table-filter print-hide">
                     <div class="row text-dark">
                       <div class="col-sm-3">
                         <div class="show-entries">

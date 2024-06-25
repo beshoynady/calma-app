@@ -271,7 +271,7 @@ const PermissionsComponent = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="table-filter">
+                  <div className="table-filter print-hide">
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
                         <div className="filter-group" style={{ minWidth: '35%' }}>
