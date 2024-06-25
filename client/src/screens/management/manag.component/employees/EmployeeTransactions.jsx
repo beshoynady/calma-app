@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import { useReactToPrint } from 'react-to-print';
 
-import './Orders.css'
 
 
 
@@ -167,7 +166,7 @@ const EmployeeTransactions = () => {
     if (!transaction) {
       getEmployeeTransactions()
     } else {
-      const filterlist = listofEmployeeTransactions.filter(m => m.movement == mov)
+      const filterlist = listofEmployeeTransactions.filter(trans => trans.movement == transaction)
       setlistofEmployeeTransactions(filterlist.reverse())
     }
   }
