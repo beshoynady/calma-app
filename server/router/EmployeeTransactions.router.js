@@ -14,5 +14,5 @@ const router = express.Router();
 
 
 router.route('/').post(authenticateToken, addEmployeeTransaction).get(authenticateToken, getallEmployeeTransaction);
-router.route('/:salarymovementId').get(authenticateToken, getoneEmployeeTransaction).put(authenticateToken, editEmployeeTransaction).delete(authenticateToken, deleteEmployeeTransaction);
+router.route('/:employeetransactionsId').get(authenticateToken, getoneEmployeeTransaction).put(authenticateToken, editEmployeeTransaction).delete(authenticateToken, deleteEmployeeTransaction);
 module.exports = router;

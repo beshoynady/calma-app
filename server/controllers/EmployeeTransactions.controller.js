@@ -3,9 +3,9 @@ const EmployeeTransactionsmodel = require('../models/EmployeeTransactions.model'
 
 const addEmployeeTransaction = async (req, res, next) => {
     try {
-        const { employeeId, employeeName, movement, Amount, oldAmount, newAmount } = req.body;
+        const { employeeId, employeeName, transactionType, Amount, oldAmount, newAmount } = req.body;
 
-        if (!employeeId || !employeeName || !movement) {
+        if (!employeeId || !employeeName || !transactionType) {
             return res.status(400).json({ error: "جميع الحقول مطلوبة" });
         }
         const actionBy = req.employee.id;
@@ -13,7 +13,7 @@ const addEmployeeTransaction = async (req, res, next) => {
         const addEmployeeTransactions = await EmployeeTransactionsmodel.create({
             employeeId,
             employeeName,
-            movement,
+            transactionType,
             Amount,
             oldAmount,
             newAmount,
@@ -43,9 +43,9 @@ const getallEmployeeTransaction = async (req, res) => {
 };
 
 const getoneEmployeeTransaction = async (req, res) => {
-    const salarymovementId = req.params.salarymovementId;
+    const employeetransactionsId = req.params.employeetransactionsId;
     try {
-        const EmployeeTransactions = await EmployeeTransactionsmodel.findById(salarymovementId)
+        const EmployeeTransactions = await EmployeeTransactionsmodel.findById(employeetransactionsId)
             .populate('employeeId', '_id fullname username')
             .populate('actionBy', '_id fullname username')
             .populate('updatedBy', '_id fullname username')
@@ -60,19 +60,19 @@ const getoneEmployeeTransaction = async (req, res) => {
 };
 
 const editEmployeeTransaction = async (req, res) => {
-    const salarymovementId = req.params.salarymovementId;
-    const { employeeId, employeeName, movement, Amount, oldAmount, newAmount } = req.body;
+    const employeetransactionsId = req.params.employeetransactionsId;
+    const { employeeId, employeeName, transactionType, Amount, oldAmount, newAmount } = req.body;
     const updatedBy = req.employee.id
     try {
         // Validate required fields
-        if (!employeeId || !employeeName || !movement || !updatedBy) {
+        if (!employeeId || !employeeName || !transactionType || !updatedBy) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
 
         const editMovement = await EmployeeTransactionsmodel.findByIdAndUpdate(
-            { _id: salarymovementId },
-            { employeeId, employeeName, movement, Amount, oldAmount, newAmount, actionBy },
+            { _id: employeetransactionsId },
+            { employeeId, employeeName, transactionType, Amount, oldAmount, newAmount, actionBy },
             { new: true }
         );
 
@@ -87,9 +87,9 @@ const editEmployeeTransaction = async (req, res) => {
 };
 
 const deleteEmployeeTransaction = async (req, res) => {
-    const salarymovementId = req.params.salarymovementId;
+    const employeetransactionsId = req.params.employeetransactionsId;
     try {
-        const EmployeeTransactiondeleted = await EmployeeTransactionsmodel.findByIdAndDelete(salarymovementId);
+        const EmployeeTransactiondeleted = await EmployeeTransactionsmodel.findByIdAndDelete(employeetransactionsId);
         if (!EmployeeTransactiondeleted) {
             return res.status(404).json({ error: "Salary movement not found" });
         }

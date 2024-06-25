@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const EmployeeSalarySchema = new mongoose.Schema(
+const EmployeeTransactionsSchema = new mongoose.Schema(
   {
     employeeId: {
       type: ObjectId,
@@ -12,7 +12,7 @@ const EmployeeSalarySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    movement: {
+    transactionType: {
       type: String,
       enum: ['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'],
       required: true,
@@ -45,5 +45,5 @@ const EmployeeSalarySchema = new mongoose.Schema(
   }
 );
 
-const EmployeeSalaryModel = mongoose.model('EmployeeSalary', EmployeeSalarySchema);
-module.exports = EmployeeSalaryModel;
+const EmployeeTransactionsModel = mongoose.model('EmployeeTransactions', EmployeeTransactionsSchema);
+module.exports = EmployeeTransactionsModel;

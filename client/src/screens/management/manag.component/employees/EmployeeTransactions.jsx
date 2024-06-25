@@ -104,18 +104,7 @@ const EmployeeTransactions = () => {
     }
   }
 
-  const [EmployeeTransactions, setEmployeeTransactions] = useState([])
 
-  const filterEmployeeTransactionsBYEmp = async (id) => {
-    if(!id){
-      getEmployeeTransactions()
-    }
-    const filterEmployeeTransactions = listofEmployeeTransactions.length > 0 ? listofEmployeeTransactions.filter(move => move.employeeId == id) : []
-    console.log(filterEmployeeTransactions)
-    if (filterEmployeeTransactions.length > 0) {
-      setEmployeeTransactions(filterEmployeeTransactions.reverse())
-    }
-  }
 
 
   const filterEmployeeTransactions = async (m) => {
@@ -134,7 +123,7 @@ const EmployeeTransactions = () => {
       });
 
       // Filter movements based on the specified 'm' parameter
-      const filterMovement = CurrentEmployeeTransactions.filter((move) => move.movement === m);
+      const filterMovement = CurrentEmployeeTransactions.filter((move) => move.transactionType === m);
 
       console.log(filterMovement);
 
@@ -166,7 +155,7 @@ const EmployeeTransactions = () => {
     if (!transaction) {
       getEmployeeTransactions()
     } else {
-      const filterlist = listofEmployeeTransactions.filter(trans => trans.movement == transaction)
+      const filterlist = listofEmployeeTransactions.filter(trans => trans.transactionType == transaction)
       setlistofEmployeeTransactions(filterlist.reverse())
     }
   }
@@ -177,7 +166,7 @@ const EmployeeTransactions = () => {
     const data = listofEmployeeTransactions.map((transaction, i) => ({
       'م': i + 1,
       'الاسم': transaction.employeeId && transaction.employeeId.username,
-      'الحركة': transaction.movement,
+      'الحركة': transaction.transactionType,
       'المبلغ': transaction.Amount,
       'المبلغ السابق': transaction.oldAmount,
       'الاجمالي': transaction.newAmount,
@@ -324,7 +313,7 @@ const EmployeeTransactions = () => {
                               <tr key={i}>
                                 <td>{i + 1}</td>
                                 <td>{transaction.employeeId&&transaction.employeeId.username}</td>
-                                <td>{transaction.movement}</td>
+                                <td>{transaction.transactionType}</td>
                                 <td>{transaction.Amount}</td>
                                 <td>{transaction.oldAmount}</td>
                                 <td>{transaction.newAmount}</td>
@@ -333,7 +322,7 @@ const EmployeeTransactions = () => {
                                 <td>
                                   <a href="#editEmployeeTransactionsModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setEmployeeTransactionsId(transaction._id); setemployeeName(transaction.employeeName); setAmount(transaction.Amount); setoldAmount(transaction.oldAmount); setnewAmount(transaction.newAmount); 
-                                   setmovement(transaction.movement)
+                                   setmovement(transaction.transactionType)
                                   }}>&#xE254;</i></a>
                                   <a href="#deleteEmployeeTransactionsModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setEmployeeTransactionsId(transaction._id)}>&#xE872;</i></a>
                                 </td>

@@ -7,7 +7,13 @@ import { toast } from 'react-toastify';
 const PayRoll = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem('token_e');
 
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
   // Array of months in Arabic
   const months = [
     'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
@@ -40,13 +46,8 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/employee', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/employee', config);
       setListOfEmployee(response.data);
     } catch (error) {
       console.log(error);
@@ -60,12 +61,7 @@ const PayRoll = () => {
 
   const getPayRoll = async () => {
     try {
-      const token = localStorage.getItem('token_e');
-      const response = await axios.get(apiUrl + '/api/payroll', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/payroll', config);
       console.log({ response })
       if (response.status === 200) {
         // Set all payroll data
@@ -97,26 +93,21 @@ const PayRoll = () => {
 
 
   // Fetch salary movement data from the API
-  const [ListOfSalaryMovement, setListOfSalaryMovement] = useState([]);
+  const [ListOfEmployeemployees, setListOfEmployeemployees] = useState([]);
 
-  const getSalaryMovement = async () => {
+  const getEmployeemployees = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/employeetransactions', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/employeetransactions', config);
 
       const currentYear = new Date().getFullYear();
       const currentMonth = new Date().getMonth() + 1;
-      const filterByMonth = response.data.filter((m) => {
-        const createdAt = new Date(m.createdAt);
+      const filterByMonth = response.data.filter((transaction) => {
+        const createdAt = new Date(transaction.createdAt);
         return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
       });
 
-      setListOfSalaryMovement(filterByMonth);
+      setListOfEmployeemployees(filterByMonth);
     } catch (error) {
       console.log(error);
     }
@@ -125,7 +116,6 @@ const PayRoll = () => {
 
 
   const addPayRoll = async () => {
-    const token = localStorage.getItem('token_e');
 
     for (let i = 0; i < ListOfEmployee.length; i++) {
       let Year = new Date().getFullYear()
@@ -148,12 +138,13 @@ const PayRoll = () => {
       let isPaid = false;
       let paidBy = null;
 
-      const employeemov = ListOfSalaryMovement.length > 0 ? ListOfSalaryMovement.filter((m) => m.EmployeeId == employeeId) : '';
-      console.log({ employeemov: employeemov })
+      const Employeemployees = ListOfEmployeemployees.length > 0 ? 
+      ListOfEmployeemployees.filter((Transaction) => Transaction.EmployeeId == employeeId) : '';
+      console.log({ Employeemployees: Employeemployees })
 
-      if (employeemov.length > 0) {
+      if (Employeemployees.length > 0) {
 
-        const filterPre = employeemov.filter((m) => m.movement == 'سلف')
+        const filterPre = Employeemployees.filter((Transaction) => Transaction.transactionType == 'سلف')
         if (filterPre.length > 0) {
           Predecessor = filterPre[filterPre.length - 1].newAmount
           console.log({ Predecessor })
@@ -161,7 +152,7 @@ const PayRoll = () => {
           Predecessor = 0
         }
 
-        const filterDed = employeemov.filter((m) => m.movement == 'خصم')
+        const filterDed = Employeemployees.filter((Transaction) => Transaction.transactionType == 'خصم')
         console.log(filterDed)
         if (filterDed.length > 0) {
           Deduction = filterDed[filterDed.length - 1].newAmount
@@ -170,7 +161,7 @@ const PayRoll = () => {
           Deduction = 0
         }
 
-        const filterAbs = employeemov.filter((m) => m.movement == 'غياب')
+        const filterAbs = Employeemployees.filter((Transaction) => Transaction.transactionType == 'غياب')
         if (filterAbs.length > 0) {
           AbsenceDeduction = filterAbs[filterAbs.length - 1].newAmount
           AbsenceDays = filterAbs[filterAbs.length - 1].totalDays
@@ -179,7 +170,7 @@ const PayRoll = () => {
           AbsenceDays = 0
         }
 
-        const filterAdd = employeemov.filter((m) => m.movement == 'اضافي')
+        const filterAdd = Employeemployees.filter((Transaction) => Transaction.transactionType == 'اضافي')
         if (filterAdd.length > 0) {
           OvertimeDays = filterAdd[filterAdd.length - 1].totalDays
           OvertimeValue = filterAdd[filterAdd.length - 1].newAmount
@@ -188,7 +179,7 @@ const PayRoll = () => {
           OvertimeValue = 0
         }
 
-        const filterBon = employeemov.filter((m) => m.movement == 'مكافأة')
+        const filterBon = Employeemployees.filter((Transaction) => Transaction.transactionType == 'مكافأة')
         if (filterBon.length > 0) {
           Bonus = filterBon[filterBon.length - 1].newAmount
         } else {
@@ -201,8 +192,8 @@ const PayRoll = () => {
         // Tax = TotalDue * 0.15
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId)
-        const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId == employeeId && roll.isPaid == true) : false
+        const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId)
+        const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id == employeeId && roll.isPaid == true) : false
 
         console.log({ isSalary, isSalaryPaid })
 
@@ -224,11 +215,7 @@ const PayRoll = () => {
             Tax,
             TotalDeductible,
             NetSalary
-          }, {
-            headers: {
-              'authorization': `Bearer ${token}`,
-            },
-          })
+          }, config)
           console.log({ result })
           if (result) {
             getPayRoll()
@@ -253,11 +240,7 @@ const PayRoll = () => {
             Tax,
             TotalDeductible,
             NetSalary
-          }, {
-            headers: {
-              'authorization': `Bearer ${token}`,
-            },
-          })
+          }, config)
           console.log({ result })
           if (result) {
             getPayRoll()
@@ -273,7 +256,7 @@ const PayRoll = () => {
 
         NetSalary = TotalDue - TotalDeductible - Insurance - Tax
 
-        const isSalary = currentPayRoll.find((roll) => roll.employeeId == employeeId)
+        const isSalary = currentPayRoll.find((roll) => roll.employeeId._id == employeeId)
         const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true)
 
         if (isSalary && !isSalaryPaid) {
@@ -294,11 +277,7 @@ const PayRoll = () => {
             Tax,
             TotalDeductible,
             NetSalary
-          }, {
-            headers: {
-              'authorization': `Bearer ${token}`,
-            },
-          })
+          }, config)
           console.log(result)
           if (result) {
             getPayRoll()
@@ -324,11 +303,7 @@ const PayRoll = () => {
             Tax,
             TotalDeductible,
             NetSalary
-          }, {
-            headers: {
-              'authorization': `Bearer ${token}`,
-            },
-          })
+          }, config)
           console.log(result)
           if (result) {
             getPayRoll()
@@ -343,17 +318,16 @@ const PayRoll = () => {
 
 
 
+
+
+
+
   const handelPaid = async (rollid, salary, manager, employee, name, paidMonth) => {
     try {
       console.log(manager)
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       // Fetch all cash registers
-      const response = await axios.get(apiUrl + '/api/cashRegister', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/cashRegister', config);
       const allCashRegisters = await response.data;
       console.log(response)
       console.log(allCashRegisters)
@@ -411,7 +385,6 @@ const PayRoll = () => {
     console.log({ updatedBalance })
 
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
       const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
         registerId: cashRegister,
@@ -419,11 +392,7 @@ const PayRoll = () => {
         amount,
         type: 'Withdraw',
         description: expenseDescription,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       const cashMovementId = cashMovement.data.cashMovement._id;
 
@@ -435,19 +404,11 @@ const PayRoll = () => {
         paidBy,
         amount,
         notes,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       const updateCashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
         balance: updatedBalance,
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      }, config);
 
       if (updateCashRegister) {
         setbalance(updatedBalance);
@@ -463,18 +424,13 @@ const PayRoll = () => {
   const paidSalary = async (e, id) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
       // Prepare payload for updating payroll status
       const payload = {
         isPaid: true,
         paidBy: paidBy,
       };
       // Update payroll status via API call
-      const updatePayRoll = await axios.put(`${apiUrl}/api/payroll/${id}`, payload, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const updatePayRoll = await axios.put(`${apiUrl}/api/payroll/${id}`, payload, config);
       if (updatePayRoll) {
         // Create daily expense
         await createDailyExpense();
@@ -518,11 +474,12 @@ const PayRoll = () => {
   }
 
 
+
   // Fetch data on component mount
   useEffect(() => {
     getEmployees();
     getPayRoll()
-    getSalaryMovement();
+    getEmployeemployees();
     // getAllCashRegisters();
   }, []);
   return (
@@ -588,8 +545,8 @@ const PayRoll = () => {
                           <label>الشهر</label>
                           <select className="form-control" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>
-                            {arryeofmonth.length > 0 ? arryeofmonth.map((month, i) => (
-                              <option value={month} key={i}>{months[month - 1]}</option>
+                            {months.length > 0 ? months.map((month, i) => (
+                              <option value={i} key={i}>{month}</option>
                             )) : ""}
                           </select>
                         </div>
@@ -629,67 +586,12 @@ const PayRoll = () => {
                     </thead>
                     <tbody>
                       {
-                        filterEmployees.length > 0 ? filterEmployees.map((em, i) => {
-                          if (em.isActive == true && em.payRoll.length > 0) {
-                            return (
-                              // {
-                              currentPayRoll.map((Roll, j) => {
-                                if (Roll.employeeId == em._id) {
-                                  return (
-                                    <tr key={i}>
-                                      <td>
-                                        <span className="custom-checkbox">
-                                          <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                          <label htmlFor="checkbox1"></label>
-                                        </span>
-                                      </td>
-                                      <td>{i + 1}</td>
-                                      <td>{Roll.employeeName}</td>
-                                      <td>{em.role}</td>
-                                      <td>{Roll.salary}</td>
-                                      <td>{Roll.OvertimeValue}</td>
-                                      <td>{Roll.Bonus}</td>
-                                      <td>{Roll.TotalDue}</td>
-                                      <td>{Roll.Deduction}</td>
-                                      <td>{Roll.AbsenceDeduction}</td>
-                                      <td>{Roll.Predecessor}</td>
-                                      <td>{Roll.TotalDeductible}</td>
-                                      <td>{Roll.Insurance}</td>
-                                      <td>{Roll.Tax}</td>
-                                      <td>{Roll.NetSalary}</td>
-                                      <td>{usertitle(Roll.paidBy)}</td>
-                                      {Roll.isPaid === false ? (
-                                        <td>
-                                          <a
-                                            href="#paidModal"
-                                            type='button'
-                                            data-toggle="modal"
-                                            className="btn btn-47 btn-success"
-                                            onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
-                                          >
-                                            دفع
-                                          </a>
-                                        </td>
-                                      ) : (
-                                        <td>تم الدفع</td>
-                                      )}
-                                    </tr>
-                                  )
-                                }
-                              }
-                              )
-                              // }
-
-                              // </tr >
-                            )
-                          }
-                        })
-                          :
-                          ListOfEmployee.length > 0 ? ListOfEmployee.map((em, i) => {
-                            if (em.isActive == true && currentPayRoll.length > 0) {
+                       
+                          ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
+                            if (employee.isActive == true && currentPayRoll.length > 0) {
                               return (
                                 currentPayRoll.map((Roll, j) => {
-                                  if (Roll.employeeId == em._id) {
+                                  if (Roll.employeeId._id == employee._id) {
                                     return (
                                       <tr key={i}>
                                         <td>
@@ -700,7 +602,7 @@ const PayRoll = () => {
                                         </td>
                                         <td>{i + 1}</td>
                                         <td>{Roll.employeeName}</td>
-                                        <td>{em.role}</td>
+                                        <td>{Roll.employeeId.role}</td>
                                         <td>{Roll.salary}</td>
                                         <td>{Roll.OvertimeValue}</td>
                                         <td>{Roll.Bonus}</td>
@@ -712,7 +614,7 @@ const PayRoll = () => {
                                         <td>{Roll.Insurance}</td>
                                         <td>{Roll.Tax}</td>
                                         <td>{Roll.NetSalary}</td>
-                                        <td>{usertitle(Roll.paidBy)}</td>
+                                        <td>{Roll.paidBy.username}</td>
                                         {Roll.isPaid === false ? (
                                           <td>
                                             <a
@@ -720,7 +622,7 @@ const PayRoll = () => {
                                               type='button'
                                               data-toggle="modal"
                                               className="btn btn-47 btn-success"
-                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, em._id, usertitle(em._id), Roll.Month)}
+                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, usertitle(employee._id), Roll.Month)}
                                             >
                                               دفع
                                             </a>
@@ -753,6 +655,8 @@ const PayRoll = () => {
                   </div>
                 </div>
               </div>
+
+              
               <div id="paidModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">

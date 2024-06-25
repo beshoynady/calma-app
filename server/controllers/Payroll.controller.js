@@ -12,7 +12,9 @@ const createPayroll = async (req, res) => {
 
 const getAllPayroll = async (req, res) => {
   try {
-    const payroll = await PayrollModel.find({}).populate('employeeId');
+    const payroll = await PayrollModel.find({})
+      .populate('employeeId')
+      .populate('paidBy');
     res.status(200).json(payroll);
   } catch (error) {
     console.error('Error fetching payroll:', error);
@@ -51,7 +53,7 @@ const updatePayroll = async (req, res) => {
 
 
 const updatePayrollByEmployee = async (req, res) => {
-  const { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary} = req.body;
+  const { employeeName, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
 
   const employeeId = req.params.employeeId;
   try {
@@ -64,7 +66,7 @@ const updatePayrollByEmployee = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Payroll not found' });
     }
     // Check if the update operation was successful
-    res.status(200).json( payroll);
+    res.status(200).json(payroll);
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });
   }
