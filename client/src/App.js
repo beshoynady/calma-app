@@ -19,7 +19,7 @@ import ReservationTables from './screens/management/manag.component/tables/Reser
 
 import Employees from './screens/management/manag.component/employees/Employees';
 import PermissionsComponent from './screens/management/manag.component/employees/Permissions';
-import EmployeesSalary from './screens/management/manag.component/employees/EmployeesSalary';
+import EmployeeTransactions from './screens/management/manag.component/employees/EmployeeTransactions';
 import PayRoll from './screens/management/manag.component/employees/PayRoll';
 import AttendanceManagement from './screens/management/manag.component/employees/attendance';
 
@@ -2102,7 +2102,7 @@ function App() {
             <Route path='reservation' element={<ReservationTables />} />
             <Route path='employees' element={<Employees />} />
             <Route path='permissions' element={<PermissionsComponent />} />
-            <Route path='Employeessalary' element={<EmployeesSalary />} />
+            <Route path='Employeessalary' element={<EmployeeTransactions />} />
             <Route path='payroll' element={<PayRoll />} />
             <Route path='attendancerecord' element={<AttendanceManagement />} />
             <Route path='category' element={<Category />} />

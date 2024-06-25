@@ -3,7 +3,7 @@ import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 
-const EmployeesSalary = () => {
+const EmployeeTransactions = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e');
 
@@ -25,8 +25,8 @@ const EmployeesSalary = () => {
     }
   }
 
-  const [listofmovement, setlistofmovement] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
-  const [salarymovementId, setsalarymovementId] = useState("")
+  const [listofTransactions, setlistofTransactions] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'])
+  const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("")
   const [employeeId, setemployeeId] = useState("")
   const [employeeName, setemployeeName] = useState("")
   const [movement, setmovement] = useState("")
@@ -36,7 +36,7 @@ const EmployeesSalary = () => {
 
 
   // Function to add new salary movement
-  const addSalaryMovement = async (e) => {
+  const addEmployeeTransactions = async (e) => {
     e.preventDefault();
     const data = {
       employeeId,
@@ -48,10 +48,10 @@ const EmployeesSalary = () => {
     };
 
     try {
-      const response = await axios.post(apiUrl + '/api/salarymovement', data, config);
+      const response = await axios.post(apiUrl + '/api/EmployeeTransactions', data, config);
       console.log({ response })
       if (response) {
-        getSalaryMovement();
+        getEmployeeTransactions();
         toast.success('تم اضافه السجل بنجاح');
       }
 
@@ -62,7 +62,7 @@ const EmployeesSalary = () => {
   };
 
   // Function to update salary movement
-  const updateSalaryMovement = async (e) => {
+  const updateEmployeeTransactions = async (e) => {
     e.preventDefault();
     const data = {
       employeeId,
@@ -74,9 +74,9 @@ const EmployeesSalary = () => {
     };
 
     try {
-      const response = await axios.put(`${apiUrl}/api/salarymovement/${salarymovementId}`, data, config);
+      const response = await axios.put(`${apiUrl}/api/EmployeeTransactions/${EmployeeTransactionsId}`, data, config);
       
-      getSalaryMovement();
+      getEmployeeTransactions();
       toast.success('تم تعديل السجل بنجاح');
     } catch (error) {
       console.log(error);
@@ -85,11 +85,11 @@ const EmployeesSalary = () => {
   };
 
   // Function to delete salary movement
-  const deleteSalaryMovement = async (e) => {
+  const deleteEmployeeTransactions = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/salarymovement/${salarymovementId}`, config);
-      getSalaryMovement();
+      const response = await axios.delete(`${apiUrl}/api/EmployeeTransactions/${EmployeeTransactionsId}`, config);
+      getEmployeeTransactions();
       toast.success('تم حذف السجل بنجاح');
     } catch (error) {
       console.log(error);
@@ -97,49 +97,49 @@ const EmployeesSalary = () => {
     }
   };
 
-  const [listofsalarymovement, setlistofsalarymovement] = useState([])
-  const getSalaryMovement = async () => {
+  const [listofEmployeeTransactions, setlistofEmployeeTransactions] = useState([])
+  const getEmployeeTransactions = async () => {
     try {
-      const SalaryMovement = await axios.get(apiUrl + '/api/salarymovement', config)
-      console.log({SalaryMovement})
-      setlistofsalarymovement(SalaryMovement.data.reverse())
+      const EmployeeTransactions = await axios.get(apiUrl + '/api/EmployeeTransactions', config)
+      console.log({EmployeeTransactions})
+      setlistofEmployeeTransactions(EmployeeTransactions.data.reverse())
       
     } catch (error) {
       console.log({error})  
     }
   }
 
-  const [EmployeeSalaryMovement, setEmployeeSalaryMovement] = useState([])
+  const [EmployeeTransactions, setEmployeeTransactions] = useState([])
 
-  const filterEmployeeSalaryMovement = async (id) => {
+  const filterEmployeeTransactionsBYEmp = async (id) => {
     if(!id){
-      getSalaryMovement()
+      getEmployeeTransactions()
     }
-    const filterSalaryMovement = listofsalarymovement.length > 0 ? listofsalarymovement.filter(move => move.employeeId == id) : []
-    console.log(filterSalaryMovement)
-    if (filterSalaryMovement.length > 0) {
-      setEmployeeSalaryMovement(filterSalaryMovement.reverse())
+    const filterEmployeeTransactions = listofEmployeeTransactions.length > 0 ? listofEmployeeTransactions.filter(move => move.employeeId == id) : []
+    console.log(filterEmployeeTransactions)
+    if (filterEmployeeTransactions.length > 0) {
+      setEmployeeTransactions(filterEmployeeTransactions.reverse())
     }
   }
 
 
-  const filterSalaryMovement = async (m) => {
+  const filterEmployeeTransactions = async (m) => {
     try {
       // Get the current month and year
       const currentMonth = new Date().getMonth();
       const currentYear = new Date().getFullYear();
 
       // Filter movements using the current month and year
-      const CurrentSalaryMovement = EmployeeSalaryMovement.filter((SalaryMovement) => {
-        const SalaryMovementDate = new Date(SalaryMovement.actionAt);
-        const SalaryMovementMonth = SalaryMovementDate.getMonth();
-        const SalaryMovementYear = SalaryMovementDate.getFullYear();
+      const CurrentEmployeeTransactions = EmployeeTransactions.filter((EmployeeTransactions) => {
+        const EmployeeTransactionsDate = new Date(EmployeeTransactions.actionAt);
+        const EmployeeTransactionsMonth = EmployeeTransactionsDate.getMonth();
+        const EmployeeTransactionsYear = EmployeeTransactionsDate.getFullYear();
 
-        return SalaryMovementMonth === currentMonth && SalaryMovementYear === currentYear;
+        return EmployeeTransactionsMonth === currentMonth && EmployeeTransactionsYear === currentYear;
       });
 
       // Filter movements based on the specified 'm' parameter
-      const filterMovement = CurrentSalaryMovement.filter((move) => move.movement === m);
+      const filterMovement = CurrentEmployeeTransactions.filter((move) => move.movement === m);
 
       console.log(filterMovement);
 
@@ -156,28 +156,63 @@ const EmployeesSalary = () => {
   };
 
 
-  const getSalaryMovementByemp = (id) => {
+  const getEmployeeTransactionsByEmp = (id) => {
     if(!id){
-      getSalaryMovement()
+      getEmployeeTransactions()
       return
     } else {
-      const FilterByEmployees = listofsalarymovement.filter(m => m.employeeId._id  === id)
-      setlistofsalarymovement(FilterByEmployees.reverse())
+      const FilterByEmployees = listofEmployeeTransactions.filter(m => m.employeeId._id  === id)
+      setlistofEmployeeTransactions(FilterByEmployees.reverse())
     }
   }
 
-  const filterEmpSalaryMovement = (mov) => {
+  const filterEmpEmployeeTransactions = (transaction) => {
 
-    if (!mov) {
-      getSalaryMovement()
+    if (!transaction) {
+      getEmployeeTransactions()
     } else {
-      const filterlist = listofsalarymovement.filter(m => m.movement == mov)
-      setlistofsalarymovement(filterlist.reverse())
+      const filterlist = listofEmployeeTransactions.filter(m => m.movement == mov)
+      setlistofEmployeeTransactions(filterlist.reverse())
     }
   }
+
+
+  
+  const exportToExcel = () => {
+    const data = listOfEmployees.map((employee, i) => ({
+      'م': i + 1 ,
+      'الاسم': employee.fullname,
+      'اسم المستخدم': employee.username,
+      'الرقم القومي': employee.numberID,
+      'العنوان': employee.address,
+      'الموبايل': employee.phone,
+      'الوظيفة': employee.role,
+      'الراتب': employee.basicSalary,
+      'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
+      'السكشن': employee.sectionNumber,
+      'الشيفت': employee.shift ? employee.shift.shiftType : '',
+      'التاريخ': formatDateTime(employee.createdAt),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+
+    XLSX.writeFile(wb, 'employees.xlsx');
+  };
+
+
+
+  const printEmployeeContainer = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => printEmployeeContainer.current,
+    copyStyles: true,
+    removeAfterPrint: true,
+    bodyClass: 'printpage'
+  });
 
   useEffect(() => {
-    getSalaryMovement()
+    getEmployeeTransactions()
     getemployees()
   }, [])
   return (
@@ -194,8 +229,11 @@ const EmployeesSalary = () => {
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
                       <div className="col-6 d-flex justify-content-end">
-                        <a href="#addSalaryMovementModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
-                        {/* <a href="#deleteSalaryMovementModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
+                        <a href="#addEmployeeTransactionsModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
+                        <a href="#" className="btn w-50 btn-info" data-toggle="modal" onClick={exportToExcel}><i className="material-icons">&#xE15C;</i> <span>تصدير</span></a>
+                        <a href="#" className="btn w-50 btn-primary" data-toggle="modal" onClick={handlePrint}><i className="material-icons">&#xE15C;</i> <span>طباعه</span></a>
+
+                        {/* <a href="#deleteEmployeeTransactionsModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -219,7 +257,7 @@ const EmployeesSalary = () => {
                         </div>
                         <div class="filter-group d-flex flex-nowrap">
                           <label>الموظف</label>
-                          <select class="form-control" onChange={(e) => getSalaryMovementByemp(e.target.value)} >
+                          <select class="form-control" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)} >
                             <option>الكل</option>
                             {listofemployee.map((em, i) => {
                               return (
@@ -230,9 +268,9 @@ const EmployeesSalary = () => {
                         </div>
                         <div class="filter-group d-flex flex-nowrap">
                           <label>العملية</label>
-                          <select class="form-control" onChange={(e) => filterEmpSalaryMovement(e.target.value)} >
+                          <select class="form-control" onChange={(e) => filterEmpEmployeeTransactions(e.target.value)} >
                             <option >الكل</option>
-                            {listofmovement.map((m, i) => {
+                            {listofTransactions.map((m, i) => {
                               return (
                                 <option value={m} key={i}>{m}</option>
                               )
@@ -242,7 +280,7 @@ const EmployeesSalary = () => {
 
                         <div className="filter-group d-flex flex-nowrap">
                         <label>فلتر حسب الوقت</label>
-                        <select className="form-control" onChange={(e) => setlistofsalarymovement(filterByTime(e.target.value, listofsalarymovement))}>
+                        <select className="form-control" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
                           <option value="">اختر</option>
                           <option value="today">اليوم</option>
                           <option value="week">هذا الأسبوع</option>
@@ -265,10 +303,10 @@ const EmployeesSalary = () => {
                         </div>
 
                         <div className="d-flex flex-nowrap justify-content-between w-25">
-                          <button type="button" className="btn btn-primary w-50" onClick={()=>setlistofsalarymovement(filterByDateRange(listofsalarymovement))}>
+                          <button type="button" className="btn btn-primary w-50" onClick={()=>setlistofEmployeeTransactions(filterByDateRange(listofEmployeeTransactions))}>
                             <i className="fa fa-search"></i>
                           </button>
-                          <button type="button" className="btn btn-warning w-50" onClick={getSalaryMovement}>
+                          <button type="button" className="btn btn-warning w-50" onClick={getEmployeeTransactions}>
                             استعادة
                           </button>
                         </div>
@@ -291,25 +329,25 @@ const EmployeesSalary = () => {
                     </thead>
                     <tbody>
                       {
-                      listofsalarymovement && listofsalarymovement.map((mov, i) => {
+                      listofEmployeeTransactions && listofEmployeeTransactions.map((transaction, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
                                 <td>{i + 1}</td>
-                                <td>{mov.employeeId&&mov.employeeId.username}</td>
-                                <td>{mov.movement}</td>
-                                <td>{mov.Amount}</td>
-                                <td>{mov.oldAmount}</td>
-                                <td>{mov.newAmount}</td>
-                                <td>{mov.actionBy&&mov.actionBy.username}</td>
-                                <td>{mov.createdAt&&formatDateTime(mov.createdAt)}</td>
+                                <td>{transaction.employeeId&&transaction.employeeId.username}</td>
+                                <td>{transaction.movement}</td>
+                                <td>{transaction.Amount}</td>
+                                <td>{transaction.oldAmount}</td>
+                                <td>{transaction.newAmount}</td>
+                                <td>{transaction.actionBy&&transaction.actionBy.username}</td>
+                                <td>{transaction.createdAt&&formatDateTime(transaction.createdAt)}</td>
                                 <td>
-                                  <a href="#editSalaryMovementModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
-                                    setsalarymovementId(mov._id); setemployeeName(mov.employeeName); setAmount(mov.Amount); setoldAmount(mov.oldAmount); setnewAmount(mov.newAmount); 
-                                   setmovement(mov.movement)
+                                  <a href="#editEmployeeTransactionsModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
+                                    setEmployeeTransactionsId(transaction._id); setemployeeName(transaction.employeeName); setAmount(transaction.Amount); setoldAmount(transaction.oldAmount); setnewAmount(transaction.newAmount); 
+                                   setmovement(transaction.movement)
                                   }}>&#xE254;</i></a>
-                                  <a href="#deleteSalaryMovementModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setsalarymovementId(mov._id)}>&#xE872;</i></a>
+                                  <a href="#deleteEmployeeTransactionsModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setEmployeeTransactionsId(transaction._id)}>&#xE872;</i></a>
                                 </td>
                               </tr>
                             )
@@ -318,7 +356,7 @@ const EmployeesSalary = () => {
                     </tbody>
                   </table>
                   <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{listofsalarymovement.length > endpagination ? endpagination : listofsalarymovement.length}</b> من <b>{listofsalarymovement.length}</b> عنصر</div>
+                    <div className="hint-text text-dark">عرض <b>{listofEmployeeTransactions.length > endpagination ? endpagination : listofEmployeeTransactions.length}</b> من <b>{listofEmployeeTransactions.length}</b> عنصر</div>
                     <ul className="pagination">
                       <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
                       <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
@@ -334,10 +372,10 @@ const EmployeesSalary = () => {
 
 
 
-              <div id="addSalaryMovementModal" className="modal fade">
+              <div id="addEmployeeTransactionsModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={addSalaryMovement}>
+                    <form onSubmit={addEmployeeTransactions}>
                       <div className="modal-header">
                         <h4 className="modal-title">اضف تعامل جديد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -347,7 +385,7 @@ const EmployeesSalary = () => {
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
                             setemployeeName(listofemployee ? listofemployee.find(em => em._id == e.target.value).fullname : ""); setemployeeId(e.target.value);
-                            filterEmployeeSalaryMovement(e.target.value)
+                            filterEmployeeTransactions(e.target.value)
                           }}>
                             <option>اختار</option>
                             {listofemployee.length > 0 ? listofemployee.map((employee, i) => {
@@ -360,9 +398,9 @@ const EmployeesSalary = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التعامل</label>
-                          <select form="carform" required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
+                          <select form="carform" required onChange={(e) => { filterEmployeeTransactions(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
-                            {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
+                            {listofTransactions.length > 0 ? listofTransactions.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
                               )
@@ -400,10 +438,10 @@ const EmployeesSalary = () => {
                 </div>
               </div>
 
-              <div id="editSalaryMovementModal" className="modal fade">
+              <div id="editEmployeeTransactionsModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={updateSalaryMovement}>
+                    <form onSubmit={updateEmployeeTransactions}>
                       <div className="modal-header">
                         <h4 className="modal-title">تعديل تعامل</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -411,7 +449,7 @@ const EmployeesSalary = () => {
                       <div className="modal-body">
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
-                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeSalaryMovement(e.target.value) }}>
+                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(listofemployee.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
                             <option>اختر</option>
                             {listofemployee.length > 0 ? listofemployee.map(employee => {
                               return (
@@ -422,9 +460,9 @@ const EmployeesSalary = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الحركه</label>
-                          <select form="carform" defaultValue={movement} required onChange={(e) => { filterSalaryMovement(e.target.value); setmovement(e.target.value) }}>
+                          <select form="carform" defaultValue={movement} required onChange={(e) => { filterEmployeeTransactions(e.target.value); setmovement(e.target.value) }}>
                             <option>اختر</option>
-                            {listofmovement.length > 0 ? listofmovement.map((movement, i) => {
+                            {listofTransactions.length > 0 ? listofTransactions.map((movement, i) => {
                               return (
                                 <option value={movement} key={i}>{movement}</option>
                               )
@@ -460,10 +498,10 @@ const EmployeesSalary = () => {
                   </div>
                 </div>
               </div>
-              <div id="deleteSalaryMovementModal" className="modal fade">
+              <div id="deleteEmployeeTransactionsModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={deleteSalaryMovement}>
+                    <form onSubmit={deleteEmployeeTransactions}>
                       <div className="modal-header">
                         <h4 className="modal-title">حذف موظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -488,4 +526,4 @@ const EmployeesSalary = () => {
   )
 }
 
-export default EmployeesSalary
+export default EmployeeTransactions

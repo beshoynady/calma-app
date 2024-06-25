@@ -19,6 +19,7 @@ const AttendanceManagement = () => {
 
 
   const [listOfStatus, setlistOfStatus] = useState(['Attendance', 'Absence', 'Vacation']);
+  const [listOfStatusAR, setlistOfStatusAR] = useState(['حضور', 'غياب', 'اجازة']);
 
   const [recordId, setRecordId] = useState('');
   const [employee, setEmployee] = useState('');
@@ -381,11 +382,11 @@ const AttendanceManagement = () => {
                   <div className="table-title">
                     <div className="row">
                       <div className="col-sm-6 text-right">
-                        <h2>ادارة <b>التصنيفات</b></h2>
+                        <h2>ادارة <b>تسجيل الحضور و الانصراف و الاجازات و الغياب</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
                         <a href="#addRecordModal" className="btn w-50 btn-success" data-toggle="modal">
-                          <i className="material-icons">&#xE147;</i> <span>اضافه سجل</span></a>
+                          <i className="material-icons">&#xE147;</i> <span>اضافه تسجيل</span></a>
                         {/* <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
@@ -410,9 +411,9 @@ const AttendanceManagement = () => {
                         <label>نوع السجل</label>
                         <select className="form-control" onChange={(e) => searchByStatus(e.target.value)} >
                           <option value="">الكل</option>
-                          <option value="Attendance">حضور</option>
-                          <option value="Absence">غياب</option>
-                          <option value="Vacation">اجازة</option>
+                          {listOfStatus.map((status, i) => {
+                            <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                          })}
                         </select>
                       </div>
                       <div className="filter-group">
@@ -644,9 +645,9 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((statusOption, index) => (
-                              <option key={index} value={statusOption}>{statusOption}</option>
-                            ))}
+                            {listOfStatus.map((status, i) => {
+                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            })}
                           </select>
                         </div>
                         <div className="form-group form-group-47">
@@ -763,9 +764,9 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((statusOption, index) => (
-                              <option key={index} value={statusOption}>{statusOption}</option>
-                            ))}
+                            {listOfStatus.map((status, i) => {
+                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            })}
                           </select>
                         </div>
                         <div className="form-group form-group-47">
