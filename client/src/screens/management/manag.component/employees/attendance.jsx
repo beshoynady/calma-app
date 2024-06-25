@@ -315,6 +315,7 @@ const AttendanceManagement = () => {
     startOfWeek.setHours(0, 0, 0, 0);
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const startOfYear = new Date(now.getFullYear(), 0, 1);
+    console.log({now, startOfToday, startOfWeek, startOfMonth , startOfYear, day: new Date().getDay(), date: new Date().getDate(), month:new Date().getMonth(), year: new Date().getFullYear()})
 
     switch (timeRange) {
       case 'today':
