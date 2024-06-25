@@ -193,8 +193,8 @@ const EmployeesSalary = () => {
                       <div className="col-sm-6">
                         <h2>ادارة <b>تعاملات الموظفين</b></h2>
                       </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSalaryMovementModal" className="btn w-25 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
+                      <div className="col-6 d-flex justify-content-end">
+                        <a href="#addSalaryMovementModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة حركة</span></a>
                         {/* <a href="#deleteSalaryMovementModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a> */}
                       </div>
                     </div>
