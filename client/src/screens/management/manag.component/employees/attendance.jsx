@@ -390,12 +390,12 @@ const AttendanceManagement = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="table-filter w-100">
-                    <div class="w-100 d-flex flex-row flex-wrap text-dark">
-                      <div class="filter-group">
-                        <div class="show-entries">
+                  <div className="table-filter w-100">
+                    <div className="w-100 d-flex flex-row flex-wrap text-dark">
+                      <div className="filter-group">
+                        <div className="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -406,22 +406,22 @@ const AttendanceManagement = () => {
                           <span>صفوف</span>
                         </div>
                       </div>
-                      <div class="filter-group">
+                      <div className="filter-group">
                         <label>نوع السجل</label>
-                        <select class="form-control" onChange={(e) => searchByStatus(e.target.value)} >
+                        <select className="form-control" onChange={(e) => searchByStatus(e.target.value)} >
                           <option value="">الكل</option>
                           <option value="Attendance">حضور</option>
                           <option value="Absence">غياب</option>
                           <option value="Vacation">اجازة</option>
                         </select>
                       </div>
-                      <div class="filter-group">
+                      <div className="filter-group">
                         <label>الاسم</label>
-                        <input type="text" class="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                        <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
                       </div>
-                      <div class="filter-group">
+                      <div className="filter-group">
                         <label>الوظيفة</label>
-                        <select class="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                        <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
                           <option value="all">الكل</option>
                           <option value="manager">مدير</option>
                           <option value="cashier">كاشير</option>
@@ -429,9 +429,9 @@ const AttendanceManagement = () => {
                           <option value="Chef">شيف</option>
                         </select>
                       </div>
-                      <div class="filter-group">
+                      <div className="filter-group">
                         <label>الشيفت</label>
-                        <select class="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
+                        <select className="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
                           <option value="all">الكل</option>
                           {shifts ? shifts.map((shift, i) =>
                             <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -439,9 +439,9 @@ const AttendanceManagement = () => {
 
                         </select>
                       </div>
-                      <div class="filter-group">
+                      <div className="filter-group">
                         <label>فلتر حسب الوقت</label>
-                        <select class="form-control" onChange={(e) => filterByTime(e.target.value)}>
+                        <select className="form-control" onChange={(e) => filterByTime(e.target.value)}>
                           <option value="">اختر</option>
                           <option value="today">اليوم</option>
                           <option value="week">هذا الأسبوع</option>
@@ -450,19 +450,29 @@ const AttendanceManagement = () => {
                         </select>
                       </div>
 
-                      <div class="filter-group">
-                        <label> : فلتر مدة محددة</label>
-                        <label>من</label>
-                        <input type="date" class="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                        <label>الي</label>
-                        <input type="date" class="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                        <div className='d-flex flex-nowrap  w-25'>
-                          <button type="button" class="btn w-50 btn-primary" onClick={filterByDateRange}><i class="fa fa-search"></i></button>
-                          <button type="button" className="btn w-50 btn-wrrning" onClick={getallAttendanceRecords}>
+                      <div className="filter-group d-flex flex-nowrap w-50">
+                        <label className="form-label"><strong>فلتر مدة محددة:</strong></label>
+
+                        <div className="mr-1">
+                          <label className="form-label">من</label>
+                          <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                        </div>
+
+                        <div className="mr-1">
+                          <label className="form-label">إلى</label>
+                          <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                        </div>
+
+                        <div className="d-flex flex-nowrap justify-content-between">
+                          <button type="button" className="btn btn-primary w-45" onClick={filterByDateRange}>
+                            <i className="fa fa-search"></i> بحث
+                          </button>
+                          <button type="button" className="btn btn-warning w-45" onClick={getallAttendanceRecords}>
                             حذف الفلتر
                           </button>
                         </div>
                       </div>
+
 
                     </div>
                   </div>
