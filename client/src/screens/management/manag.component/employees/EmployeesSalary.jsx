@@ -102,7 +102,7 @@ const EmployeesSalary = () => {
     try {
       const SalaryMovement = await axios.get(apiUrl + '/api/salarymovement', config)
       console.log({SalaryMovement})
-      setlistofsalarymovement(movement.data.reverse())
+      setlistofsalarymovement(SalaryMovement.data.reverse())
       
     } catch (error) {
       console.log({error})  
