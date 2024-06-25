@@ -43,7 +43,7 @@ const EmployeeTransactions = () => {
     };
 
     try {
-      const response = await axios.post(apiUrl + '/api/EmployeeTransactions', data, config);
+      const response = await axios.post(apiUrl + '/api/employeetransactions', data, config);
       console.log({ response })
       if (response) {
         getEmployeeTransactions();
@@ -69,7 +69,7 @@ const EmployeeTransactions = () => {
     };
 
     try {
-      const response = await axios.put(`${apiUrl}/api/EmployeeTransactions/${EmployeeTransactionsId}`, data, config);
+      const response = await axios.put(`${apiUrl}/api/employeetransactions/${EmployeeTransactionsId}`, data, config);
       
       getEmployeeTransactions();
       toast.success('تم تعديل السجل بنجاح');
@@ -83,7 +83,7 @@ const EmployeeTransactions = () => {
   const deleteEmployeeTransactions = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`${apiUrl}/api/EmployeeTransactions/${EmployeeTransactionsId}`, config);
+      const response = await axios.delete(`${apiUrl}/api/employeetransactions/${EmployeeTransactionsId}`, config);
       getEmployeeTransactions();
       toast.success('تم حذف السجل بنجاح');
     } catch (error) {
@@ -95,7 +95,7 @@ const EmployeeTransactions = () => {
   const [listofEmployeeTransactions, setlistofEmployeeTransactions] = useState([])
   const getEmployeeTransactions = async () => {
     try {
-      const EmployeeTransactions = await axios.get(apiUrl + '/api/EmployeeTransactions', config)
+      const EmployeeTransactions = await axios.get(apiUrl + '/api/employeetransactions', config)
       console.log({EmployeeTransactions})
       setlistofEmployeeTransactions(EmployeeTransactions.data.reverse())
       

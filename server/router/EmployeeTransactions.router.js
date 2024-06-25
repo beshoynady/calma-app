@@ -3,9 +3,9 @@ const { addSalaryMovement,
     getallSalaryMovement,
     getoneSalaryMovement,
     editSalaryMovement,
-    deleteSalaryMovement } = require('../controllers/EmployeeSalary.controller.js')
+    deleteSalaryMovement } = require('../controllers/EmployeeTransactions.controller.js')
 // const verifyJWT = require('../middleware/verifyjwt');
-const authenticateToken = require('../utlits/authenticate')
+const authenticateToken = require('../utlits/authenticate.js')
 
 
 const router = express.Router();

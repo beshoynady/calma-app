@@ -103,7 +103,7 @@ const PayRoll = () => {
     try {
       const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
 
-      const response = await axios.get(apiUrl + '/api/salarymovement', {
+      const response = await axios.get(apiUrl + '/api/employeetransactions', {
         headers: {
           'authorization': `Bearer ${token}`,
         },
