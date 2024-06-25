@@ -200,8 +200,8 @@ const EmployeesSalary = () => {
                     </div>
                   </div>
                   <div class="table-filter">
-                    <div class="row text-dark">
-                        <div class="show-entries">
+                    <div class="w-100 d-flex flex-wrap flex-row text-dark">
+                        <div class="show-entries d-flex flex-nowrap">
                           <span>عرض</span>
                           <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
@@ -213,11 +213,11 @@ const EmployeesSalary = () => {
                           </select>
                           <span>عنصر</span>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex flex-nowrap">
                           <label>الاسم</label>
                           <input type="text" class="form-control" />
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex flex-nowrap">
                           <label>الموظف</label>
                           <select class="form-control" onChange={(e) => getSalaryMovementByemp(e.target.value)} >
                             <option>الكل</option>
@@ -228,7 +228,7 @@ const EmployeesSalary = () => {
                             })}
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex flex-nowrap">
                           <label>العملية</label>
                           <select class="form-control" onChange={(e) => filterEmpSalaryMovement(e.target.value)} >
                             <option >الكل</option>
@@ -240,7 +240,7 @@ const EmployeesSalary = () => {
                           </select>
                         </div>
 
-                        <div className="filter-group">
+                        <div className="filter-group d-flex flex-nowrap">
                         <label>فلتر حسب الوقت</label>
                         <select className="form-control" onChange={(e) => setlistofsalarymovement(filterByTime(e.target.value, listofsalarymovement))}>
                           <option value="">اختر</option>
@@ -291,7 +291,7 @@ const EmployeesSalary = () => {
                     </thead>
                     <tbody>
                       {
-                      listofsalarymovement.length ? listofsalarymovement.map((mov, i) => {
+                      listofsalarymovement && listofsalarymovement.map((mov, i) => {
                           // if (i < pagination & i >= pagination - 5) {
                           if (i >= startpagination & i < endpagination) {
                             return (
@@ -314,8 +314,7 @@ const EmployeesSalary = () => {
                               </tr>
                             )
                           }
-                        })
-                          : ""}
+                        })}
                     </tbody>
                   </table>
                   <div className="clearfix">
