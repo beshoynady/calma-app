@@ -93,9 +93,9 @@ const PayRoll = () => {
 
 
   // Fetch salary movement data from the API
-  const [ListOfEmployeemployees, setListOfEmployeemployees] = useState([]);
+  const [ListOfEmployeTransactions, setListOfEmployeTransactions] = useState([]);
 
-  const getEmployeemployees = async () => {
+  const getEmployeTransactions = async () => {
     try {
 
       const response = await axios.get(apiUrl + '/api/employeetransactions', config);
@@ -107,7 +107,7 @@ const PayRoll = () => {
         return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
       });
 
-      setListOfEmployeemployees(filterByMonth);
+      setListOfEmployeTransactions(filterByMonth);
     } catch (error) {
       console.log(error);
     }
@@ -116,6 +116,7 @@ const PayRoll = () => {
 
 
   const addPayRoll = async () => {
+    console.log({currentPayRoll})
 
     for (let i = 0; i < ListOfEmployee.length; i++) {
       let Year = new Date().getFullYear()
@@ -138,13 +139,13 @@ const PayRoll = () => {
       let isPaid = false;
       let paidBy = null;
 
-      const Employeemployees = ListOfEmployeemployees.length > 0 ? 
-      ListOfEmployeemployees.filter((Transaction) => Transaction.EmployeeId == employeeId) : '';
-      console.log({ Employeemployees: Employeemployees })
+      const EmployeTransactions = ListOfEmployeTransactions.length > 0 ? 
+      ListOfEmployeTransactions.filter((Transaction) => Transaction.EmployeeId._id === employeeId) : '';
+      console.log({ EmployeTransactions: EmployeTransactions })
 
-      if (Employeemployees.length > 0) {
+      if (EmployeTransactions.length > 0) {
 
-        const filterPre = Employeemployees.filter((Transaction) => Transaction.transactionType == 'سلف')
+        const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'سلف')
         if (filterPre.length > 0) {
           Predecessor = filterPre[filterPre.length - 1].newAmount
           console.log({ Predecessor })
@@ -152,7 +153,7 @@ const PayRoll = () => {
           Predecessor = 0
         }
 
-        const filterDed = Employeemployees.filter((Transaction) => Transaction.transactionType == 'خصم')
+        const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'خصم')
         console.log(filterDed)
         if (filterDed.length > 0) {
           Deduction = filterDed[filterDed.length - 1].newAmount
@@ -161,7 +162,7 @@ const PayRoll = () => {
           Deduction = 0
         }
 
-        const filterAbs = Employeemployees.filter((Transaction) => Transaction.transactionType == 'غياب')
+        const filterAbs = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'غياب')
         if (filterAbs.length > 0) {
           AbsenceDeduction = filterAbs[filterAbs.length - 1].newAmount
           AbsenceDays = filterAbs[filterAbs.length - 1].totalDays
@@ -170,7 +171,7 @@ const PayRoll = () => {
           AbsenceDays = 0
         }
 
-        const filterAdd = Employeemployees.filter((Transaction) => Transaction.transactionType == 'اضافي')
+        const filterAdd = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'اضافي')
         if (filterAdd.length > 0) {
           OvertimeDays = filterAdd[filterAdd.length - 1].totalDays
           OvertimeValue = filterAdd[filterAdd.length - 1].newAmount
@@ -179,7 +180,7 @@ const PayRoll = () => {
           OvertimeValue = 0
         }
 
-        const filterBon = Employeemployees.filter((Transaction) => Transaction.transactionType == 'مكافأة')
+        const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'مكافأة')
         if (filterBon.length > 0) {
           Bonus = filterBon[filterBon.length - 1].newAmount
         } else {
@@ -479,7 +480,7 @@ const PayRoll = () => {
   useEffect(() => {
     getEmployees();
     getPayRoll()
-    getEmployeemployees();
+    getEmployeTransactions();
     // getAllCashRegisters();
   }, []);
   return (
