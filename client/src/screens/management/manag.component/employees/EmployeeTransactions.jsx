@@ -364,7 +364,7 @@ const EmployeeTransactions = () => {
                           <select form="carform" required onChange={(e) => {
                             setemployeeName(allEmployees ? allEmployees.find(employee => employee._id == e.target.value).fullname : "");
                              setemployeeId(e.target.value);
-                            filterEmployeeTransactions(e.target.value)
+                             getEmployeeTransactionsByEmp(e.target.value)
                           }}>
                             <option>اختار</option>
                             {allEmployees.length > 0 ? allEmployees.map((employee, i) => {
