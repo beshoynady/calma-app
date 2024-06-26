@@ -2102,7 +2102,7 @@ function App() {
             <Route path='reservation' element={<ReservationTables />} />
             <Route path='employees' element={<Employees />} />
             <Route path='permissions' element={<PermissionsComponent />} />
-            <Route path='Employeessalary' element={<EmployeeTransactions />} />
+            <Route path='employeetransactions' element={<EmployeeTransactions />} />
             <Route path='payroll' element={<PayRoll />} />
             <Route path='attendancerecord' element={<AttendanceManagement />} />
             <Route path='category' element={<Category />} />
