@@ -115,7 +115,7 @@ const EmployeeTransactions = () => {
       const currentYear = now.getFullYear();
     
       const currentEmployeeTransactions = listofEmployeeTransactions && listofEmployeeTransactions.filter((transaction) => {
-        const transactionDate = new Date(transaction.actionAt);
+        const transactionDate = new Date(transaction.createdAt);
         const transactionMonth = transactionDate.getMonth();
         const transactionYear = transactionDate.getFullYear();
   
