@@ -116,8 +116,6 @@ const PayRoll = () => {
 
 
   const addPayRoll = async () => {
-    console.log({currentPayRoll})
-
     for (let i = 0; i < ListOfEmployee.length; i++) {
       let Year = new Date().getFullYear()
       let Month = new Date().getMonth() + 1
@@ -140,7 +138,7 @@ const PayRoll = () => {
       let paidBy = null;
 
       const EmployeTransactions = ListOfEmployeTransactions.length > 0 ? 
-      ListOfEmployeTransactions.filter((Transaction) => Transaction.EmployeeId._id === employeeId) : '';
+      ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : '';
       console.log({ EmployeTransactions: EmployeTransactions })
 
       if (EmployeTransactions.length > 0) {
