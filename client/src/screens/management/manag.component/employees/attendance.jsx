@@ -18,8 +18,8 @@ const AttendanceManagement = () => {
 
 
 
-  const [listOfStatus, setlistOfStatus] = useState(['Attendance', 'Absence', 'Vacation']);
-  const [listOfStatusAR, setlistOfStatusAR] = useState(['حضور', 'غياب', 'اجازة']);
+  const listOfStatus = ['Attendance', 'Absence', 'Vacation'];
+  const listOfStatusAR = ['حضور', 'غياب', 'اجازة'];
 
   const [recordId, setRecordId] = useState('');
   const [employee, setEmployee] = useState('');
@@ -409,11 +409,11 @@ const AttendanceManagement = () => {
                       </div>
                       <div className="filter-group">
                         <label>نوع السجل</label>
-                        <select className="form-control" onChange={(e) => searchByStatus(e.target.value)} >
+                        <select className="form-control" onChange={(e) => searchByStatus(e.target.value)}>
                           <option value="">الكل</option>
-                          {listOfStatus.map((status, i) => {
-                            <option key={i} value={status}>{listOfStatusAR[i]}</option>
-                          })}
+                          {listOfStatus.map((statu, i) => (
+                            <option key={i} value={statu}>{listOfStatusAR[i]}</option>
+                          ))}
                         </select>
                       </div>
                       <div className="filter-group">
@@ -575,7 +575,7 @@ const AttendanceManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الحالي</label>
                           <input
                             type="date"
@@ -586,7 +586,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الاسم</label>
                           <select
                             className="form-control"
@@ -601,7 +601,7 @@ const AttendanceManagement = () => {
                             ))}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الشيفت</label>
                           <input
                             type="text"
@@ -612,7 +612,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الوصول</label>
                           <input
                             type="datetime-local"
@@ -623,7 +623,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الانصراف</label>
                           <input
                             type="datetime-local"
@@ -635,7 +635,7 @@ const AttendanceManagement = () => {
                           />
                         </div>
 
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -645,12 +645,12 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((status, i) => {
-                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            {listOfStatus.map((statu, i) => {
+                              <option key={i} value={statu}>{listOfStatusAR[i]}</option>
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>دقائق التجاوز</label>
                           <input
                             type="text"
@@ -661,7 +661,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>دقائق التأخر</label>
                           <input
                             type="text"
@@ -672,7 +672,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>ملاحظات</label>
                           <textarea
                             className="form-control"
@@ -704,7 +704,7 @@ const AttendanceManagement = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الحالي</label>
                           <input
                             type="date"
@@ -715,12 +715,12 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الاسم</label>
                           <input type='text' className="form-control" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
 
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الشيفت</label>
                           <input
                             type="text"
@@ -731,7 +731,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الوصول</label>
                           <input
                             type="datetime-local"
@@ -742,7 +742,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>تاريخ الانصراف</label>
                           <input
                             type="datetime-local"
@@ -754,7 +754,7 @@ const AttendanceManagement = () => {
                           />
                         </div>
 
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -764,12 +764,12 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((status, i) => {
-                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            {listOfStatus.map((statu, i) => {
+                              <option key={i} value={statu}>{listOfStatusAR[i]}</option>
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>دقائق التجاوز</label>
                           <input
                             type="text"
@@ -780,7 +780,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>دقائق التأخر</label>
                           <input
                             type="text"
@@ -791,7 +791,7 @@ const AttendanceManagement = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
                           <label>ملاحظات</label>
                           <textarea
                             className="form-control"
