@@ -112,12 +112,8 @@ const EmployeeTransactions = () => {
       const now = new Date();
       const currentMonth = now.getMonth();
       const currentYear = now.getFullYear();
-  
-      if (!EmployeeTransactions || !Array.isArray(EmployeeTransactions)) {
-        throw new Error('EmployeeTransactions is not defined or is not an array');
-      }
-  
-      const currentEmployeeTransactions = EmployeeTransactions.filter((transaction) => {
+    
+      const currentEmployeeTransactions = EmployeeTransactions && EmployeeTransactions.filter((transaction) => {
         const transactionDate = new Date(transaction.actionAt);
         const transactionMonth = transactionDate.getMonth();
         const transactionYear = transactionDate.getFullYear();
@@ -125,7 +121,7 @@ const EmployeeTransactions = () => {
         return transactionMonth === currentMonth && transactionYear === currentYear;
       });
   
-      const filteredTransactions = currentEmployeeTransactions.filter((trans) => trans.transactionType === transaction);
+      const filteredTransactions = currentEmployeeTransactions&&currentEmployeeTransactions.filter((trans) => trans.transactionType === transaction);
   
       console.log(filteredTransactions);
   
