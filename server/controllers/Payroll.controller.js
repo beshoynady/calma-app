@@ -3,10 +3,10 @@ const PayrollModel = require('../models/Payroll.model');
 const createPayroll = async (req, res) => {
   const { employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary } = req.body;
   try {
-    const payroll = await PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary }).populate('employeeId');
+    const payroll = await PayrollModel.create({ employeeId, employeeName, Year, Month, salary, Bonus, TotalDue, AbsenceDays, AbsenceDeduction, OvertimeDays, OvertimeValue, Deduction, Predecessor, Insurance, Tax, TotalDeductible, NetSalary })
     res.status(201).json(payroll);
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    res.status(400).json({ success: false, error: error.message , error});
   }
 };
 
@@ -27,7 +27,8 @@ const getAllPayroll = async (req, res) => {
 const getPayrollById = async (req, res) => {
   try {
     const id = req.params.id
-    const payroll = await PayrollModel.findById(id);
+    const payroll = await PayrollModel.findById(id).populate('employeeId')
+    .populate('paidBy');
     if (!payroll) {
       return res.status(404).json({ success: false, error: 'Payroll not found' });
     }
@@ -44,9 +45,9 @@ const updatePayroll = async (req, res) => {
     if (!payroll) {
       return res.status(404).json({ success: false, error: 'Payroll not found' });
     }
-    res.status(200).json({ success: true, data: payroll });
+    res.status(200).json({ success: true, payroll });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Server Error' });
+    res.status(500).json({ success: false, error: 'Server Error' , error});
   }
 };
 
