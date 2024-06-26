@@ -214,7 +214,7 @@ const SideBar = () => {
                           <li><Link to="attendancerecord">الحضور و الانصراف</Link></li>
                         )}
                         {permissionsList?.filter(permission => permission.resource === 'Salaries')[0]?.read && (
-                          <li><Link to="employeessalary">تعاملات</Link></li>
+                          <li><Link to="employeetransactions">تعاملات</Link></li>
                         )}
                         {permissionsList?.filter(permission => permission.resource === 'Payroll')[0]?.read && (
                           <li><Link to="payroll">المرتبات</Link></li>
