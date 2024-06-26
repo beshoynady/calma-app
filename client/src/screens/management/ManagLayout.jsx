@@ -11,41 +11,21 @@ import LoadingPage from './manag.component/LoadingPage/LoadingPage';
 
 
 const ManagLayout = () => {
+  const { role } = useContext(DataContext);
 
-
-
-  if (localStorage.getItem('token_e')) {
-    //   // console.log(localStorage.getItem('token'))
-    const tokenStorage = localStorage.getItem('token_e')
-    const decodetoken = jwt_decode(tokenStorage)
-    if (decodetoken.employeeinfo.isActive) {
-      return (
-        <detacontext.Consumer>
-          {
-            ({ allProducts, isLoadiog, setisLoadiog }) => {
-              if (!isLoadiog) {
-                return (
-                  <div className='manag-body '>
-                    <ToastContainer />
-                    <main className='content'>
-                      <NavBar />
-                      <Outlet></Outlet>
-                    </main>
-                    <SideBar />
-                  </div>)
-              } else {
-                return (
-                  <LoadingPage />
-                )
-              }
-            }}
-        </detacontext.Consumer>
-      );
-    } else {
-      return <Navigate to={'/login'} />;
-    }
-  } else {
-    return <Navigate to={'/login'} />;
+  if (role !== 'admin') {
+    return <Navigate to='/login' />;
   }
-}
+
+  return (
+    <div className='manag-body '>
+      <ToastContainer/>
+      <main className='content'>
+        <NavBar />
+        <Outlet />
+      </main>
+      <SideBar />
+    </div>
+  );
+};
 export default ManagLayout

@@ -1,51 +1,91 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// import Userscreen from './screens/user.screen/Userscreen';
+// import ManagLayout from './screens/management/ManagLayout';
+// import ManagerDash from './screens/management/manag.component/managerdash/ManagerDash';
+// import Info from './screens/management/manag.component/setting/info';
+// import Orders from './screens/management/manag.component/orders/Orders';
+// import Products from './screens/management/manag.component/products/Products';
+
+// import Tables from './screens/management/manag.component/tables/Tables';
+// import TablesPage from './screens/management/manag.component/tables/TablesPage';
+// import ReservationTables from './screens/management/manag.component/tables/ReservationTables';
+
+// import Employees from './screens/management/manag.component/employees/Employees';
+// import PermissionsComponent from './screens/management/manag.component/employees/Permissions';
+// import EmployeeTransactions from './screens/management/manag.component/employees/EmployeeTransactions';
+// import PayRoll from './screens/management/manag.component/employees/PayRoll';
+// import AttendanceManagement from './screens/management/manag.component/employees/attendance';
+
+// import Category from './screens/management/manag.component/category/Category';
+// import CategoryStock from './screens/management/manag.component/stock/CategoryStock';
+// import Kitchen from './screens/management/manag.component/kitchen/Kitchen';
+// import Waiter from './screens/management/manag.component/waiter/Waiter';
+// import DeliveryMan from './screens/management/manag.component/deliveryman/DeliveryMan';
+// import Login from './screens/management/manag.component/login/Login';
+// import POS from './screens/management/manag.component/pos/POS';
+
+// import Suppliers from './screens/management/manag.component/suppliers/Suppliers';
+// import Purchase from './screens/management/manag.component/suppliers/Purchase';
+// import PurchaseReturn from './screens/management/manag.component/suppliers/PurchaseReturn';
+// import SupplierTransaction from './screens/management/manag.component/suppliers/SupplierTransaction';
+// import StockItem from './screens/management/manag.component/stock/StockItem';
+// import StockManag from './screens/management/manag.component/stock/StockManag';
+// import ProductRecipe from './screens/management/manag.component/products/ProductRecipe';
+
+// import ExpenseItem from './screens/management/manag.component/expenses/Expense';
+// import DailyExpense from './screens/management/manag.component/expenses/dailyExpense';
+// import CashRegister from './screens/management/manag.component/cash/CashRegister';
+// import CashMovement from './screens/management/manag.component/cash/CashMovement';
+// import Users from './screens/management/manag.component/users/Users';
+// import CustomerMessage from './screens/management/manag.component/users/CustomerMessage';
+// import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
+
+
 import Userscreen from './screens/user.screen/Userscreen';
-import ManagLayout from './screens/management/ManagLayout';
-import ManagerDash from './screens/management/manag.component/managerdash/ManagerDash';
-import Info from './screens/management/manag.component/setting/info';
-import Orders from './screens/management/manag.component/orders/Orders';
-import Products from './screens/management/manag.component/products/Products';
-
-import Tables from './screens/management/manag.component/tables/Tables';
-import TablesPage from './screens/management/manag.component/tables/TablesPage';
-import ReservationTables from './screens/management/manag.component/tables/ReservationTables';
-
-import Employees from './screens/management/manag.component/employees/Employees';
-import PermissionsComponent from './screens/management/manag.component/employees/Permissions';
-import EmployeeTransactions from './screens/management/manag.component/employees/EmployeeTransactions';
-import PayRoll from './screens/management/manag.component/employees/PayRoll';
-import AttendanceManagement from './screens/management/manag.component/employees/attendance';
-
-import Category from './screens/management/manag.component/category/Category';
-import CategoryStock from './screens/management/manag.component/stock/CategoryStock';
-import Kitchen from './screens/management/manag.component/kitchen/Kitchen';
-import Waiter from './screens/management/manag.component/waiter/Waiter';
-import DeliveryMan from './screens/management/manag.component/deliveryman/DeliveryMan';
 import Login from './screens/management/manag.component/login/Login';
-import POS from './screens/management/manag.component/pos/POS';
 
-import Suppliers from './screens/management/manag.component/suppliers/Suppliers';
-import Purchase from './screens/management/manag.component/suppliers/Purchase';
-import PurchaseReturn from './screens/management/manag.component/suppliers/PurchaseReturn';
-import SupplierTransaction from './screens/management/manag.component/suppliers/SupplierTransaction';
-import StockItem from './screens/management/manag.component/stock/StockItem';
-import StockManag from './screens/management/manag.component/stock/StockManag';
-import ProductRecipe from './screens/management/manag.component/products/ProductRecipe';
+const ManagLayout = React.lazy(() => import('./screens/management/ManagLayout'));
+const ManagerDash = React.lazy(() => import('./screens/management/manag.component/managerdash/ManagerDash'));
+const Info = React.lazy(() => import('./screens/management/manag.component/setting/info'));
+const Orders = React.lazy(() => import('./screens/management/manag.component/orders/Orders'));
+const Products = React.lazy(() => import('./screens/management/manag.component/products/Products'));
+const Tables = React.lazy(() => import('./screens/management/manag.component/tables/Tables'));
+const TablesPage = React.lazy(() => import('./screens/management/manag.component/tables/TablesPage'));
+const ReservationTables = React.lazy(() => import('./screens/management/manag.component/tables/ReservationTables'));
+const Employees = React.lazy(() => import('./screens/management/manag.component/employees/Employees'));
+const PermissionsComponent = React.lazy(() => import('./screens/management/manag.component/employees/Permissions'));
+const EmployeeTransactions = React.lazy(() => import('./screens/management/manag.component/employees/EmployeeTransactions'));
+const PayRoll = React.lazy(() => import('./screens/management/manag.component/employees/PayRoll'));
+const AttendanceManagement = React.lazy(() => import('./screens/management/manag.component/employees/attendance'));
+const Category = React.lazy(() => import('./screens/management/manag.component/category/Category'));
+const CategoryStock = React.lazy(() => import('./screens/management/manag.component/stock/CategoryStock'));
+const Kitchen = React.lazy(() => import('./screens/management/manag.component/kitchen/Kitchen'));
+const Waiter = React.lazy(() => import('./screens/management/manag.component/waiter/Waiter'));
+const DeliveryMan = React.lazy(() => import('./screens/management/manag.component/deliveryman/DeliveryMan'));
+const POS = React.lazy(() => import('./screens/management/manag.component/pos/POS'));
+const Suppliers = React.lazy(() => import('./screens/management/manag.component/suppliers/Suppliers'));
+const Purchase = React.lazy(() => import('./screens/management/manag.component/suppliers/Purchase'));
+const PurchaseReturn = React.lazy(() => import('./screens/management/manag.component/suppliers/PurchaseReturn'));
+const SupplierTransaction = React.lazy(() => import('./screens/management/manag.component/suppliers/SupplierTransaction'));
+const StockItem = React.lazy(() => import('./screens/management/manag.component/stock/StockItem'));
+const StockManag = React.lazy(() => import('./screens/management/manag.component/stock/StockManag'));
+const ProductRecipe = React.lazy(() => import('./screens/management/manag.component/products/ProductRecipe'));
+const ExpenseItem = React.lazy(() => import('./screens/management/manag.component/expenses/Expense'));
+const DailyExpense = React.lazy(() => import('./screens/management/manag.component/expenses/dailyExpense'));
+const CashRegister = React.lazy(() => import('./screens/management/manag.component/cash/CashRegister'));
+const CashMovement = React.lazy(() => import('./screens/management/manag.component/cash/CashMovement'));
+const Users = React.lazy(() => import('./screens/management/manag.component/users/Users'));
+const CustomerMessage = React.lazy(() => import('./screens/management/manag.component/users/CustomerMessage'));
+const KitchenConsumption = React.lazy(() => import('./screens/management/manag.component/stock/KitchenConsumption'));
 
-import ExpenseItem from './screens/management/manag.component/expenses/Expense';
-import DailyExpense from './screens/management/manag.component/expenses/dailyExpense';
-import CashRegister from './screens/management/manag.component/cash/CashRegister';
-import CashMovement from './screens/management/manag.component/cash/CashMovement';
-import Users from './screens/management/manag.component/users/Users';
-import CustomerMessage from './screens/management/manag.component/users/CustomerMessage';
-import KitchenConsumption from './screens/management/manag.component/stock/KitchenConsumption';
+
 
 // import io from 'socket.io-client';
 // const socket = io(process.env.REACT_APP_API_URL, {
@@ -243,7 +283,7 @@ function App() {
     try {
       // Fetch products from the API
       const response = await axios.get(apiUrl + '/api/product');
-      console.log({employees:response})
+      console.log({ employees: response })
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch products.');
@@ -380,7 +420,7 @@ function App() {
         throw new Error('توكن غير متاح');
       }
       const response = await axios.get(`${apiUrl}/api/employee`, config);
-      
+
       if (response.status === 200) {
         setallEmployees(response.data);
         console.log('Employees data fetched successfully:', response.data);
@@ -486,7 +526,7 @@ function App() {
             item.quantity += 1;
           }
         })
-      } else if(!findProduct.hasSizes){
+      } else if (!findProduct.hasSizes) {
         // incrementProductQuantity the quantity of the found product
         findProduct.quantity += 1;
         itemsInCart.map(item => {
@@ -546,7 +586,7 @@ function App() {
             }
           }
         })
-      } else if(!findProduct.hasSizes){
+      } else if (!findProduct.hasSizes) {
         // incrementProductQuantity the quantity of the found product
         if (findProduct.quantity < 2) {
           findProduct.quantity = 0;
@@ -802,16 +842,16 @@ function App() {
         productOrderToUpdate.find(product => product._id === productId) :
         allProducts.find(product => product._id === productId);
 
-        console.log({ productToUpdate })
-        if (!productToUpdate) {
-          throw new Error('Product not found.');
-        }
+      console.log({ productToUpdate })
+      if (!productToUpdate) {
+        throw new Error('Product not found.');
+      }
 
       if (productToUpdate.hasSizes) {
         productToUpdate.sizes.filter(size => size._id === sizeId)[0].sizeQuantity = 0
         productToUpdate.sizes.filter(size => size._id === sizeId)[0].extrasSelected = []
         productToUpdate.sizes.filter(size => size._id === sizeId)[0].notes = ''
-      }else{
+      } else {
         // Reset the quantity and notes of the found product to zero
         productToUpdate.quantity = 0;
         productToUpdate.extrasSelected = [];
@@ -838,7 +878,7 @@ function App() {
 
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== sizeId);
-        if(updatedList.length===0){
+        if (updatedList.length === 0) {
           getAllProducts()
           return
         }
@@ -861,11 +901,11 @@ function App() {
         const updatedList = productOrderToUpdate.length > 0 ?
           productOrderToUpdate.filter(product => product.productid !== id) :
           itemsInCart.filter(item => item.productid !== id);
-          
-          console.log({ updatedList })
+
+        console.log({ updatedList })
         // Update the list of item IDs
         const updatedItemId = itemId.filter(itemId => itemId !== id);
-        if(updatedList.length === 0){
+        if (updatedList.length === 0) {
           getAllProducts()
           return
         }
@@ -1205,11 +1245,11 @@ function App() {
         help,
         helpStatus
       });
-      if(updatedOrder){        
+      if (updatedOrder) {
         // Show success toast after successfully marking order for checkout
         toast.success('تم طلب الحساب');
         // socket.emit("sendorder", `  طاولة${tablenum} تطلب الحساب`);
-  
+
         // Redirect after 10 minutes
         setTimeout(() => {
           window.location.href = `https://${window.location.hostname}`;
@@ -1356,7 +1396,7 @@ function App() {
   const getOrderProductForTable = async (e, tableId) => {
     try {
       e.preventDefault();
-      const tableorder = allOrders.filter((order, i) => order.table&&order.table._id == tableId);
+      const tableorder = allOrders.filter((order, i) => order.table && order.table._id == tableId);
       const lasttableorder = tableorder.length > 0 ? tableorder[tableorder.length - 1] : [];
       const lasttableorderactive = lasttableorder.isActive;
       // console.log({ lasttableorder });
@@ -1389,81 +1429,81 @@ function App() {
   const putNumOfPaid = (id, sizeid, numOfPaid) => {
     try {
       console.log({ listProductsOrder, newlistofproductorder });
-  
+
       const updatedProducts = newlistofproductorder.map(product => {
-        if ((sizeid && product.productid._id === id && product.sizeId === sizeid) || 
-            (!sizeid && product.productid._id === id && !product.sizeId)) {
-          
-          const originalProduct = listProductsOrder.find(pro => 
-            (sizeid && pro.productid._id === id && pro.sizeId === sizeid) || 
+        if ((sizeid && product.productid._id === id && product.sizeId === sizeid) ||
+          (!sizeid && product.productid._id === id && !product.sizeId)) {
+
+          const originalProduct = listProductsOrder.find(pro =>
+            (sizeid && pro.productid._id === id && pro.sizeId === sizeid) ||
             (!sizeid && pro.productid._id === id && !pro.sizeId)
           );
-  
+
           if (originalProduct) {
             return { ...product, numOfPaid: originalProduct.numOfPaid + numOfPaid };
           }
         }
         return product;
       });
-  
+
       setnewlistofproductorder(updatedProducts);
       console.log({ listProductsOrder, updatedProducts });
-  
+
       calcSubtotalSplitOrder(updatedProducts);
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while updating the number of paid products.');
     }
   };
-  
+
   const [subtotalSplitOrder, setsubtotalSplitOrder] = useState(0);
-  
+
   const calcSubtotalSplitOrder = (products = newlistofproductorder) => {
     try {
       let total = 0;
-  
+
       products.forEach(product => {
         let originalProduct;
-  
+
         if (product.sizeId) {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id && pro.sizeId === product.sizeId);
         } else {
           originalProduct = listProductsOrder.find(pro => pro.productid._id === product.productid._id);
         }
-  
+
         if (originalProduct) {
           const numOfPaidDifference = Math.abs(originalProduct.numOfPaid - product.numOfPaid);
           console.log({ numOfPaidDifference });
-  
+
           const priceToUse = originalProduct.priceAfterDiscount > 0 ? originalProduct.priceAfterDiscount : originalProduct.price;
           const subTotal = numOfPaidDifference * priceToUse;
-  
+
           total += subTotal;
         }
       });
-  
-      setsubtotalSplitOrder( total);
+
+      setsubtotalSplitOrder(total);
       console.log({ total, products });
     } catch (error) {
       console.error(error);
       toast.error('حدث خطأ أثناء حساب المجموع للطلب المقسم.');
     }
   };
-  
+
   const handlePayExtras = (productIndex, extraId, isPaid) => {
     const updatedProducts = newlistofproductorder.map((product, i) => {
       if (i === productIndex) {
         return {
           ...product,
           extras: product.extras.map((extra, j) => {
-            if(extra){              
+            if (extra) {
               if (extra._id === extraId) {
-                isPaid?setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice):setsubtotalSplitOrder(subtotalSplitOrder - extra.totalExtrasPrice)
+                isPaid ? setsubtotalSplitOrder(subtotalSplitOrder + extra.totalExtrasPrice) : setsubtotalSplitOrder(subtotalSplitOrder - extra.totalExtrasPrice)
                 return {
                   ...extra,
                   isPaid: isPaid
                 };
-  
+
               }
               return extra;
             }
@@ -1472,15 +1512,15 @@ function App() {
       }
       return product;
     });
-  
+
     setnewlistofproductorder(updatedProducts);
     // calculateExtrasSubtotal(updatedProducts);
   };
-  
+
   // Function to calculate the subtotal for paid extras
   const calculateExtrasSubtotal = (products) => {
     let total = subtotalSplitOrder;
-  
+
     products.forEach(product => {
       product.extras && product.extras.forEach(extra => {
         if (extra.isPaid) {
@@ -1488,11 +1528,11 @@ function App() {
         }
       });
     });
-  
+
     setsubtotalSplitOrder(total);
   };
-  
-  
+
+
 
 
   // Function to split the invoice and pay a portion of it
@@ -1594,7 +1634,7 @@ function App() {
 
 
 
-  
+
 
 
 
@@ -2040,12 +2080,23 @@ function App() {
 
   }, [count, itemsInCart, productOrderToUpdate, isLogin])
 
+
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token_e');
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setRole(decodedToken.employeeinfo.isAdmin ? 'admin' : 'user');
+    }
+  }, []);
+
   return (
     <detacontext.Provider
       value={{
         restaurantData, clientInfo, apiUrl,
         // Functions related to authentication
-        userLoginInfo, employeeLoginInfo,permissionsList, getUserInfoFromToken,
+        userLoginInfo, employeeLoginInfo, role, permissionsList, getUserInfoFromToken,
         // login, signup, logout,
         //  adminLogin, employeelogout,
 
@@ -2079,52 +2130,63 @@ function App() {
         createOrderForTableByClient, createDeliveryOrderByClient,
 
         orderDetalisBySerial, getorderDetailsBySerial, updateOrder, productOrderToUpdate,
-        putNumOfPaid,handlePayExtras, splitInvoice, subtotalSplitOrder,
+        putNumOfPaid, handlePayExtras, splitInvoice, subtotalSplitOrder,
         createReservations, getAvailableTables, availableTableIds, confirmReservation, updateReservation, getAllReservations, allReservations, getReservationById, deleteReservation
         , isLoadiog, setisLoadiog,
         setStartDate, setEndDate, filterByDateRange, filterByTime
       }}>
+
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Userscreen />} />
           <Route path='/:id' element={<Userscreen />} />
-
           <Route path='/login' element={<Login />} />
 
-          <Route path='/management/*' element={<ManagLayout />}>
-            <Route index element={<ManagerDash />} />
-            <Route path='info' element={<Info />} />
-            <Route path='orders' element={<Orders />} />
-            <Route path='products' element={<Products />} />
-            <Route path='productrecipe' element={<ProductRecipe />} />
-            <Route path='tables' element={<Tables />} />
-            <Route path='tablespage' element={<TablesPage />} />
-            <Route path='reservation' element={<ReservationTables />} />
-            <Route path='employees' element={<Employees />} />
-            <Route path='permissions' element={<PermissionsComponent />} />
-            <Route path='employeetransactions' element={<EmployeeTransactions />} />
-            <Route path='payroll' element={<PayRoll />} />
-            <Route path='attendancerecord' element={<AttendanceManagement />} />
-            <Route path='category' element={<Category />} />
-            <Route path='kitchen' element={<Kitchen />} />
-            <Route path='waiter' element={<Waiter />} />
-            <Route path='users' element={<Users />} />
-            <Route path='message' element={<CustomerMessage />} />
-            <Route path='deliveryman' element={<DeliveryMan />} />
-            <Route path='pos' element={<POS />} />
-            <Route path='supplier' element={<Suppliers />} />
-            <Route path='purchase' element={<Purchase />} />
-            <Route path='purchasereturn' element={<PurchaseReturn />} />
-            <Route path='suppliertransaction' element={<SupplierTransaction />} />
-            <Route path='categoryStock' element={<CategoryStock />} />
-            <Route path='stockitem' element={<StockItem />} />
-            <Route path='stockmang' element={<StockManag />} />
-            <Route path='kitchenconsumption' element={<KitchenConsumption />} />
-            <Route path='expense' element={<ExpenseItem />} />
-            <Route path='dailyexpense' element={<DailyExpense />} />
-            <Route path='cashregister' element={<CashRegister />} />
-            <Route path='cashmovement' element={<CashMovement />} />
-          </Route>
+          {role === 'admin' && (
+            <Route
+              path='/management/*'
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ManagLayout />
+                </Suspense>
+              }
+            >
+              <Route index element={<Suspense fallback={<div>Loading...</div>}><ManagerDash /></Suspense>} />
+              <Route path='info' element={<Suspense fallback={<div>Loading...</div>}><Info /></Suspense>} />
+              <Route path='orders' element={<Suspense fallback={<div>Loading...</div>}><Orders /></Suspense>} />
+              <Route path='products' element={<Suspense fallback={<div>Loading...</div>}><Products /></Suspense>} />
+              <Route path='productrecipe' element={<Suspense fallback={<div>Loading...</div>}><ProductRecipe /></Suspense>} />
+              <Route path='tables' element={<Suspense fallback={<div>Loading...</div>}><Tables /></Suspense>} />
+              <Route path='tablespage' element={<Suspense fallback={<div>Loading...</div>}><TablesPage /></Suspense>} />
+              <Route path='reservation' element={<Suspense fallback={<div>Loading...</div>}><ReservationTables /></Suspense>} />
+              <Route path='employees' element={<Suspense fallback={<div>Loading...</div>}><Employees /></Suspense>} />
+              <Route path='permissions' element={<Suspense fallback={<div>Loading...</div>}><PermissionsComponent /></Suspense>} />
+              <Route path='employeetransactions' element={<Suspense fallback={<div>Loading...</div>}><EmployeeTransactions /></Suspense>} />
+              <Route path='payroll' element={<Suspense fallback={<div>Loading...</div>}><PayRoll /></Suspense>} />
+              <Route path='attendancerecord' element={<Suspense fallback={<div>Loading...</div>}><AttendanceManagement /></Suspense>} />
+              <Route path='category' element={<Suspense fallback={<div>Loading...</div>}><Category /></Suspense>} />
+              <Route path='kitchen' element={<Suspense fallback={<div>Loading...</div>}><Kitchen /></Suspense>} />
+              <Route path='waiter' element={<Suspense fallback={<div>Loading...</div>}><Waiter /></Suspense>} />
+              <Route path='users' element={<Suspense fallback={<div>Loading...</div>}><Users /></Suspense>} />
+              <Route path='message' element={<Suspense fallback={<div>Loading...</div>}><CustomerMessage /></Suspense>} />
+              <Route path='deliveryman' element={<Suspense fallback={<div>Loading...</div>}><DeliveryMan /></Suspense>} />
+              <Route path='pos' element={<Suspense fallback={<div>Loading...</div>}><POS /></Suspense>} />
+              <Route path='supplier' element={<Suspense fallback={<div>Loading...</div>}><Suppliers /></Suspense>} />
+              <Route path='purchase' element={<Suspense fallback={<div>Loading...</div>}><Purchase /></Suspense>} />
+              <Route path='purchasereturn' element={<Suspense fallback={<div>Loading...</div>}><PurchaseReturn /></Suspense>} />
+              <Route path='suppliertransaction' element={<Suspense fallback={<div>Loading...</div>}><SupplierTransaction /></Suspense>} />
+              <Route path='categorystock' element={<Suspense fallback={<div>Loading...</div>}><CategoryStock /></Suspense>} />
+              <Route path='stockitem' element={<Suspense fallback={<div>Loading...</div>}><StockItem /></Suspense>} />
+              <Route path='stockmang' element={<Suspense fallback={<div>Loading...</div>}><StockManag /></Suspense>} />
+              <Route path='kitchenconsumption' element={<Suspense fallback={<div>Loading...</div>}><KitchenConsumption /></Suspense>} />
+              <Route path='expense' element={<Suspense fallback={<div>Loading...</div>}><ExpenseItem /></Suspense>} />
+              <Route path='dailyexpense' element={<Suspense fallback={<div>Loading...</div>}><DailyExpense /></Suspense>} />
+              <Route path='cashregister' element={<Suspense fallback={<div>Loading...</div>}><CashRegister /></Suspense>} />
+              <Route path='cashmovement' element={<Suspense fallback={<div>Loading...</div>}><CashMovement /></Suspense>} />
+            </Route>
+          )}
+
+          <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </BrowserRouter>
     </detacontext.Provider>
