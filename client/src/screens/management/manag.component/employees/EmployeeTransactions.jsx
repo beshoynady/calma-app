@@ -24,19 +24,19 @@ const EmployeeTransactions = () => {
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("")
   const [employeeId, setemployeeId] = useState("")
   const [employeeName, setemployeeName] = useState("")
-  const [movement, setmovement] = useState("")
+  const [transactionType, settransactionType] = useState("")
   const [Amount, setAmount] = useState()
   const [oldAmount, setoldAmount] = useState(0)
   const [newAmount, setnewAmount] = useState()
 
 
-  // Function to add new salary movement
+  // Function to add new salary transactionType
   const addEmployeeTransactions = async (e) => {
     e.preventDefault();
     const data = {
       employeeId,
       employeeName,
-      movement,
+      transactionType,
       Amount,
       oldAmount,
       newAmount,
@@ -52,17 +52,17 @@ const EmployeeTransactions = () => {
 
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred while adding the movement');
+      toast.error('An error occurred while adding the transactionType');
     }
   };
 
-  // Function to update salary movement
+  // Function to update salary transactionType
   const updateEmployeeTransactions = async (e) => {
     e.preventDefault();
     const data = {
       employeeId,
       employeeName,
-      movement,
+      transactionType,
       Amount,
       oldAmount,
       newAmount,
@@ -75,11 +75,11 @@ const EmployeeTransactions = () => {
       toast.success('تم تعديل السجل بنجاح');
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred while updating the movement');
+      toast.error('An error occurred while updating the transactionType');
     }
   };
 
-  // Function to delete salary movement
+  // Function to delete salary transactionType
   const deleteEmployeeTransactions = async (e) => {
     e.preventDefault();
     try {
@@ -88,7 +88,7 @@ const EmployeeTransactions = () => {
       toast.success('تم حذف السجل بنجاح');
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred while deleting the movement');
+      toast.error('An error occurred while deleting the transactionType');
     }
   };
 
@@ -248,9 +248,9 @@ const EmployeeTransactions = () => {
                           <label>العملية</label>
                           <select class="form-control" onChange={(e) => filterEmpEmployeeTransactions(e.target.value)} >
                             <option >الكل</option>
-                            {listofTransactions.map((m, i) => {
+                            {listofTransactions.map((transaction, i) => {
                               return (
-                                <option value={m} key={i}>{m}</option>
+                                <option value={transaction} key={i}>{transaction}</option>
                               )
                             })}
                           </select>
@@ -323,7 +323,7 @@ const EmployeeTransactions = () => {
                                 <td>
                                   <a href="#editEmployeeTransactionsModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => {
                                     setEmployeeTransactionsId(transaction._id); setemployeeName(transaction.employeeName); setAmount(transaction.Amount); setoldAmount(transaction.oldAmount); setnewAmount(transaction.newAmount); 
-                                   setmovement(transaction.transactionType)
+                                   settransactionType(transaction.transactionType)
                                   }}>&#xE254;</i></a>
                                   <a href="#deleteEmployeeTransactionsModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setEmployeeTransactionsId(transaction._id)}>&#xE872;</i></a>
                                 </td>
@@ -377,11 +377,11 @@ const EmployeeTransactions = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التعامل</label>
-                          <select form="carform" required onChange={(e) => { filterEmployeeTransactions(e.target.value); setmovement(e.target.value) }}>
+                          <select form="carform" required onChange={(e) => { filterEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                             <option>اختر</option>
-                            {listofTransactions.length > 0 ? listofTransactions.map((movement, i) => {
+                            {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
                               return (
-                                <option value={movement} key={i}>{movement}</option>
+                                <option value={transaction} key={i}>{transaction}</option>
                               )
                             }) : ""}
                           </select>
@@ -439,11 +439,11 @@ const EmployeeTransactions = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الحركه</label>
-                          <select form="carform" defaultValue={movement} required onChange={(e) => { filterEmployeeTransactions(e.target.value); setmovement(e.target.value) }}>
+                          <select form="carform" defaultValue={transactionType} required onChange={(e) => { filterEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                             <option>اختر</option>
-                            {listofTransactions.length > 0 ? listofTransactions.map((movement, i) => {
+                            {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
                               return (
-                                <option value={movement} key={i}>{movement}</option>
+                                <option value={transaction} key={i}>{transaction}</option>
                               )
                             }) : ""}
                           </select>
