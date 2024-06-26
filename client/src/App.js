@@ -2140,51 +2140,49 @@ function App() {
         <Routes>
           <Route path='/' element={<Userscreen />} />
           <Route path='/:id' element={<Userscreen />} />
-          <Route path='/login' element={<Login />} />
 
-          {role === 'admin' && (
-            <Route
-              path='/management/*'
-              element={
-                <Suspense fallback={<div>Loading...</div>}>
-                  <ManagLayout />
-                </Suspense>
-              }
-            >
-              <Route index element={<Suspense fallback={<div>Loading...</div>}><ManagerDash /></Suspense>} />
-              <Route path='info' element={<Suspense fallback={<div>Loading...</div>}><Info /></Suspense>} />
-              <Route path='orders' element={<Suspense fallback={<div>Loading...</div>}><Orders /></Suspense>} />
-              <Route path='products' element={<Suspense fallback={<div>Loading...</div>}><Products /></Suspense>} />
-              <Route path='productrecipe' element={<Suspense fallback={<div>Loading...</div>}><ProductRecipe /></Suspense>} />
-              <Route path='tables' element={<Suspense fallback={<div>Loading...</div>}><Tables /></Suspense>} />
-              <Route path='tablespage' element={<Suspense fallback={<div>Loading...</div>}><TablesPage /></Suspense>} />
-              <Route path='reservation' element={<Suspense fallback={<div>Loading...</div>}><ReservationTables /></Suspense>} />
-              <Route path='employees' element={<Suspense fallback={<div>Loading...</div>}><Employees /></Suspense>} />
-              <Route path='permissions' element={<Suspense fallback={<div>Loading...</div>}><PermissionsComponent /></Suspense>} />
-              <Route path='employeetransactions' element={<Suspense fallback={<div>Loading...</div>}><EmployeeTransactions /></Suspense>} />
-              <Route path='payroll' element={<Suspense fallback={<div>Loading...</div>}><PayRoll /></Suspense>} />
-              <Route path='attendancerecord' element={<Suspense fallback={<div>Loading...</div>}><AttendanceManagement /></Suspense>} />
-              <Route path='category' element={<Suspense fallback={<div>Loading...</div>}><Category /></Suspense>} />
-              <Route path='kitchen' element={<Suspense fallback={<div>Loading...</div>}><Kitchen /></Suspense>} />
-              <Route path='waiter' element={<Suspense fallback={<div>Loading...</div>}><Waiter /></Suspense>} />
-              <Route path='users' element={<Suspense fallback={<div>Loading...</div>}><Users /></Suspense>} />
-              <Route path='message' element={<Suspense fallback={<div>Loading...</div>}><CustomerMessage /></Suspense>} />
-              <Route path='deliveryman' element={<Suspense fallback={<div>Loading...</div>}><DeliveryMan /></Suspense>} />
-              <Route path='pos' element={<Suspense fallback={<div>Loading...</div>}><POS /></Suspense>} />
-              <Route path='supplier' element={<Suspense fallback={<div>Loading...</div>}><Suppliers /></Suspense>} />
-              <Route path='purchase' element={<Suspense fallback={<div>Loading...</div>}><Purchase /></Suspense>} />
-              <Route path='purchasereturn' element={<Suspense fallback={<div>Loading...</div>}><PurchaseReturn /></Suspense>} />
-              <Route path='suppliertransaction' element={<Suspense fallback={<div>Loading...</div>}><SupplierTransaction /></Suspense>} />
-              <Route path='categorystock' element={<Suspense fallback={<div>Loading...</div>}><CategoryStock /></Suspense>} />
-              <Route path='stockitem' element={<Suspense fallback={<div>Loading...</div>}><StockItem /></Suspense>} />
-              <Route path='stockmang' element={<Suspense fallback={<div>Loading...</div>}><StockManag /></Suspense>} />
-              <Route path='kitchenconsumption' element={<Suspense fallback={<div>Loading...</div>}><KitchenConsumption /></Suspense>} />
-              <Route path='expense' element={<Suspense fallback={<div>Loading...</div>}><ExpenseItem /></Suspense>} />
-              <Route path='dailyexpense' element={<Suspense fallback={<div>Loading...</div>}><DailyExpense /></Suspense>} />
-              <Route path='cashregister' element={<Suspense fallback={<div>Loading...</div>}><CashRegister /></Suspense>} />
-              <Route path='cashmovement' element={<Suspense fallback={<div>Loading...</div>}><CashMovement /></Suspense>} />
-            </Route>
-          )}
+          <Route
+            path='/management/*'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <ManagLayout />
+              </Suspense>
+            }
+          >
+            <Route index element={<Suspense fallback={<div>Loading...</div>}><ManagerDash /></Suspense>} />
+            <Route path='login' element={<Login />} />
+            <Route path='info' element={<Suspense fallback={<div>Loading...</div>}><Info /></Suspense>} />
+            <Route path='orders' element={<Suspense fallback={<div>Loading...</div>}><Orders /></Suspense>} />
+            <Route path='products' element={<Suspense fallback={<div>Loading...</div>}><Products /></Suspense>} />
+            <Route path='productrecipe' element={<Suspense fallback={<div>Loading...</div>}><ProductRecipe /></Suspense>} />
+            <Route path='tables' element={<Suspense fallback={<div>Loading...</div>}><Tables /></Suspense>} />
+            <Route path='tablespage' element={<Suspense fallback={<div>Loading...</div>}><TablesPage /></Suspense>} />
+            <Route path='reservation' element={<Suspense fallback={<div>Loading...</div>}><ReservationTables /></Suspense>} />
+            <Route path='employees' element={<Suspense fallback={<div>Loading...</div>}><Employees /></Suspense>} />
+            <Route path='permissions' element={<Suspense fallback={<div>Loading...</div>}><PermissionsComponent /></Suspense>} />
+            <Route path='employeetransactions' element={<Suspense fallback={<div>Loading...</div>}><EmployeeTransactions /></Suspense>} />
+            <Route path='payroll' element={<Suspense fallback={<div>Loading...</div>}><PayRoll /></Suspense>} />
+            <Route path='attendancerecord' element={<Suspense fallback={<div>Loading...</div>}><AttendanceManagement /></Suspense>} />
+            <Route path='category' element={<Suspense fallback={<div>Loading...</div>}><Category /></Suspense>} />
+            <Route path='kitchen' element={<Suspense fallback={<div>Loading...</div>}><Kitchen /></Suspense>} />
+            <Route path='waiter' element={<Suspense fallback={<div>Loading...</div>}><Waiter /></Suspense>} />
+            <Route path='users' element={<Suspense fallback={<div>Loading...</div>}><Users /></Suspense>} />
+            <Route path='message' element={<Suspense fallback={<div>Loading...</div>}><CustomerMessage /></Suspense>} />
+            <Route path='deliveryman' element={<Suspense fallback={<div>Loading...</div>}><DeliveryMan /></Suspense>} />
+            <Route path='pos' element={<Suspense fallback={<div>Loading...</div>}><POS /></Suspense>} />
+            <Route path='supplier' element={<Suspense fallback={<div>Loading...</div>}><Suppliers /></Suspense>} />
+            <Route path='purchase' element={<Suspense fallback={<div>Loading...</div>}><Purchase /></Suspense>} />
+            <Route path='purchasereturn' element={<Suspense fallback={<div>Loading...</div>}><PurchaseReturn /></Suspense>} />
+            <Route path='suppliertransaction' element={<Suspense fallback={<div>Loading...</div>}><SupplierTransaction /></Suspense>} />
+            <Route path='categorystock' element={<Suspense fallback={<div>Loading...</div>}><CategoryStock /></Suspense>} />
+            <Route path='stockitem' element={<Suspense fallback={<div>Loading...</div>}><StockItem /></Suspense>} />
+            <Route path='stockmang' element={<Suspense fallback={<div>Loading...</div>}><StockManag /></Suspense>} />
+            <Route path='kitchenconsumption' element={<Suspense fallback={<div>Loading...</div>}><KitchenConsumption /></Suspense>} />
+            <Route path='expense' element={<Suspense fallback={<div>Loading...</div>}><ExpenseItem /></Suspense>} />
+            <Route path='dailyexpense' element={<Suspense fallback={<div>Loading...</div>}><DailyExpense /></Suspense>} />
+            <Route path='cashregister' element={<Suspense fallback={<div>Loading...</div>}><CashRegister /></Suspense>} />
+            <Route path='cashmovement' element={<Suspense fallback={<div>Loading...</div>}><CashMovement /></Suspense>} />
+          </Route>
 
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
