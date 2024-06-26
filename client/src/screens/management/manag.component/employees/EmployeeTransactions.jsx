@@ -107,13 +107,14 @@ const EmployeeTransactions = () => {
 
 
 
-  const filterEmployeeTransactions = async (transaction) => {
+
+  const filterCurrentEmployeeTransactions = async (transaction) => {
     try {
       const now = new Date();
       const currentMonth = now.getMonth();
       const currentYear = now.getFullYear();
     
-      const currentEmployeeTransactions = EmployeeTransactions && EmployeeTransactions.filter((transaction) => {
+      const currentEmployeeTransactions = listofEmployeeTransactions && listofEmployeeTransactions.filter((transaction) => {
         const transactionDate = new Date(transaction.actionAt);
         const transactionMonth = transactionDate.getMonth();
         const transactionYear = transactionDate.getFullYear();
@@ -147,7 +148,7 @@ const EmployeeTransactions = () => {
     }
   }
 
-  const filterEmpEmployeeTransactions = (transaction) => {
+  const filterEmployeeTransactions = (transaction) => {
 
     if (!transaction) {
       getEmployeeTransactions()
@@ -242,7 +243,7 @@ const EmployeeTransactions = () => {
                         </div>
                         <div class="filter-group d-flex flex-nowrap">
                           <label>العملية</label>
-                          <select class="form-control" onChange={(e) => filterEmpEmployeeTransactions(e.target.value)} >
+                          <select class="form-control" onChange={(e) => filterEmployeeTransactions(e.target.value)} >
                             <option >الكل</option>
                             {listofTransactions.map((transaction, i) => {
                               return (
@@ -373,7 +374,7 @@ const EmployeeTransactions = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>التعامل</label>
-                          <select form="carform" required onChange={(e) => { filterEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
+                          <select form="carform" required onChange={(e) => { filterCurrentEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                             <option>اختر</option>
                             {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
                               return (
@@ -435,7 +436,7 @@ const EmployeeTransactions = () => {
                         </div>
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الحركه</label>
-                          <select form="carform" defaultValue={transactionType} required onChange={(e) => { filterEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
+                          <select form="carform" defaultValue={transactionType} required onChange={(e) => { filterCurrentEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                             <option>اختر</option>
                             {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
                               return (
