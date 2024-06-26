@@ -614,7 +614,7 @@ const PayRoll = () => {
                                         <td>{Roll.Insurance}</td>
                                         <td>{Roll.Tax}</td>
                                         <td>{Roll.NetSalary}</td>
-                                        <td>{Roll.paidBy.username}</td>
+                                        <td>{Roll.paidBy?.username}</td>
                                         {Roll.isPaid === false ? (
                                           <td>
                                             <a
@@ -622,7 +622,7 @@ const PayRoll = () => {
                                               type='button'
                                               data-toggle="modal"
                                               className="btn btn-47 btn-success"
-                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, usertitle(employee._id), Roll.Month)}
+                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, employee.fullname, Roll.Month)}
                                             >
                                               دفع
                                             </a>
@@ -656,7 +656,7 @@ const PayRoll = () => {
                 </div>
               </div>
               
-              
+
               <div id="paidModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
