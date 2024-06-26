@@ -27,7 +27,7 @@ const AttendanceManagement = () => {
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
-  const [status, setStatus] = useState('Attendance');
+  const [status, setStatus] = useState('');
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtimeMinutes, setOvertimeMinutes] = useState(0);
   const [isLate, setIsLate] = useState(false);
@@ -645,9 +645,9 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((statu, i) => {
-                              <option key={i} value={statu}>{listOfStatusAR[i]}</option>
-                            })}
+                            {listOfStatus.map((status, i) => (
+                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            ))}
                           </select>
                         </div>
                         <div className="form-group w-50 d-flex align-items-center justify-content-between">
@@ -764,9 +764,9 @@ const AttendanceManagement = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             style={{ width: "100%" }}
                           >
-                            {listOfStatus.map((statu, i) => {
-                              <option key={i} value={statu}>{listOfStatusAR[i]}</option>
-                            })}
+                            {listOfStatus.map((status, i) => (
+                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                            ))}
                           </select>
                         </div>
                         <div className="form-group w-50 d-flex align-items-center justify-content-between">
