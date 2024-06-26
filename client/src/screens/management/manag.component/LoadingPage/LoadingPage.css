@@ -2,7 +2,7 @@
     width: 80px;
     height: 80px;
     border: 10px solid #f3f3f3;
-    border-top: 10px solid #ff6f61;
+    border-top: 10px solid #1b85ff;
     border-radius: 50%;
     animation: spin 1.5s linear infinite;
 }
@@ -19,7 +19,7 @@
 
 .loading-text {
     font-size: 1.5rem;
-    color: #ff6f61;
+    color: #cf0000;
     animation: fadein 2s infinite;
 }
 
