@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './ManagLayout.css'
 import { detacontext } from '../../App'
 import { Navigate, Outlet } from 'react-router-dom';
@@ -11,7 +11,7 @@ import LoadingPage from './manag.component/LoadingPage/LoadingPage';
 
 
 const ManagLayout = () => {
-  const { role } = useContext(DataContext);
+  const { role } = useContext(detacontext);
 
   if (role !== 'admin') {
     return <Navigate to='/login' />;
