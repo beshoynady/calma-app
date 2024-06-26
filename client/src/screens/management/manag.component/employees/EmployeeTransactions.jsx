@@ -107,37 +107,38 @@ const EmployeeTransactions = () => {
 
 
 
-  const filterEmployeeTransactions = async (m) => {
+  const filterEmployeeTransactions = async (transaction) => {
     try {
-      // Get the current month and year
-      const currentMonth = new Date().getMonth();
-      const currentYear = new Date().getFullYear();
-
-      // Filter movements using the current month and year
-      const CurrentEmployeeTransactions = EmployeeTransactions.filter((EmployeeTransactions) => {
-        const EmployeeTransactionsDate = new Date(EmployeeTransactions.actionAt);
-        const EmployeeTransactionsMonth = EmployeeTransactionsDate.getMonth();
-        const EmployeeTransactionsYear = EmployeeTransactionsDate.getFullYear();
-
-        return EmployeeTransactionsMonth === currentMonth && EmployeeTransactionsYear === currentYear;
+      const now = new Date();
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+  
+      if (!EmployeeTransactions || !Array.isArray(EmployeeTransactions)) {
+        throw new Error('EmployeeTransactions is not defined or is not an array');
+      }
+  
+      const currentEmployeeTransactions = EmployeeTransactions.filter((transaction) => {
+        const transactionDate = new Date(transaction.actionAt);
+        const transactionMonth = transactionDate.getMonth();
+        const transactionYear = transactionDate.getFullYear();
+  
+        return transactionMonth === currentMonth && transactionYear === currentYear;
       });
-
-      // Filter movements based on the specified 'm' parameter
-      const filterMovement = CurrentEmployeeTransactions.filter((move) => move.transactionType === m);
-
-      console.log(filterMovement);
-
-      // Set 'oldAmount' based on the filtered movement data
-      if (filterMovement.length > 0) {
-        setoldAmount(filterMovement[filterMovement.length - 1].newAmount);
+  
+      const filteredTransactions = currentEmployeeTransactions.filter((trans) => trans.transactionType === transaction);
+  
+      console.log(filteredTransactions);
+  
+      if (filteredTransactions.length > 0) {
+        setoldAmount(filteredTransactions[filteredTransactions.length - 1].newAmount);
       } else {
         setoldAmount(0);
       }
     } catch (error) {
-      console.error(error);
-      // Handle error here
+      console.error('Error filtering employee transactions:', error);
     }
   };
+  
 
 
   const getEmployeeTransactionsByEmp = (id) => {
@@ -145,7 +146,7 @@ const EmployeeTransactions = () => {
       getEmployeeTransactions()
       return
     } else {
-      const FilterByEmployees = listofEmployeeTransactions.filter(m => m.employeeId._id  === id)
+      const FilterByEmployees = listofEmployeeTransactions.filter(transaction => transaction.employeeId._id  === id)
       setlistofEmployeeTransactions(FilterByEmployees.reverse())
     }
   }
@@ -236,9 +237,9 @@ const EmployeeTransactions = () => {
                           <label>الموظف</label>
                           <select class="form-control" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)} >
                             <option>الكل</option>
-                            {allEmployees.map((em, i) => {
+                            {allEmployees.map((employee, i) => {
                               return (
-                                <option value={em._id} key={i}>{em.fullname}</option>
+                                <option value={employee._id} key={i}>{employee.fullname}</option>
                               )
                             })}
                           </select>
@@ -361,7 +362,8 @@ const EmployeeTransactions = () => {
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
                           <select form="carform" required onChange={(e) => {
-                            setemployeeName(allEmployees ? allEmployees.find(em => em._id == e.target.value).fullname : ""); setemployeeId(e.target.value);
+                            setemployeeName(allEmployees ? allEmployees.find(employee => employee._id == e.target.value).fullname : "");
+                             setemployeeId(e.target.value);
                             filterEmployeeTransactions(e.target.value)
                           }}>
                             <option>اختار</option>
@@ -426,7 +428,7 @@ const EmployeeTransactions = () => {
                       <div className="modal-body">
                         <div className="form-group w-50 d-flex flex-nowrap"> 
                           <label>الاسم</label>
-                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(allEmployees.find(em => em._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
+                          <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(allEmployees.find(employee => employee._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
                             <option>اختر</option>
                             {allEmployees.length > 0 ? allEmployees.map(employee => {
                               return (
