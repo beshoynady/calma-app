@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import '../orders/Orders.css'
 import './ManagerDash.css'
 import { detacontext } from '../../../../App'
 import jwt_decode from 'jwt-decode';
