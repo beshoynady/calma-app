@@ -7,12 +7,12 @@ import { detacontext } from '../../../../App';
 const LoadingPage = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const {resturantData} = useContext(detacontext)
+  const {restaurantData} = useContext(detacontext)
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100">
       <div className="text-center">
-        {resturantData.logo?
-        <img src={`${apiUrl}/images/${resturantData.logo}`} alt="Logo" className="logo mb-4" />
+        {restaurantData&&restaurantData.logo ?
+        <img src={`${apiUrl}/images/${restaurantData.logo}`} alt="Logo" className="logo mb-4" />
         :''
       }
         <div className="spinner"></div>
