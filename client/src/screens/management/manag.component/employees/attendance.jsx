@@ -607,11 +607,12 @@ const AttendanceManagement = () => {
                       <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.username}</td>
                       <td className="text-nowrap text-truncate">{Record.notes}</td>
                       <td>
-                        {Record.arrivalDate && !Record.departureDate?
-                        (<a href="#departureModal" className="edit btn" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
-                          <i className="material-icons" data-toggle="tooltip" title="تسجيل انصراف">&#xE879;</i>
-                        </a>)
-                        :''}
+                        {Record.arrivalDate && !Record.departureDate ? (
+                          <a href="#departureModal" className="edit btn" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
+                            <i className="material-icons" data-toggle="tooltip" title="تسجيل انصراف">logout</i>
+                          </a>
+                        ) : ''}
+
                       </td>
                       <td>
                         <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
