@@ -82,7 +82,7 @@ const AttendanceManagement = () => {
 
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
-          console.log({Attendance})
+          console.log("Attendance")
           // await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
 
