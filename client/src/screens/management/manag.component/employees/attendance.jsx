@@ -48,7 +48,6 @@ const AttendanceManagement = () => {
       return;
     }
   
-    // تحضير بيانات الحضور بناءً على الحالة
     let newattendanceData = {
       employee,
       shift: shift._id,
@@ -59,6 +58,8 @@ const AttendanceManagement = () => {
   
     if (status === 'Attendance') {
       newattendanceData.arrivalDate = arrivalDate;
+      newattendanceData.isLate = isLate;
+      newattendanceData.lateMinutes = lateMinutes;
     }
   
     console.log({ newattendanceData });
