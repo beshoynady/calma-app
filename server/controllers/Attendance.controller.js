@@ -18,7 +18,6 @@ const createAttendanceRecord = async (req, res) => {
     } = req.body;
     const createdBy = req.employee.id;
 
-    // تحقق من الحالة واستبعد بيانات وقت الحضور والانصراف إذا كانت الحالة غياب أو إجازة
     const attendanceData = {
       employee,
       shift,

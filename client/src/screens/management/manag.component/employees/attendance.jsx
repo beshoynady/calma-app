@@ -65,10 +65,10 @@ const AttendanceManagement = () => {
     console.log({ newattendanceData });
 
     try {
-      const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
-      console.log({ response });
+      const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
+      console.log({ createRecord });
 
-      if (response.status === 201) {
+      if (createRecord.status === 201) {
         if (status === 'Attendance') {
           await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
@@ -93,16 +93,14 @@ const AttendanceManagement = () => {
       toast.info('ليس لك صلاحية لتسجيل انصراف')
       return
     }
-    let newattendanceData = {
-
-      departureDate,
-      isOvertime,
-      overtimeMinutes,
-      notes
-    }
-
-    console.log({ newattendanceData })
     try {
+      let newattendanceData = {
+        departureDate,
+        isOvertime,
+        overtimeMinutes,
+        notes
+      }
+      console.log({ newattendanceData })
       const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
       if (response.status === 200) {
         const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
