@@ -62,29 +62,27 @@ const AttendanceManagement = () => {
         status,
         notes,
       };
-
+  
       if (status === 'Attendance') {
-
         if (!arrivalDate) {
           toast.error('يرجى تحديد وقت الحضور .');
           return;
         }
-
         newattendanceData.arrivalDate = arrivalDate;
         newattendanceData.isLate = isLate;
         newattendanceData.lateMinutes = lateMinutes;
       }
-
+  
       console.log({ newattendanceData });
-
+  
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
       console.log({ createRecord });
-
+  
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
-          const updateEmployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+          await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
-
+  
         getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
       } else {
@@ -95,6 +93,7 @@ const AttendanceManagement = () => {
       console.error('Error recording arrival:', error);
     }
   };
+  
 
 
 

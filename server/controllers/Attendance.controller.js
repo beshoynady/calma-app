@@ -38,6 +38,7 @@ const createAttendanceRecord = async (req, res) => {
   }
 };
 
+
 // Update a specific attendance record by its ID
 const updateAttendanceRecordById = async (req, res) => {
   try {
