@@ -15,7 +15,8 @@ const AttendanceManagement = () => {
     },
   };
 
-  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
+  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime, 
+    EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
   const permissionsForAttendance = permissionsList?.filter(permission => permission.resource === 'Attendance')[0]
 
@@ -124,7 +125,7 @@ const AttendanceManagement = () => {
 
   const [allAttendanceRecords, setallAttendanceRecords] = useState([])
   const getallAttendanceRecords = async () => {
-    if (permissionsForAttendance.read === false) {
+    if (permissionsForAttendance&&permissionsForAttendance.read === false) {
       toast.info('ليس لك صلاحية لعرض السجلات')
       return
     }
@@ -440,10 +441,10 @@ const AttendanceManagement = () => {
     setallAttendanceRecords(filteredRecords)
   };
 
-  useEffect(async () => {
-    await getEmployees()
-    await getShifts()
-    await getallAttendanceRecords()
+  useEffect( () => {
+     getEmployees()
+     getShifts()
+     getallAttendanceRecords()
   }, [])
 
 
@@ -554,12 +555,7 @@ const AttendanceManagement = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                {/* <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th> */}
+                
                 <th>م</th>
                 <th>اليوم</th>
                 <th>الاسم</th>
@@ -583,12 +579,7 @@ const AttendanceManagement = () => {
                 if (i >= startpagination & i < endpagination) {
                   return (
                     <tr key={i}>
-                      {/* <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td> */}
+                      
                       <td>{i + 1}</td>
                       <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
                       <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
@@ -647,10 +638,12 @@ const AttendanceManagement = () => {
 
 
 
-      <div id="arrivalModal" className="modal fade">
+      {/* <div id="arrivalModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form onSubmit={recordArrival}>
+            <form 
+            onSubmit={recordArrival}
+            >
               <div className="modal-header">
                 <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -663,7 +656,7 @@ const AttendanceManagement = () => {
                     className="form-control"
                     readOnly={true}
                     name="currentDate"
-                    value={currentDate}
+                    defaultValue={currentDate}
                     style={{ width: "100%" }}
                   />
                 </div>
@@ -742,7 +735,6 @@ const AttendanceManagement = () => {
                     style={{ width: "100%" }}
                   ></textarea>
                 </div>
-                {/* Add more input fields for other form elements as needed */}
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
                 <input type="submit" className="btn w-50 btn-success" value="اضافه" />
@@ -751,10 +743,10 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
-      <div id="departureModal" className="modal fade">
+      {/* <div id="departureModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={recordDeparture}>
@@ -820,7 +812,6 @@ const AttendanceManagement = () => {
                     style={{ width: "100%" }}
                   ></textarea>
                 </div>
-                {/* Add more input fields for other form elements as needed */}
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
                 <input type="submit" className="btn w-50 btn-success" value="اضافه" />
@@ -829,11 +820,11 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
 
-      <div id="editRecordModal" className="modal fade">
+      {/* <div id="editRecordModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={editAttendanceRecord}>
@@ -939,7 +930,6 @@ const AttendanceManagement = () => {
                     style={{ width: "100%" }}
                   ></textarea>
                 </div>
-                {/* Add more input fields for other form elements as needed */}
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
                 <input type="submit" className="btn w-50 btn-primary" value="حفظ" />
@@ -948,7 +938,7 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div id="deleteRecordModal" className="modal fade">
         <div className="modal-dialog">
