@@ -14,7 +14,7 @@ const EmployeeTransactionsSchema = new mongoose.Schema(
     },
     transactionType: {
       type: String,
-      enum: ['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة'],
+      enum: ['سلف', 'خصم','مكافأة'],
       required: true,
     },
     Amount: {

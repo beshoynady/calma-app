@@ -277,10 +277,10 @@ const Employees = () => {
 
 
   const exportToExcel = () => {
-  if(permissionsForEmployee.read === false){
-    toast.error('ليس لك صلاحية لعرض بيانات الموظفين')
-    return
-  }
+    if (permissionsForEmployee.read === false) {
+      toast.error('ليس لك صلاحية لعرض بيانات الموظفين')
+      return
+    }
     const data = listOfEmployees.map((employee, i) => ({
       'م': i + 1,
       'الاسم': employee.fullname,
@@ -340,56 +340,52 @@ const Employees = () => {
             </div>
           </div>
           <div className="table-filter print-hide">
-            <div className="row text-dark">
-              <div className="col-sm-3">
-                <div className="show-entries">
-                  <span>عرض</span>
-                  <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                    <option value={20}>20</option>
-                    <option value={25}>25</option>
-                    <option value={30}>30</option>
-                  </select>
-                  <span>عنصر</span>
-                </div>
+            <div className="d-flex flex-wrap flex-row w-100 text-dark">
+              <div className="show-entries">
+                <span>عرض</span>
+                <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={15}>15</option>
+                  <option value={20}>20</option>
+                  <option value={25}>25</option>
+                  <option value={30}>30</option>
+                </select>
+                <span>عنصر</span>
               </div>
-              <div className="col-sm-9">
-                <div className="filter-group">
-                  <label>الاسم</label>
-                  <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
-                </div>
-                <div className="filter-group">
-                  <label>الوظيفة</label>
-                  <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
-                    <option value="all">الكل</option>
-                    <option value="manager">مدير</option>
-                    <option value="cashier">كاشير</option>
-                    <option value="waiter">ويتر</option>
-                    <option value="Chef">شيف</option>
-                  </select>
-                </div>
-                <div className="filter-group">
-                  <label>الشيفت</label>
-                  <select className="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
-                    <option value="all">الكل</option>
-                    {shifts ? shifts.map((shift, i) =>
-                      <option value={shift._id} key={i}>{shift.shiftType}</option>
-                    ) : <option>لم يتم انشاء شفتات</option>}
+              <div className="filter-group">
+                <label>الاسم</label>
+                <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+              </div>
+              <div className="filter-group">
+                <label>الوظيفة</label>
+                <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                  <option value="all">الكل</option>
+                  <option value="manager">مدير</option>
+                  <option value="cashier">كاشير</option>
+                  <option value="waiter">ويتر</option>
+                  <option value="Chef">شيف</option>
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>الشيفت</label>
+                <select className="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
+                  <option value="all">الكل</option>
+                  {shifts ? shifts.map((shift, i) =>
+                    <option value={shift._id} key={i}>{shift.shiftType}</option>
+                  ) : <option>لم يتم انشاء شفتات</option>}
 
-                  </select>
-                </div>
-                <div className="filter-group">
-                  <label>الحالة</label>
-                  <select className="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
-                    <option value="all">الكل</option>
-                    <option value={true}>متاح</option>
-                    <option value={false}>غير متاح</option>
-                  </select>
-                </div>
-                {/* <span className="filter-icon"><i className="fa fa-filter"></i></span> */}
+                </select>
               </div>
+              <div className="filter-group">
+                <label>الحالة</label>
+                <select className="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
+                  <option value="all">الكل</option>
+                  <option value={true}>متاح</option>
+                  <option value={false}>غير متاح</option>
+                </select>
+              </div>
+              {/* <span className="filter-icon"><i className="fa fa-filter"></i></span> */}
             </div>
           </div>
           <table className="table table-striped table-hover">

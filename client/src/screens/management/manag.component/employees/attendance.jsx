@@ -27,6 +27,7 @@ const AttendanceManagement = () => {
 
   const [recordId, setRecordId] = useState('');
   const [employee, setEmployee] = useState('');
+  const [employeeName, setEmployeeName] = useState('');
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
@@ -39,7 +40,7 @@ const AttendanceManagement = () => {
   const [notes, setNotes] = useState('');
 
 
-  const createAttendanceRecord = async (e) => {
+  const recordArrival = async (e) => {
     if (permissionsForAttendance.create === false) {
       toast.info('ليس لك صلاحية لانشاء سجل')
       return
@@ -48,12 +49,12 @@ const AttendanceManagement = () => {
     let newattendanceData = {
       employee,
       shift: shift._id,
-      arrivalDate,
-      departureDate,
       currentDate,
-      status,
-      isOvertime,
-      overtimeMinutes,
+      arrivalDate,
+      // departureDate,
+      status: 'Attendance',
+      // isOvertime,
+      // overtimeMinutes,
       isLate,
       lateMinutes,
       notes
@@ -64,6 +65,9 @@ const AttendanceManagement = () => {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
       console.log({ response })
       if (response.status === 201) {
+        if (status === 'Attendance') {
+          const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+        }
         getallAttendanceRecords()
         // attendance created successfully
         toast.success('تم انشاء السجل بنجاح:');
@@ -76,6 +80,49 @@ const AttendanceManagement = () => {
       // Handle error, display message, etc.
     }
   };
+  const recordDeparture = async (e, recordId) => {
+    if (permissionsForAttendance.update === false) {
+      toast.info('ليس لك صلاحية لتسجيل انصراف')
+      return
+    }
+    e.preventDefault();
+    let newattendanceData = {
+      // employee,
+      // shift: shift._id,
+      // currentDate,
+      // arrivalDate,
+      departureDate,
+      // status: 'Attendance',
+      isOvertime,
+      overtimeMinutes,
+      // isLate,
+      // lateMinutes,
+      notes
+    }
+
+    console.log({ newattendanceData })
+    try {
+      const response = await axios.post(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
+      console.log({ response })
+      if (response.status === 201) {
+        if (status === 'Attendance') {
+          const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
+        }
+        getallAttendanceRecords()
+        // attendance created successfully
+        toast.success('تم انشاء السجل بنجاح:');
+        // Add any further logic here, such as updating UI or state
+      } else {
+        toast.error('فشل عمليه انشاء السجل!حاول مره اخري');
+      }
+    } catch (error) {
+      toast.error('حدث خطأ اثناء انشاء السجل !حاول مره اخري:');
+      // Handle error, display message, etc.
+    }
+  };
+
+
+
   const [allAttendanceRecords, setallAttendanceRecords] = useState([])
   const getallAttendanceRecords = async () => {
     if (permissionsForAttendance.read === false) {
@@ -94,24 +141,24 @@ const AttendanceManagement = () => {
   }
 
   const [recordToUpdate, setrecordToUpdate] = useState({})
-  const handleEditRecord = (id) => {
+  const handleEditRecord = (record) => {
     if (permissionsForAttendance.update === false) {
       toast.info('ليس لك صلاحية لتعديل السجلات')
       return
     }
-    setRecordId(id);
-    const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
-    if (getRecord) {
-      console.log({ getRecord })
-      setrecordToUpdate(getRecord)
-      setEmployee(getRecord.employee);
-      setCurrentDate(getRecord.currentDate);
-      setArrivalDate(getRecord.arrivalDate);
-      setDepartureDate(getRecord.departureDate);
-      setShift(getRecord.shift);
-      setNotes(getRecord.notes);
-      setOvertimeMinutes(getRecord.overtimeMinutes);
-      setLateMinutes(getRecord.lateMinutes);
+    if (record) {
+      console.log({ record })
+      setrecordToUpdate(record)
+      setRecordId(record._id);
+      setEmployee(record.employee._id);
+      setEmployeeName(record.employee.username);
+      setCurrentDate(record.currentDate);
+      setArrivalDate(record.arrivalDate);
+      setDepartureDate(record.departureDate);
+      setShift(record.shift);
+      setOvertimeMinutes(record.overtimeMinutes);
+      setLateMinutes(record.lateMinutes);
+      setNotes(record.notes);
     }
   }
 
@@ -208,6 +255,7 @@ const AttendanceManagement = () => {
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
     // console.log({ employeeid })
+    const employeeAttendance = allAttendanceRecords.filter(record => record.employee._id === employeeid && record.status === 'Attendance')
     const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
     // console.log({ employee: employee.shift })
     if (employee) {
@@ -410,7 +458,7 @@ const AttendanceManagement = () => {
                 <h2>ادارة <b>تسجيل الحضور و الانصراف و الاجازات و الغياب</b></h2>
               </div>
               <div className="col-sm-6 d-flex justify-content-end">
-                <a href="#addRecordModal" className="btn w-50 btn-success" data-toggle="modal">
+                <a href="#arrivalModal" className="btn w-50 btn-success" data-toggle="modal">
                   <i className="material-icons">&#xE147;</i> <span>اضافه تسجيل</span></a>
                 {/* <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
               </div>
@@ -559,7 +607,14 @@ const AttendanceManagement = () => {
                       <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.username}</td>
                       <td className="text-nowrap text-truncate">{Record.notes}</td>
                       <td>
-                        <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}>
+                        {Record.arrivalDate && !Record.departureDate?
+                        (<a href="#departureModal" className="edit btn" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
+                          <i className="material-icons" data-toggle="tooltip" title="تسجيل انصراف">&#xE879;</i>
+                        </a>)
+                        :''}
+                      </td>
+                      <td>
+                        <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
                           <i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
                         <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}>
@@ -591,10 +646,10 @@ const AttendanceManagement = () => {
 
 
 
-      <div id="addRecordModal" className="modal fade">
+      <div id="arrivalModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form onSubmit={createAttendanceRecord}>
+            <form onSubmit={recordArrival}>
               <div className="modal-header">
                 <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -616,7 +671,7 @@ const AttendanceManagement = () => {
                   <select
                     className="form-control"
                     required
-                    name="status"
+                    name="employee"
                     onChange={handleSelectEmployee}
                     style={{ width: "100%" }}
                   >
@@ -643,19 +698,8 @@ const AttendanceManagement = () => {
                     type="datetime-local"
                     className="form-control"
                     name="arrivalDate"
-                    defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+                    defaultValue={formatDate(new Date())}
                     onChange={handleArrivealDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                  <label>تاريخ الانصراف</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    name="departureDate"
-                    defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
-                    onChange={handleDepartureDate}
                     style={{ width: "100%" }}
                   />
                 </div>
@@ -675,17 +719,7 @@ const AttendanceManagement = () => {
                     ))}
                   </select>
                 </div>
-                <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                  <label>دقائق التجاوز</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="overtimeMinutes"
-                    readOnly
-                    Value={overtimeMinutes}
-                    style={{ width: "100%" }}
-                  />
-                </div>
+
                 <div className="form-group w-50 d-flex align-items-center justify-content-between">
                   <label>دقائق التأخر</label>
                   <input
@@ -709,9 +743,97 @@ const AttendanceManagement = () => {
                 </div>
                 {/* Add more input fields for other form elements as needed */}
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="departureModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={recordDeparture}>
+              <div className="modal-header">
+                <h4 className="modal-title">تسجيل انصراف الموظف</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الحالي</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    readOnly={true}
+                    name="currentDate"
+                    value={currentDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الاسم</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly={true}
+                    name="employee"
+                    value={employeeName}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الشيفت</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly={true}
+                    name="shift"
+                    value={shift?.shiftType}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الانصراف</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    name="departureDate"
+                    defaultValue={formatDate(new Date())}
+                    onChange={handleDepartureDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>دقائق التجاوز</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="overtimeMinutes"
+                    readOnly
+                    Value={overtimeMinutes}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>ملاحظات</label>
+                  <textarea
+                    className="form-control"
+                    name="notes"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                </div>
+                {/* Add more input fields for other form elements as needed */}
+              </div>
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
@@ -828,14 +950,15 @@ const AttendanceManagement = () => {
                 </div>
                 {/* Add more input fields for other form elements as needed */}
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="submit" className="btn w-50 btn-primary" value="حفظ" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
         </div>
       </div>
+
       <div id="deleteRecordModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -848,9 +971,9 @@ const AttendanceManagement = () => {
                 <p>هل انت متاكد من حذف هذا التصنيف?</p>
                 <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="submit" className="btn w-50 btn-warning" value="حذف" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>

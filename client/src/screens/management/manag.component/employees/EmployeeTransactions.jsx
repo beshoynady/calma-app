@@ -31,7 +31,7 @@ const EmployeeTransactions = () => {
     setendpagination,
   } = useContext(detacontext);
 
-  const [listofTransactions] = useState(['سلف', 'خصم', 'غياب', 'اضافي', 'مكافأة']);
+  const [listofTransactions] = useState(['سلف', 'خصم','مكافأة']);
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("");
   const [employeeId, setemployeeId] = useState("");
   const [employeeName, setemployeeName] = useState("");
