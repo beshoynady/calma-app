@@ -575,6 +575,7 @@ const AttendanceManagement = () => {
                 <th>تسجيل</th>
                 <th>تعديل</th>
                 <th>ملاحظات</th>
+                <th>انصراف</th>
                 <th>اجراءات</th>
               </tr>
             </thead>
