@@ -62,7 +62,7 @@ const employeeSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    default: true, // Default value for isActive is true
+    default: false, // Default value for isActive is true
     required: [true, 'isActive required'],
   },
   role: {
