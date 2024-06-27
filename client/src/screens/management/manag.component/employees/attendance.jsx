@@ -638,7 +638,7 @@ const AttendanceManagement = () => {
 
 
 
-      {/* <div id="arrivalModal" className="modal fade">
+      <div id="arrivalModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <form 
@@ -743,10 +743,10 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div> */}
+      </div>
 
 
-      {/* <div id="departureModal" className="modal fade">
+      <div id="departureModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={recordDeparture}>
@@ -820,11 +820,11 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div> */}
+      </div>
 
 
 
-      {/* <div id="editRecordModal" className="modal fade">
+      <div id="editRecordModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={editAttendanceRecord}>
@@ -938,7 +938,7 @@ const AttendanceManagement = () => {
             </form>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div id="deleteRecordModal" className="modal fade">
         <div className="modal-dialog">
