@@ -4,6 +4,9 @@ import { toast } from 'react-toastify';
 import '../orders/Orders.css'
 import { detacontext } from '../../../../App';
 
+
+
+
 const AttendanceManagement = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -61,10 +64,12 @@ const AttendanceManagement = () => {
       };
 
       if (status === 'Attendance') {
+
         if (!arrivalDate) {
           toast.error('يرجى تحديد وقت الحضور .');
           return;
         }
+
         newattendanceData.arrivalDate = arrivalDate;
         newattendanceData.isLate = isLate;
         newattendanceData.lateMinutes = lateMinutes;
@@ -79,6 +84,7 @@ const AttendanceManagement = () => {
         if (status === 'Attendance') {
           const updateEmployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
+
         getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
       } else {
@@ -356,6 +362,7 @@ const AttendanceManagement = () => {
       }
     }
   }
+
   const getRecordsByShift = (shift) => {
     if (shift === 'all') {
       getallAttendanceRecords()
@@ -370,6 +377,7 @@ const AttendanceManagement = () => {
       }
     }
   }
+
   const getEmployeesByName = (name) => {
 
     if (allAttendanceRecords.length > 0 && name) {
