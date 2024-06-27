@@ -4,7 +4,7 @@ const AttendanceRecordModel = require('../models/AttendanceRecord.model');
 const createAttendanceRecord = async (req, res) => {
   try {
     const {
-      employee, shift, currentDate, status, notes,
+      employee, shift, currentDate, status, notes, arrivalDate, lateMinutes, isLate
     } = req.body;
     const createdBy = req.employee.id;
 
@@ -33,9 +33,9 @@ const createAttendanceRecord = async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(400).json({ message: 'Validation Error', error });
     }
-    
+
     res.status(500).json({ message: 'Failed to create attendance record', error });
-   }
+  }
 };
 
 // Update a specific attendance record by its ID
@@ -47,7 +47,7 @@ const updateAttendanceRecordById = async (req, res) => {
     } = req.body;
 
     const updatedBy = req.employee.id
-    
+
     const updatedAttendanceRecord = await AttendanceRecordModel.findByIdAndUpdate(
       attendanceRecordId,
       {
