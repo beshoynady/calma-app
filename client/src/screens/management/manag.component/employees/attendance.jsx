@@ -15,7 +15,7 @@ const AttendanceManagement = () => {
     },
   };
 
-  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime, 
+  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime,
     EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
   const permissionsForAttendance = permissionsList?.filter(permission => permission.resource === 'Attendance')[0]
@@ -32,7 +32,7 @@ const AttendanceManagement = () => {
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
-  const [currentDate, setCurrentDate] = useState(formatDate(new Date()));
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [status, setStatus] = useState('');
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtimeMinutes, setOvertimeMinutes] = useState(0);
@@ -47,7 +47,7 @@ const AttendanceManagement = () => {
       toast.info('ليس لك صلاحية لانشاء سجل');
       return;
     }
-  
+
     let newattendanceData = {
       employee,
       shift: shift._id,
@@ -55,19 +55,19 @@ const AttendanceManagement = () => {
       status,
       notes,
     };
-  
+
     if (status === 'Attendance') {
       newattendanceData.arrivalDate = arrivalDate;
       newattendanceData.isLate = isLate;
       newattendanceData.lateMinutes = lateMinutes;
     }
-  
+
     console.log({ newattendanceData });
-  
+
     try {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
       console.log({ response });
-  
+
       if (response.status === 201) {
         if (status === 'Attendance') {
           await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
@@ -82,19 +82,19 @@ const AttendanceManagement = () => {
       console.error('Error recording arrival:', error);
     }
   };
-  
+
 
 
 
   const recordDeparture = async (e) => {
     e.preventDefault();
-    
+
     if (permissionsForAttendance.update === false) {
       toast.info('ليس لك صلاحية لتسجيل انصراف')
       return
     }
     let newattendanceData = {
-      
+
       departureDate,
       isOvertime,
       overtimeMinutes,
@@ -105,7 +105,7 @@ const AttendanceManagement = () => {
     try {
       const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
       if (response.status === 200) {
-          const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
+        const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
         getallAttendanceRecords()
         // attendance created successfully
         toast.success('تم انشاء السجل بنجاح:');
@@ -123,7 +123,7 @@ const AttendanceManagement = () => {
 
   const [allAttendanceRecords, setallAttendanceRecords] = useState([])
   const getallAttendanceRecords = async () => {
-    if (permissionsForAttendance&&permissionsForAttendance.read === false) {
+    if (permissionsForAttendance && permissionsForAttendance.read === false) {
       toast.info('ليس لك صلاحية لعرض السجلات')
       return
     }
@@ -219,7 +219,7 @@ const AttendanceManagement = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
-    if (permissionsForEmployee&&permissionsForEmployee.read === false) {
+    if (permissionsForEmployee && permissionsForEmployee.read === false) {
       toast.error('ليس لك صلاحية لعرض الموظفين ')
       return
     }
@@ -439,10 +439,10 @@ const AttendanceManagement = () => {
     setallAttendanceRecords(filteredRecords)
   };
 
-  useEffect( () => {
-     getEmployees()
-     getShifts()
-     getallAttendanceRecords()
+  useEffect(() => {
+    getEmployees()
+    getShifts()
+    getallAttendanceRecords()
   }, [])
 
 
@@ -553,7 +553,7 @@ const AttendanceManagement = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                
+
                 <th>م</th>
                 <th>اليوم</th>
                 <th>الاسم</th>
@@ -577,7 +577,7 @@ const AttendanceManagement = () => {
                 if (i >= startpagination & i < endpagination) {
                   return (
                     <tr key={i}>
-                      
+
                       <td>{i + 1}</td>
                       <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
                       <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
@@ -639,8 +639,8 @@ const AttendanceManagement = () => {
       <div id="arrivalModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form 
-            onSubmit={recordArrival}
+            <form
+              onSubmit={recordArrival}
             >
               <div className="modal-header">
                 <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
@@ -654,7 +654,7 @@ const AttendanceManagement = () => {
                     className="form-control"
                     readOnly={true}
                     name="currentDate"
-                    defaultValue={currentDate}
+                    defaultValue={formatDate(currentDate)}
                     style={{ width: "100%" }}
                   />
                 </div>
@@ -753,7 +753,7 @@ const AttendanceManagement = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-               
+
                 <div className="form-group w-50 d-flex align-items-center justify-content-between">
                   <label>الاسم</label>
                   <input
@@ -838,7 +838,7 @@ const AttendanceManagement = () => {
                     className="form-control"
                     readOnly={true}
                     name="currentDate"
-                    defaultValue={currentDate}
+                    defaultValue={formatDate(currentDate)}
                     style={{ width: "100%" }}
                   />
                 </div>
