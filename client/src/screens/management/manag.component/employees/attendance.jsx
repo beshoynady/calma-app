@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import '../orders/Orders.css'
 import { detacontext } from '../../../../App';
 
 const AttendanceManagement = () => {
@@ -220,7 +220,7 @@ const AttendanceManagement = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
-    if (permissionsForEmployee.read === false) {
+    if (permissionsForEmployee&&permissionsForEmployee.read === false) {
       toast.error('ليس لك صلاحية لعرض الموظفين ')
       return
     }
@@ -608,13 +608,13 @@ const AttendanceManagement = () => {
                       <td className="text-nowrap text-truncate">{Record.notes}</td>
                       <td>
                         {Record.arrivalDate && !Record.departureDate ? (
-                          <a href="#departureModal" className="edit btn" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
-                            <i className="material-icons" data-toggle="tooltip" title="تسجيل انصراف">logout</i>
+                          <a href="#departureModal" className="edit btn btn-info" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
+                            انصراف
                           </a>
                         ) : ''}
 
                       </td>
-                      <td>
+                      <td className='d-flex flex-nowrap'>
                         <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record)}>
                           <i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 

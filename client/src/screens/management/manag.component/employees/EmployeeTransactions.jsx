@@ -4,6 +4,8 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import { useReactToPrint } from 'react-to-print';
+import '../orders/Orders.css'
+
 
 const EmployeeTransactions = () => {
   const apiUrl = process.env.REACT_APP_API_URL;

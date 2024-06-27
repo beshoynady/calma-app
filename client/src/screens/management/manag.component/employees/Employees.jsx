@@ -4,6 +4,7 @@ import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import { useReactToPrint } from 'react-to-print';
+import '../orders/Orders.css'
 
 const Joi = require('joi')
 
