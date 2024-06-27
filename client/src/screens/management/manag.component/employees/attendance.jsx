@@ -81,6 +81,10 @@ const AttendanceManagement = () => {
       // Handle error, display message, etc.
     }
   };
+
+
+
+
   const recordDeparture = async (e) => {
     e.preventDefault();
     
@@ -89,23 +93,16 @@ const AttendanceManagement = () => {
       return
     }
     let newattendanceData = {
-      // employee,
-      // shift: shift._id,
-      // currentDate,
-      // arrivalDate,
+      
       departureDate,
-      // status: 'Attendance',
       isOvertime,
       overtimeMinutes,
-      // isLate,
-      // lateMinutes,
       notes
     }
 
     console.log({ newattendanceData })
     try {
       const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
-      console.log({ response })
       if (response.status === 200) {
           const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
         getallAttendanceRecords()
