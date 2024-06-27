@@ -48,29 +48,29 @@ const AttendanceManagement = () => {
       return;
     }
 
-    let newattendanceData = {
-      employee,
-      shift: shift._id,
-      currentDate,
-      status,
-      notes,
-    };
-
-    if (status === 'Attendance') {
-      newattendanceData.arrivalDate = arrivalDate;
-      newattendanceData.isLate = isLate;
-      newattendanceData.lateMinutes = lateMinutes;
-    }
-
-    console.log({ newattendanceData });
-
     try {
+      let newattendanceData = {
+        employee,
+        shift: shift._id,
+        currentDate,
+        status,
+        notes,
+      };
+
+      if (status === 'Attendance') {
+        newattendanceData.arrivalDate = arrivalDate;
+        newattendanceData.isLate = isLate;
+        newattendanceData.lateMinutes = lateMinutes;
+      }
+
+      console.log({ newattendanceData });
+
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
       console.log({ createRecord });
 
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
-          await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+          const updateEmployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
         getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
@@ -251,7 +251,6 @@ const AttendanceManagement = () => {
   const handleSelectEmployee = (e) => {
     const employeeid = e.target.value
     // console.log({ employeeid })
-    const employeeAttendance = allAttendanceRecords.filter(record => record.employee._id === employeeid && record.status === 'Attendance')
     const employee = listOfEmployees.filter(employee => employee._id === employeeid)[0]
     // console.log({ employee: employee.shift })
     if (employee) {

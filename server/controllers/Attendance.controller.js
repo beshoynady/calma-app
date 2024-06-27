@@ -4,31 +4,12 @@ const AttendanceRecordModel = require('../models/AttendanceRecord.model');
 const createAttendanceRecord = async (req, res) => {
   try {
     const {
-      employee,
-      shift,
-      currentDate,
-      arrivalDate,
-      departureDate,
-      status,
-      isOvertime,
-      overtimeMinutes,
-      isLate,
-      lateMinutes,
-      notes,
+      employee, shift, currentDate, arrivalDate, departureDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes,
     } = req.body;
     const createdBy = req.employee.id;
 
     const attendanceData = {
-      employee,
-      shift,
-      currentDate,
-      status,
-      isOvertime,
-      overtimeMinutes,
-      isLate,
-      lateMinutes,
-      notes,
-      createdBy
+      employee, shift, currentDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes, createdBy
     };
 
     if (status === 'Attendance') {
