@@ -579,7 +579,7 @@ const AttendanceManagement = () => {
                     <tr key={i}>
 
                       <td>{i + 1}</td>
-                      <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
+                      <td className="text-nowrap text-truncate">{Record.currentDate && formatDateTime(Record.currentDate)}</td>
                       <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
                       <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
                       <td className="text-nowrap text-truncate">{Record.status && Record.status === 'Attendance' ? 'حضور'
