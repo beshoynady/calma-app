@@ -81,9 +81,9 @@ const AttendanceManagement = () => {
       console.log({ createRecord });
 
       if (createRecord.status === 201) {
-        if (status === 'Attendance') {
-          await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
-        }
+        // if (status === 'Attendance') {
+        //   await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+        // }
 
         getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
