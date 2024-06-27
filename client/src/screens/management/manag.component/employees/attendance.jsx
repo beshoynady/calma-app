@@ -52,10 +52,7 @@ const AttendanceManagement = () => {
       shift: shift._id,
       currentDate,
       arrivalDate,
-      // departureDate,
-      status: 'Attendance',
-      // isOvertime,
-      // overtimeMinutes,
+      status,
       isLate,
       lateMinutes,
       notes
