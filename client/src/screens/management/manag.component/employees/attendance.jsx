@@ -31,7 +31,7 @@ const AttendanceManagement = () => {
   const [shift, setShift] = useState({});
   const [arrivalDate, setArrivalDate] = useState('');
   const [departureDate, setDepartureDate] = useState('');
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
+  const [currentDate, setCurrentDate] = useState(formatDate(new Date()));
   const [status, setStatus] = useState('');
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtimeMinutes, setOvertimeMinutes] = useState(0);
@@ -41,11 +41,11 @@ const AttendanceManagement = () => {
 
 
   const recordArrival = async (e) => {
+    e.preventDefault();
     if (permissionsForAttendance.create === false) {
       toast.info('ليس لك صلاحية لانشاء سجل')
       return
     }
-    e.preventDefault();
     let newattendanceData = {
       employee,
       shift: shift._id,
@@ -80,12 +80,13 @@ const AttendanceManagement = () => {
       // Handle error, display message, etc.
     }
   };
-  const recordDeparture = async (e, recordId) => {
+  const recordDeparture = async (e) => {
+    e.preventDefault();
+    
     if (permissionsForAttendance.update === false) {
       toast.info('ليس لك صلاحية لتسجيل انصراف')
       return
     }
-    e.preventDefault();
     let newattendanceData = {
       // employee,
       // shift: shift._id,
@@ -102,12 +103,10 @@ const AttendanceManagement = () => {
 
     console.log({ newattendanceData })
     try {
-      const response = await axios.post(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
+      const response = await axios.put(`${apiUrl}/api/attendance/${recordId}`, newattendanceData, config);
       console.log({ response })
-      if (response.status === 201) {
-        if (status === 'Attendance') {
+      if (response.status === 200) {
           const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: false }, config);
-        }
         getallAttendanceRecords()
         // attendance created successfully
         toast.success('تم انشاء السجل بنجاح:');
@@ -764,17 +763,7 @@ const AttendanceManagement = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                  <label>تاريخ الحالي</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    readOnly={true}
-                    name="currentDate"
-                    value={currentDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
+               
                 <div className="form-group w-50 d-flex align-items-center justify-content-between">
                   <label>الاسم</label>
                   <input
