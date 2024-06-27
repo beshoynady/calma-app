@@ -44,41 +44,44 @@ const AttendanceManagement = () => {
   const recordArrival = async (e) => {
     e.preventDefault();
     if (permissionsForAttendance.create === false) {
-      toast.info('ليس لك صلاحية لانشاء سجل')
-      return
+      toast.info('ليس لك صلاحية لانشاء سجل');
+      return;
     }
+  
+    // تحضير بيانات الحضور بناءً على الحالة
     let newattendanceData = {
       employee,
       shift: shift._id,
       currentDate,
-      arrivalDate,
       status,
-      isLate,
-      lateMinutes,
-      notes
+      notes,
+    };
+  
+    if (status === 'Attendance') {
+      newattendanceData.arrivalDate = arrivalDate;
     }
-
-    console.log({ newattendanceData })
+  
+    console.log({ newattendanceData });
+  
     try {
       const response = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
-      console.log({ response })
+      console.log({ response });
+  
       if (response.status === 201) {
         if (status === 'Attendance') {
-          const update = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+          await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
-        getallAttendanceRecords()
-        // attendance created successfully
+        getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
-        // Add any further logic here, such as updating UI or state
       } else {
-        toast.error('فشل عمليه انشاء السجل!حاول مره اخري');
+        toast.error('فشل عمليه انشاء السجل! حاول مره أخرى.');
       }
     } catch (error) {
-      toast.error('حدث خطأ اثناء انشاء السجل !حاول مره اخري:');
-      // Handle error, display message, etc.
+      toast.error('حدث خطأ أثناء انشاء السجل! حاول مره أخرى:');
+      console.error('Error recording arrival:', error);
     }
   };
-
+  
 
 
 
@@ -646,7 +649,7 @@ const AttendanceManagement = () => {
                 <div className="form-group w-50 d-flex align-items-center justify-content-between">
                   <label>تاريخ الحالي</label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
                     readOnly={true}
                     name="currentDate"
@@ -830,7 +833,7 @@ const AttendanceManagement = () => {
                 <div className="form-group w-50 d-flex align-items-center justify-content-between">
                   <label>تاريخ الحالي</label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
                     readOnly={true}
                     name="currentDate"

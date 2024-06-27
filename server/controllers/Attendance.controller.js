@@ -16,13 +16,13 @@ const createAttendanceRecord = async (req, res) => {
       lateMinutes,
       notes,
     } = req.body;
-    const createdBy = req.employee.id
-    const attendanceRecord = await AttendanceRecordModel.create({
+    const createdBy = req.employee.id;
+
+    // تحقق من الحالة واستبعد بيانات وقت الحضور والانصراف إذا كانت الحالة غياب أو إجازة
+    const attendanceData = {
       employee,
       shift,
       currentDate,
-      arrivalDate,
-      departureDate,
       status,
       isOvertime,
       overtimeMinutes,
@@ -30,7 +30,14 @@ const createAttendanceRecord = async (req, res) => {
       lateMinutes,
       notes,
       createdBy
-    });
+    };
+
+    if (status === 'Attendance') {
+      attendanceData.arrivalDate = arrivalDate;
+      attendanceData.departureDate = departureDate;
+    }
+
+    const attendanceRecord = await AttendanceRecordModel.create(attendanceData);
 
     res.status(201).json(attendanceRecord);
   } catch (error) {
@@ -38,6 +45,7 @@ const createAttendanceRecord = async (req, res) => {
     res.status(400).json({ message: 'Failed to create attendance record', error });
   }
 };
+
 
 // Retrieve all attendance records
 const getAllAttendanceRecords = async (req, res) => {
