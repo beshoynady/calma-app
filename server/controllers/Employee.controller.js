@@ -97,11 +97,8 @@ const updateEmployeeSchema = Joi.object({
 const updateEmployee = async (req, res) => {
     try {
         const updatedBy = await req.employee.id
-        const { error } = updateEmployeeSchema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ message: error.details[0].message });
-        }
         const id = req.params.employeeId;
+        
         const { fullname, numberID, username,shift, email, address, phone, basicSalary, role, sectionNumber, isActive, password } = req.body;
 
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
