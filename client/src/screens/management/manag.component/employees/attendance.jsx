@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
 
@@ -15,7 +15,11 @@ const AttendanceManagement = () => {
     },
   };
 
+  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
+  const permissionsForAttendance = permissionsList?.filter(permission => permission.resource === 'Attendance')[0]
+
+  const permissionsForEmployee = permissionsList?.filter(permission => permission.resource === 'Employees')[0]
 
 
   const listOfStatus = ['Attendance', 'Absence', 'Vacation'];
@@ -36,6 +40,10 @@ const AttendanceManagement = () => {
 
 
   const createAttendanceRecord = async (e) => {
+    if (permissionsForAttendance.create === false) {
+      toast.info('ليس لك صلاحية لانشاء سجل')
+      return
+    }
     e.preventDefault();
     let newattendanceData = {
       employee,
@@ -70,6 +78,10 @@ const AttendanceManagement = () => {
   };
   const [allAttendanceRecords, setallAttendanceRecords] = useState([])
   const getallAttendanceRecords = async () => {
+    if (permissionsForAttendance.read === false) {
+      toast.info('ليس لك صلاحية لعرض السجلات')
+      return
+    }
     try {
       const response = await axios.get(`${apiUrl}/api/attendance`, config);
       console.log({ response })
@@ -83,6 +95,10 @@ const AttendanceManagement = () => {
 
   const [recordToUpdate, setrecordToUpdate] = useState({})
   const handleEditRecord = (id) => {
+    if (permissionsForAttendance.update === false) {
+      toast.info('ليس لك صلاحية لتعديل السجلات')
+      return
+    }
     setRecordId(id);
     const getRecord = allAttendanceRecords.filter(record => record._id === id)[0];
     if (getRecord) {
@@ -100,6 +116,10 @@ const AttendanceManagement = () => {
   }
 
   const editAttendanceRecord = async (e) => {
+    if (permissionsForAttendance.update === false) {
+      toast.info('ليس لك صلاحية لتعديل السجلات')
+      return
+    }
     e.preventDefault();
     let editattendanceData = {
       employee,
@@ -133,6 +153,10 @@ const AttendanceManagement = () => {
   };
 
   const deleteRecord = async (e) => {
+    if (permissionsForAttendance.delete === false) {
+      toast.info('ليس لك صلاحية لحذف السجلات')
+      return
+    }
     e.preventDefault()
     try {
       const response = await axios.delete(`${apiUrl}/api/attendance/${recordId}`, config)
@@ -150,6 +174,10 @@ const AttendanceManagement = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
+    if (permissionsForEmployee.read === false) {
+      toast.error('ليس لك صلاحية لعرض الموظفين ')
+      return
+    }
     try {
       const response = await axios.get(`${apiUrl}/api/employee`, config);
       const data = response.data;
@@ -371,471 +399,464 @@ const AttendanceManagement = () => {
     await getallAttendanceRecords()
   }, [])
 
+
   return (
-    <detacontext.Consumer>
-      {
-        ({ setisLoadiog, formatDate, formatTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
-          return (
-            <div className="container-xl mlr-auto">
-              <div className="table-responsive">
-                <div className="table-wrapper">
-                  <div className="table-title">
-                    <div className="row">
-                      <div className="col-sm-6 text-right">
-                        <h2>ادارة <b>تسجيل الحضور و الانصراف و الاجازات و الغياب</b></h2>
-                      </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecordModal" className="btn w-50 btn-success" data-toggle="modal">
-                          <i className="material-icons">&#xE147;</i> <span>اضافه تسجيل</span></a>
-                        {/* <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="table-filter w-100">
-                    <div className="w-100 d-flex flex-row flex-wrap text-dark">
-                      <div className="filter-group">
-                        <div className="show-entries">
-                          <span>عرض</span>
-                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                            <option value={20}>20</option>
-                            <option value={25}>25</option>
-                            <option value={30}>30</option>
-                          </select>
-                          <span>صفوف</span>
-                        </div>
-                      </div>
-                      <div className="filter-group">
-                        <label>نوع السجل</label>
-                        <select className="form-control" onChange={(e) => searchByStatus(e.target.value)}>
-                          <option value="">الكل</option>
-                          {listOfStatus.map((statu, i) => (
-                            <option key={i} value={statu}>{listOfStatusAR[i]}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="filter-group">
-                        <label>الاسم</label>
-                        <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
-                      </div>
-                      <div className="filter-group">
-                        <label>الوظيفة</label>
-                        <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
-                          <option value="all">الكل</option>
-                          <option value="manager">مدير</option>
-                          <option value="cashier">كاشير</option>
-                          <option value="waiter">ويتر</option>
-                          <option value="Chef">شيف</option>
-                        </select>
-                      </div>
-                      <div className="filter-group">
-                        <label>الشيفت</label>
-                        <select className="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
-                          <option value="all">الكل</option>
-                          {shifts ? shifts.map((shift, i) =>
-                            <option value={shift._id} key={i}>{shift.shiftType}</option>
-                          ) : <option>لم يتم انشاء شفتات</option>}
+    <div className="container-xl mlr-auto">
+      <div className="table-responsive">
+        <div className="table-wrapper">
+          <div className="table-title">
+            <div className="row">
+              <div className="col-sm-6 text-right">
+                <h2>ادارة <b>تسجيل الحضور و الانصراف و الاجازات و الغياب</b></h2>
+              </div>
+              <div className="col-sm-6 d-flex justify-content-end">
+                <a href="#addRecordModal" className="btn w-50 btn-success" data-toggle="modal">
+                  <i className="material-icons">&#xE147;</i> <span>اضافه تسجيل</span></a>
+                {/* <a href="#deleteRecordModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+              </div>
+            </div>
+          </div>
+          <div className="table-filter w-100">
+            <div className="w-100 d-flex flex-row flex-wrap text-dark">
+              <div className="filter-group">
+                <div className="show-entries">
+                  <span>عرض</span>
+                  <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                    <option value={20}>20</option>
+                    <option value={25}>25</option>
+                    <option value={30}>30</option>
+                  </select>
+                  <span>صفوف</span>
+                </div>
+              </div>
+              <div className="filter-group">
+                <label>نوع السجل</label>
+                <select className="form-control" onChange={(e) => searchByStatus(e.target.value)}>
+                  <option value="">الكل</option>
+                  {listOfStatus.map((statu, i) => (
+                    <option key={i} value={statu}>{listOfStatusAR[i]}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>الاسم</label>
+                <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+              </div>
+              <div className="filter-group">
+                <label>الوظيفة</label>
+                <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                  <option value="all">الكل</option>
+                  <option value="manager">مدير</option>
+                  <option value="cashier">كاشير</option>
+                  <option value="waiter">ويتر</option>
+                  <option value="Chef">شيف</option>
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>الشيفت</label>
+                <select className="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
+                  <option value="all">الكل</option>
+                  {shifts ? shifts.map((shift, i) =>
+                    <option value={shift._id} key={i}>{shift.shiftType}</option>
+                  ) : <option>لم يتم انشاء شفتات</option>}
 
-                        </select>
-                      </div>
-                      <div className="filter-group">
-                        <label>فلتر حسب الوقت</label>
-                        <select className="form-control" onChange={(e) => filterByTime(e.target.value)}>
-                          <option value="">اختر</option>
-                          <option value="today">اليوم</option>
-                          <option value="week">هذا الأسبوع</option>
-                          <option value="month">هذا الشهر</option>
-                          <option value="month">هذه السنه</option>
-                        </select>
-                      </div>
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>فلتر حسب الوقت</label>
+                <select className="form-control" onChange={(e) => filterByTime(e.target.value)}>
+                  <option value="">اختر</option>
+                  <option value="today">اليوم</option>
+                  <option value="week">هذا الأسبوع</option>
+                  <option value="month">هذا الشهر</option>
+                  <option value="month">هذه السنه</option>
+                </select>
+              </div>
 
-                      <div className="filter-group d-flex flex-nowrap w-75">
-                        <label className="form-label"><strong>مدة محددة:</strong></label>
+              <div className="filter-group d-flex flex-nowrap w-75">
+                <label className="form-label"><strong>مدة محددة:</strong></label>
 
-                        <div className="d-flex flex-nowrap mr-1">
-                          <label className="form-label">من</label>
-                          <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
-                        </div>
+                <div className="d-flex flex-nowrap mr-1">
+                  <label className="form-label">من</label>
+                  <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                </div>
 
-                        <div className="d-flex flex-nowrap mr-1">
-                          <label className="form-label">إلى</label>
-                          <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
-                        </div>
+                <div className="d-flex flex-nowrap mr-1">
+                  <label className="form-label">إلى</label>
+                  <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                </div>
 
-                        <div className="d-flex flex-nowrap justify-content-between w-25">
-                          <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
-                            <i className="fa fa-search"></i>
-                          </button>
-                          <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
-                            استعادة
-                          </button>
-                        </div>
-                      </div>
+                <div className="d-flex flex-nowrap justify-content-between w-25">
+                  <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
+                    <i className="fa fa-search"></i>
+                  </button>
+                  <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
+                    استعادة
+                  </button>
+                </div>
+              </div>
 
 
-                    </div>
-                  </div>
+            </div>
+          </div>
 
 
-                  <table className="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        {/* <th>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                {/* <th>
                           <span className="custom-checkbox">
                             <input type="checkbox" id="selectAll" />
                             <label htmlFor="selectAll"></label>
                           </span>
                         </th> */}
-                        <th>م</th>
-                        <th>اليوم</th>
-                        <th>الاسم</th>
-                        <th>الشيفت</th>
-                        <th>الحالة</th>
-                        <th>اليوم</th>
-                        <th>وقت الحضور</th>
-                        <th>اليوم</th>
-                        <th>وقت الانصراف</th>
-                        <th>تاخير</th>
-                        <th>اضافي</th>
-                        <th>تسجيل</th>
-                        <th>تعديل</th>
-                        <th>ملاحظات</th>
-                        <th>اجراءات</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allAttendanceRecords && allAttendanceRecords.map((Record, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              {/* <td>
+                <th>م</th>
+                <th>اليوم</th>
+                <th>الاسم</th>
+                <th>الشيفت</th>
+                <th>الحالة</th>
+                <th>اليوم</th>
+                <th>وقت الحضور</th>
+                <th>اليوم</th>
+                <th>وقت الانصراف</th>
+                <th>تاخير</th>
+                <th>اضافي</th>
+                <th>تسجيل</th>
+                <th>تعديل</th>
+                <th>ملاحظات</th>
+                <th>اجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allAttendanceRecords && allAttendanceRecords.map((Record, i) => {
+                if (i >= startpagination & i < endpagination) {
+                  return (
+                    <tr key={i}>
+                      {/* <td>
                                 <span className="custom-checkbox">
                                   <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                   <label htmlFor="checkbox1"></label>
                                 </span>
                               </td> */}
-                              <td>{i + 1}</td>
-                              <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
-                              <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
-                              <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
-                              <td className="text-nowrap text-truncate">{Record.status && Record.status === 'Attendance' ? 'حضور'
-                                : Record.status === 'Absence' ? 'غياب'
-                                  : Record.status === 'Vacation' ? 'اجازة' : ''}
-                              </td>
-                              <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatDate(Record.arrivalDate) : '-'}</td>
-                              <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatTime(Record.arrivalDate) : "-"}</td>
-                              <td className="text-nowrap text-truncate">{Record.departureDate ? formatDate(Record.departureDate) : '-'}</td>
-                              <td className="text-nowrap text-truncate">{Record.departureDate ? formatTime(Record.departureDate) : '-'}</td>
-                              <td className="text-nowrap text-truncate">{Record.lateMinutes ? Record.lateMinutes : 0}</td>
-                              <td className="text-nowrap text-truncate">{Record.overtimeMinutes ? Record.overtimeMinutes : 0}</td>
-                              <td className="text-nowrap text-truncate">{Record.createdBy && Record.createdBy.username}</td>
-                              <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.username}</td>
-                              <td className="text-nowrap text-truncate">{Record.notes}</td>
-                              <td>
-                                <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}>
-                                  <i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                      <td>{i + 1}</td>
+                      <td className="text-nowrap text-truncate">{Record.currentDate && formatDate(Record.currentDate)}</td>
+                      <td className="text-nowrap text-truncate">{Record.employee && Record.employee.fullname}</td>
+                      <td className="text-nowrap text-truncate">{Record.shift && Record.shift.shiftType}</td>
+                      <td className="text-nowrap text-truncate">{Record.status && Record.status === 'Attendance' ? 'حضور'
+                        : Record.status === 'Absence' ? 'غياب'
+                          : Record.status === 'Vacation' ? 'اجازة' : ''}
+                      </td>
+                      <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatDate(Record.arrivalDate) : '-'}</td>
+                      <td className="text-nowrap text-truncate">{Record.arrivalDate ? formatTime(Record.arrivalDate) : "-"}</td>
+                      <td className="text-nowrap text-truncate">{Record.departureDate ? formatDate(Record.departureDate) : '-'}</td>
+                      <td className="text-nowrap text-truncate">{Record.departureDate ? formatTime(Record.departureDate) : '-'}</td>
+                      <td className="text-nowrap text-truncate">{Record.lateMinutes ? Record.lateMinutes : 0}</td>
+                      <td className="text-nowrap text-truncate">{Record.overtimeMinutes ? Record.overtimeMinutes : 0}</td>
+                      <td className="text-nowrap text-truncate">{Record.createdBy && Record.createdBy.username}</td>
+                      <td className="text-nowrap text-truncate">{Record.updatedBy && Record.updatedBy.username}</td>
+                      <td className="text-nowrap text-truncate">{Record.notes}</td>
+                      <td>
+                        <a href="#editRecordModal" className="edit" data-toggle="modal" onClick={() => handleEditRecord(Record._id)}>
+                          <i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
-                                <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}>
-                                  <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })
-                      }
+                        <a href="#deleteRecordModal" className="delete" data-toggle="modal" onClick={() => setRecordId(Record._id)}>
+                          <i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      </td>
+                    </tr>
+                  )
+                }
+              })
+              }
 
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{allAttendanceRecords.length > endpagination ? endpagination : allAttendanceRecords.length}</b> من <b>{allAttendanceRecords.length}</b> عنصر</div>
-                    <ul className="pagination">
-                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                      <li onClick={EditPagination} className="page-item active"><a href="#" className="page-link">3</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                    </ul>
-                  </div>
-                </div>
+            </tbody>
+          </table>
+          <div className="clearfix">
+            <div className="hint-text text-dark">عرض <b>{allAttendanceRecords.length > endpagination ? endpagination : allAttendanceRecords.length}</b> من <b>{allAttendanceRecords.length}</b> عنصر</div>
+            <ul className="pagination">
+              <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+              <li onClick={EditPagination} className="page-item active"><a href="#" className="page-link">3</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div id="addRecordModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={createAttendanceRecord}>
+              <div className="modal-header">
+                <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-
-
-
-
-              <div id="addRecordModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={createAttendanceRecord}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الحالي</label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            readOnly={true}
-                            name="currentDate"
-                            value={currentDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الاسم</label>
-                          <select
-                            className="form-control"
-                            required
-                            name="status"
-                            onChange={handleSelectEmployee}
-                            style={{ width: "100%" }}
-                          >
-                            <option>اختر الموظف</option>
-                            {listOfEmployees.map((employee, index) => (
-                              <option key={index} value={employee._id}>{employee.fullname}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الشيفت</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            readOnly={true}
-                            name="shift"
-                            value={shift?.shiftType}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الوصول</label>
-                          <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="arrivalDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
-                            onChange={handleArrivealDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الانصراف</label>
-                          <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="departureDate"
-                            defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
-                            onChange={handleDepartureDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الحالة</label>
-                          <select
-                            className="form-control"
-                            required
-                            name="status"
-                            defaultValue={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                            style={{ width: "100%" }}
-                          >
-                            {listOfStatus.map((status, i) => (
-                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>دقائق التجاوز</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="overtimeMinutes"
-                            readOnly
-                            Value={overtimeMinutes}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>دقائق التأخر</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="lateMinutes"
-                            readOnly
-                            Value={lateMinutes}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>ملاحظات</label>
-                          <textarea
-                            className="form-control"
-                            name="notes"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                            style={{ width: "100%" }}
-                          ></textarea>
-                        </div>
-                        {/* Add more input fields for other form elements as needed */}
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
-                      </div>
-                    </form>
-                  </div>
+              <div className="modal-body">
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الحالي</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    readOnly={true}
+                    name="currentDate"
+                    value={currentDate}
+                    style={{ width: "100%" }}
+                  />
                 </div>
-              </div>
-
-
-
-              <div id="editRecordModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={editAttendanceRecord}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">تعديل سجل</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الحالي</label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            readOnly={true}
-                            name="currentDate"
-                            defaultValue={currentDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الاسم</label>
-                          <input type='text' className="form-control" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
-
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الشيفت</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            readOnly={true}
-                            name="shift"
-                            value={shift?.shiftType}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الوصول</label>
-                          <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="arrivalDate"
-                            defaultValue={arrivalDate ? new Date(arrivalDate).toISOString().slice(0, 16) : ''}
-                            onChange={handleArrivealDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>تاريخ الانصراف</label>
-                          <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="departureDate"
-                            defaultValue={departureDate ? new Date(departureDate).toISOString().slice(0, 16) : ''}
-                            onChange={handleDepartureDate}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>الحالة</label>
-                          <select
-                            className="form-control"
-                            required
-                            name="status"
-                            defaultValue={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                            style={{ width: "100%" }}
-                          >
-                            {listOfStatus.map((status, i) => (
-                              <option key={i} value={status}>{listOfStatusAR[i]}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>دقائق التجاوز</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="overtimeMinutes"
-                            readOnly
-                            value={overtimeMinutes}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>دقائق التأخر</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="lateMinutes"
-                            readOnly
-                            value={lateMinutes}
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <div className="form-group w-50 d-flex align-items-center justify-content-between">
-                          <label>ملاحظات</label>
-                          <textarea
-                            className="form-control"
-                            name="notes"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                            style={{ width: "100%" }}
-                          ></textarea>
-                        </div>
-                        {/* Add more input fields for other form elements as needed */}
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
-                      </div>
-                    </form>
-                  </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الاسم</label>
+                  <select
+                    className="form-control"
+                    required
+                    name="status"
+                    onChange={handleSelectEmployee}
+                    style={{ width: "100%" }}
+                  >
+                    <option>اختر الموظف</option>
+                    {listOfEmployees.map((employee, index) => (
+                      <option key={index} value={employee._id}>{employee.fullname}</option>
+                    ))}
+                  </select>
                 </div>
-              </div>
-              <div id="deleteRecordModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={deleteRecord}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">حذف تصنيف</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <p>هل انت متاكد من حذف هذا التصنيف?</p>
-                        <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
-                      </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
-                      </div>
-                    </form>
-                  </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الشيفت</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly={true}
+                    name="shift"
+                    value={shift?.shiftType}
+                    style={{ width: "100%" }}
+                  />
                 </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الوصول</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    name="arrivalDate"
+                    defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+                    onChange={handleArrivealDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الانصراف</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    name="departureDate"
+                    defaultValue={new Date().toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+                    onChange={handleDepartureDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الحالة</label>
+                  <select
+                    className="form-control"
+                    required
+                    name="status"
+                    defaultValue={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    style={{ width: "100%" }}
+                  >
+                    {listOfStatus.map((status, i) => (
+                      <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>دقائق التجاوز</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="overtimeMinutes"
+                    readOnly
+                    Value={overtimeMinutes}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>دقائق التأخر</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lateMinutes"
+                    readOnly
+                    Value={lateMinutes}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>ملاحظات</label>
+                  <textarea
+                    className="form-control"
+                    name="notes"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                </div>
+                {/* Add more input fields for other form elements as needed */}
               </div>
-            </div>
-          )
-        }
-      }
-    </detacontext.Consumer>
+              <div className="modal-footer">
+                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div id="editRecordModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={editAttendanceRecord}>
+              <div className="modal-header">
+                <h4 className="modal-title">تعديل سجل</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الحالي</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    readOnly={true}
+                    name="currentDate"
+                    defaultValue={currentDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الاسم</label>
+                  <input type='text' className="form-control" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
+
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الشيفت</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    readOnly={true}
+                    name="shift"
+                    value={shift?.shiftType}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الوصول</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    name="arrivalDate"
+                    defaultValue={arrivalDate ? new Date(arrivalDate).toISOString().slice(0, 16) : ''}
+                    onChange={handleArrivealDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>تاريخ الانصراف</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    name="departureDate"
+                    defaultValue={departureDate ? new Date(departureDate).toISOString().slice(0, 16) : ''}
+                    onChange={handleDepartureDate}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>الحالة</label>
+                  <select
+                    className="form-control"
+                    required
+                    name="status"
+                    defaultValue={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    style={{ width: "100%" }}
+                  >
+                    {listOfStatus.map((status, i) => (
+                      <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>دقائق التجاوز</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="overtimeMinutes"
+                    readOnly
+                    value={overtimeMinutes}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>دقائق التأخر</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lateMinutes"
+                    readOnly
+                    value={lateMinutes}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="form-group w-50 d-flex align-items-center justify-content-between">
+                  <label>ملاحظات</label>
+                  <textarea
+                    className="form-control"
+                    name="notes"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                </div>
+                {/* Add more input fields for other form elements as needed */}
+              </div>
+              <div className="modal-footer">
+                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="deleteRecordModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={deleteRecord}>
+              <div className="modal-header">
+                <h4 className="modal-title">حذف تصنيف</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <p>هل انت متاكد من حذف هذا التصنيف?</p>
+                <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
+              </div>
+              <div className="modal-footer">
+                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 
 

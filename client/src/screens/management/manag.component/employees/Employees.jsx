@@ -18,6 +18,8 @@ const Employees = () => {
   };
 
   const { restaurantData, formatDateTime, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
+
+
   const notify = (message, type) => {
     toast[type](message);
   };
@@ -27,14 +29,15 @@ const Employees = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
-    if (permissionsForEmployee.show === true) {
+    if (permissionsForEmployee.read === true) {
       try {
         const response = await axios.get(`${apiUrl}/api/employee`, config);
         const data = response.data;
         setListOfEmployees(data);
-        console.log({ data });
+        // console.log({ data });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        toast.error('حدث خطأاثناء جلب بيانات الموظفين اعد تحميل الصفحة')
       }
     } else {
       toast.error('ليس لك صلاحية لعرض بيانات الموظفين')
@@ -274,7 +277,7 @@ const Employees = () => {
 
 
   const exportToExcel = () => {
-  if(permissionsForEmployee.show === false){
+  if(permissionsForEmployee.read === false){
     toast.error('ليس لك صلاحية لعرض بيانات الموظفين')
     return
   }
