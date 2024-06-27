@@ -47,7 +47,10 @@ const AttendanceManagement = () => {
       toast.info('ليس لك صلاحية لانشاء سجل');
       return;
     }
-
+    if (!employee || !shift || !currentDate || !status) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة.');
+      return;
+    }
     try {
       let newattendanceData = {
         employee,
@@ -58,6 +61,10 @@ const AttendanceManagement = () => {
       };
 
       if (status === 'Attendance') {
+        if (!arrivalDate) {
+          toast.error('يرجى تحديد وقت الحضور .');
+          return;
+        }
         newattendanceData.arrivalDate = arrivalDate;
         newattendanceData.isLate = isLate;
         newattendanceData.lateMinutes = lateMinutes;
@@ -69,9 +76,9 @@ const AttendanceManagement = () => {
       console.log({ createRecord });
 
       if (createRecord.status === 201) {
-        if (status === 'Attendance') {
-          const updateEmployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
-        }
+        // if (status === 'Attendance') {
+        //   const updateEmployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
+        // }
         getallAttendanceRecords();
         toast.success('تم انشاء السجل بنجاح:');
       } else {
