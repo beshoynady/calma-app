@@ -35,7 +35,7 @@ const createAttendanceRecord = async (req, res) => {
     res.status(201).json(attendanceRecord);
   } catch (error) {
     console.error('Error creating attendance record:', error);
-    res.status(400).json({ message: 'Failed to create attendance record', error: error.message });
+    res.status(400).json({ message: 'Failed to create attendance record', error });
   }
 };
 
@@ -46,7 +46,7 @@ const getAllAttendanceRecords = async (req, res) => {
     res.status(200).json(attendanceRecords);
   } catch (error) {
     console.error('Error getting all attendance records:', error);
-    res.status(500).json({ message: 'Failed to get attendance records', error: error.message });
+    res.status(500).json({ message: 'Failed to get attendance records', error });
   }
 };
 
@@ -61,7 +61,7 @@ const getAttendanceRecordById = async (req, res) => {
     res.status(200).json(attendanceRecord);
   } catch (error) {
     console.error('Error getting attendance record by ID:', error);
-    res.status(500).json({ message: 'Failed to get attendance record', error: error.message });
+    res.status(500).json({ message: 'Failed to get attendance record', error });
   }
 };
 
@@ -108,7 +108,7 @@ const updateAttendanceRecordById = async (req, res) => {
     res.status(200).json({ message: 'Attendance record updated successfully', updatedAttendanceRecord });
   } catch (error) {
     console.error('Error updating attendance record:', error);
-    res.status(400).json({ message: 'Failed to update attendance record', error: error.message });
+    res.status(400).json({ message: 'Failed to update attendance record', error });
   }
 };
 
@@ -123,7 +123,7 @@ const deleteAttendanceRecordById = async (req, res) => {
     res.status(200).json({ message: 'Attendance record deleted successfully' });
   } catch (error) {
     console.error('Error deleting attendance record:', error);
-    res.status(400).json({ message: 'Failed to delete attendance record', error: error.message });
+    res.status(400).json({ message: 'Failed to delete attendance record', error });
   }
 };
 
