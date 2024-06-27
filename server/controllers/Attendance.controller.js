@@ -4,17 +4,25 @@ const AttendanceRecordModel = require('../models/AttendanceRecord.model');
 const createAttendanceRecord = async (req, res) => {
   try {
     const {
-      employee, shift, currentDate, arrivalDate, departureDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes,
+      employee, shift, currentDate, status, notes,
     } = req.body;
     const createdBy = req.employee.id;
 
+    if (!employee || !shift || !currentDate || !status) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
     const attendanceData = {
-      employee, shift, currentDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes, createdBy
+      employee, shift, currentDate, status, notes, createdBy
     };
 
     if (status === 'Attendance') {
+      if (!arrivalDate) {
+        return res.status(400).json({ message: 'Missing arrivalDate for Attendance status' });
+      }
       attendanceData.arrivalDate = arrivalDate;
-      attendanceData.departureDate = departureDate;
+      attendanceData.lateMinutes = lateMinutes;
+      attendanceData.isLate = isLate;
     }
 
     const attendanceRecord = await AttendanceRecordModel.create(attendanceData);
@@ -22,7 +30,39 @@ const createAttendanceRecord = async (req, res) => {
     res.status(201).json(attendanceRecord);
   } catch (error) {
     console.error('Error creating attendance record:', error);
-    res.status(400).json({ message: 'Failed to create attendance record', error });
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: 'Validation Error', error });
+    }
+    
+    res.status(500).json({ message: 'Failed to create attendance record', error });
+   }
+};
+
+// Update a specific attendance record by its ID
+const updateAttendanceRecordById = async (req, res) => {
+  try {
+    const attendanceRecordId = req.params.id;
+    const {
+      employee, shift, currentDate, arrivalDate, departureDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes
+    } = req.body;
+
+    const updatedBy = req.employee.id
+    
+    const updatedAttendanceRecord = await AttendanceRecordModel.findByIdAndUpdate(
+      attendanceRecordId,
+      {
+        employee, shift, currentDate, arrivalDate, departureDate, status, isOvertime, overtimeMinutes, isLate, lateMinutes, notes, updatedBy
+      },
+      { new: true }
+    );
+
+    if (!updatedAttendanceRecord) {
+      return res.status(404).json({ message: 'Attendance record not found' });
+    }
+    res.status(200).json({ message: 'Attendance record updated successfully', updatedAttendanceRecord });
+  } catch (error) {
+    console.error('Error updating attendance record:', error);
+    res.status(400).json({ message: 'Failed to update attendance record', error });
   }
 };
 
@@ -53,52 +93,7 @@ const getAttendanceRecordById = async (req, res) => {
   }
 };
 
-// Update a specific attendance record by its ID
-const updateAttendanceRecordById = async (req, res) => {
-  try {
-    const attendanceRecordId = req.params.id;
-    const {
-      employee,
-      shift,
-      currentDate,
-      arrivalDate,
-      departureDate,
-      status,
-      isOvertime,
-      overtimeMinutes,
-      isLate,
-      lateMinutes,
-      notes
-    } = req.body;
-    const updatedBy = req.employee.id
-    const updatedAttendanceRecord = await AttendanceRecordModel.findByIdAndUpdate(
-      attendanceRecordId,
-      {
-        employee,
-        shift,
-        currentDate,
-        arrivalDate,
-        departureDate,
-        status,
-        isOvertime,
-        overtimeMinutes,
-        isLate,
-        lateMinutes,
-        notes,
-        updatedBy
-      },
-      { new: true }
-    );
 
-    if (!updatedAttendanceRecord) {
-      return res.status(404).json({ message: 'Attendance record not found' });
-    }
-    res.status(200).json({ message: 'Attendance record updated successfully', updatedAttendanceRecord });
-  } catch (error) {
-    console.error('Error updating attendance record:', error);
-    res.status(400).json({ message: 'Failed to update attendance record', error });
-  }
-};
 
 // Delete a specific attendance record by its ID
 const deleteAttendanceRecordById = async (req, res) => {

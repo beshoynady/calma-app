@@ -255,7 +255,7 @@ const AttendanceManagement = () => {
     // console.log({ employee: employee.shift })
     if (employee) {
       setEmployee(employeeid)
-      if (employee.shift) {
+      if (employee && employee.shift) {
         setShift(employee.shift)
       } else {
         toast.warn('لم يتم تحديد له شيفت ! حدد للموظف شيف اولا')
