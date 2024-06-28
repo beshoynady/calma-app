@@ -29,7 +29,7 @@ const createEmployee = async (req, res) => {
             return res.status(400).json({ message: error.details[0].message });
         }
         // Destructuring request body for required employee details
-        const { fullname, numberID, username, shift, email, address, phone, workingDays, basicSalary, role, sectionNumber, isActive } = req.body;
+        const { fullname, numberID, username, shift, email, address, phone, workingDays, basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive } = req.body;
 
         // Destructuring request body for optional employee details
         const pass = req.body.password;
@@ -57,6 +57,8 @@ const createEmployee = async (req, res) => {
             basicSalary,
             role,
             sectionNumber,
+            taxRate,
+            insuranceRate,
             isActive,
             createdBy
         }, { new: true });
@@ -100,12 +102,12 @@ const updateEmployee = async (req, res) => {
         const updatedBy = await req.employee.id
         const id = req.params.employeeId;
         
-        const { fullname, numberID, username,shift, email, address, phone, workingDays, basicSalary, role, sectionNumber, isActive, password } = req.body;
+        const { fullname, numberID, username,shift, email, address, phone, workingDays, basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive, password } = req.body;
 
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
-        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword,workingDays, basicSalary, isActive, role, sectionNumber,updatedBy } 
-        : { fullname, numberID, username, email, shift, address, phone, workingDays, basicSalary, isActive, role, sectionNumber, updatedBy};
+        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword,workingDays, basicSalary,taxRate,insuranceRate, isActive, role, sectionNumber,updatedBy } 
+        : { fullname, numberID, username, email, shift, address, phone, workingDays, basicSalary, isActive, role,taxRate,insuranceRate, sectionNumber, updatedBy};
 
         const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, updateData, { new: true });
 

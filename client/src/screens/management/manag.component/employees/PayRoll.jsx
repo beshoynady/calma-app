@@ -114,210 +114,588 @@ const PayRoll = () => {
     }
   };
 
-
-
-  const addPayRoll = async () => {
-    for (let i = 0; i < ListOfEmployee.length; i++) {
-      let Year = new Date().getFullYear()
-      let Month = new Date().getMonth() + 1
-      let employeeId = ListOfEmployee[i]._id;
-      let employeeName = ListOfEmployee[i].fullname;
-      let salary = ListOfEmployee[i].basicSalary;
-      let Bonus = 0;
-      let OvertimeDays = 0;
-      let OvertimeValue = 0;
-      let TotalDue = 0;
-      let AbsenceDays = 0;
-      let AbsenceDeduction = 0;
-      let Deduction = 0;
-      let Predecessor = 0;
-      let Insurance = 0;
-      let Tax = 0;
-      let TotalDeductible = 0;
-      let NetSalary = 0;
-      let isPaid = false;
-      let paidBy = null;
-
-      const EmployeTransactions = ListOfEmployeTransactions.length > 0 ? 
-      ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : '';
-      console.log({ EmployeTransactions: EmployeTransactions })
-
-      if (EmployeTransactions.length > 0) {
-
-        const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'سلف')
-        if (filterPre.length > 0) {
-          Predecessor = filterPre[filterPre.length - 1].newAmount
-          console.log({ Predecessor })
-        } else {
-          Predecessor = 0
-        }
-
-        const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'خصم')
-        console.log(filterDed)
-        if (filterDed.length > 0) {
-          Deduction = filterDed[filterDed.length - 1].newAmount
-          console.log({ Deduction })
-        } else {
-          Deduction = 0
-        }
-
-        const filterAbs = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'غياب')
-        if (filterAbs.length > 0) {
-          AbsenceDeduction = filterAbs[filterAbs.length - 1].newAmount
-          AbsenceDays = filterAbs[filterAbs.length - 1].totalDays
-        } else {
-          AbsenceDeduction = 0
-          AbsenceDays = 0
-        }
-
-        const filterAdd = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'اضافي')
-        if (filterAdd.length > 0) {
-          OvertimeDays = filterAdd[filterAdd.length - 1].totalDays
-          OvertimeValue = filterAdd[filterAdd.length - 1].newAmount
-        } else {
-          OvertimeDays = 0
-          OvertimeValue = 0
-        }
-
-        const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'مكافأة')
-        if (filterBon.length > 0) {
-          Bonus = filterBon[filterBon.length - 1].newAmount
-        } else {
-          Bonus = 0
-
-        }
-        TotalDue = salary + Bonus + OvertimeValue
-        TotalDeductible = AbsenceDeduction + Deduction + Predecessor
-        // Insurance = TotalDue * .10
-        // Tax = TotalDue * 0.15
-        NetSalary = TotalDue - TotalDeductible - Insurance - Tax
-
-        const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId)
-        const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id == employeeId && roll.isPaid == true) : false
-
-        console.log({ isSalary, isSalaryPaid })
-
-        if (isSalary && !isSalaryPaid) {
-          const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
-            employeeName,
-            Year,
-            Month,
-            salary,
-            Bonus,
-            TotalDue,
-            AbsenceDays,
-            AbsenceDeduction,
-            OvertimeDays,
-            OvertimeValue,
-            Deduction,
-            Predecessor,
-            Insurance,
-            Tax,
-            TotalDeductible,
-            NetSalary
-          }, config)
-          console.log({ result })
-          if (result) {
-            getPayRoll()
-            getEmployees()
-          }
-        } else if (!isSalary && !isSalaryPaid) {
-          const result = await axios.post(`${apiUrl}/api/payroll`, {
-            employeeId,
-            employeeName,
-            Year,
-            Month,
-            salary,
-            Bonus,
-            TotalDue,
-            AbsenceDays,
-            AbsenceDeduction,
-            OvertimeDays,
-            OvertimeValue,
-            Deduction,
-            Predecessor,
-            Insurance,
-            Tax,
-            TotalDeductible,
-            NetSalary
-          }, config)
-          console.log({ result })
-          if (result) {
-            getPayRoll()
-            getEmployees()
-
-          }
-        }
-      } else {
-        TotalDue = salary + Bonus + OvertimeValue
-        TotalDeductible = AbsenceDeduction + Deduction + Predecessor
-        // Insurance = TotalDue * .10
-        // Tax = TotalDue * 0.15
-
-        NetSalary = TotalDue - TotalDeductible - Insurance - Tax
-
-        const isSalary = currentPayRoll.find((roll) => roll.employeeId._id == employeeId)
-        const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true)
-
-        if (isSalary && !isSalaryPaid) {
-          const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
-            employeeName,
-            Year,
-            Month,
-            salary,
-            Bonus,
-            TotalDue,
-            AbsenceDays,
-            AbsenceDeduction,
-            OvertimeDays,
-            OvertimeValue,
-            Deduction,
-            Predecessor,
-            Insurance,
-            Tax,
-            TotalDeductible,
-            NetSalary
-          }, config)
-          console.log(result)
-          if (result) {
-            getPayRoll()
-            getEmployees()
-
-          }
-        } else if (!isSalary && !isSalaryPaid) {
-          const result = await axios.post(`${apiUrl}/api/payroll`, {
-            employeeId,
-            employeeName,
-            Year,
-            Month,
-            salary,
-            Bonus,
-            TotalDue,
-            AbsenceDays,
-            AbsenceDeduction,
-            OvertimeDays,
-            OvertimeValue,
-            Deduction,
-            Predecessor,
-            Insurance,
-            Tax,
-            TotalDeductible,
-            NetSalary
-          }, config)
-          console.log(result)
-          if (result) {
-            getPayRoll()
-            getEmployees()
-
-          }
-        }
+  const [allAttendanceRecords, setallAttendanceRecords] = useState([])
+  const getallAttendanceRecords = async () => {
+    // if (permissionsForAttendance && permissionsForAttendance.read === false) {
+    //   toast.info('ليس لك صلاحية لعرض السجلات')
+    //   return
+    // }
+    try {
+      const response = await axios.get(`${apiUrl}/api/attendance`, config);
+      console.log({ response })
+      if (response.status === 200) {
+        const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+      const filterByMonth = response.data.filter((record) => {
+        const createdAt = new Date(record.createdAt);
+        return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
+      });
+        setallAttendanceRecords(response.data)
       }
-
+    } catch (error) {
+      toast.error('حدث خطاء اثناء جلب سجل الحضور و الانصراف ! اعد تحميل الصفحة')
     }
   }
 
 
 
+  // const addPayRoll = async () => {
+  //   for (let i = 0; i < ListOfEmployee.length; i++) {
+  //     let Year = new Date().getFullYear()
+  //     let Month = new Date().getMonth() + 1
+  //     let employeeId = ListOfEmployee[i]._id;
+  //     let employeeName = ListOfEmployee[i].fullname;
+  //     let basicSalary = ListOfEmployee[i].basicSalary;
+  //     let workingDays = ListOfEmployee[i].workingDays;
+  //     let dailySalary = basicSalary / workingDays;
+  //     let salary = dailySalary * attendanceDays;
+  //     let Bonus = 0;
+  //     let attendanceDays = 0;
+  //     let OvertimeDays = 0;
+  //     let OvertimeValue = 0;
+  //     let totalDue = 0;
+  //     let AbsenceDays = 0;
+  //     let AbsenceDeduction = 0;
+  //     let Deduction = 0;
+  //     let Predecessor = 0;
+  //     let insuranceRate = ListOfEmployee[i].insuranceRate
+  //     let insurance = ListOfEmployee[i].insuranceRate * salary;
+  //     let taxRate = ListOfEmployee[i].taxRate;
+  //     let taxableIncome = totalDue - insurance;
+
+
+  //     let Tax = taxableIncome * salary
+
+  //     let TotalDeductible = 0;
+  //     let NetSalary = 0;
+  //     let isPaid = false;
+  //     let paidBy = null;
+
+  //     const EmployeTransactions = ListOfEmployeTransactions.length > 0 ? 
+  //     ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : '';
+  //     const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ? 
+  //     allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : '';
+
+  //     console.log({ EmployeTransactions: EmployeTransactions })
+
+  //     if (EmployeTransactions.length > 0) {
+
+  //       const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'سلف')
+  //       if (filterPre.length > 0) {
+  //         Predecessor = filterPre[filterPre.length - 1].newAmount
+  //         console.log({ Predecessor })
+  //       } else {
+  //         Predecessor = 0
+  //       }
+
+  //       const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'خصم')
+  //       console.log(filterDed)
+  //       if (filterDed.length > 0) {
+  //         Deduction = filterDed[filterDed.length - 1].newAmount
+  //         console.log({ Deduction })
+  //       } else {
+  //         Deduction = 0
+  //       }
+
+  //       const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'مكافأة')
+  //       if (filterBon.length > 0) {
+  //         Bonus = filterBon[filterBon.length - 1].newAmount
+  //       } else {
+  //         Bonus = 0
+
+  //       }
+
+
+
+  //       const filterAbsenceRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Absence')
+  //         AbsenceDeduction = 
+  //         AbsenceDays = filterAbsenceRecords.length
+  //       const filterAdd = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'اضافي')
+  //       if (filterAdd.length > 0) {
+  //         OvertimeDays = filterAdd[filterAdd.length - 1].totalDays
+  //         OvertimeValue = filterAdd[filterAdd.length - 1].newAmount
+  //       } else {
+  //         OvertimeDays = 0
+  //         OvertimeValue = 0
+  //       }
+  //       totalDue = salary + Bonus + OvertimeValue
+  //       TotalDeductible = AbsenceDeduction + Deduction + Predecessor
+  //       // insurance = totalDue * .10
+  //       // Tax = totalDue * 0.15
+  //       NetSalary = totalDue - TotalDeductible - insurance - Tax
+
+  //       const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId)
+  //       const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id == employeeId && roll.isPaid == true) : false
+
+  //       console.log({ isSalary, isSalaryPaid })
+
+  //       if (isSalary && !isSalaryPaid) {
+  //         const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           attendanceDays,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log({ result })
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+  //         }
+  //       } else if (!isSalary && !isSalaryPaid) {
+  //         const result = await axios.post(`${apiUrl}/api/payroll`, {
+  //           employeeId,
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           attendanceDays,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log({ result })
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+
+  //         }
+  //       }
+  //     } else {
+  //       totalDue = salary + Bonus + OvertimeValue
+  //       TotalDeductible = AbsenceDeduction + Deduction + Predecessor
+  //       // insurance = totalDue * .10
+  //       // Tax = totalDue * 0.15
+
+  //       NetSalary = totalDue - TotalDeductible - insurance - Tax
+
+  //       const isSalary = currentPayRoll.find((roll) => roll.employeeId._id == employeeId)
+  //       const isSalaryPaid = currentPayRoll.find((roll) => roll.isPaid == true)
+
+  //       if (isSalary && !isSalaryPaid) {
+  //         const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           attendanceDays,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log(result)
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+
+  //         }
+  //       } else if (!isSalary && !isSalaryPaid) {
+  //         const result = await axios.post(`${apiUrl}/api/payroll`, {
+  //           employeeId,
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           attendanceDays,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log(result)
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+
+  //         }
+  //       }
+  //     }
+
+  //   }
+  // }
+
+
+  // const addPayRoll = async () => {
+  //   for (let i = 0; i < ListOfEmployee.length; i++) {
+  //     let Year = new Date().getFullYear()
+  //     let Month = new Date().getMonth() + 1
+  //     let employeeId = ListOfEmployee[i]._id;
+  //     let employeeName = ListOfEmployee[i].fullname;
+  //     let shiftHour = ListOfEmployee[i].shift?.hours
+  //     let basicSalary = ListOfEmployee[i].basicSalary;
+  //     let workingDays = ListOfEmployee[i].workingDays;
+  //     let dailySalary = basicSalary / workingDays;
+  //     let salary = 0;
+  //     let Bonus = 0;
+  //     let attendanceDays = 0;
+  //     let leaveDays = 0;
+  //     let OvertimeDays = 0;
+  //     let OvertimeValue = 0;
+  //     let totalDue = 0;
+  //     let AbsenceDays = 0;
+  //     let AbsenceDeduction = 0;
+  //     let lateDays = 0;
+  //     let lateDeduction = 0;
+  //     let Deduction = 0;
+  //     let Predecessor = 0;
+  //     let insuranceRate = ListOfEmployee[i].insuranceRate
+  //     let insurance = 0;
+  //     let taxRate = ListOfEmployee[i].taxRate;
+
+  //     let Tax = 0
+
+  //     let TotalDeductible = 0;
+  //     let NetSalary = 0;
+  //     let isPaid = false;
+  //     let paidBy = null;
+
+  //     const EmployeTransactions = ListOfEmployeTransactions.length > 0 ? 
+  //     ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : '';
+  //     const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ? 
+  //     allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : '';
+
+  //     console.log({ EmployeTransactions: EmployeTransactions })
+
+  //       const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'سلف')
+  //       if (filterPre.length > 0) {
+  //         Predecessor = filterPre[filterPre.length - 1].newAmount
+  //         console.log({ Predecessor })
+  //       } else {
+  //         Predecessor = 0
+  //       }
+
+  //       const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'خصم')
+  //       console.log(filterDed)
+  //       if (filterDed.length > 0) {
+  //         Deduction = filterDed[filterDed.length - 1].newAmount
+  //         console.log({ Deduction })
+  //       } else {
+  //         Deduction = 0
+  //       }
+
+  //       const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType == 'مكافأة')
+  //       if (filterBon.length > 0) {
+  //         Bonus = filterBon[filterBon.length - 1].newAmount
+  //       } else {
+  //         Bonus = 0
+
+  //       }
+
+
+
+        
+  //       const filterAttendanceRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Attendance')
+  //       attendanceDays = filterAttendanceRecords.length
+  //       filterAttendanceRecords.map(record=>{
+  //         OvertimeDays += record.overtimeMinutes / shiftHour
+  //         lateDays += record.lateMinutes / shiftHour
+  //       })
+        
+  //       const filterAbsenceRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Absence')
+  //       AbsenceDays = filterAbsenceRecords.length
+  //       AbsenceDeduction = dailySalary * AbsenceDays
+        
+  //       const filterVacationRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Vacation')
+  //       leaveDays = filterVacationRecords.length
+        
+
+
+
+  //       OvertimeValue = OvertimeDays * dailySalary
+  //       lateDeduction= lateDays * dailySalary
+
+  //       salary = dailySalary * attendanceDays
+
+  //       insurance = insuranceRate * salary;
+
+  //       totalDue = salary + Bonus + OvertimeValue
+
+  //       let taxableIncome = totalDue - insurance;
+      
+  //       Tax = taxableIncome * taxRate
+        
+  //       TotalDeductible = AbsenceDeduction + lateDeduction + Deduction + Predecessor + Tax + insurance
+  //       // insurance = totalDue * .10
+  //       // Tax = totalDue * 0.15
+  //       NetSalary = totalDue - TotalDeductible
+
+  //       const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId)
+  //       const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id == employeeId && roll.isPaid == true) : false
+
+  //       console.log({ isSalary, isSalaryPaid })
+
+  //       if (isSalary && !isSalaryPaid) {
+  //         const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           attendanceDays,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log({ result })
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+  //         }
+  //       } else if (!isSalary && !isSalaryPaid) {
+  //         const result = await axios.post(`${apiUrl}/api/payroll`, {
+  //           employeeId,
+  //           employeeName,
+  //           Year,
+  //           Month,
+  //           salary,
+  //           Bonus,
+  //           totalDue,
+  //           attendanceDays,
+  //           AbsenceDays,
+  //           AbsenceDeduction,
+  //           OvertimeDays,
+  //           OvertimeValue,
+  //           Deduction,
+  //           Predecessor,
+  //           insurance,
+  //           Tax,
+  //           TotalDeductible,
+  //           NetSalary
+  //         }, config)
+  //         console.log({ result })
+  //         if (result) {
+  //           getPayRoll()
+  //           getEmployees()
+
+  //         }
+      
+  //     }
+
+  //   }
+  // }
+
+
+  const addPayRoll = async () => {
+    try {
+      toast.warn('انتظر قليلا .. لا تقم باعادة التحميل و غلق الصفحة')
+      for (let i = 0; i < ListOfEmployee.length; i++) {
+        let Year = new Date().getFullYear();
+        let Month = new Date().getMonth() + 1;
+        let employeeId = ListOfEmployee[i]._id;
+        let employeeName = ListOfEmployee[i].fullname;
+        let shiftHour = ListOfEmployee[i].shift?.hours;
+        let basicSalary = ListOfEmployee[i].basicSalary;
+        let workingDays = ListOfEmployee[i].workingDays;
+        let dailySalary = basicSalary / workingDays;
+        let salary = 0;
+        let attendanceDays = 0;
+        let leaveDays = 0;
+        let OvertimeDays = 0;
+        let OvertimeValue = 0;
+        let Bonus = 0;
+        let TotalDue = 0;
+        let AbsenceDays = 0;
+        let AbsenceDeduction = 0;
+        let lateDays = 0;
+        let lateDeduction = 0;
+        let Deduction = 0;
+        let Predecessor = 0;
+        let insuranceRate = ListOfEmployee[i].insuranceRate;
+        let insurance = 0;
+        let taxRate = ListOfEmployee[i].taxRate;
+        let Tax = 0;
+        let TotalDeductible = 0;
+        let NetSalary = 0;
+        let isPaid = false;
+        let paidBy = null;
+  
+        const EmployeTransactions = ListOfEmployeTransactions.length > 0 ?
+          ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : [];
+        const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ?
+          allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : [];
+  
+        const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
+        Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
+  
+        const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'خصم');
+        Deduction = filterDed.length > 0 ? filterDed[filterDed.length - 1].newAmount : 0;
+  
+        const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'مكافأة');
+        Bonus = filterBon.length > 0 ? filterBon[filterBon.length - 1].newAmount : 0;
+  
+        const filterAttendanceRecords = EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
+        attendanceDays = filterAttendanceRecords.length;
+        filterAttendanceRecords.forEach(record => {
+          OvertimeDays += record.overtimeMinutes / 60 / shiftHour; // تحويل الدقائق إلى ساعات
+          lateDays += record.lateMinutes / 60 / shiftHour; // تحويل الدقائق إلى ساعات
+        });
+  
+        const filterAbsenceRecords = EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
+        AbsenceDays = filterAbsenceRecords.length;
+        AbsenceDeduction = dailySalary * AbsenceDays;
+  
+        OvertimeValue = OvertimeDays * dailySalary;
+        lateDeduction = lateDays * dailySalary;
+  
+        salary = dailySalary * attendanceDays;
+  
+        insurance = insuranceRate * salary;
+  
+        TotalDue = salary + Bonus + OvertimeValue;
+  
+        let taxableIncome = TotalDue - insurance;
+  
+        Tax = taxableIncome * taxRate;
+  
+        TotalDeductible = AbsenceDeduction + lateDeduction + Deduction + Predecessor + Tax + insurance;
+  
+        NetSalary = TotalDue - TotalDeductible;
+  
+        const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
+        const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
+  
+        if (isSalary && !isSalaryPaid) {
+          try {
+            const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+              employeeName,
+              Year,
+              Month,
+              employeeId,
+              employeeName,
+              shiftHour,
+              basicSalary,
+              workingDays,
+              salary,
+              attendanceDays,
+              leaveDays,
+              OvertimeDays,
+              OvertimeValue,
+              Bonus,
+              TotalDue,
+              AbsenceDays,
+              AbsenceDeduction,
+              lateDays,
+              lateDeduction,
+              Deduction,
+              Predecessor,
+              insurance,
+              Tax,
+              TotalDeductible,
+              NetSalary,
+              isPaid,
+              paidBy
+            }, config);
+  
+            if (result) {
+              console.log('تم تحديث بيانات المرتب بنجاح');
+              toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
+              // يمكنك استخدام toast أو أي رسائل توضح نجاح التحديث هنا
+            }
+          } catch (error) {
+            console.error('خطأ في تحديث بيانات المرتب:', error);
+            toast.error('حدث خطأ أثناء تحديث بيانات المرتب');
+          }
+          toast.success('تم تحديث بيانات المرتب بنجاح');
+          getPayRoll();
+          getEmployees();
+
+        } else if (!isSalary && !isSalaryPaid) {
+          try {
+            const result = await axios.post(`${apiUrl}/api/payroll`, {
+              employeeId,
+              employeeName,
+              Year,
+              Month,
+              shiftHour,
+              basicSalary,
+              workingDays,
+              salary,
+              attendanceDays,
+              leaveDays,
+              OvertimeDays,
+              OvertimeValue,
+              Bonus,
+              TotalDue,
+              AbsenceDays,
+              AbsenceDeduction,
+              lateDays,
+              lateDeduction,
+              Deduction,
+              Predecessor,
+              insurance,
+              Tax,
+              TotalDeductible,
+              NetSalary,
+              isPaid,
+              paidBy
+            }, config);
+  
+            if (result) {
+              console.log('تم إنشاء بيانات المرتب بنجاح');
+              toast.info(` تم انشاء مرتب ${employeeName} بنجاح`);
+            }
+          } catch (error) {
+            console.error('خطأ في إنشاء بيانات المرتب:', error);
+            toast.error('حدث خطأ أثناء إنشاء بيانات المرتب');
+          }
+          toast.success('تم إنشاء بيانات المرتب بنجاح');
+          getPayRoll();
+          getEmployees();
+        }
+      }
+      
+    } catch (error) {
+      console.error('خطأ عام في معالجة بيانات المرتب:', error);
+      toast.error('حدث خطأ عام أثناء معالجة بيانات المرتب');
+    }
+  };
+  
 
 
 
@@ -480,6 +858,7 @@ const PayRoll = () => {
     getEmployees();
     getPayRoll()
     getEmployeTransactions();
+    getallAttendanceRecords()
     // getAllCashRegisters();
   }, []);
   return (
@@ -565,20 +944,24 @@ const PayRoll = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الوظيفه</th>
+                         <th>الشيفت</th>
+                         <th>ساعات العمل</th>
                         <th>الاساسي</th>
-                        {/* <th>اجر اليوم</th>
-                        <th>اجر الساعه</th>
-                        <th>عدد ايام العمل</th> */}
+                        <th>عدد ايام العمل</th>
+                         <th>اجر اليوم</th>
+                        <th>الحضور</th>
+                        <th>الاجازات المدفوعه</th>
+                        <th>عدد ايام الاضافي</th>
                         <th>اضافي</th>
                         <th>مكافاة</th>
                         <th>اجمالي المستحق</th>
-                        {/* <th>عدد ايام الغياب</th> */}
                         <th>خصم</th>
+                        <th>عدد ايام الغياب</th>
                         <th>غياب</th>
                         <th>سلف</th>
-                        <th>اجمالي المستقطع</th>
                         <th>تامين</th>
                         <th>ضريبه</th>
+                        <th>اجمالي المستقطع</th>
                         <th>المستحق عن الشهر</th>
                         <th>دفع بواسطه</th>
                         <th>الدفع</th>
@@ -603,16 +986,20 @@ const PayRoll = () => {
                                         <td>{i + 1}</td>
                                         <td>{Roll.employeeName}</td>
                                         <td>{Roll.employeeId.role}</td>
+                                        <td>{Roll.employeeId?.shift?.shftType}</td>
+                                        <td>{Roll.shiftHour}</td>
+                                        <td>{Roll.basicSalary}</td>
                                         <td>{Roll.salary}</td>
+                                        <td>{Roll.OvertimeDays}</td>
                                         <td>{Roll.OvertimeValue}</td>
                                         <td>{Roll.Bonus}</td>
-                                        <td>{Roll.TotalDue}</td>
+                                        <td>{Roll.totalDue}</td>
                                         <td>{Roll.Deduction}</td>
                                         <td>{Roll.AbsenceDeduction}</td>
                                         <td>{Roll.Predecessor}</td>
-                                        <td>{Roll.TotalDeductible}</td>
-                                        <td>{Roll.Insurance}</td>
+                                        <td>{Roll.insurance}</td>
                                         <td>{Roll.Tax}</td>
+                                        <td>{Roll.TotalDeductible}</td>
                                         <td>{Roll.NetSalary}</td>
                                         <td>{Roll.paidBy?.username}</td>
                                         {Roll.isPaid === false ? (

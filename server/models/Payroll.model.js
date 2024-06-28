@@ -21,13 +21,34 @@ const payrollSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  shiftHour: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  basicSalary: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  workingDays: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
   salary: {
     type: Number,
     min: 0,
     default: 0,
   },
-  Bonus: {
+  attendanceDays: {
     type: Number,
+    min: 0,
+    default: 0,
+  },
+  leaveDays: {
+    type: Number,
+    required: true,
     min: 0,
     default: 0,
   },
@@ -37,6 +58,11 @@ const payrollSchema = new mongoose.Schema({
     default: 0,
   },
   OvertimeValue: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  Bonus: {
     type: Number,
     min: 0,
     default: 0,
@@ -52,6 +78,16 @@ const payrollSchema = new mongoose.Schema({
     default: 0,
   },
   AbsenceDeduction: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  lateDays: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  lateDeduction: {
     type: Number,
     min: 0,
     default: 0,
@@ -95,9 +131,9 @@ const payrollSchema = new mongoose.Schema({
     ref: 'Employee',
   },
 },
-  {
-    timestamps: true,
-  });
+{
+  timestamps: true,
+});
 
 const PayrollModel = mongoose.model('Payroll', payrollSchema);
 

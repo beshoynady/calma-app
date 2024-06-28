@@ -90,6 +90,16 @@ const employeeSchema = new mongoose.Schema({
     type: Boolean,
     default: false, // Default value for isVerified is false
   },
+  taxRate: {
+    type: Number,
+    required: true,
+    default: 0.0,
+  },
+  insuranceRate: {
+    type: Number,
+    required: true,
+    default: 0.0,
+  },
   createdBy:{
     type: ObjectId,
     ref:'Employee',

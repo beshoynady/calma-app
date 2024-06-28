@@ -30,7 +30,7 @@ const Employees = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
-    if (permissionsForEmployee.read === true) {
+    if (permissionsForEmployee&&permissionsForEmployee.read === true) {
       try {
         const response = await axios.get(`${apiUrl}/api/employee`, config);
         const data = response.data;

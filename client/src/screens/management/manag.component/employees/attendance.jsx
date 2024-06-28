@@ -149,6 +149,8 @@ const AttendanceManagement = () => {
     }
   }
 
+
+  
   const [recordToUpdate, setrecordToUpdate] = useState({})
   const handleEditRecord = (record) => {
     if (permissionsForAttendance.update === false) {
