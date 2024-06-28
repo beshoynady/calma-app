@@ -68,6 +68,7 @@ const Employees = () => {
   const [fullname, setfullname] = useState("")
   const [numberID, setnumberID] = useState("")
   const [username, setusername] = useState("")
+  const [workingDays, setworkingDays] = useState()
   const [basicSalary, setbasicSalary] = useState()
   const [shift, setshift] = useState('')
   const [password, setpassword] = useState("")
@@ -92,6 +93,7 @@ const Employees = () => {
     if (
       !fullname ||
       !basicSalary ||
+      !workingDays ||
       !numberID ||
       !username ||
       !password ||
@@ -109,6 +111,7 @@ const Employees = () => {
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
         fullname,
         basicSalary,
+        workingDays,
         numberID,
         username,
         password,
@@ -144,8 +147,8 @@ const Employees = () => {
       // }
       if (permissionsForEmployee.update === true) {
         const updateData = password
-          ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, isActive, role, sectionNumber }
-          : { fullname, numberID, username, email, shift, address, phone, basicSalary, isActive, role, sectionNumber };
+          ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary,workingDays, isActive, role, sectionNumber }
+          : { fullname, numberID, username, email, shift, address, phone, basicSalary,workingDays, isActive, role, sectionNumber };
 
         const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
         if (update.status === 200) {
@@ -168,7 +171,7 @@ const Employees = () => {
     setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID);
     setusername(employee.username); setaddress(employee.address); setemail(employee.email);
     setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role);
-    setbasicSalary(employee.basicSalary)
+    setbasicSalary(employee.basicSalary); setworkingDays(employee.workingDays)
   }
 
 
@@ -290,6 +293,7 @@ const Employees = () => {
       'العنوان': employee.address,
       'الموبايل': employee.phone,
       'الوظيفة': employee.role,
+      'ايام العمل': employee.workingDays,
       'الراتب': employee.basicSalary,
       'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
       'السكشن': employee.sectionNumber,
@@ -403,6 +407,7 @@ const Employees = () => {
                 <th>الموبايل</th>
                 <th>اسم المستخدم</th>
                 <th>الوظيفه</th>
+                <th>ايام العمل</th>
                 <th>الراتب</th>
                 <th>الحالة</th>
                 <th>السكشن</th>
@@ -438,6 +443,7 @@ const Employees = () => {
                       <td>{employee.phone}</td>
                       <td>{employee.username}</td>
                       <td>{employee.role}</td>
+                      <td>{employee.workingDays}</td>
                       <td>{employee.basicSalary}</td>
                       <td>{employee.isActive ? 'متاح' : "غير متاح"}</td>
                       <td>{employee.sectionNumber}</td>
@@ -546,6 +552,11 @@ const Employees = () => {
                       </select>
                     </div>
                     <div className="form-group form-group-47">
+                      <label>ايام العمل الشهريه</label>
+                      <input type="Number" min={0} max={31} className="form-control" required onChange={(e) => setworkingDays(e.target.value)} />
+                      <div className="invalid-feedback">Please enter a valid workingDays.</div>
+                    </div>
+                    <div className="form-group form-group-47">
                       <label>المرتب الاساسي</label>
                       <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
                       <div className="invalid-feedback">Please enter a valid salary.</div>
@@ -636,6 +647,11 @@ const Employees = () => {
                         <option value="waiter">ويتر</option>
                         <option value="chef">شيف</option>
                       </select>
+                    </div>
+                    <div className="form-group form-group-47">
+                      <label>ايام العمل الشهريه</label>
+                      <input type="Number" min={0} max={31} className="form-control" required onChange={(e) => setworkingDays(e.target.value)} />
+                      <div className="invalid-feedback">Please enter a valid workingDays.</div>
                     </div>
                     <div className="form-group form-group-47">
                       <label>المرتب الاساسي</label>

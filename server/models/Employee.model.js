@@ -77,7 +77,14 @@ const employeeSchema = new mongoose.Schema({
   basicSalary: {
     type: Number,
     required: true,
-    min: 0, // Minimum value for basicSalary is 0
+    min: 0,
+  },
+  workingDays: {
+    type: Number,
+    required: true,
+    min: 0, 
+    max: 31,
+    default: 0
   },
   isVerified: {
     type: Boolean,

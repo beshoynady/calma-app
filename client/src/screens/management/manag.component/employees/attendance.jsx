@@ -78,12 +78,10 @@ const AttendanceManagement = () => {
       console.log({ newattendanceData });
 
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
-      console.log({ createRecord });
       
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
           const activeemployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true}, config);
-          console.log({ activeemployee });
         }
 
         getallAttendanceRecords();
