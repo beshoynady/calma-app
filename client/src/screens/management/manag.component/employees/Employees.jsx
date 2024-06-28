@@ -166,12 +166,13 @@ const Employees = () => {
       // Additional error handling
     }
   };
-
+  const [employeeShift, setemployeeShift] = useState({})
   const handleEditEmployeee = (employee) => {
     setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID);
     setusername(employee.username); setaddress(employee.address); setemail(employee.email);
     setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role);
-    setbasicSalary(employee.basicSalary); setworkingDays(employee.workingDays)
+    setbasicSalary(employee.basicSalary); setworkingDays(employee.workingDays);
+    setshift(employee.shift._id);setemployeeShift(employee.shift)
   }
 
 
@@ -631,7 +632,7 @@ const Employees = () => {
                     <div className="form-group form-group-47">
                       <label>الشيفت</label>
                       <select form="carform" required onChange={(e) => setshift(e.target.value)}>
-                        <option>{shift.shiftType}</option>
+                        <option>{employeeShift.shiftType}</option>
                         {shifts ? shifts.map((shift, i) =>
                           <option value={shift._id} key={i}>{shift.shiftType}</option>
                         ) : <option>لم يتم انشاء شفتات</option>}
