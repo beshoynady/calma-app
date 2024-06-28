@@ -1069,18 +1069,19 @@ const Info = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="col-lg-6 mb-4">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="card-title">خدمات إضافية</h4>
                         <p className="card-description">اختر الخدمات المتاحة التي يقدمها المطعم</p>
-                        <form className="forms-sample" onSubmit={handleAdditionalServices}>
+                        <form className="forms-sample" onSubmit={handleFeatures}>
                           <div className="form-group d-flex flex-wrap">
-                            {listAdditionalServices.map((AdditionalService, i) => (
+                            {listFeatures.map((feature, i) => (
                               <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" key={i} style={{ minWidth: "200px" }}>
-                                <input type="checkbox" className="form-check-input" value={AdditionalService} checked={additionalServices.includes(AdditionalService)} onChange={() => handleadditionalServicesCheckboxChange(AdditionalService)} />
-                                <label className="form-check-label mr-4">{listAdditionalServicesAr[i]}</label>
+                                <input type="checkbox" className="form-check-input"  value={feature}
+                                 checked={features.includes(feature)}
+                                 onChange={() => handleFeaturesCheckboxChange(feature)} />
+                                <label className="form-check-label mr-4">{listFeaturesAr[i]}</label>
                               </div>
                             ))}
                           </div>
