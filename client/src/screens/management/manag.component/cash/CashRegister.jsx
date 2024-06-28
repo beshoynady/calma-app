@@ -303,12 +303,12 @@ const CashRegister = () => {
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
-                      <div className="form-group form-group-47">
+                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                         <label>الاسم</label>
                         <input type="text" className="form-control" required onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>المسؤل</label>
                       <select name="Employee" id="Employee" form="carform" onChange={(e) => setemployee(e.target.value)}>
                         <option>احتر الموظف</option>
@@ -336,12 +336,12 @@ const CashRegister = () => {
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
-                      <div className="form-group form-group-47">
+                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                         <label>الاسم</label>
                         <input type="text" className="form-control" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>المسؤل</label>
                       <select name="category" id="category" form="carform" defaultValue={employee} onChange={(e) => setemployee(e.target.value)}>
                         <option>احتر الموظف</option>

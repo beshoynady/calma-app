@@ -274,7 +274,7 @@ const deleteTable = async (e) => {
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
-                        <div className="form-group form-group-47 form-group form-group-47-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 -47">
                           <label>الحالة</label>
                           <select name="category" id="category" form="carform" onChange={(e) => filterByStatus(e.target.value)}>
                             <option >اختر</option>
@@ -404,19 +404,19 @@ const deleteTable = async (e) => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>رقم السكشن</label>
                           <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>رقم الطاولة</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>عدد المقاعد</label>
                           <input type="Number" className="form-control" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>الوصف</label>
                           <textarea className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
@@ -438,23 +438,23 @@ const deleteTable = async (e) => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>رقم السكشن</label>
                           <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>رقم الطاولة</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>عدد المقاعد</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).chairs : ''} className="form-control" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>الوصف</label>
                           <textarea defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).description : ""} className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
-                        <div className="form-group form-group-47 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
                           <label>متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setisValid(e.target.value)}>
                             <option >اختر</option>
@@ -480,7 +480,7 @@ const deleteTable = async (e) => {
                         <h4 className="modal-title">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
-                        <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group form-group-47 ">
+                        <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
 
                           <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', alignContent: 'center', marginTop: '10px' }}>
 
@@ -509,7 +509,7 @@ const deleteTable = async (e) => {
                         <h4 className="modal-title">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
-                        <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group form-group-47 ">
+                        <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
 
                           <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', alignContent: 'center', marginTop: '10px' }}>
 

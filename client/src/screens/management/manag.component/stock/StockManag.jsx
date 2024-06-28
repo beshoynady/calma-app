@@ -553,7 +553,7 @@ const StockManag = () => {
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الصنف</label>
                           <select name="" id="" onChange={(e) => { handleSelectedItem(e) }}>
                             <option >اختر الصنف</option>
@@ -562,7 +562,7 @@ const StockManag = () => {
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الكمية</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <>
@@ -576,7 +576,7 @@ const StockManag = () => {
                         </div>
                         {/* {movement === "Purchase" &&
                           <>
-                            <div className="form-group form-group-47">
+                            <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                               <label>تاريخ الانتهاء</label>
                               <input type="checkbox" checked={expirationDateEnabled} onChange={() => setExpirationDateEnabled(!expirationDateEnabled)} />
                               {expirationDateEnabled &&
@@ -585,26 +585,26 @@ const StockManag = () => {
                           </>
                         } */}
 
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>السعر</label>
                           {movement == "Issuance" || movement == "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
                             : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
                           }
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة</label>
                           <input type='Number' className="form-control" Value={cost} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الرصيد</label>
                           <input type='text' className="form-control" Value={oldBalance} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الرصيد الجديد</label>
                           <input type='text' className="form-control" Value={newBalance} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التاريخ</label>
                           <input type="text" className="form-control" Value={actionAt} readOnly />
                         </div>
@@ -626,7 +626,7 @@ const StockManag = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>نوع الحركه</label>
                           <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
                             <option >اختر الاجراء</option>
@@ -635,7 +635,7 @@ const StockManag = () => {
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الصنف</label>
                           <select name="" id="" onChange={(e) => {
                             setitemId(e.target.value);
@@ -648,7 +648,7 @@ const StockManag = () => {
                             })}
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الكمية</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <>
@@ -661,26 +661,26 @@ const StockManag = () => {
                             </> : ''}
                         </div>
 
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>السعر</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <input type='Number' className="form-control" readOnly required defaultValue={price} />
                             : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
                           }
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة</label>
                           <input type='Number' className="form-control" Value={cost} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الرصيد</label>
                           <input type='text' className="form-control" Value={oldBalance} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الرصيد الجديد</label>
                           <input type='text' className="form-control" Value={newBalance} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التاريخ</label>
                           <input type="text" className="form-control" Value={actionAt} readOnly />
                         </div>

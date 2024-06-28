@@ -88,7 +88,7 @@ const employeeSchema = new mongoose.Schema({
   },
   isVerified: {
     type: Boolean,
-    default: false, // Default value for isVerified is false
+    default: false,
   },
   taxRate: {
     type: Number,

@@ -554,7 +554,7 @@ const ProductRecipe = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الاسم</label>
                           <select form="carform" onChange={(e) => { setitemId(e.target.value); setname(AllStockItems.find(s => s._id == e.target.value).itemName); setunit(AllStockItems.find(s => s._id == e.target.value).smallUnit); setcostofitem(AllStockItems.find(s => s._id == e.target.value).costOfPart) }}>
                             <option >اختر</option>
@@ -566,20 +566,20 @@ const ProductRecipe = () => {
                             }
                           </select>
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة</label>
                           <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الكمية</label>
                           <input type="Number" className="form-control" required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
                           <input type="text" className="form-control" defaultValue={unit} readOnly required />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة الاجمالية</label>
                           <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
                         </div>
-                        {/* <div className="form-group form-group-47">
+                        {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <button onClick={add}>اضافه جديدة</button>
                         </div> */}
 
@@ -602,20 +602,20 @@ const ProductRecipe = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الاسم</label>
                           <input type='text' className="form-control" defaultValue={name} readOnly />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة</label>
                           <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
                           <input type="text" className="form-control" defaultValue={unit} readOnly required />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الكمية</label>
                           <input type="Number" className="form-control" defaultValue={amount} required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
                         </div>
-                        <div className="form-group form-group-47">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>التكلفة الاجمالية</label>
                           <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
                         </div>

@@ -545,15 +545,15 @@ const Products = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الاسم</label>
                   <input type="text" className="form-control" required onChange={(e) => setproductname(e.target.value)} />
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الوصف</label>
                   <textarea className="form-control" onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>التصنيف</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setproductcategoryid(e.target.value)}>
                     <option defaultValue={productcategoryid}>اختر تصنيف</option>
@@ -563,7 +563,7 @@ const Products = () => {
                     }
                   </select>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>أحجام المنتج</label>
                   <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                 </div>
@@ -572,7 +572,7 @@ const Products = () => {
                     {sizes.map((size, index) => (
                       <div key={index} className="row mb-3">
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>اسم الحجم</label>
                             <input
                               type="text"
@@ -589,7 +589,7 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>السعر</label>
                             <div className="input-group">
                               <input
@@ -611,7 +611,7 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>التخفيض</label>
                             <div className="input-group">
                               <input
@@ -648,22 +648,22 @@ const Products = () => {
 
                 ) : (
                   <>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>السعر</label>
                       <input type='number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>التخفيض</label>
                       <input type='number' className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
                 }
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>هل هذا المنتج اضافه</label>
                   <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>هل له اضافات</label>
                   <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                 </div>
@@ -694,7 +694,7 @@ const Products = () => {
                     }
                   </div>
                 }
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>متاح</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
 
@@ -703,7 +703,7 @@ const Products = () => {
                     <option value={false} >غير متاح</option>
                   </select>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الصورة</label>
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
@@ -725,15 +725,15 @@ const Products = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الاسم</label>
                   <input type="text" className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الوصف</label>
                   <textarea className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>التصنيف</label>
                   <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
                     {listofcategories.map((category, i) => {
@@ -742,7 +742,7 @@ const Products = () => {
                     }
                   </select>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>أحجام المنتج</label>
                   <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                 </div>
@@ -751,7 +751,7 @@ const Products = () => {
                     {sizes.map((size, index) => (
                       <div key={index} className="row mb-3">
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>اسم الحجم</label>
                             <input
                               type="text"
@@ -768,7 +768,7 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>السعر</label>
                             <div className="input-group">
                               <input
@@ -790,7 +790,7 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-4">
-                          <div className="form-group form-group-47" style={{ width: '95%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '95%' }}>
                             <label>التخفيض</label>
                             <div className="input-group">
                               <input
@@ -827,22 +827,22 @@ const Products = () => {
 
                 ) : (
                   <>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>السعر</label>
                       <input type='number' className="form-control" defaultValue={productprice} placeholder={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
-                    <div className="form-group form-group-47">
+                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                       <label>التخفيض</label>
                       <input type='number' className="form-control" defaultValue={productdiscount} placeholder={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
                 }
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>هل هذا المنتج اضافه</label>
                   <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>هل له اضافات</label>
                   <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                 </div>
@@ -873,14 +873,14 @@ const Products = () => {
                     }
                   </div>
                 }
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>متاح</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
                     <option value={true} >متاح</option>
                     <option value={false} >غير متاح</option>
                   </select>
                 </div>
-                <div className="form-group form-group-47">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                   <label>الصورة</label>
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
