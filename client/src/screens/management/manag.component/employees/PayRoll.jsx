@@ -125,11 +125,11 @@ const PayRoll = () => {
       console.log({ response })
       if (response.status === 200) {
         const currentYear = new Date().getFullYear();
-      const currentMonth = new Date().getMonth() + 1;
-      const filterByMonth = response.data.filter((record) => {
-        const createdAt = new Date(record.createdAt);
-        return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
-      });
+        const currentMonth = new Date().getMonth() + 1;
+        const filterByMonth = response.data.filter((record) => {
+          const createdAt = new Date(record.createdAt);
+          return createdAt.getMonth() + 1 === currentMonth && createdAt.getFullYear() === currentYear;
+        });
         setallAttendanceRecords(response.data)
       }
     } catch (error) {
@@ -421,21 +421,21 @@ const PayRoll = () => {
 
 
 
-        
+
   //       const filterAttendanceRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Attendance')
   //       attendanceDays = filterAttendanceRecords.length
   //       filterAttendanceRecords.map(record=>{
   //         OvertimeDays += record.overtimeMinutes / shiftHour
   //         lateDays += record.lateMinutes / shiftHour
   //       })
-        
+
   //       const filterAbsenceRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Absence')
   //       AbsenceDays = filterAbsenceRecords.length
   //       AbsenceDeduction = dailySalary * AbsenceDays
-        
+
   //       const filterVacationRecords = EmployeAttendanceRecords.filter((Record) => Record.status == 'Vacation')
   //       leaveDays = filterVacationRecords.length
-        
+
 
 
 
@@ -449,9 +449,9 @@ const PayRoll = () => {
   //       totalDue = salary + Bonus + OvertimeValue
 
   //       let taxableIncome = totalDue - insurance;
-      
+
   //       Tax = taxableIncome * taxRate
-        
+
   //       TotalDeductible = AbsenceDeduction + lateDeduction + Deduction + Predecessor + Tax + insurance
   //       // insurance = totalDue * .10
   //       // Tax = totalDue * 0.15
@@ -514,7 +514,7 @@ const PayRoll = () => {
   //           getEmployees()
 
   //         }
-      
+
   //     }
 
   //   }
@@ -554,52 +554,63 @@ const PayRoll = () => {
         let NetSalary = 0;
         let isPaid = false;
         let paidBy = null;
-  
+
         const EmployeTransactions = ListOfEmployeTransactions.length > 0 ?
           ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : [];
+
         const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ?
           allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : [];
-  
-        const filterPre = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
+
+        const filterPre = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
         Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
-  
-        const filterDed = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'خصم');
+
+        const filterDed = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'خصم');
         Deduction = filterDed.length > 0 ? filterDed[filterDed.length - 1].newAmount : 0;
-  
-        const filterBon = EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'مكافأة');
+
+        const filterBon = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'مكافأة');
         Bonus = filterBon.length > 0 ? filterBon[filterBon.length - 1].newAmount : 0;
-  
-        const filterAttendanceRecords = EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
+
+
+
+        const filterAttendanceRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
         attendanceDays = filterAttendanceRecords.length;
-        filterAttendanceRecords.forEach(record => {
-          OvertimeDays += record.overtimeMinutes / 60 / shiftHour; // تحويل الدقائق إلى ساعات
-          lateDays += record.lateMinutes / 60 / shiftHour; // تحويل الدقائق إلى ساعات
+
+        filterAttendanceRecords&&filterAttendanceRecords.forEach(record => {
+          OvertimeDays += record.overtimeMinutes / 60 / shiftHour;
+          lateDays += record.lateMinutes / 60 / shiftHour; 
         });
-  
-        const filterAbsenceRecords = EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
+
+        const filterAbsenceRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
         AbsenceDays = filterAbsenceRecords.length;
+
+        const filterVacationRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status == 'Vacation')
+        leaveDays = filterVacationRecords.length
+
+
+
         AbsenceDeduction = dailySalary * AbsenceDays;
-  
+
         OvertimeValue = OvertimeDays * dailySalary;
+        
         lateDeduction = lateDays * dailySalary;
-  
+
         salary = dailySalary * attendanceDays;
-  
+
         insurance = insuranceRate * salary;
-  
+
         TotalDue = salary + Bonus + OvertimeValue;
-  
+
         let taxableIncome = TotalDue - insurance;
-  
+
         Tax = taxableIncome * taxRate;
-  
+
         TotalDeductible = AbsenceDeduction + lateDeduction + Deduction + Predecessor + Tax + insurance;
-  
+
         NetSalary = TotalDue - TotalDeductible;
-  
+
         const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
         const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
-  
+
         if (isSalary && !isSalaryPaid) {
           try {
             const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
@@ -631,7 +642,7 @@ const PayRoll = () => {
               isPaid,
               paidBy
             }, config);
-  
+
             if (result) {
               console.log('تم تحديث بيانات المرتب بنجاح');
               toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
@@ -675,7 +686,7 @@ const PayRoll = () => {
               isPaid,
               paidBy
             }, config);
-  
+
             if (result) {
               console.log('تم إنشاء بيانات المرتب بنجاح');
               toast.info(` تم انشاء مرتب ${employeeName} بنجاح`);
@@ -689,13 +700,13 @@ const PayRoll = () => {
           getEmployees();
         }
       }
-      
+
     } catch (error) {
       console.error('خطأ عام في معالجة بيانات المرتب:', error);
       toast.error('حدث خطأ عام أثناء معالجة بيانات المرتب');
     }
   };
-  
+
 
 
 
@@ -944,11 +955,11 @@ const PayRoll = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الوظيفه</th>
-                         <th>الشيفت</th>
-                         <th>ساعات العمل</th>
+                        <th>الشيفت</th>
+                        <th>ساعات العمل</th>
                         <th>الاساسي</th>
                         <th>عدد ايام العمل</th>
-                         <th>اجر اليوم</th>
+                        <th>اجر اليوم</th>
                         <th>الحضور</th>
                         <th>الاجازات المدفوعه</th>
                         <th>عدد ايام الاضافي</th>
@@ -969,63 +980,63 @@ const PayRoll = () => {
                     </thead>
                     <tbody>
                       {
-                       
-                          ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
-                            if (employee.isActive == true && currentPayRoll.length > 0) {
-                              return (
-                                currentPayRoll.map((Roll, j) => {
-                                  if (Roll.employeeId._id == employee._id) {
-                                    return (
-                                      <tr key={i}>
+
+                        ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
+                          if (employee.isActive == true && currentPayRoll.length > 0) {
+                            return (
+                              currentPayRoll.map((Roll, j) => {
+                                if (Roll.employeeId._id == employee._id) {
+                                  return (
+                                    <tr key={i}>
+                                      <td>
+                                        <span className="custom-checkbox">
+                                          <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                                          <label htmlFor="checkbox1"></label>
+                                        </span>
+                                      </td>
+                                      <td>{i + 1}</td>
+                                      <td>{Roll.employeeName}</td>
+                                      <td>{Roll.employeeId.role}</td>
+                                      <td>{Roll.employeeId?.shift?.shftType}</td>
+                                      <td>{Roll.shiftHour}</td>
+                                      <td>{Roll.basicSalary}</td>
+                                      <td>{Roll.salary}</td>
+                                      <td>{Roll.OvertimeDays}</td>
+                                      <td>{Roll.OvertimeValue}</td>
+                                      <td>{Roll.Bonus}</td>
+                                      <td>{Roll.totalDue}</td>
+                                      <td>{Roll.Deduction}</td>
+                                      <td>{Roll.AbsenceDeduction}</td>
+                                      <td>{Roll.Predecessor}</td>
+                                      <td>{Roll.insurance}</td>
+                                      <td>{Roll.Tax}</td>
+                                      <td>{Roll.TotalDeductible}</td>
+                                      <td>{Roll.NetSalary}</td>
+                                      <td>{Roll.paidBy?.username}</td>
+                                      {Roll.isPaid === false ? (
                                         <td>
-                                          <span className="custom-checkbox">
-                                            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                            <label htmlFor="checkbox1"></label>
-                                          </span>
+                                          <a
+                                            href="#paidModal"
+                                            type='button'
+                                            data-toggle="modal"
+                                            className="btn btn-47 btn-success"
+                                            onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, employee.fullname, Roll.Month)}
+                                          >
+                                            دفع
+                                          </a>
                                         </td>
-                                        <td>{i + 1}</td>
-                                        <td>{Roll.employeeName}</td>
-                                        <td>{Roll.employeeId.role}</td>
-                                        <td>{Roll.employeeId?.shift?.shftType}</td>
-                                        <td>{Roll.shiftHour}</td>
-                                        <td>{Roll.basicSalary}</td>
-                                        <td>{Roll.salary}</td>
-                                        <td>{Roll.OvertimeDays}</td>
-                                        <td>{Roll.OvertimeValue}</td>
-                                        <td>{Roll.Bonus}</td>
-                                        <td>{Roll.totalDue}</td>
-                                        <td>{Roll.Deduction}</td>
-                                        <td>{Roll.AbsenceDeduction}</td>
-                                        <td>{Roll.Predecessor}</td>
-                                        <td>{Roll.insurance}</td>
-                                        <td>{Roll.Tax}</td>
-                                        <td>{Roll.TotalDeductible}</td>
-                                        <td>{Roll.NetSalary}</td>
-                                        <td>{Roll.paidBy?.username}</td>
-                                        {Roll.isPaid === false ? (
-                                          <td>
-                                            <a
-                                              href="#paidModal"
-                                              type='button'
-                                              data-toggle="modal"
-                                              className="btn btn-47 btn-success"
-                                              onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, employee.fullname, Roll.Month)}
-                                            >
-                                              دفع
-                                            </a>
-                                          </td>
-                                        ) : (
-                                          <td>تم الدفع</td>
-                                        )}
-                                      </tr>
-                                    )
-                                  }
+                                      ) : (
+                                        <td>تم الدفع</td>
+                                      )}
+                                    </tr>
+                                  )
                                 }
-                                )
+                              }
                               )
-                            }
-                          })
-                            : ""}
+                            )
+                          }
+                        })
+                          : ""}
                     </tbody>
                   </table>
                   <div className="clearfix">
@@ -1042,7 +1053,7 @@ const PayRoll = () => {
                   </div>
                 </div>
               </div>
-              
+
 
               <div id="paidModal" className="modal fade">
                 <div className="modal-dialog">
