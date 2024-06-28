@@ -560,6 +560,9 @@ const PayRoll = () => {
         const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ?
           allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : [];
 
+        console.log({EmployeTransactions, EmployeAttendanceRecords})
+
+
         const filterPre = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
         Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
 
