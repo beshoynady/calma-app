@@ -518,148 +518,155 @@ const Info = () => {
       {({ }) => (
         <div className="container" dir='rtl'>
           <div className="content-wrapper" style={{ height: '20px' }}>
-            <div className="row" style={{color:'darkblue', fontWeight:'900', textAlign:'center'}}>
+            <div className="row" style={{ color: 'darkblue', fontWeight: '900', textAlign: 'center' }}>
               <div className="col-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
                     <h4 className="card-title">بيانات المطعم</h4>
-                    <form className="form-sample" onSubmit={handleCreateRestaurant}>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row" style={{ width: '100%' }}>
-                            <label className="col-3 col-form-label">الاسم</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
-                            </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row" style={{ width: '100%' }}>
-                            <label className="col-3 col-form-label">الوصف</label>
-                            <div className="col-9">
-                              <textarea type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
-                            </div>
-                          </div>
-                        
+                    <form className="form-sample row d-flex flex-wrap" onSubmit={handleCreateRestaurant}>
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">الاسم</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
+                        </div>
+                      </div>
 
-                      <p className="card-description"> العنوان </p>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row" style={{ width: '100%' }}>
-                            <label className="col-3 col-form-label">الدولة</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
-                              {/* <select className="form-control">
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">الوصف</label>
+                        <div className="col-9">
+                          <textarea type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
+                        </div>
+                      </div>
+
+
+                      <p className="card-description cal-12"> العنوان </p>
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">الدولة</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
+                          {/* <select className="form-control">
                                   <option>America</option>
                                   <option>Italy</option>
                                   <option>Russia</option>
                                   <option>Britain</option>
                                 </select> */}
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">المحافظة</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">المدينة</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">العنوان</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">رابط المنيو</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={website} required onChange={(e) => setwebsite(e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">كود البريد</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+                        </div>
+                      </div>
+
+
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">رابط خريطه جوجل</label>
+                        <div className="col-9">
+                          <input type="text" className="form-control" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6  row">
+                        <label className="col-3 col-form-label p-0 m-0">about us</label>
+                        <div className="col-9">
+                          <textarea className="form-control" defaultValue={aboutText} required onChange={(e) => setaboutText(e.target.value)} />
+                        </div>
+                      </div>
+
+
+                      <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12  row">
+                        <label className="col-3 col-form-label p-0 m-0">اللوجو</label>
+                        <div className="d-flex align-items-center col-9">
+                          <input type="file" className="form-control me-3" onChange={(e) => handleFileUpload(e)} />
+                          {logo ?
+                            <div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
                             </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">المحافظة</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
+                            : <div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
+                              <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                             </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">المدينة</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
-                            </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">العنوان</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
-                            </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">رابط المنيو</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={website} required onChange={(e) => setwebsite(e.target.value)} />
-                            </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">كود البريد</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
-                            </div>
-                          </div>
+                          }
+                        </div>
+                      </div>
+
+
+
+                      <div className="col-12 d-flex flex-wrap">
+                        <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center w-50">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={dineIn}
+                            onChange={() => setdineIn(!dineIn)}
+                          />
+                          <label className="form-check-label mr-4">الصالة</label>
+                        </div>
+                        <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center w-50">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={takeAway}
+                            onChange={() => settakeAway(!takeAway)}
+                          />
+                          <label className="form-check-label mr-4">التيك اوي</label>
+                        </div>
+                        <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center w-50">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={deliveryService}
+                            onChange={() => setdeliveryService(!deliveryService)}
+                          />
+                          <label className="form-check-label mr-4">خدمة التوصيل</label>
+                        </div>
+                        <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center w-50">
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={usesReservationSystem}
+                            onChange={() => setusesReservationSystem(!usesReservationSystem)}
+                          />
+                          <label className="form-check-label mr-4">حجز الطاولة</label>
+                        </div>
+                      </div>
+
                       
 
 
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">رابط خريطه جوجل</label>
-                            <div className="col-9">
-                              <input type="text" className="form-control" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
-                            </div>
-                          </div>
-                        
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6  row">
-                            <label className="col-3 col-form-label">about us</label>
-                            <div className="col-9">
-                              <textarea className="form-control" defaultValue={aboutText} required onChange={(e) => setaboutText(e.target.value)} />
-                            </div>
-                          </div>
-                        
-
-
-                        <div className="col-md-6 col-12">
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              checked={dineIn}
-                              onChange={() => setdineIn(!dineIn)}
-                            />
-                            <label className="form-check-label mr-4">الصالة</label>
-                          </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              checked={takeAway}
-                              onChange={() => settakeAway(!takeAway)}
-                            />
-                            <label className="form-check-label mr-4">التيك اوي</label>
-                          </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              checked={deliveryService}
-                              onChange={() => setdeliveryService(!deliveryService)}
-                            />
-                            <label className="form-check-label mr-4">خدمة التوصيل</label>
-                          </div>
-                          <div className="form-check form-check-flat mb-2 mr-4 d-flex align-items-center" style={{ minWidth: "200px" }}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              checked={usesReservationSystem}
-                              onChange={() => setusesReservationSystem(!usesReservationSystem)}
-                            />
-                            <label className="form-check-label mr-4">حجز الطاولة</label>
-                          </div>
-                        </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  row">
-                            <label className="col-3 col-form-label">اللوجو</label>
-                            <div className="d-flex align-items-center col-9">
-                              <input type="file" className="form-control me-3" onChange={(e) => handleFileUpload(e)} />
-                              {logo ?
-                                <div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
-                                </div>
-                                : <div className="d-flex align-items-center justify-content-center" style={{ width: '150px', height: '120px', backgroundColor: 'gray' }}>
-                                  <img src={`${apiUrl}/images/${logo}`} alt="logo" className="img-fluid" style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                                </div>
-                              }
-                            </div>
-                        
+                      <div className="w-100 form-footer d-flex justify-content-between mt-4">
+                        <button className="btn w-50 btn-success" type="submit">تاكيد</button>
+                        <button className="btn w-50 btn-danger">إلغاء</button>
                       </div>
-                      <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                      <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
                     </form>
                   </div>
                 </div>
@@ -746,35 +753,35 @@ const Info = () => {
                         <h4 className="card-title">بيانات التواصل</h4>
                         <p className="card-description"> ادخل بيانات التواصل المتاحة لديك </p>
                         <form className="forms-sample" onSubmit={(e) => handleContactSocialmedia(e)}>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
                             <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
                             <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required defaultValue={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
                             <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
                             <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" defaultValue={facebook} required onChange={(e) => setFacebook(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " >
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="twitter">تويتر:</label>
                             <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" defaultValue={twitter} onChange={(e) => setTwitter(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " >
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="instagram">انستجرام:</label>
                             <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" defaultValue={instagram} onChange={(e) => setInstagram(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " >
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="linkedin">لينكدإن:</label>
                             <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" defaultValue={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 " >
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="youtube">يوتيوب:</label>
                             <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
@@ -912,7 +919,7 @@ const Info = () => {
                       <div className="card-body">
                         <h4 className="card-title">Colored input groups</h4>
                         <p className="card-description"> Input groups with colors </p>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " >
+                        <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " >
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-info">
@@ -923,7 +930,7 @@ const Info = () => {
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon1" />
                           </div>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                        <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-primary border-primary">
@@ -934,7 +941,7 @@ const Info = () => {
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon2" />
                           </div>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                        <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="colored-addon3" />
@@ -945,7 +952,7 @@ const Info = () => {
                             </div>
                           </div>
                         
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                        <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                           <div className="input-group">
                             <div className="input-group-prepend bg-primary border-primary">
@@ -967,17 +974,17 @@ const Info = () => {
                   <div className="card-body">
                     <h4 className="card-title">Input size</h4>
                     <p className="card-description"> This is the default bootstrap form layout </p>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label>Large input</label>
                       <input type="text" className="form-control form-control-lg" placeholder="Username" aria-label="Username" />
                     </div>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label>Default input</label>
                       <input type="text" className="form-control" placeholder="Username" aria-label="Username" />
                     </div>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label>Small input</label>
                       <input type="text" className="form-control form-control-sm" placeholder="Username" aria-label="Username" />
@@ -985,7 +992,7 @@ const Info = () => {
                   </div>
                   <div className="card-body">
                     <h4 className="card-title">Selectize</h4>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect1">Large select</label>
                       <select className="form-control form-control-lg" id="exampleFormControlSelect1">
@@ -996,7 +1003,7 @@ const Info = () => {
                         <option>5</option>
                       </select>
                     </div>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect2">Default select</label>
                       <select className="form-control" id="exampleFormControlSelect2">
@@ -1007,7 +1014,7 @@ const Info = () => {
                         <option>5</option>
                       </select>
                     </div>
-                    <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                    <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                       <label for="exampleFormControlSelect3">Small select</label>
                       <select className="form-control form-control-sm" id="exampleFormControlSelect3">
@@ -1029,7 +1036,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                             <div className="form-check">
                               <label className="form-check-label">
@@ -1050,7 +1057,7 @@ const Info = () => {
                           </div>
                         
                         <div className="col-lg-6">
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                             <div className="form-radio">
                               <label className="form-check-label">
@@ -1061,7 +1068,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="optionsRadios" id="optionsRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                             <div className="form-radio disabled">
                               <label className="form-check-label">
@@ -1087,7 +1094,7 @@ const Info = () => {
                     <form className="forms-sample">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                             <div className="form-check form-check-flat">
                               <label className="form-check-label">
@@ -1108,7 +1115,7 @@ const Info = () => {
                           </div>
                         
                         <div className="col-lg-6">
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-md-6 " style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat">
                               <label className="form-check-label">
@@ -1119,7 +1126,7 @@ const Info = () => {
                                 <input type="radio" className="form-check-input" style={{paddingRight:"20px"}} name="flatRadios2" id="flatRadios2" value="option2" /> Option two </label>
                             </div>
                           </div>
-                          <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " style={{ width: '100%' }}>
+                          <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-6  col-md-12 " style={{ width: '100%' }}>
 
                             <div className="form-radio form-radio-flat disabled">
                               <label className="form-check-label">
