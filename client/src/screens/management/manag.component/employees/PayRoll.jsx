@@ -47,7 +47,6 @@ const PayRoll = () => {
   const [ListOfEmployee, setListOfEmployee] = useState([])
   const getEmployees = async () => {
     try {
-
       const response = await axios.get(apiUrl + '/api/employee', config);
       setListOfEmployee(response.data);
     } catch (error) {
@@ -591,10 +590,10 @@ const PayRoll = () => {
         AbsenceDeduction = dailySalary * AbsenceDays;
 
         OvertimeValue = OvertimeDays * dailySalary;
-        
+
         lateDeduction = lateDays * dailySalary;
 
-        salary = dailySalary * attendanceDays;
+        salary = dailySalary * (attendanceDays + leaveDays );
 
         insurance = insuranceRate * salary;
 
@@ -610,95 +609,122 @@ const PayRoll = () => {
 
         const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
         const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
+        
+        console.log({employeeName,
+          Year,
+          Month,
+          employeeId,
+          employeeName,
+          shiftHour,
+          basicSalary,
+          workingDays,
+          salary,
+          attendanceDays,
+          leaveDays,
+          OvertimeDays,
+          OvertimeValue,
+          Bonus,
+          TotalDue,
+          AbsenceDays,
+          AbsenceDeduction,
+          lateDays,
+          lateDeduction,
+          Deduction,
+          Predecessor,
+          insurance,
+          Tax,
+          TotalDeductible,
+          NetSalary,
+          isPaid,
+          paidBy})
+        // if (isSalary && !isSalaryPaid) {
+        //   try {
+        //     const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
+        //       employeeName,
+        //       Year,
+        //       Month,
+        //       employeeId,
+        //       employeeName,
+        //       shiftHour,
+        //       basicSalary,
+        //       workingDays,
+        //       salary,
+        //       attendanceDays,
+        //       leaveDays,
+        //       OvertimeDays,
+        //       OvertimeValue,
+        //       Bonus,
+        //       TotalDue,
+        //       AbsenceDays,
+        //       AbsenceDeduction,
+        //       lateDays,
+        //       lateDeduction,
+        //       Deduction,
+        //       Predecessor,
+        //       insurance,
+        //       Tax,
+        //       TotalDeductible,
+        //       NetSalary,
+        //       isPaid,
+        //       paidBy
+        //     }, config);
 
-        if (isSalary && !isSalaryPaid) {
-          try {
-            const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
-              employeeName,
-              Year,
-              Month,
-              employeeId,
-              employeeName,
-              shiftHour,
-              basicSalary,
-              workingDays,
-              salary,
-              attendanceDays,
-              leaveDays,
-              OvertimeDays,
-              OvertimeValue,
-              Bonus,
-              TotalDue,
-              AbsenceDays,
-              AbsenceDeduction,
-              lateDays,
-              lateDeduction,
-              Deduction,
-              Predecessor,
-              insurance,
-              Tax,
-              TotalDeductible,
-              NetSalary,
-              isPaid,
-              paidBy
-            }, config);
+        //     if (result) {
+        //       console.log('تم تحديث بيانات المرتب بنجاح');
+        //       toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
+        //       // يمكنك استخدام toast أو أي رسائل توضح نجاح التحديث هنا
+        //     }
+        //   } catch (error) {
+        //     console.error('خطأ في تحديث بيانات المرتب:', error);
+        //     toast.error('حدث خطأ أثناء تحديث بيانات المرتب');
+        //   }
+        //   toast.success('تم تحديث بيانات المرتب بنجاح');
+        //   getPayRoll();
+        //   getEmployees();
 
-            if (result) {
-              console.log('تم تحديث بيانات المرتب بنجاح');
-              toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
-              // يمكنك استخدام toast أو أي رسائل توضح نجاح التحديث هنا
-            }
-          } catch (error) {
-            console.error('خطأ في تحديث بيانات المرتب:', error);
-            toast.error('حدث خطأ أثناء تحديث بيانات المرتب');
-          }
-          toast.success('تم تحديث بيانات المرتب بنجاح');
-          getPayRoll();
-          getEmployees();
+        // } else if (!isSalary && !isSalaryPaid) {
+        //   try {
+        //     const result = await axios.post(`${apiUrl}/api/payroll`, {
+        //       employeeId,
+        //       employeeName,
+        //       Year,
+        //       Month,
+        //       shiftHour,
+        //       basicSalary,
+        //       workingDays,
+        //       salary,
+        //       attendanceDays,
+        //       leaveDays,
+        //       OvertimeDays,
+        //       OvertimeValue,
+        //       Bonus,
+        //       TotalDue,
+        //       AbsenceDays,
+        //       AbsenceDeduction,
+        //       lateDays,
+        //       lateDeduction,
+        //       Deduction,
+        //       Predecessor,
+        //       insurance,
+        //       Tax,
+        //       TotalDeductible,
+        //       NetSalary,
+        //       isPaid,
+        //       paidBy
+        //     }, config);
 
-        } else if (!isSalary && !isSalaryPaid) {
-          try {
-            const result = await axios.post(`${apiUrl}/api/payroll`, {
-              employeeId,
-              employeeName,
-              Year,
-              Month,
-              shiftHour,
-              basicSalary,
-              workingDays,
-              salary,
-              attendanceDays,
-              leaveDays,
-              OvertimeDays,
-              OvertimeValue,
-              Bonus,
-              TotalDue,
-              AbsenceDays,
-              AbsenceDeduction,
-              lateDays,
-              lateDeduction,
-              Deduction,
-              Predecessor,
-              insurance,
-              Tax,
-              TotalDeductible,
-              NetSalary,
-              isPaid,
-              paidBy
-            }, config);
-
-            if (result) {
-              console.log('تم إنشاء بيانات المرتب بنجاح');
-              toast.info(` تم انشاء مرتب ${employeeName} بنجاح`);
-            }
-          } catch (error) {
-            console.error('خطأ في إنشاء بيانات المرتب:', error);
-            toast.error('حدث خطأ أثناء إنشاء بيانات المرتب');
-          }
-          toast.success('تم إنشاء بيانات المرتب بنجاح');
-          getPayRoll();
-          getEmployees();
-        }
+        //     if (result) {
+        //       console.log('تم إنشاء بيانات المرتب بنجاح');
+        //       toast.info(` تم انشاء مرتب ${employeeName} بنجاح`);
+        //     }
+        //   } catch (error) {
+        //     console.error('خطأ في إنشاء بيانات المرتب:', error);
+        //     toast.error('حدث خطأ أثناء إنشاء بيانات المرتب');
+        //   }
+        //   toast.success('تم إنشاء بيانات المرتب بنجاح');
+        //   getPayRoll();
+        //   getEmployees();
+        // }
       }
 
     } catch (error) {
