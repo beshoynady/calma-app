@@ -186,7 +186,7 @@ const SupplierTransaction = () => {
       {
         ({ employeeLoginInfo, usertitle, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            <div className="container-xl mlr-auto">
+            <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
               <div className="table-responsive mt-1">
                 <div className="table-wrapper p-3 mw-100">
                   <div className="table-title">

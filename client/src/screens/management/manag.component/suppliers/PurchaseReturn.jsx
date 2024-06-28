@@ -607,7 +607,7 @@ const PurchaseReturn = () => {
       {
         ({ employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
-            <div className="container-xl mlr-auto">
+            <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
               <div className="table-responsive">
                 <div className="table-wrapper">
                   <div className="table-title">
