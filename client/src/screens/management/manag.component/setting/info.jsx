@@ -663,7 +663,7 @@ const Info = () => {
                       
 
 
-                      <div className="w-100 form-footer d-flex justify-content-between mt-4">
+                      <div className="w-100 d-flex flex-nowrap form-footer justify-content-between mt-4">
                         <button className="btn w-50 btn-success" type="submit">تاكيد</button>
                         <button className="btn w-50 btn-danger">إلغاء</button>
                       </div>
@@ -699,9 +699,9 @@ const Info = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="d-flex justify-content-between mt-4">
-                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                            <button type="button" className="btn btn-danger" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                          <div className="w-100 d-flex flex-nowrap justify-content-between mt-4">
+                            <button type="submit" className="btn w-50 btn-success">تاكيد</button>
+                            <button type="button" className="btn w-50 btn-danger">إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -732,9 +732,9 @@ const Info = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="d-flex justify-content-between mt-4">
-                            <button type="submit" className="btn btn-success" style={{ width: '47%', height: '50px' }}>تاكيد</button>
-                            <button type="button" className="btn btn-danger" style={{ width: '47%', height: '50px' }}>إلغاء</button>
+                          <div className="w-100 d-flex flex-nowrap justify-content-between mt-4">
+                            <button type="submit" className="btn w-50 btn-success">تاكيد</button>
+                            <button type="button" className="btn w-50 btn-danger">إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -785,8 +785,8 @@ const Info = () => {
                             <label htmlFor="youtube">يوتيوب:</label>
                             <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
-                          <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                          <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
+                          <button type="submit" className="btn w-50 btn-success">تاكيد</button>
+                          <button className="btn w-50 btn-danger">إلغاء</button>
                         </form>
                       </div>
                     </div>
@@ -798,7 +798,7 @@ const Info = () => {
                         <p className="card-description">أضف المناطق وتكلفة التوصيل</p>
                         <div className="form-row mb-3">
                           <div className="col">
-                            <button type="button" className="btn btn-47 btn-success btn btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
+                            <button type="button" className="btn w-50 btn-success btn w-50 btn-block" onClick={addArea} style={{ width: '50%', height: '50px' }}>إضافة منطقة توصيل</button>
                           </div>
                         </div>
                         <form className="forms-sample" onSubmit={(e) => handleDeliveryArea(e)}>
@@ -811,17 +811,15 @@ const Info = () => {
                                 <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={Number(area.delivery_fee)} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-auto">
-                                <button type="button" className="btn btn-47 btn-danger" onClick={() => removeArea(index, area._id)} style={{ height: '50px' }}>
+                                <button type="button" className="btn w-50 btn-danger" onClick={() => removeArea(index, area._id)} style={{ height: '50px' }}>
                                   <i className="mdi mdi-delete" />
                                 </button>
                               </div>
                             </div>
                           ))}
-                          <div className="form-row mt-3">
-                            <div className="col">
-                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تأكيد</button>
-                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
-                            </div>
+                          <div className="form-row w-100 d-flex flex-nowrap mt-3">
+                              <button type="submit" className="btn w-50 btn-success">تأكيد</button>
+                              <button className="btn w-50 btn-danger">إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -865,9 +863,9 @@ const Info = () => {
                               ))}
                             </tbody>
                           </table>
-                          <div className="mt-3">
-                            <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تاكيد</button>
-                            <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
+                          <div className="w-100 d-flex flex-nowrap mt-3">
+                            <button type="submit" className="btn w-50 btn-success">تاكيد</button>
+                            <button className="btn w-50 btn-danger">إلغاء</button>
                           </div>
                         </form>
                       </div>
@@ -881,7 +879,7 @@ const Info = () => {
                         <p className="card-description">أضف الورديات و وقت الحضور و الانصراف</p>
                         <div className="form-row mb-3">
                           <div className="col">
-                            <button type="button" className="btn btn-47 btn-success btn btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
+                            <button type="button" className="btn w-50 btn-success btn w-50 btn-block" onClick={addShift} style={{ width: '50%', height: '50px' }}>إضافة وردية</button>
                           </div>
                         </div>
                         <form className="forms-sample" onSubmit={(e) => handleCreateShifts(e)}>
@@ -897,10 +895,10 @@ const Info = () => {
                                 <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col">
-                                <input type="text" className="form-control" placeholder="المدة" defaultValue={shift.hours} readOnly />
+                                <input type="text" className="form-control" placeholder="المدة" defaultValue={`${shift.hours}ساعات`} readOnly />
                               </div>
                               <div className="col-auto">
-                                <button type="button" className="btn btn-47 btn-danger" onClick={() => removeShift(index, shift._id)} style={{ height: '50px' }}>
+                                <button type="button" className="btn w-50 btn-danger" onClick={() => removeShift(index, shift._id)} style={{ height: '50px' }}>
                                   <i className="mdi mdi-delete" />
                                 </button>
                               </div>
@@ -908,8 +906,8 @@ const Info = () => {
                           ))}
                           <div className="form-row mt-3">
                             <div className="col">
-                              <button style={{ width: '47%', height: '50px' }} type="submit" className="btn btn-47 btn-success mr-2">تأكيد</button>
-                              <button style={{ width: '47%', height: '50px' }} className="btn btn-47 btn-danger">إلغاء</button>
+                              <button type="submit" className="btn w-50 btn-success">تأكيد</button>
+                              <button className="btn w-50 btn-danger">إلغاء</button>
                             </div>
                           </div>
                         </form>
