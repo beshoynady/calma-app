@@ -909,7 +909,7 @@ const Info = () => {
                               <button type="submit" className="btn btn-success w-100">تأكيد</button>
                             </div>
                             <div className="col">
-                              <button type="button" className="btn btn-danger w-100" onClick={handleCancel}>إلغاء</button>
+                              <button type="button" className="btn btn-danger w-100">إلغاء</button>
                             </div>
                           </div>
                         </form>
