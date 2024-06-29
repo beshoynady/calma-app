@@ -25,7 +25,6 @@ const createEmployeeSchema = Joi.object({
     isVerified: Joi.boolean().default(false),
     sectionNumber: Joi.number().optional(),
     createdBy: Joi.string().required(),
-    updatedBy: Joi.string().optional()
 });
 
 
