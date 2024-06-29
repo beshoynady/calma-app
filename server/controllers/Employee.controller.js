@@ -10,17 +10,24 @@ const createEmployeeSchema = Joi.object({
     fullname: Joi.string().min(3).max(100).required(),
     numberID: Joi.string().length(14).required(),
     username: Joi.string().min(3).max(100).required(),
-    address: Joi.string().min(3).max(150),
+    address: Joi.string().min(3).max(200).required(),
+    email: Joi.string().email().min(10).max(100).optional(),
     phone: Joi.string().length(11).required(),
-    password: Joi.string().min(3).required(),
+    password: Joi.string().min(3).max(200).required(),
     basicSalary: Joi.number().min(0).required(),
     role: Joi.string().valid('owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef').required(),
     isActive: Joi.boolean().required(),
     shift: Joi.string().required(),
     workingDays: Joi.number().min(0).max(31).required(),
     taxRate: Joi.number().min(0).max(100).required(), 
-    insuranceRate: Joi.number().min(0).max(100).required()
+    insuranceRate: Joi.number().min(0).max(100).required(),
+    isAdmin: Joi.boolean().default(true),
+    isVerified: Joi.boolean().default(false),
+    sectionNumber: Joi.number().optional(),
+    createdBy: Joi.string().required(),
+    updatedBy: Joi.string().optional()
 });
+
 
 
 const createEmployee = async (req, res) => {
