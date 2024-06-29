@@ -27,6 +27,7 @@ const Employees = () => {
 
   const permissionsForEmployee = permissionsList?.filter(permission => permission.resource === 'Employees')[0]
 
+
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
@@ -175,8 +176,6 @@ const Employees = () => {
     settaxRate(employee.taxRate);
     setinsuranceRate(employee.insuranceRate);
     setsectionNumber(employee.sectionNumber);
-    setcreatedBy(employee.createdBy?._id);
-    setupdatedBy(employee.updatedBy?._id);
 };
 
 
