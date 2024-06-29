@@ -160,7 +160,7 @@ const PayRoll = () => {
       return;
     }
   
-    
+
     try {
       setIsExecuting(true);
       toast.warn('انتظر قليلا .. لا تقم باعادة التحميل و غلق الصفحة');
@@ -187,7 +187,7 @@ const PayRoll = () => {
         let lateDeduction = 0;
         let Deduction = 0;
         let Predecessor = 0;
-        let InsuranceRate = ListOfEmployee[i].InsuranceRate / 100;
+        let InsuranceRate = ListOfEmployee[i].insuranceRate / 100;
         let taxRate = ListOfEmployee[i].taxRate / 100;
         let Insurance = 0;
         let Tax = 0;
