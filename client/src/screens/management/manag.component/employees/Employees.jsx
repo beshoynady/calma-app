@@ -32,7 +32,7 @@ const Employees = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
-    if (permissionsForEmployee&&permissionsForEmployee.read === false) {
+    if (permissionsForEmployee && permissionsForEmployee.read === false) {
       notify('ليس لك صلاحية لعرض بيانات الموظفين', 'info');
       return;
     }
@@ -90,36 +90,36 @@ const Employees = () => {
 
   const createEmployee = async (e) => {
     e.preventDefault();
-    
+
     if (isExecuting) {
       toast.warn('انتظر لانشاء حساب الموظف');
       return;
     }
-  
+
     // Check if the user has the permission to create an employee
     if (permissionsForEmployee && permissionsForEmployee.create === false) {
       notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
       return;
     }
-  
+
     // Validate that all required fields are filled
     if (!fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone || !shift || !role) {
       notify('جميع الحقول مطلوبة! رجاءً ملء جميع الحقول', 'error');
       return;
     }
-  
+
     try {
       setIsExecuting(true);
-  
+
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
         fullname, basicSalary, taxRate, insuranceRate, workingDays, numberID, username, password, address, shift, phone, email,
         isActive, role, sectionNumber
       }, config);
-  
+
       if (newEmployee) {
         notify('تم انشاء حساب الموظف بنجاح', 'success');
       }
-  
+
       getEmployees();
       setIsExecuting(false);
     } catch (error) {
@@ -128,7 +128,7 @@ const Employees = () => {
       setIsExecuting(false);
     }
   };
-  
+
 
 
 
@@ -139,7 +139,7 @@ const Employees = () => {
       return;
     }
 
-    if (permissionsForEmployee&&permissionsForEmployee.update === false) {
+    if (permissionsForEmployee && permissionsForEmployee.update === false) {
       notify('ليس لك صلاحية لتعديل حساب الموظف', 'info');
       return;
     }
@@ -194,7 +194,7 @@ const Employees = () => {
     settaxRate(employee.taxRate);
     setinsuranceRate(employee.insuranceRate);
     setsectionNumber(employee.sectionNumber);
-};
+  };
 
 
 
@@ -303,39 +303,39 @@ const Employees = () => {
 
 
 
-const exportToExcel = () => {
-  if (permissionsForEmployee && permissionsForEmployee.read === false) {
-    toast.error('ليس لك صلاحية لعرض بيانات الموظفين وتصديرها');
-    return;
-  }
+  const exportToExcel = () => {
+    if (permissionsForEmployee && permissionsForEmployee.read === false) {
+      toast.error('ليس لك صلاحية لعرض بيانات الموظفين وتصديرها');
+      return;
+    }
 
-  const data = listOfEmployees.map((employee, i) => ({
-    'م': i + 1,
-    'الاسم': employee.fullname,
-    'رقم قومي': employee.numberID,
-    'العنوان': employee.address,
-    'الموبايل': employee.phone,
-    'البريد الإلكتروني': employee.email,
-    'اسم المستخدم': employee.username,
-    'الوظيفة': employee.role,
-    'أيام العمل': employee.workingDays,
-    'الراتب': employee.basicSalary,
-    'معدل الضريبة': employee.taxRate,
-    'معدل التأمين': employee.insuranceRate,
-    'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
-    'السكشن': employee.sectionNumber,
-    'الشيفت': employee.shift && employee.shift.shiftType,
-    'أضيف بواسطة': employee.createdBy && employee.createdBy.username,
-    'تحديث بواسطة': employee.updatedBy && employee.updatedBy.username,
-    'التاريخ': employee.createdAt && formatDateTime(employee.createdAt),
-  }));
+    const data = listOfEmployees.map((employee, i) => ({
+      'م': i + 1,
+      'الاسم': employee.fullname,
+      'رقم قومي': employee.numberID,
+      'العنوان': employee.address,
+      'الموبايل': employee.phone,
+      'البريد الإلكتروني': employee.email,
+      'اسم المستخدم': employee.username,
+      'الوظيفة': employee.role,
+      'أيام العمل': employee.workingDays,
+      'الراتب': employee.basicSalary,
+      'معدل الضريبة': employee.taxRate,
+      'معدل التأمين': employee.insuranceRate,
+      'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
+      'السكشن': employee.sectionNumber,
+      'الشيفت': employee.shift && employee.shift.shiftType,
+      'أضيف بواسطة': employee.createdBy && employee.createdBy.username,
+      'تحديث بواسطة': employee.updatedBy && employee.updatedBy.username,
+      'التاريخ': employee.createdAt && formatDateTime(employee.createdAt),
+    }));
 
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Employees');
 
-  XLSX.writeFile(wb, 'employees.xlsx');
-};
+    XLSX.writeFile(wb, 'employees.xlsx');
+  };
 
 
 
@@ -509,12 +509,12 @@ const exportToExcel = () => {
 
       <div id="addEmployeeModal" className="modal fade">
         {permissionsForEmployee?.create === true && (
-          <div className="modal-dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => createEmployee(e)}>
-                <div className="modal-header">
+                <div className="modal-header bg-primary text-white">
                   <h4 className="modal-title">إضافة موظف</h4>
-                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div className="modal-body">
                   <div className="form-group">
@@ -614,16 +614,14 @@ const exportToExcel = () => {
         )}
       </div>
 
-
-
       <div id="editEmployeeModal" className="modal fade">
         {permissionsForEmployee?.update === true && (
-          <div className="modal-dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => editEmployee(e)}>
-                <div className="modal-header">
+                <div className="modal-header bg-primary text-white">
                   <h4 className="modal-title">تعديل بيانات الموظف</h4>
-                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div className="modal-body">
                   <div className="form-group">
@@ -658,15 +656,9 @@ const exportToExcel = () => {
                     <textarea id="address" className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="isActive">في الفريق</label>
-                    <select id="isActive" className="form-control" defaultValue={isAdmin} required onChange={(e) => setisAdmin(e.target.value)}>
-                      <option value={true}>في الفريق</option>
-                      <option value={false}>ترك لعمل</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
                     <label htmlFor="isActive">الحالة</label>
                     <select id="isActive" className="form-control" defaultValue={isActive} required onChange={(e) => setisActive(e.target.value)}>
+                      <option value="">اختر</option>
                       <option value={true}>متاح</option>
                       <option value={false}>ليس متاح</option>
                     </select>
@@ -674,6 +666,7 @@ const exportToExcel = () => {
                   <div className="form-group">
                     <label htmlFor="shift">الشيفت</label>
                     <select id="shift" className="form-control" defaultValue={shift} required onChange={(e) => setshift(e.target.value)}>
+                      <option value="">اختر</option>
                       {shifts ? shifts.map((shift, i) =>
                         <option value={shift._id} key={i}>{shift.shiftType}</option>
                       ) : <option>لم يتم إنشاء شفتات</option>}
@@ -682,6 +675,7 @@ const exportToExcel = () => {
                   <div className="form-group">
                     <label htmlFor="role">الوظيفة</label>
                     <select id="role" className="form-control" defaultValue={role} required onChange={(e) => setrole(e.target.value)}>
+                      <option value="">اختر وظيفة</option>
                       <option value="owner">مالك</option>
                       <option value="manager">مدير</option>
                       <option value="cashier">كاشير</option>
@@ -697,17 +691,17 @@ const exportToExcel = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="basicSalary">المرتب الأساسي</label>
-                    <input type="number" id="basicSalary" className="form-control" defaultValue={basicSalary} min={0} required onChange={(e) => setbasicSalary(e.target.value)} />
+                    <input type="number" id="basicSalary" className="form-control" defaultValue={basicSalary} min={0} required onChange={(e) => setbasicSalary(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال راتب صحيح.</div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="taxRate">نسبة الضريبة</label>
-                    <input type="number" id="taxRate" className="form-control" min={0} max={100} required onChange={(e) => settaxRate(Number(e.target.value))} />
+                    <input type="number" id="taxRate" className="form-control" defaultValue={taxRate} min={0} max={100} required onChange={(e) => settaxRate(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال نسبة ضريبة صحيحة.</div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="insuranceRate">نسبة التأمين</label>
-                    <input type="number" id="insuranceRate" className="form-control" min={0} max={100} required onChange={(e) => setinsuranceRate(Number(e.target.value))} />
+                    <input type="number" id="insuranceRate" className="form-control" defaultValue={insuranceRate} min={0} max={100} required onChange={(e) => setinsuranceRate(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال نسبة تأمين صحيحة.</div>
                   </div>
                   {role === 'waiter' && (
@@ -718,7 +712,7 @@ const exportToExcel = () => {
                   )}
                 </div>
                 <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
-                  <input type="submit" className="btn w-50 btn-success" value="تعديل" />
+                  <input type="submit" className="btn w-50 btn-success" value="حفظ التعديلات" />
                   <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                 </div>
               </form>
@@ -727,28 +721,6 @@ const exportToExcel = () => {
         )}
       </div>
 
-
-      <div id="deleteEmployeeModal" className="modal fade">
-        {permissionsForEmployee?.delete === true && (
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <form className='text-right' onSubmit={(e) => deleteEmployee(e)}>
-                <div className="modal-header">
-                  <h4 className="modal-title">حذف موظف</h4>
-                  <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div className="modal-body">
-                  <p>هل أنت متأكد من حذف الموظف <strong>{fullname}</strong>؟</p>
-                </div>
-                <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
-                  <input type="submit" className="btn w-50 btn-danger" value="حذف" />
-                  <input type="button" className="btn w-50 btn-default" data-dismiss="modal" value="إلغاء" />
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* <div id="deleteListEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
