@@ -141,10 +141,9 @@ const PermissionsComponent = () => {
         return;
       }
   
-      let response;
   
       if (!permissionEmployee) {
-        response = await axios.post(`${apiUrl}/api/permission`, {
+        const response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
@@ -159,7 +158,7 @@ const PermissionsComponent = () => {
         }
       } else if(permissionEmployee){
         const id = permissionEmployee._id;
-        response = await axios.put(`${apiUrl}/api/permission/${id}`, {
+        const response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
   

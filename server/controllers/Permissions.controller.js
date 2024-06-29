@@ -82,21 +82,31 @@ const getPermissionByEmployee = async (req, res) => {
 
 
 const updatePermissionById = async (req, res) => {
-    try {        
-        const updatedBy = req.employee.id
+    try {
         const { employee, Permissions } = req.body;
+        const updatedBy = req.employee.id;
 
-        const updatedPermission = await PermissionsModel.findByIdAndUpdate(req.params.id, { employee, Permissions, updatedBy }, { new: true });
+        // Check for required data
+        if (!employee || !Permissions || Permissions.length === 0) {
+            return res.status(400).json({ message: 'Please provide valid information for update.' });
+        }
+
+        const updatedPermission = await PermissionsModel.findByIdAndUpdate(
+            req.params.id,
+            { employee, Permissions, updatedBy },
+            { new: true }
+        );
 
         if (!updatedPermission) {
-            return res.status(404).json({ message: 'الصلاحية غير موجودة' });
+            return res.status(404).json({ message: 'Permission not found.' });
         }
 
         res.status(200).json(updatedPermission);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message , error});
     }
 };
+
 
 const deletePermissionById = async (req, res) => {
     try {
