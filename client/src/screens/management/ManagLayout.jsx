@@ -11,9 +11,9 @@ import LoadingPage from './manag.component/LoadingPage/LoadingPage';
 
 
 const ManagLayout = () => {
-  const { role } = useContext(detacontext);
+  const { employeeLoginInfo } = useContext(detacontext);
 
-  if (role !== 'admin') {
+  if (!employeeLoginInfo.employeeinfo.isAdmin || !employeeLoginInfo.employeeinfo.isActive) {
     return <Navigate to='/login' />;
   }
 

@@ -2067,22 +2067,12 @@ function App() {
   }, [count, itemsInCart, productOrderToUpdate, isLogin])
 
 
-  const [role, setRole] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token_e');
-    if (token) {
-      const decodedToken = jwt_decode(token);
-      setRole(decodedToken.employeeinfo.role);
-    }
-  }, []);
-
   return (
     <detacontext.Provider
       value={{
         restaurantData, clientInfo, apiUrl,
         // Functions related to authentication
-        userLoginInfo, employeeLoginInfo, role, permissionsList, getUserInfoFromToken,
+        userLoginInfo, employeeLoginInfo, permissionsList, getUserInfoFromToken,
         // login, signup, logout,
         //  adminLogin, employeelogout,
 
