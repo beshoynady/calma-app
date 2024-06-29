@@ -78,7 +78,7 @@ const PayRoll = () => {
         const filteredSalaries = response.data.filter((salary) => {
           return salary.Year === currentYear && salary.Month === currentMonth;
         });
-
+        console.log({filteredSalaries})
         // Set current payroll data
         setcurrentPayRoll(filteredSalaries);
       }
@@ -682,7 +682,6 @@ const PayRoll = () => {
             if (result) {
               console.log('تم تحديث بيانات المرتب بنجاح');
               toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
-              // يمكنك استخدام toast أو أي رسائل توضح نجاح التحديث هنا
             }
           } catch (error) {
             console.error('خطأ في تحديث بيانات المرتب:', error);
@@ -737,6 +736,7 @@ const PayRoll = () => {
         }
         setIsExecuting(false);
       }
+      setIsExecuting(false);
 
     } catch (error) {
       console.error('خطأ عام في معالجة بيانات المرتب:', error);
@@ -1015,9 +1015,7 @@ const PayRoll = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {
-
-                        ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
+                      {ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
                           if (employee.isActive == true && currentPayRoll.length > 0) {
                             return (
                               currentPayRoll.map((Roll, j) => {
