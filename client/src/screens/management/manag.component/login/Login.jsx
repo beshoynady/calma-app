@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
-import './Login.css'
 import { detacontext } from '../../../../App'
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+import './Login.css'
 
 
 
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const history = useHistory();
 
   const [phone, setphone] = useState('')
   const [password, setpassword] = useState('')
 
-  const adminLogin = async (e, phone, password, getUserInfoFromToken) => {
+  const adminLogin = async (e) => {
     e.preventDefault();
 
     // Input validation
     if (!phone || !password) {
-      toast.error('Phone number and password are required');
+      toast.error('ادخل رقم الموبايل و الباسورد بشكل صحيح');
       return;
     }
 
@@ -35,22 +38,20 @@ const Login = () => {
         // Display response message
         toast.success('تم تسجيل الدخول بنجاح');
 
+        // Store access token
         if (data.accessToken) {
           localStorage.setItem('token_e', data.accessToken);
-          // Retrieve user info from token if needed
-          const userInfo = getUserInfoFromToken();
-          console.log(userInfo);
         }
 
         // Redirect to management page if employee is active
         if (data.findEmployee.isActive === true) {
-          window.location.href = `https://${window.location.hostname}/management`;
+          history.push('/management');
         } else {
           toast.error('غير مسموح لك بالدخول');
-        }
+        } 
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error during login:', error);
 
       // Display error message from server response
       if (error.response && error.response.data && error.response.data.message) {
@@ -60,6 +61,8 @@ const Login = () => {
       }
     }
   };
+
+
   return (
     <detacontext.Consumer>
       {
@@ -71,7 +74,10 @@ const Login = () => {
                   <div className="row">
                     <div className="col-sm-6">
                       <div className="logo">
-                        <span className="logo-font">Go</span>Snippets
+                        <span className="logo-font">Smart</span> Menu
+                      </div>
+                      <div className="app-description">
+                        <p>أدخل رقم هاتفك وكلمة المرور للوصول إلى تطبيق Smart Menu الذي يمكنك من إدارة أقسام مطعمك بسهولة والتحكم الشامل في عملياته.</p>
                       </div>
                     </div>
                   </div>
@@ -79,19 +85,15 @@ const Login = () => {
                     <div className="col-sm-6">
                       <br />
                       <h3 className="header-title">سجل دخول</h3>
-                      <form className="login-form" onSubmit={(e) => adminLogin(e, phone, password, getUserInfoFromToken)}>
+                      <form className="login-form" onSubmit={adminLogin}>
                         <div className="form-group">
-                          <input type="text" className="form-control" placeholder="phone" onChange={(e) => setphone(e.target.value)} />
+                          <input type="text" className="form-control" placeholder="الهاتف" onChange={(e) => setphone(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <input type="Password" className="form-control" placeholder="Password" onChange={(e) => setpassword(e.target.value)} />
-                          <a href="#!" className="forgot-password">Forgot Password?</a>
+                          <input type="password" className="form-control" placeholder="كلمة المرور" onChange={(e) => setpassword(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <button className="btn btn-primary btn-block">تسجيل دخول</button>
-                        </div>
-                        <div className="form-group">
-                          <div className="text-center">New Member? <a href="#!">Sign up Now</a></div>
                         </div>
                       </form>
                     </div>
@@ -107,15 +109,15 @@ const Login = () => {
                           <div className="carousel-item active">
                             <div className="slider-feature-card">
                               <img src="https://i.imgur.com/YMn8Xo1.png" alt="" />
-                              <h3 className="slider-title">Title Here</h3>
-                              <p className="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, odio!</p>
+                              <h3 className="slider-title">إدارة المطعم بذكاء</h3>
+                              <p className="slider-description">قم بإدارة قوائم المطعم الإلكترونية بسهولة وفاعلية باستخدام تطبيق Smart Menu.</p>
                             </div>
                           </div>
                           <div className="carousel-item">
                             <div className="slider-feature-card">
                               <img src="https://i.imgur.com/Yi5KXKM.png" alt="" />
-                              <h3 className="slider-title">Title Here</h3>
-                              <p className="slider-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, debitis?</p>
+                              <h3 className="slider-title">تحكم كامل بأعمالك</h3>
+                              <p className="slider-description">احصل على تقارير مفصلة وإدارة شاملة لأقسام مطعمك من خلال تطبيق Smart Menu.</p>
                             </div>
                           </div>
                         </div>
