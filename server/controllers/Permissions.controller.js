@@ -83,17 +83,17 @@ const getPermissionByEmployee = async (req, res) => {
 
 const updatePermissionById = async (req, res) => {
     try {
-        const { employee, Permissions } = req.body;
+        const {Permissions } = req.body;
         const updatedBy = req.employee.id;
 
         // Check for required data
-        if (!employee || !Permissions || Permissions.length === 0) {
+        if (!Permissions || Permissions.length === 0) {
             return res.status(400).json({ message: 'Please provide valid information for update.' });
         }
 
         const updatedPermission = await PermissionsModel.findByIdAndUpdate(
             req.params.id,
-            { employee, Permissions, updatedBy },
+            {Permissions, updatedBy },
             { new: true }
         );
 
