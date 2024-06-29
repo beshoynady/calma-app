@@ -206,14 +206,14 @@ const PermissionsComponent = () => {
         const permissionEmployee = permissionsList ?
           permissionsList.filter(permission => permission.employee?._id === selectedEmployee._id)[0] :
           null;
-
+        
         if (permissionEmployee) {
           setpermissionEmployee(permissionEmployee);
           setPermissions(permissionEmployee.Permissions)
           // console.log({ permissionEmployee });
           // console.log({ selectedEmployee });
         } else {
-          setpermissionEmployee({});
+          setpermissionEmployee([]);
           setPermissions([])
           toast.info('هذا الموظف ليس له اي صلاحيات')
         }
