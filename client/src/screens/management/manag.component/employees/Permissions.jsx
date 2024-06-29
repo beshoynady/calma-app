@@ -133,7 +133,7 @@ const PermissionsComponent = () => {
 
   const addPermissions = async (e) => {
     e.preventDefault();
-    console.log({ employeeid, Permissions });
+    console.log({ permissionEmployee });
   
     try {
       if (!employeeid || !Permissions || Permissions.length === 0) {
@@ -157,7 +157,7 @@ const PermissionsComponent = () => {
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
         }
-      } else {
+      } else if(permissionEmployee){
         const id = permissionEmployee._id;
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
