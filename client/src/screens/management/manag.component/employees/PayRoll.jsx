@@ -229,11 +229,11 @@ const PayRoll = () => {
         OvertimeValue = (OvertimeDays * dailySalary).toFixed(2);
         lateDeduction = (lateDays * dailySalary).toFixed(2);
         salary = (dailySalary * (attendanceDays + leaveDays)).toFixed(2);
-        Insurance = (InsuranceRate * basicSalary).toFixed(2);
+        Insurance = InsuranceRate>0?(InsuranceRate * basicSalary).toFixed(2):0;
         TotalDue = (parseFloat(salary) + parseFloat(Bonus) + parseFloat(OvertimeValue)).toFixed(2);
   
         let taxableIncome = TotalDue - Insurance;
-        Tax = (taxableIncome * taxRate).toFixed(2);
+        Tax = taxRate>0?(taxableIncome * taxRate).toFixed(2):0;
         TotalDeductible = (parseFloat(AbsenceDeduction) + parseFloat(lateDeduction) + parseFloat(Deduction) + parseFloat(Predecessor) + parseFloat(Tax) + parseFloat(Insurance)).toFixed(2);
         NetSalary = (TotalDue - TotalDeductible).toFixed(2);
   
