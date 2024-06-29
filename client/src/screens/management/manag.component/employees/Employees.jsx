@@ -80,7 +80,7 @@ const Employees = () => {
   const [sectionNumber, setsectionNumber] = useState()
 
 
-  const createEmployee = async (e, permissionsList) => {
+  const createEmployee = async (e) => {
     e.preventDefault();
 
     // Check if the user has the permission to create an employee
@@ -89,10 +89,12 @@ const Employees = () => {
       notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
       return;
     }
+
+    console.log({fullname, basicSalary, workingDays, numberID, username, password, address, shift, phone, email,
+      isActive, role, sectionNumber})
     // Validate that all required fields are filled
-    if (
-      !fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone 
-      || !shift || typeof isActive !== 'boolean' || !role
+    if ( !fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone 
+      || !shift || !role
     ) {
       notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
       return;
@@ -472,7 +474,7 @@ const Employees = () => {
         {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form className='text-right' onSubmit={(e) => createEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => createEmployee(e)}>
                 <div className="modal-header">
                   <h4 className="modal-title">إضافة موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
