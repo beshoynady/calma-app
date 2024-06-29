@@ -92,7 +92,7 @@ const Employees = () => {
     }
 
     console.log({
-      fullname, basicSalary,taxRate, insuranceRate , workingDays, numberID, username, password, address, shift, phone, email,
+      fullname, basicSalary, taxRate, insuranceRate, workingDays, numberID, username, password, address, shift, phone, email,
       isActive, role, sectionNumber
     })
     // Validate that all required fields are filled
@@ -105,7 +105,7 @@ const Employees = () => {
 
     try {
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
-        fullname, basicSalary,taxRate, insuranceRate , workingDays, numberID, username, password, address, shift, phone, email,
+        fullname, basicSalary, taxRate, insuranceRate, workingDays, numberID, username, password, address, shift, phone, email,
         isActive, role, sectionNumber
       }, config);
 
@@ -133,11 +133,11 @@ const Employees = () => {
       if (permissionsForEmployee.update === true) {
         const updateData = password
           ? {
-            fullname, numberID, username, email, shift, address, phone, password, basicSalary,taxRate, insuranceRate ,
+            fullname, numberID, username, email, shift, address, phone, password, basicSalary, taxRate, insuranceRate,
             workingDays, isActive, role, sectionNumber
           }
           : {
-            fullname, numberID, username, email, shift, address, phone, basicSalary,taxRate, insuranceRate , workingDays,
+            fullname, numberID, username, email, shift, address, phone, basicSalary, taxRate, insuranceRate, workingDays,
             isActive, role, sectionNumber
           };
 
@@ -158,13 +158,27 @@ const Employees = () => {
     }
   };
   const [employeeShift, setemployeeShift] = useState({})
-  const handleEditEmployeee = (employee) => {
-    setemployeeid(employee._id); setfullname(employee.fullname); setnumberID(employee.numberID);
-    setusername(employee.username); setaddress(employee.address); setemail(employee.email);
-    setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role);
-    setbasicSalary(employee.basicSalary); setworkingDays(employee.workingDays);
-    setshift(employee.shift._id); setemployeeShift(employee.shift); setworkingDays(employee.workingDays)
-  }
+  const handleEditEmployee = (employee) => {
+    setemployeeid(employee._id);
+    setfullname(employee.fullname);
+    setnumberID(employee.numberID);
+    setusername(employee.username);
+    setaddress(employee.address);
+    setemail(employee.email);
+    setisActive(employee.isActive);
+    setphone(employee.phone);
+    setrole(employee.role);
+    setbasicSalary(employee.basicSalary);
+    setworkingDays(employee.workingDays);
+    setshift(employee.shift._id);
+    setemployeeShift(employee.shift);
+    settaxRate(employee.taxRate);
+    setinsuranceRate(employee.insuranceRate);
+    setsectionNumber(employee.sectionNumber);
+    setcreatedBy(employee.createdBy?._id);
+    setupdatedBy(employee.updatedBy?._id);
+};
+
 
 
   const getEmployeesByJob = (role) => {
@@ -388,75 +402,69 @@ const Employees = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                {/* <th>
-                          <span className="custom-checkbox">
-                          </span>
-                        </th> */}
                 <th>م</th>
                 <th>الاسم</th>
                 <th>رقم قومي</th>
                 <th>العنوان</th>
                 <th>الموبايل</th>
+                <th>البريد الإلكتروني</th>
                 <th>اسم المستخدم</th>
-                <th>الوظيفه</th>
-                <th>ايام العمل</th>
+                <th>الوظيفة</th>
+                <th>أيام العمل</th>
                 <th>الراتب</th>
+                <th>معدل الضريبة</th>
+                <th>معدل التأمين</th>
                 <th>الحالة</th>
                 <th>السكشن</th>
                 <th>الشيفت</th>
-                <th>اضيف بواسطه</th>
-                <th>تعديل</th>
+                <th>أضيف بواسطة</th>
+                <th>تحديث بواسطة</th>
                 <th>التاريخ</th>
-                <th>اجراءات</th>
+                <th>إجراءات</th>
               </tr>
             </thead>
             <tbody>
               {listOfEmployees.length > 0 ? listOfEmployees.map((employee, i) => {
-                // if (i < pagination & i >= pagination - 5) {
-                if (i >= startpagination & i < endpagination) {
+                if (i >= startpagination && i < endpagination) {
                   return (
                     <tr key={i}>
-                      {/* <td>
-                                <span className="custom-checkbox">
-                                  <input
-                                    type="checkbox"
-                                    id={`checkbox${i}`}
-                                    name="options[]"
-                                    value={employee._id}
-                                    onChange={handleCheckboxChange}
-                                  />
-                                  <label htmlFor={`checkbox${i}`}></label>
-                                </span>
-                              </td> */}
                       <td>{i + 1}</td>
                       <td>{employee.fullname}</td>
                       <td>{employee.numberID}</td>
                       <td>{employee.address}</td>
                       <td>{employee.phone}</td>
+                      <td>{employee.email}</td>
                       <td>{employee.username}</td>
                       <td>{employee.role}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.basicSalary}</td>
-                      <td>{employee.isActive ? 'متاح' : "غير متاح"}</td>
+                      <td>{employee.taxRate}</td>
+                      <td>{employee.insuranceRate}</td>
+                      <td>{employee.isActive ? 'متاح' : 'غير متاح'}</td>
                       <td>{employee.sectionNumber}</td>
                       <td>{employee.shift && employee.shift.shiftType}</td>
-                      <td>{employee.creaedBy && employee.creaedBy.username}</td>
+                      <td>{employee.createdBy && employee.createdBy.username}</td>
                       <td>{employee.updatedBy && employee.updatedBy.username}</td>
                       <td>{employee.createdAt && formatDateTime(employee.createdAt)}</td>
                       <td>
-                        {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true ? (
-                          <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => { handleEditEmployeee(employee) }}>&#xE254;</i></a>)
-                          : permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true ? (
-                            <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(employee._id)}>&#xE872;</i></a>)
-                            : '--'}
+                        {permissionsForEmployee?.update ? (
+                          <a href="#editEmployeeModal" className="edit" data-toggle="modal">
+                            <i className="material-icons" data-toggle="tooltip" title="Edit" onClick={() => handleEditEmployee(employee)}>&#xE254;</i>
+                          </a>
+                        ) : permissionsForEmployee?.delete ? (
+                          <a href="#deleteEmployeeModal" className="delete" data-toggle="modal">
+                            <i className="material-icons" data-toggle="tooltip" title="Delete" onClick={() => setemployeeid(employee._id)}>&#xE872;</i>
+                          </a>
+                        ) : '--'}
                       </td>
                     </tr>
-                  )
+                  );
                 }
-              })
-                : ""}
+                return null;
+              }) : ""}
             </tbody>
           </table>
+
           <div className="clearfix">
             <div className="hint-text text-dark">عرض <b>{listOfEmployees.length > endpagination ? endpagination : listOfEmployees.length}</b> من <b>{listOfEmployees.length}</b> عنصر</div>
             <ul className="pagination">
