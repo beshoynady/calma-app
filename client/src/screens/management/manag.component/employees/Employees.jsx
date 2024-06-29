@@ -84,6 +84,7 @@ const Employees = () => {
   const [phone, setphone] = useState("")
   const [email, setemail] = useState("")
   const [isActive, setisActive] = useState(true)
+  const [isAdmin, setisAdmin] = useState(true)
   const [role, setrole] = useState("")
   const [sectionNumber, setsectionNumber] = useState()
 
@@ -438,6 +439,7 @@ const exportToExcel = () => {
                 <th>معدل الضريبة</th>
                 <th>معدل التأمين</th>
                 <th>الحالة</th>
+                <th>علي راس العمل</th>
                 <th>السكشن</th>
                 <th>الشيفت</th>
                 <th>أضيف بواسطة</th>
@@ -464,6 +466,7 @@ const exportToExcel = () => {
                       <td>{employee.taxRate}</td>
                       <td>{employee.insuranceRate}</td>
                       <td>{employee.isActive ? 'متاح' : 'غير متاح'}</td>
+                      <td>{employee.isAdmin ? 'في الفريق' : 'ترك العمل'}</td>
                       <td>{employee.sectionNumber}</td>
                       <td>{employee.shift && employee.shift.shiftType}</td>
                       <td>{employee.createdBy && employee.createdBy.username}</td>
@@ -653,6 +656,13 @@ const exportToExcel = () => {
                   <div className="form-group">
                     <label htmlFor="address">العنوان</label>
                     <textarea id="address" className="form-control" defaultValue={address} required onChange={(e) => setaddress(e.target.value)}></textarea>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="isActive">في الفريق</label>
+                    <select id="isActive" className="form-control" defaultValue={isAdmin} required onChange={(e) => setisAdmin(e.target.value)}>
+                      <option value={true}>في الفريق</option>
+                      <option value={false}>ترك لعمل</option>
+                    </select>
                   </div>
                   <div className="form-group">
                     <label htmlFor="isActive">الحالة</label>

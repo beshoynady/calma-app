@@ -524,12 +524,12 @@ const PayRoll = () => {
 
   const addPayRoll = async () => {
     if (isExecuting) {
-      toast.warn('انتظر ! جاري انشاء كشف المرتبات')
+      toast.warn('انتظر ! جاري انشاء كشف المرتبات');
       return;
     }
     try {
-    setIsExecuting(true);
-      toast.warn('انتظر قليلا .. لا تقم باعادة التحميل و غلق الصفحة')
+      setIsExecuting(true);
+      toast.warn('انتظر قليلا .. لا تقم باعادة التحميل و غلق الصفحة');
       for (let i = 0; i < ListOfEmployee.length; i++) {
         let Year = new Date().getFullYear();
         let Month = new Date().getMonth() + 1;
@@ -538,7 +538,7 @@ const PayRoll = () => {
         let shiftHour = ListOfEmployee[i].shift?.hours;
         let basicSalary = ListOfEmployee[i].basicSalary;
         let workingDays = ListOfEmployee[i].workingDays;
-        let dailySalary = basicSalary / workingDays;
+        let dailySalary = (basicSalary / workingDays).toFixed(2);
         let salary = 0;
         let attendanceDays = 0;
         let leaveDays = 0;
@@ -560,67 +560,55 @@ const PayRoll = () => {
         let NetSalary = 0;
         let isPaid = false;
         let paidBy = null;
-
+  
         const EmployeTransactions = ListOfEmployeTransactions.length > 0 ?
           ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : [];
-
+  
         const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ?
           allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : [];
-
-        console.log({EmployeTransactions, EmployeAttendanceRecords})
-
-
+  
+        console.log({EmployeTransactions, EmployeAttendanceRecords});
+  
         const filterPre = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
         Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
-
+  
         const filterDed = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'خصم');
         Deduction = filterDed.length > 0 ? filterDed[filterDed.length - 1].newAmount : 0;
-
+  
         const filterBon = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'مكافأة');
         Bonus = filterBon.length > 0 ? filterBon[filterBon.length - 1].newAmount : 0;
-
-
-
-        const filterAttendanceRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
+  
+        const filterAttendanceRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
         attendanceDays = filterAttendanceRecords.length;
-
-        filterAttendanceRecords&&filterAttendanceRecords.forEach(record => {
-          OvertimeDays += record.overtimeMinutes / 60 / shiftHour;
-          lateDays += record.lateMinutes / 60 / shiftHour; 
+  
+        filterAttendanceRecords && filterAttendanceRecords.forEach(record => {
+          OvertimeDays += (record.overtimeMinutes / 60 / shiftHour);
+          lateDays += (record.lateMinutes / 60 / shiftHour);
         });
-
-        const filterAbsenceRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
+  
+        const filterAbsenceRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
         AbsenceDays = filterAbsenceRecords.length;
-
-        const filterVacationRecords = EmployeAttendanceRecords&&EmployeAttendanceRecords.filter((Record) => Record.status == 'Vacation')
-        leaveDays = filterVacationRecords.length
-
-
-
-        AbsenceDeduction = dailySalary * AbsenceDays;
-
-        OvertimeValue = OvertimeDays * dailySalary;
-
-        lateDeduction = lateDays * dailySalary;
-
-        salary = dailySalary * (attendanceDays + leaveDays );
-
-        insurance = insuranceRate * salary;
-
-        TotalDue = salary + Bonus + OvertimeValue;
-
+  
+        const filterVacationRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Vacation');
+        leaveDays = filterVacationRecords.length;
+  
+        AbsenceDeduction = (dailySalary * AbsenceDays).toFixed(2);
+        OvertimeValue = (OvertimeDays * dailySalary).toFixed(2);
+        lateDeduction = (lateDays * dailySalary).toFixed(2);
+        salary = (dailySalary * (attendanceDays + leaveDays)).toFixed(2);
+        insurance = (insuranceRate * salary).toFixed(2);
+        TotalDue = (parseFloat(salary) + parseFloat(Bonus) + parseFloat(OvertimeValue)).toFixed(2);
+  
         let taxableIncome = TotalDue - insurance;
-
-        Tax = taxableIncome * taxRate;
-
-        TotalDeductible = AbsenceDeduction + lateDeduction + Deduction + Predecessor + Tax + insurance;
-
-        NetSalary = TotalDue - TotalDeductible;
-
+        Tax = (taxableIncome * taxRate).toFixed(2);
+        TotalDeductible = (parseFloat(AbsenceDeduction) + parseFloat(lateDeduction) + parseFloat(Deduction) + parseFloat(Predecessor) + parseFloat(Tax) + parseFloat(insurance)).toFixed(2);
+        NetSalary = (TotalDue - TotalDeductible).toFixed(2);
+  
         const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
         const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
-        
-        console.log({employeeName,
+  
+        console.log({
+          employeeName,
           Year,
           Month,
           employeeId,
@@ -646,7 +634,9 @@ const PayRoll = () => {
           TotalDeductible,
           NetSalary,
           isPaid,
-          paidBy})
+          paidBy
+        });
+  
         if (isSalary && !isSalaryPaid) {
           try {
             const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
@@ -678,7 +668,7 @@ const PayRoll = () => {
               isPaid,
               paidBy
             }, config);
-
+  
             if (result) {
               console.log('تم تحديث بيانات المرتب بنجاح');
               toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
@@ -690,7 +680,7 @@ const PayRoll = () => {
           toast.success('تم تحديث بيانات المرتب بنجاح');
           getPayRoll();
           getEmployees();
-
+  
         } else if (!isSalary && !isSalaryPaid) {
           try {
             const result = await axios.post(`${apiUrl}/api/payroll`, {
@@ -721,10 +711,10 @@ const PayRoll = () => {
               isPaid,
               paidBy
             }, config);
-
+  
             if (result) {
               console.log('تم إنشاء بيانات المرتب بنجاح');
-              toast.info(` تم انشاء مرتب ${employeeName} بنجاح`);
+              toast.info(`تم انشاء مرتب ${employeeName} بنجاح`);
             }
           } catch (error) {
             console.error('خطأ في إنشاء بيانات المرتب:', error);
@@ -737,13 +727,14 @@ const PayRoll = () => {
         setIsExecuting(false);
       }
       setIsExecuting(false);
-
+  
     } catch (error) {
       console.error('خطأ عام في معالجة بيانات المرتب:', error);
       toast.error('حدث خطأ عام أثناء معالجة بيانات المرتب');
       setIsExecuting(false);
     }
   };
+  
 
 
 
@@ -1011,7 +1002,7 @@ const PayRoll = () => {
                     </thead>
                     <tbody>
                       {ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
-                          if (employee.isActive == true && currentPayRoll.length > 0) {
+                          if (employee.isAdmin == true && currentPayRoll.length > 0) {
                             return (
                               currentPayRoll.map((Roll, j) => {
                                 if (Roll.employeeId._id == employee._id) {
