@@ -1,25 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './ManagLayout.css'
-import { detacontext } from '../../App'
+import React, { useContext } from 'react';
+import './ManagLayout.css';
+import { detacontext } from '../../App';
 import { Navigate, Outlet } from 'react-router-dom';
 import NavBar from './manag.component/navbar/NavBar';
 import SideBar from './manag.component/sidebar/SideBar';
-import jwt_decode from "jwt-decode";
-import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
-import LoadingPage from './manag.component/LoadingPage/LoadingPage';
-
 
 const ManagLayout = () => {
   const { employeeLoginInfo } = useContext(detacontext);
 
-  if (!employeeLoginInfo.employeeinfo.isAdmin || !employeeLoginInfo.employeeinfo.isActive) {
+  const isLoggedIn = employeeLoginInfo?.employeeinfo?.isAdmin && employeeLoginInfo?.employeeinfo?.isActive;
+
+  if (!isLoggedIn) {
     return <Navigate to='/login' />;
   }
 
   return (
-    <div className='manag-body '>
-      <ToastContainer/>
+    <div className='manag-body'>
+      <ToastContainer />
       <main className='content'>
         <NavBar />
         <Outlet />
@@ -28,4 +26,5 @@ const ManagLayout = () => {
     </div>
   );
 };
-export default ManagLayout
+
+export default ManagLayout;

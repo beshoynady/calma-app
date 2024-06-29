@@ -379,8 +379,8 @@ const EmployeeTransactions = () => {
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Close" />
-                <input type="submit" className="btn w-50 btn-success" value="Add" />
+                <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
               </div>
             </form>
           </div>
@@ -440,8 +440,8 @@ const EmployeeTransactions = () => {
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                 <input type="submit" className="btn w-50 btn-info" value="حفظ" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
               </div>
             </form>
           </div>
@@ -460,8 +460,8 @@ const EmployeeTransactions = () => {
                 <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                 <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
               </div>
             </form>
           </div>
