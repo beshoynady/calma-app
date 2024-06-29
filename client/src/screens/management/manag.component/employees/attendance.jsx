@@ -76,8 +76,9 @@ const AttendanceManagement = () => {
       }
 
       console.log({ newattendanceData });
-
+      
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
+      console.log({ createRecord });
 
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
@@ -649,13 +650,13 @@ const AttendanceManagement = () => {
 
       <div id="arrivalModal" className="modal fade" tabIndex="-1">
         <div className="modal-dialog modal-lg">
-          <div className="modal-content shadow-lg border-0 rounded">
+          <div className="modal-content shadow-lg border-0 rounded ">
             <form onSubmit={recordArrival}>
               <div className="modal-header bg-primary text-white">
                 <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body p-4">
+              <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
                     <label>تاريخ الحالي</label>
@@ -754,7 +755,7 @@ const AttendanceManagement = () => {
                 <h4 className="modal-title">تسجيل انصراف الموظف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body p-4">
+              <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
                     <label>الاسم</label>
@@ -824,7 +825,7 @@ const AttendanceManagement = () => {
                 <h4 className="modal-title">تعديل سجل</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body p-4">
+              <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
                     <label>تاريخ الحالي</label>
@@ -933,7 +934,7 @@ const AttendanceManagement = () => {
                 <h4 className="modal-title">حذف تصنيف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body p-4">
+              <div className="modal-body p-4 text-right">
                 <p>هل انت متاكد من حذف هذا التصنيف?</p>
                 <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
               </div>
