@@ -31,7 +31,7 @@ const createEmployeeSchema = Joi.object({
 
 const createEmployee = async (req, res) => {
     try {
-        const createdBy = req.employee.id
+        const createdBy = await req.employee.id
         const { error } = createEmployeeSchema.validate(req.body);
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
