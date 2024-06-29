@@ -95,13 +95,13 @@ const PermissionsComponent = () => {
               permission.read = true
             }
           }
-          console.log({ permission })
+          // console.log({ permission })
 
           if (!permission.create && !permission.update && !permission.read && !permission.delete) {
             const update = updatePermissions.filter(per => per.resource !== resource)
             updatePermissions = [...update]
           }
-          console.log({ permission })
+          // console.log({ permission })
         }
 
       })
@@ -124,16 +124,16 @@ const PermissionsComponent = () => {
         read: false,
         delete: false
       }
-      console.log({ newPermission })
+      // console.log({ newPermission })
     }
-    console.log({ updatePermissions })
+    // console.log({ updatePermissions })
     setPermissions([...updatePermissions])
   }
 
 
   const addPermissions = async (e) => {
     e.preventDefault();
-    console.log({ permissionEmployee });
+    // console.log({ permissionEmployee });
   
     try {
       if (!employeeid || !Permissions || Permissions.length === 0) {
@@ -166,8 +166,6 @@ const PermissionsComponent = () => {
 
         }
       }
-      await getPermissions()
-      getEmployeesById(employeeid)
     } catch (error) {
       console.error('Error updating permissions:', error);
       toast.error('حدث خطأ اثناء اضافه الصلاحيات.');
