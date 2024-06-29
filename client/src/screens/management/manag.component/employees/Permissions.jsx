@@ -137,46 +137,40 @@ const PermissionsComponent = () => {
   
     try {
       if (!employeeid || !Permissions || Permissions.length === 0) {
-        toast.error('Please provide all required data.');
+        toast.error('اختار الموظف و الصلاحيات بشكل صحيح! اعد تحميل الصفحة ثم اعد المحاوله مره اخري.');
         return;
       }
   
       let response;
   
       if (!permissionEmployee || !permissionEmployee._id) {
-        // إنشاء صلاحيات جديدة إذا لم تكن موجودة
         response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
-        handleResponse(response, 'Permissions created successfully!', 'Failed to create permissions');
+        toast.success('تم انشاء الصلاحيات بنجاح');
       } else {
-        // تحديث الصلاحيات إذا كانت موجودة
         const id = permissionEmployee._id;
         if (!id) {
-          toast.error('Invalid permission ID.');
+          toast.error('فشل في الوصول الي صلاحيات الموظف لتعديلها ! اعد تحميل الصفحة و حاول مره اخري.');
           return;
         }
   
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
-        handleResponse(response, 'Permissions updated successfully!', 'Failed to update permissions');
+        if(response){
+          toast.success('تم تعديل او اضافه الصلاحيات بنجاح');
+        }else{
+          toast.error('فشل تعديل صلاحيات الموظف ! اعد تحميل الصفحة و حاول مره اخري.');
+
+        }
       }
+      await getPermissions()
+      getEmployeesById(employeeid)
     } catch (error) {
       console.error('Error updating permissions:', error);
-      toast.error('An error occurred while updating permissions.');
-    }
-  };
-  
-  const handleResponse = (response, successMessage, failureMessage) => {
-    console.log({ response });
-    if (response.status === 200 || response.status === 201) {
-      const data = response.data;
-      setPermissions(data.Permissions);
-      toast.success(successMessage);
-    } else {
-      toast.error(failureMessage + ': Unexpected status code');
+      toast.error('حدث خطأ اثناء اضافه الصلاحيات.');
     }
   };
   
