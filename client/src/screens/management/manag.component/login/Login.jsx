@@ -39,7 +39,7 @@ const Login = () => {
           localStorage.setItem('token_e', data.accessToken);
           // Retrieve user info from token if needed
           const userInfo = getUserInfoFromToken();
-          console.log(userInfo);
+          // console.log(userInfo);
         }
 
         // Redirect to management page if employee is active
