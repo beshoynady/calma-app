@@ -630,6 +630,7 @@ const PayRoll = () => {
           employeeName,
           shiftHour,
           basicSalary,
+          dailySalary,
           workingDays,
           salary,
           attendanceDays,
@@ -662,10 +663,12 @@ const PayRoll = () => {
               employeeName,
               shiftHour,
               basicSalary,
+              dailySalary,
+              leaveDays,
               workingDays,
+              dailySalary,
               salary,
               attendanceDays,
-              leaveDays,
               OvertimeDays,
               OvertimeValue,
               Bonus,
@@ -699,13 +702,16 @@ const PayRoll = () => {
         } else if (!isSalary && !isSalaryPaid) {
           try {
             const result = await axios.post(`${apiUrl}/api/payroll`, {
-              employeeId,
               employeeName,
               Year,
               Month,
+              employeeId,
+              employeeName,
               shiftHour,
               basicSalary,
+              dailySalary,
               workingDays,
+              dailySalary,
               salary,
               attendanceDays,
               leaveDays,
@@ -1039,12 +1045,12 @@ const PayRoll = () => {
                                       <td>{Roll.OvertimeDays}</td>
                                       <td>{Roll.OvertimeValue}</td>
                                       <td>{Roll.Bonus}</td>
-                                      <td>{Roll.totalDue}</td>
+                                      <td>{Roll.TotalDue}</td>
                                       <td>{Roll.Deduction}</td>
                                       <td>{Roll.AbsenceDays}</td>
                                       <td>{Roll.AbsenceDeduction}</td>
                                       <td>{Roll.Predecessor}</td>
-                                      <td>{Roll.insurance}</td>
+                                      <td>{Roll.Insurance}</td>
                                       <td>{Roll.Tax}</td>
                                       <td>{Roll.TotalDeductible}</td>
                                       <td>{Roll.NetSalary}</td>

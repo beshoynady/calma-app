@@ -36,7 +36,7 @@ const payrollSchema = new mongoose.Schema({
     min: 0,
     default: 0,
   },
-  salary: {
+  dailySalary: {
     type: Number,
     min: 0,
     default: 0,
@@ -49,6 +49,11 @@ const payrollSchema = new mongoose.Schema({
   leaveDays: {
     type: Number,
     required: true,
+    min: 0,
+    default: 0,
+  },
+  salary: {
+    type: Number,
     min: 0,
     default: 0,
   },
