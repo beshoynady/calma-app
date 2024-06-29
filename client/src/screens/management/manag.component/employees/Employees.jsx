@@ -91,17 +91,8 @@ const Employees = () => {
     }
     // Validate that all required fields are filled
     if (
-      !fullname ||
-      !username ||
-      !basicSalary ||
-      !workingDays ||
-      !numberID ||
-      !password ||
-      !address ||
-      !phone ||
-      !shift ||
-      typeof isActive !== 'boolean' || // Ensure isActive is explicitly checked
-      !role
+      !fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone 
+      || !shift || typeof isActive !== 'boolean' || !role
     ) {
       notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
       return;
@@ -109,19 +100,8 @@ const Employees = () => {
 
     try {
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
-        fullname,
-        basicSalary,
-        workingDays,
-        numberID,
-        username,
-        password,
-        address,
-        shift,
-        phone,
-        email,
-        isActive,
-        role,
-        sectionNumber
+        fullname, basicSalary, workingDays, numberID, username, password, address, shift, phone, email,
+        isActive, role, sectionNumber
       }, config);
 
       notify('تم انشاء حساب الموظف بنجاح', 'success');
@@ -147,8 +127,14 @@ const Employees = () => {
       // }
       if (permissionsForEmployee.update === true) {
         const updateData = password
-          ? { fullname, numberID, username, email, shift, address, phone, password, basicSalary, workingDays, isActive, role, sectionNumber }
-          : { fullname, numberID, username, email, shift, address, phone, basicSalary, workingDays, isActive, role, sectionNumber };
+          ? {
+            fullname, numberID, username, email, shift, address, phone, password, basicSalary,
+            workingDays, isActive, role, sectionNumber
+          }
+          : {
+            fullname, numberID, username, email, shift, address, phone, basicSalary, workingDays,
+            isActive, role, sectionNumber
+          };
 
         const update = await axios.put(`${apiUrl}/api/employee/${employeeid}`, updateData, config);
         if (update.status === 200) {
@@ -172,7 +158,7 @@ const Employees = () => {
     setusername(employee.username); setaddress(employee.address); setemail(employee.email);
     setisActive(employee.isActive); setphone(employee.phone); setrole(employee.role);
     setbasicSalary(employee.basicSalary); setworkingDays(employee.workingDays);
-    setshift(employee.shift._id); setemployeeShift(employee.shift)
+    setshift(employee.shift._id); setemployeeShift(employee.shift); setworkingDays(employee.workingDays)
   }
 
 
@@ -486,7 +472,7 @@ const Employees = () => {
         {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form onSubmit={(e) => createEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => createEmployee(e, permissionsList)}>
                 <div className="modal-header">
                   <h4 className="modal-title">إضافة موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -499,7 +485,7 @@ const Employees = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="username">اسم المستخدم</label>
-                    <input type="text" id="username" className="form-control" required onChange={(e) => setusername(e.target.value)} />
+                    <input type="text" id="username" className="form-control"  onChange={(e) => setusername(e.target.value)} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone">الموبايل</label>
@@ -584,7 +570,7 @@ const Employees = () => {
         {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form onSubmit={(e) => editEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => editEmployee(e, permissionsList)}>
                 <div className="modal-header">
                   <h4 className="modal-title">تعديل بيانات الموظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -678,7 +664,7 @@ const Employees = () => {
         {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form onSubmit={(e) => deleteEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => deleteEmployee(e, permissionsList)}>
                 <div className="modal-header">
                   <h4 className="modal-title">حذف موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -699,7 +685,7 @@ const Employees = () => {
       {/* <div id="deleteListEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
-                    <form onSubmit={deleteSelectedIds}>
+                    <form className='text-right' onSubmit={deleteSelectedIds}>
                       <div className="modal-header">
                         <h4 className="modal-title">حذف الموظفين المحددين</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
