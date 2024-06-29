@@ -196,7 +196,7 @@ const PermissionsComponent = () => {
         setemployeeid(selectedEmployee._id);
 
         const permissionEmployee = permissionsList ?
-          permissionsList.filter(permission => permission.employee._id === selectedEmployee._id)[0] :
+          permissionsList.filter(permission => permission.employee?._id === selectedEmployee._id)[0] :
           null;
 
         if (permissionEmployee) {
@@ -245,7 +245,7 @@ const PermissionsComponent = () => {
       setselectedEmployee(selectedEmployee);
       setemployeeid(selectedEmployee._id);
       const permissionEmployee = permissionsList
-        ? permissionsList.find(permission => permission.employee._id === selectedEmployee._id)
+        ? permissionsList.find(permission => permission.employee?._id === selectedEmployee._id)
         : null;
 
       if (permissionEmployee) {
