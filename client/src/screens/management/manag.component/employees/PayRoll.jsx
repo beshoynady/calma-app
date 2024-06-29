@@ -93,7 +93,7 @@ const PayRoll = () => {
         const filteredSalaries = response.data.filter((salary) => {
           return salary.Year === currentYear && salary.Month === currentMonth;
         });
-        console.log({filteredSalaries})
+        console.log({ filteredSalaries })
         // Set current payroll data
         setcurrentPayRoll(filteredSalaries);
       }
@@ -192,53 +192,53 @@ const PayRoll = () => {
         let NetSalary = 0;
         let isPaid = false;
         let paidBy = null;
-  
+
         const EmployeTransactions = ListOfEmployeTransactions.length > 0 ?
           ListOfEmployeTransactions.filter((Transaction) => Transaction.employeeId._id === employeeId) : [];
-  
+
         const EmployeAttendanceRecords = allAttendanceRecords.length > 0 ?
           allAttendanceRecords.filter((Record) => Record.employee._id === employeeId) : [];
-  
-        console.log({EmployeTransactions, EmployeAttendanceRecords});
-  
+
+        console.log({ EmployeTransactions, EmployeAttendanceRecords });
+
         const filterPre = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'سلف');
         Predecessor = filterPre.length > 0 ? filterPre[filterPre.length - 1].newAmount : 0;
-  
+
         const filterDed = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'خصم');
         Deduction = filterDed.length > 0 ? filterDed[filterDed.length - 1].newAmount : 0;
-  
+
         const filterBon = EmployeTransactions && EmployeTransactions.filter((Transaction) => Transaction.transactionType === 'مكافأة');
         Bonus = filterBon.length > 0 ? filterBon[filterBon.length - 1].newAmount : 0;
-  
+
         const filterAttendanceRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Attendance');
         attendanceDays = filterAttendanceRecords.length;
-  
+
         filterAttendanceRecords && filterAttendanceRecords.forEach(record => {
           OvertimeDays += (record.overtimeMinutes / 60 / shiftHour);
           lateDays += (record.lateMinutes / 60 / shiftHour);
         });
-  
+
         const filterAbsenceRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Absence');
         AbsenceDays = filterAbsenceRecords.length;
-  
+
         const filterVacationRecords = EmployeAttendanceRecords && EmployeAttendanceRecords.filter((Record) => Record.status === 'Vacation');
         leaveDays = filterVacationRecords.length;
-  
+
         AbsenceDeduction = (dailySalary * AbsenceDays).toFixed(2);
         OvertimeValue = (OvertimeDays * dailySalary).toFixed(2);
         lateDeduction = (lateDays * dailySalary).toFixed(2);
         salary = (dailySalary * (attendanceDays + leaveDays)).toFixed(2);
         Insurance = (InsuranceRate * basicSalary).toFixed(2);
         TotalDue = (parseFloat(salary) + parseFloat(Bonus) + parseFloat(OvertimeValue)).toFixed(2);
-  
+
         let taxableIncome = TotalDue - Insurance;
         Tax = (taxableIncome * taxRate).toFixed(2);
         TotalDeductible = (parseFloat(AbsenceDeduction) + parseFloat(lateDeduction) + parseFloat(Deduction) + parseFloat(Predecessor) + parseFloat(Tax) + parseFloat(Insurance)).toFixed(2);
         NetSalary = (TotalDue - TotalDeductible).toFixed(2);
-  
+
         const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
         const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
-  
+
 
         if (isSalary && !isSalaryPaid) {
           try {
@@ -246,33 +246,27 @@ const PayRoll = () => {
               employeeName,
               Year,
               Month,
-              employeeId,
-              employeeName,
               shiftHour,
+              salary,
               basicSalary,
               dailySalary,
-              leaveDays,
               workingDays,
-              salary,
               attendanceDays,
+              leaveDays,
               OvertimeDays,
               OvertimeValue,
               Bonus,
               TotalDue,
               AbsenceDays,
               AbsenceDeduction,
-              lateDays,
-              lateDeduction,
               Deduction,
               Predecessor,
               Insurance,
               Tax,
               TotalDeductible,
-              NetSalary,
-              isPaid,
-              paidBy
+              NetSalary
             }, config);
-  
+
             if (result) {
               console.log('تم تحديث بيانات المرتب بنجاح');
               toast.info(`تم تحديث بيانات مرتب ${employeeName} بنجاح`);
@@ -284,20 +278,19 @@ const PayRoll = () => {
           toast.success('تم تحديث بيانات المرتب بنجاح');
           getPayRoll();
           getEmployees();
-  
+
         } else if (!isSalary && !isSalaryPaid) {
           try {
             const result = await axios.post(`${apiUrl}/api/payroll`, {
+              employeeId,
               employeeName,
               Year,
               Month,
-              employeeId,
-              employeeName,
               shiftHour,
+              salary,
               basicSalary,
               dailySalary,
               workingDays,
-              salary,
               attendanceDays,
               leaveDays,
               OvertimeDays,
@@ -306,18 +299,14 @@ const PayRoll = () => {
               TotalDue,
               AbsenceDays,
               AbsenceDeduction,
-              lateDays,
-              lateDeduction,
               Deduction,
               Predecessor,
               Insurance,
               Tax,
               TotalDeductible,
-              NetSalary,
-              isPaid,
-              paidBy
+              NetSalary
             }, config);
-  
+
             if (result) {
               console.log('تم إنشاء بيانات المرتب بنجاح');
               toast.info(`تم انشاء مرتب ${employeeName} بنجاح`);
@@ -333,14 +322,14 @@ const PayRoll = () => {
         setIsExecuting(false);
       }
       setIsExecuting(false);
-  
+
     } catch (error) {
       console.error('خطأ عام في معالجة بيانات المرتب:', error);
       toast.error('حدث خطأ عام أثناء معالجة بيانات المرتب');
       setIsExecuting(false);
     }
   };
-  
+
 
 
 
@@ -580,7 +569,7 @@ const PayRoll = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                       
+
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الوظيفه</th>
@@ -610,60 +599,60 @@ const PayRoll = () => {
                     </thead>
                     <tbody>
                       {ListOfEmployee.length > 0 ? ListOfEmployee.map((employee, i) => {
-                          if (employee.isAdmin == true && currentPayRoll.length > 0) {
-                            return (
-                              currentPayRoll.map((Roll, j) => {
-                                if (Roll.employeeId._id == employee._id) {
-                                  return (
-                                    <tr key={i}>
-                                      <td>{i + 1}</td>
-                                      <td>{Roll.employeeName}</td>
-                                      <td>{Roll.employeeId.role}</td>
-                                      <td>{shifts?.find(shift=>shift._id == Roll.employeeId?.shift)?.shiftType}</td>
-                                      <td>{Roll.shiftHour}</td>
-                                      <td>{Roll.basicSalary}</td>
-                                      <td>{Roll.workingDays}</td>
-                                      <td>{Roll.dailySalary}</td>
-                                      <td>{Roll.attendanceDays}</td>
-                                      <td>{Roll.leaveDays}</td>
-                                      <td>{Roll.salary}</td>
-                                      <td>{Roll.OvertimeDays}</td>
-                                      <td>{Roll.OvertimeValue}</td>
-                                      <td>{Roll.Bonus}</td>
-                                      <td>{Roll.TotalDue}</td>
-                                      <td>{Roll.Deduction}</td>
-                                      <td>{Roll.AbsenceDays}</td>
-                                      <td>{Roll.AbsenceDeduction}</td>
-                                      <td>{Roll.Predecessor}</td>
-                                      <td>{Roll.Insurance}</td>
-                                      <td>{Roll.Tax}</td>
-                                      <td>{Roll.TotalDeductible}</td>
-                                      <td>{Roll.NetSalary}</td>
-                                      <td>{Roll.paidBy?.username}</td>
-                                      {Roll.isPaid === false ? (
-                                        <td>
-                                          <a
-                                            href="#paidModal"
-                                            type='button'
-                                            data-toggle="modal"
-                                            className="btn btn-47 btn-success"
-                                            onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, employee.fullname, Roll.Month)}
-                                          >
-                                            دفع
-                                          </a>
-                                        </td>
-                                      ) : (
-                                        <td>تم الدفع</td>
-                                      )}
-                                    </tr>
-                                  )
-                                }
+                        if (employee.isAdmin == true && currentPayRoll.length > 0) {
+                          return (
+                            currentPayRoll.map((Roll, j) => {
+                              if (Roll.employeeId._id == employee._id) {
+                                return (
+                                  <tr key={i}>
+                                    <td>{i + 1}</td>
+                                    <td>{Roll.employeeName}</td>
+                                    <td>{Roll.employeeId.role}</td>
+                                    <td>{shifts?.find(shift => shift._id == Roll.employeeId?.shift)?.shiftType}</td>
+                                    <td>{Roll.shiftHour}</td>
+                                    <td>{Roll.basicSalary}</td>
+                                    <td>{Roll.workingDays}</td>
+                                    <td>{Roll.dailySalary}</td>
+                                    <td>{Roll.attendanceDays}</td>
+                                    <td>{Roll.leaveDays}</td>
+                                    <td>{Roll.salary}</td>
+                                    <td>{Roll.OvertimeDays}</td>
+                                    <td>{Roll.OvertimeValue}</td>
+                                    <td>{Roll.Bonus}</td>
+                                    <td>{Roll.TotalDue}</td>
+                                    <td>{Roll.Deduction}</td>
+                                    <td>{Roll.AbsenceDays}</td>
+                                    <td>{Roll.AbsenceDeduction}</td>
+                                    <td>{Roll.Predecessor}</td>
+                                    <td>{Roll.Insurance}</td>
+                                    <td>{Roll.Tax}</td>
+                                    <td>{Roll.TotalDeductible}</td>
+                                    <td>{Roll.NetSalary}</td>
+                                    <td>{Roll.paidBy?.username}</td>
+                                    {Roll.isPaid === false ? (
+                                      <td>
+                                        <a
+                                          href="#paidModal"
+                                          type='button'
+                                          data-toggle="modal"
+                                          className="btn btn-47 btn-success"
+                                          onClick={() => handelPaid(Roll._id, Roll.NetSalary, employeeLoginInfo.employeeinfo.id, employee._id, employee.fullname, Roll.Month)}
+                                        >
+                                          دفع
+                                        </a>
+                                      </td>
+                                    ) : (
+                                      <td>تم الدفع</td>
+                                    )}
+                                  </tr>
+                                )
                               }
-                              )
+                            }
                             )
-                          }
-                        })
-                          : ""}
+                          )
+                        }
+                      })
+                        : ""}
                     </tbody>
                   </table>
                   <div className="clearfix">
