@@ -539,17 +539,11 @@ const Info = () => {
                       </div>
 
 
-                      <p className="card-description cal-12"> العنوان </p>
+                      <p className="card-description col-12"> العنوان </p>
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">الدولة</label>
                         <div className="col-9">
                           <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
-                          {/* <select className="form-control">
-                                  <option>America</option>
-                                  <option>Italy</option>
-                                  <option>Russia</option>
-                                  <option>Britain</option>
-                                </select> */}
                         </div>
                       </div>
 

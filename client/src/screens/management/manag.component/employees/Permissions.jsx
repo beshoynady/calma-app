@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import '../orders/Orders.css'
 
 
 
