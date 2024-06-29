@@ -56,7 +56,22 @@ const PayRoll = () => {
     }
   };
 
+  const [shifts, setshifts] = useState([]);
 
+  const getShifts = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/shift`, config);
+      if (response.status === 200 && response.data) {
+        const { data } = response;
+        setshifts(data);
+        console.log({ Shifts: data });
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (error) {
+      console.error("Failed to fetch shifts:", error);
+    }
+  };
 
   const [allPayRoll, setallPayRoll] = useState([])
   const [currentPayRoll, setcurrentPayRoll] = useState([])
@@ -552,9 +567,9 @@ const PayRoll = () => {
         let lateDeduction = 0;
         let Deduction = 0;
         let Predecessor = 0;
-        let insuranceRate = ListOfEmployee[i].insuranceRate;
+        let insuranceRate = ListOfEmployee[i].insuranceRate / 100;
         let insurance = 0;
-        let taxRate = ListOfEmployee[i].taxRate;
+        let taxRate = ListOfEmployee[i].taxRate / 100;
         let Tax = 0;
         let TotalDeductible = 0;
         let NetSalary = 0;
@@ -596,7 +611,7 @@ const PayRoll = () => {
         OvertimeValue = (OvertimeDays * dailySalary).toFixed(2);
         lateDeduction = (lateDays * dailySalary).toFixed(2);
         salary = (dailySalary * (attendanceDays + leaveDays)).toFixed(2);
-        insurance = (insuranceRate * salary).toFixed(2);
+        insurance = (insuranceRate * basicSalary).toFixed(2);
         TotalDue = (parseFloat(salary) + parseFloat(Bonus) + parseFloat(OvertimeValue)).toFixed(2);
   
         let taxableIncome = TotalDue - insurance;
@@ -894,6 +909,7 @@ const PayRoll = () => {
   // Fetch data on component mount
   useEffect(() => {
     getEmployees();
+    getShifts()
     getPayRoll()
     getEmployeTransactions();
     getallAttendanceRecords()
@@ -984,6 +1000,7 @@ const PayRoll = () => {
                         <th>اجر اليوم</th>
                         <th>الحضور</th>
                         <th>الاجازات المدفوعه</th>
+                        <th>اجر الشهر</th>
                         <th>عدد ايام الاضافي</th>
                         <th>اضافي</th>
                         <th>مكافاة</th>
@@ -1011,13 +1028,14 @@ const PayRoll = () => {
                                       <td>{i + 1}</td>
                                       <td>{Roll.employeeName}</td>
                                       <td>{Roll.employeeId.role}</td>
-                                      <td>{Roll.employeeId?.shift?.shftType}</td>
+                                      <td>{shifts?.find(shift=>shift._id == Roll.employeeId?.shift)?.shiftType}</td>
                                       <td>{Roll.shiftHour}</td>
                                       <td>{Roll.basicSalary}</td>
-                                      <td>{Roll.salary}</td>
                                       <td>{Roll.workingDays}</td>
+                                      <td>{Roll.dailySalary}</td>
                                       <td>{Roll.attendanceDays}</td>
                                       <td>{Roll.leaveDays}</td>
+                                      <td>{Roll.salary}</td>
                                       <td>{Roll.OvertimeDays}</td>
                                       <td>{Roll.OvertimeValue}</td>
                                       <td>{Roll.Bonus}</td>
