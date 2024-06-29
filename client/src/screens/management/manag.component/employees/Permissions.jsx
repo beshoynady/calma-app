@@ -170,7 +170,7 @@ const PermissionsComponent = () => {
       }
 
     } catch (error) {
-      console.error('Error fetching permissions:', error.message);
+      console.error('Error fetching permissions:', error);
       toast.error('حدث خطأ أثناء تحديث الصلاحيات');
     }
   };
