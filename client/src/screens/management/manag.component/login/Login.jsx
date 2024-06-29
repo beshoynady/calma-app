@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { detacontext } from '../../../../App'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-
-import './Login.css'
-
+import './Login.css';
 
 
 const Login = () => {
