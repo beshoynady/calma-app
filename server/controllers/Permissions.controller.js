@@ -67,18 +67,26 @@ const getPermissionById = async (req, res) => {
 
 const getPermissionByEmployee = async (req, res) => {
     try {
-        // Correcting the findOne method and chaining populate correctly
-        const permission = await PermissionsModel.findOne({ employee: req.params.id }).populate('employee' , '_id fullname username role');
+        const employeeId = req.params.id;
+
+        if (!employeeId) {
+            return res.status(400).json({ message: 'Invalid employee ID' });
+        }
+
+        const permission = await PermissionsModel.findOne({ employee: employeeId })
+            .populate('employee', '_id fullname username role');
 
         if (!permission) {
-            return res.status(404).json({ message: 'الصلاحية غير موجودة' });
+            return res.status(404).json({ message: 'Permission not found' });
         }
 
         res.status(200).json(permission);
     } catch (error) {
+        console.error('Error fetching permission:', error);
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 const updatePermissionById = async (req, res) => {
@@ -110,7 +118,8 @@ const updatePermissionById = async (req, res) => {
 
 const deletePermissionById = async (req, res) => {
     try {
-        const deletedPermission = await PermissionsModel.findByIdAndDelete(req.params.id);
+        const id = await req.params.id
+        const deletedPermission = await PermissionsModel.findByIdAndDelete(id);
 
         if (!deletedPermission) {
             return res.status(404).json({ message: 'الصلاحية غير موجودة' });
