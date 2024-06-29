@@ -33,7 +33,7 @@ const EmployeeTransactions = () => {
     setendpagination,
   } = useContext(detacontext);
 
-  const [listofTransactions] = useState(['سلف', 'خصم', 'مكافأة']);
+  const [listofTransactions] = useState(['سلف', 'خصم','مكافأة']);
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("");
   const [employeeId, setemployeeId] = useState("");
   const [employeeName, setemployeeName] = useState("");
@@ -321,12 +321,12 @@ const EmployeeTransactions = () => {
       </div>
 
       <div id="addEmployeeTransactionsModal" className="modal fade">
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={addEmployeeTransactions}>
-              <div className="modal-header bg-success text-white">
+              <div className="modal-header">
                 <h4 className="modal-title">اضف تعامل جديد</h4>
-                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
@@ -356,6 +356,7 @@ const EmployeeTransactions = () => {
                     }) : ""}
                   </select>
                 </div>
+
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label>المبلغ</label>
                   <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
@@ -377,23 +378,22 @@ const EmployeeTransactions = () => {
                   <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>
-              <div className="modal-footer w-100 d-flex justify-content-between">
-                <input type="button" className="btn btn-secondary w-45" data-dismiss="modal" value="اغلاق" />
-                <input type="submit" className="btn btn-success w-45" value="اضف" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Close" />
+                <input type="submit" className="btn w-50 btn-success" value="Add" />
               </div>
             </form>
           </div>
         </div>
       </div>
 
-
       <div id="editEmployeeTransactionsModal" className="modal fade">
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={updateEmployeeTransactions}>
-              <div className="modal-header bg-info text-white">
+              <div className="modal-header">
                 <h4 className="modal-title">تعديل تعامل</h4>
-                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
@@ -439,36 +439,34 @@ const EmployeeTransactions = () => {
                   <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>
-              <div className="modal-footer w-100 d-flex justify-content-between">
-                <input type="button" className="btn btn-secondary w-45" data-dismiss="modal" value="اغلاق" />
-                <input type="submit" className="btn btn-info w-45" value="حفظ" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                <input type="submit" className="btn w-50 btn-info" value="حفظ" />
               </div>
             </form>
           </div>
         </div>
       </div>
-
       <div id="deleteEmployeeTransactionsModal" className="modal fade">
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={deleteEmployeeTransactions}>
-              <div className="modal-header bg-danger text-white">
+              <div className="modal-header">
                 <h4 className="modal-title">حذف موظف</h4>
-                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <p>هل انت متاكد من حذف هذا السجل؟</p>
+                <p>هل انت متاكد من حذف هذا السجل؟?</p>
                 <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
               </div>
-              <div className="modal-footer w-100 d-flex justify-content-between">
-                <input type="button" className="btn btn-secondary w-45" data-dismiss="modal" value="اغلاق" />
-                <input type="submit" className="btn btn-danger w-45" value="حذف" />
+              <div className="modal-footer w-100 d-flex flex-nowrap">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                <input type="submit" className="btn w-50 btn-danger" value="حذف" />
               </div>
             </form>
           </div>
         </div>
       </div>
-
     </div >
   )
 
