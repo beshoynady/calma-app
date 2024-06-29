@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { detacontext } from '../../../../App';
+import React, { useState } from 'react'
+import './Login.css'
+import { detacontext } from '../../../../App'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import './Login.css';
+
 
 
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const history = useHistory();
 
   const [phone, setphone] = useState('')
   const [password, setpassword] = useState('')
@@ -36,20 +35,22 @@ const Login = () => {
         // Display response message
         toast.success('تم تسجيل الدخول بنجاح');
 
-        // Store access token
         if (data.accessToken) {
           localStorage.setItem('token_e', data.accessToken);
+          // Retrieve user info from token if needed
+          const userInfo = getUserInfoFromToken();
+          console.log(userInfo);
         }
 
         // Redirect to management page if employee is active
         if (data.findEmployee.isActive === true) {
-          history.push('/management');
+          window.location.href = `https://${window.location.hostname}/management`;
         } else {
           toast.error('غير مسموح لك بالدخول');
-        } 
+        }
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error(error);
 
       // Display error message from server response
       if (error.response && error.response.data && error.response.data.message) {
