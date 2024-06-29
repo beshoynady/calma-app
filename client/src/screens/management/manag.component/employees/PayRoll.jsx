@@ -982,12 +982,7 @@ const PayRoll = () => {
                   <table className="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>
-                          <span className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </span>
-                        </th>
+                       
                         <th>م</th>
                         <th>الاسم</th>
                         <th>الوظيفه</th>
@@ -1022,12 +1017,6 @@ const PayRoll = () => {
                                 if (Roll.employeeId._id == employee._id) {
                                   return (
                                     <tr key={i}>
-                                      <td>
-                                        <span className="custom-checkbox">
-                                          <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                          <label htmlFor="checkbox1"></label>
-                                        </span>
-                                      </td>
                                       <td>{i + 1}</td>
                                       <td>{Roll.employeeName}</td>
                                       <td>{Roll.employeeId.role}</td>
@@ -1035,11 +1024,15 @@ const PayRoll = () => {
                                       <td>{Roll.shiftHour}</td>
                                       <td>{Roll.basicSalary}</td>
                                       <td>{Roll.salary}</td>
+                                      <td>{Roll.workingDays}</td>
+                                      <td>{Roll.attendanceDays}</td>
+                                      <td>{Roll.leaveDays}</td>
                                       <td>{Roll.OvertimeDays}</td>
                                       <td>{Roll.OvertimeValue}</td>
                                       <td>{Roll.Bonus}</td>
                                       <td>{Roll.totalDue}</td>
                                       <td>{Roll.Deduction}</td>
+                                      <td>{Roll.AbsenceDays}</td>
                                       <td>{Roll.AbsenceDeduction}</td>
                                       <td>{Roll.Predecessor}</td>
                                       <td>{Roll.insurance}</td>
