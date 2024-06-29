@@ -1668,71 +1668,62 @@ function App() {
 
 
 
+  const [permissionsList, setPermissionsList] = useState([]);
   const [userLoginInfo, setUserLoginInfo] = useState(null);
   const [employeeLoginInfo, setEmployeeLoginInfo] = useState(null);
+  const [clientInfo, setClientInfo] = useState({});
 
-  const [clientInfo, setclientInfo] = useState({})
-
-  // Function to retrieve user info from tokens
   const getUserInfoFromToken = async () => {
-    const userToken = localStorage.getItem('token_u');
-    const employeeToken = localStorage.getItem('token_e');
-    // console.log("getUserInfoFromToken");
-    // console.log({ userToken });
+    try {
+      const userToken = localStorage.getItem('token_u');
+      const employeeToken = localStorage.getItem('token_e');
 
-    let decodedToken = null;
+      let decodedToken = null;
 
-    if (employeeToken) {
-      decodedToken = jwt_decode(employeeToken);
-      setEmployeeLoginInfo(decodedToken);
-      console.log(decodedToken.employeeinfo);
-      await getPermissions(decodedToken)
-    }
+      if (employeeToken) {
+        decodedToken = jwt_decode(employeeToken);
+        setEmployeeLoginInfo(decodedToken);
+        await getPermissions(decodedToken);
+      }
 
-    if (userToken) {
-      decodedToken = await jwt_decode(userToken);
-      setUserLoginInfo(decodedToken);
-      console.log({ decodedToken });
-      if (decodedToken) {
-        const userId = await decodedToken.userinfo.id
-        console.log({ userId });
-        if (userId) {
-          const client = await axios.get(`${apiUrl}/api/user/${userId}`)
-          console.log({ client });
-          setclientInfo(client.data);
+      if (userToken) {
+        decodedToken = jwt_decode(userToken);
+        setUserLoginInfo(decodedToken);
+        if (decodedToken) {
+          const userId = decodedToken.userinfo.id;
+          if (userId) {
+            const clientResponse = await axios.get(`${apiUrl}/api/user/${userId}`);
+            setClientInfo(clientResponse.data);
+          }
         }
       }
-    }
 
-    if (!employeeToken && !userToken) {
-      setUserLoginInfo(null);
-      setEmployeeLoginInfo(null);
+      if (!employeeToken && !userToken) {
+        setUserLoginInfo(null);
+        setEmployeeLoginInfo(null);
+      }
+    } catch (error) {
+      console.error('Error fetching user info from token:', error);
     }
   };
 
-
-  const [permissionsList, setpermissionsList] = useState([]);
-
   const getPermissions = async (decodedToken) => {
     try {
+      const id = decodedToken.employeeinfo.id;
 
-      const id =await decodedToken.employeeinfo.id
-      if(id){
+      if (id) {
         const response = await axios.get(`${apiUrl}/api/permission/employee/${id}`, config);
         if (response.status === 200) {
           const data = response.data.Permissions;
-          console.log({ data });
-          setpermissionsList(data);
+          setPermissionsList(data);
         } else {
           throw new Error('Failed to fetch permissions: Unexpected status code');
         }
       }
-
     } catch (error) {
       console.error('Error fetching permissions:', error.message);
     }
   };
-
 
   //######### get order ditalis by serial 
   const [orderDetalisBySerial, setorderDetalisBySerial] = useState({})
@@ -2082,7 +2073,7 @@ function App() {
     const token = localStorage.getItem('token_e');
     if (token) {
       const decodedToken = jwt_decode(token);
-      setRole(decodedToken.employeeinfo.isAdmin ? 'admin' : 'user');
+      setRole(decodedToken.employeeinfo.role);
     }
   }, []);
 
@@ -2138,43 +2129,43 @@ function App() {
           <Route path='/login' element={<Login />} />
 
           <Route path='/management/*' element={
-            <Suspense fallback={<LoadingPage/>}>
+            <Suspense fallback={<LoadingPage />}>
               <ManagLayout />
             </Suspense>
           }
           >
-            <Route index element={<Suspense fallback={<LoadingPage/>}><ManagerDash /></Suspense>} />
-            <Route path='info' element={<Suspense fallback={<LoadingPage/>}><Info /></Suspense>} />
-            <Route path='orders' element={<Suspense fallback={<LoadingPage/>}><Orders /></Suspense>} />
-            <Route path='products' element={<Suspense fallback={<LoadingPage/>}><Products /></Suspense>} />
-            <Route path='productrecipe' element={<Suspense fallback={<LoadingPage/>}><ProductRecipe /></Suspense>} />
-            <Route path='tables' element={<Suspense fallback={<LoadingPage/>}><Tables /></Suspense>} />
-            <Route path='tablespage' element={<Suspense fallback={<LoadingPage/>}><TablesPage /></Suspense>} />
-            <Route path='reservation' element={<Suspense fallback={<LoadingPage/>}><ReservationTables /></Suspense>} />
-            <Route path='employees' element={<Suspense fallback={<LoadingPage/>}><Employees /></Suspense>} />
-            <Route path='permissions' element={<Suspense fallback={<LoadingPage/>}><PermissionsComponent /></Suspense>} />
-            <Route path='employeetransactions' element={<Suspense fallback={<LoadingPage/>}><EmployeeTransactions /></Suspense>} />
-            <Route path='payroll' element={<Suspense fallback={<LoadingPage/>}><PayRoll /></Suspense>} />
-            <Route path='attendancerecord' element={<Suspense fallback={<LoadingPage/>}><AttendanceManagement /></Suspense>} />
-            <Route path='category' element={<Suspense fallback={<LoadingPage/>}><Category /></Suspense>} />
-            <Route path='kitchen' element={<Suspense fallback={<LoadingPage/>}><Kitchen /></Suspense>} />
-            <Route path='waiter' element={<Suspense fallback={<LoadingPage/>}><Waiter /></Suspense>} />
-            <Route path='users' element={<Suspense fallback={<LoadingPage/>}><Users /></Suspense>} />
-            <Route path='message' element={<Suspense fallback={<LoadingPage/>}><CustomerMessage /></Suspense>} />
-            <Route path='deliveryman' element={<Suspense fallback={<LoadingPage/>}><DeliveryMan /></Suspense>} />
-            <Route path='pos' element={<Suspense fallback={<LoadingPage/>}><POS /></Suspense>} />
-            <Route path='supplier' element={<Suspense fallback={<LoadingPage/>}><Suppliers /></Suspense>} />
-            <Route path='purchase' element={<Suspense fallback={<LoadingPage/>}><Purchase /></Suspense>} />
-            <Route path='purchasereturn' element={<Suspense fallback={<LoadingPage/>}><PurchaseReturn /></Suspense>} />
-            <Route path='suppliertransaction' element={<Suspense fallback={<LoadingPage/>}><SupplierTransaction /></Suspense>} />
-            <Route path='categorystock' element={<Suspense fallback={<LoadingPage/>}><CategoryStock /></Suspense>} />
-            <Route path='stockitem' element={<Suspense fallback={<LoadingPage/>}><StockItem /></Suspense>} />
-            <Route path='stockmang' element={<Suspense fallback={<LoadingPage/>}><StockManag /></Suspense>} />
-            <Route path='kitchenconsumption' element={<Suspense fallback={<LoadingPage/>}><KitchenConsumption /></Suspense>} />
-            <Route path='expense' element={<Suspense fallback={<LoadingPage/>}><ExpenseItem /></Suspense>} />
-            <Route path='dailyexpense' element={<Suspense fallback={<LoadingPage/>}><DailyExpense /></Suspense>} />
-            <Route path='cashregister' element={<Suspense fallback={<LoadingPage/>}><CashRegister /></Suspense>} />
-            <Route path='cashmovement' element={<Suspense fallback={<LoadingPage/>}><CashMovement /></Suspense>} />
+            <Route index element={<Suspense fallback={<LoadingPage />}><ManagerDash /></Suspense>} />
+            <Route path='info' element={<Suspense fallback={<LoadingPage />}><Info /></Suspense>} />
+            <Route path='orders' element={<Suspense fallback={<LoadingPage />}><Orders /></Suspense>} />
+            <Route path='products' element={<Suspense fallback={<LoadingPage />}><Products /></Suspense>} />
+            <Route path='productrecipe' element={<Suspense fallback={<LoadingPage />}><ProductRecipe /></Suspense>} />
+            <Route path='tables' element={<Suspense fallback={<LoadingPage />}><Tables /></Suspense>} />
+            <Route path='tablespage' element={<Suspense fallback={<LoadingPage />}><TablesPage /></Suspense>} />
+            <Route path='reservation' element={<Suspense fallback={<LoadingPage />}><ReservationTables /></Suspense>} />
+            <Route path='employees' element={<Suspense fallback={<LoadingPage />}><Employees /></Suspense>} />
+            <Route path='permissions' element={<Suspense fallback={<LoadingPage />}><PermissionsComponent /></Suspense>} />
+            <Route path='employeetransactions' element={<Suspense fallback={<LoadingPage />}><EmployeeTransactions /></Suspense>} />
+            <Route path='payroll' element={<Suspense fallback={<LoadingPage />}><PayRoll /></Suspense>} />
+            <Route path='attendancerecord' element={<Suspense fallback={<LoadingPage />}><AttendanceManagement /></Suspense>} />
+            <Route path='category' element={<Suspense fallback={<LoadingPage />}><Category /></Suspense>} />
+            <Route path='kitchen' element={<Suspense fallback={<LoadingPage />}><Kitchen /></Suspense>} />
+            <Route path='waiter' element={<Suspense fallback={<LoadingPage />}><Waiter /></Suspense>} />
+            <Route path='users' element={<Suspense fallback={<LoadingPage />}><Users /></Suspense>} />
+            <Route path='message' element={<Suspense fallback={<LoadingPage />}><CustomerMessage /></Suspense>} />
+            <Route path='deliveryman' element={<Suspense fallback={<LoadingPage />}><DeliveryMan /></Suspense>} />
+            <Route path='pos' element={<Suspense fallback={<LoadingPage />}><POS /></Suspense>} />
+            <Route path='supplier' element={<Suspense fallback={<LoadingPage />}><Suppliers /></Suspense>} />
+            <Route path='purchase' element={<Suspense fallback={<LoadingPage />}><Purchase /></Suspense>} />
+            <Route path='purchasereturn' element={<Suspense fallback={<LoadingPage />}><PurchaseReturn /></Suspense>} />
+            <Route path='suppliertransaction' element={<Suspense fallback={<LoadingPage />}><SupplierTransaction /></Suspense>} />
+            <Route path='categorystock' element={<Suspense fallback={<LoadingPage />}><CategoryStock /></Suspense>} />
+            <Route path='stockitem' element={<Suspense fallback={<LoadingPage />}><StockItem /></Suspense>} />
+            <Route path='stockmang' element={<Suspense fallback={<LoadingPage />}><StockManag /></Suspense>} />
+            <Route path='kitchenconsumption' element={<Suspense fallback={<LoadingPage />}><KitchenConsumption /></Suspense>} />
+            <Route path='expense' element={<Suspense fallback={<LoadingPage />}><ExpenseItem /></Suspense>} />
+            <Route path='dailyexpense' element={<Suspense fallback={<LoadingPage />}><DailyExpense /></Suspense>} />
+            <Route path='cashregister' element={<Suspense fallback={<LoadingPage />}><CashRegister /></Suspense>} />
+            <Route path='cashmovement' element={<Suspense fallback={<LoadingPage />}><CashMovement /></Suspense>} />
           </Route>
 
           <Route path='*' element={<Navigate to='/' />} />
