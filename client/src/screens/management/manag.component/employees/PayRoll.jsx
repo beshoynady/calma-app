@@ -524,6 +524,7 @@ const PayRoll = () => {
 
   const addPayRoll = async () => {
     if (isExecuting) {
+      toast.warn('انتظر ! جاري انشاء كشف المرتبات')
       return;
     }
     try {
