@@ -10,12 +10,10 @@ const createEmployeeSchema = Joi.object({
     fullname: Joi.string().min(3).max(100).required(),
     numberID: Joi.string().length(14).required(),
     username: Joi.string().min(3).max(100).required(),
-    email: Joi.string().email().required(),
     address: Joi.string().min(3).max(150),
     phone: Joi.string().length(11).required(),
     password: Joi.string().min(3).required(),
     basicSalary: Joi.number().min(0).required(),
-    sectionNumber: Joi.number().min(1),
     role: Joi.string().valid('owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef').required(),
     isActive: Joi.boolean().required(),
     shift: Joi.string().required()
@@ -29,7 +27,8 @@ const createEmployee = async (req, res) => {
             return res.status(400).json({ message: error.details[0].message });
         }
         // Destructuring request body for required employee details
-        const { fullname, numberID, username, shift, email, address, phone, workingDays, basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive } = req.body;
+        const { fullname, numberID, username, shift, email, address, phone, workingDays, 
+            basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive } = req.body;
 
         // Destructuring request body for optional employee details
         const pass = req.body.password;
@@ -76,7 +75,7 @@ const createEmployee = async (req, res) => {
 
         res.status(201).json({ accessToken, newEmployee });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message, err });
     }
 };
 

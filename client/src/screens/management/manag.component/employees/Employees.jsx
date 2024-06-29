@@ -68,8 +68,8 @@ const Employees = () => {
   const [fullname, setfullname] = useState("")
   const [numberID, setnumberID] = useState("")
   const [username, setusername] = useState("")
-  const [workingDays, setworkingDays] = useState()
-  const [basicSalary, setbasicSalary] = useState()
+  const [workingDays, setworkingDays] = useState(0)
+  const [basicSalary, setbasicSalary] = useState(0)
   const [shift, setshift] = useState('')
   const [password, setpassword] = useState("")
   const [address, setaddress] = useState("")
@@ -496,7 +496,7 @@ const Employees = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="password">الباسورد</label>
-                    <input type="password" id="password" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
+                    <input type="text" id="password" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="numberID">الرقم القومي</label>
@@ -541,18 +541,18 @@ const Employees = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="workingDays">ايام العمل الشهرية</label>
-                    <input type="number" id="workingDays" className="form-control" min={0} max={31} required onChange={(e) => setworkingDays(e.target.value)} />
+                    <input type="number" id="workingDays" className="form-control" min={0} max={31} required onChange={(e) => setworkingDays(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال أيام عمل صحيحة.</div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="basicSalary">المرتب الأساسي</label>
-                    <input type="number" id="basicSalary" className="form-control" min={0} required onChange={(e) => setbasicSalary(e.target.value)} />
+                    <input type="number" id="basicSalary" className="form-control" min={0} required onChange={(e) => setbasicSalary(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال راتب صحيح.</div>
                   </div>
                   {role === 'waiter' && (
                     <div className="form-group">
                       <label htmlFor="sectionNumber">رقم السكشن</label>
-                      <input type="number" id="sectionNumber" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                      <input type="number" id="sectionNumber" className="form-control" required onChange={(e) => setsectionNumber(Number(e.target.value))} />
                     </div>
                   )}
                 </div>
@@ -636,7 +636,7 @@ const Employees = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="workingDays">ايام العمل الشهرية</label>
-                    <input type="number" id="workingDays" className="form-control" defaultValue={workingDays} min={0} max={31} required onChange={(e) => setworkingDays(e.target.value)} />
+                    <input type="number" id="workingDays" className="form-control" defaultValue={workingDays} min={0} max={31} required onChange={(e) => setworkingDays(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال أيام عمل صحيحة.</div>
                   </div>
                   <div className="form-group">
@@ -647,7 +647,7 @@ const Employees = () => {
                   {role === 'waiter' && (
                     <div className="form-group">
                       <label htmlFor="sectionNumber">رقم السكشن</label>
-                      <input type="number" id="sectionNumber" className="form-control" defaultValue={sectionNumber} required onChange={(e) => setsectionNumber(e.target.value)} />
+                      <input type="number" id="sectionNumber" className="form-control" defaultValue={sectionNumber} required onChange={(e) => setsectionNumber(Number(e.target.value))} />
                     </div>
                   )}
                 </div>
