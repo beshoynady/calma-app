@@ -152,7 +152,7 @@ const PermissionsComponent = () => {
         const id = permissionEmployee._id;
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
-        }, config);+
+        }, config);
 
 
         console.log({ response })
