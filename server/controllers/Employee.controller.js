@@ -16,8 +16,12 @@ const createEmployeeSchema = Joi.object({
     basicSalary: Joi.number().min(0).required(),
     role: Joi.string().valid('owner', 'manager', 'cashier', 'waiter', 'deliveryman', 'chef').required(),
     isActive: Joi.boolean().required(),
-    shift: Joi.string().required()
+    shift: Joi.string().required(),
+    workingDays: Joi.number().min(0).max(31).required(),
+    taxRate: Joi.number().min(0).max(100).required(), 
+    insuranceRate: Joi.number().min(0).max(100).required()
 });
+
 
 const createEmployee = async (req, res) => {
     try {

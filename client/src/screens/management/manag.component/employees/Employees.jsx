@@ -71,6 +71,8 @@ const Employees = () => {
   const [workingDays, setworkingDays] = useState(0)
   const [basicSalary, setbasicSalary] = useState(0)
   const [shift, setshift] = useState('')
+  const [taxRate, settaxRate] = useState('')
+  const [insuranceRate, setinsuranceRate] = useState('')
   const [password, setpassword] = useState("")
   const [address, setaddress] = useState("")
   const [phone, setphone] = useState("")
@@ -78,7 +80,6 @@ const Employees = () => {
   const [isActive, setisActive] = useState(true)
   const [role, setrole] = useState("")
   const [sectionNumber, setsectionNumber] = useState()
-
 
   const createEmployee = async (e) => {
     e.preventDefault();
@@ -90,10 +91,12 @@ const Employees = () => {
       return;
     }
 
-    console.log({fullname, basicSalary, workingDays, numberID, username, password, address, shift, phone, email,
-      isActive, role, sectionNumber})
+    console.log({
+      fullname, basicSalary,taxRate, insuranceRate , workingDays, numberID, username, password, address, shift, phone, email,
+      isActive, role, sectionNumber
+    })
     // Validate that all required fields are filled
-    if ( !fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone 
+    if (!fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone
       || !shift || !role
     ) {
       notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
@@ -102,7 +105,7 @@ const Employees = () => {
 
     try {
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
-        fullname, basicSalary, workingDays, numberID, username, password, address, shift, phone, email,
+        fullname, basicSalary,taxRate, insuranceRate , workingDays, numberID, username, password, address, shift, phone, email,
         isActive, role, sectionNumber
       }, config);
 
@@ -122,7 +125,7 @@ const Employees = () => {
 
     try {
 
-      // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary, role, isActive });
+      // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary,taxRate, insuranceRate , role, isActive });
       // if (error) {
       //     notify(error.details[0].message, 'error');
       //     return;
@@ -130,11 +133,11 @@ const Employees = () => {
       if (permissionsForEmployee.update === true) {
         const updateData = password
           ? {
-            fullname, numberID, username, email, shift, address, phone, password, basicSalary,
+            fullname, numberID, username, email, shift, address, phone, password, basicSalary,taxRate, insuranceRate ,
             workingDays, isActive, role, sectionNumber
           }
           : {
-            fullname, numberID, username, email, shift, address, phone, basicSalary, workingDays,
+            fullname, numberID, username, email, shift, address, phone, basicSalary,taxRate, insuranceRate , workingDays,
             isActive, role, sectionNumber
           };
 
@@ -487,7 +490,7 @@ const Employees = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="username">اسم المستخدم</label>
-                    <input type="text" id="username" className="form-control"  onChange={(e) => setusername(e.target.value)} />
+                    <input type="text" id="username" className="form-control" onChange={(e) => setusername(e.target.value)} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone">الموبايل</label>
@@ -548,6 +551,16 @@ const Employees = () => {
                     <label htmlFor="basicSalary">المرتب الأساسي</label>
                     <input type="number" id="basicSalary" className="form-control" min={0} required onChange={(e) => setbasicSalary(Number(e.target.value))} />
                     <div className="invalid-feedback">الرجاء إدخال راتب صحيح.</div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="taxRate">نسبة الضريبة</label>
+                    <input type="number" id="taxRate" className="form-control" min={0} max={100} required onChange={(e) => settaxRate(Number(e.target.value))} />
+                    <div className="invalid-feedback">الرجاء إدخال نسبة ضريبة صحيحة.</div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="insuranceRate">نسبة التأمين</label>
+                    <input type="number" id="insuranceRate" className="form-control" min={0} max={100} required onChange={(e) => setinsuranceRate(Number(e.target.value))} />
+                    <div className="invalid-feedback">الرجاء إدخال نسبة تأمين صحيحة.</div>
                   </div>
                   {role === 'waiter' && (
                     <div className="form-group">
@@ -643,6 +656,16 @@ const Employees = () => {
                     <label htmlFor="basicSalary">المرتب الأساسي</label>
                     <input type="number" id="basicSalary" className="form-control" defaultValue={basicSalary} min={0} required onChange={(e) => setbasicSalary(e.target.value)} />
                     <div className="invalid-feedback">الرجاء إدخال راتب صحيح.</div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="taxRate">نسبة الضريبة</label>
+                    <input type="number" id="taxRate" className="form-control" min={0} max={100} required onChange={(e) => settaxRate(Number(e.target.value))} />
+                    <div className="invalid-feedback">الرجاء إدخال نسبة ضريبة صحيحة.</div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="insuranceRate">نسبة التأمين</label>
+                    <input type="number" id="insuranceRate" className="form-control" min={0} max={100} required onChange={(e) => setinsuranceRate(Number(e.target.value))} />
+                    <div className="invalid-feedback">الرجاء إدخال نسبة تأمين صحيحة.</div>
                   </div>
                   {role === 'waiter' && (
                     <div className="form-group">
