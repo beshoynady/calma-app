@@ -78,10 +78,10 @@ const AttendanceManagement = () => {
       console.log({ newattendanceData });
 
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
-      
+
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
-          const activeemployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true}, config);
+          const activeemployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
         }
 
         getallAttendanceRecords();
@@ -647,103 +647,94 @@ const AttendanceManagement = () => {
 
 
 
-      <div id="arrivalModal" className="modal fade">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <form
-              onSubmit={recordArrival}
-            >
-              <div className="modal-header">
+      <div id="arrivalModal" className="modal fade" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content shadow-lg border-0 rounded">
+            <form onSubmit={recordArrival}>
+              <div className="modal-header bg-primary text-white">
                 <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الحالي</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="currentDate"
-                    defaultValue={formatDate(currentDate)}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الاسم</label>
-                  <select
-                    className="form-control"
-                    required
-                    name="employee"
-                    onChange={handleSelectEmployee}
-                    style={{ width: "100%" }}
-                  >
-                    <option>اختر الموظف</option>
-                    {listOfEmployees.map((employee, index) => (
-                      <option key={index} value={employee._id}>{employee.fullname}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الشيفت</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="shift"
-                    value={shift?.shiftType}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الوصول</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    name="arrivalDate"
-                    defaultValue={formatDate(new Date())}
-                    onChange={handleArrivealDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>نوع السجل</label>
-                  <select
-                    className="form-control"
-                    required
-                    name="status"
-                    defaultValue={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    style={{ width: "100%" }}
-                  >
-                    <option >اختر </option>
-                    {listOfStatus.map((status, i) => (
-                      <option key={i} value={status}>{listOfStatusAR[i]}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>دقائق التأخر</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="lateMinutes"
-                    readOnly
-                    Value={lateMinutes}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>ملاحظات</label>
-                  <textarea
-                    className="form-control"
-                    name="notes"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    style={{ width: "100%" }}
-                  ></textarea>
+              <div className="modal-body p-4">
+                <div className="row">
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الحالي</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="currentDate"
+                      defaultValue={formatDate(currentDate)}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الاسم</label>
+                    <select
+                      className="form-control border-primary"
+                      required
+                      name="employee"
+                      onChange={handleSelectEmployee}
+                    >
+                      <option>اختر الموظف</option>
+                      {listOfEmployees.map((employee, index) => (
+                        <option key={index} value={employee._id}>{employee.fullname}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الشيفت</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="shift"
+                      value={shift?.shiftType || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الوصول</label>
+                    <input
+                      type="datetime-local"
+                      className="form-control border-primary"
+                      name="arrivalDate"
+                      defaultValue={formatDate(new Date())}
+                      onChange={handleArrivealDate}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>نوع السجل</label>
+                    <select
+                      className="form-control border-primary"
+                      required
+                      name="status"
+                      defaultValue={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                    >
+                      <option>اختر</option>
+                      {listOfStatus.map((status, i) => (
+                        <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>دقائق التأخر</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      name="lateMinutes"
+                      readOnly
+                      value={lateMinutes || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12">
+                    <label>ملاحظات</label>
+                    <textarea
+                      className="form-control border-primary"
+                      name="notes"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
@@ -755,72 +746,65 @@ const AttendanceManagement = () => {
         </div>
       </div>
 
-
-      <div id="departureModal" className="modal fade">
-        <div className="modal-dialog">
-          <div className="modal-content">
+      <div id="departureModal" className="modal fade" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={recordDeparture}>
-              <div className="modal-header">
+              <div className="modal-header bg-primary text-white">
                 <h4 className="modal-title">تسجيل انصراف الموظف</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body">
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الاسم</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="employee"
-                    value={employeeName}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الشيفت</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="shift"
-                    value={shift?.shiftType}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الانصراف</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    name="departureDate"
-                    defaultValue={formatDate(new Date())}
-                    onChange={handleDepartureDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>دقائق التجاوز</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="overtimeMinutes"
-                    readOnly
-                    Value={overtimeMinutes}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>ملاحظات</label>
-                  <textarea
-                    className="form-control"
-                    name="notes"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    style={{ width: "100%" }}
-                  ></textarea>
+              <div className="modal-body p-4">
+                <div className="row">
+                  <div className="form-group col-12 col-md-6">
+                    <label>الاسم</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="employee"
+                      value={employeeName || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الشيفت</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="shift"
+                      value={shift?.shiftType || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الانصراف</label>
+                    <input
+                      type="datetime-local"
+                      className="form-control border-primary"
+                      name="departureDate"
+                      defaultValue={formatDate(new Date())}
+                      onChange={handleDepartureDate}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>دقائق التجاوز</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      name="overtimeMinutes"
+                      readOnly
+                      value={overtimeMinutes || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12">
+                    <label>ملاحظات</label>
+                    <textarea
+                      className="form-control border-primary"
+                      name="notes"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
@@ -832,117 +816,108 @@ const AttendanceManagement = () => {
         </div>
       </div>
 
-
-
-      <div id="editRecordModal" className="modal fade">
-        <div className="modal-dialog">
-          <div className="modal-content">
+      <div id="editRecordModal" className="modal fade" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={editAttendanceRecord}>
-              <div className="modal-header">
+              <div className="modal-header bg-primary text-white">
                 <h4 className="modal-title">تعديل سجل</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الحالي</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="currentDate"
-                    defaultValue={formatDate(currentDate)}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الاسم</label>
-                  <input type='text' className="form-control" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
-
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الشيفت</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    readOnly={true}
-                    name="shift"
-                    value={shift?.shiftType}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الوصول</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    name="arrivalDate"
-                    defaultValue={arrivalDate ? new Date(arrivalDate).toISOString().slice(0, 16) : ''}
-                    onChange={handleArrivealDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>تاريخ الانصراف</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    name="departureDate"
-                    defaultValue={departureDate ? new Date(departureDate).toISOString().slice(0, 16) : ''}
-                    onChange={handleDepartureDate}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>الحالة</label>
-                  <select
-                    className="form-control"
-                    required
-                    name="status"
-                    defaultValue={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    style={{ width: "100%" }}
-                  >
-                    {listOfStatus.map((status, i) => (
-                      <option key={i} value={status}>{listOfStatusAR[i]}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>دقائق التجاوز</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="overtimeMinutes"
-                    readOnly
-                    value={overtimeMinutes}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>دقائق التأخر</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="lateMinutes"
-                    readOnly
-                    value={lateMinutes}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  d-flex align-items-center justify-content-between">
-                  <label>ملاحظات</label>
-                  <textarea
-                    className="form-control"
-                    name="notes"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    style={{ width: "100%" }}
-                  ></textarea>
+              <div className="modal-body p-4">
+                <div className="row">
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الحالي</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="currentDate"
+                      defaultValue={formatDate(currentDate)}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الاسم</label>
+                    <input type="text" className="form-control border-primary" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الشيفت</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      readOnly
+                      name="shift"
+                      value={shift?.shiftType || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الوصول</label>
+                    <input
+                      type="datetime-local"
+                      className="form-control border-primary"
+                      name="arrivalDate"
+                      defaultValue={arrivalDate ? new Date(arrivalDate).toISOString().slice(0, 16) : ''}
+                      onChange={handleArrivealDate}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>تاريخ الانصراف</label>
+                    <input
+                      type="datetime-local"
+                      className="form-control border-primary"
+                      name="departureDate"
+                      defaultValue={departureDate ? new Date(departureDate).toISOString().slice(0, 16) : ''}
+                      onChange={handleDepartureDate}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>الحالة</label>
+                    <select
+                      className="form-control border-primary"
+                      required
+                      name="status"
+                      defaultValue={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                    >
+                      <option>اختر</option>
+                      {listOfStatus.map((status, i) => (
+                        <option key={i} value={status}>{listOfStatusAR[i]}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>دقائق التجاوز</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      name="overtimeMinutes"
+                      readOnly
+                      value={overtimeMinutes || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12 col-md-6">
+                    <label>دقائق التأخر</label>
+                    <input
+                      type="text"
+                      className="form-control border-primary"
+                      name="lateMinutes"
+                      readOnly
+                      value={lateMinutes || ''}
+                    />
+                  </div>
+                  <div className="form-group col-12">
+                    <label>ملاحظات</label>
+                    <textarea
+                      className="form-control border-primary"
+                      name="notes"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                    ></textarea>
+                  </div>
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
-                <input type="submit" className="btn w-50 btn-primary" value="حفظ" />
+                <input type="submit" className="btn w-50 btn-success" value="حفظ" />
                 <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
@@ -950,26 +925,27 @@ const AttendanceManagement = () => {
         </div>
       </div>
 
-      <div id="deleteRecordModal" className="modal fade">
+      <div id="deleteRecordModal" className="modal fade" tabIndex="-1">
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={deleteRecord}>
-              <div className="modal-header">
+              <div className="modal-header bg-danger text-white">
                 <h4 className="modal-title">حذف تصنيف</h4>
-                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div className="modal-body">
+              <div className="modal-body p-4">
                 <p>هل انت متاكد من حذف هذا التصنيف?</p>
                 <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
                 <input type="submit" className="btn w-50 btn-warning" value="حذف" />
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="button" className="btn w-50 btn-secondary" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
         </div>
       </div>
+
     </div>
   )
 
