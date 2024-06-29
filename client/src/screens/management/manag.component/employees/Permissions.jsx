@@ -137,48 +137,46 @@ const PermissionsComponent = () => {
   
     try {
       if (!employeeid || !Permissions || Permissions.length === 0) {
-        toast.error('الرجاء توفير جميع البيانات المطلوبة.');
+        toast.error('Please provide all required data.');
         return;
       }
   
+      let response;
   
-      if (!permissionEmployee) {
-        const response = await axios.post(`${apiUrl}/api/permission`, {
+      if (!permissionEmployee || !permissionEmployee._id) {
+        // إنشاء صلاحيات جديدة إذا لم تكن موجودة
+        response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
-  
-        console.log({ response });
-        if (response.status === 201) {
-          const data = response.data;
-          setPermissions(data.Permissions);
-          toast.success('تم إنشاء الصلاحيات بنجاح!');
-        } else {
-          toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
-        }
-      } else if(permissionEmployee){
+        handleResponse(response, 'Permissions created successfully!', 'Failed to create permissions');
+      } else {
+        // تحديث الصلاحيات إذا كانت موجودة
         const id = permissionEmployee._id;
-        const response = await axios.put(`${apiUrl}/api/permission/${id}`, {
+        if (!id) {
+          toast.error('Invalid permission ID.');
+          return;
+        }
+  
+        response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
-  
-        console.log({ response });
-        if (response.status === 200) {
-          const data = response.data;
-          setPermissions(data.Permissions);
-          toast.success('تم تحديث الصلاحيات بنجاح!');
-        } else {
-          toast.error('فشل في تحديث الصلاحيات: كود حالة غير متوقع');
-        }
+        handleResponse(response, 'Permissions updated successfully!', 'Failed to update permissions');
       }
     } catch (error) {
       console.error('Error updating permissions:', error);
+      toast.error('An error occurred while updating permissions.');
+    }
+  };
   
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(`خطأ: ${error.response.data.message}`);
-      } else {
-        toast.error('حدث خطأ أثناء تحديث الصلاحيات');
-      }
+  const handleResponse = (response, successMessage, failureMessage) => {
+    console.log({ response });
+    if (response.status === 200 || response.status === 201) {
+      const data = response.data;
+      setPermissions(data.Permissions);
+      toast.success(successMessage);
+    } else {
+      toast.error(failureMessage + ': Unexpected status code');
     }
   };
   
