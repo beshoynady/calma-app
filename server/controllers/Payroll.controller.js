@@ -122,7 +122,7 @@ const updatePayrollByEmployee = async (req, res) => {
 
     res.status(200).json(payroll);
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Server Error' });
+    res.status(500).json({ success: false, error });
   }
 };
 

@@ -239,37 +239,7 @@ const PayRoll = () => {
         const isSalary = currentPayRoll.find((roll) => roll.employeeId._id === employeeId);
         const isSalaryPaid = currentPayRoll ? currentPayRoll.find((roll) => roll.employeeId._id === employeeId && roll.isPaid === true) : false;
   
-        console.log({
-          employeeName,
-          Year,
-          Month,
-          employeeId,
-          employeeName,
-          shiftHour,
-          basicSalary,
-          dailySalary,
-          workingDays,
-          salary,
-          attendanceDays,
-          leaveDays,
-          OvertimeDays,
-          OvertimeValue,
-          Bonus,
-          TotalDue,
-          AbsenceDays,
-          AbsenceDeduction,
-          lateDays,
-          lateDeduction,
-          Deduction,
-          Predecessor,
-          Insurance,
-          Tax,
-          TotalDeductible,
-          NetSalary,
-          isPaid,
-          paidBy
-        });
-  
+
         if (isSalary && !isSalaryPaid) {
           try {
             const result = await axios.put(`${apiUrl}/api/payroll/employee/${employeeId}`, {
@@ -283,7 +253,6 @@ const PayRoll = () => {
               dailySalary,
               leaveDays,
               workingDays,
-              dailySalary,
               salary,
               attendanceDays,
               OvertimeDays,
@@ -328,7 +297,6 @@ const PayRoll = () => {
               basicSalary,
               dailySalary,
               workingDays,
-              dailySalary,
               salary,
               attendanceDays,
               leaveDays,
