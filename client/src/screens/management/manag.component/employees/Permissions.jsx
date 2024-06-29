@@ -176,9 +176,6 @@ const PermissionsComponent = () => {
   
 
 
-
-
-
   const [selectedEmployee, setselectedEmployee] = useState({})
   const [permissionEmployee, setpermissionEmployee] = useState({})
 
