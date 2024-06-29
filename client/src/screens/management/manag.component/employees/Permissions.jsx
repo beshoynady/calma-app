@@ -40,17 +40,21 @@ const PermissionsComponent = () => {
   const getPermissions = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/permission`, config);
+
       if (response.status === 200) {
         const data = response.data;
         setpermissionsList(data);
         console.log({ data });
       } else {
-        throw new Error('Failed to fetch permissions: Unexpected status code');
+        throw new Error(`فشل في جلب الصلاحيات: رمز حالة غير متوقع ${response.status}`);
       }
     } catch (error) {
-      console.error('Error fetching permissions:', error.message);
+      console.error('Error fetching permissions:', error);
+      toast.error(`خطأ في جلب الصلاحيات: ${error.message || 'حدث خطأ غير متوقع'}`);
     }
   };
+
+
 
   const [permissionsListEn, setpermissionsListEn] = useState(['Employees', 'Attendance', 'Salaries', 'Payroll', 'Cash Register', 'Cash Movement', 'Inventory Item', 'Inventory Categories', 'Inventory Management', 'Orders', 'Tables', 'Table Reservations', 'Restaurant Settings', 'Permissions', 'Delivery Zones', 'Shifts', 'Expenses', 'Daily Expenses', 'Menu Categories', 'Products', 'Recipes', 'Kitchen Usage', 'Purchases', 'Purchase Returns', 'Supplier Data', 'Supplier Account', 'Supplier Movement', 'Users', 'Messages']);
 
@@ -81,7 +85,7 @@ const PermissionsComponent = () => {
           } else if (action === 'update') {
             permission.update = !permission.update;
             if (!permission.update === true) {
-           permission.read = true
+              permission.read = true
             }
           } else if (action === 'read') {
             permission.read = !permission.read
@@ -221,14 +225,14 @@ const PermissionsComponent = () => {
         setPermissions([]);
         return;
       }
-  
+
       if (!Array.isArray(listOfEmployees) || listOfEmployees.length === 0) {
         console.error("listOfEmployees is empty or not an array");
         return;
       }
-  
+
       const selectedEmployee = listOfEmployees.find((employee) => employee._id === id);
-  
+
       if (!selectedEmployee) {
         setselectedEmployee(null);
         setemployeeid('');
@@ -237,14 +241,14 @@ const PermissionsComponent = () => {
         toast.error('لم يتم العثور على الموظف');
         return;
       }
-  
+
       setselectedEmployee(selectedEmployee);
       setemployeeid(selectedEmployee._id);
-  
+      console.log({ permissionsList })
       const permissionEmployee = permissionsList
         ? permissionsList.find(permission => permission.employee._id === selectedEmployee._id)
         : null;
-  
+
       if (permissionEmployee) {
         setpermissionEmployee(permissionEmployee);
         setPermissions(permissionEmployee.Permissions);
@@ -253,15 +257,15 @@ const PermissionsComponent = () => {
         setPermissions([]);
         toast.info('هذا الموظف ليس له أي صلاحيات');
       }
-  
+
       console.log({ selectedEmployee, permissionEmployee });
-  
+
     } catch (error) {
       console.error("An error occurred in getEmployeesById:", error);
       toast.error('حدث خطأ غير متوقع');
     }
   };
-  
+
 
 
 
