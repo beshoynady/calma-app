@@ -17,6 +17,7 @@ const Employees = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+  const [isExecuting, setIsExecuting] = useState(false);
 
   const { restaurantData, formatDateTime, permissionsList, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
@@ -31,6 +32,10 @@ const Employees = () => {
   const [listOfEmployees, setListOfEmployees] = useState([]);
 
   const getEmployees = async () => {
+    if (permissionsForEmployee&&permissionsForEmployee.read === false) {
+      notify('ليس لك صلاحية لعرض بيانات الموظفين', 'info');
+      return;
+    }
     if (permissionsForEmployee && permissionsForEmployee.read === true) {
       try {
         const response = await axios.get(`${apiUrl}/api/employee`, config);
@@ -84,54 +89,62 @@ const Employees = () => {
 
   const createEmployee = async (e) => {
     e.preventDefault();
-
+    
+    if (isExecuting) {
+      toast.warn('انتظر لانشاء حساب الموظف');
+      return;
+    }
+  
     // Check if the user has the permission to create an employee
-
-    if (permissionsForEmployee.create === false) {
+    if (permissionsForEmployee && permissionsForEmployee.create === false) {
       notify('ليس لك صلاحية لانشاء حساب موظف', 'info');
       return;
     }
-
-    console.log({
-      fullname, basicSalary, taxRate, insuranceRate, workingDays, numberID, username, password, address, shift, phone, email,
-      isActive, role, sectionNumber
-    })
+  
     // Validate that all required fields are filled
-    if (!fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone
-      || !shift || !role
-    ) {
-      notify('جميع الحقول مطلوبه ! رجاء ملئ جميع الحقول', 'error');
+    if (!fullname || !username || !basicSalary || !workingDays || !numberID || !password || !address || !phone || !shift || !role) {
+      notify('جميع الحقول مطلوبة! رجاءً ملء جميع الحقول', 'error');
       return;
     }
-
+  
     try {
+      setIsExecuting(true);
+  
       const newEmployee = await axios.post(apiUrl + '/api/employee', {
         fullname, basicSalary, taxRate, insuranceRate, workingDays, numberID, username, password, address, shift, phone, email,
         isActive, role, sectionNumber
       }, config);
-
-      notify('تم انشاء حساب الموظف بنجاح', 'success');
-      console.log(newEmployee);
+  
+      if (newEmployee) {
+        notify('تم انشاء حساب الموظف بنجاح', 'success');
+      }
+  
       getEmployees();
+      setIsExecuting(false);
     } catch (error) {
       console.error(error);
-      notify('فشل انشاء حساب الموظف ! حاول مره اخري', 'error');
+      notify('فشل انشاء حساب الموظف! حاول مرة اخرى', 'error');
+      setIsExecuting(false);
     }
   };
+  
 
 
 
-  const editEmployee = async (e, permissionsList) => {
+  const editEmployee = async (e) => {
     e.preventDefault()
+    if (isExecuting) {
+      toast.warn('انتظر لتعديل حساب الموظف');
+      return;
+    }
 
+    if (permissionsForEmployee&&permissionsForEmployee.update === false) {
+      notify('ليس لك صلاحية لتعديل حساب الموظف', 'info');
+      return;
+    }
     try {
-
-      // const { error } = EmployeeSchema.validate({ fullname, numberID, username, email, address, phone, password, basicSalary,taxRate, insuranceRate , role, isActive });
-      // if (error) {
-      //     notify(error.details[0].message, 'error');
-      //     return;
-      // }
-      if (permissionsForEmployee.update === true) {
+      setIsExecuting(true)
+      if (permissionsForEmployee && permissionsForEmployee.update === true) {
         const updateData = password
           ? {
             fullname, numberID, username, email, shift, address, phone, password, basicSalary, taxRate, insuranceRate,
@@ -151,13 +164,17 @@ const Employees = () => {
       } else {
         notify('ليس لك صلاحية لتعديل حساب موظف', 'info');
       }
+      setIsExecuting(false)
 
     } catch (error) {
       notify('فشل تحديث بيانات الموظف! حاول مره اخري', 'error');
       console.log(error);
-      // Additional error handling
+      setIsExecuting(false)
     }
   };
+
+
+
   const [employeeShift, setemployeeShift] = useState({})
   const handleEditEmployee = (employee) => {
     setemployeeid(employee._id);
@@ -239,7 +256,7 @@ const Employees = () => {
   const deleteEmployee = async (e) => {
     e.preventDefault();
     try {
-      if (permissionsForEmployee.delete === true) {
+      if (permissionsForEmployee && permissionsForEmployee.delete === true) {
         const deleted = await axios.delete(`${apiUrl}/api/employee/${employeeid}`, config);
         notify('تم حذف سجل الموظف بنجاح', 'success');
         getEmployees();
@@ -285,33 +302,39 @@ const Employees = () => {
 
 
 
-  const exportToExcel = () => {
-    if (permissionsForEmployee.read === false) {
-      toast.error('ليس لك صلاحية لعرض بيانات الموظفين')
-      return
-    }
-    const data = listOfEmployees.map((employee, i) => ({
-      'م': i + 1,
-      'الاسم': employee.fullname,
-      'اسم المستخدم': employee.username,
-      'الرقم القومي': employee.numberID,
-      'العنوان': employee.address,
-      'الموبايل': employee.phone,
-      'الوظيفة': employee.role,
-      'ايام العمل': employee.workingDays,
-      'الراتب': employee.basicSalary,
-      'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
-      'السكشن': employee.sectionNumber,
-      'الشيفت': employee.shift ? employee.shift.shiftType : '',
-      'التاريخ': formatDateTime(employee.createdAt),
-    }));
+const exportToExcel = () => {
+  if (permissionsForEmployee && permissionsForEmployee.read === false) {
+    toast.error('ليس لك صلاحية لعرض بيانات الموظفين وتصديرها');
+    return;
+  }
 
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+  const data = listOfEmployees.map((employee, i) => ({
+    'م': i + 1,
+    'الاسم': employee.fullname,
+    'رقم قومي': employee.numberID,
+    'العنوان': employee.address,
+    'الموبايل': employee.phone,
+    'البريد الإلكتروني': employee.email,
+    'اسم المستخدم': employee.username,
+    'الوظيفة': employee.role,
+    'أيام العمل': employee.workingDays,
+    'الراتب': employee.basicSalary,
+    'معدل الضريبة': employee.taxRate,
+    'معدل التأمين': employee.insuranceRate,
+    'الحالة': employee.isActive ? 'متاح' : 'غير متاح',
+    'السكشن': employee.sectionNumber,
+    'الشيفت': employee.shift && employee.shift.shiftType,
+    'أضيف بواسطة': employee.createdBy && employee.createdBy.username,
+    'تحديث بواسطة': employee.updatedBy && employee.updatedBy.username,
+    'التاريخ': employee.createdAt && formatDateTime(employee.createdAt),
+  }));
 
-    XLSX.writeFile(wb, 'employees.xlsx');
-  };
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Employees');
+
+  XLSX.writeFile(wb, 'employees.xlsx');
+};
 
 
 
@@ -594,7 +617,7 @@ const Employees = () => {
         {permissionsForEmployee?.update === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form className='text-right' onSubmit={(e) => editEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => editEmployee(e)}>
                 <div className="modal-header">
                   <h4 className="modal-title">تعديل بيانات الموظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>

@@ -15,6 +15,8 @@ const PayRoll = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+  const [isExecuting, setIsExecuting] = useState(false);
+
   // Array of months in Arabic
   const months = [
     'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
@@ -521,7 +523,11 @@ const PayRoll = () => {
 
 
   const addPayRoll = async () => {
+    if (isExecuting) {
+      return;
+    }
     try {
+    setIsExecuting(true);
       toast.warn('انتظر قليلا .. لا تقم باعادة التحميل و غلق الصفحة')
       for (let i = 0; i < ListOfEmployee.length; i++) {
         let Year = new Date().getFullYear();
@@ -728,11 +734,13 @@ const PayRoll = () => {
           getPayRoll();
           getEmployees();
         }
+        setIsExecuting(false);
       }
 
     } catch (error) {
       console.error('خطأ عام في معالجة بيانات المرتب:', error);
       toast.error('حدث خطأ عام أثناء معالجة بيانات المرتب');
+      setIsExecuting(false);
     }
   };
 
@@ -740,10 +748,8 @@ const PayRoll = () => {
 
 
 
-  const handelPaid = async (rollid, salary, manager, employee, name, paidMonth) => {
+  const handelPaid = async (rollId, salary, manager, employee, name, paidMonth) => {
     try {
-      console.log(manager)
-
       // Fetch all cash registers
       const response = await axios.get(apiUrl + '/api/cashRegister', config);
       const allCashRegisters = await response.data;
@@ -760,7 +766,7 @@ const PayRoll = () => {
       // Set values and variables
       setamount(salary);
       setpaidBy(manager);
-      setrollId(rollid);
+      setrollId(rollId);
       setemployeeId(employee);
       setmonth(paidMonth);
       setemployeeName(name);
