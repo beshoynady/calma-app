@@ -28,7 +28,7 @@ const createPayroll = async (req, res) => {
     TotalDeductible,
     NetSalary
   } = req.body;
-  
+
   try {
     const payroll = await PayrollModel.create({
       employeeId,
@@ -65,6 +65,8 @@ const createPayroll = async (req, res) => {
 const updatePayrollByEmployee = async (req, res) => {
   const {
     employeeName,
+    Year,
+    Month,
     shiftHour,
     salary,
     basicSalary,
@@ -93,6 +95,8 @@ const updatePayrollByEmployee = async (req, res) => {
       { employeeId: employeeId },
       {
         employeeName,
+        Year,
+        Month,
         shiftHour,
         salary,
         basicSalary,
@@ -122,7 +126,7 @@ const updatePayrollByEmployee = async (req, res) => {
 
     res.status(200).json(payroll);
   } catch (error) {
-    res.status(500).json({ success: false, error });
+    res.status(500).json({ error });
   }
 };
 
