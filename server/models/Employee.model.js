@@ -108,7 +108,6 @@ const employeeSchema = new mongoose.Schema({
   updatedBy:{
     type: ObjectId,
     ref:'Employee',
-    required: true
   }
 },
   {

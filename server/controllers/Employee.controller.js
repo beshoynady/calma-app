@@ -120,12 +120,12 @@ const updateEmployee = async (req, res) => {
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }
-        const { fullname, numberID, username,shift, email, address, phone, workingDays, basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive, password } = req.body;
+        const { fullname, numberID, username,shift, email, address, phone, workingDays, basicSalary, role, sectionNumber,taxRate,insuranceRate, isActive,isVerified, password } = req.body;
 
         const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
-        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword,workingDays, basicSalary,taxRate,insuranceRate, isActive, role, sectionNumber,updatedBy } 
-        : { fullname, numberID, username, email, shift, address, phone, workingDays, basicSalary, isActive, role,taxRate,insuranceRate, sectionNumber, updatedBy};
+        const updateData = password ? { fullname, numberID, username, shift, email, address, phone, password: hashedPassword,workingDays, basicSalary,taxRate,insuranceRate, isActive,isVerified, role, sectionNumber,updatedBy } 
+        : { fullname, numberID, username, email, shift, address, phone, workingDays, basicSalary, isActive, isVerified, role,taxRate,insuranceRate, sectionNumber, updatedBy};
 
         const updateEmployee = await EmployeeModel.findByIdAndUpdate(id, updateData, { new: true });
 
