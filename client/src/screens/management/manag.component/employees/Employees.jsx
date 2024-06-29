@@ -220,7 +220,7 @@ const Employees = () => {
     }
   };
 
-  const deleteEmployee = async (e, permissionsList) => {
+  const deleteEmployee = async (e) => {
     e.preventDefault();
     try {
       if (permissionsForEmployee.delete === true) {
@@ -471,7 +471,7 @@ const Employees = () => {
 
 
       <div id="addEmployeeModal" className="modal fade">
-        {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.create === true && (
+        {permissionsForEmployee?.create === true && (
           <div className="modal-dialog">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => createEmployee(e)}>
@@ -569,7 +569,7 @@ const Employees = () => {
 
 
       <div id="editEmployeeModal" className="modal fade">
-        {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.update === true && (
+        {permissionsForEmployee?.update === true && (
           <div className="modal-dialog">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => editEmployee(e, permissionsList)}>
@@ -663,10 +663,10 @@ const Employees = () => {
 
 
       <div id="deleteEmployeeModal" className="modal fade">
-        {permissionsList?.filter(permission => permission.resource === 'Employees')[0]?.delete === true && (
+        {permissionsForEmployee?.delete === true && (
           <div className="modal-dialog">
             <div className="modal-content">
-              <form className='text-right' onSubmit={(e) => deleteEmployee(e, permissionsList)}>
+              <form className='text-right' onSubmit={(e) => deleteEmployee(e)}>
                 <div className="modal-header">
                   <h4 className="modal-title">حذف موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
