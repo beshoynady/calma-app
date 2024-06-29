@@ -133,17 +133,23 @@ const PermissionsComponent = () => {
 
   const addPermissions = async (e) => {
     e.preventDefault();
-    console.log({ employeeid, Permissions })
+    console.log({ employeeid, Permissions });
+  
     try {
+      if (!employeeid || !Permissions || Permissions.length === 0) {
+        toast.error('الرجاء توفير جميع البيانات المطلوبة.');
+        return;
+      }
+  
       let response;
-
+  
       if (!permissionEmployee) {
         response = await axios.post(`${apiUrl}/api/permission`, {
           employee: employeeid,
           Permissions,
         }, config);
-
-        console.log({ response })
+  
+        console.log({ response });
         if (response.status === 201) {
           const data = response.data;
           setPermissions(data.Permissions);
@@ -151,15 +157,13 @@ const PermissionsComponent = () => {
         } else {
           toast.error('فشل في إنشاء الصلاحيات: كود حالة غير متوقع');
         }
-
       } else {
         const id = permissionEmployee._id;
         response = await axios.put(`${apiUrl}/api/permission/${id}`, {
           Permissions,
         }, config);
-
-
-        console.log({ response })
+  
+        console.log({ response });
         if (response.status === 200) {
           const data = response.data;
           setPermissions(data.Permissions);
@@ -168,12 +172,17 @@ const PermissionsComponent = () => {
           toast.error('فشل في تحديث الصلاحيات: كود حالة غير متوقع');
         }
       }
-
     } catch (error) {
-      console.error('Error fetching permissions:', error);
-      toast.error('حدث خطأ أثناء تحديث الصلاحيات');
+      console.error('Error updating permissions:', error);
+  
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(`خطأ: ${error.response.data.message}`);
+      } else {
+        toast.error('حدث خطأ أثناء تحديث الصلاحيات');
+      }
     }
   };
+  
 
 
 

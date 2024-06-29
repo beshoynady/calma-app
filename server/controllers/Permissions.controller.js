@@ -4,25 +4,35 @@ const PermissionsModel = require('../models/Permissions.model');
 
 const createPermission = async (req, res) => {
     try {
-        const { employee, Permissions } = req.body;
-        const createdBy = req.employee.id;
-
-        if (!mongoose.Types.ObjectId.isValid(employee) || !Permissions || Permissions.length === 0 || !mongoose.Types.ObjectId.isValid(createdBy)) {
-            return res.status(400).json({ message: 'Invalid or missing required fields.' });
-        }
-
-        const newPermission = await PermissionsModel.create({ employee, Permissions, createdBy });
-
-        if (!newPermission) {
-            return res.status(500).json({ message: 'Failed to create permission.', newPermission, employee, Permissions, createdBy });
-        }
-
-        res.status(201).json(newPermission);
+      const { employee, Permissions } = req.body;
+      const createdBy = req.employee.id;
+  
+      // التحقق من صحة المدخلات
+      if (!mongoose.Types.ObjectId.isValid(employee)) {
+        return res.status(400).json({ message: 'معرف الموظف غير صالح.' });
+      }
+  
+      if (!Permissions || Permissions.length === 0) {
+        return res.status(400).json({ message: 'الرجاء توفير الصلاحيات.' });
+      }
+  
+      if (!mongoose.Types.ObjectId.isValid(createdBy)) {
+        return res.status(400).json({ message: 'معرف المنشئ غير صالح.' });
+      }
+  
+      const newPermission = await PermissionsModel.create({ employee, Permissions, createdBy });
+  
+      if (!newPermission) {
+        return res.status(500).json({ message: 'فشل في إنشاء الصلاحية.' });
+      }
+  
+      res.status(201).json(newPermission);
     } catch (error) {
-        console.error('Error creating permission:', error);
-        res.status(500).json({ message: error.message });
+      console.error('Error creating permission:', error);
+      res.status(500).json({ message: error.message });
     }
-};
+  };
+  
 
 
 const getAllPermissions = async (req, res) => {
