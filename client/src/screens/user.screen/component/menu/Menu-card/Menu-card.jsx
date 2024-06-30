@@ -125,8 +125,8 @@ const MenuCard = () => {
                             </div>
                           : ''}
 
-                        <div className="row g-0 h-100">
-                          <div className="col-5 d-flex flex-nowrap flex-column justify-content-between">
+                        <div className="row g-0 h-100 m-0 p-0">
+                          <div className="col-5 m-0 p-0 d-flex flex-nowrap flex-column justify-content-between">
                             <img src={defaultsImage} className="h-100 w-100" alt="Delicious soup" />
                             {product.available === true ? (
                               <>
@@ -147,7 +147,7 @@ const MenuCard = () => {
                             )}
 
                           </div>
-                          <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-2">
+                          <div className="col-7 d-flex flex-column justify-content-between align-items-stretch p-1">
                             <div className="d-flex justify-content-between align-items-center mb-2">
                               <h5 className="card-title mb-0">{product.name}</h5>
                               <span className="material-icons" style={{ color: "red", fontSize: "45px", cursor: 'pointer' }}
