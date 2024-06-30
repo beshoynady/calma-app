@@ -367,7 +367,7 @@ const CashMovement = () => {
  const [StartDate, setStartDate] = useState(new Date())
  const [EndDate, setEndDate] = useState(new Date())
 
- const filterByDateRange = () => {
+ const filterByDateRange = async() => {
   const start = new Date(StartDate);
   const end = new Date(EndDate);
 
@@ -417,7 +417,7 @@ const CashMovement = () => {
           </div>
          </div>
          <div class="table-filter print-hide">
-          <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-between">
+          <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
            <div class="show-entries">
             <span>عرض</span>
             <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
@@ -456,12 +456,12 @@ const CashMovement = () => {
 
              <div className="d-flex flex-nowrap mr-1">
               <label className="form-label">من</label>
-              <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+              <input type="date" className="form-control w-auto" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
              </div>
 
              <div className="d-flex flex-nowrap mr-1">
               <label className="form-label">إلى</label>
-              <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+              <input type="date" className="form-control w-auto" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
              </div>
 
              <div className="d-flex flex-nowrap justify-content-between w-25">
