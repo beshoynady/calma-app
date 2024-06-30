@@ -3,6 +3,11 @@ import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
 import '../orders/Orders.css'
+
+
+
+
+
 const CashRegister = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -48,8 +53,6 @@ const CashRegister = () => {
   // Fetch all cash registers
   const getAllCashRegisters = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.get(apiUrl + '/api/cashregister', config);
       setCashRegisters(response.data.reverse());
     } catch (err) {
@@ -61,8 +64,6 @@ const CashRegister = () => {
   // Fetch a cash register by ID
   const getCashRegisterById = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.get(`${apiUrl}/api/cashregister/${cashID}`, config);
       // Handle response (e.g., display details, update state)
     } catch (err) {
@@ -75,8 +76,6 @@ const CashRegister = () => {
     e.preventDefault()
     const newCashRegister = { name, balance, employee };
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.post(apiUrl + '/api/cashregister', newCashRegister, config);
       console.log(response);
       toast.success('Cash register created successfully');
@@ -92,8 +91,6 @@ const CashRegister = () => {
     e.preventDefault()
     const updatedCashRegister = { name, balance, employee };
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.put(`${apiUrl}/api/cashregister/${cashID}`, updatedCashRegister, config);
       toast.success('Cash register updated successfully');
       getAllCashRegisters()
@@ -106,8 +103,6 @@ const CashRegister = () => {
   const deleteCashRegister = async (e) => {
     e.preventDefault()
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
       const response = await axios.delete(`${apiUrl}/api/cashregister/${cashID}`, config);
       toast.success('Cash register deleted successfully');
     } catch (err) {
