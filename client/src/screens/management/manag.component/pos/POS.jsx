@@ -501,7 +501,6 @@ const POS = () => {
 
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>
-                  <div className="row w-100 p-0 m-0">
                     <div className="btn-group col-12 p-0 m-0" role="group" aria-label="Order Type">
                       <a href="#typeOrderModal" className="btn btn-primary col-4 p-3" data-toggle="modal" onClick={() => { setordertype('Internal') }}>
                         الصالة
@@ -513,9 +512,7 @@ const POS = () => {
                         التوصيل
                       </a>
                     </div>
-
-                  </div>
-
+                    
                   <div className="row w-100 p-1 m-0 overflow-auto" style={{ height: '60%' }}>
                     <div className="col-12 overflow-auto p-0 m-0">
                       {
