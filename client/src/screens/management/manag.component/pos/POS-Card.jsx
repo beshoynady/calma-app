@@ -95,7 +95,8 @@ const POSCard = () => {
 
                   } else {
                     return (
-                      <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '170px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} onClick={() => { addItemToCart(product._id, sizeId) }}>
+                      <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '170px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }}
+                       onClick={() => { addItemToCart(product._id, sizeId) }}>
                         <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
