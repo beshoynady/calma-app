@@ -555,11 +555,11 @@ const AttendanceManagement = () => {
                   <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
                     <i className="fa fa-search"></i>
                   </button>
+                </div>
+              </div>
                   <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
                     استعادة
                   </button>
-                </div>
-              </div>
             </div>
           </div>
 

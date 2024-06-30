@@ -5,7 +5,6 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 // import Userscreen from './screens/user.screen/Userscreen';
 // import ManagLayout from './screens/management/ManagLayout';
 // import ManagerDash from './screens/management/manag.component/managerdash/ManagerDash';

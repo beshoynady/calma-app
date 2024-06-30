@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
-
+import '../orders/Orders.css'
 const CashRegister = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
