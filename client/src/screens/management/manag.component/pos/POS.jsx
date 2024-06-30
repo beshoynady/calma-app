@@ -504,13 +504,13 @@ const POS = () => {
                 {/* cart section */}
                 <div className="container-fluid d-flex flex-column justify-content-between align-items-stretch align-content-between flex-nowrap " style={{ width: '450px', height: '100%', padding: '0', margin: '0' }}>
                     <div className="btn-group col-12 p-0 m-0" role="group" aria-label="Order Type" style={{ height: '60px' }}>
-                      <a href="#typeOrderModal" className="btn btn-primary col-4 p-3" data-toggle="modal" onClick={() => { setordertype('Internal') }}>
+                      <a href="#typeOrderModal" className="btn btn-primary col-4 h-100 p-3" data-toggle="modal" onClick={() => { setordertype('Internal') }}>
                         الصالة
                       </a>
-                      <a href="#typeOrderModal" className="btn btn-success col-4 p-3" data-toggle="modal" onClick={() => { setordertype('Takeaway') }}>
+                      <a href="#typeOrderModal" className="btn btn-success col-4 h-100 p-3" data-toggle="modal" onClick={() => { setordertype('Takeaway') }}>
                         التيك أوي
                       </a>
-                      <a href="#typeOrderModal" className="btn btn-danger col-4 p-3" data-toggle="modal" onClick={() => { setordertype('Delivery') }}>
+                      <a href="#typeOrderModal" className="btn btn-danger col-4 h-100 p-3" data-toggle="modal" onClick={() => { setordertype('Delivery') }}>
                         التوصيل
                       </a>
                     </div>
