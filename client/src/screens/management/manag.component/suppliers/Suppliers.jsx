@@ -278,7 +278,7 @@ const Suppliers = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
               <div className="table-responsive mt-1">
@@ -387,8 +387,8 @@ const Suppliers = () => {
                               <td>{supplier.financialInfo ? supplier.financialInfo.map(financialInfo => `[${financialInfo.paymentMethodName}: ${financialInfo.accountNumber}]`) : 'لا يوجد'}</td>
                               <td>{supplier.paymentType}</td>
                               <td>{supplier.notes}</td>
-                              <td>{supplier.createdBy.fullname}</td>
-                              <td>{supplier.createdAt}</td>
+                              <td>{supplier.createdBy?.fullname}</td>
+                              <td>{formatDateTime(supplier.createdAt)}</td>
                               <td>
                                 <a href="#editSupplierModal" className="edit" data-toggle="modal" onClick={() => { getOneSuppliers(supplier._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierModal" className="delete" data-toggle="modal" onClick={() => setsupplierId(supplier._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
