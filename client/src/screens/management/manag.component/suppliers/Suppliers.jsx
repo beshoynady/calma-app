@@ -269,6 +269,22 @@ const Suppliers = () => {
   };
 
 
+  const searchSupplierByName = (name) => {
+    if (!name) {
+      getAllSuppliers(); // Reset or get all suppliers if name is empty
+      return; // Exit early if name is empty
+    }
+  
+    const findSupplier = AllSuppliers.filter(supplier => supplier.fullname.startsWith(name));
+  
+    if (findSupplier.length > 0) {
+      setAllSuppliers(findSupplier); // Update state with filtered suppliers
+    } else {
+      setAllSuppliers([]); // Clear the list or show empty state
+    }
+  };
+  
+
 
   useEffect(() => {
     getAllSuppliers()
@@ -312,11 +328,11 @@ const Suppliers = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        {/* <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
-                          <label>اسم الصنف</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
-                        </div> */}
+                          <label>اسم المورد</label>
+                          <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
+                        </div>
                         {/* <div class="filter-group">
                           <label>نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
