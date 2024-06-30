@@ -468,7 +468,7 @@ const CashMovement = () => {
               <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
                <i className="fa fa-search"></i>
               </button>
-              <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
+              <button type="button" className="btn btn-warning w-50" onClick={getCashMovement}>
                استعادة
               </button>
              </div>
