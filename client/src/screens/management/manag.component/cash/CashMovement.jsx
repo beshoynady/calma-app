@@ -75,7 +75,7 @@ const CashMovement = () => {
 
  const cashMovementTypeEn = ['Deposit', 'Withdraw', 'Revenue', 'Transfer', 'Expense', 'Payment', 'Refund'];
  const cashMovementTypeAr = ['إيداع', 'سحب', 'إيراد', 'تحويل', 'مصروف', 'دفع مشتريات', 'استرداد']
- ;
+  ;
  const [registerId, setRegisterId] = useState('');
  const [createdBy, setcreatedBy] = useState('');
  const [amount, setAmount] = useState();
@@ -311,73 +311,73 @@ const CashMovement = () => {
  };
 
 
-const filterByType = (type)=>{
- if(!type){
-  getCashMovement()
-  return
- }
- const filterList = AllCashMovement.filter(movement=> movement.type === type)
- setAllCashMovement(filterList)
-}
-
-
-
-const filterByTime = (timeRange) => {
- if (!timeRange) {
+ const filterByType = (type) => {
+  if (!type) {
    getCashMovement()
+   return
+  }
+  const filterList = AllCashMovement.filter(movement => movement.type === type)
+  setAllCashMovement(filterList)
  }
- let filteredCashMovement = [];
 
- const now = new Date();
- const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
- const startOfWeek = new Date(now);
- startOfWeek.setDate(now.getDate() - now.getDay());
- startOfWeek.setHours(0, 0, 0, 0);
- const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
- const startOfYear = new Date(now.getFullYear(), 0, 1);
 
- switch (timeRange) {
+
+ const filterByTime = (timeRange) => {
+  if (!timeRange) {
+   getCashMovement()
+  }
+  let filteredCashMovement = [];
+
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay());
+  startOfWeek.setHours(0, 0, 0, 0);
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+  switch (timeRange) {
    case 'today':
-     filteredCashMovement = AllCashMovement.filter(Movement =>
-       new Date(Movement.createdAt) >= startOfToday
-     );
-     break;
+    filteredCashMovement = AllCashMovement.filter(Movement =>
+     new Date(Movement.createdAt) >= startOfToday
+    );
+    break;
    case 'week':
-     filteredCashMovement = AllCashMovement.filter(Movement =>
-       new Date(Movement.createdAt) >= startOfWeek
-     );
-     break;
+    filteredCashMovement = AllCashMovement.filter(Movement =>
+     new Date(Movement.createdAt) >= startOfWeek
+    );
+    break;
    case 'month':
-     filteredCashMovement = AllCashMovement.filter(Movement =>
-       new Date(Movement.createdAt) >= startOfMonth
-     );
-     break;
+    filteredCashMovement = AllCashMovement.filter(Movement =>
+     new Date(Movement.createdAt) >= startOfMonth
+    );
+    break;
    case 'year':
-     filteredCashMovement = AllCashMovement.filter(Movement =>
-       new Date(Movement.createdAt) >= startOfYear
-     );
-     break;
+    filteredCashMovement = AllCashMovement.filter(Movement =>
+     new Date(Movement.createdAt) >= startOfYear
+    );
+    break;
    default:
-     filteredCashMovement = AllCashMovement;
- }
+    filteredCashMovement = AllCashMovement;
+  }
 
- setAllCashMovement(filteredCashMovement)
-};
+  setAllCashMovement(filteredCashMovement)
+ };
 
-const [StartDate, setStartDate] = useState(new Date())
-const [EndDate, setEndDate] = useState(new Date())
+ const [StartDate, setStartDate] = useState(new Date())
+ const [EndDate, setEndDate] = useState(new Date())
 
-const filterByDateRange = () => {
- const start = new Date(StartDate);
- const end = new Date(EndDate);
+ const filterByDateRange = () => {
+  const start = new Date(StartDate);
+  const end = new Date(EndDate);
 
- const filteredRecords = AllCashMovement.filter(record => {
+  const filteredRecords = AllCashMovement.filter(record => {
    const createdAt = new Date(record.createdAt);
    return createdAt >= start && createdAt <= end;
- });
+  });
 
- setAllCashMovement(filteredRecords)
-};
+  setAllCashMovement(filteredRecords)
+ };
 
 
 
@@ -434,41 +434,46 @@ const filterByDateRange = () => {
             <label>نوع العملية</label>
             <select class="form-control" onChange={(e) => filterByType(e.target.value)} >
              <option value={""}>الكل</option>
-             {cashMovementTypeEn.map((type,i)=>{
+             {cashMovementTypeEn.map((type, i) => {
               <option value={type} >{cashMovementTypeAr[i]}</option>
              })}
             </select>
            </div>
-           <div className="filter-group">
-                <label>فلتر حسب الوقت</label>
-                <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
-                  <option value="">اختر</option>
-                  <option value="today">اليوم</option>
-                  <option value="week">هذا الأسبوع</option>
-                  <option value="month">هذا الشهر</option>
-                  <option value="month">هذه السنه</option>
-                </select>
-              </div>
+           <div className='col-12 d-flex align-items-center justify-content-between'>
+            <div className="filter-group">
+             <label>فلتر حسب الوقت</label>
+             <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
+              <option value="">اختر</option>
+              <option value="today">اليوم</option>
+              <option value="week">هذا الأسبوع</option>
+              <option value="month">هذا الشهر</option>
+              <option value="month">هذه السنه</option>
+             </select>
+            </div>
 
-              <div className="filter-group d-flex flex-nowrap w-75">
-                <label className="form-label"><strong>مدة محددة:</strong></label>
+            <div className="filter-group d-flex flex-nowrap w-75">
+             <label className="form-label"><strong>مدة محددة:</strong></label>
 
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">من</label>
-                  <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
-                </div>
+             <div className="d-flex flex-nowrap mr-1">
+              <label className="form-label">من</label>
+              <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+             </div>
 
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">إلى</label>
-                  <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
-                </div>
+             <div className="d-flex flex-nowrap mr-1">
+              <label className="form-label">إلى</label>
+              <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+             </div>
 
-                <div className="d-flex flex-nowrap justify-content-between w-25">
-                  <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
-                    <i className="fa fa-search"></i>
-                  </button>
-                </div>
-              </div>
+             <div className="d-flex flex-nowrap justify-content-between w-25">
+              <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
+               <i className="fa fa-search"></i>
+              </button>
+              <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
+               استعادة
+              </button>
+             </div>
+            </div>
+           </div>
            {/* <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button> */}
            {/* <div class="filter-group">
                           <label>اسم الصنف</label>

@@ -76,10 +76,10 @@ const AttendanceManagement = () => {
       }
 
       console.log({ newattendanceData });
-      
+
       const createRecord = await axios.post(`${apiUrl}/api/attendance`, newattendanceData, config);
       console.log({ createRecord });
-      
+
       if (createRecord.status === 201) {
         if (status === 'Attendance') {
           const activeemployee = await axios.put(`${apiUrl}/api/employee/${employee}`, { isActive: true }, config);
@@ -479,7 +479,7 @@ const AttendanceManagement = () => {
             </div>
           </div>
           <div className="table-filter w-100">
-            <div className="w-100 d-flex flex-row flex-wrap text-dark">
+            <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-between text-dark">
               <div className="filter-group">
                 <div className="show-entries">
                   <span>عرض</span>
@@ -527,39 +527,41 @@ const AttendanceManagement = () => {
 
                 </select>
               </div>
-              <div className="filter-group">
-                <label>فلتر حسب الوقت</label>
-                <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
-                  <option value="">اختر</option>
-                  <option value="today">اليوم</option>
-                  <option value="week">هذا الأسبوع</option>
-                  <option value="month">هذا الشهر</option>
-                  <option value="month">هذه السنه</option>
-                </select>
+              <div className='col-12 d-flex align-items-center justify-content-between'>
+                <div className="filter-group">
+                  <label>فلتر حسب الوقت</label>
+                  <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
+                    <option value="">اختر</option>
+                    <option value="today">اليوم</option>
+                    <option value="week">هذا الأسبوع</option>
+                    <option value="month">هذا الشهر</option>
+                    <option value="month">هذه السنه</option>
+                  </select>
+                </div>
+
+                <div className="filter-group d-flex flex-nowrap w-75">
+                  <label className="form-label"><strong>مدة محددة:</strong></label>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">من</label>
+                    <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">إلى</label>
+                    <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap justify-content-between w-25">
+                    <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                    <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
+                      استعادة
+                    </button>
+                  </div>
+                </div>
               </div>
-
-              <div className="filter-group d-flex flex-nowrap w-75">
-                <label className="form-label"><strong>مدة محددة:</strong></label>
-
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">من</label>
-                  <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
-                </div>
-
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">إلى</label>
-                  <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
-                </div>
-
-                <div className="d-flex flex-nowrap justify-content-between w-25">
-                  <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
-                    <i className="fa fa-search"></i>
-                  </button>
-                </div>
-              </div>
-                  <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
-                    استعادة
-                  </button>
             </div>
           </div>
 
