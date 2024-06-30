@@ -87,38 +87,40 @@ const Cart = (props) => {
                         {itemsInCart.length > 0 ? itemsInCart.map((item, index) => {
                           return (
                             item.quantity > 0 &&
-                            <div className="card mb-3 w-100 shadow-sm" key={index}>
-                              <div className="row no-gutters">
-                                <div className="col-3 d-flex align-items-center">
-                                  {/* <img src={item.image ? ${apiUrl}/images/${item.image} : {defaultsImage}} className="card-img" alt={item.name} /> */}
-                                  <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{ maxHeight: '80px', objectFit: 'cover' }} />
+                            <div className="card mb-3 w-100" key={index}>
+                              <div className="row no-gutters w-100 m-0 p-0">
+                                <div className="col-3">
+                                  {/* <img src={item.image ? `${apiUrl}/images/${item.image}` : {defaultsImage}} className="card-img" alt={item.name} /> */}
+                                  <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{ maxHeight: '80px', heitgh: '100%' }} />
                                 </div>
                                 <div className="col-9">
-                                  <div className="card-body d-flex flex-column justify-content-start p-2">
-                                    <div className="d-flex justify-content-between align-items-center mb-2">
-                                      <h5 className="card-title m-0">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
+                                  <div className="card-body d-flex flex-column align-items-stretch  justify-content-start" style={{ padding: '4px' }}>
+                                    <div className="d-flex  justify-content-between w-100">
+                                      <h5 className="card-title">{item.name} {item.size ? `- ${item.size}` : ''}</h5>
                                       <button className="btn btn-danger btn-sm" onClick={() => deleteItemFromCart(item.productid, item.sizeId)}>حذف</button>
                                     </div>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                      <div className="d-flex flex-column w-50">
-                                        <p className="card-text mb-1">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
+                                    <div className="d-flex justify-content-between mt-2">
+                                      <div className="d-flex justify-content-between w-50">
+                                        <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount : item.price} ج</p>
                                         <p className="card-text">×{item.quantity}</p>
                                       </div>
-                                      <p className="card-text font-weight-bold">{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</p>
+                                      <p className="card-text">{item.priceAfterDiscount ? item.priceAfterDiscount * item.quantity : item.price * item.quantity} ج</p>
                                     </div>
 
+
                                     {item.extras && (
-                                      <div className="d-flex flex-column mt-2">
+                                      <div className="d-flex flex-columen flex-wrap mt-2">
                                         {item.extras.map((extra, i) => (
-                                          extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap mb-1 p-0 border-bottom">
-                                            <div className='d-flex col-10 align-items-center flex-wrap p-0'>
+                                          extra && extra.extraDetails && <div key={i} className="d-flex w-100 flex-wrap m-0 mb-1 p-0" style={{ borderBottom: '1px solid black' }}>
+                                            <div className='d-flex col-10 align-items-center justify-content-start flex-wrap p-0 m-0'>
                                               {extra.extraDetails.map((detail) => {
+
                                                 return (
-                                                  <span className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</span>
+                                                  <p className="badge badge-secondary m-1" key={detail.extraid}>{`${detail.name} ${detail.price} ج`}</p>
                                                 );
                                               })}
                                             </div>
-                                            <span className="badge badge-info col-2 text-center">{extra.totalExtrasPrice} ج</span>
+                                            <p className="d-flex col-2 align-items-center justify-content-center badge badge-info">{extra.totalExtrasPrice} ج</p>
                                           </div>
                                         ))}
                                       </div>
@@ -128,7 +130,6 @@ const Cart = (props) => {
                                 </div>
                               </div>
                             </div>
-
                           );
                         }) : <p>لا توجد منتجات في العربة.</p>}
                       </div>
