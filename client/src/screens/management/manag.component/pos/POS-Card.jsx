@@ -9,24 +9,11 @@ const POSCard = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
 
-  const [noteArea, setnoteArea] = useState(false)
-  const [extraArea, setextraArea] = useState(false)
-  const [productid, setproductid] = useState('')
-  const [size, setsize] = useState('')
   const [sizeId, setsizeId] = useState('')
-  const [sizeQuantity, setsizeQuantity] = useState(0)
-  const [sizePrice, setsizePrice] = useState()
-  const [sizePriceAfterDescount, setsizePriceAfterDescount] = useState()
 
 
   const handleSelectSize = (size) => {
-    setsize(size)
     setsizeId(size._id)
-    setsizeQuantity(size.sizeQuantity)
-    setsizePrice(size.sizePrice);
-    if (size.sizeDiscount > 0) {
-      setsizePriceAfterDescount(size.sizePrice - size.sizeDiscount);
-    }
   };
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(1);
@@ -35,7 +22,7 @@ const POSCard = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ allProducts, categoryid, addItemToCart, deleteItemFromCart, incrementProductQuantity, decrementProductQuantity, setproductNote, addNoteToProduct, addExtrasToProduct, handleAddProductExtras, productExtras, itemId }) => {
+        ({ allProducts, categoryid, addItemToCart }) => {
           return (
 
             <div className="d-flex flex-wrap flex-md-row">
@@ -43,7 +30,7 @@ const POSCard = () => {
                 allProducts.filter(pro => pro.category._id === categoryid).map((product, index) => {
                   if (product.hasSizes) {
                     return (
-                      <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '200px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} >
+                      <div className="card d-flex flex-column justify-content-between mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '200px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }} >
                         <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }} onClick={() => { sizeId && addItemToCart(product._id, sizeId) }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
                         </div>
@@ -84,7 +71,7 @@ const POSCard = () => {
                           </div>
                         </div>
                         <div className="d-flex  w-100bg-secondary justify-content-between align-items-center p-0 mx-1">
-                          <h5 className="card-title text-light mb-0 " style={{ fontSize: '16px', fontWeight: '900' }}>{product.description}</h5>
+                          <h5 className="card-title text-center text-light mb-1 " style={{ fontSize: '14px', fontWeight: '900' }}>{product.description}</h5>
 
                         </div>
                       </div>
@@ -95,7 +82,7 @@ const POSCard = () => {
 
                   } else {
                     return (
-                      <div className="card mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '170px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }}
+                      <div className="card d-flex flex-column justify-content-between mx-auto m-1 bg-secondary" key={index} style={{ width: '180px', height: '170px', border: '2px solid black', transition: 'transform 0.3s, border-color 0.3s' }}
                        onClick={() => { addItemToCart(product._id, sizeId) }}>
                         <div className="d-flex flex-column justify-content-between" style={{ width: '100%', height: '50%' }}>
                           <img src={defaultsImage} className="img-fluid h-100 w-100" alt="Delicious soup" style={{ objectFit: 'cover' }} />
@@ -115,7 +102,7 @@ const POSCard = () => {
                           </div>
                         </div>
                         <div className="d-flex  w-100bg-secondary justify-content-between align-items-center p-0 mx-1">
-                          <h5 className="card-title text-light mb-0 " style={{ fontSize: '16px', fontWeight: '900' }}>{product.description}</h5>
+                          <h5 className="card-title text-light mb-1 " style={{ fontSize: '14px', fontWeight: '900' }}>{product.description}</h5>
 
                         </div>
                       </div>
