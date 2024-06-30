@@ -483,7 +483,7 @@ const AttendanceManagement = () => {
               <div className="filter-group">
                 <div className="show-entries">
                   <span>عرض</span>
-                  <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                  <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={15}>15</option>
@@ -496,7 +496,7 @@ const AttendanceManagement = () => {
               </div>
               <div className="filter-group">
                 <label>نوع السجل</label>
-                <select className="form-control" onChange={(e) => searchByStatus(e.target.value)}>
+                <select className="form-select" onChange={(e) => searchByStatus(e.target.value)}>
                   <option value="">الكل</option>
                   {listOfStatus.map((statu, i) => (
                     <option key={i} value={statu}>{listOfStatusAR[i]}</option>
@@ -509,7 +509,7 @@ const AttendanceManagement = () => {
               </div>
               <div className="filter-group">
                 <label>الوظيفة</label>
-                <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value="manager">مدير</option>
                   <option value="cashier">كاشير</option>
@@ -519,7 +519,7 @@ const AttendanceManagement = () => {
               </div>
               <div className="filter-group">
                 <label>الشيفت</label>
-                <select className="form-control" onChange={(e) => getRecordsByShift(e.target.value)} >
+                <select className="form-select" onChange={(e) => getRecordsByShift(e.target.value)} >
                   <option value="all">الكل</option>
                   {shifts ? shifts.map((shift, i) =>
                     <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -529,7 +529,7 @@ const AttendanceManagement = () => {
               </div>
               <div className="filter-group">
                 <label>فلتر حسب الوقت</label>
-                <select className="form-control" onChange={(e) => filterByTime(e.target.value)}>
+                <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
                   <option value="">اختر</option>
                   <option value="today">اليوم</option>
                   <option value="week">هذا الأسبوع</option>

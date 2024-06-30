@@ -298,7 +298,7 @@ const PermissionsComponent = () => {
                         </div>
                         <div className="filter-group" style={{ minWidth: '40%' }}>
                           <label>الموظف</label>
-                          <select className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
+                          <select className="form-select" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
                             {listOfEmployees && listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>

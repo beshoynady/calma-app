@@ -578,7 +578,7 @@ const PayRoll = () => {
                         </div>
                         <div className="filter-group">
                           <label>الشهر</label>
-                          <select className="form-control" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
+                          <select className="form-select" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>
                             {months.length > 0 ? months.map((month, i) => (
                               <option value={i} key={i}>{month}</option>

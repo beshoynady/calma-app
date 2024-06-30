@@ -192,7 +192,7 @@ const EmployeeTransactions = () => {
             <div className="w-100 d-flex flex-wrap flex-row text-dark">
               <div className="show-entries d-flex flex-nowrap">
                 <span>عرض</span>
-                <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={15}>15</option>
@@ -208,7 +208,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="filter-group d-flex flex-nowrap">
                 <label>الموظف</label>
-                <select className="form-control" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)}>
+                <select className="form-select" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)}>
                   <option>الكل</option>
                   {allEmployees.map((employee, i) => (
                     <option value={employee._id} key={i}>{employee.fullname}</option>
@@ -217,7 +217,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="filter-group d-flex flex-nowrap">
                 <label>العملية</label>
-                <select className="form-control" onChange={(e) => filterEmployeeTransactions(e.target.value)}>
+                <select className="form-select" onChange={(e) => filterEmployeeTransactions(e.target.value)}>
                   <option>الكل</option>
                   {listofTransactions.map((transaction, i) => (
                     <option value={transaction} key={i}>{transaction}</option>
@@ -226,7 +226,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="filter-group d-flex flex-nowrap">
                 <label>فلتر حسب الوقت</label>
-                <select className="form-control" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
+                <select className="form-select" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
                   <option value="">اختر</option>
                   <option value="today">اليوم</option>
                   <option value="week">هذا الأسبوع</option>

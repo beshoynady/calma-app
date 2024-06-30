@@ -292,7 +292,7 @@ const Suppliers = () => {
     getAllCategoryStock()
   }, [])
 
-  
+
   return (
     <detacontext.Consumer>
       {
@@ -468,7 +468,7 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>نوع الدفع</label>
-                          <select className="form-control" required onChange={(e) => setPaymentType(e.target.value)}>
+                          <select className="form-select" required onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">اختر...</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
@@ -477,7 +477,7 @@ const Suppliers = () => {
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " key={index}>
                             <label>العنصر المورد {index + 1}</label>
-                            <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
+                            <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">اختر...</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
@@ -550,7 +550,7 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>نوع الدفع</label>
-                          <select className="form-control" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                          <select className="form-select" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">{paymentType === 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
@@ -559,7 +559,7 @@ const Suppliers = () => {
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " key={index}>
                             <label>العنصر المورد {index + 1}</label>
-                            <select className="form-control" onChange={(e) => handleNewItemsSupplied(index, e)}>
+                            <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">{item ? item.itemName : ""}</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;

@@ -349,7 +349,7 @@ const ReservationTables = () => {
                           <div className="row mb-1">
                             <div className="col-md-7">
                               <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
+                              <select className="form-select" id="tableNumber" onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
                                 <option>الطاولات المتاحة في هذا الوقت</option>
                                 {allTable.map((table, i) => (
                                   availableTableIds.includes(table._id) && (
@@ -483,7 +483,7 @@ const ReservationTables = () => {
                           <div className="row mb-1">
                             <div className="col-md-7">
                               <label htmlFor="tableNumber" className="form-label">رقم الطاولة</label>
-                              <select className="form-control" id="tableNumber" defaultValue={tableInfo.tableNumber} onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
+                              <select className="form-select" id="tableNumber" defaultValue={tableInfo.tableNumber} onChange={(e) => setTableInfo({ id: e.target.value, tableNumber: e.target.options[e.target.selectedIndex].text })}>
                                 <option>{tableInfo.tableNumber}</option>
                                 <option>الطاولات المتاحة في هذا الوقت</option>
                                 {allTable.map((table, i) => (

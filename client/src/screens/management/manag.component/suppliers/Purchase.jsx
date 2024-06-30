@@ -580,7 +580,7 @@ const Purchase = () => {
                       <div className="col-sm-3">
                         <div className="show-entries">
                           <label>عرض</label>
-                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             {
                               (() => {
                                 const options = [];
@@ -602,7 +602,7 @@ const Purchase = () => {
                         </div>
                         <div className="filter-group">
                           <label>نوع الاوردر</label>
-                          <select className="form-control" onChange={(e) => searchByaction(e.target.value)} >
+                          <select className="form-select" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
                             {Stockmovement.map(movement => {
                               return <option value={movement}>{movement}</option>;
@@ -612,7 +612,7 @@ const Purchase = () => {
 
                         {/* <div className="filter-group">
                           <label>Location</label>
-                          <select className="form-control">
+                          <select className="form-select">
                             <option>All</option>
                             <option>Berlin</option>
                             <option>London</option>
@@ -623,7 +623,7 @@ const Purchase = () => {
                         </div>
                         <div className="filter-group">
                           <label>Status</label>
-                          <select className="form-control">
+                          <select className="form-select">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>

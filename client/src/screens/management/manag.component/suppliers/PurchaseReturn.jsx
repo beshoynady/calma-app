@@ -626,7 +626,7 @@ const PurchaseReturn = () => {
                       <div className="col-sm-3">
                         <div className="show-entries">
                           <label>عرض</label>
-                          <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             {
                               (() => {
                                 const options = [];
@@ -643,7 +643,7 @@ const PurchaseReturn = () => {
                       <div className="col-sm-9">
                         <div className="filter-group">
                           <label>رقم الفاتورة</label>
-                          <select className="form-control" onChange={(e) => searchByInvoice(e.target.value)} >
+                          <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
                             <option value="all">الكل</option>
                             {allPurchaseInvoice.map(PurchaseInvoice => {
                               return <option value={PurchaseInvoice._id}>{PurchaseInvoice.invoiceNumber}</option>;
@@ -652,7 +652,7 @@ const PurchaseReturn = () => {
                         </div>
                         <div className="filter-group">
                           <label>المورد</label>
-                          <select className="form-control" onChange={(e) => searchBySupplier(e.target.value)} >
+                          <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
                             <option value="all">الكل</option>
                             {AllSuppliers.map(Supplier => {
                               return <option value={Supplier._id}>{Supplier.name}</option>;
@@ -662,7 +662,7 @@ const PurchaseReturn = () => {
 
                         {/* <div className="filter-group">
                           <label>Location</label>
-                          <select className="form-control">
+                          <select className="form-select">
                             <option>All</option>
                             <option>Berlin</option>
                             <option>London</option>
@@ -673,7 +673,7 @@ const PurchaseReturn = () => {
                         </div>
                         <div className="filter-group">
                           <label>Status</label>
-                          <select className="form-control">
+                          <select className="form-select">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>

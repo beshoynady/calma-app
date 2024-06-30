@@ -377,7 +377,7 @@ const exportToExcel = () => {
             <div className="d-flex flex-wrap flex-row w-100 text-dark">
               <div className="show-entries">
                 <span>عرض</span>
-                <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={15}>15</option>
@@ -393,7 +393,7 @@ const exportToExcel = () => {
               </div>
               <div className="filter-group">
                 <label>الوظيفة</label>
-                <select className="form-control" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value="owner">مالك</option>
                   <option value="manager">مدير</option>
@@ -404,7 +404,7 @@ const exportToExcel = () => {
               </div>
               <div className="filter-group">
                 <label>الشيفت</label>
-                <select className="form-control" onChange={(e) => getEmployeesByShift(e.target.value)} >
+                <select className="form-select" onChange={(e) => getEmployeesByShift(e.target.value)} >
                   <option value="all">الكل</option>
                   {shifts ? shifts.map((shift, i) =>
                     <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -414,7 +414,7 @@ const exportToExcel = () => {
               </div>
               <div className="filter-group">
                 <label>الحالة</label>
-                <select className="form-control" onChange={(e) => filterEmpByStatus(e.target.value)} >
+                <select className="form-select" onChange={(e) => filterEmpByStatus(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value={true}>متاح</option>
                   <option value={false}>غير متاح</option>

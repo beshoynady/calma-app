@@ -702,7 +702,7 @@ const ManagerDash = () => {
                         <div className="col">
                           <div className="show-entries" style={{ width: '100%' }}>
                             <span>عرض</span>
-                            <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                            <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                               <option value={5}>5</option>
                               <option value={10}>10</option>
                               <option value={15}>15</option>
@@ -723,7 +723,7 @@ const ManagerDash = () => {
                         <div className="col">
                           <div className="filter-group" style={{ width: '100%' }}>
                             <label>نوع الاوردر</label>
-                            <select className="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
+                            <select className="form-select" onChange={(e) => getOrdersByType(e.target.value)} >
                               <option value={""}>الكل</option>
                               <option value="Internal" >صاله</option>
                               <option value="Delivery" >ديليفري</option>

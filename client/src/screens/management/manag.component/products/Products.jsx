@@ -371,7 +371,7 @@ const Products = () => {
                 <div className="col-md-3">
                   <div className="show-entries">
                     <span>عرض</span>
-                    <select className="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                    <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                       <option value={5}>5</option>
                       <option value={10}>10</option>
                       <option value={15}>15</option>
@@ -393,7 +393,7 @@ const Products = () => {
                     <div className="col-md-6">
                       <div className="filter-group">
                         <label>التصنيف</label>
-                        <select className="form-control" onChange={(e) => getemployeesByCategory(e.target.value)} >
+                        <select className="form-select" onChange={(e) => getemployeesByCategory(e.target.value)} >
                           <option value={""}>الكل</option>
                           {listofcategories.map((category, i) => {
                             return <option value={category._id} key={i} >{category.name}</option>

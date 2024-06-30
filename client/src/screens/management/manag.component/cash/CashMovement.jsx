@@ -603,7 +603,7 @@ const CashMovement = () => {
                         </div>
                         <div className="filter-group">
                           <label>الخزينه المحول اليها</label>
-                          <select className="form-control" onChange={(e) => setreceivRegister(e.target.value)}>
+                          <select className="form-select" onChange={(e) => setreceivRegister(e.target.value)}>
                             <option value={""}>اختر</option>
                             {AllCashRegisters.map((regsite, i) => (
                               <option key={i} value={regsite._id}>{regsite.name} المسؤول: {usertitle(regsite.employee)}</option>

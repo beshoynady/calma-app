@@ -448,7 +448,7 @@ const ProductRecipe = () => {
                         {sizes.length > 0 ?
                           <div className="filter-group">
                             <label>الحجم</label>
-                            <select className="form-control" onChange={(e) => handleSelectedProductSize(e.target.value)} >
+                            <select className="form-select" onChange={(e) => handleSelectedProductSize(e.target.value)} >
                               <option value="">اختر حجم</option>
                               {sizes.map((size, i) => {
                                 return <option value={size._id} key={i} >{size.sizeName}</option>
