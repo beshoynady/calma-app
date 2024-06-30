@@ -5,9 +5,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 
-
-
-
 const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
