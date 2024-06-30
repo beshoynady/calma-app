@@ -389,7 +389,6 @@ function App() {
     } catch (error) {
       // إعادة المحاولة عند حدوث خطأ
       if (error.code === 'ECONNABORTED') {
-        console.error("Request timed out, retrying...");
         setTimeout(getAllTable, 3000);
       } else {
         console.error("Error fetching table data:", error);

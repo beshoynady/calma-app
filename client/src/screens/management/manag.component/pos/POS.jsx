@@ -174,8 +174,8 @@ const POS = () => {
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                           <div className="w-100">
                             <div className="form-group d-flex flex-nowrap  w-100">
-                              <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                              <select id='table' className="w-60 form-control" required onChange={(e) => getOrderProductForTable(e, e.target.value)}>
+                              <label htmlFor='table' className='w-50'>رقم الطاولة:</label>
+                              <select id='table' className="w-50 form-control" required onChange={(e) => getOrderProductForTable(e, e.target.value)}>
                                 <option>اختر رقم الطاولة</option>
                                 {allTable.map((table, i) => (
                                   <option value={table._id} key={i}>{table.tableNumber}</option>
@@ -292,81 +292,99 @@ const POS = () => {
                     </div>
                   </div>
                 </div>
+
+                
                 {/* اختيار نوع الاوردر */}
                 <div id="typeOrderModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header">
+                        <div className="modal-header bg-primary text-white">
                           <h4 className="modal-title">ادخل بيانات العميل</h4>
-                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         {ordertype ?
                           ordertype === 'Internal' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className="w-100">
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor='table' className='w-40'>رقم الطاولة:</label>
-                                  <select id='table' className="w-60 form-control" required onChange={(e) => { settableID(e.target.value) }}>
-                                    <option>اختر رقم الطاولة</option>
-                                    {allTable.map((table, i) => (
-                                      <option value={table._id} key={i}>{table.tableNumber}</option>
-                                    ))}
-                                  </select>
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor='table' className='col-4 col-form-label'>رقم الطاولة:</label>
+                                  <div className="col-8">
+                                    <select id='table' className="form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                                      <option>اختر رقم الطاولة</option>
+                                      {allTable.map((table, i) => (
+                                        <option value={table._id} key={i}>{table.tableNumber}</option>
+                                      ))}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ) : ordertype === 'Delivery' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className='w-100'>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                  <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="name" className='col-4 col-form-label'>اسم العميل:</label>
+                                  <div className="col-8">
+                                    <input type='text' className="form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                  </div>
                                 </div>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
-                                  <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="phone" className='col-4 col-form-label'>رقم الموبايل:</label>
+                                  <div className="col-8">
+                                    <input type='text' className="form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                  </div>
                                 </div>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <select required onChange={(e) => setdeliverycost(e.target.value)}>
-                                    <option>اختر المنطقة</option>
-                                    {areas ? (
-                                      areas.map((area, i) => (
-                                        <option value={area.delivery_fee} key={i}>{area.name}</option>
-                                      ))
-                                    ) : (
-                                      <option>لا توجد مناطق توصيل متاحة</option>
-                                    )}
-                                  </select>
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="area" className='col-4 col-form-label'>المنطقة:</label>
+                                  <div className="col-8">
+                                    <select id="area" className="form-control" required onChange={(e) => setdeliverycost(e.target.value)}>
+                                      <option>اختر المنطقة</option>
+                                      {areas ? (
+                                        areas.map((area, i) => (
+                                          <option value={area.delivery_fee} key={i}>{area.name}</option>
+                                        ))
+                                      ) : (
+                                        <option>لا توجد مناطق توصيل متاحة</option>
+                                      )}
+                                    </select>
+                                  </div>
                                 </div>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor="address" className='w-40'>العنوان:</label>
-                                  <textarea className="w-60 form-control" required onChange={(e) => setclientaddress(e.target.value)} />
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="address" className='col-4 col-form-label'>العنوان:</label>
+                                  <div className="col-8">
+                                    <textarea className="form-control" required onChange={(e) => setclientaddress(e.target.value)} />
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ) : ordertype === 'Takeaway' ? (
                             <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
                               <div className='w-100'>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor="name" className='w-40'>اسم العميل:</label>
-                                  <input type='text' className="w-60 form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="name" className='col-4 col-form-label'>اسم العميل:</label>
+                                  <div className="col-8">
+                                    <input type='text' className="form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                  </div>
                                 </div>
-                                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  w-100">
-                                  <label htmlFor="phone" className='w-40'>رقم الوبايل:</label>
-                                  <input type='text' className="w-60 form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                <div className="form-group row align-items-center">
+                                  <label htmlFor="phone" className='col-4 col-form-label'>رقم الموبايل:</label>
+                                  <div className="col-8">
+                                    <input type='text' className="form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ) : null : ''}
                         <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
                           <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" onClick={() => { deleteOrderdetalis() }} />
-                          <input type="save" className="btn w-50 btn-success" value="تم" data-dismiss="modal" />
+                          <input type="submit" className="btn w-50 btn-success" value="تم" />
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
+
 
                 {/* الفاتوره */}
                 <div id="invoiceModal" className="modal fade">
@@ -377,7 +395,7 @@ const POS = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body p-4" style={{ direction: 'rtl' }}>
-                        <div ref={printContainer} className="max-w-400px p-3 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
+                        <div ref={printContainer} className="max-w-500px p-3 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
                           <div className="invoice-header" style={{ backgroundColor: '#343a40', color: '#ffffff', padding: '20px', textAlign: 'center' }}>
                             <h2>{restaurantData.name}</h2>
                             <p>الكاشير: {myOrder.cashier?.username} | فاتورة #{myOrder.serial} | {myOrder.ordertype === 'Internal' ? `الطاولة ${myOrder.table.tableNumber}` : ''} | التاريخ: {new Date().toLocaleString('en-GB', { hour12: true })}</p>
