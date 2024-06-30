@@ -90,6 +90,7 @@ const Cart = (props) => {
                             <div className="card mb-3 w-100 shadow-sm" key={index}>
                               <div className="row no-gutters">
                                 <div className="col-3 d-flex align-items-center">
+                                  {/* <img src={item.image ? ${apiUrl}/images/${item.image} : {defaultsImage}} className="card-img" alt={item.name} /> */}
                                   <img src={defaultsImage} className="card-img w-100" alt={item.name} style={{ maxHeight: '80px', objectFit: 'cover' }} />
                                 </div>
                                 <div className="col-9">
