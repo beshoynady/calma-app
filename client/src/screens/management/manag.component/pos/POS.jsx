@@ -652,7 +652,7 @@ const POS = () => {
 
 
                             {/* card-body */}
-                            <div className="card-body col-12 p-0 m-0">
+                            <div className="card-body col-12 p-0 m-0 text-dark bg-light">
                               <div className="d-flex justify-content-between align-items-center py-2">
                                 <div className="fw-bold" style={{ width: '50%' }}>{item.name}{item.size ? `- ${item.size}` : ''}</div>
                                 <span onClick={() => { setnoteArea(!noteArea); setproductid(item.productid); getProductDitalis(allProducts, item.productid); item.sizeId ? setsizeId(item.sizeId) : setproductid(item.productid) }} className='material-symbols-outlined' style={{ width: '30%', fontSize: '40px', cursor: 'pointer', color: 'rgb(0, 238, 255)' }}>note_alt</span>
