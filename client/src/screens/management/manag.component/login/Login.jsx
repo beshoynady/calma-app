@@ -91,7 +91,7 @@ const Login = () => {
                           <input type="password" className="form-control" placeholder="كلمة المرور" onChange={(e) => setpassword(e.target.value)} />
                         </div>
                         <div className="form-group">
-                          <button className="btn btn-primary btn-block">تسجيل دخول</button>
+                          <button type='submit' className="btn btn-primary btn-block">تسجيل دخول</button>
                         </div>
                       </form>
                     </div>
