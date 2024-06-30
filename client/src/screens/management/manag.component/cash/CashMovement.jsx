@@ -326,7 +326,7 @@ const filterByTime = (timeRange) => {
  if (!timeRange) {
    getCashMovement()
  }
- let filteredRecords = [];
+ let filteredCashMovement = [];
 
  const now = new Date();
  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
