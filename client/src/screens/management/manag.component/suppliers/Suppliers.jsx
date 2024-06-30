@@ -291,6 +291,8 @@ const Suppliers = () => {
     getStockItems()
     getAllCategoryStock()
   }, [])
+
+  
   return (
     <detacontext.Consumer>
       {
