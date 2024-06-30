@@ -361,7 +361,7 @@ const filterByTime = (timeRange) => {
      filteredCashMovement = AllCashMovement;
  }
 
- setAllCashMovement(filteredRecords)
+ setAllCashMovement(filteredCashMovement)
 };
 
 const [StartDate, setStartDate] = useState(new Date())
