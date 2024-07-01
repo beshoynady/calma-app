@@ -263,86 +263,86 @@ const SupplierTransaction = () => {
                   }
                 </select>
               </div>
-            </div>
 
-            <div className='col-12 d-flex align-items-center justify-content-between'>
-              <div className="filter-group">
-                <label>فلتر حسب الوقت</label>
-                <select className="form-select" onChange={(e) => setAllSupplierTransaction(filterByTime(e.target.value, AllSupplierTransaction))}>
-                  <option value="">اختر</option>
-                  <option value="today">اليوم</option>
-                  <option value="week">هذا الأسبوع</option>
-                  <option value="month">هذا الشهر</option>
-                  <option value="month">هذه السنه</option>
-                </select>
-              </div>
-
-              <div className="filter-group d-flex flex-nowrap w-75">
-                <label className="form-label"><strong>مدة محددة:</strong></label>
-
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">من</label>
-                  <input type="date" className="form-control w-auto" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+              <div className='col-12 d-flex align-items-center justify-content-between'>
+                <div className="filter-group">
+                  <label>فلتر حسب الوقت</label>
+                  <select className="form-select" onChange={(e) => setAllSupplierTransaction(filterByTime(e.target.value, AllSupplierTransaction))}>
+                    <option value="">اختر</option>
+                    <option value="today">اليوم</option>
+                    <option value="week">هذا الأسبوع</option>
+                    <option value="month">هذا الشهر</option>
+                    <option value="month">هذه السنه</option>
+                  </select>
                 </div>
 
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">إلى</label>
-                  <input type="date" className="form-control w-auto" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                <div className="filter-group d-flex flex-nowrap w-75">
+                  <label className="form-label"><strong>مدة محددة:</strong></label>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">من</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">إلى</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap justify-content-between w-25">
+                    <button type="button" className="btn btn-primary w-50" onClick={() => setAllSupplierTransaction(filterByDateRange(AllSupplierTransaction))}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllSupplierTransaction}>استعادةالفلتر
+                    </button>
+                  </div>
                 </div>
+              </div>
 
-                <div className="d-flex flex-nowrap justify-content-between w-25">
-                  <button type="button" className="btn btn-primary w-50" onClick={() => setAllSupplierTransaction(filterByDateRange(AllSupplierTransaction))}>
-                    <i className="fa fa-search"></i>
-                  </button>
-                  <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllSupplierTransaction}>استعادةالفلتر
-                  </button>
+              <div class="col-12 row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+                <div className="show-entries">
+                  <label htmlFor="totalPurchasesInput" className="col-12">اجمالي المشتريات</label>
+                  <input
+                    type="text"
+                    className="form-control col-12"
+                    id="totalPurchasesInput"
+                    readOnly
+                    value={totalPurchases}
+                  />
+                </div>
+                <div className="show-entries">
+                  <label htmlFor="totalPaymentInput" className="col-12">اجمالي المدفوع</label>
+                  <input
+                    type="text"
+                    className="form-control col-12"
+                    id="totalPaymentInput"
+                    readOnly
+                    value={totalPayment}
+                  />
+                </div>
+                <div className="show-entries">
+                  <label htmlFor="totalBalanceDueInput" className="col-12">اجمالي المستحق</label>
+                  <input
+                    type="text"
+                    className="form-control col-12"
+                    id="totalBalanceDueInput"
+                    readOnly
+                    value={totalBalanceDue}
+                  />
+                </div>
+                <div className="show-entries">
+                  <label htmlFor="previousBalanceInput" className="col-12">الرصيد الكلي</label>
+                  <input
+                    type="text"
+                    className="form-control col-12"
+                    id="previousBalanceInput"
+                    readOnly
+                    value={previousBalance}
+                  />
                 </div>
               </div>
-            </div>
 
-            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
-              <div className="show-entries">
-                <label htmlFor="totalPurchasesInput" className="col-12">اجمالي المشتريات</label>
-                <input
-                  type="text"
-                  className="form-control col-12"
-                  id="totalPurchasesInput"
-                  readOnly
-                  value={totalPurchases}
-                />
-              </div>
-              <div className="show-entries">
-                <label htmlFor="totalPaymentInput" className="col-12">اجمالي المدفوع</label>
-                <input
-                  type="text"
-                  className="form-control col-12"
-                  id="totalPaymentInput"
-                  readOnly
-                  value={totalPayment}
-                />
-              </div>
-              <div className="show-entries">
-                <label htmlFor="totalBalanceDueInput" className="col-12">اجمالي المستحق</label>
-                <input
-                  type="text"
-                  className="form-control col-12"
-                  id="totalBalanceDueInput"
-                  readOnly
-                  value={totalBalanceDue}
-                />
-              </div>
-              <div className="show-entries">
-                <label htmlFor="previousBalanceInput" className="col-12">الرصيد الكلي</label>
-                <input
-                  type="text"
-                  className="form-control col-12"
-                  id="previousBalanceInput"
-                  readOnly
-                  value={previousBalance}
-                />
-              </div>
             </div>
-
           </div>
 
           <table className="table table-striped table-hover">
@@ -377,7 +377,7 @@ const SupplierTransaction = () => {
                       <td>{Transaction.currentBalance}</td>
                       <td>{Transaction.paymentMethod}</td>
                       <td>{Transaction.recordedBy?.fullname}</td>
-                      <td>{Transaction.createdAt&&formatDateTime(Transaction.createdAt)}</td>
+                      <td>{Transaction.createdAt && formatDateTime(Transaction.createdAt)}</td>
                       <td>
                         {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}

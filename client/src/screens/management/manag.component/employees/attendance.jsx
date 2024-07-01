@@ -18,7 +18,7 @@ const AttendanceManagement = () => {
     },
   };
 
-  const { restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime,
+  const {setStartDate, setEndDate, filterByDateRange, filterByTime, restaurantData, formatDateTime, permissionsList, setisLoadiog, formatDate, formatTime,
     EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext);
 
   const permissionsForAttendance = permissionsList?.filter(permission => permission.resource === 'Attendance')[0]
@@ -396,64 +396,6 @@ const AttendanceManagement = () => {
     }
   }
 
-  const filterByTime = (timeRange) => {
-    if (!timeRange) {
-      getallAttendanceRecords()
-    }
-    let filteredRecords = [];
-
-    const now = new Date();
-    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const startOfYear = new Date(now.getFullYear(), 0, 1);
-
-    console.log({ now, startOfToday, startOfWeek, startOfMonth, startOfYear, day: new Date().getDay(), date: new Date().getDate(), month: new Date().getMonth(), year: new Date().getFullYear() })
-
-    switch (timeRange) {
-      case 'today':
-        filteredRecords = allAttendanceRecords.filter(record =>
-          new Date(record.createdAt) >= startOfToday
-        );
-        break;
-      case 'week':
-        filteredRecords = allAttendanceRecords.filter(record =>
-          new Date(record.createdAt) >= startOfWeek
-        );
-        break;
-      case 'month':
-        filteredRecords = allAttendanceRecords.filter(record =>
-          new Date(record.createdAt) >= startOfMonth
-        );
-        break;
-      case 'year':
-        filteredRecords = allAttendanceRecords.filter(record =>
-          new Date(record.createdAt) >= startOfYear
-        );
-        break;
-      default:
-        filteredRecords = allAttendanceRecords;
-    }
-
-    setallAttendanceRecords(filteredRecords)
-  };
-
-  const [StartDate, setStartDate] = useState(new Date())
-  const [EndDate, setEndDate] = useState(new Date())
-
-  const filterByDateRange = () => {
-    const start = new Date(StartDate);
-    const end = new Date(EndDate);
-
-    const filteredRecords = allAttendanceRecords.filter(record => {
-      const createdAt = new Date(record.createdAt);
-      return createdAt >= start && createdAt <= end;
-    });
-
-    setallAttendanceRecords(filteredRecords)
-  };
 
   useEffect(() => {
     getEmployees()
@@ -530,7 +472,7 @@ const AttendanceManagement = () => {
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group">
                   <label>فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => filterByTime(e.target.value)}>
+                  <select className="form-select" onChange={(e) => setallAttendanceRecords(filterByTime(e.target.value, allAttendanceRecords))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -553,7 +495,7 @@ const AttendanceManagement = () => {
                   </div>
 
                   <div className="d-flex flex-nowrap justify-content-between w-25">
-                    <button type="button" className="btn btn-primary w-50" onClick={filterByDateRange}>
+                    <button type="button" className="btn btn-primary w-50" onClick={()=>setallAttendanceRecords(filterByDateRange(allAttendanceRecords))}>
                       <i className="fa fa-search"></i>
                     </button>
                     <button type="button" className="btn btn-warning w-50" onClick={getallAttendanceRecords}>
