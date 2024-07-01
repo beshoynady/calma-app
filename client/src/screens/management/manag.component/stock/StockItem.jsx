@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App'
 import { toast } from 'react-toastify';
+import '../orders/Orders.css'
 
 
 

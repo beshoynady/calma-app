@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { detacontext } from '../../../../App';
+import '../orders/Orders.css'
+
+
+
+
+
+
 
 function InvoiceComponent(props) {
     const { order, handlePrint } = props;

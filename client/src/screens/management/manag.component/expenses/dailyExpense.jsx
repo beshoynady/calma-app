@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
+import '../orders/Orders.css'
+
 
 const DailyExpense = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
