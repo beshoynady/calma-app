@@ -421,7 +421,7 @@ const AttendanceManagement = () => {
             </div>
           </div>
           <div className="table-filter w-100">
-            <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-between text-dark">
+            <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-start text-dark">
               <div className="filter-group">
                 <div className="show-entries">
                   <span>عرض</span>

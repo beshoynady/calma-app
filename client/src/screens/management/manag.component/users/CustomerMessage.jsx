@@ -125,7 +125,7 @@ const CustomerMessage = () => {
             </div>
           </div>
           <div class="table-filter print-hide">
-            <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-between text-dark">
+            <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-start text-dark">
               <div class="show-entries">
                 <span>عرض</span>
                 <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
