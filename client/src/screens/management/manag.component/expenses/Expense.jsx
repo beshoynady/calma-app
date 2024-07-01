@@ -21,7 +21,6 @@ const ExpenseItem = () => {
 
   const [expenseId, setexpenseId] = useState('');
   const [description, setDescription] = useState('');
-  const [createAt] = useState(new Date().toLocaleString());
   const [allExpenses, setAllExpenses] = useState([]);
 
 
@@ -151,31 +150,8 @@ const ExpenseItem = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {fielterlist.length > 0 ? fielterlist.map((expense, i) => {
-                      if (i >= startpagination & i < endpagination) {
-                        return (
-                          <tr key={i}>
-                            <td>
-                              <span className="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                <label htmlFor="checkbox1"></label>
-                              </span>
-                            </td>
-                            <td>{i + 1}</td>
-                            <td>{expense.description}</td>
-                            <td>{expense.amount}</td>
-                            <td>{new Date(expense.date).toLocaleString('en-GB', { hour12: true })}</td>
-                            <td>
-                              <a href="#editExpensesModal" className="edit" data-toggle="modal" onClick={() => {
-                                setexpenseId(expense._id); setDescription(expense.description)
-                              }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                              <a href="#deleteExpensesModal" className="delete" data-toggle="modal" onClick={() => setexpenseId(expense._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                          </tr>
-                        )
-                      }
-                    })
-                      : allExpenses.length>0?allExpenses.map((expense, i) => {
+                    {
+                     allExpenses.length>0?allExpenses.map((expense, i) => {
                         if (i >= startpagination & i < endpagination) {
                           return (
                             <tr key={i}>
