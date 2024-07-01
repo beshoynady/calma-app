@@ -199,8 +199,8 @@ const SupplierTransaction = () => {
           </div>
 
           <div className="table-filter print-hide">
-            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
-              <div className="show-entries">
+          <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-between text-dark">
+          <div className="show-entries">
                 <label htmlFor="showEntries">عرض</label>
                 <select
                   className="form-select"
