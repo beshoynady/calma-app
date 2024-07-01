@@ -368,15 +368,15 @@ const SupplierTransaction = () => {
                     <tr key={i}>
                       <td>{i + 1}</td>
                       <td>{Transaction.transactionDate}</td>
-                      <td>{Transaction.supplier.name}</td>
-                      <td>{Transaction.invoiceNumber.invoiceNumber}</td>
+                      <td>{Transaction.supplier?.name}</td>
+                      <td>{Transaction.invoiceNumber?.invoiceNumber}</td>
                       <td>{Transaction.transactionType}</td>
                       <td>{Transaction.amount}</td>
                       <td>{Transaction.previousBalance}</td>
                       <td>{Transaction.currentBalance}</td>
                       <td>{Transaction.paymentMethod}</td>
-                      <td>{Transaction.recordedBy.fullname}</td>
-                      <td>{formatDateTime(Transaction.createdAt)}</td>
+                      <td>{Transaction.recordedBy?.fullname}</td>
+                      <td>{Transaction.createdAt&&formatDateTime(Transaction.createdAt)}</td>
                       <td>
                         {/* <a href="#editSupplierTransactionModal" className="edit" data-toggle="modal" onClick={() => { setStockItemid(item._id); setcategoryId(item.categoryId); setitemName(item.itemName); setBalance(item.Balance); setlargeUnit(item.largeUnit); setsmallUnit(item.smallUnit); setprice(item.price); setparts(item.parts); setcostOfPart(item.costOfPart); setminThreshold(item.minThreshold); settotalCost(item.totalCost) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteSupplierTransactionModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
@@ -404,7 +404,7 @@ const SupplierTransaction = () => {
       </div>
 
 
-      
+
       <div id="addSupplierTransactionModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
