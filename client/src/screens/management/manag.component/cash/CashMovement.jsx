@@ -467,7 +467,7 @@ const CashMovement = () => {
                     <button type="button" className="btn btn-primary w-50" onClick={() => setAllCashMovement(filterByDateRange(AllCashMovement))}>
                       <i className="fa fa-search"></i>
                     </button>
-                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getCashMovement}>استعادةالفلتر
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getCashMovement}>استعادة
                     </button>
                   </div>
                 </div>

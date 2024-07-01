@@ -330,7 +330,7 @@ const DailyExpense = () => {
                     <button type="button" className="btn btn-primary w-50" onClick={() => setallDailyExpenses(filterByDateRange(allDailyExpenses))}>
                       <i className="fa fa-search"></i>
                     </button>
-                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getallDailyExpenses}>استعادةالفلتر
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getallDailyExpenses}>استعادة
                     </button>
                   </div>
                 </div>

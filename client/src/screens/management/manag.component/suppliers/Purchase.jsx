@@ -635,7 +635,7 @@ const Purchase = () => {
                     <button type="button" className="btn btn-primary w-50" onClick={() => setallPurchaseInvoice(filterByDateRange(allPurchaseInvoice))}>
                       <i className="fa fa-search"></i>
                     </button>
-                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllPurchases}>استعادةالفلتر
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllPurchases}>استعادة
                     </button>
                   </div>
                 </div>

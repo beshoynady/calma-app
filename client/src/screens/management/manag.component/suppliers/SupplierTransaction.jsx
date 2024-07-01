@@ -293,7 +293,7 @@ const SupplierTransaction = () => {
                     <button type="button" className="btn btn-primary w-50" onClick={() => setAllSupplierTransaction(filterByDateRange(AllSupplierTransaction))}>
                       <i className="fa fa-search"></i>
                     </button>
-                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllSupplierTransaction}>استعادةالفلتر
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllSupplierTransaction}>استعادة
                     </button>
                   </div>
                 </div>

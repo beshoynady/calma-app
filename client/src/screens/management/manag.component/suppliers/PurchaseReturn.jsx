@@ -681,7 +681,7 @@ const PurchaseReturn = () => {
                     <button type="button" className="btn btn-primary w-50" onClick={() => setallPurchasesReturn(filterByDateRange(allPurchasesReturn))}>
                       <i className="fa fa-search"></i>
                     </button>
-                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllPurchasesReturn}>استعادةالفلتر
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllPurchasesReturn}>استعادة
                     </button>
                   </div>
                 </div>
