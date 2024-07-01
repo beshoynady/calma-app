@@ -571,7 +571,7 @@ const Purchase = () => {
               <div className="col-sm-6 d-flex justify-content-end">
                 <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
 
-                <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
+                {/* <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a> */}
               </div>
             </div>
           </div>
@@ -645,12 +645,12 @@ const Purchase = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                <th>
+                {/* <th>
                   <label className="custom-checkbox">
                     <input type="checkbox" id="selectAll" />
                     <label htmlFor="selectAll"></label>
                   </label>
-                </th>
+                </th> */}
                 <th>م</th>
                 <th>التاريخ</th>
                 <th>الفاتوره</th>
@@ -678,16 +678,16 @@ const Purchase = () => {
                 if (i >= startpagination & i < endpagination) {
                   return (
                     <tr key={i}>
-                      <td>
+                      {/* <td>
                         <label className="custom-checkbox">
                           <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                           <label htmlFor="checkbox1"></label>
                         </label>
-                      </td>
+                      </td> */}
                       <td>{i + 1}</td>
-                      <td>{formatDate(invoice.invoiceDate)}</td>
+                      <td>{invoice.invoiceDate&&formatDate(invoice.invoiceDate)}</td>
                       <td>{invoice.invoiceNumber}</td>
-                      <td>{invoice.supplier.name}</td>
+                      <td>{invoice.supplier?.name}</td>
                       <td>{invoice.totalAmount}</td>
                       <td>{invoice.discount}</td>
                       <td>{invoice.salesTax}</td>
@@ -696,12 +696,12 @@ const Purchase = () => {
                       <td>{invoice.paymentType}</td>
                       <td>{invoice.paidAmount}</td>
                       <td>{invoice.balanceDue}</td>
-                      <td>{formatDate(invoice.paymentDueDate)}</td>
+                      <td>{invoice.paymentDueDate&&formatDate(invoice.paymentDueDate)}</td>
                       <td>{invoice.paymentMethod}</td>
                       <td>{invoice.paymentStatus}</td>
-                      <td>{invoice.cashRegister.name}</td>
-                      <td>{invoice.createdBy.fullname}</td>
-                      <td>{formatDateTime(invoice.createdAt)}</td>
+                      <td>{invoice.cashRegister?.name}</td>
+                      <td>{invoice.createdBy?.fullname}</td>
+                      <td>{invoice.createdAt&&formatDateTime(invoice.createdAt)}</td>
                       <td>{invoice.notes}</td>
                       <td>
                         <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
