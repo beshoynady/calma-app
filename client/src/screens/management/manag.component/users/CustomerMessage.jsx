@@ -91,7 +91,7 @@ const CustomerMessage = () => {
       for (const Id of selectedIds) {
         await axios.delete(`${apiUrl}/api/message/${Id}`, config);
       }
-      getEmployees()
+      getAllCustomerMessage()
       toast.success('تم حذف الرسائل المحدده');
       setSelectedIds([]);
     } catch (error) {
