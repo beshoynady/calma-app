@@ -888,8 +888,8 @@ const Purchase = () => {
 
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                 <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
@@ -1052,8 +1052,8 @@ const Purchase = () => {
 
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                 <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>

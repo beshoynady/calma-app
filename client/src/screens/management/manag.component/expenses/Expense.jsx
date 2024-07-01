@@ -17,7 +17,7 @@ const ExpenseItem = () => {
     },
   };
 
-  const {EditPagination, startpagination, endpagination, setstartpagination, setendpagination}= useContext(detacontext)
+  const {setStartDate, setEndDate, filterByDateRange, filterByTime, EditPagination, startpagination, endpagination, setstartpagination, setendpagination}= useContext(detacontext)
 
   const [expenseId, setexpenseId] = useState('');
   const [description, setDescription] = useState('');
@@ -110,7 +110,6 @@ const ExpenseItem = () => {
                 </div>
                 <div class="table-filter print-hide">
                   <div class="row text-dark">
-                    <div class="col-sm-3">
                       <div class="show-entries">
                         <span>عرض</span>
                         <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
@@ -122,17 +121,47 @@ const ExpenseItem = () => {
                           <option value={30}>30</option>
                         </select>
                         <span>صفوف</span>
-                      </div>
-                    </div>
-                    <div class="col-sm-9">
-                      
+                      </div>                      
                       <div class="filter-group">
                         <label>اسم المصروف</label>
                         <input type="text" class="form-control" onChange={(e) => searchByExpense(e.target.value)} />
                       </div>
-                    </div>
+                      <div className='col-12 d-flex align-items-center justify-content-between'>
+                <div className="filter-group">
+                  <label>فلتر حسب الوقت</label>
+                  <select className="form-select" onChange={(e) => setAllExpenses(filterByTime(e.target.value, allExpenses))}>
+                    <option value="">اختر</option>
+                    <option value="today">اليوم</option>
+                    <option value="week">هذا الأسبوع</option>
+                    <option value="month">هذا الشهر</option>
+                    <option value="month">هذه السنه</option>
+                  </select>
+                </div>
+
+                <div className="filter-group d-flex flex-nowrap w-75">
+                  <label className="form-label"><strong>مدة محددة:</strong></label>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">من</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">إلى</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap justify-content-between w-25">
+                    <button type="button" className="btn btn-primary w-50" onClick={() => setAllExpenses(filterByDateRange(allExpenses))}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllExpenses}>استعادة
+                    </button>
                   </div>
                 </div>
+              </div>
+                    </div>
+                  </div>
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -205,8 +234,8 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                       <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                     </div>
                   </form>
                 </div>
@@ -227,8 +256,8 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="submit" className="btn w-50 btn-info" value="حفظ" />
                       <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn w-50 btn-info" value="Save" />
                     </div>
                   </form>
                 </div>
@@ -248,8 +277,8 @@ const ExpenseItem = () => {
                       <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                     </div>
                     <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                       <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                     </div>
                   </form>
                 </div>
