@@ -30,7 +30,7 @@ const CustomerMessage = () => {
   const [allCustomerMessage, setallCustomerMessage] = useState([])
 
   const getAllCustomerMessage = async () => {
-    if (!permissionUserMassage.read) {
+    if (permissionUserMassage&&!permissionUserMassage.read) {
       toast.warn('ليس لك صلاحية لعرض رسائل المستخدمين')
       return
     }
@@ -43,7 +43,7 @@ const CustomerMessage = () => {
   };
   const deleteCustomerMessage = async (e) => {
     e.preventDefault();
-    if (!permissionUserMassage.delete) {
+    if (permissionUserMassage&&!permissionUserMassage.delete) {
       toast.warn('ليس لك صلاحية لحذف رسائل المستخدمين')
       return
     }
@@ -85,6 +85,10 @@ const CustomerMessage = () => {
 
   const deleteSelectedIds = async (e) => {
     e.preventDefault();
+     if (permissionUserMassage&&!permissionUserMassage.delete) {
+      toast.warn('ليس لك صلاحية لحذف رسائل المستخدمين')
+      return
+    }
     console.log(selectedIds)
     try {
 

@@ -25,7 +25,7 @@ const Users = () => {
 
   const getAllUsers = async () => {
     try {
-      if (!permissionUser.read) {
+      if (permissionUser&&!permissionUser.read) {
         toast.warn('ليس لك صلاحية لعرض بيانات المستخدمين')
         return
       }
@@ -37,7 +37,7 @@ const Users = () => {
     }
   };
   const changeorderVarified = async (e, id) => {
-    if (!permissionUser.update) {
+    if (permissionUser&&!permissionUser.update) {
       toast.warn('ليس لك صلاحية لتعديل بيانات المستخدمين')
       return
     }
@@ -64,7 +64,7 @@ const Users = () => {
   };
 
   const changeorderActive = async (e, id) => {
-    if (!permissionUser.update) {
+    if (permissionUser&&!permissionUser.update) {
       toast.warn('ليس لك صلاحية لتعديل بيانات المستخدمين')
       return
     }
@@ -100,7 +100,7 @@ const Users = () => {
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
-    if (!permissionUser.update) {
+    if (permissionUser&&!permissionUser.update) {
       toast.warn('ليس لك صلاحية لتعديل بيانات المستخدمين')
       return
     }
