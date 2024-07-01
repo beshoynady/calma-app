@@ -199,8 +199,8 @@ const SupplierTransaction = () => {
           </div>
 
           <div className="table-filter print-hide">
-          <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-between text-dark">
-          <div className="show-entries">
+            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+              <div className="show-entries">
                 <label htmlFor="showEntries">عرض</label>
                 <select
                   className="form-select"
@@ -219,7 +219,7 @@ const SupplierTransaction = () => {
                 </select>
                 <span>صفوف</span>
               </div>
-              <div className="input-group mb-3">
+              <div className="filter-group">
                 <label htmlFor="supplierSelect">المورد</label>
                 <select
                   className="form-select"
@@ -232,7 +232,7 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="input-group mb-3">
+              <div className="filter-group">
                 <label htmlFor="transactionTypeSelect">نوع العملية</label>
                 <select
                   className="form-select"
@@ -245,7 +245,7 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="input-group mb-3">
+              <div className="filter-group">
                 <label htmlFor="invoiceNumberSelect">رقم الفاتورة</label>
                 <select
                   className="form-select"
