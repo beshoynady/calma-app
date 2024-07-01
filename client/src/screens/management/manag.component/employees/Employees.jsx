@@ -763,8 +763,8 @@ const exportToExcel = () => {
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
                       <div className="modal-footer flex-nowrap d-flex flex-row align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                         <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>
                   </div>
