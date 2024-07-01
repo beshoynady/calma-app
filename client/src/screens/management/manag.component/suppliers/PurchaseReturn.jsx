@@ -16,6 +16,9 @@ const PurchaseReturn = () => {
     },
   };
 
+
+  const { setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+
   const [AllStockactions, setAllStockactions] = useState([]);
 
   const getallStockaction = async () => {
@@ -490,11 +493,6 @@ const PurchaseReturn = () => {
     const filters = allPurchasesReturn.filter((PurchasesReturn) => PurchasesReturn.supplier._id == supplierId)
     setallPurchasesReturn(filters)
   }
-  const [startDate, setstartDate] = useState(new Date())
-  const [endDate, setendDate] = useState(new Date())
-  const handleSearchByDate = () => {
-
-  }
 
   const confirmPayment = async (e) => {
     e.preventDefault();
@@ -602,380 +600,371 @@ const PurchaseReturn = () => {
     getAllSuppliers()
   }, [])
 
+
   return (
-    <detacontext.Consumer>
-      {
-        ({ employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
-          return (
-            <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
-              <div className="table-responsive">
-                <div className="table-wrapper">
-                  <div className="table-title">
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <h2>ادارة <b>مرتجع المشتريات</b></h2>
-                      </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
-                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="table-filter print-hide">
-                    <div className="row text-dark">
-                      <div className="col-sm-3">
-                        <div className="show-entries">
-                          <label>عرض</label>
-                          <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                            {
-                              (() => {
-                                const options = [];
-                                for (let i = 5; i < 100; i += 5) {
-                                  options.push(<option key={i} value={i}>{i}</option>);
-                                }
-                                return options;
-                              })()
-                            }
-                          </select>
-                          <label>صفوف</label>
-                        </div>
-                      </div>
-                      <div className="col-sm-9">
-                        <div className="filter-group">
-                          <label>رقم الفاتورة</label>
-                          <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
-                            <option value="all">الكل</option>
-                            {allPurchaseInvoice.map(PurchaseInvoice => {
-                              return <option value={PurchaseInvoice._id}>{PurchaseInvoice.invoiceNumber}</option>;
-                            })}
-                          </select>
-                        </div>
-                        <div className="filter-group">
-                          <label>المورد</label>
-                          <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
-                            <option value="all">الكل</option>
-                            {AllSuppliers.map(Supplier => {
-                              return <option value={Supplier._id}>{Supplier.name}</option>;
-                            })}
-                          </select>
-                        </div>
-
-                        {/* <div className="filter-group">
-                          <label>Location</label>
-                          <select className="form-select">
-                            <option>All</option>
-                            <option>Berlin</option>
-                            <option>London</option>
-                            <option>Madrid</option>
-                            <option>New York</option>
-                            <option>Paris</option>
-                          </select>
-                        </div>
-                        <div className="filter-group">
-                          <label>Status</label>
-                          <select className="form-select">
-                            <option>Any</option>
-                            <option>Delivered</option>
-                            <option>Shipped</option>
-                            <option>Pending</option>
-                            <option>Cancelled</option>
-                          </select>
-                        </div>
-                        <label className="filter-icon"><i className="fa fa-filter"></i></label> */}
-                      </div>
-                    </div>
-                    <div className="filter-group row text-dark">
-                      <div className="col">
-                        <label>من </label>
-                        <input type="date" className="form-control" onChange={(e) => setstartDate(e.target.value)} />
-                      </div>
-                      <div className="col">
-                        <label>إلى </label>
-                        <input type="date" className="form-control" onChange={(e) => setendDate(e.target.value)} />
-                      </div>
-                      <div className="col">
-                        <button className="btn btn-primary" onClick={handleSearchByDate}>بحث</button>
-                      </div>
-                    </div>
-
-                  </div>
-                  <table className="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>
-                          <label className="custom-checkbox">
-                            <input type="checkbox" id="selectAll" />
-                            <label htmlFor="selectAll"></label>
-                          </label>
-                        </th>
-                        <th>م</th>
-                        <th>التاريخ</th>
-                        <th>الفاتوره الاصليه</th>
-                        <th>المورد</th>
-                        <th>مجموع المرتجع</th>
-                        <th>الخصم</th>
-                        <th>الضريبه</th>
-                        <th>الاجمالي</th>
-                        <th>اضافية</th>
-                        {/* <th>الاجمالي بالمصاريف</th> */}
-                        <th>نوع الفاتورة</th>
-                        <th>استرد</th>
-                        <th>باقي</th>
-                        <th>تاريخ الاسترداد</th>
-                        <th>طريقه الدفع</th>
-                        <th>الحالة</th>
-                        <th>الخزينه</th>
-                        <th>تم بواسطه</th>
-                        <th>تسجيل في</th>
-                        <th>ملاحظات</th>
-                        <th>اجراءات</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allPurchasesReturn.length > 0 && allPurchasesReturn.map((invoice, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              <td>
-                                <label className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </label>
-                              </td>
-                              <td>{i + 1}</td>
-                              <td>{formatDate(invoice.returnDate)}</td>
-                              <td>{invoice.originalInvoice.invoiceNumber}</td>
-                              <td>{invoice.supplier.name}</td>
-                              <td>{invoice.totalAmount}</td>
-                              <td>{invoice.discount}</td>
-                              <td>{invoice.salesTax}</td>
-                              <td>{invoice.netAmount}</td>
-                              <td>{invoice.additionalCost}</td>
-                              <td>{invoice.refundedAmount}</td>
-                              <td>{invoice.refundMethod}</td>
-                              <td>{invoice.balanceDue}</td>
-                              <td>{formatDate(invoice.paymentDueDate)}</td>
-                              <td>{invoice.paymentMethod}</td>
-                              <td>{invoice.refundStatus}</td>
-                              <td>{invoice.cashRegister.name}</td>
-                              <td>{invoice.createdBy.fullname}</td>
-                              <td>{formatDateTime(invoice.createdAt)}</td>
-                              <td>{invoice.notes}</td>
-                              <td>
-                                {/* <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
-                                {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })
+    <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
+      <div className="table-responsive">
+        <div className="table-wrapper">
+          <div className="table-title">
+            <div className="row">
+              <div className="col-sm-6">
+                <h2>ادارة <b>مرتجع المشتريات</b></h2>
+              </div>
+              <div className="col-sm-6 d-flex justify-content-end">
+                <a href="#addPurchaseInvoiceModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label>اضافه فاتورة جديدة</label></a>
+                <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label>حذف</label></a>
+              </div>
+            </div>
+          </div>
+          <div className="table-filter print-hide">
+            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+              <div className="show-entries">
+                <label>عرض</label>
+                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                  {
+                    (() => {
+                      const options = [];
+                      for (let i = 5; i < 100; i += 5) {
+                        options.push(<option key={i} value={i}>{i}</option>);
                       }
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{allPurchasesReturn.length > endpagination ? endpagination : allPurchasesReturn.length}</b> من <b>{allPurchasesReturn.length}</b> عنصر</div>
-                    <ul className="pagination">
-                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                    </ul>
+                      return options;
+                    })()
+                  }
+                </select>
+                <label>صفوف</label>
+              </div>
+              <div className="filter-group">
+                <label>رقم الفاتورة</label>
+                <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
+                  <option value="all">الكل</option>
+                  {allPurchaseInvoice.map(PurchaseInvoice => {
+                    return <option value={PurchaseInvoice._id}>{PurchaseInvoice.invoiceNumber}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>المورد</label>
+                <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
+                  <option value="all">الكل</option>
+                  {AllSuppliers.map(Supplier => {
+                    return <option value={Supplier._id}>{Supplier.name}</option>;
+                  })}
+                </select>
+              </div>
+              <div className='col-12 d-flex align-items-center justify-content-between'>
+                <div className="filter-group">
+                  <label>فلتر حسب الوقت</label>
+                  <select className="form-select" onChange={(e) => setallPurchasesReturn(filterByTime(e.target.value, allPurchasesReturn))}>
+                    <option value="">اختر</option>
+                    <option value="today">اليوم</option>
+                    <option value="week">هذا الأسبوع</option>
+                    <option value="month">هذا الشهر</option>
+                    <option value="month">هذه السنه</option>
+                  </select>
+                </div>
+
+                <div className="filter-group d-flex flex-nowrap w-75">
+                  <label className="form-label"><strong>مدة محددة:</strong></label>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">من</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">إلى</label>
+                    <input type="date" className="form-control w-auto" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+
+                  <div className="d-flex flex-nowrap justify-content-between w-25">
+                    <button type="button" className="btn btn-primary w-50" onClick={() => setallPurchasesReturn(filterByDateRange(allPurchasesReturn))}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                    <button type="button" className="btn btn-warning w-50 mr-2" onClick={getAllPurchasesReturn}>استعادةالفلتر
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
+
+          </div>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>
+                  <label className="custom-checkbox">
+                    <input type="checkbox" id="selectAll" />
+                    <label htmlFor="selectAll"></label>
+                  </label>
+                </th>
+                <th>م</th>
+                <th>التاريخ</th>
+                <th>الفاتوره الاصليه</th>
+                <th>المورد</th>
+                <th>مجموع المرتجع</th>
+                <th>الخصم</th>
+                <th>الضريبه</th>
+                <th>الاجمالي</th>
+                <th>اضافية</th>
+                {/* <th>الاجمالي بالمصاريف</th> */}
+                <th>نوع الفاتورة</th>
+                <th>استرد</th>
+                <th>باقي</th>
+                <th>تاريخ الاسترداد</th>
+                <th>طريقه الدفع</th>
+                <th>الحالة</th>
+                <th>الخزينه</th>
+                <th>تم بواسطه</th>
+                <th>تسجيل في</th>
+                <th>ملاحظات</th>
+                <th>اجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allPurchasesReturn.length > 0 && allPurchasesReturn.map((invoice, i) => {
+                if (i >= startpagination & i < endpagination) {
+                  return (
+                    <tr key={i}>
+                      <td>
+                        <label className="custom-checkbox">
+                          <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                          <label htmlFor="checkbox1"></label>
+                        </label>
+                      </td>
+                      <td>{i + 1}</td>
+                      <td>{formatDate(invoice.returnDate)}</td>
+                      <td>{invoice.originalInvoice.invoiceNumber}</td>
+                      <td>{invoice.supplier.name}</td>
+                      <td>{invoice.totalAmount}</td>
+                      <td>{invoice.discount}</td>
+                      <td>{invoice.salesTax}</td>
+                      <td>{invoice.netAmount}</td>
+                      <td>{invoice.additionalCost}</td>
+                      <td>{invoice.refundedAmount}</td>
+                      <td>{invoice.refundMethod}</td>
+                      <td>{invoice.balanceDue}</td>
+                      <td>{formatDate(invoice.paymentDueDate)}</td>
+                      <td>{invoice.paymentMethod}</td>
+                      <td>{invoice.refundStatus}</td>
+                      <td>{invoice.cashRegister.name}</td>
+                      <td>{invoice.createdBy.fullname}</td>
+                      <td>{formatDateTime(invoice.createdAt)}</td>
+                      <td>{invoice.notes}</td>
+                      <td>
+                        {/* <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> */}
+                        {/* <a href="#deleteStockactionModal" className="delete" data-toggle="modal" onClick={() => }><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                      </td>
+                    </tr>
+                  )
+                }
+              })
+              }
+            </tbody>
+          </table>
+          <div className="clearfix">
+            <div className="hint-text text-dark">عرض <b>{allPurchasesReturn.length > endpagination ? endpagination : allPurchasesReturn.length}</b> من <b>{allPurchasesReturn.length}</b> عنصر</div>
+            <ul className="pagination">
+              <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
 
-              <div id="addPurchaseInvoiceModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={(e) => createPurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title">تسجيل مرتجع مشتريات</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div id="addPurchaseInvoiceModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={(e) => createPurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
+              <div className="modal-header">
+                <h4 className="modal-title">تسجيل مرتجع مشتريات</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body container ">
+
+                <div className="card">
+                  <div className="card-header text-center">
+                    <h4>ادخل بيانات فاتورة الشراء</h4>
+                  </div>
+
+                  <div className="card-body min-content">
+                    <div className="row">
+                      <div className="col-6">
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="supplierSelect">فاتورة المرتجع</span>
+                          <select required className="form-select" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
+                            <option>اختر الفاتورة</option>
+                            {allPurchaseInvoice.map((Invoice, i) => (
+                              <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="returnDateInput">تاريخ المرتجع</span>
+                          <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
+                        </div>
                       </div>
-                      <div className="modal-body container ">
-
-                        <div className="card">
-                          <div className="card-header text-center">
-                            <h4>ادخل بيانات فاتورة الشراء</h4>
-                          </div>
-
-                          <div className="card-body min-content">
-                            <div className="row">
-                              <div className="col-6">
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="supplierSelect">فاتورة المرتجع</span>
-                                  <select required className="form-select" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
-                                    <option>اختر الفاتورة</option>
-                                    {allPurchaseInvoice.map((Invoice, i) => (
-                                      <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
-                                    ))}
-                                  </select>
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="returnDateInput">تاريخ المرتجع</span>
-                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
-                                </div>
-                              </div>
-                              <div className="col-6">
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <input type="text" className="form-control" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
-                                </div>
-
-                              </div>
-
-                            </div>
-
-                            <table className="table table-bordered table-striped table-hover">
-                              <thead className="table-success">
-                                <tr>
-                                  <th scope="col" className="col-1">#</th>
-                                  <th scope="col" className="col-3">الصنف</th>
-                                  <th scope="col" className="col-1">الكمية</th>
-                                  <th scope="col" className="col-1">الوحده</th>
-                                  <th scope="col" className="col-1">السعر</th>
-                                  <th scope="col" className="col-1">الثمن</th>
-                                  <th scope="col" className="col-2">انتهاء</th>
-                                  <th scope="col" className="col-2 NoPrint">
-                                    <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody id="TBody">
-                                {returnedItems && returnedItems.map((item, i) => (
-                                  <tr id="TRow" key={i}>
-                                    <th scope="row">{i + 1}</th>
-                                    <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
-                                    <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
-
-                                    <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
-
-                                    <td><input type="number" className="form-control" name="price" required value={item.price} onChange={(e) => handlePrice(Number(e.target.value), i)} /></td>
-
-                                    <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
-
-                                    <td><input type="text" className="form-control" name="Exp" readOnly value={formatDate(item.expirationDate)} /></td>
-                                    {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-
-                            <div className="row">
-                              <div className="col-6">
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
-                                  <input type="text" className="form-control text-end" value={totalAmount > 0 ? totalAmount : invoice.totalAmount} id="totalInput" readOnly />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={salesTax ? salesTax : invoice.salesTax} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="gstInput">خصم</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={discount > 0 ? discount : invoice.discount} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount > 0 ? netAmount : invoice.netAmount} readOnly />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
-                                </div>
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
-                                  <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
-                                </div>
-                              </div>
-                              <div className="col-6">
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
-                                  <select
-                                    className="form-select"
-                                    id="refundMethod"
-                                    onChange={(e) => setrefundMethod(e.target.value)}
-                                    value={refundMethod}
-                                  >
-                                    <option>اختر طريقه السداد</option>
-                                    <option value="cash">نقدي</option>
-                                    <option value="credit">سداد مؤجل</option>
-                                    <option value="deduct_supplier_balance">خصم من رصيد المورد</option>
-                                  </select>
-                                </div>
-
-                                {refundMethod && refundMethod === 'cash' &&
-                                  <>
-                                    <div className="input-group mb-3">
-                                      <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
-                                      <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
-                                    </div>
-                                    <div className="input-group mb-3">
-                                      <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
-                                      <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.employeeinfo.id)}>
-                                        <option>اختر طريقه الدفع</option>
-                                        <option value="نقدي">نقدي</option>
-                                        {financialInfo && financialInfo.map((financialInfo, i) => {
-                                          return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
-                                        })}
-                                      </select>
-                                    </div>
-                                  </>
-                                }
-
-                                {refundMethod === 'cash' ?
-                                  cashRegister ?
-                                    <div className="input-group mb-3">
-                                      <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
-                                      <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
-                                      <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
-                                    </div>
-                                    : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
-                                  : refundMethod === 'deduct_supplier_balance' ?
-                                    <div className="input-group mb-3">
-                                      <span className="input-group-text" htmlFor="netAmountInput">رصيد  المورد</span>
-                                      <input type="button" className="form-control text-end" id="netAmountInput" value={supplierInfo.currentBalance} readOnly />
-                                      <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmDeduct} >تاكيد الخصم</button>
-                                    </div>
-                                    : ''}
-
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
-                                  <input type="text" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
-                                </div>
-                                {balanceDue > 0 &&
-                                  <div className="input-group mb-3">
-                                    <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
-                                    <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
-                                  </div>
-                                }
-                                <div className="input-group mb-3">
-                                  <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
-                                  <input type="text" className="form-control text-end" id="netAmountInput" value={returnStatus} readOnly />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                      <div className="col-6">
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
+                          <input type="text" className="form-control" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
+                          <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                         </div>
 
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+
+                    </div>
+
+                    <table className="table table-bordered table-striped table-hover">
+                      <thead className="table-success">
+                        <tr>
+                          <th scope="col" className="col-1">#</th>
+                          <th scope="col" className="col-3">الصنف</th>
+                          <th scope="col" className="col-1">الكمية</th>
+                          <th scope="col" className="col-1">الوحده</th>
+                          <th scope="col" className="col-1">السعر</th>
+                          <th scope="col" className="col-1">الثمن</th>
+                          <th scope="col" className="col-2">انتهاء</th>
+                          <th scope="col" className="col-2 NoPrint">
+                            <button type="button" className="btn btn-sm btn-success" onClick={handleNewItem}>+</button>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="TBody">
+                        {returnedItems && returnedItems.map((item, i) => (
+                          <tr id="TRow" key={i}>
+                            <th scope="row">{i + 1}</th>
+                            <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
+                            <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
+
+                            <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+
+                            <td><input type="number" className="form-control" name="price" required value={item.price} onChange={(e) => handlePrice(Number(e.target.value), i)} /></td>
+
+                            <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+
+                            <td><input type="text" className="form-control" name="Exp" readOnly value={formatDate(item.expirationDate)} /></td>
+                            {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                    <div className="row">
+                      <div className="col-6">
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="totalInput">الإجمالي</span>
+                          <input type="text" className="form-control text-end" value={totalAmount > 0 ? totalAmount : invoice.totalAmount} id="totalInput" readOnly />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="gstInput">ضريبة القيمة المضافة</span>
+                          <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setSalesTax(e.target.value)} value={salesTax ? salesTax : invoice.salesTax} />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="gstInput">خصم</span>
+                          <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setDiscount(e.target.value)} value={discount > 0 ? discount : invoice.discount} />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="netAmountInput">المبلغ الصافي</span>
+                          <input type="text" className="form-control text-end" id="netAmountInput" value={netAmount > 0 ? netAmount : invoice.netAmount} readOnly />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
+                          <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
+                          <input type="number" className="form-control text-end" id="gstInput" onChange={(e) => setAdditionalCost(e.target.value)} />
+                        </div>
                       </div>
-                    </form>
+                      <div className="col-6">
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
+                          <select
+                            className="form-select"
+                            id="refundMethod"
+                            onChange={(e) => setrefundMethod(e.target.value)}
+                            value={refundMethod}
+                          >
+                            <option>اختر طريقه السداد</option>
+                            <option value="cash">نقدي</option>
+                            <option value="credit">سداد مؤجل</option>
+                            <option value="deduct_supplier_balance">خصم من رصيد المورد</option>
+                          </select>
+                        </div>
+
+                        {refundMethod && refundMethod === 'cash' &&
+                          <>
+                            <div className="input-group mb-3">
+                              <span className="input-group-text" htmlFor="refundedAmount">مسدد</span>
+                              <input type="number" className="form-control text-end" defaultValue={refundedAmount} id="refundedAmount" onChange={(e) => handlerefundedAmount(e.target.value)} />
+                            </div>
+                            <div className="input-group mb-3">
+                              <span className="input-group-text" htmlFor="gstInput">طريقه الدفع</span>
+                              <select className='form-select' name="paymentMethod" id="paymentMethod" onChange={(e) => handlePaymentMethod(e.target.value, employeeLoginInfo.employeeinfo.id)}>
+                                <option>اختر طريقه الدفع</option>
+                                <option value="نقدي">نقدي</option>
+                                {financialInfo && financialInfo.map((financialInfo, i) => {
+                                  return <option value={financialInfo.paymentMethodName}>{`${financialInfo.paymentMethodName} ${financialInfo.accountNumber}`}</option>
+                                })}
+                              </select>
+                            </div>
+                          </>
+                        }
+
+                        {refundMethod === 'cash' ?
+                          cashRegister ?
+                            <div className="input-group mb-3">
+                              <span className="input-group-text" htmlFor="netAmountInput">رصيد  الخزينة</span>
+                              <input type="button" className="form-control text-end" id="netAmountInput" value={CashRegisterBalance} readOnly />
+                              <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmPayment} >تاكيد الدفع</button>
+                            </div>
+                            : <span className="input-group-text"> ليس لك خزينة للدفع النقدي</span>
+                          : refundMethod === 'deduct_supplier_balance' ?
+                            <div className="input-group mb-3">
+                              <span className="input-group-text" htmlFor="netAmountInput">رصيد  المورد</span>
+                              <input type="button" className="form-control text-end" id="netAmountInput" value={supplierInfo.currentBalance} readOnly />
+                              <button type="button" className="btn btn-success" id="netAmountInput" onClick={confirmDeduct} >تاكيد الخصم</button>
+                            </div>
+                            : ''}
+
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="balanceDue">باقي المستحق</span>
+                          <input type="text" className="form-control text-end" id="balanceDue" value={balanceDue} readOnly />
+                        </div>
+                        {balanceDue > 0 &&
+                          <div className="input-group mb-3">
+                            <span className="input-group-text" htmlFor="gstInput">تاريخ الاستحقاق</span>
+                            <input type="date" className="form-control text-end" id="gstInput" onChange={(e) => setPaymentDueDate(e.target.value)} />
+                          </div>
+                        }
+                        <div className="input-group mb-3">
+                          <span className="input-group-text" htmlFor="netAmountInput">حالة الفاتورة</span>
+                          <input type="text" className="form-control text-end" id="netAmountInput" value={returnStatus} readOnly />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
-              {/* <div id="purchaseReturnModal" className="modal fade">
+              <div className="modal-footer">
+                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {/* <div id="purchaseReturnModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => handlePurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
@@ -1140,7 +1129,7 @@ const PurchaseReturn = () => {
                 </div>
               </div> */}
 
-              {/* <div id="deleteStockactionModal" className="modal fade">
+      {/* <div id="deleteStockactionModal" className="modal fade">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
@@ -1160,12 +1149,7 @@ const PurchaseReturn = () => {
                   </div>
                 </div>
               </div> */}
-            </div>
-          )
-        }
-      }
-    </detacontext.Consumer >
-
+    </div>
   )
 }
 

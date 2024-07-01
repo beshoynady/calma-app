@@ -18,13 +18,13 @@ const EmployeeTransactions = () => {
   };
 
   const {
-    employeeLoginInfo,
-    formatDateTime,
-    allEmployees,
     setStartDate,
     setEndDate,
     filterByDateRange,
     filterByTime,
+    employeeLoginInfo,
+    formatDateTime,
+    allEmployees,
     setisLoadiog,
     EditPagination,
     startpagination,
@@ -33,7 +33,7 @@ const EmployeeTransactions = () => {
     setendpagination,
   } = useContext(detacontext);
 
-  const [listofTransactions] = useState(['سلف', 'خصم','مكافأة']);
+  const [listofTransactions] = useState(['سلف', 'خصم', 'مكافأة']);
   const [EmployeeTransactionsId, setEmployeeTransactionsId] = useState("");
   const [employeeId, setemployeeId] = useState("");
   const [employeeName, setemployeeName] = useState("");
@@ -224,33 +224,37 @@ const EmployeeTransactions = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group d-flex flex-nowrap">
-                <label>فلتر حسب الوقت</label>
-                <select className="form-select" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
-                  <option value="">اختر</option>
-                  <option value="today">اليوم</option>
-                  <option value="week">هذا الأسبوع</option>
-                  <option value="month">هذا الشهر</option>
-                  <option value="year">هذه السنه</option>
-                </select>
-              </div>
-              <div className="filter-group d-flex flex-nowrap w-75">
-                <label className="form-label"><strong>مدة محددة:</strong></label>
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">من</label>
-                  <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+
+
+              <div className='col-12 d-flex align-items-center justify-content-between'>
+                <div className="filter-group d-flex flex-nowrap">
+                  <label>فلتر حسب الوقت</label>
+                  <select className="form-select" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
+                    <option value="">اختر</option>
+                    <option value="today">اليوم</option>
+                    <option value="week">هذا الأسبوع</option>
+                    <option value="month">هذا الشهر</option>
+                    <option value="year">هذه السنه</option>
+                  </select>
                 </div>
-                <div className="d-flex flex-nowrap mr-1">
-                  <label className="form-label">إلى</label>
-                  <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
-                </div>
-                <div className="d-flex flex-nowrap justify-content-between w-25">
-                  <button type="button" className="btn btn-primary w-50" onClick={() => setlistofEmployeeTransactions(filterByDateRange(listofEmployeeTransactions))}>
-                    <i className="fa fa-search"></i>
-                  </button>
-                  <button type="button" className="btn btn-warning w-50" onClick={getEmployeeTransactions}>
-                    استعادة
-                  </button>
+                <div className="filter-group d-flex flex-nowrap w-75">
+                  <label className="form-label"><strong>مدة محددة:</strong></label>
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">من</label>
+                    <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+                  <div className="d-flex flex-nowrap mr-1">
+                    <label className="form-label">إلى</label>
+                    <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                  </div>
+                  <div className="d-flex flex-nowrap justify-content-between w-25">
+                    <button type="button" className="btn btn-primary w-50" onClick={() => setlistofEmployeeTransactions(filterByDateRange(listofEmployeeTransactions))}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                    <button type="button" className="btn btn-warning w-50" onClick={getEmployeeTransactions}>
+                      استعادة
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
