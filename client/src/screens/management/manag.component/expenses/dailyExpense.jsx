@@ -429,8 +429,8 @@ const DailyExpense = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={createDailyExpense}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">تسجيل مصروف</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">تسجيل مصروف</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -477,8 +477,8 @@ const DailyExpense = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={editDailyExpense}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">تعديل مصروف</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">تعديل مصروف</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -526,8 +526,8 @@ const DailyExpense = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={deleteDailyExpense}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">حذف منتج</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">حذف منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">

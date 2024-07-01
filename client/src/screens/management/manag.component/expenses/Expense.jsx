@@ -194,8 +194,8 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={createExpense}>
-                    <div className="modal-header">
-                      <h4 className="modal-title text-light bg-success">اضافه مصروف</h4>
+                    <div className="modal-header text-light bg-success">
+                      <h4 className="modal-title">اضافه مصروف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -216,8 +216,8 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={editExpense}>
-                    <div className="modal-header">
-                      <h4 className="modal-title text-light bg-success">تعديل صنف بالمخزن</h4>
+                    <div className="modal-header text-light bg-success">
+                      <h4 className="modal-title">تعديل صنف بالمخزن</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -239,8 +239,8 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={deleteExpense}>
-                    <div className="modal-header">
-                      <h4 className="modal-title text-light bg-success">حذف منتج</h4>
+                    <div className="modal-header text-light bg-success">
+                      <h4 className="modal-title">حذف منتج</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">

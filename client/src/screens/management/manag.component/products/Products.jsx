@@ -541,8 +541,8 @@ const Products = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={createProduct}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">اضافه منتج</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">اضافه منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -721,8 +721,8 @@ const Products = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={editProduct}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">تعديل منتج</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">تعديل منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -899,8 +899,8 @@ const Products = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={deleteProduct}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">حذف منتج</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">حذف منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">

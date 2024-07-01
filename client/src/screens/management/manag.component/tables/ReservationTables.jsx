@@ -252,8 +252,8 @@ const ReservationTables = () => {
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
                     <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">اضافه حجز طاولة</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -384,8 +384,8 @@ const ReservationTables = () => {
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">اضافه حجز طاولة</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

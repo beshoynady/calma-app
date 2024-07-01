@@ -368,8 +368,8 @@ const StockItem = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => createItem(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">اضافه صنف بالمخزن</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -434,8 +434,8 @@ const StockItem = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => editStockItem(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">تعديل صنف بالمخزن</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">تعديل صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -501,8 +501,8 @@ const StockItem = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockItem}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

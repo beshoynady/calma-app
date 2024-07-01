@@ -214,8 +214,8 @@ const CustomerMessage = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">رساله عميل</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">رساله عميل</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -250,8 +250,8 @@ const CustomerMessage = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteCustomerMessage}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">حذف رساله</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">حذف رساله</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

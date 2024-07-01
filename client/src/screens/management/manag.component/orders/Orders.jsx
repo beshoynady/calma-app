@@ -297,8 +297,8 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success"></h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
@@ -419,8 +419,8 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success"></h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -453,8 +453,8 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">Edit Order</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">Edit Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -487,8 +487,8 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteOrder}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">Delete Order</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -507,8 +507,8 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">Delete Order</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

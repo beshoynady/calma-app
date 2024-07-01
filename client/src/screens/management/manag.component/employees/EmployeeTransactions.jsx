@@ -328,8 +328,8 @@ const EmployeeTransactions = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={addEmployeeTransactions}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">اضف تعامل جديد</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">اضف تعامل جديد</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -395,8 +395,8 @@ const EmployeeTransactions = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={updateEmployeeTransactions}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">تعديل تعامل</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">تعديل تعامل</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -455,8 +455,8 @@ const EmployeeTransactions = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={deleteEmployeeTransactions}>
-              <div className="modal-header">
-                <h4 className="modal-title text-light bg-success">حذف موظف</h4>
+              <div className="modal-header text-light bg-success">
+                <h4 className="modal-title">حذف موظف</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">

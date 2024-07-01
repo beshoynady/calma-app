@@ -598,7 +598,7 @@ const AttendanceManagement = () => {
           <div className="modal-content shadow-lg border-0 rounded ">
             <form onSubmit={recordArrival}>
               <div className="modal-header bg-primary text-white">
-                <h4 className="modal-title text-light bg-success">تسجيل سجل حضور الموظف</h4>
+                <h4 className="modal-title">تسجيل سجل حضور الموظف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body p-4 text-right">
@@ -697,7 +697,7 @@ const AttendanceManagement = () => {
           <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={recordDeparture}>
               <div className="modal-header bg-primary text-white">
-                <h4 className="modal-title text-light bg-success">تسجيل انصراف الموظف</h4>
+                <h4 className="modal-title">تسجيل انصراف الموظف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body p-4 text-right">
@@ -767,7 +767,7 @@ const AttendanceManagement = () => {
           <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={editAttendanceRecord}>
               <div className="modal-header bg-primary text-white">
-                <h4 className="modal-title text-light bg-success">تعديل سجل</h4>
+                <h4 className="modal-title">تعديل سجل</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body p-4 text-right">
@@ -876,7 +876,7 @@ const AttendanceManagement = () => {
           <div className="modal-content shadow-lg border-0 rounded">
             <form onSubmit={deleteRecord}>
               <div className="modal-header bg-danger text-white">
-                <h4 className="modal-title text-light bg-success">حذف تصنيف</h4>
+                <h4 className="modal-title">حذف تصنيف</h4>
                 <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body p-4 text-right">

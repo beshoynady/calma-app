@@ -24,8 +24,8 @@ function InvoiceComponent(props) {
             {/* <div className="modal-dialog">
         <div className="modal-content">
           <form>
-            <div className="modal-header">
-              <h4 className="modal-title text-light bg-success"></h4>
+            <div className="modal-header text-light bg-success">
+              <h4 className="modal-title"></h4>
               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>

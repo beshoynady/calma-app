@@ -139,8 +139,8 @@ const POS = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form onSubmit={(e) => { getOrderDetailsBySerial(e, serial) }}>
-                        <div className="modal-header">
-                          <h4 className="modal-title text-light bg-success">رقم الفاتوره</h4>
+                        <div className="modal-header text-light bg-success">
+                          <h4 className="modal-title">رقم الفاتوره</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
@@ -167,8 +167,8 @@ const POS = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form onSubmit={(e) => { splitInvoice(e) }}>
-                        <div className="modal-header">
-                          <h4 className="modal-title text-light bg-success">اختر الطاوله</h4>
+                        <div className="modal-header text-light bg-success">
+                          <h4 className="modal-title">اختر الطاوله</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div className="modal-body d-flex justify-content-center align-items-center" style={{ width: '400px', height: '50%' }}>
@@ -300,7 +300,7 @@ const POS = () => {
                     <div className="modal-content">
                       <form>
                         <div className="modal-header bg-primary text-white">
-                          <h4 className="modal-title text-light bg-success">ادخل بيانات العميل</h4>
+                          <h4 className="modal-title">ادخل بيانات العميل</h4>
                           <button type="button" className="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         {ordertype ?
@@ -390,7 +390,7 @@ const POS = () => {
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <div className="modal-header">
+                      <div className="modal-header text-light bg-success">
                         <button className='btn btn-success m-0' onClick={handlePrint}>طباعة</button>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

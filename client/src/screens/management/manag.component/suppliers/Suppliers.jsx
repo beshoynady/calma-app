@@ -438,8 +438,8 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createSupplier}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">إضافة مورد</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">إضافة مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -519,8 +519,8 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateSupplier(e)}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">تعديل مورد</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">تعديل مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -598,8 +598,8 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSupplier}>
-                      <div className="modal-header">
-                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
+                      <div className="modal-header text-light bg-success">
+                        <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">

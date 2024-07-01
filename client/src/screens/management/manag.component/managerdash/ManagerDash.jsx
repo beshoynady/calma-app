@@ -913,8 +913,8 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header">
-                          <h4 className="modal-title text-light bg-success"></h4>
+                        <div className="modal-header text-light bg-success">
+                          <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div ref={printContainerInvoice} className="p-1 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
@@ -1062,8 +1062,8 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header">
-                          <h4 className="modal-title text-light bg-success"></h4>
+                        <div className="modal-header text-light bg-success">
+                          <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div ref={printContainerInvoiceSplit} className="w-100 p-1 mb-7 overflow-auto printpage" style={{ textAlign: 'center' }}>
@@ -1205,8 +1205,8 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header">
-                          {/* <h4 className="modal-title text-light bg-success"></h4> */}
+                        <div className="modal-header text-light bg-success">
+                          {/* <h4 className="modal-title"></h4> */}
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
                         </div>
