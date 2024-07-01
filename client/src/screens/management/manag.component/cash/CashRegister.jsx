@@ -172,8 +172,8 @@ const CashRegister = () => {
                       <h2>ادارة <b>الخزينه</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addCashRegisterModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
-                      <a href="#deleteListCashRegisterModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#addCashRegisterModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه خزنه</span></a>
+                      <a href="#deleteListCashRegisterModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const CashRegister = () => {
                       <div class="filter-group">
                         <label>اسم الخزينه</label>
                         <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
-                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                       </div>
                       <div class="filter-group">
                         <label>المسؤل</label>
@@ -294,7 +294,7 @@ const CashRegister = () => {
                 <div className="modal-content">
                   <form onSubmit={createCashRegister}>
                     <div className="modal-header">
-                      <h4 className="modal-title">اضافه خزينه</h4>
+                      <h4 className="modal-title text-light bg-success">اضافه خزينه</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -314,9 +314,9 @@ const CashRegister = () => {
                       </select>
                     </div>
 
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                     </div>
                   </form>
                 </div>
@@ -327,7 +327,7 @@ const CashRegister = () => {
                 <div className="modal-content">
                   <form onSubmit={updateCashRegister}>
                     <div className="modal-header">
-                      <h4 className="modal-title">تعديل التصنيف</h4>
+                      <h4 className="modal-title text-light bg-success">تعديل التصنيف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -346,9 +346,9 @@ const CashRegister = () => {
                           : ""}
                       </select>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-info" value="حفظ" />
                     </div>
                   </form>
                 </div>
@@ -359,16 +359,16 @@ const CashRegister = () => {
                 <div className="modal-content">
                   <form onSubmit={deleteCashRegister}>
                     <div className="modal-header">
-                      <h4 className="modal-title">حذف تصنيف</h4>
+                      <h4 className="modal-title text-light bg-success">حذف تصنيف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
                       <p>هل انت متاكد من حذف هذا التصنيف?</p>
                       <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                     </div>
                   </form>
                 </div>
@@ -379,16 +379,16 @@ const CashRegister = () => {
                 <div className="modal-content">
                   <form onSubmit={deleteSelectedIds}>
                     <div className="modal-header">
-                      <h4 className="modal-title">حذف الخزن المحدده</h4>
+                      <h4 className="modal-title text-light bg-success">حذف الخزن المحدده</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
                       <p>هل انت متاكد من حذف هذا التصنيف?</p>
                       <p className="text-warning"><small>لا يمكن الرجوع فيه.</small></p>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                     </div>
                   </form>
                 </div>

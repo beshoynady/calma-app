@@ -249,7 +249,7 @@ const DeliveryMan = () => {
                   <div className="modal-content">
                     <form>
                       <div className="modal-header">
-                        <h4 className="modal-title"></h4>
+                        <h4 className="modal-title text-light bg-success"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div ref={printContainerInvoice} className="p-1 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
@@ -383,9 +383,9 @@ const DeliveryMan = () => {
                           <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoice} />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-success" value="Print" onClick={handlePrintInvoice} />
                       </div>
                     </form>
                   </div>

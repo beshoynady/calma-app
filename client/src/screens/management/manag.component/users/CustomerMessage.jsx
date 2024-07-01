@@ -74,8 +74,8 @@ const CustomerMessage = () => {
                         <h2>ادارة <b>رسائل العملاء</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addmessageModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deletemessageModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#addmessageModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deletemessageModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -99,7 +99,7 @@ const CustomerMessage = () => {
                         <div class="filter-group">
                           <label>الموبايل</label>
                           <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
-                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                         {/*
                         <div class="filter-group">
@@ -215,7 +215,7 @@ const CustomerMessage = () => {
                   <div className="modal-content">
                     <form>
                       <div className="modal-header">
-                        <h4 className="modal-title">رساله عميل</h4>
+                        <h4 className="modal-title text-light bg-success">رساله عميل</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -237,9 +237,9 @@ const CustomerMessage = () => {
                           <textarea className="form-control" defaultValue={message} required readOnly></textarea>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="تم" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="تم" />
                       </div>
                     </form>
                   </div>
@@ -251,16 +251,16 @@ const CustomerMessage = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteCustomerMessage}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف رساله</h4>
+                        <h4 className="modal-title text-light bg-success">حذف رساله</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

@@ -414,13 +414,13 @@ const Products = () => {
                   <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
                   <label>نهاية التاريخ</label>
                   <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
-                  <button type="button" className="btn btn-47 btn-primary" onClick={calcsalseofproducts}>
+                  <button type="button" className="btn w-50 btn-primary" onClick={calcsalseofproducts}>
                     <i className="fa fa-search"></i> فلتر
                   </button>
                   {/* </div> */}
                 </div>
                 <div className="col-md-8">
-                  <button type="button" className="btn btn-47 btn-primary" onClick={getallproducts}>
+                  <button type="button" className="btn w-50 btn-primary" onClick={getallproducts}>
                     حذف الفلتر
                   </button>
 
@@ -542,7 +542,7 @@ const Products = () => {
           <div className="modal-content">
             <form onSubmit={createProduct}>
               <div className="modal-header">
-                <h4 className="modal-title">اضافه منتج</h4>
+                <h4 className="modal-title text-light bg-success">اضافه منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -635,14 +635,14 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-12">
-                          <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                          <button type="button" className="btn w-50 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
                         </div>
                       </div>
                     ))}
 
                     <div className="row">
                       <div className="col-md-12">
-                        <button type="button" className="btn btn-47 btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                        <button type="button" className="btn w-50 btn-primary" onClick={addSize}>إضافة حجم جديد</button>
                       </div>
                     </div>
                   </div>
@@ -709,9 +709,9 @@ const Products = () => {
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>
-              <div className="modal-footer">
-                <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
@@ -722,7 +722,7 @@ const Products = () => {
           <div className="modal-content">
             <form onSubmit={editProduct}>
               <div className="modal-header">
-                <h4 className="modal-title">تعديل منتج</h4>
+                <h4 className="modal-title text-light bg-success">تعديل منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -814,14 +814,14 @@ const Products = () => {
                           </div>
                         </div>
                         <div className="col-md-12">
-                          <button type="button" className="btn btn-47 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
+                          <button type="button" className="btn w-50 btn-danger" onClick={() => removeSize(index)}>حذف الحجم</button>
                         </div>
                       </div>
                     ))}
 
                     <div className="row">
                       <div className="col-md-12">
-                        <button type="button" className="btn btn-47 btn-primary" onClick={addSize}>إضافة حجم جديد</button>
+                        <button type="button" className="btn w-50 btn-primary" onClick={addSize}>إضافة حجم جديد</button>
                       </div>
                     </div>
                   </div>
@@ -886,9 +886,9 @@ const Products = () => {
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>
-              <div className="modal-footer">
-                <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="submit" className="btn w-50 btn-info" value="حفظ" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>
@@ -900,16 +900,16 @@ const Products = () => {
           <div className="modal-content">
             <form onSubmit={deleteProduct}>
               <div className="modal-header">
-                <h4 className="modal-title">حذف منتج</h4>
+                <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
                 <p>هل انت متاكد من حذف هذا السجل؟</p>
                 <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
               </div>
-              <div className="modal-footer">
-                <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
               </div>
             </form>
           </div>

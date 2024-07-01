@@ -102,9 +102,9 @@ const ExpenseItem = () => {
                       <h2>ادارة <b>المصروفات</b></h2>
                     </div>
                     <div className="col-sm-6 d-flex justify-content-end">
-                      <a href="#addExpensesModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
+                      <a href="#addExpensesModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه مصروف جديد</span></a>
 
-                      <a href="#deleteExpensesModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                      <a href="#deleteExpensesModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ const ExpenseItem = () => {
                       </div>
                     </div>
                     <div class="col-sm-9">
-                      <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                      <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                       <div class="filter-group">
                         <label>اسم المصروف</label>
                         <input type="text" class="form-control" onChange={(e) => searchByExpense(e.target.value)} />
@@ -195,7 +195,7 @@ const ExpenseItem = () => {
                 <div className="modal-content">
                   <form onSubmit={createExpense}>
                     <div className="modal-header">
-                      <h4 className="modal-title">اضافه مصروف</h4>
+                      <h4 className="modal-title text-light bg-success">اضافه مصروف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -204,9 +204,9 @@ const ExpenseItem = () => {
                         <input type="text" className="form-control" required onChange={(e) => setDescription(e.target.value)} />
                       </div>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                     </div>
                   </form>
                 </div>
@@ -217,7 +217,7 @@ const ExpenseItem = () => {
                 <div className="modal-content">
                   <form onSubmit={editExpense}>
                     <div className="modal-header">
-                      <h4 className="modal-title">تعديل صنف بالمخزن</h4>
+                      <h4 className="modal-title text-light bg-success">تعديل صنف بالمخزن</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
@@ -226,9 +226,9 @@ const ExpenseItem = () => {
                         <input type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
                       </div>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-info" value="Save" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-info" value="Save" />
                     </div>
                   </form>
                 </div>
@@ -240,16 +240,16 @@ const ExpenseItem = () => {
                 <div className="modal-content">
                   <form onSubmit={deleteExpense}>
                     <div className="modal-header">
-                      <h4 className="modal-title">حذف منتج</h4>
+                      <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
                       <p>هل انت متاكد من حذف هذا السجل؟</p>
                       <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                     </div>
-                    <div className="modal-footer">
-                      <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                      <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                    <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                      <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                     </div>
                   </form>
                 </div>

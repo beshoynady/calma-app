@@ -283,8 +283,8 @@ const PermissionsComponent = () => {
                         <h2>ادارة <b>صلاحيات الموظفين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a className="btn btn-47 btn-success" onClick={addPermissions}><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
-                        <a className="btn btn-47 btn-danger" onClick={getPermissions}><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
+                        <a className="btn w-50 btn-success" onClick={addPermissions}><i className="material-icons">&#xE147;</i> <span>حفظ</span></a>
+                        <a className="btn w-50 btn-danger" onClick={getPermissions}><i className="material-icons">&#xE15C;</i> <span>الغاء</span></a>
                       </div>
                     </div>
                   </div>
@@ -294,7 +294,7 @@ const PermissionsComponent = () => {
                         <div className="filter-group" style={{ minWidth: '35%' }}>
                           <label>الاسم</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesByName(e.target.value)} />
-                          {/* <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button> */}
+                          {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
                         <div className="filter-group" style={{ minWidth: '40%' }}>
                           <label>الموظف</label>

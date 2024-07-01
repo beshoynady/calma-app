@@ -107,8 +107,8 @@ const ReservationTables = () => {
                         <h2>ادارة <b>حجز الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#createreservationModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>انشاء حجز جديد</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#createreservationModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>انشاء حجز جديد</span></a>
+                        <a href="#deleteListTableModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -253,7 +253,7 @@ const ReservationTables = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => createReservations(e, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه حجز طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -370,9 +370,9 @@ const ReservationTables = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="submit" className="btn btn-47 btn-success" value="ضافه" />
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="submit" className="btn w-50 btn-success" value="ضافه" />
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
@@ -385,7 +385,7 @@ const ReservationTables = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => updateReservation(e, reservationId, tableInfo.id, tableInfo.tableNumber, userId, numberOfGuests, customerName, customerPhone, reservationDate, startTime, endTime, reservationNote, createdBy)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه حجز طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">اضافه حجز طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -505,9 +505,9 @@ const ReservationTables = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="submit" className="btn btn-47 btn-success" value="ضافه" />
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="submit" className="btn w-50 btn-success" value="ضافه" />
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>

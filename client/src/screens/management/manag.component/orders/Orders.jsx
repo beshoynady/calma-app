@@ -155,8 +155,8 @@ const Orders = () => {
                         <h2>ادارة <b>الاوردرات</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addOrderModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
-                        <a href="#deleteListOrderModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addOrderModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة اوردر جديد</span></a>
+                        <a href="#deleteListOrderModal" className="btn w-50 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -180,7 +180,7 @@ const Orders = () => {
                         <div class="filter-group">
                           <label>رقم الفاتورة</label>
                           <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                          {/* <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button> */}
+                          {/* <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button> */}
                         </div>
                       </div>
                       <div class="col">
@@ -298,7 +298,7 @@ const Orders = () => {
                   <div className="modal-content">
                     <form>
                       <div className="modal-header">
-                        <h4 className="modal-title"></h4>
+                        <h4 className="modal-title text-light bg-success"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
@@ -406,9 +406,9 @@ const Orders = () => {
                           <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrint} />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-success" value="Print" onClick={handlePrint} />
                       </div>
                     </form>
                   </div>
@@ -420,7 +420,7 @@ const Orders = () => {
                   <div className="modal-content">
                     <form>
                       <div className="modal-header">
-                        <h4 className="modal-title"></h4>
+                        <h4 className="modal-title text-light bg-success"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -441,9 +441,9 @@ const Orders = () => {
                           <input type="text" className="form-control" required />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-success" value="Add" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-success" value="Add" />
                       </div>
                     </form>
                   </div>
@@ -454,7 +454,7 @@ const Orders = () => {
                   <div className="modal-content">
                     <form>
                       <div className="modal-header">
-                        <h4 className="modal-title">Edit Order</h4>
+                        <h4 className="modal-title text-light bg-success">Edit Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -475,9 +475,9 @@ const Orders = () => {
                           <input type="text" className="form-control" required />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-info" value="Save" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -488,16 +488,16 @@ const Orders = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteOrder}>
                       <div className="modal-header">
-                        <h4 className="modal-title">Delete Order</h4>
+                        <h4 className="modal-title text-light bg-success">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="Delete" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-danger" value="Delete" />
                       </div>
                     </form>
                   </div>
@@ -508,16 +508,16 @@ const Orders = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
                       <div className="modal-header">
-                        <h4 className="modal-title">Delete Order</h4>
+                        <h4 className="modal-title text-light bg-success">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="Delete" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-toggle="modal" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" className="btn w-50 btn-danger" value="Delete" />
                       </div>
                     </form>
                   </div>

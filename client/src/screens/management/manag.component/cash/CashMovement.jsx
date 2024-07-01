@@ -406,11 +406,11 @@ const CashMovement = () => {
                 <h2>ادارة <b>حركه النقدية</b></h2>
               </div>
               <div className="col-sm-6 d-flex justify-content-end">
-                <a href="#DepositModal" className="btn btn-47 btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}>
+                <a href="#DepositModal" className="btn w-50 btn-success" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Deposit')}>
                   <i className="material-icons">&#xE147;</i> <span>ايداع</span></a>
-                <a href="#WithdrawModal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}>
+                <a href="#WithdrawModal" className="btn w-50 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Withdraw')}>
                   <i className="material-icons">&#xE15C;</i> <span>سحب</span></a>
-                <a href="#Transferodal" className="btn btn-47 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}>
+                <a href="#Transferodal" className="btn w-50 btn-danger" data-toggle="modal" onClick={() => handelCashMovement(employeeLoginInfo.employeeinfo.id, 'Transfer')}>
                   <i className="material-icons">&#xE15C;</i> <span>تحويل</span></a>
               </div>
             </div>
@@ -525,9 +525,9 @@ const CashMovement = () => {
                         <td>{movement.description}</td>
                         <td>{movement.status == 'Pending' && movement.transferFrom ?
                           <>
-                            <button className="btn btn-47 btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
+                            <button className="btn w-50 btn-success" onClick={() => { accepteTransferCash(movement._id, 'Completed') }}
                             >قبول</button>
-                            <button className="btn btn-47 btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
+                            <button className="btn w-50 btn-warning" onClick={() => { accepteTransferCash(movement._id, 'Rejected') }}
                             >رفض</button>
                           </>
                           : movement.status}</td>
@@ -562,7 +562,7 @@ const CashMovement = () => {
           <div className="modal-content">
             <form onSubmit={handleSubmit}>
               <div className="modal-header">
-                <h4 className="modal-title">ايداع بالخزينه</h4>
+                <h4 className="modal-title text-light bg-success">ايداع بالخزينه</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -584,9 +584,9 @@ const CashMovement = () => {
                   <input type="text" className="form-control" value={formatDate(new Date())} readOnly />
                 </div>
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-success" value="ايداع" />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-success" value="ايداع" />
               </div>
             </form>
           </div>
@@ -597,7 +597,7 @@ const CashMovement = () => {
           <div className="modal-content">
             <form onSubmit={handleSubmit}>
               <div className="modal-header">
-                <h4 className="modal-title">سحب بالخزينه</h4>
+                <h4 className="modal-title text-light bg-success">سحب بالخزينه</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -618,9 +618,9 @@ const CashMovement = () => {
                   <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                 </div>
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-success" value="سحب" />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-success" value="سحب" />
               </div>
             </form>
           </div>
@@ -631,7 +631,7 @@ const CashMovement = () => {
           <div className="modal-content">
             <form onSubmit={transferCash}>
               <div className="modal-header">
-                <h4 className="modal-title">تحويل بالخزينه</h4>
+                <h4 className="modal-title text-light bg-success">تحويل بالخزينه</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
@@ -661,9 +661,9 @@ const CashMovement = () => {
                   <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                 </div>
               </div>
-              <div className="modal-footer">
-                <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                <input type="submit" className="btn btn-47 btn-success" value="تحويل " />
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-success" value="تحويل " />
               </div>
             </form>
           </div>
@@ -674,16 +674,16 @@ const CashMovement = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

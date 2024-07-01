@@ -405,9 +405,9 @@ const ProductRecipe = () => {
                         <h2>ادارة <b>تكاليف الانتاج</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addRecipeModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addRecipeModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteAllProductModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#deleteAllProductModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div>
                     </div>
                   </div>
@@ -551,7 +551,7 @@ const ProductRecipe = () => {
                   <div className="modal-content">
                     <form onSubmit={createRecipe}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه مكون</h4>
+                        <h4 className="modal-title text-light bg-success">اضافه مكون</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -585,9 +585,9 @@ const ProductRecipe = () => {
                         </div> */}
 
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -599,7 +599,7 @@ const ProductRecipe = () => {
                   <div className="modal-content">
                     <form onSubmit={editRecipe}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل مكون</h4>
+                        <h4 className="modal-title text-light bg-success">تعديل مكون</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -621,9 +621,9 @@ const ProductRecipe = () => {
                           <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="Save" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -634,16 +634,16 @@ const ProductRecipe = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteRecipe}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
@@ -654,16 +654,16 @@ const ProductRecipe = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteAllRecipe}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

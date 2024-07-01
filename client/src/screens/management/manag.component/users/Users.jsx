@@ -169,8 +169,8 @@ const Users = () => {
                         <h2>ادارة <b>المستخدمين</b></h2>
                       </div>
                       {/* <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#adduserModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
-                        <a href="#deleteuserModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
+                        <a href="#adduserModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافة موظف جديد</span></a>
+                        <a href="#deleteuserModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف الكل</span></a>
                       </div> */}
                     </div>
                   </div>
@@ -194,7 +194,7 @@ const Users = () => {
                         <div class="filter-group">
                           <label>الموبايل</label>
                           <input type="text" class="form-control" onChange={(e) => getUserByPhone(e.target.value)} />
-                          <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                         </div>
 
                       </div>
@@ -323,7 +323,7 @@ const Users = () => {
                   <div className="modal-content">
                     <form onSubmit={createuserloyee}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه موظف</h4>
+                        <h4 className="modal-title text-light bg-success">اضافه موظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -383,9 +383,9 @@ const Users = () => {
                           <div className="invalid-feedback">Please enter a valid salary.</div>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success"  value="اضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-success"  value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -396,7 +396,7 @@ const Users = () => {
                   <div className="modal-content">
                     <form onSubmit={handleUpdateUser}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل بيانات العملاء</h4>
+                        <h4 className="modal-title text-light bg-success">تعديل بيانات العملاء</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -481,7 +481,7 @@ const Users = () => {
                           </select>
                         </div>
                       </div>
-                      <div className="modal-footer">
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
                         <input type="button" className="btn btn-danger btn-47" data-dismiss="modal" value="اغلاق" />
                         <input type="submit" className="btn btn-success btn-47" value="حفظ" />
                       </div>
@@ -495,16 +495,16 @@ const Users = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteuserloyee}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف موظف</h4>
+                        <h4 className="modal-title text-light bg-success">حذف موظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

@@ -717,7 +717,7 @@ const ManagerDash = () => {
                           <div className="filter-group" style={{ width: '100%' }}>
                             <label>رقم الفاتورة</label>
                             <input type="text" className="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                            {/* <button type="button" className="btn btn-47 btn-primary"><i className="fa fa-search"></i></button> */}
+                            {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                           </div>
                         </div>
                         <div className="col">
@@ -914,7 +914,7 @@ const ManagerDash = () => {
                     <div className="modal-content">
                       <form>
                         <div className="modal-header">
-                          <h4 className="modal-title"></h4>
+                          <h4 className="modal-title text-light bg-success"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div ref={printContainerInvoice} className="p-1 mb-7 overflow-auto printpage" style={{ width: '100%', textAlign: 'center' }}>
@@ -1048,9 +1048,9 @@ const ManagerDash = () => {
                             <p>Mobaile: <span style={{ color: '#5a6268' }}>01122455010</span></p>
                           </div>
                         </div>
-                        <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                          <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoice} />
+                        <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                          <input type="submit" className="btn w-50 btn-success" value="Print" onClick={handlePrintInvoice} />
                         </div>
                       </form>
                     </div>
@@ -1063,7 +1063,7 @@ const ManagerDash = () => {
                     <div className="modal-content">
                       <form>
                         <div className="modal-header">
-                          <h4 className="modal-title"></h4>
+                          <h4 className="modal-title text-light bg-success"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div ref={printContainerInvoiceSplit} className="w-100 p-1 mb-7 overflow-auto printpage" style={{ textAlign: 'center' }}>
@@ -1191,9 +1191,9 @@ const ManagerDash = () => {
                             <p>Developed by: <span style={{ color: '#5a6268' }}>Beshoy Nady</span></p>
                           </div>
                         </div>
-                        <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-                          <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
+                        <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+                          <input type="submit" className="btn w-50 btn-success" value="Print" onClick={handlePrintInvoiceSplit} />
                         </div>
                       </form>
                     </div>
@@ -1206,7 +1206,7 @@ const ManagerDash = () => {
                     <div className="modal-content">
                       <form>
                         <div className="modal-header">
-                          {/* <h4 className="modal-title"></h4> */}
+                          {/* <h4 className="modal-title text-light bg-success"></h4> */}
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>
                         </div>
@@ -1278,9 +1278,9 @@ const ManagerDash = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="modal-footer">
-                          <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
-                          <input type="button" className="btn btn-47 btn-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
+                        <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                          <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
+                          <input type="button" className="btn w-50 btn-success" value="تم الموافقه" onClick={(e) => isPrint ? aproveOrder(e, employeeLoginInfo.employeeinfo.id) : alert("لم تتم الطباعه ! يجب طباعه اولا")} />
                         </div>
                       </form>
                     </div>

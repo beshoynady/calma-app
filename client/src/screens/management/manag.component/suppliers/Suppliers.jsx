@@ -308,9 +308,9 @@ const Suppliers = () => {
                         <h2>ادارة <b>الموردين</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addSupplierModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addSupplierModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#deleteStockItemModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+                        {/* <a href="#deleteStockItemModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -331,7 +331,7 @@ const Suppliers = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
                           <label>اسم المورد</label>
                           <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
@@ -439,7 +439,7 @@ const Suppliers = () => {
                   <div className="modal-content">
                     <form onSubmit={createSupplier}>
                       <div className="modal-header">
-                        <h4 className="modal-title">إضافة مورد</h4>
+                        <h4 className="modal-title text-light bg-success">إضافة مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -451,10 +451,10 @@ const Suppliers = () => {
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " key={index}>
                             <label>الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الواتس اب</label>
                           <input type="text" className="form-control" onChange={(e) => setwhatsapp(e.target.value)} />
@@ -484,10 +484,10 @@ const Suppliers = () => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
                             </select>
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الرصيد الافتتاحي</label>
                           <input type="number" className="form-control" onChange={(e) => setCurrentBalance(e.target.value)} />
@@ -497,18 +497,18 @@ const Suppliers = () => {
                             <label>المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>ملاحظات</label>
                           <textarea className="form-control" onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="إضافة" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="إضافة" />
                       </div>
                     </form>
                   </div>
@@ -520,7 +520,7 @@ const Suppliers = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => updateSupplier(e)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل مورد</h4>
+                        <h4 className="modal-title text-light bg-success">تعديل مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -533,10 +533,10 @@ const Suppliers = () => {
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " key={index}>
                             <label>الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>الواتس اب</label>
                           <input type="text" className="form-control" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
@@ -566,27 +566,27 @@ const Suppliers = () => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
                               })}
                             </select>
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteItemsSupplied(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         {financialInfo.map((info, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " key={index}>
                             <label>المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
-                            <button type="button" className="btn btn-47 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
+                            <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
-                        <button type="button" className="btn btn-47 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
+                        <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
                           <label>ملاحظات</label>
                           <textarea className="form-control" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -599,16 +599,16 @@ const Suppliers = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteSupplier}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

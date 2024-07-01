@@ -25,7 +25,7 @@ function InvoiceComponent(props) {
         <div className="modal-content">
           <form>
             <div className="modal-header">
-              <h4 className="modal-title"></h4>
+              <h4 className="modal-title text-light bg-success"></h4>
               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div ref={printContainer} style={{ maxWidth: '400px', padding: '5px' }}>
@@ -116,9 +116,9 @@ function InvoiceComponent(props) {
                 <p>موبايل: <span style={{ color: '#5a6268' }}>01122455010</span></p>
               </div>
             </div>
-            <div className="modal-footer">
-              <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="Cancel" />
-              <input type="submit" className="btn btn-47 btn-success" value="Print" onClick={handlePrint} />
+            <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+              <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="Cancel" />
+              <input type="submit" className="btn w-50 btn-success" value="Print" onClick={handlePrint} />
             </div>
           </form>
         </div>

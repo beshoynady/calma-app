@@ -327,9 +327,9 @@ const KitchenConsumption = () => {
                         <h2>ادارة <b>الاستهلاك</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addItemModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addItemModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#updateItemModal" className="btn btn-47 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+                        {/* <a href="#updateItemModal" className="btn w-50 btn-danger" data-toggle="modal" ><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
                       </div>
                     </div>
                   </div>
@@ -494,7 +494,7 @@ const KitchenConsumption = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => addKitchenItem(e)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه صنف </h4>
+                        <h4 className="modal-title text-light bg-success">اضافه صنف </h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -522,9 +522,9 @@ const KitchenConsumption = () => {
                           <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -535,7 +535,7 @@ const KitchenConsumption = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => updateKitchenItem(e)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تسويه الرصيد</h4>
+                        <h4 className="modal-title text-light bg-success">تسويه الرصيد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -574,9 +574,9 @@ const KitchenConsumption = () => {
                           <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="Save" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="Save" />
                       </div>
                     </form>
                   </div>
@@ -589,16 +589,16 @@ const KitchenConsumption = () => {
                   <div className="modal-content">
                     <form onSubmit={updateKitchenItem}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف منتج</h4>
+                        <h4 className="modal-title text-light bg-success">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="تحديث" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="تحديث" />
                       </div>
                     </form>
                   </div>

@@ -241,10 +241,10 @@ const deleteTable = async (e) => {
                         <h2>ادارة <b>الطاولات</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#qrwebModal" className="btn btn-47 btn-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
+                        <a href="#qrwebModal" className="btn w-50 btn-success" data-toggle="modal"><span className="material-symbols-outlined" data-toggle="tooltip" title="QR">qr_code_2_add</span>
                           <span>انشاء qr للسايت</span></a>
-                        <a href="#addTableModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
-                        <a href="#deleteListTableModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#addTableModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه طاولة جديدة</span></a>
+                        <a href="#deleteListTableModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -400,7 +400,7 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={createTable}>
                       <div className="modal-header">
-                        <h4 className="modal-title">اضافه طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">اضافه طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -421,9 +421,9 @@ const deleteTable = async (e) => {
                           <textarea className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="ضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="ضافه" />
                       </div>
                     </form>
                   </div>
@@ -434,7 +434,7 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={editTable}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">تعديل طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -463,9 +463,9 @@ const deleteTable = async (e) => {
                           </select>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-info" value="حفظ" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-info" value="حفظ" />
                       </div>
                     </form>
                   </div>
@@ -477,7 +477,7 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={createQR}>
                       <div className="modal-header">
-                        <h4 className="modal-title">استخراج QR</h4>
+                        <h4 className="modal-title text-light bg-success">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
                         <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
@@ -492,10 +492,10 @@ const deleteTable = async (e) => {
                           </div>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        {qrimage ? <button type="button" className="btn btn-47 btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-47 btn-success" value="استخراج" />}
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        {qrimage ? <button type="button" className="btn w-50 btn-info" onClick={handlePrint}>طباعه</button>
+                          : <input type="submit" className="btn w-50 btn-success" value="استخراج" />}
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>
                   </div>
@@ -506,7 +506,7 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={createwebQR}>
                       <div className="modal-header">
-                        <h4 className="modal-title">استخراج QR</h4>
+                        <h4 className="modal-title text-light bg-success">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
                         <div ref={printtableqr} style={{ width: "100%", maxWidth: '400px', height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12  ">
@@ -521,10 +521,10 @@ const deleteTable = async (e) => {
                           </div>
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        {qrimage ? <button type="button" className="btn btn-47 btn-info" onClick={handlePrint}>طباعه</button>
-                          : <input type="submit" className="btn btn-47 btn-success" value="استخراج" />}
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="اغلاق" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        {qrimage ? <button type="button" className="btn w-50 btn-info" onClick={handlePrint}>طباعه</button>
+                          : <input type="submit" className="btn w-50 btn-success" value="استخراج" />}
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="اغلاق" />
                       </div>
                     </form>
                   </div>
@@ -535,16 +535,16 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={deleteTable}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">حذف طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
@@ -555,16 +555,16 @@ const deleteTable = async (e) => {
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف طاولة</h4>
+                        <h4 className="modal-title text-light bg-success">حذف طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟?</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>

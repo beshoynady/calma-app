@@ -371,9 +371,9 @@ const StockManag = () => {
                         <h2>ادارة <b>المخزون</b></h2>
                       </div>
                       <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addStockactionModal" className="btn btn-47 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+                        <a href="#addStockactionModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        <a href="#deleteStockactionModal" className="btn btn-47 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
+                        <a href="#deleteStockactionModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a>
                       </div>
                     </div>
                   </div>
@@ -397,7 +397,7 @@ const StockManag = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn btn-47 btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
                         <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
@@ -541,7 +541,7 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => createStockAction(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تسجيل حركه بالمخزن</h4>
+                        <h4 className="modal-title text-light bg-success">تسجيل حركه بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -610,9 +610,9 @@ const StockManag = () => {
                           <input type="text" className="form-control" Value={actionAt} readOnly />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -623,7 +623,7 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={(e) => updateStockaction(e, employeeLoginInfo.employeeinfo.id)}>
                       <div className="modal-header">
-                        <h4 className="modal-title">تعديل حركه بالمخزن</h4>
+                        <h4 className="modal-title text-light bg-success">تعديل حركه بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
@@ -686,9 +686,9 @@ const StockManag = () => {
                           <input type="text" className="form-control" Value={actionAt} readOnly />
                         </div>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-success" value="اضافه" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
                       </div>
                     </form>
                   </div>
@@ -699,16 +699,16 @@ const StockManag = () => {
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
                       <div className="modal-header">
-                        <h4 className="modal-title">حذف حركه مخزن</h4>
+                        <h4 className="modal-title text-light bg-success">حذف حركه مخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
                         <p>هل انت متاكد من حذف هذا السجل؟</p>
                         <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
                       </div>
-                      <div className="modal-footer">
-                        <input type="button" className="btn btn-47 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn btn-47 btn-danger" value="حذف" />
+                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
                       </div>
                     </form>
                   </div>
