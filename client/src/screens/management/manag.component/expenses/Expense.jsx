@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { detacontext } from '../../../../App';
 import { toast } from 'react-toastify';
@@ -10,98 +10,89 @@ import '../orders/Orders.css'
 const ExpenseItem = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const token = localStorage.getItem('token_e');
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+
+  const {EditPagination, startpagination, endpagination, setstartpagination, setendpagination}= useContext(detacontext)
+
   const [expenseId, setexpenseId] = useState('');
   const [description, setDescription] = useState('');
   const [createAt] = useState(new Date().toLocaleString());
   const [allExpenses, setAllExpenses] = useState([]);
 
+
   const createExpense = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      const response = await axios.post(apiUrl + '/api/expenses/', { description }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(apiUrl + '/api/expenses/', { description }, config);
       console.log(response.data);
       getAllExpenses();
+      toast.success('تم إنشاء المصروف بنجاح');
     } catch (error) {
       console.log(error);
+      toast.error('حدث خطأ أثناء إنشاء المصروف');
     }
   };
-
+  
   const editExpense = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      const response = await axios.put(`${apiUrl}/api/expenses/${expenseId}`, {
-        description
-      }, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.put(`${apiUrl}/api/expenses/${expenseId}`, { description }, config);
       console.log(response.data);
       if (response.status === 200) {
         getAllExpenses();
+        toast.success('تم تعديل المصروف بنجاح');
       }
     } catch (error) {
       console.log(error);
+      toast.error('حدث خطأ أثناء تعديل المصروف');
     }
   };
-
+  
   const deleteExpense = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      const response = await axios.delete(`${apiUrl}/api/expenses/${expenseId}`, {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(`${apiUrl}/api/expenses/${expenseId}`, config);
       if (response.status === 200) {
         console.log(response);
         getAllExpenses();
+        toast.success('تم حذف المصروف بنجاح');
       }
     } catch (error) {
       console.log(error);
+      toast.error('حدث خطأ أثناء حذف المصروف');
     }
   };
-
+  
   const getAllExpenses = async () => {
     try {
-      const token = localStorage.getItem('token_e'); // Retrieve the token from localStorage
-
-      const response = await axios.get(apiUrl + '/api/expenses/', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/expenses/', config);
       const expenses = await response.data.reverse();
       console.log(response.data);
       setAllExpenses(expenses);
     } catch (error) {
       console.log(error);
+      toast.error('حدث خطأ أثناء جلب المصاريف');
     }
   };
-
-  const [fielterlist, setfielterlist] = useState([])
+  
   const searchByExpense = (expense) => {
-    const filter = allExpenses.filter(exp => exp.description.startsWith(expense) == true)
-    setfielterlist(filter)
-  }
+    if (!expense) {
+      getAllExpenses();
+      return;
+    }
+    const filter = allExpenses.filter(exp => exp.description.startsWith(expense));
+    setAllExpenses(filter);
+  };
 
   useEffect(() => {
     getAllExpenses();
   }, []);
 
-  return (
-    <detacontext.Consumer>
-      {({ setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
         return (
           <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
             <div className="table-responsive mt-1">
@@ -290,9 +281,6 @@ const ExpenseItem = () => {
             </div>
           </div>
         );
-      }}
-    </detacontext.Consumer>
-  );
 };
 
 export default ExpenseItem;
