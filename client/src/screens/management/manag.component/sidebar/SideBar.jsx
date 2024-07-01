@@ -224,7 +224,8 @@ const SideBar = () => {
                   )}
 
                   {/* Users */}
-                  {permissionsList?.filter(permission => permission.resource === 'Users')[0]?.read && (
+                  {permissionsList?.filter(permission => permission.resource === 'Users')[0]?.read ||
+                  permissionsList?.filter(permission => permission.resource === 'Message')[0]?.read && (
                     <li ref={arrowRefs.arrowmessage} onClick={() => openSubMenu(arrowRefs.arrowmessage)}>
                       <div className="iocn-link">
                         <a href="#">

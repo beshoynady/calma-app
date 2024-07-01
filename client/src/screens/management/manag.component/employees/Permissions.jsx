@@ -79,19 +79,19 @@ const PermissionsComponent = () => {
           console.log({ permission })
           if (action === 'create') {
             permission.create = !permission.create;
-            if (!permission.create === true) {
+            if (permission.create === true) {
               permission.read = true
             }
           } else if (action === 'update') {
             permission.update = !permission.update;
-            if (!permission.update === true) {
+            if (permission.update === true) {
               permission.read = true
             }
           } else if (action === 'read') {
             permission.read = !permission.read
           } else if (action === 'delete') {
             permission.delete = !permission.delete;
-            if (!permission.delete === true) {
+            if (permission.delete === true) {
               permission.read = true
             }
           }
