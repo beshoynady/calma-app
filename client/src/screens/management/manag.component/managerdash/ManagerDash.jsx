@@ -913,7 +913,7 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header text-light bg-success">
+                        <div className="modal-header text-light bg-primary">
                           <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
@@ -1062,7 +1062,7 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header text-light bg-success">
+                        <div className="modal-header text-light bg-primary">
                           <h4 className="modal-title"></h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
@@ -1205,7 +1205,7 @@ const ManagerDash = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form>
-                        <div className="modal-header text-light bg-success">
+                        <div className="modal-header text-light bg-primary">
                           {/* <h4 className="modal-title"></h4> */}
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <button type="button" className="btn btn-primary" value="طباعه للشيف" onClick={(e) => handlePrintKitchen(e)}>طباعه للشيف</button>

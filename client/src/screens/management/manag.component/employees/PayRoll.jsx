@@ -697,7 +697,7 @@ const PayRoll = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => paidSalary(e, rollId)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">دفع راتب</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

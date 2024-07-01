@@ -438,7 +438,7 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createSupplier}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">إضافة مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -519,7 +519,7 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateSupplier(e)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل مورد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -598,7 +598,7 @@ const Suppliers = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSupplier}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

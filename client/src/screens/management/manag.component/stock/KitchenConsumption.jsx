@@ -493,7 +493,7 @@ const KitchenConsumption = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => addKitchenItem(e)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">اضافه صنف </h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -534,7 +534,7 @@ const KitchenConsumption = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => updateKitchenItem(e)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تسويه الرصيد</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -588,7 +588,7 @@ const KitchenConsumption = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={updateKitchenItem}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

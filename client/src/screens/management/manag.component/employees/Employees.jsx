@@ -512,7 +512,7 @@ const exportToExcel = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => createEmployee(e)}>
-                <div className="modal-header text-light bg-success">
+                <div className="modal-header text-light bg-primary">
                   <h4 className="modal-title">إضافة موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -621,7 +621,7 @@ const exportToExcel = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => editEmployee(e)}>
-                <div className="modal-header text-light bg-success">
+                <div className="modal-header text-light bg-primary">
                   <h4 className="modal-title">تعديل بيانات الموظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -733,7 +733,7 @@ const exportToExcel = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <form className='text-right' onSubmit={(e) => deleteEmployee(e)}>
-                <div className="modal-header text-light bg-success">
+                <div className="modal-header text-light bg-primary">
                   <h4 className="modal-title">حذف موظف</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -754,7 +754,7 @@ const exportToExcel = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form className='text-right' onSubmit={deleteSelectedIds}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف الموظفين المحددين</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

@@ -782,7 +782,7 @@ const PurchaseReturn = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={(e) => createPurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
-              <div className="modal-header text-light bg-success">
+              <div className="modal-header text-light bg-primary">
                 <h4 className="modal-title">تسجيل مرتجع مشتريات</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
@@ -969,7 +969,7 @@ const PurchaseReturn = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => handlePurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -1134,7 +1134,7 @@ const PurchaseReturn = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

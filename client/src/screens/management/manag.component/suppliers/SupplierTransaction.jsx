@@ -410,7 +410,7 @@ const SupplierTransaction = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={handleAddSupplierTransaction}>
-              <div className="modal-header text-light bg-success">
+              <div className="modal-header text-light bg-primary">
                 <h4 className="modal-title">اضافه تعامل جديد</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
@@ -480,7 +480,7 @@ const SupplierTransaction = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => editStockItem(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل صنف بالمخزن</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -552,7 +552,7 @@ const SupplierTransaction = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockItem}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

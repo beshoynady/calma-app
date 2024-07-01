@@ -24,7 +24,7 @@ function InvoiceComponent(props) {
             {/* <div className="modal-dialog">
         <div className="modal-content">
           <form>
-            <div className="modal-header text-light bg-success">
+            <div className="modal-header text-light bg-primary">
               <h4 className="modal-title"></h4>
               <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>

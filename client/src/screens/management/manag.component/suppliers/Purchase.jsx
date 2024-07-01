@@ -734,7 +734,7 @@ const Purchase = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={(e) => createPurchaseInvoice(e, employeeLoginInfo.employeeinfo.id)}>
-              <div className="modal-header text-light bg-success">
+              <div className="modal-header text-light bg-primary">
                 <h4 className="modal-title">اضافه صنف بالمخزن</h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
@@ -899,7 +899,7 @@ const Purchase = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={(e) => handlePurchaseReturn(e, employeeLoginInfo.employeeinfo.id)}>
-              <div className="modal-header text-light bg-success">
+              <div className="modal-header text-light bg-primary">
                 <h4 className="modal-title"></h4>
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
@@ -1064,7 +1064,7 @@ const Purchase = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteStockaction}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

@@ -399,7 +399,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createTable}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">اضافه طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -433,7 +433,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={editTable}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -476,7 +476,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createQR}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
@@ -505,7 +505,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createwebQR}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">استخراج QR</h4>
                       </div>
                       <div className="modal-body">
@@ -534,7 +534,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteTable}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -554,7 +554,7 @@ const deleteTable = async (e) => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف طاولة</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

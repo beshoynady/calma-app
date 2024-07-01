@@ -390,7 +390,7 @@ const Category = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={(e) => createCategory(e, setisLoadiog)}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">اضافه تصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -433,7 +433,7 @@ const Category = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={editCategory}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل التصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -486,7 +486,7 @@ const Category = () => {
                 <div className="modal-dialog ">
                   <div className="modal-content p-1">
                     <form onSubmit={handleOrderCategory}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل التصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -514,7 +514,7 @@ const Category = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteCategory}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف تصنيف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

@@ -550,7 +550,7 @@ const ProductRecipe = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createRecipe}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">اضافه مكون</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -598,7 +598,7 @@ const ProductRecipe = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={editRecipe}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل مكون</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -633,7 +633,7 @@ const ProductRecipe = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteRecipe}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -653,7 +653,7 @@ const ProductRecipe = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteAllRecipe}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف منتج</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

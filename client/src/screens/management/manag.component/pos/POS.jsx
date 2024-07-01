@@ -139,7 +139,7 @@ const POS = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form onSubmit={(e) => { getOrderDetailsBySerial(e, serial) }}>
-                        <div className="modal-header text-light bg-success">
+                        <div className="modal-header text-light bg-primary">
                           <h4 className="modal-title">رقم الفاتوره</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
@@ -167,7 +167,7 @@ const POS = () => {
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <form onSubmit={(e) => { splitInvoice(e) }}>
-                        <div className="modal-header text-light bg-success">
+                        <div className="modal-header text-light bg-primary">
                           <h4 className="modal-title">اختر الطاوله</h4>
                           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
@@ -390,7 +390,7 @@ const POS = () => {
                 <div id="invoiceModal" className="modal fade">
                   <div className="modal-dialog">
                     <div className="modal-content">
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <button className='btn btn-success m-0' onClick={handlePrint}>طباعة</button>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

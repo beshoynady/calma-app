@@ -297,7 +297,7 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -419,7 +419,7 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title"></h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -453,7 +453,7 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">Edit Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -487,7 +487,7 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteOrder}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -507,7 +507,7 @@ const Orders = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteSelectedIds}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">Delete Order</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>

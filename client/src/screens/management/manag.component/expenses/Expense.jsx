@@ -194,7 +194,7 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={createExpense}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">اضافه مصروف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -216,7 +216,7 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={editExpense}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">تعديل صنف بالمخزن</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -239,7 +239,7 @@ const ExpenseItem = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={deleteExpense}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">حذف منتج</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>

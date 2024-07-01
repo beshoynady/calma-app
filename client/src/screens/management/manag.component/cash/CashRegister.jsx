@@ -293,7 +293,7 @@ const CashRegister = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={createCashRegister}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">اضافه خزينه</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -326,7 +326,7 @@ const CashRegister = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={updateCashRegister}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">تعديل التصنيف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -358,7 +358,7 @@ const CashRegister = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={deleteCashRegister}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">حذف تصنيف</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -378,7 +378,7 @@ const CashRegister = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <form onSubmit={deleteSelectedIds}>
-                    <div className="modal-header text-light bg-success">
+                    <div className="modal-header text-light bg-primary">
                       <h4 className="modal-title">حذف الخزن المحدده</h4>
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>

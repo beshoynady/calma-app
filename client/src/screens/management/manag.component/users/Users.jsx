@@ -322,7 +322,7 @@ const Users = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={createuserloyee}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">اضافه موظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -395,7 +395,7 @@ const Users = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={handleUpdateUser}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">تعديل بيانات العملاء</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
@@ -494,7 +494,7 @@ const Users = () => {
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={deleteuserloyee}>
-                      <div className="modal-header text-light bg-success">
+                      <div className="modal-header text-light bg-primary">
                         <h4 className="modal-title">حذف موظف</h4>
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
