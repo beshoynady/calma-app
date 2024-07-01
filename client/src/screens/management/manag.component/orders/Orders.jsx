@@ -180,7 +180,7 @@ const Orders = () => {
                         <div class="filter-group">
                           <label>رقم الفاتورة</label>
                           <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
-                          {/* <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button> */}
+                         
                         </div>
                       </div>
                       <div class="col">

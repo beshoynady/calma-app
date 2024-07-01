@@ -296,7 +296,7 @@ const DailyExpense = () => {
                   </select>
                   <span>صفوف</span>
                 </div>
-                <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                
                 <div class="filter-group">
                   <label>اسم المصروف</label>
                   <input type="text" class="form-control" onChange={(e) => searchByDailyExpense(e.target.value)} />

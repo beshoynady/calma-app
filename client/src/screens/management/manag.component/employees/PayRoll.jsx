@@ -555,7 +555,7 @@ const PayRoll = () => {
                         <div class="filter-group">
                           <label>الاسم</label>
                           <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
-                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                          
                         </div>
                         <div class="filter-group">
                           <label>الوظيفه</label>

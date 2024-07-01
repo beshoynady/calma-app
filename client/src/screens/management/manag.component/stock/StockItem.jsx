@@ -262,7 +262,7 @@ const StockItem = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        {/* <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                        {/* 
                         <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />

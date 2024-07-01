@@ -331,7 +331,7 @@ const Suppliers = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                        
                         <div class="filter-group">
                           <label>اسم المورد</label>
                           <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />

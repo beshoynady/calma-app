@@ -99,7 +99,7 @@ const CustomerMessage = () => {
                         <div class="filter-group">
                           <label>الموبايل</label>
                           <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
-                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                          
                         </div>
                         {/*
                         <div class="filter-group">

@@ -169,7 +169,7 @@ const CategoryStock = () => {
                         <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategoryStock(e.target.value)} />
-                          <button type="button" class="btn w-50 btn-primary"><i class="fa fa-search"></i></button>
+                          
                         </div>
                         {/* <div class="filter-group">
                           <label>Location</label>
