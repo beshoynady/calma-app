@@ -387,11 +387,11 @@ const exportToExcel = () => {
                 </select>
                 <span>عنصر</span>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                 <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوظيفة</label>
                 <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
@@ -402,7 +402,7 @@ const exportToExcel = () => {
                   <option value="Chef">شيف</option>
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الشيفت</label>
                 <select className="form-select" onChange={(e) => getEmployeesByShift(e.target.value)} >
                   <option value="all">الكل</option>
@@ -412,7 +412,7 @@ const exportToExcel = () => {
 
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحالة</label>
                 <select className="form-select" onChange={(e) => filterEmpByStatus(e.target.value)} >
                   <option value="all">الكل</option>

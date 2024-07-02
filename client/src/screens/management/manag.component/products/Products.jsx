@@ -386,13 +386,13 @@ const Products = () => {
                 <div className="col-md-9">
                   <div className="row">
                     <div className="col-md-6">
-                      <div className="filter-group">
+                      <div className="filter-group d-flex align-items-center justify-content-between">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                         <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div className="filter-group">
+                      <div className="filter-group d-flex align-items-center justify-content-between">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
                         <select className="form-select" onChange={(e) => getemployeesByCategory(e.target.value)} >
                           <option value={""}>الكل</option>
@@ -408,7 +408,7 @@ const Products = () => {
               </div>
               <div className="row text-dark">
                 <div className="col-md-8">
-                  {/* <div className="filter-group"> */}
+                  {/* <div className="filter-group d-flex align-items-center justify-content-between"> */}
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">عدد المبيعات في فتره محدده</label>
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">بداية التاريخ</label>
                   <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />

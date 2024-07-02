@@ -422,7 +422,7 @@ const AttendanceManagement = () => {
           </div>
           <div className="table-filter w-100">
             <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-start text-dark">
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <div className="show-entries">
                   <span>عرض</span>
                   <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
@@ -436,7 +436,7 @@ const AttendanceManagement = () => {
                   <span>صفوف</span>
                 </div>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع السجل</label>
                 <select className="form-select" onChange={(e) => searchByStatus(e.target.value)}>
                   <option value="">الكل</option>
@@ -445,11 +445,11 @@ const AttendanceManagement = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                 <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوظيفة</label>
                 <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
@@ -459,7 +459,7 @@ const AttendanceManagement = () => {
                   <option value="Chef">شيف</option>
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الشيفت</label>
                 <select className="form-select" onChange={(e) => getRecordsByShift(e.target.value)} >
                   <option value="all">الكل</option>
@@ -470,7 +470,7 @@ const AttendanceManagement = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallAttendanceRecords(filterByTime(e.target.value, allAttendanceRecords))}>
                     <option value="">اختر</option>

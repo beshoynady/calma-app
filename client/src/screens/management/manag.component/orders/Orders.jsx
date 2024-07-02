@@ -177,14 +177,14 @@ const Orders = () => {
                         </div>
                       </div>
                       <div class="col">
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الفاتورة</label>
                           <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
                          
                         </div>
                       </div>
                       <div class="col">
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -193,7 +193,7 @@ const Orders = () => {
                             <option value="Takeaway" >Takeaway</option>
                           </select>
                         </div>
-                        {/* <div class="filter-group">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
                   <select class="form-control">
                     <option>Any</option>

@@ -405,11 +405,11 @@ const StockManag = () => {
                       </div>
                       <div class="col-sm-9">
                         
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -419,7 +419,7 @@ const StockManag = () => {
                           </select>
                         </div>
 
-                        {/* <div class="filter-group">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Location</label>
                           <select class="form-control">
                             <option>All</option>
@@ -430,7 +430,7 @@ const StockManag = () => {
                             <option>Paris</option>
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
                           <select class="form-control">
                             <option>Any</option>
@@ -523,7 +523,7 @@ const StockManag = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="filter-group">
+                        <div className="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الحركه</label>
                           <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
                             <option >اختر الاجراء</option>

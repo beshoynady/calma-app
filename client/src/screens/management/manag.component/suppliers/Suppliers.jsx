@@ -332,11 +332,11 @@ const Suppliers = () => {
                       </div>
                       <div class="col-sm-9">
                         
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم المورد</label>
                           <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
                         </div>
-                        {/* <div class="filter-group">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -346,7 +346,7 @@ const Suppliers = () => {
                             <option value="Wastage" >Wastage</option>
                           </select>
                         </div> */}
-                        {/* <div class="filter-group">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Location</label>
                           <select class="form-control">
                             <option>All</option>
@@ -357,7 +357,7 @@ const Suppliers = () => {
                             <option>Paris</option>
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
                           <select class="form-control">
                             <option>Any</option>

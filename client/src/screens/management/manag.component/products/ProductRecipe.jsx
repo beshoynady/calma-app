@@ -426,7 +426,7 @@ const ProductRecipe = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
                           <select class="form-control" onChange={(e) => getproductByCategory(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -436,7 +436,7 @@ const ProductRecipe = () => {
                             }
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المنتج</label>
                           <select class="form-control" onChange={(e) => handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -447,7 +447,7 @@ const ProductRecipe = () => {
                           </select>
                         </div>
                         {sizes.length > 0 ?
-                          <div className="filter-group">
+                          <div className="filter-group d-flex align-items-center justify-content-between">
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحجم</label>
                             <select className="form-select" onChange={(e) => handleSelectedProductSize(e.target.value)} >
                               <option value="">اختر حجم</option>
@@ -457,11 +457,11 @@ const ProductRecipe = () => {
                             </select>
                           </div>
                           : ""}
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اجمالي التكاليف</label>
                           <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />
                         </div>
-                        {/* <div class="filter-group">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
                   <select class="form-control">
                     <option>Any</option>

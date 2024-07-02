@@ -617,11 +617,11 @@ const Purchase = () => {
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">صفوف</label>
               </div>
               <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الصنف</label>
                 <input type="text" className="form-control" onChange={(e) => searchByitem(e.target.value)} />
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
                 <select className="form-select" onChange={(e) => searchByaction(e.target.value)} >
                   <option value={""}>الكل</option>
@@ -631,7 +631,7 @@ const Purchase = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallPurchaseInvoice(filterByTime(e.target.value, allPurchaseInvoice))}>
                     <option value="">اختر</option>

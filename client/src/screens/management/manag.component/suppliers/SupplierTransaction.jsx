@@ -219,7 +219,7 @@ const SupplierTransaction = () => {
                 </select>
                 <span>صفوف</span>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label htmlFor="supplierSelect">المورد</label>
                 <select
                   className="form-select"
@@ -232,7 +232,7 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label htmlFor="transactionTypeSelect">نوع العملية</label>
                 <select
                   className="form-select"
@@ -245,7 +245,7 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label htmlFor="invoiceNumberSelect">رقم الفاتورة</label>
                 <select
                   className="form-select"
@@ -265,7 +265,7 @@ const SupplierTransaction = () => {
               </div>
 
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllSupplierTransaction(filterByTime(e.target.value, AllSupplierTransaction))}>
                     <option value="">اختر</option>

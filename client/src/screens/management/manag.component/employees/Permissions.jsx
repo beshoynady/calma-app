@@ -291,12 +291,12 @@ const PermissionsComponent = () => {
                   <div className="table-filter print-hide">
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
-                        <div className="filter-group" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesByName(e.target.value)} />
                           {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
-                        <div className="filter-group" style={{ minWidth: '40%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '40%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الموظف</label>
                           <select className="form-select" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
@@ -307,12 +307,12 @@ const PermissionsComponent = () => {
                         </div>
                       </div>
                       <div className='d-flex'>
-                        <div className="filter-group" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الموظف</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.fullname : ''} readOnly />
                         </div>
 
-                        <div className="filter-group" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوظية</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.role : ''} readOnly />
                         </div>

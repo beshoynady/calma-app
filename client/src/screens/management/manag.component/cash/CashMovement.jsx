@@ -429,7 +429,7 @@ const CashMovement = () => {
                 </select>
                 <span>صفوف</span>
               </div>
-              <div class="filter-group">
+              <div class="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع العملية</label>
                 <select class="form-control" onChange={(e) => filterByType(e.target.value)} >
                   <option value={""}>الكل</option>
@@ -439,7 +439,7 @@ const CashMovement = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllCashMovement(filterByTime(e.target.value, AllCashMovement))}>
                     <option value="">اختر</option>
@@ -647,7 +647,7 @@ const CashMovement = () => {
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوصف</label>
                   <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
                 </div>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الخزينه المحول اليها</label>
                   <select className="form-select" onChange={(e) => setreceivRegister(e.target.value)}>
                     <option value={""}>اختر</option>

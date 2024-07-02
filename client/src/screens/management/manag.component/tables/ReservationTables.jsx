@@ -133,7 +133,7 @@ const ReservationTables = () => {
                         </div>
                       </div>
                       {/* <div class="col-sm-9">
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الطاولة</label>
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
                         </div>

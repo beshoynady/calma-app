@@ -714,14 +714,14 @@ const ManagerDash = () => {
                           </div>
                         </div>
                         <div className="col">
-                          <div className="filter-group" style={{ width: '100%' }}>
+                          <div className="filter-group d-flex align-items-center justify-content-between" style={{ width: '100%' }}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الفاتورة</label>
                             <input type="text" className="form-control" onChange={(e) => searchBySerial(e.target.value)} />
                             {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                           </div>
                         </div>
                         <div className="col">
-                          <div className="filter-group" style={{ width: '100%' }}>
+                          <div className="filter-group d-flex align-items-center justify-content-between" style={{ width: '100%' }}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
                             <select className="form-select" onChange={(e) => getOrdersByType(e.target.value)} >
                               <option value={""}>الكل</option>

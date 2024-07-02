@@ -552,12 +552,12 @@ const PayRoll = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                           <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
                           
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوظيفه</label>
                           <select class="form-control" onChange={(e) => filterEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
@@ -568,7 +568,7 @@ const PayRoll = () => {
                             <option value="deliveryman">ديليفري</option>
                           </select>
                         </div>
-                        <div class="filter-group">
+                        <div class="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحالة</label>
                           <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)}>
                             <option >الكل</option>
@@ -576,7 +576,7 @@ const PayRoll = () => {
                             <option value={false}>غير متاح</option>
                           </select>
                         </div>
-                        <div className="filter-group">
+                        <div className="filter-group d-flex align-items-center justify-content-between">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الشهر</label>
                           <select className="form-select" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>

@@ -122,12 +122,12 @@ const ExpenseItem = () => {
                         </select>
                         <span>صفوف</span>
                       </div>                      
-                      <div class="filter-group">
+                      <div class="filter-group d-flex align-items-center justify-content-between">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم المصروف</label>
                         <input type="text" class="form-control" onChange={(e) => searchByExpense(e.target.value)} />
                       </div>
                       <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllExpenses(filterByTime(e.target.value, allExpenses))}>
                     <option value="">اختر</option>

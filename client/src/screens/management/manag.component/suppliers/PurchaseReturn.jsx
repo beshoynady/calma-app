@@ -634,7 +634,7 @@ const PurchaseReturn = () => {
                 </select>
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">صفوف</label>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الفاتورة</label>
                 <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
                   <option value="all">الكل</option>
@@ -643,7 +643,7 @@ const PurchaseReturn = () => {
                   })}
                 </select>
               </div>
-              <div className="filter-group">
+              <div className="filter-group d-flex align-items-center justify-content-between">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المورد</label>
                 <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
                   <option value="all">الكل</option>
@@ -653,7 +653,7 @@ const PurchaseReturn = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group">
+                <div className="filter-group d-flex align-items-center justify-content-between">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallPurchasesReturn(filterByTime(e.target.value, allPurchasesReturn))}>
                     <option value="">اختر</option>
