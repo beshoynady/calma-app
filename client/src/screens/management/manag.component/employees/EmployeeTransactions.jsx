@@ -203,11 +203,11 @@ const EmployeeTransactions = () => {
                 <span>عنصر</span>
               </div>
               <div className="filter-group d-flex flex-nowrap">
-                <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                 <input type="text" className="form-control" />
               </div>
               <div className="filter-group d-flex flex-nowrap">
-                <label className="col-4 fs-5 text-nowrap fw-bold ">الموظف</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الموظف</label>
                 <select className="form-select" onChange={(e) => getEmployeeTransactionsByEmp(e.target.value)}>
                   <option>الكل</option>
                   {allEmployees.map((employee, i) => (
@@ -216,7 +216,7 @@ const EmployeeTransactions = () => {
                 </select>
               </div>
               <div className="filter-group d-flex flex-nowrap">
-                <label className="col-4 fs-5 text-nowrap fw-bold ">العملية</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">العملية</label>
                 <select className="form-select" onChange={(e) => filterEmployeeTransactions(e.target.value)}>
                   <option>الكل</option>
                   {listofTransactions.map((transaction, i) => (
@@ -228,7 +228,7 @@ const EmployeeTransactions = () => {
 
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setlistofEmployeeTransactions(filterByTime(e.target.value, listofEmployeeTransactions))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -334,7 +334,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                   <select form="carform" required onChange={(e) => {
                     setemployeeName(allEmployees ? allEmployees.find(employee => employee._id == e.target.value).fullname : "");
                     setemployeeId(e.target.value);
@@ -350,7 +350,7 @@ const EmployeeTransactions = () => {
                   </select>
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">التعامل</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التعامل</label>
                   <select form="carform" required onChange={(e) => { filterCurrentEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                     <option>اختر</option>
                     {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
@@ -362,23 +362,23 @@ const EmployeeTransactions = () => {
                 </div>
 
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المبلغ</label>
                   <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الرصيد</label>
                   <input type="number" className="form-control" value={oldAmount > 0 ? oldAmount : 0} readOnly />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الاجمالي</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاجمالي</label>
                   <input type="number" className="form-control" readOnly defaultValue={newAmount} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">بواسطه</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">بواسطه</label>
                   <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التاريخ</label>
                   <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>
@@ -401,7 +401,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                   <select form="carform" defaultValue={employeeName} required onChange={(e) => { setemployeeName(allEmployees.find(employee => employee._id == e.target.value).fullname); setemployeeId(e.target.value); filterEmployeeTransactions(e.target.value) }}>
                     <option>اختر</option>
                     {allEmployees.length > 0 ? allEmployees.map(employee => {
@@ -412,7 +412,7 @@ const EmployeeTransactions = () => {
                   </select>
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الحركه</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحركه</label>
                   <select form="carform" defaultValue={transactionType} required onChange={(e) => { filterCurrentEmployeeTransactions(e.target.value); settransactionType(e.target.value) }}>
                     <option>اختر</option>
                     {listofTransactions.length > 0 ? listofTransactions.map((transaction, i) => {
@@ -423,23 +423,23 @@ const EmployeeTransactions = () => {
                   </select>
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المبلغ</label>
                   <input type="Number" className="form-control" defaultValue={Amount} required onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ السابق</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المبلغ السابق</label>
                   <input type="Number" className="form-control" Value={oldAmount > 0 ? oldAmount : 0} readOnly />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">الاجمالي</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاجمالي</label>
                   <input type="Number" className="form-control" readOnly defaultValue={newAmount} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">بواسطة</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">بواسطة</label>
                   <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
-                  <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التاريخ</label>
                   <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>

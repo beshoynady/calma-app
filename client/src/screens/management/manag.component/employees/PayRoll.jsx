@@ -553,12 +553,12 @@ const PayRoll = () => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
                           <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
                           
                         </div>
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الوظيفه</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوظيفه</label>
                           <select class="form-control" onChange={(e) => filterEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
                             <option value="manager">مدير</option>
@@ -569,7 +569,7 @@ const PayRoll = () => {
                           </select>
                         </div>
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحالة</label>
                           <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)}>
                             <option >الكل</option>
                             <option value={true}>متاح</option>
@@ -577,7 +577,7 @@ const PayRoll = () => {
                           </select>
                         </div>
                         <div className="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الشهر</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الشهر</label>
                           <select className="form-select" onChange={(e) => { setthismonth(e.target.value); console.log(e.target.value) }}>
                             <option>الكل</option>
                             {months.length > 0 ? months.map((month, i) => (

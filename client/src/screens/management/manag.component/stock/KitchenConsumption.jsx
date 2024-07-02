@@ -351,19 +351,19 @@ const KitchenConsumption = () => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التاريخ</label>
                           <input id="dateInput"
                             type="date"
                             value={date} class="form-control" onChange={handleDateChange} />
                         </div>
 
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم الصنف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByKitchenConsumption(e.target.value)} />
                         </div>
 
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">اختر الصنف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اختر الصنف</label>
                           <select class="form-control" onChange={(e) => searchByKitchenConsumption(e.target.value)} >
                             <option value={""}>الكل</option>
                             {filteredKitchenConsumptionToday.map((consumption) => {
@@ -372,7 +372,7 @@ const KitchenConsumption = () => {
                           </select>
                         </div>
                         {/* <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">Location</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Location</label>
                           <select class="form-control">
                             <option>All</option>
                             <option>Berlin</option>
@@ -383,7 +383,7 @@ const KitchenConsumption = () => {
                           </select>
                         </div>
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">Status</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
                           <select class="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
@@ -500,7 +500,7 @@ const KitchenConsumption = () => {
                       <div className="modal-body">
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الصنف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الصنف</label>
                           <select name="category" id="category" form="carform" onChange={(e) => { setstockItemId(e.target.value); setunit(AllStockItems.filter(stock => stock._id == e.target.value)[0].smallUnit); setcreatedBy(employeeLoginInfo.employeeinfo.id); setstockItemName(AllStockItems.filter(it => it._id == e.target.value)[0].itemName) }}>
                             <option>اختر الصنف</option>
                             {AllStockItems.map((StockItems, i) => {
@@ -510,15 +510,15 @@ const KitchenConsumption = () => {
                           </select>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">رصيد محول</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رصيد محول</label>
                           <input type='Number' className="form-control" required onChange={(e) => setquantityTransferredToKitchen(Number(e.target.value))} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الوحدة </label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوحدة </label>
                           <input type='text' className="form-control" required defaultValue={unit}></input>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التاريخ</label>
                           <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
                         </div>
                       </div>
@@ -540,37 +540,37 @@ const KitchenConsumption = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم الصنف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الصنف</label>
                           <input type="text" className="form-control" defaultValue={stockItemName} required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الكمية المستلمة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الكمية المستلمة</label>
                           <input type="text" className="form-control" defaultValue={quantityTransferredToKitchen} required readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الكمية المستهلكه</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الكمية المستهلكه</label>
                           <input type="text" className="form-control" defaultValue={consumptionQuantity} required readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد الدفتري</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الرصيد الدفتري</label>
                           <input type="text" className="form-control" defaultValue={bookBalance} required readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد الفعلي</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الرصيد الفعلي</label>
                           <input type="Number" className="form-control" required onChange={(e) => {
                             setadjustment(Number(e.target.value) - bookBalance); setactualBalance(e.target.value)
                           }} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">التسويه</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التسويه</label>
                           <input type="text" className="form-control" defaultValue={adjustment} required readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">الوحدة </label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوحدة </label>
                           <input type='text' className="form-control" defaultValue={unit} required></input>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التاريخ</label>
                           <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
                         </div>
                       </div>
