@@ -196,13 +196,13 @@ const Users = () => {
                 <span>عنصر</span>
               </div>
               <div class="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">الموبايل</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">الموبايل</label>
                 <input type="text" class="form-control" onChange={(e) => getUserByPhone(e.target.value)} />
 
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group">
-                  <label className="col-4 fs-5 text fw-bold ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllUsers(filterByTime(e.target.value, AllUsers))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -321,38 +321,38 @@ const Users = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setusername(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid name.</div>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">اسم المستخدم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم المستخدم</label>
                           <input type="text" className="form-control" required onChange={(e) => setusername(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الموبايل</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الموبايل</label>
                           <input type="text" className="form-control" required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid phone number (11 digits).</div>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الباسورد</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الباسورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الرقم القومي</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الرقم القومي</label>
                           <input type="text" className="form-control" required onChange={(e) => setnumberID(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الايميل</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الايميل</label>
                           <input type="email" className="form-control" required onChange={(e) => setemail(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid email address.</div>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">العنوان</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">العنوان</label>
                           <textarea className="form-control" required onChange={(e) => setaddress(e.target.value)}></textarea>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الحالة</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
                           <select form="carform" required onChange={(e) => setisActive(e.target.value)}>
                             <option >اختر</option>
                             <option value={true}>متاح</option>
@@ -360,7 +360,7 @@ const Users = () => {
                           </select>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الوظيفه</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الوظيفه</label>
                           <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
                             <option value="manager">مدير</option>
@@ -371,7 +371,7 @@ const Users = () => {
                           </select>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">المرتب الاساسي</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">المرتب الاساسي</label>
                           <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid salary.</div>
                         </div>
@@ -394,7 +394,7 @@ const Users = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                   <input
                     type="text"
                     className="form-control"
@@ -406,7 +406,7 @@ const Users = () => {
                   <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">الموبايل</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الموبايل</label>
                   <input
                     type="text"
                     className="form-control"
@@ -418,7 +418,7 @@ const Users = () => {
                   <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">الباسورد</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الباسورد</label>
                   <input
                     type="password"
                     className="form-control"
@@ -426,7 +426,7 @@ const Users = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">الايميل</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الايميل</label>
                   <input
                     type="email"
                     className="form-control"
@@ -437,7 +437,7 @@ const Users = () => {
                   <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">العنوان</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">العنوان</label>
                   <textarea
                     className="form-control"
                     value={address}
@@ -446,7 +446,7 @@ const Users = () => {
                   ></textarea>
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">الحالة</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
                   <select
                     className="form-control"
                     value={isActive}
@@ -459,7 +459,7 @@ const Users = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label className="col-4 fs-5 text fw-bold ">المنطقة</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">المنطقة</label>
                   <select
                     name="area"
                     className="form-control"

@@ -314,7 +314,7 @@ const Category = () => {
                       <div class="col-sm-9">
                         
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text fw-bold ">اسم التصنيف</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم التصنيف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
                         </div>
 
@@ -396,7 +396,7 @@ const Category = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input
                             type="text"
                             className="form-control"
@@ -407,7 +407,7 @@ const Category = () => {
                           />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الحالة</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
                           <select
                             className="form-control"
                             value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
@@ -439,7 +439,7 @@ const Category = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input
                             type="text"
                             className="form-control"
@@ -450,7 +450,7 @@ const Category = () => {
                           />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">الحالة</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
                           <select
                             className="form-control"
                             value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
@@ -463,7 +463,7 @@ const Category = () => {
                         </div>
 
                         {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-5 text fw-bold ">
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">
                             <input
                               type="checkbox"
                               checked={isMain}

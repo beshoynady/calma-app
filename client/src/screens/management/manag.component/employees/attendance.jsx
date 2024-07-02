@@ -437,7 +437,7 @@ const AttendanceManagement = () => {
                 </div>
               </div>
               <div className="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">نوع السجل</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">نوع السجل</label>
                 <select className="form-select" onChange={(e) => searchByStatus(e.target.value)}>
                   <option value="">الكل</option>
                   {listOfStatus.map((statu, i) => (
@@ -446,11 +446,11 @@ const AttendanceManagement = () => {
                 </select>
               </div>
               <div className="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                 <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
               <div className="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">الوظيفة</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">الوظيفة</label>
                 <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value="manager">مدير</option>
@@ -460,7 +460,7 @@ const AttendanceManagement = () => {
                 </select>
               </div>
               <div className="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">الشيفت</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">الشيفت</label>
                 <select className="form-select" onChange={(e) => getRecordsByShift(e.target.value)} >
                   <option value="all">الكل</option>
                   {shifts ? shifts.map((shift, i) =>
@@ -471,7 +471,7 @@ const AttendanceManagement = () => {
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group">
-                  <label className="col-4 fs-5 text fw-bold ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallAttendanceRecords(filterByTime(e.target.value, allAttendanceRecords))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -604,7 +604,7 @@ const AttendanceManagement = () => {
               <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الحالي</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الحالي</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -614,7 +614,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                     <select
                       className="form-control border-primary"
                       required
@@ -628,7 +628,7 @@ const AttendanceManagement = () => {
                     </select>
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الشيفت</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الشيفت</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -638,7 +638,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الوصول</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الوصول</label>
                     <input
                       type="datetime-local"
                       className="form-control border-primary"
@@ -648,7 +648,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">نوع السجل</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">نوع السجل</label>
                     <select
                       className="form-control border-primary"
                       required
@@ -663,7 +663,7 @@ const AttendanceManagement = () => {
                     </select>
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">دقائق التأخر</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">دقائق التأخر</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -673,7 +673,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12">
-                    <label className="col-4 fs-5 text fw-bold ">ملاحظات</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">ملاحظات</label>
                     <textarea
                       className="form-control border-primary"
                       name="notes"
@@ -703,7 +703,7 @@ const AttendanceManagement = () => {
               <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -713,7 +713,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الشيفت</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الشيفت</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -723,7 +723,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الانصراف</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الانصراف</label>
                     <input
                       type="datetime-local"
                       className="form-control border-primary"
@@ -733,7 +733,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">دقائق التجاوز</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">دقائق التجاوز</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -743,7 +743,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12">
-                    <label className="col-4 fs-5 text fw-bold ">ملاحظات</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">ملاحظات</label>
                     <textarea
                       className="form-control border-primary"
                       name="notes"
@@ -773,7 +773,7 @@ const AttendanceManagement = () => {
               <div className="modal-body p-4 text-right">
                 <div className="row">
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الحالي</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الحالي</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -783,11 +783,11 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                     <input type="text" className="form-control border-primary" readOnly defaultValue={recordToUpdate?.employee?.fullname || ''} />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الشيفت</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الشيفت</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -797,7 +797,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الوصول</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الوصول</label>
                     <input
                       type="datetime-local"
                       className="form-control border-primary"
@@ -807,7 +807,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">تاريخ الانصراف</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">تاريخ الانصراف</label>
                     <input
                       type="datetime-local"
                       className="form-control border-primary"
@@ -817,7 +817,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">الحالة</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">الحالة</label>
                     <select
                       className="form-control border-primary"
                       required
@@ -832,7 +832,7 @@ const AttendanceManagement = () => {
                     </select>
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">دقائق التجاوز</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">دقائق التجاوز</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -842,7 +842,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12 col-md-6">
-                    <label className="col-4 fs-5 text fw-bold ">دقائق التأخر</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">دقائق التأخر</label>
                     <input
                       type="text"
                       className="form-control border-primary"
@@ -852,7 +852,7 @@ const AttendanceManagement = () => {
                     />
                   </div>
                   <div className="form-group col-12">
-                    <label className="col-4 fs-5 text fw-bold ">ملاحظات</label>
+                    <label className="col-4 fs-5 text-nowrap fw-bold ">ملاحظات</label>
                     <textarea
                       className="form-control border-primary"
                       name="notes"

@@ -292,12 +292,12 @@ const PermissionsComponent = () => {
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
                         <div className="filter-group" style={{ minWidth: '35%' }}>
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesByName(e.target.value)} />
                           {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
                         <div className="filter-group" style={{ minWidth: '40%' }}>
-                          <label className="col-4 fs-5 text fw-bold ">الموظف</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الموظف</label>
                           <select className="form-select" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
                             {listOfEmployees && listOfEmployees.map((employee, i) => (
@@ -308,12 +308,12 @@ const PermissionsComponent = () => {
                       </div>
                       <div className='d-flex'>
                         <div className="filter-group" style={{ minWidth: '35%' }}>
-                          <label className="col-4 fs-5 text fw-bold ">اسم الموظف</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم الموظف</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.fullname : ''} readOnly />
                         </div>
 
                         <div className="filter-group" style={{ minWidth: '35%' }}>
-                          <label className="col-4 fs-5 text fw-bold ">الوظية</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الوظية</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.role : ''} readOnly />
                         </div>
                       </div>

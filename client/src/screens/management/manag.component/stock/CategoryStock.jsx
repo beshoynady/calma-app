@@ -171,12 +171,12 @@ const CategoryStock = () => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text fw-bold ">اسم الصنف</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategoryStock(e.target.value)} />
                           
                         </div>
                         {/* <div class="filter-group">
-                          <label className="col-4 fs-5 text fw-bold ">Location</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">Location</label>
                           <select class="form-control">
                             <option>All</option>
                             <option>Berlin</option>
@@ -187,7 +187,7 @@ const CategoryStock = () => {
                           </select>
                         </div>
                         <div class="filter-group">
-                          <label className="col-4 fs-5 text fw-bold ">Status</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">Status</label>
                           <select class="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
@@ -269,7 +269,7 @@ const CategoryStock = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 ">
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
                       </div>
@@ -291,7 +291,7 @@ const CategoryStock = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 ">
-                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
+                          <label className="col-4 fs-5 text-nowrap fw-bold ">الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
                       </div>

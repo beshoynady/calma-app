@@ -430,7 +430,7 @@ const CashMovement = () => {
                 <span>صفوف</span>
               </div>
               <div class="filter-group">
-                <label className="col-4 fs-5 text fw-bold ">نوع العملية</label>
+                <label className="col-4 fs-5 text-nowrap fw-bold ">نوع العملية</label>
                 <select class="form-control" onChange={(e) => filterByType(e.target.value)} >
                   <option value={""}>الكل</option>
                   {cashMovementTypeEn.map((type, i) => {
@@ -440,7 +440,7 @@ const CashMovement = () => {
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group">
-                  <label className="col-4 fs-5 text fw-bold ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllCashMovement(filterByTime(e.target.value, AllCashMovement))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -567,20 +567,20 @@ const CashMovement = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">المبلغ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ</label>
                   <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الرصيد</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد</label>
                   <input type='text' className="form-control" Value={balance} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الوصف</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الوصف</label>
                   <textarea className="form-control" onChange={(e) => setDescription(e.target.value)}
                     required />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">التاريخ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
                   <input type="text" className="form-control" value={formatDate(new Date())} readOnly />
                 </div>
               </div>
@@ -602,19 +602,19 @@ const CashMovement = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">المبلغ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ</label>
                   <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الرصيد</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد</label>
                   <input type='text' className="form-control" Value={balance} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الوصف</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الوصف</label>
                   <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">التاريخ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
                   <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                 </div>
               </div>
@@ -636,19 +636,19 @@ const CashMovement = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">المبلغ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">المبلغ</label>
                   <input type='text' className="form-control" required onChange={(e) => setAmount(parseFloat(e.target.value))} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الرصيد</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الرصيد</label>
                   <input type='text' className="form-control" Value={balance} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">الوصف</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الوصف</label>
                   <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
                 </div>
                 <div className="filter-group">
-                  <label className="col-4 fs-5 text fw-bold ">الخزينه المحول اليها</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">الخزينه المحول اليها</label>
                   <select className="form-select" onChange={(e) => setreceivRegister(e.target.value)}>
                     <option value={""}>اختر</option>
                     {AllCashRegisters.map((regsite, i) => (
@@ -657,7 +657,7 @@ const CashMovement = () => {
                   </select>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-5 text fw-bold ">التاريخ</label>
+                  <label className="col-4 fs-5 text-nowrap fw-bold ">التاريخ</label>
                   <input type="text" className="form-control" Value={formatDate(new Date())} readOnly />
                 </div>
               </div>
