@@ -621,7 +621,7 @@ const PurchaseReturn = () => {
             <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
               <div className="show-entries">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عرض</label>
-                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   {
                     (() => {
                       const options = [];
@@ -634,18 +634,18 @@ const PurchaseReturn = () => {
                 </select>
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">صفوف</label>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الفاتورة</label>
-                <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => searchByInvoice(e.target.value)} >
                   <option value="all">الكل</option>
                   {allPurchaseInvoice.map(PurchaseInvoice => {
                     return <option value={PurchaseInvoice._id}>{PurchaseInvoice.invoiceNumber}</option>;
                   })}
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المورد</label>
-                <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => searchBySupplier(e.target.value)} >
                   <option value="all">الكل</option>
                   {AllSuppliers.map(Supplier => {
                     return <option value={Supplier._id}>{Supplier.name}</option>;
@@ -653,9 +653,9 @@ const PurchaseReturn = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setallPurchasesReturn(filterByTime(e.target.value, allPurchasesReturn))}>
+                  <select className="form-select col-8" onChange={(e) => setallPurchasesReturn(filterByTime(e.target.value, allPurchasesReturn))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -798,7 +798,7 @@ const PurchaseReturn = () => {
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="supplierSelect">فاتورة المرتجع</span>
-                          <select required className="form-select" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
+                          <select required className="form-select col-8" id="originalInvoiceInput" onChange={(e) => handleInvoice(e.target.value)}>
                             <option>اختر الفاتورة</option>
                             {allPurchaseInvoice.map((Invoice, i) => (
                               <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>
@@ -890,7 +890,7 @@ const PurchaseReturn = () => {
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="refundMethod">طريقة السداد</span>
                           <select
-                            className="form-select"
+                            className="form-select col-8"
                             id="refundMethod"
                             onChange={(e) => setrefundMethod(e.target.value)}
                             value={refundMethod}
@@ -984,7 +984,7 @@ const PurchaseReturn = () => {
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                                  <select required className="form-select col-8" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                                     <option>اختر المورد</option>
                                     {AllSuppliers.map((supplier, i) => (
                                       <option value={supplier._id} key={i}>{supplier.name}</option>
@@ -1029,7 +1029,7 @@ const PurchaseReturn = () => {
                                   <tr id="TRow" key={i}>
                                     <th scope="row">{i + 1}</th>
                                     <td>
-                                      <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
+                                      <select className="form-select col-8" required onChange={(e) => handleItemId(e.target.value, i)}>
                                         <option value="">
                                           {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                         </option>

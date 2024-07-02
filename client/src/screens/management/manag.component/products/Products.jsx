@@ -372,7 +372,7 @@ const Products = () => {
                 <div className="col-md-3">
                   <div className="show-entries">
                     <span>عرض</span>
-                    <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                    <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                       <option value={5}>5</option>
                       <option value={10}>10</option>
                       <option value={15}>15</option>
@@ -386,15 +386,15 @@ const Products = () => {
                 <div className="col-md-9">
                   <div className="row">
                     <div className="col-md-6">
-                      <div className="filter-group d-flex align-items-center justify-content-between">
+                      <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                         <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div className="filter-group d-flex align-items-center justify-content-between">
+                      <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
-                        <select className="form-select" onChange={(e) => getemployeesByCategory(e.target.value)} >
+                        <select className="form-select col-8" onChange={(e) => getemployeesByCategory(e.target.value)} >
                           <option value={""}>الكل</option>
                           {listofcategories.map((category, i) => {
                             return <option value={category._id} key={i} >{category.name}</option>
@@ -408,7 +408,7 @@ const Products = () => {
               </div>
               <div className="row text-dark">
                 <div className="col-md-8">
-                  {/* <div className="filter-group d-flex align-items-center justify-content-between"> */}
+                  {/* <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2"> */}
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المبيعات في فتره محدده</label>
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بداية التاريخ</label>
                   <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />

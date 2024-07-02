@@ -697,10 +697,9 @@ const ManagerDash = () => {
                       <h3>الاوردرات الحالية</h3>
                     </div>
                     {/* <div className="container-fluid"> */}
-                    <div className="table-filter print-hide" style={{ width: 'max-content' }}>
-                      <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block" style={{ width: 'max-content' }}>
-                        <div className="col">
-                          <div className="show-entries" style={{ width: '100%' }}>
+                    <div className="table-filter print-hide">
+                      <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block">
+                          <div className="show-entries">
                             <span>عرض</span>
                             <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                               <option value={5}>5</option>
@@ -712,16 +711,14 @@ const ManagerDash = () => {
                             </select>
                             <span>صفوف</span>
                           </div>
-                        </div>
-                        <div className="col">
-                          <div className="filter-group d-flex align-items-center justify-content-between" style={{ width: '100%' }}>
+
+                          <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الفاتورة</label>
                             <input type="text" className="form-control" onChange={(e) => searchBySerial(e.target.value)} />
                             {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                           </div>
-                        </div>
-                        <div className="col">
-                          <div className="filter-group d-flex align-items-center justify-content-between" style={{ width: '100%' }}>
+
+                          <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
                             <select className="form-select col-8" onChange={(e) => getOrdersByType(e.target.value)} >
                               <option value={""}>الكل</option>
@@ -729,7 +726,6 @@ const ManagerDash = () => {
                               <option value="Delivery" >ديليفري</option>
                               <option value="Takeaway" >تيك اوي</option>
                             </select>
-                          </div>
                         </div>
                       </div>
                     </div>

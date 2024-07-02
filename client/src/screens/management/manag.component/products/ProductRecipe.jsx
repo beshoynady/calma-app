@@ -426,7 +426,7 @@ const ProductRecipe = () => {
                         </div>
                       </div>
                       <div class="col-sm-9">
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
                           <select class="form-control" onChange={(e) => getproductByCategory(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -436,7 +436,7 @@ const ProductRecipe = () => {
                             }
                           </select>
                         </div>
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المنتج</label>
                           <select class="form-control" onChange={(e) => handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -447,9 +447,9 @@ const ProductRecipe = () => {
                           </select>
                         </div>
                         {sizes.length > 0 ?
-                          <div className="filter-group d-flex align-items-center justify-content-between">
+                          <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحجم</label>
-                            <select className="form-select" onChange={(e) => handleSelectedProductSize(e.target.value)} >
+                            <select className="form-select col-8" onChange={(e) => handleSelectedProductSize(e.target.value)} >
                               <option value="">اختر حجم</option>
                               {sizes.map((size, i) => {
                                 return <option value={size._id} key={i} >{size.sizeName}</option>
@@ -457,11 +457,11 @@ const ProductRecipe = () => {
                             </select>
                           </div>
                           : ""}
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اجمالي التكاليف</label>
                           <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />
                         </div>
-                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                   <select class="form-control">
                     <option>Any</option>

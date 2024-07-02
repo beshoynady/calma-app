@@ -291,14 +291,14 @@ const PermissionsComponent = () => {
                   <div className="table-filter print-hide">
                     <div className="d-flex flex-column text-dark">
                       <div className='d-flex'>
-                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesByName(e.target.value)} />
                           {/* <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button> */}
                         </div>
-                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '40%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2" style={{ minWidth: '40%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموظف</label>
-                          <select className="form-select" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
+                          <select className="form-select col-8" style={{ minWidth: '200px' }} onChange={(e) => getEmployeesById(e.target.value)} >
                             <option value="">الكل</option>
                             {listOfEmployees && listOfEmployees.map((employee, i) => (
                               <option key={i} value={employee._id}>{employee.fullname}</option>
@@ -307,12 +307,12 @@ const PermissionsComponent = () => {
                         </div>
                       </div>
                       <div className='d-flex'>
-                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الموظف</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.fullname : ''} readOnly />
                         </div>
 
-                        <div className="filter-group d-flex align-items-center justify-content-between" style={{ minWidth: '35%' }}>
+                        <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2" style={{ minWidth: '35%' }}>
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوظية</label>
                           <input type="text" className="form-control" style={{ minWidth: '200px' }} value={selectedEmployee ? selectedEmployee.role : ''} readOnly />
                         </div>

@@ -603,7 +603,7 @@ const Purchase = () => {
             <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
               <div className="show-entries">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عرض</label>
-                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   {
                     (() => {
                       const options = [];
@@ -616,14 +616,13 @@ const Purchase = () => {
                 </select>
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">صفوف</label>
               </div>
-              <button type="button" className="btn w-50 btn-primary"><i className="fa fa-search"></i></button>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الصنف</label>
                 <input type="text" className="form-control" onChange={(e) => searchByitem(e.target.value)} />
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
-                <select className="form-select" onChange={(e) => searchByaction(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => searchByaction(e.target.value)} >
                   <option value={""}>الكل</option>
                   {Stockmovement.map(movement => {
                     return <option value={movement}>{movement}</option>;
@@ -631,9 +630,9 @@ const Purchase = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setallPurchaseInvoice(filterByTime(e.target.value, allPurchaseInvoice))}>
+                  <select className="form-select col-8" onChange={(e) => setallPurchaseInvoice(filterByTime(e.target.value, allPurchaseInvoice))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -774,7 +773,7 @@ const Purchase = () => {
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                          <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                          <select required className="form-select col-8" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                             <option>اختر المورد</option>
                             {AllSuppliers.map((supplier, i) => (
                               <option value={supplier._id} key={i}>{supplier.name}</option>
@@ -819,7 +818,7 @@ const Purchase = () => {
                           <tr id="TRow" key={i}>
                             <th scope="row">{i + 1}</th>
                             <td>
-                              <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
+                              <select className="form-select col-8" required onChange={(e) => handleItemId(e.target.value, i)}>
                                 <option value="">
                                   {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.name}
                                 </option>
@@ -938,7 +937,7 @@ const Purchase = () => {
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                          <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                          <select required className="form-select col-8" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                             <option>اختر المورد</option>
                             {AllSuppliers.map((supplier, i) => (
                               <option value={supplier._id} key={i}>{supplier.name}</option>
@@ -983,7 +982,7 @@ const Purchase = () => {
                           <tr id="TRow" key={i}>
                             <th scope="row">{i + 1}</th>
                             <td>
-                              <select className="form-select" required onChange={(e) => handleItemId(e.target.value, i)}>
+                              <select className="form-select col-8" required onChange={(e) => handleItemId(e.target.value, i)}>
                                 <option value="">
                                   {StockItems && StockItems.filter(stock => stock._id === item.item)[0]?.itemName}
                                 </option>

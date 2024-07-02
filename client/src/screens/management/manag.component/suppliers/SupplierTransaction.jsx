@@ -203,7 +203,7 @@ const SupplierTransaction = () => {
               <div className="show-entries">
                 <label htmlFor="showEntries">عرض</label>
                 <select
-                  className="form-select"
+                  className="form-select col-8"
                   id="showEntries"
                   onChange={(e) => {
                     setstartpagination(0);
@@ -219,10 +219,10 @@ const SupplierTransaction = () => {
                 </select>
                 <span>صفوف</span>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label htmlFor="supplierSelect">المورد</label>
                 <select
-                  className="form-select"
+                  className="form-select col-8"
                   id="supplierSelect"
                   onChange={(e) => handleSupplier(e.target.value)}
                 >
@@ -232,10 +232,10 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label htmlFor="transactionTypeSelect">نوع العملية</label>
                 <select
-                  className="form-select"
+                  className="form-select col-8"
                   id="transactionTypeSelect"
                   onChange={(e) => filterSupplierTransactionByTransactionType(e.target.value)}
                 >
@@ -245,10 +245,10 @@ const SupplierTransaction = () => {
                   ))}
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label htmlFor="invoiceNumberSelect">رقم الفاتورة</label>
                 <select
-                  className="form-select"
+                  className="form-select col-8"
                   id="invoiceNumberSelect"
                   onChange={(e) => filterSupplierTransactionByInvoiceNumber(e.target.value)}
                 >
@@ -265,9 +265,9 @@ const SupplierTransaction = () => {
               </div>
 
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setAllSupplierTransaction(filterByTime(e.target.value, AllSupplierTransaction))}>
+                  <select className="form-select col-8" onChange={(e) => setAllSupplierTransaction(filterByTime(e.target.value, AllSupplierTransaction))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -421,7 +421,7 @@ const SupplierTransaction = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المورد</label>
-                  <select required className="form-select" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
+                  <select required className="form-select col-8" id="supplierSelect" onChange={(e) => handleSupplier(e.target.value)}>
                     <option>اختر المورد</option>
                     {AllSuppliers.map((supplier, i) => (
                       <option value={supplier._id} key={i}>{supplier.name}</option>
@@ -430,7 +430,7 @@ const SupplierTransaction = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع العملية</label>
-                  <select required className="form-select" id="supplierSelect" onChange={(e) => setTransactionType(e.target.value)}>
+                  <select required className="form-select col-8" id="supplierSelect" onChange={(e) => setTransactionType(e.target.value)}>
                     <option>اختر نوع العملية</option>
                     {listtransactionType.map((type, i) => (
                       <option value={type} key={i}>{type}</option>
@@ -439,7 +439,7 @@ const SupplierTransaction = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الفاتورة</label>
-                  <select required className="form-select" id="supplierSelect" onChange={(e) => setInvoiceNumber(e.target.value)} >
+                  <select required className="form-select col-8" id="supplierSelect" onChange={(e) => setInvoiceNumber(e.target.value)} >
                     <option>اختر رقم الفاتورة</option>
                     {allPurchaseInvoiceFilterd.map((Invoice, i) => (
                       <option value={Invoice._id} key={i}>{Invoice.invoiceNumber}</option>

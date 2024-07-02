@@ -332,11 +332,11 @@ const Suppliers = () => {
                       </div>
                       <div class="col-sm-9">
                         
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المورد</label>
                           <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
                         </div>
-                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -346,7 +346,7 @@ const Suppliers = () => {
                             <option value="Wastage" >Wastage</option>
                           </select>
                         </div> */}
-                        {/* <div class="filter-group d-flex align-items-center justify-content-between">
+                        {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Location</label>
                           <select class="form-control">
                             <option>All</option>
@@ -357,7 +357,7 @@ const Suppliers = () => {
                             <option>Paris</option>
                           </select>
                         </div>
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                           <select class="form-control">
                             <option>Any</option>
@@ -469,7 +469,7 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الدفع</label>
-                          <select className="form-select" required onChange={(e) => setPaymentType(e.target.value)}>
+                          <select className="form-select col-8" required onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">اختر...</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
@@ -478,7 +478,7 @@ const Suppliers = () => {
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">العنصر المورد {index + 1}</label>
-                            <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
+                            <select className="form-select col-8" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">اختر...</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;
@@ -551,7 +551,7 @@ const Suppliers = () => {
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الدفع</label>
-                          <select className="form-select" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                          <select className="form-select col-8" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">{paymentType === 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
                             <option value="Installments">تقسيط</option>
@@ -560,7 +560,7 @@ const Suppliers = () => {
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">العنصر المورد {index + 1}</label>
-                            <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
+                            <select className="form-select col-8" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">{item ? item.itemName : ""}</option>
                               {AllStockItems.map(stockItem => {
                                 return <option key={stockItem._id} value={stockItem._id}>{stockItem.itemName}</option>;

@@ -429,7 +429,7 @@ const CashMovement = () => {
                 </select>
                 <span>صفوف</span>
               </div>
-              <div class="filter-group d-flex align-items-center justify-content-between">
+              <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع العملية</label>
                 <select class="form-control" onChange={(e) => filterByType(e.target.value)} >
                   <option value={""}>الكل</option>
@@ -439,9 +439,9 @@ const CashMovement = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setAllCashMovement(filterByTime(e.target.value, AllCashMovement))}>
+                  <select className="form-select col-8" onChange={(e) => setAllCashMovement(filterByTime(e.target.value, AllCashMovement))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
@@ -649,7 +649,7 @@ const CashMovement = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الخزينه المحول اليها</label>
-                  <select className="form-select" onChange={(e) => setreceivRegister(e.target.value)}>
+                  <select className="form-select col-8" onChange={(e) => setreceivRegister(e.target.value)}>
                     <option value={""}>اختر</option>
                     {AllCashRegisters.map((regsite, i) => (
                       <option key={i} value={regsite._id}>{regsite.name} المسؤول: {usertitle(regsite.employee)}</option>

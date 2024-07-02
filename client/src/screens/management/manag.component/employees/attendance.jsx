@@ -422,10 +422,10 @@ const AttendanceManagement = () => {
           </div>
           <div className="table-filter w-100">
             <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-start text-dark">
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <div className="show-entries">
                   <span>عرض</span>
-                  <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                  <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={15}>15</option>
@@ -436,22 +436,22 @@ const AttendanceManagement = () => {
                   <span>صفوف</span>
                 </div>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع السجل</label>
-                <select className="form-select" onChange={(e) => searchByStatus(e.target.value)}>
+                <select className="form-select col-8" onChange={(e) => searchByStatus(e.target.value)}>
                   <option value="">الكل</option>
                   {listOfStatus.map((statu, i) => (
                     <option key={i} value={statu}>{listOfStatusAR[i]}</option>
                   ))}
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                 <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوظيفة</label>
-                <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value="manager">مدير</option>
                   <option value="cashier">كاشير</option>
@@ -459,9 +459,9 @@ const AttendanceManagement = () => {
                   <option value="Chef">شيف</option>
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الشيفت</label>
-                <select className="form-select" onChange={(e) => getRecordsByShift(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => getRecordsByShift(e.target.value)} >
                   <option value="all">الكل</option>
                   {shifts ? shifts.map((shift, i) =>
                     <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -470,9 +470,9 @@ const AttendanceManagement = () => {
                 </select>
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setallAttendanceRecords(filterByTime(e.target.value, allAttendanceRecords))}>
+                  <select className="form-select col-8" onChange={(e) => setallAttendanceRecords(filterByTime(e.target.value, allAttendanceRecords))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>

@@ -377,7 +377,7 @@ const exportToExcel = () => {
             <div className="d-flex flex-wrap flex-row w-100 text-dark">
               <div className="show-entries">
                 <span>عرض</span>
-                <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={15}>15</option>
@@ -387,13 +387,13 @@ const exportToExcel = () => {
                 </select>
                 <span>عنصر</span>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                 <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوظيفة</label>
-                <select className="form-select" onChange={(e) => getEmployeesByJob(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => getEmployeesByJob(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value="owner">مالك</option>
                   <option value="manager">مدير</option>
@@ -402,9 +402,9 @@ const exportToExcel = () => {
                   <option value="Chef">شيف</option>
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الشيفت</label>
-                <select className="form-select" onChange={(e) => getEmployeesByShift(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => getEmployeesByShift(e.target.value)} >
                   <option value="all">الكل</option>
                   {shifts ? shifts.map((shift, i) =>
                     <option value={shift._id} key={i}>{shift.shiftType}</option>
@@ -412,9 +412,9 @@ const exportToExcel = () => {
 
                 </select>
               </div>
-              <div className="filter-group d-flex align-items-center justify-content-between">
+              <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
-                <select className="form-select" onChange={(e) => filterEmpByStatus(e.target.value)} >
+                <select className="form-select col-8" onChange={(e) => filterEmpByStatus(e.target.value)} >
                   <option value="all">الكل</option>
                   <option value={true}>متاح</option>
                   <option value={false}>غير متاح</option>

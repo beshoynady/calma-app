@@ -277,11 +277,11 @@ const StockItem = () => {
               </div>
               <div class="col-sm-9">
                 {/* 
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
                         </div> */}
-                {/* <div class="filter-group d-flex align-items-center justify-content-between">
+                {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -291,7 +291,7 @@ const StockItem = () => {
                             <option value="Wastage" >Wastage</option>
                           </select>
                         </div> */}
-                {/* <div class="filter-group d-flex align-items-center justify-content-between">
+                {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Location</label>
                           <select class="form-control">
                             <option>All</option>
@@ -302,7 +302,7 @@ const StockItem = () => {
                             <option>Paris</option>
                           </select>
                         </div>
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                           <select class="form-control">
                             <option>Any</option>

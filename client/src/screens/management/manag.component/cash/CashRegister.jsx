@@ -194,12 +194,12 @@ const CashRegister = () => {
                       </div>
                     </div>
                     <div class="col-sm-9">
-                      <div class="filter-group d-flex align-items-center justify-content-between">
+                      <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الخزينه</label>
                         <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
                         
                       </div>
-                      <div class="filter-group d-flex align-items-center justify-content-between">
+                      <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المسؤل</label>
                         <select class="form-control" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
                           <option >اختر</option>
@@ -210,7 +210,7 @@ const CashRegister = () => {
                         </select>
                       </div>
                       {/* 
-                        <div class="filter-group d-flex align-items-center justify-content-between">
+                        <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                           <select class="form-control">
                             <option>Any</option>

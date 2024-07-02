@@ -138,15 +138,15 @@ const CustomerMessage = () => {
                 </select>
                 <span>عنصر</span>
               </div>
-              <div class="filter-group d-flex align-items-center justify-content-between">
+              <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل</label>
                 <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
 
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
-                  <select className="form-select" onChange={(e) => setallCustomerMessage(filterByTime(e.target.value, allCustomerMessage))}>
+                  <select className="form-select col-8" onChange={(e) => setallCustomerMessage(filterByTime(e.target.value, allCustomerMessage))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
                     <option value="week">هذا الأسبوع</option>
