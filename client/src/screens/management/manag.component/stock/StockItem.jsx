@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { detacontext } from '../../../../App'
 import { toast } from 'react-toastify';
@@ -14,6 +14,10 @@ const StockItem = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+
+
+  const { permissionsList, setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+
   const [itemName, setitemName] = useState('');
   const [stockItemId, setStockItemid] = useState('');
   const [categoryId, setcategoryId] = useState('');
@@ -67,7 +71,7 @@ const StockItem = () => {
       console.log(response)
       const allRecipe = await response.data;
       setallrecipes(allRecipe)
-      console.log({allRecipe})
+      console.log({ allRecipe })
 
     } catch (error) {
       console.log(error)
@@ -92,7 +96,7 @@ const StockItem = () => {
         createdBy,
       }, config);
       console.log(response.data);
-      console.log({costOfPart, oldCostOfPart})
+      console.log({ costOfPart, oldCostOfPart })
       if (costOfPart !== oldCostOfPart) {
         console.log("recipe is go")
         for (const recipe of allrecipes) {
@@ -106,7 +110,7 @@ const StockItem = () => {
               const unit = ingredient.unit
               const amount = ingredient.amount
               const totalcostofitem = amount * costOfPart
-              return { itemId:stockItemId, name: itemName, amount, costofitem, unit, totalcostofitem };
+              return { itemId: stockItemId, name: itemName, amount, costofitem, unit, totalcostofitem };
             } else {
               return ingredient;
             }
@@ -226,48 +230,44 @@ const StockItem = () => {
     getAllCategoryStock()
   }, [])
   return (
-    <detacontext.Consumer>
-      {
-        ({ employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
-          return (
-            <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
-              <div className="table-responsive mt-1">
-                <div className="table-wrapper p-3 mw-100">
-                  <div className="table-title">
-                    <div className="row">
-                      <div className="col-sm-6 text-right">
-                        <h2>ادارة <b>المنتجات</b></h2>
-                      </div>
-                      <div className="col-sm-6 d-flex justify-content-end">
-                        <a href="#addStockItemModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
+    <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
+      <div className="table-responsive mt-1">
+        <div className="table-wrapper p-3 mw-100">
+          <div className="table-title">
+            <div className="row">
+              <div className="col-sm-6 text-right">
+                <h2>ادارة <b>المنتجات</b></h2>
+              </div>
+              <div className="col-sm-6 d-flex justify-content-end">
+                <a href="#addStockItemModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>اضافه منتج جديد</span></a>
 
-                        {/* <a href="#deleteStockItemModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="table-filter print-hide">
-                    <div class="row text-dark">
-                      <div class="col-sm-3">
-                        <div class="show-entries">
-                          <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                            <option value={20}>20</option>
-                            <option value={25}>25</option>
-                            <option value={30}>30</option>
-                          </select>
-                          <span>صفوف</span>
-                        </div>
-                      </div>
-                      <div class="col-sm-9">
-                        {/* 
+                {/* <a href="#deleteStockItemModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <span>حذف</span></a> */}
+              </div>
+            </div>
+          </div>
+          <div class="table-filter print-hide">
+            <div class="row text-dark">
+              <div class="col-sm-3">
+                <div class="show-entries">
+                  <span>عرض</span>
+                  <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                    <option value={20}>20</option>
+                    <option value={25}>25</option>
+                    <option value={30}>30</option>
+                  </select>
+                  <span>صفوف</span>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                {/* 
                         <div class="filter-group">
                           <label>اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
                         </div> */}
-                        {/* <div class="filter-group">
+                {/* <div class="filter-group">
                           <label>نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
@@ -277,7 +277,7 @@ const StockItem = () => {
                             <option value="Wastage" >Wastage</option>
                           </select>
                         </div> */}
-                        {/* <div class="filter-group">
+                {/* <div class="filter-group">
                           <label>Location</label>
                           <select class="form-control">
                             <option>All</option>
@@ -299,230 +299,225 @@ const StockItem = () => {
                           </select>
                         </div>
                         <span class="filter-icon"><i class="fa fa-filter"></i></span> */}
-                      </div>
-                    </div>
-                  </div>
-                  <table className="table table-striped table-hover">
-                    <thead>
-                      <tr>
-
-                        <th>م</th>
-                        <th>اسم الصنف</th>
-                        <th>المخزن</th>
-                        <th>الرصيد الحالي</th>
-                        <th>الحد الادني</th>
-                        <th>الوحدة كبيرة</th>
-                        <th>السعر</th>
-                        <th>عدد الوحدات</th>
-                        <th>الوحدة صغيرة</th>
-                        <th>تكلفة الوحده</th>
-                        <th>اضيف بواسطه</th>
-                        <th>تاريخ الاضافه</th>
-                        <th>اجراءات</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {AllStockItems && AllStockItems.map((item, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              <td>{i + 1}</td>
-                              <td>{item.itemName}</td>
-                              <td>{item.categoryId.name}</td>
-                              <td>{item.currentBalance}</td>
-                              <td>{item.minThreshold}</td>
-                              <td>{item.largeUnit}</td>
-                              <td>{item.price}</td>
-                              <td>{item.parts}</td>
-                              <td>{item.smallUnit}</td>
-                              <td>{item.costOfPart}</td>
-                              <td>{item.createdBy.fullname}</td>
-                              <td>{formatDateTime(new Date(item.createdAt))}</td>
-                              <td>
-                                <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { handelEditStockItemModal(item) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text text-dark">عرض <b>{AllStockItems.length > endpagination ? endpagination : AllStockItems.length}</b> من <b>{AllStockItems.length}</b> عنصر</div>
-                    <ul className="pagination">
-                      <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
-                      <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-
-              <div id="addStockItemModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={(e) => createItem(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header text-light bg-primary">
-                        <h4 className="modal-title">اضافه صنف بالمخزن</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>اسم الصنف</label>
-                          <input type="text" className="form-control" required onChange={(e) => setitemName(e.target.value)} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>نوع المخزن</label>
-                          <select name="category" id="category" form="carform" onChange={(e) => setcategoryId(e.target.value)}>
-                            <option>اختر نوع المخزن</option>
-                            {AllCategoryStock.map((category, i) => {
-                              return <option value={category._id} key={i} >{category.name}</option>
-                            })
-                            }
-                          </select>
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الوحدة الكبيرة</label>
-                          <input type='text' className="form-control" required onChange={(e) => setlargeUnit(e.target.value)}></input>
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الوحدة الصغيره</label>
-                          <input type='text' className="form-control" required onChange={(e) => setsmallUnit(e.target.value)}></input>
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" required onChange={(e) => setcurrentBalance(e.target.value)} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الحد الادني</label>
-                          <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value) }} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>تكلفة الوحده</label>
-                          <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>التاريخ</label>
-                          <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
-                        </div>
-                      </div>
-                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn w-50 btn-success" value="اضافه" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-
-              <div id="editStockItemModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={(e) => editStockItem(e, employeeLoginInfo.employeeinfo.id)}>
-                      <div className="modal-header text-light bg-primary">
-                        <h4 className="modal-title">تعديل صنف بالمخزن</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>اسم الصنف</label>
-                          <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>نوع المخزن</label>
-                          <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
-                            <option value={categoryId}>{categoryName}</option>
-                            {AllCategoryStock.map((category, i) => {
-                              return <option value={category._id} key={i} >{category.name}</option>
-                            })
-                            }
-                          </select>
-                        </div>
-
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الوحدة الكبيرة</label>
-                          <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الوحدة الصغيره</label>
-                          <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" defaultValue={currentBalance} required onChange={(e) => setcurrentBalance(e.target.value)} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>الحد الادني</label>
-                          <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
-                        </div>
-
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart(e.target.value / Number(parts)) }} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>عدد الوحدات</label>
-                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(Number(price) / e.target.value) }} />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>تكلفة الوحده</label>
-                          <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
-                        </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
-                          <label>التاريخ</label>
-                          <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
-                        </div>
-                      </div>
-                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn w-50 btn-info" value="Save" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-              <div id="deleteStockItemModal" className="modal fade">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <form onSubmit={deleteStockItem}>
-                      <div className="modal-header text-light bg-primary">
-                        <h4 className="modal-title">حذف منتج</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      </div>
-                      <div className="modal-body">
-                        <p>هل انت متاكد من حذف هذا السجل؟</p>
-                        <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
-                      </div>
-                      <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
-                        <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
-                        <input type="submit" className="btn w-50 btn-danger" value="حذف" />
-                      </div>
-                    </form>
-                  </div>
-                </div>
               </div>
             </div>
-          )
-        }
-      }
-    </detacontext.Consumer>
+          </div>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
 
+                <th>م</th>
+                <th>اسم الصنف</th>
+                <th>المخزن</th>
+                <th>الرصيد الحالي</th>
+                <th>الحد الادني</th>
+                <th>الوحدة كبيرة</th>
+                <th>السعر</th>
+                <th>عدد الوحدات</th>
+                <th>الوحدة صغيرة</th>
+                <th>تكلفة الوحده</th>
+                <th>اضيف بواسطه</th>
+                <th>تاريخ الاضافه</th>
+                <th>اجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {AllStockItems && AllStockItems.map((item, i) => {
+                if (i >= startpagination & i < endpagination) {
+                  return (
+                    <tr key={i}>
+                      <td>{i + 1}</td>
+                      <td>{item.itemName}</td>
+                      <td>{item.categoryId?.name}</td>
+                      <td>{item.currentBalance}</td>
+                      <td>{item.minThreshold}</td>
+                      <td>{item.largeUnit}</td>
+                      <td>{item.price}</td>
+                      <td>{item.parts}</td>
+                      <td>{item.smallUnit}</td>
+                      <td>{item.costOfPart}</td>
+                      <td>{item.createdBy?.fullname}</td>
+                      <td>{formatDateTime(new Date(item.createdAt))}</td>
+                      <td>
+                        <a href="#editStockItemModal" className="edit" data-toggle="modal" onClick={() => { handelEditStockItemModal(item) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteStockItemModal" className="delete" data-toggle="modal" onClick={() => setStockItemid(item._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      </td>
+                    </tr>
+                  )
+                }
+              })}
+            </tbody>
+          </table>
+          <div className="clearfix">
+            <div className="hint-text text-dark">عرض <b>{AllStockItems.length > endpagination ? endpagination : AllStockItems.length}</b> من <b>{AllStockItems.length}</b> عنصر</div>
+            <ul className="pagination">
+              <li onClick={EditPagination} className="page-item disabled"><a href="#">السابق</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">1</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">2</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">3</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">4</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">5</a></li>
+              <li onClick={EditPagination} className="page-item"><a href="#" className="page-link">التالي</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="addStockItemModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={(e) => createItem(e, employeeLoginInfo.employeeinfo.id)}>
+              <div className="modal-header text-light bg-primary">
+                <h4 className="modal-title">اضافه صنف بالمخزن</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>اسم الصنف</label>
+                  <input type="text" className="form-control" required onChange={(e) => setitemName(e.target.value)} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>نوع المخزن</label>
+                  <select name="category" id="category" form="carform" onChange={(e) => setcategoryId(e.target.value)}>
+                    <option>اختر نوع المخزن</option>
+                    {AllCategoryStock.map((category, i) => {
+                      return <option value={category._id} key={i} >{category.name}</option>
+                    })
+                    }
+                  </select>
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الوحدة الكبيرة</label>
+                  <input type='text' className="form-control" required onChange={(e) => setlargeUnit(e.target.value)}></input>
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الوحدة الصغيره</label>
+                  <input type='text' className="form-control" required onChange={(e) => setsmallUnit(e.target.value)}></input>
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>رصيد افتتاحي</label>
+                  <input type='Number' className="form-control" required onChange={(e) => setcurrentBalance(e.target.value)} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الحد الادني</label>
+                  <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>السعر</label>
+                  <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value) }} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>عدد الوحدات</label>
+                  <input type='Number' className="form-control" required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>تكلفة الوحده</label>
+                  <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>التاريخ</label>
+                  <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
+                </div>
+              </div>
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-success" value="اضافه" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="editStockItemModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={(e) => editStockItem(e, employeeLoginInfo.employeeinfo.id)}>
+              <div className="modal-header text-light bg-primary">
+                <h4 className="modal-title">تعديل صنف بالمخزن</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>اسم الصنف</label>
+                  <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>نوع المخزن</label>
+                  <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
+                    <option value={categoryId}>{categoryName}</option>
+                    {AllCategoryStock.map((category, i) => {
+                      return <option value={category._id} key={i} >{category.name}</option>
+                    })
+                    }
+                  </select>
+                </div>
+
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الوحدة الكبيرة</label>
+                  <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الوحدة الصغيره</label>
+                  <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>رصيد افتتاحي</label>
+                  <input type='Number' className="form-control" defaultValue={currentBalance} required onChange={(e) => setcurrentBalance(e.target.value)} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>الحد الادني</label>
+                  <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
+                </div>
+
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>السعر</label>
+                  <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart(e.target.value / Number(parts)) }} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>عدد الوحدات</label>
+                  <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(Number(price) / e.target.value) }} />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>تكلفة الوحده</label>
+                  <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
+                </div>
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                  <label>التاريخ</label>
+                  <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
+                </div>
+              </div>
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-info" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="deleteStockItemModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={deleteStockItem}>
+              <div className="modal-header text-light bg-primary">
+                <h4 className="modal-title">حذف منتج</h4>
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div className="modal-body">
+                <p>هل انت متاكد من حذف هذا السجل؟</p>
+                <p className="text-warning"><small>لا يمكن الرجوع في هذا الاجراء.</small></p>
+              </div>
+              <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
+                <input type="button" className="btn w-50 btn-danger" data-dismiss="modal" value="إغلاق" />
+                <input type="submit" className="btn w-50 btn-danger" value="حذف" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

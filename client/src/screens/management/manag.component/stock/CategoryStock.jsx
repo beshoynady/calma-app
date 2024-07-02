@@ -13,6 +13,10 @@ const CategoryStock = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
+
+
+
+  
   const [categoryStockname, setcategoryStockname] = useState('')
   const [categoryStockId, setcategoryStockId] = useState('')
 
@@ -118,10 +122,13 @@ const CategoryStock = () => {
   }
 
 
-  const [CategoryStockFilterd, setCategoryStockFilterd] = useState([])
   const searchByCategoryStock = (CategoryStock) => {
+    if(!CategoryStock){
+      getallCategoryStock()
+      return
+    }
     const categories = allCategoryStock.filter((Category) => Category.name.startsWith(CategoryStock) == true)
-    setCategoryStockFilterd(categories)
+    setAllStockItems(categories)
   }
 
 
@@ -130,10 +137,6 @@ const CategoryStock = () => {
     getallCategoryStock()
   }, [])
 
-  return (
-    <detacontext.Consumer>
-      {
-        ({ setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
               <div className="table-responsive">
@@ -209,34 +212,13 @@ const CategoryStock = () => {
                         <th>م</th>
                         <th>الاسم</th>
                         <th>عدد المنتجات</th>
+                        <th>اضيف في</th>
                         <th>اجراءات</th>
                       </tr>
 
                     </thead>
                     <tbody>
-                      {CategoryStockFilterd.length > 0 ? CategoryStockFilterd.map((categoryStock, i) => {
-                        if (i >= startpagination & i < endpagination) {
-                          return (
-                            <tr key={i}>
-                              {/* <td>
-                                <span className="custom-checkbox">
-                                  <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                  <label htmlFor="checkbox1"></label>
-                                </span>
-                              </td> */}
-                              <td>{i + 1}</td>
-                              <td>{categoryStock.name}</td>
-                              <td>{AllStockItems ? AllStockItems.filter((Item) => Item.categoryId._id === categoryStock._id).length : 0}</td>
-                              <td>
-                                <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-
-                                <a href="#deleteCategoryStockModal" className="delete" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      })
-                        : allCategoryStock.map((categoryStock, i) => {
+                      { allCategoryStock.map((categoryStock, i) => {
                           if (i >= startpagination & i < endpagination) {
                             return (
                               <tr key={i}>
@@ -249,6 +231,7 @@ const CategoryStock = () => {
                                 <td>{i + 1}</td>
                                 <td>{categoryStock.name}</td>
                                 <td>{AllStockItems ? AllStockItems.filter((Item) => Item.categoryId._id === categoryStock._id).length : 0}</td>
+                                <td>{formatDateTime(categoryStock.createdAt)}</td>
                                 <td>
                                   <a href="#editCategoryStockModal" className="edit" data-toggle="modal" onClick={() => setcategoryStockId(categoryStock._id)}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
@@ -341,11 +324,6 @@ const CategoryStock = () => {
               </div>
             </div>
           )
-        }
-      }
-    </detacontext.Consumer>
-  )
-
 
 }
 

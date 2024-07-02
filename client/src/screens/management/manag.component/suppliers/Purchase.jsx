@@ -17,7 +17,10 @@ const Purchase = () => {
     },
   };
 
-  const { setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+  const { permissionsList, setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+
+  const permissionPurchase = permissionsList?.filter(permission => permission.resource === 'Purchases')[0]
+  const permissionPurchaseReturn = permissionsList?.filter(permission => permission.resource === 'chase Returns')[0]
 
   const [AllStockactions, setAllStockactions] = useState([]);
 
@@ -382,7 +385,10 @@ const Purchase = () => {
 
 
   const createPurchaseInvoice = async (e, receiverId) => {
-
+    if (!permissionPurchase.create) {
+      toast.warn('ليس لك صلاحية لانشاء فاتورة مشتريات')
+      return
+    }
     e.preventDefault()
     try {
       const newInvoice = {
@@ -426,6 +432,10 @@ const Purchase = () => {
   const [invoice, setinvoice] = useState({})
 
   const getInvoice = async (id) => {
+    if (!permissionPurchase.read) {
+      toast.warn('ليس لك صلاحية لعرض فاتورة مشتريات')
+      return
+    }
     try {
       const resInvoice = await axios.get(`${apiUrl}/api/purchaseinvoice/${id}`, config)
       if (resInvoice) {
@@ -437,7 +447,10 @@ const Purchase = () => {
   }
 
   const handlePurchaseReturn = async (e, receiverId) => {
-
+    if (!permissionPurchaseReturn.create) {
+      toast.warn('ليس لك صلاحية لانشاء فاتورة مرتجع مشتريات')
+      return
+    }
     e.preventDefault()
     try {
       const newInvoice = {
@@ -481,6 +494,10 @@ const Purchase = () => {
 
   const [allPurchaseInvoice, setallPurchaseInvoice] = useState([])
   const getAllPurchases = async () => {
+    if (!permissionPurchase.read) {
+      toast.warn('ليس لك صلاحية لعرض فاتورة مشتريات')
+      return
+    }
     try {
       const response = await axios.get(apiUrl + '/api/purchaseinvoice', config);
       console.log({ response })
@@ -506,45 +523,52 @@ const Purchase = () => {
   }
 
 
+
+  
   const confirmPayment = async (e) => {
     e.preventDefault();
+
+    // Check if required variables are defined and valid
+    if (!CashRegisterBalance || !paidAmount || !cashRegister || !invoiceNumber) {
+      toast.error('برجاء التحقق من صحة المدخلات!');
+      return;
+    }
+
     const updatedbalance = CashRegisterBalance - paidAmount; // Calculate the updated balance
 
     try {
-
-      // await handleAddSupplierTransactionPaymentPurchase()
-
-      const cashMovement = await axios.post(apiUrl + '/api/cashMovement/', {
+      // Perform the cash movement
+      const cashMovementResponse = await axios.post(`${apiUrl}/api/cashMovement/`, {
         registerId: cashRegister,
         amount: paidAmount,
         type: 'Payment',
-        description: `دفع فاتورة مشتريات رقم${invoiceNumber}`,
+        description: `دفع فاتورة مشتريات رقم ${invoiceNumber}`,
       }, config);
-      console.log(cashMovement)
-      console.log(cashMovement.data.cashMovement._id)
+
+      const cashMovement = cashMovementResponse.data.cashMovement;
+      console.log(cashMovement);
 
       if (cashMovement) {
         toast.success('تم تسجيل حركه الخزينه بنجاح');
 
-        const updatecashRegister = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
-          balance: updatedbalance, // Use the updated balance
+        // Update the cash register balance
+        const updateCashRegisterResponse = await axios.put(`${apiUrl}/api/cashRegister/${cashRegister}`, {
+          balance: updatedbalance,
         }, config);
 
-        // Update the state after successful updates
-        if (updatecashRegister) {
-          // Toast notification for successful creation
-          toast.success(' تم خصم المدفوع من الخزينة');
+        if (updateCashRegisterResponse) {
+          toast.success('تم خصم المدفوع من الخزينة بنجاح');
+        } else {
+          // If updating the cash register fails, roll back the cash movement
+          await axios.delete(`${apiUrl}/api/cashMovement/${cashMovement._id}`, config);
+          toast.error('فشل في تحديث رصيد الخزينة. تم إلغاء حركة الخزينة.');
         }
       } else {
-        toast.success('حدث خطا اثنا تسجيل حركه الخزينه ! حاول مره اخري');
-
+        toast.error('حدث خطأ أثناء تسجيل حركة الخزينة. حاول مرة أخرى.');
       }
-
     } catch (error) {
       console.log(error);
-      // Toast notification for error
-      toast.error('فشل في تسجيل المصروف !حاول مره اخري');
-
+      toast.error('فشل في تسجيل المصروف! حاول مرة أخرى.');
     }
   };
 
@@ -685,7 +709,7 @@ const Purchase = () => {
                         </label>
                       </td> */}
                       <td>{i + 1}</td>
-                      <td>{invoice.invoiceDate&&formatDate(invoice.invoiceDate)}</td>
+                      <td>{invoice.invoiceDate && formatDate(invoice.invoiceDate)}</td>
                       <td>{invoice.invoiceNumber}</td>
                       <td>{invoice.supplier?.name}</td>
                       <td>{invoice.totalAmount}</td>
@@ -696,12 +720,12 @@ const Purchase = () => {
                       <td>{invoice.paymentType}</td>
                       <td>{invoice.paidAmount}</td>
                       <td>{invoice.balanceDue}</td>
-                      <td>{invoice.paymentDueDate&&formatDate(invoice.paymentDueDate)}</td>
+                      <td>{invoice.paymentDueDate && formatDate(invoice.paymentDueDate)}</td>
                       <td>{invoice.paymentMethod}</td>
                       <td>{invoice.paymentStatus}</td>
                       <td>{invoice.cashRegister?.name}</td>
                       <td>{invoice.createdBy?.fullname}</td>
-                      <td>{invoice.createdAt&&formatDateTime(invoice.createdAt)}</td>
+                      <td>{invoice.createdAt && formatDateTime(invoice.createdAt)}</td>
                       <td>{invoice.notes}</td>
                       <td>
                         <a href="#purchaseReturnModal" className="edit" data-toggle="modal" onClick={() => { getInvoice(invoice._id) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

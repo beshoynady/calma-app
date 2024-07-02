@@ -15,7 +15,7 @@ const SupplierTransaction = () => {
       'Authorization': `Bearer ${token}`,
     },
   };
-  const { setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+  const { permissionsList, setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
 
   const [AllSupplierTransaction, setAllSupplierTransaction] = useState([])
   const getAllSupplierTransaction = async () => {
