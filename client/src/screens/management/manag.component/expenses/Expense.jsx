@@ -93,12 +93,14 @@ const ExpenseItem = () => {
 
   useEffect(() => {
     allExpenses.map((expense, i) => {
+      expense.amount= 0
       const filterDailyExpense = allDailyExpenses&&allDailyExpenses.filter(dailyExpense => dailyExpense.expenseID._id === expense._id)
       if(filterDailyExpense) {
         filterDailyExpense.map(DailyExpens=>{
-          expense.amount += DailyExpens.amount 
+          expense.amount += Number(DailyExpens.amount) 
         })
       }
+      console.log({expense})
     })
 
   }, [allDailyExpenses])
