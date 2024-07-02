@@ -723,7 +723,7 @@ const ManagerDash = () => {
                         <div className="col">
                           <div className="filter-group d-flex align-items-center justify-content-between" style={{ width: '100%' }}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
-                            <select className="form-select" onChange={(e) => getOrdersByType(e.target.value)} >
+                            <select className="form-select col-8" onChange={(e) => getOrdersByType(e.target.value)} >
                               <option value={""}>الكل</option>
                               <option value="Internal" >صاله</option>
                               <option value="Delivery" >ديليفري</option>
