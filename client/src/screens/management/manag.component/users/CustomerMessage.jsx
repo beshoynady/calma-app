@@ -254,20 +254,20 @@ const CustomerMessage = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الاسم</label>
                   <input type="text" className="form-control" defaultValue={name} required readOnly />
                 </div>
 
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الموبايل</label>
                   <input type="text" className="form-control" defaultValue={phone} required readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الايميل</label>
                   <input type="email" className="form-control" defaultValue={email} required readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الرسالة</label>
                   <textarea className="form-control" defaultValue={message} required readOnly></textarea>
                 </div>

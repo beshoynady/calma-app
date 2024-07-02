@@ -20,7 +20,7 @@ const StockManagSchema = new mongoose.Schema(
     // Type of movement: Purchase, Expense, Return, Wastage
     movement: {
       type: String,
-      enum: ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged', 'InventoryAdjustment'],
+      enum: ['Purchase', 'ReturnPurchase', 'Issuance', 'ReturnIssuance', 'Wastage', 'Damaged', 'stockAdjustment'],
       required: true,
     },
     // Payment type for the transaction

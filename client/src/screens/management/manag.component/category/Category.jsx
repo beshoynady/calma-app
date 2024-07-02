@@ -26,7 +26,7 @@ const Category = () => {
 
   const getallCategory = async () => {
     try {
-      const res = await axios.get(apiUrl + "/api/category/");
+      const res = await axios.get(apiUrl + "/api/menucategory/");
       if (res) {
         const categories = res.data
         setallCategory(categories);
@@ -69,7 +69,7 @@ const Category = () => {
       }
 
       // Send a PUT request to edit the category
-      const edit = await axios.put(apiUrl + "/api/category/" + categoryId, bodydata, config);
+      const edit = await axios.put(apiUrl + "/api/menucategory/" + categoryId, bodydata, config);
       // Check if the request was successful
       if (edit.status === 200) {
         // Call the function to get all categories
@@ -96,7 +96,7 @@ const Category = () => {
   const deleteCategory = async (e) => {
     e.preventDefault()
     try {
-      const deleted = await axios.delete(apiUrl + "/api/category/" + categoryId);
+      const deleted = await axios.delete(apiUrl + "/api/menucategory/" + categoryId);
 
       if (deleted.status === 200) {
         getallCategory()
@@ -158,7 +158,7 @@ const Category = () => {
         const id = category._id;
         const order = category.order;
         // Send a PUT request to edit the category order
-        const edit = await axios.put(`${apiUrl}/api/category/${id}`, { order }, config);
+        const edit = await axios.put(`${apiUrl}/api/menucategory/${id}`, { order }, config);
         // If any request fails, set done to false
         if (!edit) {
           done = false;
@@ -194,11 +194,11 @@ const Category = () => {
         const category = allCategory[index];
         if (category.isMain === true) {
           // Send a PUT request to edit the category order
-          const edit = await axios.put(`${apiUrl}/api/category/${category._id}`, { isMain: false }, config);
+          const edit = await axios.put(`${apiUrl}/api/menucategory/${category._id}`, { isMain: false }, config);
         }
       }
 
-      const mainCategory = await axios.put(`${apiUrl}/api/category/${id}`, { isMain: true }, config);
+      const mainCategory = await axios.put(`${apiUrl}/api/menucategory/${id}`, { isMain: true }, config);
       // Check if all requests were successful
       if (mainCategory) {
         // Call the function to get all categories
@@ -230,7 +230,7 @@ const Category = () => {
 
     console.log({ categoryData })
     try {
-      const response = await axios.post(`${apiUrl}/api/category/`, categoryData, config);
+      const response = await axios.post(`${apiUrl}/api/menucategory/`, categoryData, config);
       console.log({ response })
       if (response.status === 201) {
         await getallCategory();
@@ -395,7 +395,7 @@ const Category = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الاسم</label>
                           <input
                             type="text"
@@ -406,7 +406,7 @@ const Category = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -438,7 +438,7 @@ const Category = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الاسم</label>
                           <input
                             type="text"
@@ -449,7 +449,7 @@ const Category = () => {
                             style={{ width: "100%" }}
                           />
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الحالة</label>
                           <select
                             className="form-control"
@@ -462,7 +462,7 @@ const Category = () => {
                           </select>
                         </div>
 
-                        {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>
                             <input
                               type="checkbox"

@@ -228,7 +228,7 @@ const ExpenseItem = () => {
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
-                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                         <label>اسم المصروف</label>
                         <input type="text" className="form-control" required onChange={(e) => setDescription(e.target.value)} />
                       </div>
@@ -250,7 +250,7 @@ const ExpenseItem = () => {
                       <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div className="modal-body">
-                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                      <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                         <label>اسم المصروف</label>
                         <input type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
                       </div>

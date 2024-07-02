@@ -6,19 +6,9 @@ const categoryStockSchema = new mongoose.Schema({
         required : [true, 'required'],
         unique : [true, 'unique'],
         trim : true,
-        maxlength : 30,
+        maxlength : 50,
         minlength : 3,
     },
-    createdAt:{
-        type : Date,
-        default : Date.now(),
-        required : [true,'required']
-    },
-    updatedAt:{
-        type : Date,
-        default : Date.now(),
-        required : [true,'required']
-    }
 },
 {timestamps : true}
 )

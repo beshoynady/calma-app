@@ -320,38 +320,38 @@ const Users = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required pattern="[A-Za-z\u0600-\u06FF\s]+" onChange={(e) => setusername(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid name.</div>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>اسم المستخدم</label>
                           <input type="text" className="form-control" required onChange={(e) => setusername(e.target.value)} />
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الموبايل</label>
                           <input type="text" className="form-control" required pattern="[0-9]{11}" onChange={(e) => setphone(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid phone number (11 digits).</div>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الباسورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setpassword(e.target.value)} />
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الرقم القومي</label>
                           <input type="text" className="form-control" required onChange={(e) => setnumberID(e.target.value)} />
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الايميل</label>
                           <input type="email" className="form-control" required onChange={(e) => setemail(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid email address.</div>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>العنوان</label>
                           <textarea className="form-control" required onChange={(e) => setaddress(e.target.value)}></textarea>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الحالة</label>
                           <select form="carform" required onChange={(e) => setisActive(e.target.value)}>
                             <option >اختر</option>
@@ -359,7 +359,7 @@ const Users = () => {
                             <option value={false}>ليس متاح</option>
                           </select>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الوظيفه</label>
                           <select name={role} form="carform" required onChange={(e) => setrole(e.target.value)}>
                             <option>اختار وظيفة</option>
@@ -370,7 +370,7 @@ const Users = () => {
                             <option value="chef">شيف</option>
                           </select>
                         </div>
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>المرتب الاساسي</label>
                           <input type="Number" min={0} className="form-control" required onChange={(e) => setbasicSalary(e.target.value)} />
                           <div className="invalid-feedback">Please enter a valid salary.</div>

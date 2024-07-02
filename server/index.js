@@ -21,7 +21,7 @@ const routedeliveryarea = require('./router/DeliveryArea.router.js');
 const routereservation = require('./router/Reservation.router.js');
 const routemessage = require('./router/Message.router.js')
 const routeauth = require('./router/Auth.router.js');
-const routecategory = require('./router/Category.router.js');
+const routemenucategory = require('./router/MenuCategory.router.js');
 const routeproduct = require('./router/Product.router.js');
 const routerecipe = require('./router/Recipe.router.js');
 const routeuser = require('./router/User.router.js');
@@ -100,7 +100,7 @@ app.use('/api/shift', routeshift);
 app.use('/api/deliveryarea', routedeliveryarea);
 app.use('/api/product', routeproduct)
 app.use('/api/recipe', routerecipe)
-app.use('/api/category', routecategory);
+app.use('/api/menucategory', routemenucategory);
 app.use('/api/user', routeuser);
 app.use('/api/employee', routeemployee);
 app.use('/api/message', routemessage);

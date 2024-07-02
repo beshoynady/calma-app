@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Define the category schema
-const categorySchema = new mongoose.Schema({
+const MenuCategorySchema = new mongoose.Schema({
     // Category name
     name: {
         type: String,
@@ -35,7 +35,7 @@ const categorySchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Pre-save middleware to set the order to the last position if not provided
-categorySchema.pre('save', async function (next) {
+MenuCategorySchema.pre('save', async function (next) {
     if (this.isNew) {
         const highestOrderCategory = await mongoose.model('Category').findOne().sort('-order').exec();
         this.order = highestOrderCategory ? highestOrderCategory.order + 1 : 1;
@@ -44,7 +44,7 @@ categorySchema.pre('save', async function (next) {
 });
 
 // Create the Category model
-const Categorymodel = mongoose.model('Category', categorySchema)
+const Categorymodel = mongoose.model('MenuCategory', MenuCategorySchema)
 
 // Export the Category model
 module.exports = Categorymodel

@@ -54,7 +54,7 @@ const CategoryStock = () => {
     try {
       // Validate category stock name
       if (!categoryStockname.trim()) {
-        throw new Error("اسم الفئة مطلوب");
+        throw new Error("اسم التصنيف مطلوب");
       }
 
       const response = await axios.post(apiUrl + "/api/categoryStock/", { name: categoryStockname });
@@ -65,9 +65,9 @@ const CategoryStock = () => {
         getallCategoryStock();
 
         // Display success toast message
-        toast.success("تم إنشاء الفئة بنجاح");
+        toast.success("تم إنشاء التصنيف بنجاح");
       } else {
-        throw new Error("حدث خطأ أثناء إنشاء الفئة. يرجى المحاولة مرة أخرى.");
+        throw new Error("حدث خطأ أثناء إنشاء التصنيف. يرجى المحاولة مرة أخرى.");
       }
     } catch (error) {
       // Log the error
@@ -267,7 +267,7 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
@@ -289,7 +289,7 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label>الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>

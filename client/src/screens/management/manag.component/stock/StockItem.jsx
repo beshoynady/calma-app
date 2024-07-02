@@ -18,6 +18,8 @@ const StockItem = () => {
 
   const { permissionsList, setStartDate, setEndDate, filterByDateRange, filterByTime, employeeLoginInfo, usertitle, formatDate, formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
 
+  const permissionStockItem = permissionsList&&permissionsList.filter(permission=> permission.resource ==='stock Item')[0]
+  
   const [itemName, setitemName] = useState('');
   const [stockItemId, setStockItemid] = useState('');
   const [categoryId, setcategoryId] = useState('');
@@ -34,6 +36,10 @@ const StockItem = () => {
 
   // Function to create a stock item
   const createItem = async (e, userId) => {
+    if(permissionStockItem&&!permissionStockItem.read){
+      toast.warn('ليس لك صلاحية لانشاء عنصر جديد في المخزن')
+      return
+    }
     e.preventDefault();
     const createdBy = userId;
     try {
@@ -80,6 +86,10 @@ const StockItem = () => {
   }
   // Function to edit a stock item
   const editStockItem = async (e, userId) => {
+    if(permissionStockItem&&!permissionStockItem.update){
+      toast.warn('ليس لك صلاحية لتعديل عناصر المخزن')
+      return
+    }
     e.preventDefault();
     const createdBy = userId;
     try {
@@ -147,6 +157,10 @@ const StockItem = () => {
 
   // Function to delete a stock item
   const deleteStockItem = async (e) => {
+    if(permissionStockItem&&!permissionStockItem.delete){
+      toast.warn('ليس لك صلاحية لحذف عنصر من المخزن')
+      return
+    }
     e.preventDefault();
     try {
       const response = await axios.delete(`${apiUrl}/api/stockitem/${stockItemId}`, config);
@@ -373,11 +387,11 @@ const StockItem = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>اسم الصنف</label>
                   <input type="text" className="form-control" required onChange={(e) => setitemName(e.target.value)} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>نوع المخزن</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setcategoryId(e.target.value)}>
                     <option>اختر نوع المخزن</option>
@@ -387,35 +401,35 @@ const StockItem = () => {
                     }
                   </select>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الوحدة الكبيرة</label>
                   <input type='text' className="form-control" required onChange={(e) => setlargeUnit(e.target.value)}></input>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الوحدة الصغيره</label>
                   <input type='text' className="form-control" required onChange={(e) => setsmallUnit(e.target.value)}></input>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>رصيد افتتاحي</label>
                   <input type='Number' className="form-control" required onChange={(e) => setcurrentBalance(e.target.value)} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الحد الادني</label>
                   <input type='number' className="form-control" required onChange={(e) => { setminThreshold(e.target.value); }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>السعر</label>
                   <input type='Number' className="form-control" required onChange={(e) => { setprice(e.target.value) }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>عدد الوحدات</label>
                   <input type='Number' className="form-control" required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>تكلفة الوحده</label>
                   <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>التاريخ</label>
                   <input type='text' className="form-control" Value={new Date().toLocaleDateString()} required readOnly />
                 </div>
@@ -439,11 +453,11 @@ const StockItem = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>اسم الصنف</label>
                   <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>نوع المخزن</label>
                   <select name="category" id="category" defaultValue={categoryId} form="carform" onChange={(e) => setcategoryId(e.target.value)}>
                     <option value={categoryId}>{categoryName}</option>
@@ -454,36 +468,36 @@ const StockItem = () => {
                   </select>
                 </div>
 
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الوحدة الكبيرة</label>
                   <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الوحدة الصغيره</label>
                   <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>رصيد افتتاحي</label>
                   <input type='Number' className="form-control" defaultValue={currentBalance} required onChange={(e) => setcurrentBalance(e.target.value)} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>الحد الادني</label>
                   <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
                 </div>
 
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>السعر</label>
                   <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); setcostOfPart(e.target.value / Number(parts)) }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>عدد الوحدات</label>
                   <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(Number(price) / e.target.value) }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>تكلفة الوحده</label>
                   <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 ">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label>التاريخ</label>
                   <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
                 </div>

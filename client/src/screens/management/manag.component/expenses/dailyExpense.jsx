@@ -434,7 +434,7 @@ const DailyExpense = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>المصروف</label>
                   <select name="category" id="category" form="carform" onChange={(e) => {
                     setexpenseID(e.target.value);
@@ -446,21 +446,21 @@ const DailyExpense = () => {
                       : ""}
                   </select>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>المبلغ</label>
                   <input type="Number" className="form-control" required max={balance} onChange={(e) => {
                     setamount(e.target.value)
                   }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الخزينه </label>
                   <input type="text" className="form-control" value={cashRegistername} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>بواسطه </label>
                   <input type="text" className="form-control" value={usertitle(paidBy)} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12   w-100">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6   w-100">
                   <label>ملاحظات</label>
                   <textarea className="form-control" rows={2} cols={50} onChange={(e) => { setnotes(e.target.value) }} />
                 </div>
@@ -482,7 +482,7 @@ const DailyExpense = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>المصروف</label>
                   <select name="category" id="category" form="carform" onChange={(e) => {
                     setexpenseID(e.target.value);
@@ -494,21 +494,21 @@ const DailyExpense = () => {
                       : ""}
                   </select>
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>المبلغ</label>
                   <input type="Number" className="form-control" value={amount} required max={balance} onChange={(e) => {
                     setamount(e.target.value)
                   }} />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>الخزينه </label>
                   <input type="text" className="form-control" value={cashRegistername} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12 " >
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label>بواسطه </label>
                   <input type="text" className="form-control" value={usertitle(paidBy)} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-6  col-md-12   w-100">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6   w-100">
                   <label>ملاحظات</label>
                   <textarea className="form-control" rows={2} cols={100} onChange={(e) => { setnotes(e.target.value) }} />
                 </div>

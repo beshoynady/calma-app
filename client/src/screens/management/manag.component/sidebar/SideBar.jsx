@@ -245,7 +245,7 @@ const SideBar = () => {
                   )}
 
                   {/* Stock */}
-                  {permissionsList?.filter(permission => permission.resource === 'Inventory Item' || permission.resource === 'Kitchen Usage')[0]?.read && (
+                  {permissionsList?.filter(permission => permission.resource === 'stock Item' || permission.resource === 'Kitchen Usage')[0]?.read && (
                     <li ref={arrowRefs.arrowsto} onClick={() => openSubMenu(arrowRefs.arrowsto)}>
                       <div className="iocn-link">
                         <a href="#">
@@ -256,13 +256,13 @@ const SideBar = () => {
                       </div>
                       <ul className="sub-menu">
                         <li><a className="link_name" href="#">المخزن</a></li>
-                        {permissionsList?.filter(permission => permission.resource === 'Inventory Categories')[0]?.read && (
+                        {permissionsList?.filter(permission => permission.resource === 'stock Categories')[0]?.read && (
                           <li><Link to="categoryStock">تصنيفات</Link></li>
                         )}
-                        {permissionsList?.filter(permission => permission.resource === 'Inventory Item')[0]?.read && (
+                        {permissionsList?.filter(permission => permission.resource === 'stock Item')[0]?.read && (
                           <li><Link to="stockitem">الاصناف</Link></li>
                         )}
-                        {permissionsList?.filter(permission => permission.resource === 'Inventory Management')[0]?.read && (
+                        {permissionsList?.filter(permission => permission.resource === 'stock Management')[0]?.read && (
                           <li><Link to="stockmang">حركه المخزن</Link></li>
                         )}
                         {permissionsList?.filter(permission => permission.resource === 'Kitchen Usage')[0]?.read && (
