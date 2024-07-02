@@ -387,13 +387,13 @@ const Products = () => {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="filter-group d-flex align-items-center justify-content-between">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                         <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="filter-group d-flex align-items-center justify-content-between">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
                         <select className="form-select" onChange={(e) => getemployeesByCategory(e.target.value)} >
                           <option value={""}>الكل</option>
                           {listofcategories.map((category, i) => {
@@ -409,10 +409,10 @@ const Products = () => {
               <div className="row text-dark">
                 <div className="col-md-8">
                   {/* <div className="filter-group d-flex align-items-center justify-content-between"> */}
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">عدد المبيعات في فتره محدده</label>
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">بداية التاريخ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المبيعات في فتره محدده</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بداية التاريخ</label>
                   <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نهاية التاريخ</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نهاية التاريخ</label>
                   <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
                   <button type="button" className="btn w-50 btn-primary" onClick={calcsalseofproducts}>
                     <i className="fa fa-search"></i> فلتر
@@ -547,15 +547,15 @@ const Products = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                   <input type="text" className="form-control" required onChange={(e) => setproductname(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوصف</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
                   <textarea className="form-control" onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setproductcategoryid(e.target.value)}>
                     <option defaultValue={productcategoryid}>اختر تصنيف</option>
                     {listofcategories.map((category, i) => {
@@ -565,7 +565,7 @@ const Products = () => {
                   </select>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">أحجام المنتج</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">أحجام المنتج</label>
                   <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                 </div>
                 {hasSizes ? (
@@ -574,7 +574,7 @@ const Products = () => {
                       <div key={index} className="row mb-3">
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الحجم</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الحجم</label>
                             <input
                               type="text"
                               className="form-control"
@@ -591,7 +591,7 @@ const Products = () => {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">السعر</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                             <div className="input-group">
                               <input
                                 type="number"
@@ -613,7 +613,7 @@ const Products = () => {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التخفيض</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
                             <div className="input-group">
                               <input
                                 type="number"
@@ -650,27 +650,27 @@ const Products = () => {
                 ) : (
                   <>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">السعر</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                       <input type='number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التخفيض</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
                       <input type='number' className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
                 }
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">هل هذا المنتج اضافه</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">هل هذا المنتج اضافه</label>
                   <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">هل له اضافات</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">هل له اضافات</label>
                   <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                 </div>
                 {hasExtras &&
                   <div className="form-group " style={{ fontSize: '16px', fontWeight: '900' }}>
-                    <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اختر الاضافات</label>
+                    <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اختر الاضافات</label>
                     {listofProductsAddon.length > 0 ?
                       <div className="row">
                         <div className="col-lg-12">
@@ -696,7 +696,7 @@ const Products = () => {
                   </div>
                 }
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">متاح</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">متاح</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
 
                     <option defaultValue={available} >اختر الحاله</option>
@@ -705,7 +705,7 @@ const Products = () => {
                   </select>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الصورة</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الصورة</label>
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>
@@ -727,15 +727,15 @@ const Products = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                   <input type="text" className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوصف</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
                   <textarea className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
                   <select name="category" id="category" form="carform" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].category : ""} onChange={(e) => setproductcategoryid(e.target.value)}>
                     {listofcategories.map((category, i) => {
                       return <option value={category._id} key={i} >{category.name}</option>
@@ -744,7 +744,7 @@ const Products = () => {
                   </select>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">أحجام المنتج</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">أحجام المنتج</label>
                   <input type="checkbox" checked={hasSizes} onChange={handleCheckboxChange} />
                 </div>
                 {hasSizes ? (
@@ -753,7 +753,7 @@ const Products = () => {
                       <div key={index} className="row mb-3">
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الحجم</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الحجم</label>
                             <input
                               type="text"
                               className="form-control"
@@ -770,7 +770,7 @@ const Products = () => {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">السعر</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                             <div className="input-group">
                               <input
                                 type="number"
@@ -792,7 +792,7 @@ const Products = () => {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " style={{ width: '95%' }}>
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التخفيض</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
                             <div className="input-group">
                               <input
                                 type="number"
@@ -829,27 +829,27 @@ const Products = () => {
                 ) : (
                   <>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">السعر</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                       <input type='number' className="form-control" defaultValue={productprice} placeholder={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التخفيض</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
                       <input type='number' className="form-control" defaultValue={productdiscount} placeholder={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
                 }
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">هل هذا المنتج اضافه</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">هل هذا المنتج اضافه</label>
                   <input type="checkbox" checked={isAddon} onChange={handleIsAddonCheckboxChange} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">هل له اضافات</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">هل له اضافات</label>
                   <input type="checkbox" checked={hasExtras} onChange={handleIsHasExtrasCheckboxChange} />
                 </div>
                 {hasExtras &&
                   <div className="form-group " style={{ fontSize: '16px', fontWeight: '900' }}>
-                    <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اختر الاضافات</label>
+                    <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اختر الاضافات</label>
                     {listofProductsAddon.length > 0 ?
                       <div className="row">
                         <div className="col-lg-12">
@@ -875,14 +875,14 @@ const Products = () => {
                   </div>
                 }
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">متاح</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">متاح</label>
                   <select name="category" id="category" form="carform" onChange={(e) => setavailable(e.target.value)}>
                     <option value={true} >متاح</option>
                     <option value={false} >غير متاح</option>
                   </select>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الصورة</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الصورة</label>
                   <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>

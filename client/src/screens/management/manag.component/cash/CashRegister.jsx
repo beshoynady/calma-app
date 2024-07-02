@@ -195,12 +195,12 @@ const CashRegister = () => {
                     </div>
                     <div class="col-sm-9">
                       <div class="filter-group d-flex align-items-center justify-content-between">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم الخزينه</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الخزينه</label>
                         <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
                         
                       </div>
                       <div class="filter-group d-flex align-items-center justify-content-between">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المسؤل</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المسؤل</label>
                         <select class="form-control" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
                           <option >اختر</option>
                           {allEmployee && allEmployee.map((Employee, i) => {
@@ -211,7 +211,7 @@ const CashRegister = () => {
                       </div>
                       {/* 
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                           <select class="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
@@ -299,12 +299,12 @@ const CashRegister = () => {
                     </div>
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                         <input type="text" className="form-control" required onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المسؤل</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المسؤل</label>
                       <select name="Employee" id="Employee" form="carform" onChange={(e) => setemployee(e.target.value)}>
                         <option>احتر الموظف</option>
                         {allEmployee.map((Employee, i) => {
@@ -332,12 +332,12 @@ const CashRegister = () => {
                     </div>
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                         <input type="text" className="form-control" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                      <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المسؤل</label>
+                      <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المسؤل</label>
                       <select name="category" id="category" form="carform" defaultValue={employee} onChange={(e) => setemployee(e.target.value)}>
                         <option>احتر الموظف</option>
                         {allEmployee.length > 0 ? allEmployee.map((Employee, i) => {

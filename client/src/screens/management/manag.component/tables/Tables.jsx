@@ -270,12 +270,12 @@ const deleteTable = async (e) => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الطاولة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 -47">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحالة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
                           <select name="category" id="category" form="carform" onChange={(e) => filterByStatus(e.target.value)}>
                             <option >اختر</option>
                             <option value={true} >متاح</option>
@@ -405,19 +405,19 @@ const deleteTable = async (e) => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم السكشن</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم السكشن</label>
                           <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الطاولة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">عدد المقاعد</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المقاعد</label>
                           <input type="Number" className="form-control" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوصف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
                           <textarea className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                       </div>
@@ -439,23 +439,23 @@ const deleteTable = async (e) => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم السكشن</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم السكشن</label>
                           <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الطاولة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">عدد المقاعد</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المقاعد</label>
                           <input type="Number" defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).chairs : ''} className="form-control" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الوصف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
                           <textarea defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).description : ""} className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">متاح</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">متاح</label>
                           <select name="category" id="category" form="carform" onChange={(e) => setisValid(e.target.value)}>
                             <option >اختر</option>
                             <option value={true} >متاح</option>

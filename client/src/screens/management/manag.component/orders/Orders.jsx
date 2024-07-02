@@ -178,14 +178,14 @@ const Orders = () => {
                       </div>
                       <div class="col">
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الفاتورة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الفاتورة</label>
                           <input type="text" class="form-control" onChange={(e) => searchBySerial(e.target.value)} />
                          
                         </div>
                       </div>
                       <div class="col">
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">نوع الاوردر</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => getOrdersByType(e.target.value)} >
                             <option value={""}>الكل</option>
                             <option value="Internal" >Internal</option>
@@ -194,7 +194,7 @@ const Orders = () => {
                           </select>
                         </div>
                         {/* <div class="filter-group d-flex align-items-center justify-content-between">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                   <select class="form-control">
                     <option>Any</option>
                     <option>Delivered</option>
@@ -425,19 +425,19 @@ const Orders = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Name</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Name</label>
                           <input type="text" className="form-control" required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Email</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Email</label>
                           <input type="email" className="form-control" required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Address</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Address</label>
                           <textarea className="form-control" required></textarea>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Phone</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Phone</label>
                           <input type="text" className="form-control" required />
                         </div>
                       </div>
@@ -459,19 +459,19 @@ const Orders = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Name</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Name</label>
                           <input type="text" className="form-control" required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Email</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Email</label>
                           <input type="email" className="form-control" required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Address</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Address</label>
                           <textarea className="form-control" required></textarea>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Phone</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Phone</label>
                           <input type="text" className="form-control" required />
                         </div>
                       </div>

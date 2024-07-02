@@ -123,12 +123,12 @@ const ExpenseItem = () => {
                         <span>صفوف</span>
                       </div>                      
                       <div class="filter-group d-flex align-items-center justify-content-between">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم المصروف</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المصروف</label>
                         <input type="text" class="form-control" onChange={(e) => searchByExpense(e.target.value)} />
                       </div>
                       <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group d-flex align-items-center justify-content-between">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setAllExpenses(filterByTime(e.target.value, allExpenses))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -229,7 +229,7 @@ const ExpenseItem = () => {
                     </div>
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم المصروف</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المصروف</label>
                         <input type="text" className="form-control" required onChange={(e) => setDescription(e.target.value)} />
                       </div>
                     </div>
@@ -251,7 +251,7 @@ const ExpenseItem = () => {
                     </div>
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                        <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اسم المصروف</label>
+                        <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المصروف</label>
                         <input type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
                       </div>
                     </div>

@@ -612,15 +612,15 @@ const PurchaseReturn = () => {
                 <h2>ادارة <b>مرتجع المشتريات</b></h2>
               </div>
               <div className="col-sm-6 d-flex justify-content-end">
-                <a href="#addPurchaseInvoiceModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اضافه فاتورة جديدة</label></a>
-                <a href="#deleteStockactionModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label className="col-4 fs-4 text-wrap text-right fw-bolder ">حذف</label></a>
+                <a href="#addPurchaseInvoiceModal" className="btn w-50 btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اضافه فاتورة جديدة</label></a>
+                <a href="#deleteStockactionModal" className="btn w-50 btn-danger" data-toggle="modal"><i className="material-icons">&#xE15C;</i> <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">حذف</label></a>
               </div>
             </div>
           </div>
           <div className="table-filter print-hide">
             <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
               <div className="show-entries">
-                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">عرض</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عرض</label>
                 <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   {
                     (() => {
@@ -632,10 +632,10 @@ const PurchaseReturn = () => {
                     })()
                   }
                 </select>
-                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">صفوف</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">صفوف</label>
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between">
-                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الفاتورة</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الفاتورة</label>
                 <select className="form-select" onChange={(e) => searchByInvoice(e.target.value)} >
                   <option value="all">الكل</option>
                   {allPurchaseInvoice.map(PurchaseInvoice => {
@@ -644,7 +644,7 @@ const PurchaseReturn = () => {
                 </select>
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between">
-                <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المورد</label>
+                <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المورد</label>
                 <select className="form-select" onChange={(e) => searchBySupplier(e.target.value)} >
                   <option value="all">الكل</option>
                   {AllSuppliers.map(Supplier => {
@@ -654,7 +654,7 @@ const PurchaseReturn = () => {
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group d-flex align-items-center justify-content-between">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">فلتر حسب الوقت</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallPurchasesReturn(filterByTime(e.target.value, allPurchasesReturn))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>

@@ -427,7 +427,7 @@ const ProductRecipe = () => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التصنيف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
                           <select class="form-control" onChange={(e) => getproductByCategory(e.target.value)} >
                             <option value={""}>الكل</option>
                             {listofcategories.map((category, i) => {
@@ -437,7 +437,7 @@ const ProductRecipe = () => {
                           </select>
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">المنتج</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المنتج</label>
                           <select class="form-control" onChange={(e) => handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
                             {productFilterd.map((product, i) => {
@@ -448,7 +448,7 @@ const ProductRecipe = () => {
                         </div>
                         {sizes.length > 0 ?
                           <div className="filter-group d-flex align-items-center justify-content-between">
-                            <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحجم</label>
+                            <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحجم</label>
                             <select className="form-select" onChange={(e) => handleSelectedProductSize(e.target.value)} >
                               <option value="">اختر حجم</option>
                               {sizes.map((size, i) => {
@@ -458,11 +458,11 @@ const ProductRecipe = () => {
                           </div>
                           : ""}
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">اجمالي التكاليف</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اجمالي التكاليف</label>
                           <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />
                         </div>
                         {/* <div class="filter-group d-flex align-items-center justify-content-between">
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder ">Status</label>
+                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
                   <select class="form-control">
                     <option>Any</option>
                     <option>Delivered</option>
@@ -556,7 +556,7 @@ const ProductRecipe = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                           <select form="carform" onChange={(e) => { setitemId(e.target.value); setname(AllStockItems.find(s => s._id == e.target.value).itemName); setunit(AllStockItems.find(s => s._id == e.target.value).smallUnit); setcostofitem(AllStockItems.find(s => s._id == e.target.value).costOfPart) }}>
                             <option >اختر</option>
                             {AllStockItems && AllStockItems.map((item, i) => {
@@ -568,16 +568,16 @@ const ProductRecipe = () => {
                           </select>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التكلفة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
                           <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الكمية</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
                           <input type="Number" className="form-control" required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
                           <input type="text" className="form-control" defaultValue={unit} readOnly required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التكلفة الاجمالية</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة الاجمالية</label>
                           <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
                         </div>
                         {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
@@ -604,20 +604,20 @@ const ProductRecipe = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الاسم</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                           <input type='text' className="form-control" defaultValue={name} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التكلفة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
                           <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
                           <input type="text" className="form-control" defaultValue={unit} readOnly required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الكمية</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
                           <input type="Number" className="form-control" defaultValue={amount} required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">التكلفة الاجمالية</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة الاجمالية</label>
                           <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
                         </div>
                       </div>

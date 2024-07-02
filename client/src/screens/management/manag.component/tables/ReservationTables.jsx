@@ -134,12 +134,12 @@ const ReservationTables = () => {
                       </div>
                       {/* <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">رقم الطاولة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
                           <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label className="col-4 fs-4 text-wrap text-right fw-bolder ">الحالة</label>
+                          <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
                           <select name="category" id="category" form="carform" onChange={(e) => filterByStatus(e.target.value)}>
                             <option >اختر</option>
                             <option value={true} >متاح</option>
