@@ -139,13 +139,13 @@ const CustomerMessage = () => {
                 <span>عنصر</span>
               </div>
               <div class="filter-group">
-                <label>الموبايل</label>
+                <label className="col-4 fs-5 text fw-bold ">الموبايل</label>
                 <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
 
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
                 <div className="filter-group">
-                  <label>فلتر حسب الوقت</label>
+                  <label className="col-4 fs-5 text fw-bold ">فلتر حسب الوقت</label>
                   <select className="form-select" onChange={(e) => setallCustomerMessage(filterByTime(e.target.value, allCustomerMessage))}>
                     <option value="">اختر</option>
                     <option value="today">اليوم</option>
@@ -255,20 +255,20 @@ const CustomerMessage = () => {
               </div>
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label>الاسم</label>
+                  <label className="col-4 fs-5 text fw-bold ">الاسم</label>
                   <input type="text" className="form-control" defaultValue={name} required readOnly />
                 </div>
 
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label>الموبايل</label>
+                  <label className="col-4 fs-5 text fw-bold ">الموبايل</label>
                   <input type="text" className="form-control" defaultValue={phone} required readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label>الايميل</label>
+                  <label className="col-4 fs-5 text fw-bold ">الايميل</label>
                   <input type="email" className="form-control" defaultValue={email} required readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label>الرسالة</label>
+                  <label className="col-4 fs-5 text fw-bold ">الرسالة</label>
                   <textarea className="form-control" defaultValue={message} required readOnly></textarea>
                 </div>
               </div>

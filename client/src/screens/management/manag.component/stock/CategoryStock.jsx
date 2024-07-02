@@ -171,12 +171,12 @@ const CategoryStock = () => {
                       </div>
                       <div class="col-sm-9">
                         <div class="filter-group">
-                          <label>اسم الصنف</label>
+                          <label className="col-4 fs-5 text fw-bold ">اسم الصنف</label>
                           <input type="text" class="form-control" onChange={(e) => searchByCategoryStock(e.target.value)} />
                           
                         </div>
                         {/* <div class="filter-group">
-                          <label>Location</label>
+                          <label className="col-4 fs-5 text fw-bold ">Location</label>
                           <select class="form-control">
                             <option>All</option>
                             <option>Berlin</option>
@@ -187,7 +187,7 @@ const CategoryStock = () => {
                           </select>
                         </div>
                         <div class="filter-group">
-                          <label>Status</label>
+                          <label className="col-4 fs-5 text fw-bold ">Status</label>
                           <select class="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
@@ -268,8 +268,8 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الاسم</label>
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 ">
+                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
                       </div>
@@ -290,8 +290,8 @@ const CategoryStock = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الاسم</label>
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12 ">
+                          <label className="col-4 fs-5 text fw-bold ">الاسم</label>
                           <input type="text" className="form-control" required onChange={(e) => setcategoryStockname(e.target.value)} />
                         </div>
                       </div>

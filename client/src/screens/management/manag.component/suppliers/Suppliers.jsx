@@ -333,11 +333,11 @@ const Suppliers = () => {
                       <div class="col-sm-9">
                         
                         <div class="filter-group">
-                          <label>اسم المورد</label>
+                          <label className="col-4 fs-5 text fw-bold ">اسم المورد</label>
                           <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
                         </div>
                         {/* <div class="filter-group">
-                          <label>نوع الاوردر</label>
+                          <label className="col-4 fs-5 text fw-bold ">نوع الاوردر</label>
                           <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
                             <option value="Purchase" >Purchase</option>
@@ -347,7 +347,7 @@ const Suppliers = () => {
                           </select>
                         </div> */}
                         {/* <div class="filter-group">
-                          <label>Location</label>
+                          <label className="col-4 fs-5 text fw-bold ">Location</label>
                           <select class="form-control">
                             <option>All</option>
                             <option>Berlin</option>
@@ -358,7 +358,7 @@ const Suppliers = () => {
                           </select>
                         </div>
                         <div class="filter-group">
-                          <label>Status</label>
+                          <label className="col-4 fs-5 text fw-bold ">Status</label>
                           <select class="form-control">
                             <option>Any</option>
                             <option>Delivered</option>
@@ -444,31 +444,31 @@ const Suppliers = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>اسم المورد</label>
+                          <label className="col-4 fs-5 text fw-bold ">اسم المورد</label>
                           <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
                         </div>
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>الموبايل {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الواتس اب</label>
+                          <label className="col-4 fs-5 text fw-bold ">الواتس اب</label>
                           <input type="text" className="form-control" onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الايميل</label>
+                          <label className="col-4 fs-5 text fw-bold ">الايميل</label>
                           <input type="text" className="form-control" onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>العنوان</label>
+                          <label className="col-4 fs-5 text fw-bold ">العنوان</label>
                           <input type="text" className="form-control" required onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>نوع الدفع</label>
+                          <label className="col-4 fs-5 text fw-bold ">نوع الدفع</label>
                           <select className="form-select" required onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">اختر...</option>
                             <option value="Cash">كاش</option>
@@ -477,7 +477,7 @@ const Suppliers = () => {
                         </div>
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>العنصر المورد {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">العنصر المورد {index + 1}</label>
                             <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">اختر...</option>
                               {AllStockItems.map(stockItem => {
@@ -489,12 +489,12 @@ const Suppliers = () => {
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الرصيد الافتتاحي</label>
+                          <label className="col-4 fs-5 text fw-bold ">الرصيد الافتتاحي</label>
                           <input type="number" className="form-control" onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         {financialInfo.map((info, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>المعلومات المالية {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
@@ -502,7 +502,7 @@ const Suppliers = () => {
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>ملاحظات</label>
+                          <label className="col-4 fs-5 text fw-bold ">ملاحظات</label>
                           <textarea className="form-control" onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
@@ -525,32 +525,32 @@ const Suppliers = () => {
                       </div>
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>اسم المورد</label>
+                          <label className="col-4 fs-5 text fw-bold ">اسم المورد</label>
                           <input type="text" className="form-control" defaultValue={name}  value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
 
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>الموبايل {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">الموبايل {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الواتس اب</label>
+                          <label className="col-4 fs-5 text fw-bold ">الواتس اب</label>
                           <input type="text" className="form-control" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>الايميل</label>
+                          <label className="col-4 fs-5 text fw-bold ">الايميل</label>
                           <input type="text" className="form-control" defaultValue={email} onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>العنوان</label>
+                          <label className="col-4 fs-5 text fw-bold ">العنوان</label>
                           <input type="text" className="form-control"  defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>نوع الدفع</label>
+                          <label className="col-4 fs-5 text fw-bold ">نوع الدفع</label>
                           <select className="form-select" defaultValue={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
                             <option value="">{paymentType === 'Cash' ? 'كاش' : "تقسيط"}</option>
                             <option value="Cash">كاش</option>
@@ -559,7 +559,7 @@ const Suppliers = () => {
                         </div>
                         {itemsSupplied.map((item, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>العنصر المورد {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">العنصر المورد {index + 1}</label>
                             <select className="form-select" onChange={(e) => handleNewItemsSupplied(index, e)}>
                               <option value="">{item ? item.itemName : ""}</option>
                               {AllStockItems.map(stockItem => {
@@ -572,7 +572,7 @@ const Suppliers = () => {
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         {financialInfo.map((info, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
-                            <label>المعلومات المالية {index + 1}</label>
+                            <label className="col-4 fs-5 text fw-bold ">المعلومات المالية {index + 1}</label>
                             <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
                             <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
@@ -580,7 +580,7 @@ const Suppliers = () => {
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
-                          <label>ملاحظات</label>
+                          <label className="col-4 fs-5 text fw-bold ">ملاحظات</label>
                           <textarea className="form-control" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
