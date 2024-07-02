@@ -199,7 +199,7 @@ const SupplierTransaction = () => {
           </div>
 
           <div className="table-filter print-hide">
-            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+            <div class="row text-dark d-flex flex-wrap align-items-center justify-content-start">
               <div className="show-entries">
                 <label htmlFor="showEntries">عرض</label>
                 <select
@@ -299,7 +299,7 @@ const SupplierTransaction = () => {
                 </div>
               </div>
 
-              <div class="col-12 row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+              <div class="col-12 row text-dark d-flex flex-wrap align-items-center justify-content-start">
                 <div className="show-entries">
                   <label htmlFor="totalPurchasesInput" className="col-12">اجمالي المشتريات</label>
                   <input

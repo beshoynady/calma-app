@@ -3,7 +3,7 @@ const DailyExpenseModel = require('../models/DailyExpense.model');
 // Get all daily expenses
 exports.getAllDailyExpenses = async (req, res) => {
   try {
-    const dailyExpenses = await DailyExpenseModel.find();
+    const dailyExpenses = await DailyExpenseModel.find().populate('expenseID').populate('cashRegister').populate('cashMovementId');
     res.status(200).json(dailyExpenses);
   } catch (err) {
     res.status(500).json({ message: err.message });

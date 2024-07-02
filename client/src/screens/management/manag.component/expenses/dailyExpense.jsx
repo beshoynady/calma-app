@@ -283,7 +283,7 @@ const DailyExpense = () => {
             </div>
           </div>
           <div class="table-filter print-hide">
-            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+            <div class="row text-dark d-flex flex-wrap align-items-center justify-content-start">
                 <div class="show-entries">
                   <span>عرض</span>
                   <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>

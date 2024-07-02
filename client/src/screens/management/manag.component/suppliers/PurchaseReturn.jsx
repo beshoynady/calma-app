@@ -618,7 +618,7 @@ const PurchaseReturn = () => {
             </div>
           </div>
           <div className="table-filter print-hide">
-            <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
+            <div class="row text-dark d-flex flex-wrap align-items-center justify-content-start">
               <div className="show-entries">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عرض</label>
                 <select className="form-select col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
