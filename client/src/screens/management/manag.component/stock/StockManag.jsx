@@ -367,7 +367,7 @@ const StockManag = () => {
   return (
     <detacontext.Consumer>
       {
-        ({ employeeLoginInfo, usertitle,formatDateTimee, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
+        ({ employeeLoginInfo, usertitle,formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination }) => {
           return (
             <div className="w-100 px-3 d-flex align-itmes-center justify-content-start">
               <div className="table-responsive">
@@ -487,7 +487,7 @@ const StockManag = () => {
                                 <td>{action.cost}</td>
                                 <td>{action.oldBalance}</td>
                                 <td>{action.balance}</td>
-                                <td>{formatDateTimee(action.createdAt)}</td>
+                                <td>{formatDateTime(action.createdAt)}</td>
                                 <td>{action.actionBy?.fullname}</td>
                                 <td>
                                   <a href="#editStockactionModal" className="edit" data-toggle="modal" onClick={() => { setactionId(action._id); seitemName(action.itemName); setoldBalance(action.oldBalance); setprice(action.price) }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
