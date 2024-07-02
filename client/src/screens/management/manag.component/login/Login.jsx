@@ -85,13 +85,13 @@ const Login = () => {
               <br />
               <h3 className="header-title">سجل دخول</h3>
               <form className="login-form" onSubmit={adminLogin}>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <input type="text" className="form-control" placeholder="الهاتف" onChange={(e) => setphone(e.target.value)} />
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <input type="password" className="form-control" placeholder="كلمة المرور" onChange={(e) => setpassword(e.target.value)} />
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <button type='submit' className="btn btn-primary btn-block">تسجيل دخول</button>
                 </div>
               </form>

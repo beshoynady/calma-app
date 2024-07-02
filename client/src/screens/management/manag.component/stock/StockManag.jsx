@@ -523,7 +523,7 @@ const StockManag = () => {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       </div>
                       <div className="modal-body">
-                        <div className="filter-group d-flex align-items-center justify-content-between">
+                        <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الحركه</label>
                           <select name="" id="" onChange={(e) => setmovement(e.target.value)}>
                             <option >اختر الاجراء</option>

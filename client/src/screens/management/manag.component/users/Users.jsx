@@ -393,7 +393,7 @@ const Users = () => {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div className="modal-body">
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                   <input
                     type="text"
@@ -405,7 +405,7 @@ const Users = () => {
                   />
                   <div className="invalid-feedback">الرجاء إدخال اسم صحيح.</div>
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل</label>
                   <input
                     type="text"
@@ -417,7 +417,7 @@ const Users = () => {
                   />
                   <div className="invalid-feedback">الرجاء إدخال رقم هاتف صحيح (11 رقم).</div>
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الباسورد</label>
                   <input
                     type="password"
@@ -425,7 +425,7 @@ const Users = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الايميل</label>
                   <input
                     type="email"
@@ -436,7 +436,7 @@ const Users = () => {
                   />
                   <div className="invalid-feedback">الرجاء إدخال عنوان بريد إلكتروني صحيح.</div>
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">العنوان</label>
                   <textarea
                     className="form-control"
@@ -445,7 +445,7 @@ const Users = () => {
                     onChange={(e) => setAddress(e.target.value)}
                   ></textarea>
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
                   <select
                     className="form-control"
@@ -458,7 +458,7 @@ const Users = () => {
                     <option value="false">ليس متاح</option>
                   </select>
                 </div>
-                <div className="form-group">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المنطقة</label>
                   <select
                     name="area"

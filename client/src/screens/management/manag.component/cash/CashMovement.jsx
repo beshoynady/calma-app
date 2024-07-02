@@ -647,7 +647,7 @@ const CashMovement = () => {
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
                   <textarea rows="2" cols="80" className="form-control" onChange={(e) => setDescription(e.target.value)} required />
                 </div>
-                <div className="filter-group d-flex align-items-center justify-content-between">
+                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الخزينه المحول اليها</label>
                   <select className="form-select" onChange={(e) => setreceivRegister(e.target.value)}>
                     <option value={""}>اختر</option>
