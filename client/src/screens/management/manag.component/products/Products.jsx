@@ -388,7 +388,7 @@ const Products = () => {
                     <div className="col-md-6">
                       <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                        <input type="text" className="form-control" onChange={(e) => searchByName(e.target.value)} />
+                        <input type="text" className="form-control col-8" onChange={(e) => searchByName(e.target.value)} />
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -411,9 +411,9 @@ const Products = () => {
                   {/* <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2"> */}
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المبيعات في فتره محدده</label>
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بداية التاريخ</label>
-                  <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} />
+                  <input type="date" className="form-control col-8" onChange={(e) => setStartDate(e.target.value)} />
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نهاية التاريخ</label>
-                  <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} />
+                  <input type="date" className="form-control col-8" onChange={(e) => setEndDate(e.target.value)} />
                   <button type="button" className="btn w-50 btn-primary" onClick={calcsalseofproducts}>
                     <i className="fa fa-search"></i> فلتر
                   </button>
@@ -548,11 +548,11 @@ const Products = () => {
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                  <input type="text" className="form-control" required onChange={(e) => setproductname(e.target.value)} />
+                  <input type="text" className="form-control col-8" required onChange={(e) => setproductname(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
-                  <textarea className="form-control" onChange={(e) => setproductdescription(e.target.value)}></textarea>
+                  <textarea className="form-control col-8" onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
@@ -577,7 +577,7 @@ const Products = () => {
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الحجم</label>
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control col-8"
                               value={size.sizeName}
                               onChange={(e) =>
                                 setsizes((prevState) => {
@@ -595,7 +595,7 @@ const Products = () => {
                             <div className="input-group">
                               <input
                                 type="number"
-                                className="form-control"
+                                className="form-control col-8"
                                 value={size.sizePrice}
                                 onChange={(e) =>
                                   setsizes((prevState) => {
@@ -617,7 +617,7 @@ const Products = () => {
                             <div className="input-group">
                               <input
                                 type="number"
-                                className="form-control"
+                                className="form-control col-8"
                                 value={size.sizeDiscount}
                                 onChange={(e) =>
                                   setsizes((prevState) => {
@@ -651,11 +651,11 @@ const Products = () => {
                   <>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                       <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
-                      <input type='number' className="form-control" required onChange={(e) => setproductprice(e.target.value)} />
+                      <input type='number' className="form-control col-8" required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                       <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
-                      <input type='number' className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
+                      <input type='number' className="form-control col-8" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].discount : ""} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
@@ -691,7 +691,7 @@ const Products = () => {
                           </div>
                         </div>
                       </div>
-                      : <input type="text" className="form-control" value='لا يوجد اي اضافات' />
+                      : <input type="text" className="form-control col-8" value='لا يوجد اي اضافات' />
                     }
                   </div>
                 }
@@ -706,7 +706,7 @@ const Products = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الصورة</label>
-                  <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                  <input type="file" className="form-control col-8" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
@@ -728,11 +728,11 @@ const Products = () => {
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                  <input type="text" className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
+                  <input type="text" className="form-control col-8" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].name : ""} required onChange={(e) => setproductname(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
-                  <textarea className="form-control" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
+                  <textarea className="form-control col-8" defaultValue={listofProducts.filter(product => product._id == productid).length > 0 ? listofProducts.filter(product => product._id == productid)[0].description : ""} required onChange={(e) => setproductdescription(e.target.value)}></textarea>
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
@@ -756,7 +756,7 @@ const Products = () => {
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الحجم</label>
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control col-8"
                               value={size.sizeName}
                               onChange={(e) =>
                                 setsizes((prevState) => {
@@ -774,7 +774,7 @@ const Products = () => {
                             <div className="input-group">
                               <input
                                 type="number"
-                                className="form-control"
+                                className="form-control col-8"
                                 value={size.sizePrice}
                                 onChange={(e) =>
                                   setsizes((prevState) => {
@@ -796,7 +796,7 @@ const Products = () => {
                             <div className="input-group">
                               <input
                                 type="number"
-                                className="form-control"
+                                className="form-control col-8"
                                 value={size.sizeDiscount}
                                 onChange={(e) =>
                                   setsizes((prevState) => {
@@ -830,11 +830,11 @@ const Products = () => {
                   <>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                       <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
-                      <input type='number' className="form-control" defaultValue={productprice} placeholder={productprice} required onChange={(e) => setproductprice(e.target.value)} />
+                      <input type='number' className="form-control col-8" defaultValue={productprice} placeholder={productprice} required onChange={(e) => setproductprice(e.target.value)} />
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                       <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التخفيض</label>
-                      <input type='number' className="form-control" defaultValue={productdiscount} placeholder={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
+                      <input type='number' className="form-control col-8" defaultValue={productdiscount} placeholder={productdiscount} required onChange={(e) => setproductdiscount(e.target.value)} />
                     </div>
                   </>
                 )
@@ -870,7 +870,7 @@ const Products = () => {
                           </div>
                         </div>
                       </div>
-                      : <input type="text" className="form-control" value='لا يوجد اي اضافات' />
+                      : <input type="text" className="form-control col-8" value='لا يوجد اي اضافات' />
                     }
                   </div>
                 }
@@ -883,7 +883,7 @@ const Products = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الصورة</label>
-                  <input type="file" className="form-control" onChange={(e) => handleFileUpload(e)} />
+                  <input type="file" className="form-control col-8" onChange={(e) => handleFileUpload(e)} />
                 </div>
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

@@ -417,7 +417,7 @@ const SupplierTransaction = () => {
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">تاريخ العملية</label>
-                  <input type="date" className="form-control" value={transactionDate} onChange={(e) => setTransactionDate(e.target.value)} />
+                  <input type="date" className="form-control col-8" value={transactionDate} onChange={(e) => setTransactionDate(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المورد</label>
@@ -448,23 +448,23 @@ const SupplierTransaction = () => {
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المبلغ</label>
-                  <input type="number" className="form-control" defaultValue={amount} onChange={(e) => handlecurrentBalance(e.target.value)} />
+                  <input type="number" className="form-control col-8" defaultValue={amount} onChange={(e) => handlecurrentBalance(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد السابق</label>
-                  <input type="text" className="form-control" value={previousBalance} readOnly />
+                  <input type="text" className="form-control col-8" value={previousBalance} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد الحالي</label>
-                  <input type="text" className="form-control" value={currentBalance} readOnly />
+                  <input type="text" className="form-control col-8" value={currentBalance} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">طريقة الدفع</label>
-                  <input type="text" className="form-control" defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
+                  <input type="text" className="form-control col-8" defaultValue={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">ملاحظات</label>
-                  <input type="text" className="form-control" value={notes} onChange={(e) => setNotes(e.target.value)} />
+                  <input type="text" className="form-control col-8" value={notes} onChange={(e) => setNotes(e.target.value)} />
                 </div>
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
@@ -487,7 +487,7 @@ const SupplierTransaction = () => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الصنف</label>
-                          <input type="text" className="form-control" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={itemName} required onChange={(e) => setitemName(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع المخزن</label>
@@ -503,40 +503,40 @@ const SupplierTransaction = () => {
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوحدة الكبيرة</label>
-                          <input type='text' className="form-control" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
+                          <input type='text' className="form-control col-8" defaultValue={largeUnit} required onChange={(e) => setlargeUnit(e.target.value)}></input>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوحدة الصغيره</label>
-                          <input type='text' className="form-control" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
+                          <input type='text' className="form-control col-8" defaultValue={smallUnit} required onChange={(e) => setsmallUnit(e.target.value)}></input>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رصيد افتتاحي</label>
-                          <input type='Number' className="form-control" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
+                          <input type='Number' className="form-control col-8" defaultValue={Balance} required onChange={(e) => setBalance(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحد الادني</label>
-                          <input type='number' className="form-control" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
+                          <input type='number' className="form-control col-8" required defaultValue={minThreshold} onChange={(e) => { setminThreshold(e.target.value); }} />
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
-                          <input type='Number' className="form-control" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
+                          <input type='Number' className="form-control col-8" defaultValue={price} required onChange={(e) => { setprice(e.target.value); settotalCost(e.target.value * Balance) }} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
-                          <input type='text' className="form-control" required defaultValue={totalCost} readOnly />
+                          <input type='text' className="form-control col-8" required defaultValue={totalCost} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد الوحدات</label>
-                          <input type='Number' className="form-control" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
+                          <input type='Number' className="form-control col-8" defaultValue={parts} required onChange={(e) => { setparts(e.target.value); setcostOfPart(price / e.target.value) }} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">تكلفة الوحده</label>
-                          <input type='Number' className="form-control" required defaultValue={costOfPart} readOnly />
+                          <input type='Number' className="form-control col-8" required defaultValue={costOfPart} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التاريخ</label>
-                          <input type='text' className="form-control" defaultValue={new Date().toLocaleDateString()} required readOnly />
+                          <input type='text' className="form-control col-8" defaultValue={new Date().toLocaleDateString()} required readOnly />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

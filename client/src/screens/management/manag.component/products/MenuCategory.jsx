@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { detacontext } from '../../../../App';
 
-const Category = () => {
+const MenuCategory = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token_e');
@@ -274,7 +274,7 @@ const Category = () => {
                           </a>
                           <div className="d-flex align-items-center">
                             <label htmlFor="categorySelect" className="mb-0 mr-2" style={{ width: '55%' }}>اختر التصنيف الرئيسي:</label>
-                            <select id="categorySelect" className="form-control" style={{ width: '40%' }}
+                            <select id="categorySelect" className="form-control col-8" style={{ width: '40%' }}
                               onChange={handleCategoryChange}>
                               <option value="">{mainCategory ? mainCategory.name : ""}</option>
                               {allCategory.map((category, index) => (
@@ -300,7 +300,7 @@ const Category = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -315,7 +315,7 @@ const Category = () => {
                         
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم التصنيف</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByCategory(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchByCategory(e.target.value)} />
                         </div>
 
                       </div>
@@ -399,7 +399,7 @@ const Category = () => {
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control col-8"
                             required
                             value={categoryName}
                             onChange={(e) => setcategoryName(e.target.value)}
@@ -409,7 +409,7 @@ const Category = () => {
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
                           <select
-                            className="form-control"
+                            className="form-control col-8"
                             value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
                             onChange={(e) => setstatus(e.target.value === "true")} // تحويل القيمة المحددة إلى قيمة بوليانية
                             style={{ width: "100%" }}
@@ -442,7 +442,7 @@ const Category = () => {
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control col-8"
                             required
                             value={categoryName}
                             onChange={(e) => setcategoryName(e.target.value)}
@@ -452,7 +452,7 @@ const Category = () => {
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
                           <select
-                            className="form-control"
+                            className="form-control col-8"
                             value={status.toString()} // تحويل قيمة status إلى سلسلة نصية
                             onChange={(e) => setstatus(e.target.value === "true")} // تحويل القيمة المحددة إلى قيمة بوليانية
                             style={{ width: "100%" }}
@@ -502,9 +502,9 @@ const Category = () => {
                           </div>
                         ))}
                       </div>
-                      <div className="d-flex flex-row">
-                        <input type="submit" className="btn btn-47  btn-success btn-block" value="حفظ" />
-                        <input type="button" className="btn btn-47  btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
+                      <div className="d-flex flex-nowrap">
+                        <input type="submit" className="btn w-50 btn-success btn-block" value="حفظ" />
+                        <input type="button" className="btn w-50 btn-danger btn-block" data-dismiss="modal" value="إغلاق" />
                       </div>
                     </form>
                   </div>
@@ -540,4 +540,4 @@ const Category = () => {
 
 }
 
-export default Category
+export default MenuCategory

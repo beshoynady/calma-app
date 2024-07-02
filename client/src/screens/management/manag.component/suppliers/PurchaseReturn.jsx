@@ -807,17 +807,17 @@ const PurchaseReturn = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="returnDateInput">تاريخ المرتجع</span>
-                          <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
+                          <input type="date" className="form-control col-8" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
                         </div>
                       </div>
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="supplierSelect">المورد</span>
-                          <input type="text" className="form-control" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
+                          <input type="text" className="form-control col-8" required id="originalInvoiceInput" value={supplierInfo.name} readOnly />
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
+                          <input type="text" className="form-control col-8" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                         </div>
 
                       </div>
@@ -843,16 +843,16 @@ const PurchaseReturn = () => {
                         {returnedItems && returnedItems.map((item, i) => (
                           <tr id="TRow" key={i}>
                             <th scope="row">{i + 1}</th>
-                            <td><input type="text" className="form-control" name="qty" value={item.itemId.itemName} readOnly /></td>
-                            <td><input type="text" required className="form-control" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
+                            <td><input type="text" className="form-control col-8" name="qty" value={item.itemId.itemName} readOnly /></td>
+                            <td><input type="text" required className="form-control col-8" value={item.quantity} name="qty" onChange={(e) => handleQuantity(Number(e.target.value), i)} /></td>
 
-                            <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+                            <td><input type="text" readOnly value={item.largeUnit} className="form-control col-8" name="largeUnit" /></td>
 
-                            <td><input type="number" className="form-control" name="price" required value={item.price} onChange={(e) => handlePrice(Number(e.target.value), i)} /></td>
+                            <td><input type="number" className="form-control col-8" name="price" required value={item.price} onChange={(e) => handlePrice(Number(e.target.value), i)} /></td>
 
-                            <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+                            <td><input type="text" className="form-control col-8" value={item.cost} name="amt" readOnly /></td>
 
-                            <td><input type="text" className="form-control" name="Exp" readOnly value={formatDate(item.expirationDate)} /></td>
+                            <td><input type="text" className="form-control col-8" name="Exp" readOnly value={formatDate(item.expirationDate)} /></td>
                             {/* <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td> */}
                           </tr>
                         ))}
@@ -879,7 +879,7 @@ const PurchaseReturn = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                          <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
+                          <textarea className="form-control col-8" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
@@ -993,18 +993,18 @@ const PurchaseReturn = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                                  <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
+                                  <input type="text" className="form-control col-8" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                                 </div>
 
                               </div>
                               <div className="col-6">
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="originalInvoiceInput">رقم الفاتورة</span>
-                                  <input type="text" className="form-control" required id="originalInvoiceInput" placeholder="رقم الفاتورة" onChange={(e) => setoriginalInvoice(e.target.value)} />
+                                  <input type="text" className="form-control col-8" required id="originalInvoiceInput" placeholder="رقم الفاتورة" onChange={(e) => setoriginalInvoice(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="returnDateInput">تاريخ الفاتورة</span>
-                                  <input type="date" className="form-control" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
+                                  <input type="date" className="form-control col-8" required id="returnDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setreturnDate(e.target.value)} />
                                 </div>
                               </div>
                             </div>
@@ -1038,14 +1038,14 @@ const PurchaseReturn = () => {
                                         ))}
                                       </select>
                                     </td>
-                                    <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-                                    <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+                                    <td><input type="number" required className="form-control col-8" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                                    <td><input type="text" readOnly value={item.largeUnit} className="form-control col-8" name="largeUnit" /></td>
 
-                                    <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                                    <td><input type="number" className="form-control col-8" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
 
-                                    <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+                                    <td><input type="text" className="form-control col-8" value={item.cost} name="amt" readOnly /></td>
 
-                                    <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                                    <td><input type="date" className="form-control col-8" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                                     <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                                   </tr>
                                 ))}
@@ -1072,7 +1072,7 @@ const PurchaseReturn = () => {
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                                  <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
+                                  <textarea className="form-control col-8" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                                 </div>
                                 <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>

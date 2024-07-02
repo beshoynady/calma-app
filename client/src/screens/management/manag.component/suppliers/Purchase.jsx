@@ -618,7 +618,7 @@ const Purchase = () => {
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الصنف</label>
-                <input type="text" className="form-control" onChange={(e) => searchByitem(e.target.value)} />
+                <input type="text" className="form-control col-8" onChange={(e) => searchByitem(e.target.value)} />
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
@@ -782,18 +782,18 @@ const Purchase = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
+                          <input type="text" className="form-control col-8" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                         </div>
 
                       </div>
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
-                          <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                          <input type="text" className="form-control col-8" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                          <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
+                          <input type="date" className="form-control col-8" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -827,14 +827,14 @@ const Purchase = () => {
                                 ))}
                               </select>
                             </td>
-                            <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-                            <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+                            <td><input type="number" required className="form-control col-8" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                            <td><input type="text" readOnly value={item.largeUnit} className="form-control col-8" name="largeUnit" /></td>
 
-                            <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                            <td><input type="number" className="form-control col-8" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
 
-                            <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+                            <td><input type="text" className="form-control col-8" value={item.cost} name="amt" readOnly /></td>
 
-                            <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                            <td><input type="date" className="form-control col-8" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                             <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                           </tr>
                         ))}
@@ -861,7 +861,7 @@ const Purchase = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                          <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
+                          <textarea className="form-control col-8" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                         </div>
                         {/* <div className="input-group mb-3">
                                   <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>
@@ -946,18 +946,18 @@ const Purchase = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الرصيد</span>
-                          <input type="text" className="form-control" id="notesInput" readOnly value={supplierInfo.currentBalance} />
+                          <input type="text" className="form-control col-8" id="notesInput" readOnly value={supplierInfo.currentBalance} />
                         </div>
 
                       </div>
                       <div className="col-6">
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="invoiceNumberInput">رقم الفاتورة</span>
-                          <input type="text" className="form-control" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
+                          <input type="text" className="form-control col-8" required id="invoiceNumberInput" placeholder="رقم الفاتورة" onChange={(e) => setInvoiceNumber(e.target.value)} />
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="invoiceDateInput">تاريخ الفاتورة</span>
-                          <input type="date" className="form-control" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
+                          <input type="date" className="form-control col-8" required id="invoiceDateInput" placeholder="تاريخ الفاتور" onChange={(e) => setinvoiceDate(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -991,14 +991,14 @@ const Purchase = () => {
                                 ))}
                               </select>
                             </td>
-                            <td><input type="number" required className="form-control" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
-                            <td><input type="text" readOnly value={item.largeUnit} className="form-control" name="largeUnit" /></td>
+                            <td><input type="number" required className="form-control col-8" name="qty" onChange={(e) => handleQuantity(e.target.value, i)} /></td>
+                            <td><input type="text" readOnly value={item.largeUnit} className="form-control col-8" name="largeUnit" /></td>
 
-                            <td><input type="number" className="form-control" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
+                            <td><input type="number" className="form-control col-8" name="price" required onChange={(e) => handlePrice(e.target.value, i)} /></td>
 
-                            <td><input type="text" className="form-control" value={item.cost} name="amt" readOnly /></td>
+                            <td><input type="text" className="form-control col-8" value={item.cost} name="amt" readOnly /></td>
 
-                            <td><input type="date" className="form-control" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
+                            <td><input type="date" className="form-control col-8" name="Exp" onChange={(e) => handleExpirationDate(e.target.value, i)} /></td>
                             <td className="NoPrint"><button type="button" className="btn btn-sm btn-danger" onClick={() => handleDeleteItem(i)}>X</button></td>
                           </tr>
                         ))}
@@ -1025,7 +1025,7 @@ const Purchase = () => {
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="notesInput">الملاحظات</span>
-                          <textarea className="form-control" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
+                          <textarea className="form-control col-8" id="notesInput" placeholder="الملاحظات" onChange={(e) => setNotes(e.target.value)} style={{ height: 'auto' }} />
                         </div>
                         <div className="input-group mb-3">
                           <span className="input-group-text" htmlFor="gstInput">تكلفه اضافية</span>

@@ -33,11 +33,11 @@ const Reservation = () => {
                 <div className="row">
                   <div className="col-md-8 mb-1">
                     <label htmlFor="name" className="form-label">الاسم</label>
-                    <input type="text" className="form-control" id="name" onChange={(e) => setCustomerName(e.target.value)} />
+                    <input type="text" className="form-control col-8" id="name" onChange={(e) => setCustomerName(e.target.value)} />
                   </div>
                   <div className="col-md-4 mb-1">
                     <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                    <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
+                    <input type="tel" className="form-control col-8" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                   </div>
                 </div>
 
@@ -46,7 +46,7 @@ const Reservation = () => {
                     <label htmlFor="date" className="form-label">التاريخ</label>
                     <input
                       type="date"
-                      className="form-control"
+                      className="form-control col-8"
                       id="date"
                       onChange={(e) => {
                         const selectedDate = new Date(e.target.value);
@@ -58,7 +58,7 @@ const Reservation = () => {
                     <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
                     <input
                       type="time"
-                      className="form-control"
+                      className="form-control col-8"
                       id="arrivalTime"
                       required
                       onChange={(e) => {
@@ -86,7 +86,7 @@ const Reservation = () => {
                     <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                     <input
                       type="time"
-                      className="form-control"
+                      className="form-control col-8"
                       id="departureTime"
                       required
                       onChange={(e) => {
@@ -128,12 +128,12 @@ const Reservation = () => {
 
                   <div className="col-md-5">
                     <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                    <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
+                    <input type="number" className="form-control col-8" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                   </div>
                 </div>
                 <div className="mb-1">
                   <label htmlFor="notes" className="form-label">ملاحظات</label>
-                  <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
+                  <textarea className="form-control col-8" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
                 </div>
                 <button type="submit" className="btn w-50 btn-primary" style={{ width: '100%', height: '50px' }}>تأكيد الحجز</button>
               </form>

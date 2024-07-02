@@ -310,7 +310,7 @@ const POS = () => {
                                 <div className="form-group row align-items-center">
                                   <label htmlFor='table' className='col-4 col-form-label'>رقم الطاولة:</label>
                                   <div className="col-8">
-                                    <select id='table' className="form-control" required onChange={(e) => { settableID(e.target.value) }}>
+                                    <select id='table' className="form-control col-8" required onChange={(e) => { settableID(e.target.value) }}>
                                       <option>اختر رقم الطاولة</option>
                                       {allTable.map((table, i) => (
                                         <option value={table._id} key={i}>{table.tableNumber}</option>
@@ -326,19 +326,19 @@ const POS = () => {
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="name" className='col-4 col-form-label'>اسم العميل:</label>
                                   <div className="col-8">
-                                    <input type='text' className="form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                    <input type='text' className="form-control col-8" required onChange={(e) => { setclientname(e.target.value) }} />
                                   </div>
                                 </div>
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="phone" className='col-4 col-form-label'>رقم الموبايل:</label>
                                   <div className="col-8">
-                                    <input type='text' className="form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                    <input type='text' className="form-control col-8" required onChange={(e) => setclientphone(e.target.value)} />
                                   </div>
                                 </div>
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="area" className='col-4 col-form-label'>المنطقة:</label>
                                   <div className="col-8">
-                                    <select id="area" className="form-control" required onChange={(e) => setdeliverycost(e.target.value)}>
+                                    <select id="area" className="form-control col-8" required onChange={(e) => setdeliverycost(e.target.value)}>
                                       <option>اختر المنطقة</option>
                                       {areas ? (
                                         areas.map((area, i) => (
@@ -353,7 +353,7 @@ const POS = () => {
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="address" className='col-4 col-form-label'>العنوان:</label>
                                   <div className="col-8">
-                                    <textarea className="form-control" required onChange={(e) => setclientaddress(e.target.value)} />
+                                    <textarea className="form-control col-8" required onChange={(e) => setclientaddress(e.target.value)} />
                                   </div>
                                 </div>
                               </div>
@@ -364,13 +364,13 @@ const POS = () => {
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="name" className='col-4 col-form-label'>اسم العميل:</label>
                                   <div className="col-8">
-                                    <input type='text' className="form-control" required onChange={(e) => { setclientname(e.target.value) }} />
+                                    <input type='text' className="form-control col-8" required onChange={(e) => { setclientname(e.target.value) }} />
                                   </div>
                                 </div>
                                 <div className="form-group row align-items-center">
                                   <label htmlFor="phone" className='col-4 col-form-label'>رقم الموبايل:</label>
                                   <div className="col-8">
-                                    <input type='text' className="form-control" required onChange={(e) => setclientphone(e.target.value)} />
+                                    <input type='text' className="form-control col-8" required onChange={(e) => setclientphone(e.target.value)} />
                                   </div>
                                 </div>
                               </div>

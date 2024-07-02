@@ -22,7 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // import PayRoll from './screens/management/manag.component/employees/PayRoll';
 // import AttendanceManagement from './screens/management/manag.component/employees/attendance';
 
-// import Category from './screens/management/manag.component/category/Category';
+// import menuCategory from './screens/management/manag.component/menucategory/menuCategory';
 // import CategoryStock from './screens/management/manag.component/stock/CategoryStock';
 // import Kitchen from './screens/management/manag.component/kitchen/Kitchen';
 // import Waiter from './screens/management/manag.component/waiter/Waiter';
@@ -64,7 +64,7 @@ const PermissionsComponent = React.lazy(() => import('./screens/management/manag
 const EmployeeTransactions = React.lazy(() => import('./screens/management/manag.component/employees/EmployeeTransactions'));
 const PayRoll = React.lazy(() => import('./screens/management/manag.component/employees/PayRoll'));
 const AttendanceManagement = React.lazy(() => import('./screens/management/manag.component/employees/attendance'));
-const Category = React.lazy(() => import('./screens/management/manag.component/category/Category'));
+const MenuCategory = React.lazy(() => import('./screens/management/manag.component/products/MenuCategory'));
 const CategoryStock = React.lazy(() => import('./screens/management/manag.component/stock/CategoryStock'));
 const Kitchen = React.lazy(() => import('./screens/management/manag.component/kitchen/Kitchen'));
 const Waiter = React.lazy(() => import('./screens/management/manag.component/waiter/Waiter'));
@@ -297,25 +297,25 @@ function App() {
       // You can add additional error handling logic here, such as displaying an error message to the user.
     }
   }
-  //+++++++ category +++++++++++
-  const [allcategories, setallcategories] = useState([])
-  const getAllCategories = async () => {
+  //+++++++ menucategory +++++++++++
+  const [allMenuCategories, setallMenuCategories] = useState([])
+  const getAllMenuCategories = async () => {
     try {
 
       // Fetch all categories from the API
-      const response = await axios.get(apiUrl + '/api/category', config);
+      const response = await axios.get(apiUrl + '/api/menucategory', config);
 
       // Check if response is successful
       if (response.status !== 200) {
         throw new Error('Failed to fetch categories.');
       }
-      const activeCategories = await response.data.filter(category => category.status === true);
+      const activeMenuCategories = await response.data.filter(menucategory => menucategory.status === true);
       // Set fetched categories in the state
-      console.log({ activeCategories })
+      console.log({ activeMenuCategories })
 
-      setallcategories(activeCategories);
+      setallMenuCategories(activeMenuCategories);
 
-      const mainCategory = activeCategories.filter(category => category.isMain === true)[0]
+      const mainCategory = activeMenuCategories.filter(menucategory => menucategory.isMain === true)[0]
       if (mainCategory) {
         setcategoryid(mainCategory._id)
       }
@@ -332,8 +332,8 @@ function App() {
   //   try {
   //     let totalSalesOfCategory = 0;
 
-  //     // Filter products based on the category ID
-  //     const productsOfCategory = allProducts.filter((product) => product.category === id);
+  //     // Filter products based on the menucategory ID
+  //     const productsOfCategory = allProducts.filter((product) => product.menucategory === id);
 
   //     // Calculate total sales
   //     for (let i = 0; i < productsOfCategory.length; i++) {
@@ -342,7 +342,7 @@ function App() {
 
   //     return totalSalesOfCategory;
   //   } catch (error) {
-  //     console.error('Error calculating total sales of category:', error.message);
+  //     console.error('Error calculating total sales of menucategory:', error.message);
   //     return 0;
   //   }
   // }
@@ -352,11 +352,7 @@ function App() {
   const getAllOrders = async () => {
     try {
       // Fetch all orders from the API
-      const response = await axios.get(apiUrl + '/api/order', {
-        headers: {
-          'authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(apiUrl + '/api/order',config);
       console.log({ order: response })
       // Check if response is successful
       if (response.status !== 200) {
@@ -2043,7 +2039,7 @@ function App() {
   useEffect(() => {
     getRestaurant()
     getAllProducts()
-    getAllCategories()
+    getAllMenuCategories()
     getAllOrders()
     getAllTable();
     getAllUsers();
@@ -2075,7 +2071,7 @@ function App() {
         //  adminLogin, employeelogout,
 
         // Functions related to products and categories
-        allProducts, allcategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
+        allProducts, allMenuCategories, filterByCategoryId, setcategoryid, deleteItemFromCart,
 
         // Functions related to users, tables, and orders
         allUsers, allTable, usertitle, allOrders, allEmployees,
@@ -2135,7 +2131,7 @@ function App() {
             <Route path='employeetransactions' element={<Suspense fallback={<LoadingPage />}><EmployeeTransactions /></Suspense>} />
             <Route path='payroll' element={<Suspense fallback={<LoadingPage />}><PayRoll /></Suspense>} />
             <Route path='attendancerecord' element={<Suspense fallback={<LoadingPage />}><AttendanceManagement /></Suspense>} />
-            <Route path='category' element={<Suspense fallback={<LoadingPage />}><Category /></Suspense>} />
+            <Route path='menucategory' element={<Suspense fallback={<LoadingPage />}><MenuCategory /></Suspense>} />
             <Route path='kitchen' element={<Suspense fallback={<LoadingPage />}><Kitchen /></Suspense>} />
             <Route path='waiter' element={<Suspense fallback={<LoadingPage />}><Waiter /></Suspense>} />
             <Route path='users' element={<Suspense fallback={<LoadingPage />}><Users /></Suspense>} />

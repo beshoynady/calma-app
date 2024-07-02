@@ -447,7 +447,7 @@ const AttendanceManagement = () => {
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                <input type="text" className="form-control" onChange={(e) => getEmployeesByName(e.target.value)} />
+                <input type="text" className="form-control col-8" onChange={(e) => getEmployeesByName(e.target.value)} />
               </div>
               <div className="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوظيفة</label>
@@ -486,12 +486,12 @@ const AttendanceManagement = () => {
 
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">من</label>
-                    <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
 
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">إلى</label>
-                    <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
 
                   <div className="d-flex flex-nowrap justify-content-between w-25">

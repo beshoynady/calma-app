@@ -204,7 +204,7 @@ const EmployeeTransactions = () => {
               </div>
               <div className="filter-group d-flex flex-nowrap">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control col-8" />
               </div>
               <div className="filter-group d-flex flex-nowrap">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموظف</label>
@@ -241,11 +241,11 @@ const EmployeeTransactions = () => {
                   <label className="form-label"><strong>مدة محددة:</strong></label>
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">من</label>
-                    <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">إلى</label>
-                    <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
                   <div className="d-flex flex-nowrap justify-content-between w-25">
                     <button type="button" className="btn btn-primary w-50" onClick={() => setlistofEmployeeTransactions(filterByDateRange(listofEmployeeTransactions))}>
@@ -363,23 +363,23 @@ const EmployeeTransactions = () => {
 
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المبلغ</label>
-                  <input type="number" min={0} className="form-control" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
+                  <input type="number" min={0} className="form-control col-8" required pattern="[0-9]+" onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد</label>
-                  <input type="number" className="form-control" value={oldAmount > 0 ? oldAmount : 0} readOnly />
+                  <input type="number" className="form-control col-8" value={oldAmount > 0 ? oldAmount : 0} readOnly />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاجمالي</label>
-                  <input type="number" className="form-control" readOnly defaultValue={newAmount} />
+                  <input type="number" className="form-control col-8" readOnly defaultValue={newAmount} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بواسطه</label>
-                  <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
+                  <input type="text" className="form-control col-8" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التاريخ</label>
-                  <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
+                  <p className="form-control col-8" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">
@@ -424,23 +424,23 @@ const EmployeeTransactions = () => {
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المبلغ</label>
-                  <input type="Number" className="form-control" defaultValue={Amount} required onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
+                  <input type="Number" className="form-control col-8" defaultValue={Amount} required onChange={(e) => { setAmount(e.target.value); setnewAmount(Number(oldAmount) + Number(e.target.value)) }} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المبلغ السابق</label>
-                  <input type="Number" className="form-control" Value={oldAmount > 0 ? oldAmount : 0} readOnly />
+                  <input type="Number" className="form-control col-8" Value={oldAmount > 0 ? oldAmount : 0} readOnly />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاجمالي</label>
-                  <input type="Number" className="form-control" readOnly defaultValue={newAmount} />
+                  <input type="Number" className="form-control col-8" readOnly defaultValue={newAmount} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بواسطة</label>
-                  <input type="text" className="form-control" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
+                  <input type="text" className="form-control col-8" readOnly defaultValue={employeeLoginInfo ? employeeLoginInfo.employeeinfo.username : ''} />
                 </div>
                 <div className="form-group col-12 col-md-6 d-flex flex-nowrap">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التاريخ</label>
-                  <p className="form-control" readOnly>{formatDateTime(new Date())}</p>
+                  <p className="form-control col-8" readOnly>{formatDateTime(new Date())}</p>
                 </div>
               </div>
               <div className="modal-footer w-100 d-flex flex-nowrap">

@@ -389,7 +389,7 @@ const StockManag = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             {
                               (() => {
                                 const options = [];
@@ -407,11 +407,11 @@ const StockManag = () => {
                         
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الصنف</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByitem(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchByitem(e.target.value)} />
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
-                          <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
+                          <select class="form-control col-8" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
                             {Stockmovement.map(movement => {
                               return <option value={movement}>{movement}</option>;
@@ -421,7 +421,7 @@ const StockManag = () => {
 
                         {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Location</label>
-                          <select class="form-control">
+                          <select class="form-control col-8">
                             <option>All</option>
                             <option>Berlin</option>
                             <option>London</option>
@@ -432,7 +432,7 @@ const StockManag = () => {
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
-                          <select class="form-control">
+                          <select class="form-control col-8">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>
@@ -545,12 +545,12 @@ const StockManag = () => {
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
-                              <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
+                              <input type='Number' className="form-control col-8" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
+                              <input type='text' className="form-control col-8" defaultValue={smallUnit} readOnly />
                             </>
                             : movement == "Purchase" || movement == "ReturnPurchase" ? <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
-                              <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
+                              <input type='Number' className="form-control col-8" required onChange={(e) => { setquantity(e.target.value); }} />
+                              <input type='text' className="form-control col-8" defaultValue={largeUnit} readOnly />
                             </> : ''}
                         </div>
                         {/* {movement === "Purchase" &&
@@ -559,7 +559,7 @@ const StockManag = () => {
                               <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">تاريخ الانتهاء</label>
                               <input type="checkbox" checked={expirationDateEnabled} onChange={() => setExpirationDateEnabled(!expirationDateEnabled)} />
                               {expirationDateEnabled &&
-                                <input type='date' className="form-control" required onChange={(e) => { setexpirationDate(e.target.value); }} />}
+                                <input type='date' className="form-control col-8" required onChange={(e) => { setexpirationDate(e.target.value); }} />}
                             </div>
                           </>
                         } */}
@@ -567,25 +567,25 @@ const StockManag = () => {
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                           {movement == "Issuance" || movement == "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-                            <input type='text' className="form-control" readOnly required defaultValue={costOfPart} />
-                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
+                            <input type='text' className="form-control col-8" readOnly required defaultValue={costOfPart} />
+                            : <input type='Number' className="form-control col-8" required onChange={(e) => { setprice(Number(e.target.value)); setcost(Number(e.target.value) * quantity) }} />
                           }
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
-                          <input type='Number' className="form-control" Value={cost} readOnly />
+                          <input type='Number' className="form-control col-8" Value={cost} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد</label>
-                          <input type='text' className="form-control" Value={oldBalance} readOnly />
+                          <input type='text' className="form-control col-8" Value={oldBalance} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد الجديد</label>
-                          <input type='text' className="form-control" Value={newBalance} readOnly />
+                          <input type='text' className="form-control col-8" Value={newBalance} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التاريخ</label>
-                          <input type="text" className="form-control" Value={actionAt} readOnly />
+                          <input type="text" className="form-control col-8" Value={actionAt} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
@@ -631,37 +631,37 @@ const StockManag = () => {
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
                             <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
-                              <input type='text' className="form-control" defaultValue={smallUnit} readOnly />
+                              <input type='Number' className="form-control col-8" required onChange={(e) => { setquantity(e.target.value); setcost(Number(e.target.value) * costOfPart) }} />
+                              <input type='text' className="form-control col-8" defaultValue={smallUnit} readOnly />
                             </>
                             : movement == "Purchase" || movement == "ReturnPurchase" ? <>
-                              <input type='Number' className="form-control" required onChange={(e) => { setquantity(e.target.value); }} />
-                              <input type='text' className="form-control" defaultValue={largeUnit} readOnly />
+                              <input type='Number' className="form-control col-8" required onChange={(e) => { setquantity(e.target.value); }} />
+                              <input type='text' className="form-control col-8" defaultValue={largeUnit} readOnly />
                             </> : ''}
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">السعر</label>
                           {movement == "Issuance" || movement === "ReturnIssuance" || movement == "Wastage" || movement == "Damaged" ?
-                            <input type='Number' className="form-control" readOnly required defaultValue={price} />
-                            : <input type='Number' className="form-control" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
+                            <input type='Number' className="form-control col-8" readOnly required defaultValue={price} />
+                            : <input type='Number' className="form-control col-8" required onChange={(e) => { setprice(Number(e.target.value)); setcost(e.target.value * quantity) }} />
                           }
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
-                          <input type='Number' className="form-control" Value={cost} readOnly />
+                          <input type='Number' className="form-control col-8" Value={cost} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد</label>
-                          <input type='text' className="form-control" Value={oldBalance} readOnly />
+                          <input type='text' className="form-control col-8" Value={oldBalance} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد الجديد</label>
-                          <input type='text' className="form-control" Value={newBalance} readOnly />
+                          <input type='text' className="form-control col-8" Value={newBalance} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التاريخ</label>
-                          <input type="text" className="form-control" Value={actionAt} readOnly />
+                          <input type="text" className="form-control col-8" Value={actionAt} readOnly />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

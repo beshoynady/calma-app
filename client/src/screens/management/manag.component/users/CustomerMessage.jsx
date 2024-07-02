@@ -128,7 +128,7 @@ const CustomerMessage = () => {
             <div className="w-100 d-flex flex-row flex-wrap align-items-center justify-content-start text-dark">
               <div class="show-entries">
                 <span>عرض</span>
-                <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={15}>15</option>
@@ -140,7 +140,7 @@ const CustomerMessage = () => {
               </div>
               <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                 <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل</label>
-                <input type="text" class="form-control" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
+                <input type="text" class="form-control col-8" onChange={(e) => getCustomerMessageByPhone(e.target.value)} />
 
               </div>
               <div className='col-12 d-flex align-items-center justify-content-between'>
@@ -160,12 +160,12 @@ const CustomerMessage = () => {
 
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">من</label>
-                    <input type="date" className="form-control" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setStartDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
 
                   <div className="d-flex flex-nowrap mr-1">
                     <label className="form-label">إلى</label>
-                    <input type="date" className="form-control" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
+                    <input type="date" className="form-control col-8" onChange={(e) => setEndDate(e.target.value)} placeholder="اختر التاريخ" />
                   </div>
 
                   <div className="d-flex flex-nowrap justify-content-between w-25">
@@ -256,20 +256,20 @@ const CustomerMessage = () => {
               <div className="modal-body">
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                  <input type="text" className="form-control" defaultValue={name} required readOnly />
+                  <input type="text" className="form-control col-8" defaultValue={name} required readOnly />
                 </div>
 
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل</label>
-                  <input type="text" className="form-control" defaultValue={phone} required readOnly />
+                  <input type="text" className="form-control col-8" defaultValue={phone} required readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الايميل</label>
-                  <input type="email" className="form-control" defaultValue={email} required readOnly />
+                  <input type="email" className="form-control col-8" defaultValue={email} required readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرسالة</label>
-                  <textarea className="form-control" defaultValue={message} required readOnly></textarea>
+                  <textarea className="form-control col-8" defaultValue={message} required readOnly></textarea>
                 </div>
               </div>
               <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

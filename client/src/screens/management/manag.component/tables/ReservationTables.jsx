@@ -117,7 +117,7 @@ const ReservationTables = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -135,7 +135,7 @@ const ReservationTables = () => {
                       {/* <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
@@ -261,7 +261,7 @@ const ReservationTables = () => {
                           <div className="row">
                             <div className="col-md-8 mb-1">
                               <label htmlFor="name" className="form-label">الاسم</label>
-                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
+                              <input type="text" className="form-control col-8" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
                               <ul>
                                 {filteredClients && filteredClients.map((client, index) => (
                                   <li key={index}>{client.username}</li>
@@ -270,7 +270,7 @@ const ReservationTables = () => {
                             </div>
                             <div className="col-md-4 mb-1">
                               <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                              <input type="tel" className="form-control" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
+                              <input type="tel" className="form-control col-8" id="mobile" onChange={(e) => setCustomerPhone(e.target.value)} />
                             </div>
                           </div>
 
@@ -279,7 +279,7 @@ const ReservationTables = () => {
                               <label htmlFor="date" className="form-label">التاريخ</label>
                               <input
                                 type="date"
-                                className="form-control"
+                                className="form-control col-8"
                                 id="date"
                                 onChange={(e) => {
                                   const selectedDate = new Date(e.target.value);
@@ -291,7 +291,7 @@ const ReservationTables = () => {
                               <label htmlFor="arrivalTime" className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
-                                className="form-control"
+                                className="form-control col-8"
                                 id="arrivalTime"
                                 required
                                 onChange={(e) => {
@@ -319,7 +319,7 @@ const ReservationTables = () => {
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                               <input
                                 type="time"
-                                className="form-control"
+                                className="form-control col-8"
                                 id="departureTime"
                                 required
                                 onChange={(e) => {
@@ -361,12 +361,12 @@ const ReservationTables = () => {
 
                             <div className="col-md-5">
                               <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                              <input type="number" className="form-control" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
+                              <input type="number" className="form-control col-8" id="numberOfGuests" onChange={(e) => setNumberOfGuests(e.target.value)} />
                             </div>
                           </div>
                           <div className="mb-1">
                             <label htmlFor="notes" className="form-label">ملاحظات</label>
-                            <textarea className="form-control" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
+                            <textarea className="form-control col-8" id="notes" rows="2" onChange={(e) => setReservationNote(e.target.value)}></textarea>
                           </div>
                         </div>
                       </div>
@@ -393,7 +393,7 @@ const ReservationTables = () => {
                           <div className='row'>
                             <div className="col-md-7 mb-1">
                             <label htmlFor="name" className="form-label">الاسم</label>
-                              <input type="text" className="form-control" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
+                              <input type="text" className="form-control col-8" id="name" onChange={(e) => clientByName(allusers, e.target.value)} />
                               <ul>
                                 {filteredClients && filteredClients.map((client, index) => (
                                   <li key={index}>{client.username}</li>
@@ -402,7 +402,7 @@ const ReservationTables = () => {
                             </div>
                             <div className="col-md-5 mb-1">
                               <label htmlFor="mobile" className="form-label">رقم الموبايل</label>
-                              <input type="tel" className="form-control" id="mobile" defaultValue={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} />
+                              <input type="tel" className="form-control col-8" id="mobile" defaultValue={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} />
                             </div>
                           </div>
 
@@ -411,7 +411,7 @@ const ReservationTables = () => {
                               <label htmlFor="date" className="form-label">التاريخ</label>
                               <input
                                 type="date"
-                                className="form-control"
+                                className="form-control col-8"
                                 id="date"
                                 defaultValue={reservationDate ? new Date(reservationDate).toISOString().split('T')[0] : ''}
                                 onChange={(e) => {
@@ -424,7 +424,7 @@ const ReservationTables = () => {
                               <label className="form-label">وقت الحضور</label>
                               <input
                                 type="time"
-                                className="form-control"
+                                className="form-control col-8"
                                 required
                                 defaultValue={startTime ? new Date(startTime).toISOString().split('T')[1].slice(0, 5) : ''}
                                 onChange={(e) => {
@@ -452,7 +452,7 @@ const ReservationTables = () => {
                               <label htmlFor="departureTime" className="form-label">وقت الانصراف</label>
                               <input
                                 type="time"
-                                className="form-control"
+                                className="form-control col-8"
                                 id="departureTime"
                                 required
                                 defaultValue={endTime ? new Date(endTime).toISOString().split('T')[1].slice(0, 5) : ''}
@@ -496,12 +496,12 @@ const ReservationTables = () => {
                             </div>
                             <div className="col-md-5">
                               <label htmlFor="numberOfGuests" className="form-label">عدد الضيوف</label>
-                              <input type="number" className="form-control" id="numberOfGuests" defaultValue={numberOfGuests} onChange={(e) => setNumberOfGuests(e.target.value)} />
+                              <input type="number" className="form-control col-8" id="numberOfGuests" defaultValue={numberOfGuests} onChange={(e) => setNumberOfGuests(e.target.value)} />
                             </div>
                           </div>
                           <div className="mb-1">
                             <label htmlFor="notes" className="form-label">ملاحظات</label>
-                            <textarea className="form-control" id="notes" rows="2" defaultValue={reservationNote} onChange={(e) => setReservationNote(e.target.value)}></textarea>
+                            <textarea className="form-control col-8" id="notes" rows="2" defaultValue={reservationNote} onChange={(e) => setReservationNote(e.target.value)}></textarea>
                           </div>
                         </div>
                       </div>

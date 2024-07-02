@@ -182,7 +182,7 @@ const CashRegister = () => {
                     <div class="col-sm-3">
                       <div class="show-entries">
                         <span>عرض</span>
-                        <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                        <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                           <option value={5}>5</option>
                           <option value={10}>10</option>
                           <option value={15}>15</option>
@@ -196,12 +196,12 @@ const CashRegister = () => {
                     <div class="col-sm-9">
                       <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم الخزينه</label>
-                        <input type="text" class="form-control" onChange={(e) => filterCashRegistersByName(e.target.value)} />
+                        <input type="text" class="form-control col-8" onChange={(e) => filterCashRegistersByName(e.target.value)} />
                         
                       </div>
                       <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المسؤل</label>
-                        <select class="form-control" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
+                        <select class="form-control col-8" onChange={(e) => filterCashRegistersByEmployee(e.target.value)}>
                           <option >اختر</option>
                           {allEmployee && allEmployee.map((Employee, i) => {
                             return <option value={Employee._id} key={i} >{Employee.username}</option>
@@ -212,7 +212,7 @@ const CashRegister = () => {
                       {/* 
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
-                          <select class="form-control">
+                          <select class="form-control col-8">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>
@@ -300,7 +300,7 @@ const CashRegister = () => {
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                        <input type="text" className="form-control" required onChange={(e) => setname(e.target.value)} />
+                        <input type="text" className="form-control col-8" required onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
@@ -333,7 +333,7 @@ const CashRegister = () => {
                     <div className="modal-body">
                       <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                         <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                        <input type="text" className="form-control" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
+                        <input type="text" className="form-control col-8" required defaultValue={name} onChange={(e) => setname(e.target.value)} />
                       </div>
                     </div>
                     <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">

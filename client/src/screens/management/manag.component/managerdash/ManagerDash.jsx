@@ -698,7 +698,7 @@ const ManagerDash = () => {
                     </div>
                     {/* <div className="container-fluid"> */}
                     <div className="table-filter print-hide">
-                      <div className="row d-flex flex-row flex-nowrap align-content-center justify-content-between align-items-center d-inline-block">
+                      <div className="w-100 px-3 d-flex flex-row flex-wrap align-content-center justify-content-between align-items-center d-inline-block">
                           <div className="show-entries">
                             <span>عرض</span>
                             <select className="form-select" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>

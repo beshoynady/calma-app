@@ -416,7 +416,7 @@ const ProductRecipe = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -428,7 +428,7 @@ const ProductRecipe = () => {
                       <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التصنيف</label>
-                          <select class="form-control" onChange={(e) => getproductByCategory(e.target.value)} >
+                          <select class="form-control col-8" onChange={(e) => getproductByCategory(e.target.value)} >
                             <option value={""}>الكل</option>
                             {listofcategories.map((category, i) => {
                               return <option value={category._id} key={i} >{category.name}</option>
@@ -438,7 +438,7 @@ const ProductRecipe = () => {
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المنتج</label>
-                          <select class="form-control" onChange={(e) => handleSelectedProduct(e.target.value)} >
+                          <select class="form-control col-8" onChange={(e) => handleSelectedProduct(e.target.value)} >
                             <option value={""}>الكل</option>
                             {productFilterd.map((product, i) => {
                               return <option value={product._id} key={i} >{product.name}</option>
@@ -459,11 +459,11 @@ const ProductRecipe = () => {
                           : ""}
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اجمالي التكاليف</label>
-                          <input type="Number" class="form-control" readOnly defaultValue={producttotalcost} />
+                          <input type="Number" class="form-control col-8" readOnly defaultValue={producttotalcost} />
                         </div>
                         {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
-                  <select class="form-control">
+                  <select class="form-control col-8">
                     <option>Any</option>
                     <option>Delivered</option>
                     <option>Shipped</option>
@@ -569,16 +569,16 @@ const ProductRecipe = () => {
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
-                          <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
+                          <input type='Number' className="form-control col-8" required defaultValue={costofitem} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
-                          <input type="Number" className="form-control" required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
-                          <input type="text" className="form-control" defaultValue={unit} readOnly required />
+                          <input type="Number" className="form-control col-8" required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
+                          <input type="text" className="form-control col-8" defaultValue={unit} readOnly required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة الاجمالية</label>
-                          <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
+                          <input type='Number' className="form-control col-8" defaultValue={totalcostofitem} required readOnly />
                         </div>
                         {/* <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <button onClick={add}>اضافه جديدة</button>
@@ -605,20 +605,20 @@ const ProductRecipe = () => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                          <input type='text' className="form-control" defaultValue={name} readOnly />
+                          <input type='text' className="form-control col-8" defaultValue={name} readOnly />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة</label>
-                          <input type='Number' className="form-control" required defaultValue={costofitem} readOnly />
-                          <input type="text" className="form-control" defaultValue={unit} readOnly required />
+                          <input type='Number' className="form-control col-8" required defaultValue={costofitem} readOnly />
+                          <input type="text" className="form-control col-8" defaultValue={unit} readOnly required />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الكمية</label>
-                          <input type="Number" className="form-control" defaultValue={amount} required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
+                          <input type="Number" className="form-control col-8" defaultValue={amount} required onChange={(e) => { setamount(e.target.value); settotalcostofitem(e.target.value * costofitem) }} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">التكلفة الاجمالية</label>
-                          <input type='Number' className="form-control" defaultValue={totalcostofitem} required readOnly />
+                          <input type='Number' className="form-control col-8" defaultValue={totalcostofitem} required readOnly />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

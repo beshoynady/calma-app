@@ -319,7 +319,7 @@ const Suppliers = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -334,11 +334,11 @@ const Suppliers = () => {
                         
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المورد</label>
-                          <input type="text" class="form-control" onChange={(e) => searchSupplierByName(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchSupplierByName(e.target.value)} />
                         </div>
                         {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الاوردر</label>
-                          <select class="form-control" onChange={(e) => searchByaction(e.target.value)} >
+                          <select class="form-control col-8" onChange={(e) => searchByaction(e.target.value)} >
                             <option value={""}>الكل</option>
                             <option value="Purchase" >Purchase</option>
                             <option value="Return" >Return</option>
@@ -348,7 +348,7 @@ const Suppliers = () => {
                         </div> */}
                         {/* <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Location</label>
-                          <select class="form-control">
+                          <select class="form-control col-8">
                             <option>All</option>
                             <option>Berlin</option>
                             <option>London</option>
@@ -359,7 +359,7 @@ const Suppliers = () => {
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">Status</label>
-                          <select class="form-control">
+                          <select class="form-control col-8">
                             <option>Any</option>
                             <option>Delivered</option>
                             <option>Shipped</option>
@@ -445,27 +445,27 @@ const Suppliers = () => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المورد</label>
-                          <input type="text" className="form-control" required onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control col-8" required onChange={(e) => setName(e.target.value)} />
                         </div>
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control col-8" defaultValue={phoneNumber} required onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الواتس اب</label>
-                          <input type="text" className="form-control" onChange={(e) => setwhatsapp(e.target.value)} />
+                          <input type="text" className="form-control col-8" onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الايميل</label>
-                          <input type="text" className="form-control" onChange={(e) => setemail(e.target.value)} />
+                          <input type="text" className="form-control col-8" onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">العنوان</label>
-                          <input type="text" className="form-control" required onChange={(e) => setAddress(e.target.value)} />
+                          <input type="text" className="form-control col-8" required onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الدفع</label>
@@ -490,20 +490,20 @@ const Suppliers = () => {
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddItemsSupplied}>إضافة عنصر مورد</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الرصيد الافتتاحي</label>
-                          <input type="number" className="form-control" onChange={(e) => setCurrentBalance(e.target.value)} />
+                          <input type="number" className="form-control col-8" onChange={(e) => setCurrentBalance(e.target.value)} />
                         </div>
                         {financialInfo.map((info, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المعلومات المالية {index + 1}</label>
-                            <input type="text" className="form-control" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
-                            <input type="text" className="form-control" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <input type="text" className="form-control col-8" value={info.paymentMethodName} placeholder="اسم وسيلة الدفع" required onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control col-8" value={info.accountNumber} placeholder="رقم الحساب" required onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">ملاحظات</label>
-                          <textarea className="form-control" onChange={(e) => setnotes(e.target.value)} />
+                          <textarea className="form-control col-8" onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
@@ -526,28 +526,28 @@ const Suppliers = () => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">اسم المورد</label>
-                          <input type="text" className="form-control" defaultValue={name}  value={name} onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={name}  value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
 
                         {phone && phone.map((phoneNumber, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الموبايل {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
+                            <input type="text" className="form-control col-8" defaultValue={phoneNumber} onChange={(e) => handleNewPhone(index, e)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeletePhone(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddPhone}>إضافة موبايل</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الواتس اب</label>
-                          <input type="text" className="form-control" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={whatsapp} onChange={(e) => setwhatsapp(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الايميل</label>
-                          <input type="text" className="form-control" defaultValue={email} onChange={(e) => setemail(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={email} onChange={(e) => setemail(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">العنوان</label>
-                          <input type="text" className="form-control"  defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
+                          <input type="text" className="form-control col-8"  defaultValue={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">نوع الدفع</label>
@@ -573,15 +573,15 @@ const Suppliers = () => {
                         {financialInfo.map((info, index) => (
                           <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " key={index}>
                             <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">المعلومات المالية {index + 1}</label>
-                            <input type="text" className="form-control" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
-                            <input type="text" className="form-control" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
+                            <input type="text" className="form-control col-8" defaultValue={info.paymentMethodName} placeholder="اسم وسيلة الدفع"  onChange={(e) => handleNewFinancialInfo(index, 'paymentMethodName', e.target.value)} />
+                            <input type="text" className="form-control col-8" defaultValue={info.accountNumber} placeholder="رقم الحساب"  onChange={(e) => handleNewFinancialInfo(index, 'accountNumber', e.target.value)} />
                             <button type="button" className="btn w-50 btn-danger btn btn-sm" onClick={() => handleDeleteFinancialInfo(index)}>حذف</button>
                           </div>
                         ))}
                         <button type="button" className="btn w-50 btn-success" onClick={handleAddfinancialInfo}>إضافة معلومات مالية</button>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">ملاحظات</label>
-                          <textarea className="form-control" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
+                          <textarea className="form-control col-8" defaultValue={notes} onChange={(e) => setnotes(e.target.value)} />
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">

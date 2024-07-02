@@ -540,7 +540,7 @@ const PayRoll = () => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -554,12 +554,12 @@ const PayRoll = () => {
                       <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الاسم</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByName(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchByName(e.target.value)} />
                           
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوظيفه</label>
-                          <select class="form-control" onChange={(e) => filterEmployeesByJob(e.target.value)} >
+                          <select class="form-control col-8" onChange={(e) => filterEmployeesByJob(e.target.value)} >
                             <option>الكل</option>
                             <option value="manager">مدير</option>
                             <option value="cashier">كاشير</option>
@@ -570,7 +570,7 @@ const PayRoll = () => {
                         </div>
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الحالة</label>
-                          <select class="form-control" onChange={(e) => filterEmpByStatus(e.target.value)}>
+                          <select class="form-control col-8" onChange={(e) => filterEmpByStatus(e.target.value)}>
                             <option >الكل</option>
                             <option value={true}>متاح</option>
                             <option value={false}>غير متاح</option>

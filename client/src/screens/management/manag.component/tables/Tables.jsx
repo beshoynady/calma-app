@@ -253,7 +253,7 @@ const deleteTable = async (e) => {
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
-                          <select class="form-control" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
+                          <select class="form-control col-8" onChange={(e) => { setstartpagination(0); setendpagination(e.target.value) }}>
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>
@@ -271,7 +271,7 @@ const deleteTable = async (e) => {
                       <div class="col-sm-9">
                         <div class="filter-group d-flex align-items-center justify-content-between col-4 p-0 mx-2">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
-                          <input type="text" class="form-control" onChange={(e) => searchByNum(e.target.value)} />
+                          <input type="text" class="form-control col-8" onChange={(e) => searchByNum(e.target.value)} />
                         </div>
 
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 -47">
@@ -406,19 +406,19 @@ const deleteTable = async (e) => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم السكشن</label>
-                          <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                          <input type="Number" className="form-control col-8" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
-                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
+                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control col-8" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المقاعد</label>
-                          <input type="Number" className="form-control" required onChange={(e) => setchairs(e.target.value)} />
+                          <input type="Number" className="form-control col-8" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
-                          <textarea className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
+                          <textarea className="form-control col-8" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                       </div>
                       <div className="modal-footer d-flex flex-nowrap align-items-center justify-content-between">
@@ -440,19 +440,19 @@ const deleteTable = async (e) => {
                       <div className="modal-body">
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم السكشن</label>
-                          <input type="Number" className="form-control" required onChange={(e) => setsectionNumber(e.target.value)} />
+                          <input type="Number" className="form-control col-8" required onChange={(e) => setsectionNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">رقم الطاولة</label>
-                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control" required onChange={(e) => settableNumber(e.target.value)} />
+                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable[listoftable.length - 1].tableNumber : ""} className="form-control col-8" required onChange={(e) => settableNumber(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">عدد المقاعد</label>
-                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).chairs : ''} className="form-control" required onChange={(e) => setchairs(e.target.value)} />
+                          <input type="Number" defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).chairs : ''} className="form-control col-8" required onChange={(e) => setchairs(e.target.value)} />
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الوصف</label>
-                          <textarea defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).description : ""} className="form-control" required onChange={(e) => settabledesc(e.target.value)}></textarea>
+                          <textarea defaultValue={listoftable.length > 0 ? listoftable.find((table, i) => table._id == tableid).description : ""} className="form-control col-8" required onChange={(e) => settabledesc(e.target.value)}></textarea>
                         </div>
                         <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6  ">
                           <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">متاح</label>

@@ -527,14 +527,14 @@ const Info = () => {
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">الاسم</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={name} required onChange={(e) => setName(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">الوصف</label>
                         <div className="col-9">
-                          <textarea type="text" className="form-control" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
+                          <textarea type="text" className="form-control col-8" defaultValue={description} required onChange={(e) => setDescription(e.target.value)} />
                         </div>
                       </div>
 
@@ -543,42 +543,42 @@ const Info = () => {
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">الدولة</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={country} onChange={(e) => setCountry(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">المحافظة</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={state} required onChange={(e) => setState(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">المدينة</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={city} required onChange={(e) => setCity(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">العنوان</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={street} required onChange={(e) => setStreet(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">رابط المنيو</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={website} required onChange={(e) => setwebsite(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={website} required onChange={(e) => setwebsite(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">كود البريد</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
                         </div>
                       </div>
 
@@ -587,14 +587,14 @@ const Info = () => {
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">رابط خريطه جوجل</label>
                         <div className="col-9">
-                          <input type="text" className="form-control" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
+                          <input type="text" className="form-control col-8" defaultValue={locationUrl} required onChange={(e) => setlocationUrl(e.target.value)} />
                         </div>
                       </div>
 
                       <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 col-lg-6  row">
                         <label className="col-3 col-form-label p-0 m-0">about us</label>
                         <div className="col-9">
-                          <textarea className="form-control" defaultValue={aboutText} required onChange={(e) => setaboutText(e.target.value)} />
+                          <textarea className="form-control col-8" defaultValue={aboutText} required onChange={(e) => setaboutText(e.target.value)} />
                         </div>
                       </div>
 
@@ -749,35 +749,35 @@ const Info = () => {
                         <form className="forms-sample" onSubmit={(e) => handleContactSocialmedia(e)}>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="phone">رقم الهاتف:</label>
-                            <input type="text" className="form-control" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
+                            <input type="text" className="form-control col-8" id="phone" placeholder="ادخل رقم الهاتف" required defaultValue={phone} onChange={(e) => setPhone([e.target.value])} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="whatsapp">واتساب:</label>
-                            <input type="text" className="form-control" id="whatsapp" placeholder="ادخل رقم واتساب" required defaultValue={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="whatsapp" placeholder="ادخل رقم واتساب" required defaultValue={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="email">البريد الإلكتروني:</label>
-                            <input type="email" className="form-control" id="email" placeholder="ادخل البريد الإلكتروني" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" className="form-control col-8" id="email" placeholder="ادخل البريد الإلكتروني" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " style={{ width: '100%' }}>
                             <label htmlFor="facebook">فيسبوك:</label>
-                            <input type="text" className="form-control" id="facebook" placeholder="ادخل رابط فيسبوك" defaultValue={facebook} required onChange={(e) => setFacebook(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="facebook" placeholder="ادخل رابط فيسبوك" defaultValue={facebook} required onChange={(e) => setFacebook(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="twitter">تويتر:</label>
-                            <input type="text" className="form-control" id="twitter" placeholder="ادخل رابط تويتر" defaultValue={twitter} onChange={(e) => setTwitter(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="twitter" placeholder="ادخل رابط تويتر" defaultValue={twitter} onChange={(e) => setTwitter(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="instagram">انستجرام:</label>
-                            <input type="text" className="form-control" id="instagram" placeholder="ادخل رابط انستجرام" defaultValue={instagram} onChange={(e) => setInstagram(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="instagram" placeholder="ادخل رابط انستجرام" defaultValue={instagram} onChange={(e) => setInstagram(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="linkedin">لينكدإن:</label>
-                            <input type="text" className="form-control" id="linkedin" placeholder="ادخل رابط لينكدإن" defaultValue={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="linkedin" placeholder="ادخل رابط لينكدإن" defaultValue={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
                           </div>
                           <div className="form-group w-100 h-auto px-3 d-flex align-items-center justify-content-start col-12 " >
                             <label htmlFor="youtube">يوتيوب:</label>
-                            <input type="text" className="form-control" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
+                            <input type="text" className="form-control col-8" id="youtube" placeholder="ادخل رابط يوتيوب" defaultValue={youtube} onChange={(e) => setYoutube(e.target.value)} />
                           </div>
                           <button type="submit" className="btn w-50 btn-success">تاكيد</button>
                           <button className="btn w-50 btn-danger">إلغاء</button>
@@ -799,10 +799,10 @@ const Info = () => {
                           {areas.map((area, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col-md-3 col-12 mb-2 mb-md-0">
-                                <input type="text" className="form-control" placeholder="اسم المنطقة" defaultValue={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
+                                <input type="text" className="form-control col-8" placeholder="اسم المنطقة" defaultValue={area.name} onChange={(e) => handleAreasNameChange(index, e)} />
                               </div>
                               <div className="col-md-3 col-12 mb-2 mb-md-0">
-                                <input type="number" className="form-control" placeholder="تكلفة التوصيل" defaultValue={Number(area.delivery_fee)} onChange={(e) => handleDeliveryCostChange(index, e)} />
+                                <input type="number" className="form-control col-8" placeholder="تكلفة التوصيل" defaultValue={Number(area.delivery_fee)} onChange={(e) => handleDeliveryCostChange(index, e)} />
                               </div>
                               <div className="col-md-2 col-12 mb-2 mb-md-0">
                                 <button type="button" className="btn w-50 btn-danger" onClick={() => removeArea(index, area._id)} style={{ height: '50px' }}>
@@ -843,11 +843,11 @@ const Info = () => {
                               {daysOfWeek.map((day, index) => (
                                 <tr key={index}>
                                   <td>{day}</td>
-                                  <td><input type="time" className="form-control" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
+                                  <td><input type="time" className="form-control col-8" name={`openingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
                                     value={opening_hours && opening_hours[index]?.from}
                                     onChange={(e) => handleSetFrom(index, e.target.value)} /></td>
 
-                                  <td><input type="time" className="form-control" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
+                                  <td><input type="time" className="form-control col-8" name={`closingTime${day}`} disabled={opening_hours && opening_hours[index]?.closed}
                                     value={opening_hours && opening_hours[index]?.to}
                                     onChange={(e) => handleSetTo(index, e.target.value)} /></td>
 
@@ -880,13 +880,13 @@ const Info = () => {
                           {shifts.map((shift, index) => (
                             <div key={index} className="form-row mb-3 align-items-center">
                               <div className="col-md-3 col-12 mb-2 mb-md-0">
-                                <input type="text" className="form-control" placeholder="اسم الوردية" defaultValue={shift.shiftType} onChange={(e) => handleShiftTypeChange(index, e)} />
+                                <input type="text" className="form-control col-8" placeholder="اسم الوردية" defaultValue={shift.shiftType} onChange={(e) => handleShiftTypeChange(index, e)} />
                               </div>
                               <div className="col-md-3 col-12 mb-2 mb-md-0">
-                                <input type="time" className="form-control" placeholder="ميعاد البدء" defaultValue={shift.startTime} onChange={(e) => handleStartTimeChange(index, e)} />
+                                <input type="time" className="form-control col-8" placeholder="ميعاد البدء" defaultValue={shift.startTime} onChange={(e) => handleStartTimeChange(index, e)} />
                               </div>
                               <div className="col-md-3 col-12 mb-2 mb-md-0">
-                                <input type="time" className="form-control" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
+                                <input type="time" className="form-control col-8" placeholder="ميعاد الانتهاء" defaultValue={shift.endTime} onChange={(e) => handleEndTimeChange(index, e)} />
                               </div>
                               <div className="col-md-2 col-12 mb-2 mb-md-0">
                                 <p className="form-control-plaintext">{`${shift.hours} ساعات`}</p>
