@@ -15,7 +15,7 @@ const DailyExpense = () => {
     },
   };
   const { setStartDate, setEndDate, filterByDateRange, filterByTime,
-    employeeLoginInfo, usertitle, formatDate, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
+    employeeLoginInfo, usertitle, formatDate,formatDateTime, setisLoadiog, EditPagination, startpagination, endpagination, setstartpagination, setendpagination } = useContext(detacontext)
 
 
   const [expenseID, setexpenseID] = useState('');
@@ -361,13 +361,10 @@ const DailyExpense = () => {
                         <td>{i + 1}</td>
                         <td>{dailyexpense.expenseDescription}</td>
                         <td>{dailyexpense.amount}</td>
-                        <td>
-                          {AllcashRegisters && AllcashRegisters.find(cash => cash._id === dailyexpense.cashRegister) ?
-                            AllcashRegisters.find(cash => cash._id === dailyexpense.cashRegister).name : ''}
-                        </td>
-                        <td>{usertitle(dailyexpense.paidBy)}</td>
+                        <td>{dailyexpense.cashRegister?.name}</td>
+                        <td>{dailyexpense.paidBy?.username}</td>
                         <td>{dailyexpense.notes}</td>
-                        <td>{new Date(dailyexpense.date).toLocaleString('en-GB', { hour12: true })}</td>
+                        <td>{formatDateTime(dailyexpense.date)}</td>
                         <td>{dailyexpense.cashMovementId}</td>
                         <td>
 

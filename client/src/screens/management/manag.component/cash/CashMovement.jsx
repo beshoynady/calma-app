@@ -509,18 +509,13 @@ const CashMovement = () => {
                           </span>
                         </td>
                         <td>{i + 1}</td>
-                        <td>{
-                          AllCashRegisters.find(cash => cash._id == movement.registerId)
-                            ? AllCashRegisters.find(cash => cash._id == movement.registerId).name
+                        <td>{movement.registerId? movement.registerId.name
                             : 'No register found'
                         }</td>
-                        <td>{
-                          AllCashRegisters.find(cash => cash._id == movement.registerId)
-                            ? usertitle(AllCashRegisters.find(cash => cash._id == movement.registerId).employee)
-                            : 'No register found'
+                        <td>{ AllCashRegisters.find(cash => cash._id == movement.registerId)?.employee?.fullname
                         }</td>
                         <td>{movement.type}</td>
-                        <td>{usertitle(movement.createdBy)}</td>
+                        <td>{movement.createdBy?.fullname}</td>
                         <td>{movement.amount}</td>
                         <td>{movement.description}</td>
                         <td>{movement.status == 'Pending' && movement.transferFrom ?
