@@ -154,7 +154,7 @@ const CategoryStock = () => {
                     </div>
                   </div>
                   <div class="table-filter print-hide">
-                    <div class="row text-dark">
+                    <div class="row text-dark d-flex -flex-wrap align-items-center justify-content-start">
                       <div class="col-sm-3">
                         <div class="show-entries">
                           <span>عرض</span>
