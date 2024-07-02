@@ -387,20 +387,17 @@ const DailyExpense = () => {
                           <td>{i + 1}</td>
                           <td>{dailyexpense.expenseDescription}</td>
                           <td>{dailyexpense.amount}</td>
-                          <td>
-                            {AllcashRegisters && AllcashRegisters.find(cash => cash._id === dailyexpense.cashRegister) ?
-                              AllcashRegisters.find(cash => cash._id === dailyexpense.cashRegister).name : ''}
-                          </td>
-                          <td>{usertitle(dailyexpense.paidBy)}</td>
+                          <td>{ dailyexpense.cashRegister?.name}</td>
+                          <td>{dailyexpense.paidBy?.username}</td>
                           <td>{dailyexpense.notes}</td>
-                          <td>{new Date(dailyexpense.date).toLocaleString('en-GB', { hour12: true })}</td>
-                          <td>{dailyexpense.cashMovementId}</td>
+                          <td>{formatDateTime(dailyexpense.date)}</td>
+                          <td>{dailyexpense.cashMovementId?.type}</td>
                           <td>
                             <a href="#editDailyExpensesModal" className="edit" data-toggle="modal" onClick={() => {
-                              handlecashRegister(employeeLoginInfo.employeeinfo.id); setcashMovementId(dailyexpense.cashMovementId);
-                              setexpenseID(dailyexpense._id); setexpenseDescription(dailyexpense.expenseexpenseDescription); setamount(dailyexpense.amount); setpaidBy(dailyexpense.paidBy); setdailyexpenseID(dailyexpense._id)
+                              handlecashRegister(employeeLoginInfo.employeeinfo.id); setcashMovementId(dailyexpense.cashMovementId._id);
+                              setexpenseID(dailyexpense.expenseID._id); setexpenseDescription(dailyexpense.expenseexpenseDescription); setamount(dailyexpense.amount); setpaidBy(dailyexpense.paidBy._id); setdailyexpenseID(dailyexpense._id)
                             }}><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteDailyExpensesModal" className="delete" data-toggle="modal" onClick={() => { setdailyexpenseID(dailyexpense._id); setcashMovementId(dailyexpense.cashMovementId) }}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#deleteDailyExpensesModal" className="delete" data-toggle="modal" onClick={() => { setdailyexpenseID(dailyexpense._id); setcashMovementId(dailyexpense.cashMovementId._id) }}><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                           </td>
                         </tr>
                       )
@@ -453,10 +450,6 @@ const DailyExpense = () => {
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الخزينه </label>
                   <input type="text" className="form-control col-8" value={cashRegistername} readOnly />
                 </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بواسطه </label>
-                  <input type="text" className="form-control col-8" value={usertitle(paidBy)} readOnly />
-                </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6   w-100">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">ملاحظات</label>
                   <textarea className="form-control col-8" rows={2} cols={50} onChange={(e) => { setnotes(e.target.value) }} />
@@ -500,10 +493,6 @@ const DailyExpense = () => {
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">الخزينه </label>
                   <input type="text" className="form-control col-8" value={cashRegistername} readOnly />
-                </div>
-                <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6 " >
-                  <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">بواسطه </label>
-                  <input type="text" className="form-control col-8" value={usertitle(paidBy)} readOnly />
                 </div>
                 <div className="form-group w-100 h-auto px-3 d-flex align-itmes-center justify-content-start col-12  col-md-6   w-100">
                   <label className="col-4 fs-4 text-wrap text-right fw-bolder p-0 m-0">ملاحظات</label>
